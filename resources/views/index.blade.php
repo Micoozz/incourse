@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>InCourse</title>
-		<link rel="stylesheet" href="../public/css/index.css" />
+		<link rel="stylesheet" href="css/index_one.css" />
 
 		<!--[if lt IE 9]>
 		<script src="js/html5shiv.min.js"></script>
@@ -11,12 +11,13 @@
 		<script src="js/selectivizr.js"></script>
 		<link rel="stylesheet" href="css/reset.css"/>
 		<![endif]-->
+		
 	</head>
 	<body>
 		<header>
 			<div class="header">
 				<div>
-					<img src="../../public/images/Cj_iconfont-jiaoyu.png" />
+					<img src="images/Cj_iconfont-jiaoyu.png" />
 					<img src="images/Cj_InCourse1.png" />
 				</div>
 			</div>
