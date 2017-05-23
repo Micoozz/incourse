@@ -1,0 +1,135 @@
+.head_nav{
+	    position: relative;
+}
+.head_nav li:first-child{
+    background: url('../images/Cj_15.png') no-repeat 3px 21px;
+    padding-left: 25px;
+    cursor: pointer;
+    background-size: 20%;
+}
+.center1>div:first-child{
+	cursor: pointer;
+}
+/*.navbar{*/
+    /*margin-left: -120px;*/
+/*}*/
+.Bomb,.Bomb1{
+    position: absolute;
+    top: 10%;
+    left:50%;
+    z-index: 300;
+    min-height: 380px;
+    padding-top: 25px;
+    width: 702px;
+    background: #fff;
+    margin: 0px 0 0 -351px;
+    font-size: 14px;
+    display: none;
+}
+.Bomb{
+    height: 580px;
+}
+.Bomb>div:first-child,.Bomb1>div:first-child{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 25px;
+    position: relative;
+}
+.Bomb>div:first-child div,.Bomb1>div:first-child div{
+    width: 20%;
+    margin-left: 37%;
+    text-align: right;
+    background: url("../images/Cj_16.png") no-repeat 35px 0px;
+    height: 32px;
+    line-height: 41px;
+}
+.Bomb1>div:first-child img{
+    position: absolute;
+    right: 30px;
+    cursor: pointer;
+}
+.Bomb_1{
+    margin: 0 auto;
+    width: 87%;
+    margin-top: 40px;
+}
+.Bomb ul{
+    list-style: none;
+
+}
+.Bomb ol{
+    padding: 0;
+}
+.Bomb1 ul{
+    padding-left: 25px;
+}
+.Bomb_1 li{
+    margin-bottom:29px;
+    text-indent: 10px;
+}
+.Bomb1 .Bomb_1 li{
+    list-style-image: url("../images/Cj_18.png");
+}
+.Bomb1 .Bomb_2 li{
+    list-style-image: url("../images/CJ_19.png");
+}
+.Bomb1 .Bomb_1{
+    border: 1px solid #ccc;
+    padding: 38px 50px;
+    padding-bottom:10px;
+    width: 80%;
+    position: relative
+}
+.Bomb_1 h4{
+    position: absolute;
+    top: -18px;
+    left: 18px;
+    background: #fff;
+    padding: 0px 10px;
+}
+.Bomb_1 span{
+    color: #007AFF;
+    float: right;
+    cursor: pointer;
+}
+.Bomb>ul{
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.Bomb>ul>li{
+    width: 5px;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 10px;
+    float: left;
+    margin-left: 20px;
+}
+.opca{
+    opacity: 0.4;
+    background-color: #333;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 290;
+}
+.Bomb>ul .fi{
+    background-color: #666666;
+}
+.Bomb1>div:last-child{
+    width: 35%;
+    margin: 30px auto;
+    margin-top: 60px;
+}
+.Bomb1>div:last-child a{
+    color: #168bee;
+    margin-left: 20px;
+}
+
+/*7-7 f添加关闭按钮*/
+.f_close{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}

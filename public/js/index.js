@@ -12,6 +12,7 @@ $('#nav1>li>a').click(function(){
 		})
 })
 	});
+
 $(function(){
 	$('#QQ>ul>li').click(function(){
 		$('.chatRoom').show()
@@ -76,29 +77,36 @@ $(function(){
 })
 */
 $(function(){
-	var a=$('.nave li:first-child a').html()
-	var c=$('.nave li:last-child a').html()
-	var d=$('.nave li:first-child a').next().html()
-	var b=a.length
-	var f=c.length
-	var h=c.length
-	if(b>23){
-		$('.nave li:first-child a').append('<span>...</span>')
-	};
-if(h>23){
-		$('.nave li:first-child a').next().append('<span>...</span>')
-	};
+	if($('.left').find('.openNotice').attr('class')=='openNotice') {
+		var a = $('.nave li:first-child a').html()
+		var c = $('.nave li:last-child a').html()
+		var d = $('.nave li:first-child a').next().html()
+		var b = a.length
+		var f = c.length
+		var h = c.length
+		if (b > 23) {
+			$('.nave li:first-child a').append('<span>...</span>')
+		}
+		;
+		if (h > 23) {
+			$('.nave li:first-child a').next().append('<span>...</span>')
+		}
+		;
 
-	if(f>23){
-		$('.nave li:last-child a').append('<span>...</span>')
-	};
+		if (f > 23) {
+			$('.nave li:last-child a').append('<span>...</span>')
+		}
+		;
+	}
 });
-$(function(){
-	$('#cent_nav ul li').not(':first-child').on('click',function(){
-		$('#cent_nav ul li').removeClass('offt')
-		$(this).addClass('offt')
-	});
-})
+
+  /*12-13 fixed by fyg */
+// $(function(){
+// 	$('#cent_nav ul li').not(':first-child').on('click',function(){
+// 		$('#cent_nav ul li').removeClass('offt')
+// 		$(this).addClass('offt')
+// 	});
+// })
 $(function(){
 	$('.affix').next().click(function(){
 		$(this).find('a').css('background-color','transparent')
@@ -126,6 +134,20 @@ $('.schoolMain').before('<li class="schoolMain"> <a href="vedioCenter-myCollecti
 
 	/******** 演示用  开始 ********/
 	//学校首页、与我相关、个人中心、退出
+
+/******** 演示用  开始 ********/
+//退出
+$(function(){
+	var content = $(".nav.head_nav>li:last-child>a").text();
+	if(content === "退出"){
+		$(".nav.head_nav>li:last-child>a").removeAttr("href").click(function(){
+			window.location = "../Login/index.html";
+		});
+	}
+})
+
+	/******** 演示用  开始 ********/
+		//学校首页、与我相关、个人中心、退出
 	$(function(){
 		$(".nav.head_nav>li").map(function(index,value){
 			var content = $(this).children("a").text();
@@ -144,6 +166,14 @@ $('.schoolMain').before('<li class="schoolMain"> <a href="vedioCenter-myCollecti
 			}else if(content === "退出"){
 				$(this).children("a").removeAttr("href").click(function(){
 					window.location = "../../index.html";
+					window.location = "../Media/media.html";
+				});
+				$(this).children("div").children("a").removeAttr("href").click(function(){
+					window.location = "../Media/relateToMe.html";
+				});
+			}else if(content === "退出"){
+				$(this).children("a").removeAttr("href").click(function(){
+					window.location = "../index.html";
 				});
 			}
 		})

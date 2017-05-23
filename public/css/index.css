@@ -44,7 +44,11 @@
 		background-color:gray;
 	}
 	.navbar{
+<<<<<<< HEAD
 		/*background:url('../images/LOGO.png') no-repeat rgba(255,255,255,0.6) 22% center;*/
+=======
+		background:url('../images/LOGO.png') no-repeat rgba(255,255,255,0.6) 22% center;
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 		background-attachment: fixed;
 		border-bottom: 1px solid #eee;
 	}
@@ -52,6 +56,7 @@
 
 /*框架导航修改*/
 	.navbar>div{
+<<<<<<< HEAD
 		    width: 1200px;
     height: 60px;
     margin: 0 auto;
@@ -61,6 +66,18 @@
 		width:98%;
 		}
 	}
+=======
+		width: 1200px;
+    	height: 60px;
+    	margin: 0 auto;
+	}
+	@media only screen and (max-width:1219px ) {
+		.navbar>div{
+			width:98%;
+		}
+	}
+
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	/* HPB修改 开始 */
 	.navbar>div>.indexLogo{
 		height:60px;
@@ -82,7 +99,11 @@
 		border:1px solid #ccc;
 		position:absolute;
 		top: 50px;
+<<<<<<< HEAD
 		/*background-color: rgba(255,255,255,0.6);*/
+=======
+		background-color: rgba(255,255,255,0.6);
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 		z-index: 100;
 		display:none;
 	}
@@ -90,6 +111,7 @@
 		display: block;
 		margin: 10px 10px;
 		line-height: 20px;
+<<<<<<< HEAD
 		position:relative;
 	}
 	.schoolMain>div>a:after{
@@ -101,10 +123,29 @@
 		height:8px;
 		border-radius:50%;
 		background-color:#f76156;
+=======
+		position: relative;
+	}
+	.schoolMain>div>a:after{
+		content: "";
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background-color: #f76156;
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	}
 	.head_nav>.schoolMain:hover>div{
 		display:block;
 	}
+<<<<<<< HEAD
+=======
+	.head_nav>.schoolMain>div>a:hover{
+		color:#168bee;
+	}
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	/* HPB修改 结束 */
 
 
@@ -184,8 +225,15 @@
     list-style: none;
     height: 100%;
     background: #fff;
+<<<<<<< HEAD
     padding-left:17px
 }
+=======
+    /*padding-left:17px*/
+	padding:0;
+}
+
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 #cent_nav ul li a{
 	text-decoration: none;
 }
@@ -193,8 +241,12 @@
     float: left;
     height: 100%;
     text-align: center;
+<<<<<<< HEAD
     /*line-height: 50px;*/
     line-height: 56px;
+=======
+    line-height: 50px;
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
     font-size:16px;
     width: 133px;
 }
@@ -206,7 +258,13 @@
 #cent_nav ul li{
 	cursor: pointer;
 }
+<<<<<<< HEAD
 
+=======
+#cent_nav ul li:first-child a{
+	color: #333!important;
+	}
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	#cent_nav ul li:hover>a{
 		color: #168BEE;
 	}
@@ -647,8 +705,14 @@ color: #168AED;
 
  媒体查询
  */
+<<<<<<< HEAD
 	/******* 9.21修改，为了适应在屏幕小于1024px下页面整体格局不乱的情况 *********/
 	/***** 媒体查询 开始 *******/
+=======
+
+/******* 9.21修改，为了适应在屏幕小于1024px下页面整体格局不乱的情况 *********/
+/***** 媒体查询 开始 *******/
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	@media only screen and (min-width:1024px ) {
 		.row>.left,#left{
 			width: 20%;
@@ -677,9 +741,13 @@ color: #168AED;
 			margin-right:27px;
 		}
 	}
+<<<<<<< HEAD
 	/******* 媒体查询 结束 ********/
 
 
+=======
+/******* 媒体查询 结束 ********/
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 
 
 	/*修改框架右侧的通知的颜色*/
@@ -690,16 +758,28 @@ color: #168AED;
 		text-decoration: none;
 	}
 	
+<<<<<<< HEAD
 
 /*9月2号修改*/
 #cent_nav>ul{
 	padding:0;
 }
 #cent_nav ul li:hover {
+=======
+/*8-30*/
+.cent a:hover{
+	color: #168BEE;
+}
+
+
+/*9.2修改*/
+#cent_nav ul li:hover{
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 	border-bottom: 2px solid #168BEE;
 	color: #168BEE;
 	cursor: pointer;
 }
+<<<<<<< HEAD
 #cent_nav ul li:hover>a {
 	color: #168BEE;
 }
@@ -707,6 +787,11 @@ color: #168AED;
 	 text-decoration: none;
 }
 
+=======
+.left>div>a:focus{
+	text-decoration:none;
+}
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 /*9.6*/
 .next>.nav{
 	max-height:210px;
@@ -716,6 +801,7 @@ color: #168AED;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
 	zoom: 1;
 }
+<<<<<<< HEAD
 /*9.7*/
 .head_nav>.schoolMain>div>a:hover {
 	color: #168bee;
@@ -725,5 +811,13 @@ color: #168AED;
 }
 	/******** 9.13 **********/
 	.indexLogo{
+=======
+/******** 9.13 **********/
+.indexLogo{
+	cursor:default;
+}
+	/*9.28*/
+	.laydate-icon{
+>>>>>>> fdebaeca66930bbdd6f19d626153a024447614c6
 		cursor:default;
 	}
