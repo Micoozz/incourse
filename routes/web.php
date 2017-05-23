@@ -14,6 +14,15 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/addEmployeeFile',function(){
+Route::get('/addEmployeeFile',function() {
 	return view('admin.addEmployeeFile');
-}
+});
+Route::get('/addStudentFile',function(){
+	return view('admin.addStudentFile');
+});
+Route::get('/employeeFile',function(){
+	return view('admin.employeeFile');
+});
+Route::get('/studentFile',function(){
+	return view('admin.studentFile');
+});
