@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/addEmployeeFile',function(){
+	return view('admin.addEmployeeFile');
+}

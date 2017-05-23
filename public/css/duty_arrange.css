@@ -1,0 +1,1262 @@
+input{
+    padding:0 5px;
+}
+a:focus{
+    text-decoration: none;
+    outline: none;
+}
+.center1 div:last-child {
+    background: none; 
+}
+#info_retract:visited,#eval_retract:visited,#pos_retract:visited{
+    text-decoration: none;
+}
+#info_retract:hover,#eval_retract:hover,#pos_retract:hover,#family_retract:hover{
+    color:#168bee;
+}
+.add-margin-bottom{
+    margin-bottom: 20px;
+}
+#centery>div{
+    display: block;
+}
+textarea{
+    resize: none;
+}
+#stu_pos{
+    padding-bottom: 80px;
+}
+#centery{
+    padding-bottom: 200px;
+}
+.btn{
+    border-radius: 4px;
+    width: 76px;
+    height: 32px;
+    padding: 0;
+    height: 32px;
+}
+.return_save>.btn-save{
+    background-color: #168bee;
+}
+.return_save>.btn-save:hover{
+    background-color: #3399ff;
+}
+a:hover{
+color:#168bee;
+text-decoration: none;
+}
+li{
+list-style: none;
+}
+.txt_c{
+    text-align: center;
+}
+/*====================================public.css===============================*/
+.color_blue{
+    color: #168bee;
+}
+.color_blue img,.color_gray img{
+    padding-bottom: 2px;
+}
+.color_gray{
+    color: #666666;
+}
+.color_red{
+    color: red;
+}
+.flo_right{
+    float: right;
+}
+.now1{
+    border-top:3px solid #168bee;
+    color:#168bee;;
+}
+#return{
+    display: inline-block;
+    margin-left: 48%;
+    font-size: 16px;
+    padding-top: 2px;
+}
+#return>a>img{
+    margin-top:-3px;
+    margin-right: 5px;
+}
+#return>a{
+    color: #ffffff;
+}
+#student_file{
+    display: inline-block;
+    margin-left: 30%;
+    font-size: 16px;
+    padding-top: 2px;
+}
+#student_file>a>img{
+    margin-top:-3px;
+    margin-right: 10px;
+}
+#student_file>a {
+    color: #ffffff;
+}
+/*======================duty_arrange.css  值日安排============================*/
+#search{
+    margin:0 auto;
+    width: 100%;
+    height:130px;
+    font-size:14px;
+    /*border:1px solid yellow;*/
+}
+#class_manage{
+    background-color: #fbfbfb;
+    width: 100%;
+    height: 50px;
+    /*border:1px solid red;*/
+}
+#class_manage>.manage_grade{
+    /*width: 324px;*/
+    width:63%;
+    height: 100%;
+    margin-left: -15px;
+    
+}
+#class_manage>.manage_grade{
+    float: left;
+    overflow: hidden;
+    width:63%;
+    height: 100%;
+    font-size: 14px;
+    /*background: #fbfbfb;*/
+}
+#class_manage>.manage_grade>div{
+    float: left;
+    overflow: hidden;
+    width: 33.3%;
+    height: 100%;
+    text-align: center;
+    /*border:1px solid olivedrab;*/
+}
+#class_manage>.manage_grade>div>a{
+    display: inline-block;
+    width: 100%;
+    line-height: 50px;
+}
+#class_manage>.manage_grade>div>a:hover{
+    color: black;
+}
+#class_manage>.lookup{
+    float: left;
+    overflow: hidden;
+    width:37%;
+    height: 100%;
+    /*position: relative;*/
+    /*left: 31px;*/
+    /*background: #fbfbfb;*/
+    /*border:1px solid darkblue;*/
+}
+#search2{
+    width:80%;
+    float: right;
+    /*margin-right:13%;*/
+    margin-right:2%;
+    margin-top: 3%;
+    /*border:1px solid darkblue;*/
+}
+#duty {
+    width: 100%;
+    margin:16px auto;
+    /*height: 66px;*/
+    /*border: 1px solid blue ;*/
+    /*margin: 0%;*/
+}
+.duty_top{
+    display: inline-block;
+    width: 100%;
+    margin:16px auto;
+}
+.duty_top_left{
+    width:60%;
+    display: inline-block;
+    padding-left:20px;
+
+}
+.duty_top_right{
+    width:40%;
+    text-align:right;
+}
+.duty_top_left_l{
+    width: 40%;
+}
+.duty_top_left_r{
+    width: 60%;
+    text-align:left;
+}
+.d_s{
+    width:75%;
+    padding-left: 4%!important;
+}
+@media(min-width:768px){
+    #duty>div{
+        /*text-align: center;*/
+        margin-top: 2%;
+    }
+}
+@media(max-width:768px) {
+    #duty>div{
+        margin-top: 2%;
+    }
+}
+#duty>div>button{
+    border-radius:5%;
+}
+#button>button{
+    border-radius:0;
+    display:block;
+    outline: none;
+}
+#select{
+    color:#fff;
+    background-color:#168bee;
+}
+#no_select{
+    color:black;
+    background-color:white;
+    border-color:#cccccc;
+}
+.term{
+    margin-left: 2%;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    height: 34px;
+    /*vertical-align: top;*/
+    /*padding-top: 7px;*/
+}
+.term-no{
+    padding-top: 0px;
+}
+.add_record:hover{
+    color: white;
+}
+.add_record{
+      background-color: #168bee;
+      margin-left: 42%;
+      color: white;
+}
+.myTable>tbody>tr>td{
+    border-top: none;
+}
+
+/***************************************************中间内容**********************************************************/
+.work_top{
+    margin: 0%;
+    margin-top: 1%;
+    /*font-family: "微软雅黑";*/
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 44px;
+}
+.ex_t{
+    width: 85%;
+    border-top: 1px solid #cccccc;
+    margin-top: 0%;
+    margin-left: 9%;
+}
+.No{
+    margin-left: 14%;
+}
+.duty_time{
+    margin-left: -2%;
+}
+.group{
+    margin-left: -4%;
+}
+.principal{
+    text-align: center;
+}
+.work1{
+    /*border:1px solid red;*/
+    margin: 0%;
+    margin-top:-1%;
+    margin-left: 23px;
+    font-size:14px;
+    /*font-family:微软雅黑;*/
+    line-height: 44px;
+}
+.duty_arr_checkbox1{
+    margin-left: 4%;
+}
+.duty_arr_checkbox1>input[type="checkbox"]{
+    margin-top: 17px;
+}
+.number{
+    display: inline-block;
+    margin-left:-29%;
+}
+.duty_arr_week{
+    margin-left: 20%;
+}
+.duty_time1{
+    margin-left: -10%;
+}
+.group1{
+    margin-left: 17%;
+}
+@media(max-width:768px){
+    .principal2{
+        margin-left:22%;
+    }
+}
+@media(min-width:768px){
+    .principal2{
+        margin-left:50%;
+    }
+}
+.duty_detail{
+    margin-left: 5%;
+    text-align: center;
+    cursor: pointer;
+}
+.work{
+    margin: 0%;
+    margin-top: 10px;
+    margin-left: 23px;
+    font-size:14px;
+    /*font-family:微软雅黑;*/
+    /*border:1px solid red;*/
+    line-height: 44px;
+}
+/****************************************************duty_table***********************************************************/
+.dutyTable{
+    width:100%;
+    font-size:14px;
+}
+.dutyTable_top>td{
+     padding-top:15px!important;
+ }
+.dutyTable>tbody>tr>td,.dutyTable>thead>tr>th{
+    text-align: center;
+    vertical-align:middle;
+    padding:0;
+    border:none;
+    line-height:44px;
+}
+
+.dutyTable>thead>tr>th{
+    border-bottom:1px solid #cccccc ;
+}
+
+/****************************************************明细表***********************************************************/
+.detailTable{
+    width:400px;
+    float: right;
+    margin-right: 11%;
+    text-align: left;
+    border:1px solid #CCCCCC;
+}
+.detailTable th{
+    text-align: center;
+}
+.detailTable>tbody>tr>td,.detailTable>thead>tr>th{
+    border-top:1px solid #CCCCCC;
+}
+.dt_area{
+    margin-left:-2%;
+}
+.dt_content{
+    border: 1px solid #CCCCCC;
+}
+.dt_top{
+    /*height: 36px;*/
+    line-height: 36px;
+    font-size:14px;
+    border-bottom: 1px solid #CCCCCC;
+}
+.mx{
+    margin-left:18%;
+}
+.project{
+    margin-left: -8%;
+}
+.member_list{
+    text-align: center;
+}
+.dt{
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #CCCCCC;
+    font-size:14px;
+}
+.dt_bottom{
+    height: 36px;
+    line-height: 36px;
+    font-size:14px;
+}
+/*.sweep{
+    margin-left: 16%;
+}*/
+/***************************************************************************************************************/
+#work_bottom{
+    margin: 0%;
+    margin-top: 50px;
+    /*font-family:微软雅黑;*/
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.submit>a>span{
+    display: inline-block;
+    margin-right: 22px;
+    float: right;
+}
+.all_checked1{
+    margin-left:16%;
+}
+.all_checkbox{
+    float:right!important;
+    margin-right:13%!important;
+}
+.qx_check{
+    /*width:14%;*/
+    width:10%;
+}
+.dc_table{
+    width:18%;
+}
+.qx{
+    width:10%;
+}
+.zj{
+    width:40%;
+}
+/*=================================duty_edit.css  值日编辑==================================*/
+#duty_edit_top {
+    /*font-family: "微软雅黑";*/
+    font-size: 14px;
+    /*border: 1px solid blue ;*/
+    margin-top: 20px;
+}
+.td_w1{
+    width: 40%;
+    padding-left: 10%!important;
+}
+.td_w2{
+    /*margin-left: -30%!important;*/
+}
+/*#duty_edit_top>div{*/
+    /*line-height:66px;*/
+/*}*/
+.t_w{
+    margin-left: 17%;
+}
+.d_student{
+    margin-left: -3%;
+}
+.d_ban{
+    text-align: center;
+}
+.work2{
+    margin: 0%;
+    margin-top:3%;
+    margin-left: 23px;
+    font-size:14px;
+    /*font-family:微软雅黑;*/
+    /*border:1px solid red;*/
+    line-height: 22px;
+}
+.zi_space{
+    letter-spacing: 3px;
+}
+.duty_edit_week{
+    margin-left: 6%;
+}
+.duty_date{
+    margin-left: -3%;
+}
+.participants{
+    margin-left: 3%;
+}
+.add>a{
+    margin-left: 16%;
+    color:#168bee;
+}
+.return_save>button{
+    border-radius:2px;
+    height:31px;
+    width: 34%;
+    color: white;
+    background-color: #666666;
+}
+.return_save>button>a{
+    color: white;
+}
+.return_save>button:hover{
+	color: white;
+    background-color: #168bee;
+}
+.return_save>button:focus{
+    color: white;
+}
+/*======================class_expense.css  班费管理============================*/
+.class_expense{
+    margin-left: 2%;
+    font-size: 14px;
+    display: inline-block;
+    letter-spacing: 1px;
+    vertical-align: top;
+    height: 34px;
+    padding-top: 7px;
+}
+.occurrence_time{
+    margin-left: -2%;
+}
+.money{
+    margin-left: -4%;
+}
+.occurrence_time1{
+    margin-left: -9%;
+}
+.money1{
+    margin-left: 12%;
+}
+.expense_detail{
+    margin-left: 8%;
+    text-align: center;
+    cursor: pointer;
+}
+/************************************班费管理明细表***********************************************/
+.mxTable>tbody>tr>td,.mxTable>tbody>tr>th{
+    border-top:none;
+}
+.mxTable{
+    width:310px;
+    float: right;
+    margin-right: 11%;
+    text-align: center;
+    border:1px solid #CCCCCC;
+}
+.mxTable th{
+    text-align: center;
+}
+.mxTableContent{
+    width:310px;
+    height: 150px;
+    float: right;
+}
+.mxTableContent>tbody>tr>td{
+    border-top:none;
+}
+.pull-down{
+     width:310px;
+     height: 100px;
+     float: right;
+     overflow-y:auto;
+     overflow-x:hidden;
+ }
+.aaa{
+    width: 80px;
+}
+.aa{
+    text-align: right;
+}
+/*.expense_dt_area{*/
+    /*margin-left: 3%;*/
+/*}*/
+/*.expense_dt_content{*/
+    /*border: 1px solid #CCCCCC;*/
+/*}*/
+
+/*.expense_dt_top{*/
+    /*margin-top:4%;*/
+    /*font-size:14px;*/
+    /*font-weight: bold;*/
+/*}*/
+/*.expense_dt{*/
+    /*font-size:14px;*/
+    /*margin-top: 3%;*/
+/*}*/
+/*.expense_mx{*/
+    /*float: right;*/
+/*}*/
+.expense_project{
+    margin-left: -1%;
+}
+.money2{
+    margin-left: 24%;
+}
+.de_t{
+    width: 65%;
+    border-top: 1px solid #cccccc;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 26%;
+}
+/*.expense_dt_bottom{*/
+    /*margin-top:2%;*/
+    /*font-size:14px;*/
+/*}*/
+
+/*======================class_expend_edit.css  班费编辑============================*/
+.zi_space1{
+    letter-spacing: 28px;
+}
+.zi_space2{
+    letter-spacing: 7px;
+}
+.use_detail{
+    margin-left: 7%;
+    display: inline-block;
+    width: 70px;
+}
+.expense_participants{
+    margin-left: 7%;
+}
+/*======================classroom_management.css  课堂管理============================*/
+#classroom_top {
+    width: 100%;
+    height: 66px;
+    margin:16px auto;
+    /*border: 1px solid blue ;*/
+    /*margin: 0%;*/
+}
+#classroom_top>div>button{
+    border-radius:5%;
+}
+@media(min-width:768px){
+    #classroom_top>div{
+        text-align: center;
+        line-height:66px ;
+        /*margin-top: 2%;*/
+    }
+}
+@media(max-width:768px) {
+    #classroom_top>div{
+        line-height:66px ;
+        /*margin-top: 2%;*/
+    }
+}
+.tw{
+    width: 60%;
+    margin-top: 2%;
+    /*margin-left: 4%;*/
+}
+.time{
+    /*margin-left: -6%;*/
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+.classManageTable{
+    margin:0 auto;
+}
+.classroom_ex_t{
+    width: 92%;
+    border-top: 1px solid #cccccc;
+    margin-top: 0%;
+    /*margin-left: 3%;*/
+}
+.classroom_work_top{
+    /*margin: 1% 0 0 5%;*/
+    display:inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 44px;
+    width: 100%;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom: 15px;
+   /* margin-left: 1%;*/
+}
+.classroom_work_top>span,.classroom_work1>span,.classroom_bottom>span{
+    display:inline-block;
+	width:19%;
+	text-align:center;
+}
+.classroom_work_top>div,.classroom_work1>div{
+    text-align: center;
+}
+.classroom_work1{
+    /*margin: 0 auto;*/
+    display:inline-block;
+    /*margin-top:-1%;*/
+    font-size:14px;
+    line-height: 44px;
+    width:100%;
+}
+.classroom_work1:hover {
+    color: #168bee;
+    cursor: pointer;
+}
+.classroom_work1:hover span{
+    color: #168bee;
+    cursor: pointer;
+}
+.classroom_bottom{
+    /*margin: 0 auto;*/
+    display:inline-block;
+    margin-top:20px;
+    font-size:14px;
+    line-height: 44px;
+    width:100%;
+}
+/*.classroom_bottom span{*/
+    /*display:inline-block;*/
+    /*text-align:center;*/
+/*}*/
+/*.check_span{*/
+    /*!*position: relative;*!*/
+/*}*/
+.check_span .checkbox1{
+    /*position: absolute;*/
+    /*margin-top: 15px;*/
+    display:inline-block;
+    text-align:center;
+    width:3%;
+    margin-top: 2px;
+    /*margin-left:-27%;*/
+}
+.check_span .num{
+    display:inline-block;
+    width:55%;
+    text-align:center;
+    margin-top: 2px;
+}
+/*.classroom_bottom_zj{*/
+    /*width:38%;*/
+/*}*/
+/*.classroom_bottom_op{*/
+    /*width: 19%;*/
+/*}*/
+.check_span>.checkbox3{
+    position: absolute;
+    margin-left:17%;
+}
+.all_checked{
+    margin-left: 35%;
+}
+/*======================classroom_edit.css  课堂管理编辑============================*/
+@media(min-width: 1023px) and (max-width:1200px){
+    .now_student{
+        margin-left: -3%;
+    }
+    .ban{
+        margin-left: -6%;
+    }
+    .edit_time{
+        margin-left:12%;
+        letter-spacing: 1px;
+    }
+}
+.now_student{
+    margin-left: -3%;
+}
+.edit_time{
+	 margin-left:12%;
+      letter-spacing: 1px;
+}
+.indent1{
+    margin-left: 6%;
+}
+.indent{
+	margin-left: 3%;
+}
+.today_eval{
+	position: relative;
+}
+#AttendanceSelect{
+    width: 50%;
+}
+input.classroom_eval{
+    width: 77%;
+    height: 23px;
+    line-height: 23px;
+}
+#classroom_edit_work_bottom{
+    margin: 0%;
+    margin-top: 200px;
+    font-size: 14px;
+    color: #a1a1a1;
+}
+.classroom_textarea{
+	position: absolute;
+	width: 73%;
+	height:140px;
+	/*font-family: "微软雅黑";*/
+	font-size: 14px;
+	line-height: 23px;
+	margin-left:0.5% ;
+	margin-top: 2%;
+    resize: none;
+}
+/*======================stu_file.css  学生档案管理============================*/
+.add_file1{
+    padding-top: 2px;
+}
+.add_file{
+    color: white;
+    margin-left: -30%;
+    /*margin-top: 2px;*/
+}
+.add_file:hover{
+    color: white;
+}
+.student_list div{
+    text-align: center;
+    /*padding:2% 2%;*/
+}
+.student_list{
+    width: 100%;
+    font-size: 14px;
+    line-height:44px;
+    display: inline-block;
+    margin-bottom:15px;
+    /*position: relative;*/
+}
+.student_list>span{
+    display: inline-block;
+    width:19%;
+    text-align:center;
+}
+.student_list:hover{
+    color: #168bee;
+    cursor: pointer;
+}
+.check_span_img{
+    display: inline-block;
+}
+.check_span_img>span{
+    /*position: absolute;*/
+    /*margin-left: -3%;*/
+    display: inline-block;
+    width:31%;
+    margin-top: 2px;
+}
+.all_checkbox1{
+    margin-left:45%!important;
+}
+/*======================add_stu_file.css  添加档案============================*/
+.add_file_picture{
+   margin-left:28%;
+}
+ .add_file_top_image {
+       /*width:654px;*/
+       width:100%;
+       /*border: 1px solid yellow;*/
+     margin-left: 2%;
+     height: 32px;
+    position: relative;
+}
+.img_left{
+    float: left;
+    width:5%;
+    /*border: 1px solid red;*/
+    font-weight:800;
+    font-size:50px;
+    font-style: italic;
+}
+.img_right{
+    float: left;
+    width:90%;
+    padding-top:10px;
+    padding-left:4px;
+    /*border: 1px solid yellow;*/
+}
+.img_right_add{
+    padding-left:6px;
+}
+@media(max-width:1200px){
+    .img_right{
+        float: left;
+        width:90%;
+        padding-top:10px;
+        padding-left:10px;
+        /*border: 1px solid yellow;*/
+    }
+}
+.img_right_up{
+    border-bottom: 1px #666666 solid;
+    padding-top: 4px;
+}
+.img_right_up span{
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing:16px;
+}
+.img_right_down{
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+}
+ .img1{
+     width: 100%;
+ }
+.add_file_info1 {
+	margin: 0%;
+    margin-top:16px;
+}
+ .sex{
+     margin-left:4%;
+}
+label{
+    font-weight:normal;
+}
+.line{
+    position: absolute;
+    height: 1px;
+    width: 103%;
+    border-top: 1px solid #a9a9a9;
+    margin-top: -2.5%;
+    margin-left: 5%;
+}
+.line1{
+    position: absolute;
+    height: 1px;
+    width: 103%;
+    border-top: 1px solid #a9a9a9;
+    margin-top: -4.5%;
+    margin-left: 6%;
+}
+.pad_left_11{
+    padding-left: 11%;
+}
+.pad_left_6{
+    padding-left: 6%;
+}
+.mar_left_6{
+    margin-left: 6%;
+}
+.inp_w_73{
+    width: 73%;
+}
+.inp_w_107{
+    width: 107%;
+}
+.mar_left_32{
+    margin-left: 32px;
+}
+.add_file_info_phone{
+    margin-left: 5%;
+}
+.basic-bottom-left{
+    margin-left:13%;
+    width: 83%;
+}
+.basic-bottom-right{
+    width: 83%;
+}
+ .t_area1{
+    width: 106%;
+    height: 120px;
+}
+.t_area2{
+    width:104%;
+    height: 120px;
+   margin-left:-3%;
+}
+.add_file_button{
+    margin-top: 30px;
+    text-align: center;
+}
+.updateButton{
+    margin-top: 50px;
+    text-align: center;
+}
+.btn1{
+   color: white;
+   background-color:#168bee;;
+}
+.btn1:hover{
+    color: white;
+}
+.btn1:focus{
+    color: white;
+}
+ .stu_eval_word{
+    margin: 20px auto;
+    margin-left: 6%;
+ }
+ .stu_eval_last{
+ 	/*margin: 0%;*/
+    margin-left: 11%;
+    margin-bottom: 15px;
+ }
+ .btn2{
+    margin-top: -4%;
+}
+
+/*======================information.css  学生信息管理============================*/
+#stu_info{
+    margin-top: 55px;
+}
+#information_content {
+    margin: 0%;
+    margin-top: 30px;
+    /*width:748px;*/
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    /*border: 1px solid red;*/
+}
+#basic_information input,#student_evaluation input,#class_position input,#family-situation input{
+    padding: 0 4px;
+    height: 30px;
+}
+#basic_information {
+    width: 100%;
+}
+.top_image {
+    /*width:654px;*/
+    width: 87.4%;
+    /*border: 1px solid yellow;*/
+    margin-left: 9%;
+}
+.retract{
+    width: 40px;
+    position: absolute;
+    left:89%;
+    top:55px;
+}
+.fileRestract{
+    width: 40px;
+    float: right;
+    margin-right: 3%;
+    margin-top: -4px;
+}
+.retract>a ,.fileRestract>a{   
+    float: right;
+    overflow: hidden;
+    /*margin-top: -10px;*/
+    margin-right: 5%;
+    color: #b7b7b7;
+    cursor: pointer;
+}
+.pad_left_28{
+    padding-left: 28px;
+}
+/*#pos_retract{*/
+    /*margin-top:-9px;*/
+/*}*/
+.info {
+    width:100%;
+    margin:55px 0 0 0;
+    /*margin-top:40px;*/
+    /*border: 1px solid red;*/
+}
+ .info_name
+{
+    margin: 0%;
+}
+.info1 {
+    margin: 0%;
+    margin-top:20px;
+}
+.info2 {
+     margin: 0%;
+    margin-top: 16px;
+    /*border: 1px solid red;*/
+}
+.picture{
+   float: right;
+}
+.edit{
+    float: right;
+    color: #168bee;
+}
+.info_phone{
+    /*margin-left:70px;*/
+    margin-left: 6%;
+}
+#student_evaluation{
+    /*border: 1px solid aqua;*/
+    margin-top:40px;
+}
+.eval_year{
+    margin-left: 23%;
+}
+.eval_class{
+    /*margin-left: 80px;*/
+    margin-left:15%;
+}
+.stu_edit{
+    margin-right:8%;
+}
+.stu_eval{
+   margin:0%;
+   margin-top: 40px;
+}
+.eval_time{
+    float: right;
+}
+.paragraph{
+    text-indent: 2em;
+    line-height: 200%;
+}
+#class_position{
+    margin-top:40px;
+    /*height: 70px;*/
+}
+.edit1{
+   margin-left: 27%;
+}
+.placeholder{
+    color: #999;
+}
+.keDai{
+    margin-left: 17%;
+}
+.gx{
+    margin-left: 12%;
+}
+.evaluate{
+    color: #168bee ;
+    /*float: right;*/
+}
+.evalDropDown{
+    list-style: none;
+}
+.evalDropDown a.evaluate:hover{
+    color: #168bee;
+}
+.evalDropDown a.evaluate:active{
+    color: #168bee;
+}
+.evalDropDown a.evaluate:visited{
+    color: #168bee;
+}
+.eval_year_Menu,.eval_km_Menu,.eval_tea_Menu{
+    /*margin-top: 23px;*/
+    min-width: 90px;
+}
+.eval_km_Menu>li>a{
+    padding: 3px 30px;
+}
+.eval_tea_Menu>li>a{
+    padding: 3px 23px;
+}
+.eval_year_Menu>li>a:hover{
+    color: #168bee;
+}
+.eval_km_Menu>li>a:hover{
+    color: #168bee;
+}
+.eval_tea_Menu>li>a:hover{
+    color: #168bee;
+}
+/*======================information_update.css  学生信息编辑管理============================*/
+.my_update_dialog{
+    width: 330px;
+    font-size: 14px;
+    margin:310px auto;
+}
+.my_conf_dialog{
+    width: 330px;
+    font-size: 14px;
+    margin:180px auto;
+}
+.my_conf_body{
+    padding-left:20px;
+    padding-bottom: 5px;
+}
+.my_conf{
+    border-top:none;
+    border-bottom:none;
+}
+.btn_confirm{
+    background-color: #168bee;
+    border-color: #168bee;
+}
+.btn_size{
+    padding: 3px 12px;
+}
+/*=======================addEmployeeFile.css 添加员工档案===================*/
+.account-management{
+    padding-right: 15%;
+    padding-top: 2px;
+    cursor: pointer;
+}
+.add-more-line,.add-more-line-occupation,.add-more-line-family,.add-more-line-reward,.add-more-line-evaluative{
+    text-align: center;
+    color: #168bee;
+    margin-top: 10px;
+}
+.add-more-line>span,.add-more-line-occupation>span,.add-more-line-family>span,.add-more-line-reward>span,.add-more-line-evaluative>span{
+    cursor: pointer;
+}
+.occupational-line,.qualification-line,.reward-line{
+    position: absolute;
+    height: 1px;
+    width: 103%;
+    border-top: 1px solid #a9a9a9;
+    margin-top: -3%;
+    margin-left: 5%;
+}
+.qualification-line{
+    margin-top: -3.5%;
+}
+.remark-line{
+    width: 86%;
+    margin-left: 6%;
+}
+.family_retract{
+    margin-top: 50px;
+}
+#family-situation{
+    margin-top: 50px;
+}
+.modal-input-line,.modal-btn-line{
+    text-align: center;
+    font-size: 14px;
+    margin: 40px 0;
+}
+.modal-input-line>span{
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    padding-right: 25px;
+}
+.modal-input-line>input{
+    height: 30px;
+    width: 240px;
+}
+.my_file_dialog{
+    margin-top: 15%;
+}
+.add-account,.initialize-password{
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    color: white;
+}
+.add-account{
+    margin-left: 11%;
+    width: 92px;
+    text-align: center;
+    background-color: #168bee;
+}
+.initialize-password{
+    margin-left: 15px;
+    width: 110px;
+    background-color: #80c269;
+}
+/*=======================addStudentFile.css 添加员工档案===================*/
+.remark-textarea{
+    width: 86%;
+    margin-left: 6%;
+    resize: none;
+    height: 133px;
+}
+.reward-line{
+    margin-top: -2.5%;
+}
+
+.reward-type-span{
+    display: inline-block;
+    width: 20%;
+}
+.reward-type-select{
+    width: 57%;
+    height: 26px;
+    margin-left: 5%;
+}
+.all-add-btn{
+    margin-top: 70px;
+}
+.basic-two-line{
+    width: 87%;
+}
