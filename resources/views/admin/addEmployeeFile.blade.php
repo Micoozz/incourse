@@ -14,7 +14,6 @@
     </script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script src="js/placeholder.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/duty_arrange.css" />
