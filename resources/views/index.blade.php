@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>InCourse</title>
-		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/index_one.css" />
 
 		<!--[if lt IE 9]>
 		<script src="js/html5shiv.min.js"></script>
@@ -11,6 +11,7 @@
 		<script src="js/selectivizr.js"></script>
 		<link rel="stylesheet" href="css/reset.css"/>
 		<![endif]-->
+		
 	</head>
 	<body>
 		<header>
