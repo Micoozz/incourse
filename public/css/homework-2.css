@@ -1,0 +1,96 @@
+
+/*排序*/
+
+#radio_1,#radio_2{
+	display: inline;
+	margin-top: 6px;
+}
+.homework-select-form span{
+    display:inline;
+    margin-right:6px;
+  	margin-top: 5px;
+}
+
+/*错题本*/
+.label_1{
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+}
+.tiType{
+    margin-right:40px;
+    display:inline-block;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    color: rgb( 119, 119, 119 );
+}
+/*-----------
+ * 6-21 FYG修改  去掉题型列表 
+ * 
+ * .quType{
+    height:32px;
+    position:relative;
+    width:420px;
+}*/
+.cQuestion_1{
+	width:100%;
+    /*width:748px;*/
+    /*height:300px;*/
+    /*border:1px solid #ccc;*/
+}
+.cQuestion_2{
+    margin:0px auto;
+    /*border:1px solid #ccc;*/
+    text-align:center;
+}
+/***************分页标签******************/
+.pagination{
+    margin-top:10px;
+}
+.pagination>li{
+    color:#777;
+}
+.pagination>li>a{
+    margin-left:3px;
+    margin-right:3px;
+    color:#777;
+}
+.pagination> .active > a,
+.pagination> .active > span,
+.pagination> .active >a:hover,
+.pagination> .active >span:hover,
+.pagination> .active >a:focus,
+.pagination> .active >span:focus {
+    z-index: 2;
+    color:#000;
+    cursor: default;
+    background-color:#f1f1f1;
+    border:none;
+}
+/*错题本*/
+.radio_a{margin-top: 5px;}
+.label_1{
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+}
+/*8-29 单人作业 模态框*/
+#f-modal{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background: #000000;
+	opacity: 0.7;
+	top: 0;
+	display: none;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+}

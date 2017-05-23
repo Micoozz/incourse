@@ -1,0 +1,39 @@
+.dot{
+		  position: relative;
+		}
+.dot:after {
+  position: absolute;
+  top: 0.65em;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  content: "・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・";
+}
+
+/*看拼音写汉字*/
+.input-block{
+	padding: 36px;
+}
+.input-single{
+	color: #168BEE;
+	outline: none;
+	border: 0px;
+	width: 14px;
+	text-align: center;
+	background-color: #FFF;
+}
+.input-wrap{
+	margin-right: 40px;
+}
+
+
+/*答案区*/
+.ans-positive{
+	margin:15px 28px;
+	font-size: 14px;
+	line-height: 28px;
+}
+.ans-positive p{
+	text-indent: 28px;
+}
