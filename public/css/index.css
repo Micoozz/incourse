@@ -1,4 +1,4 @@
-	.blue{
+.blue{
 		color: #168BEE;
 	}
 		.chatRoom1>a:nth-of-type(2)>img{
@@ -44,7 +44,7 @@
 		background-color:gray;
 	}
 	.navbar{
-		background:url('../images/LOGO.png') no-repeat rgba(255,255,255,0.6) 22% center;
+		/*background:url('../images/LOGO.png') no-repeat rgba(255,255,255,0.6) 22% center;*/
 		background-attachment: fixed;
 		border-bottom: 1px solid #eee;
 	}
@@ -52,16 +52,15 @@
 
 /*框架导航修改*/
 	.navbar>div{
-		width: 1200px;
-    	height: 60px;
-    	margin: 0 auto;
+		    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
 	}
 	@media only screen and (max-width:1219px ) {
-		.navbar>div{
-			width:98%;
+			.navbar>div{
+		width:98%;
 		}
 	}
-
 	/* HPB修改 开始 */
 	.navbar>div>.indexLogo{
 		height:60px;
@@ -83,7 +82,7 @@
 		border:1px solid #ccc;
 		position:absolute;
 		top: 50px;
-		background-color: rgba(255,255,255,0.6);
+		/*background-color: rgba(255,255,255,0.6);*/
 		z-index: 100;
 		display:none;
 	}
@@ -91,23 +90,20 @@
 		display: block;
 		margin: 10px 10px;
 		line-height: 20px;
-		position: relative;
+		position:relative;
 	}
 	.schoolMain>div>a:after{
-		content: "";
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background-color: #f76156;
+		content:"";
+		position:absolute;
+		right:0;
+		top:0;
+		width:8px;
+		height:8px;
+		border-radius:50%;
+		background-color:#f76156;
 	}
 	.head_nav>.schoolMain:hover>div{
 		display:block;
-	}
-	.head_nav>.schoolMain>div>a:hover{
-		color:#168bee;
 	}
 	/* HPB修改 结束 */
 
@@ -188,10 +184,8 @@
     list-style: none;
     height: 100%;
     background: #fff;
-    /*padding-left:17px*/
-	padding:0;
+    padding-left:17px
 }
-
 #cent_nav ul li a{
 	text-decoration: none;
 }
@@ -199,7 +193,8 @@
     float: left;
     height: 100%;
     text-align: center;
-    line-height: 50px;
+    /*line-height: 50px;*/
+    line-height: 56px;
     font-size:16px;
     width: 133px;
 }
@@ -211,9 +206,7 @@
 #cent_nav ul li{
 	cursor: pointer;
 }
-#cent_nav ul li:first-child a{
-	color: #333!important;
-	}
+
 	#cent_nav ul li:hover>a{
 		color: #168BEE;
 	}
@@ -654,9 +647,8 @@ color: #168AED;
 
  媒体查询
  */
-
-/******* 9.21修改，为了适应在屏幕小于1024px下页面整体格局不乱的情况 *********/
-/***** 媒体查询 开始 *******/
+	/******* 9.21修改，为了适应在屏幕小于1024px下页面整体格局不乱的情况 *********/
+	/***** 媒体查询 开始 *******/
 	@media only screen and (min-width:1024px ) {
 		.row>.left,#left{
 			width: 20%;
@@ -685,7 +677,9 @@ color: #168AED;
 			margin-right:27px;
 		}
 	}
-/******* 媒体查询 结束 ********/
+	/******* 媒体查询 结束 ********/
+
+
 
 
 	/*修改框架右侧的通知的颜色*/
@@ -696,21 +690,23 @@ color: #168AED;
 		text-decoration: none;
 	}
 	
-/*8-30*/
-.cent a:hover{
-	color: #168BEE;
+
+/*9月2号修改*/
+#cent_nav>ul{
+	padding:0;
 }
-
-
-/*9.2修改*/
-#cent_nav ul li:hover{
+#cent_nav ul li:hover {
 	border-bottom: 2px solid #168BEE;
 	color: #168BEE;
 	cursor: pointer;
 }
-.left>div>a:focus{
-	text-decoration:none;
+#cent_nav ul li:hover>a {
+	color: #168BEE;
 }
+.left>div>a:focus{
+	 text-decoration: none;
+}
+
 /*9.6*/
 .next>.nav{
 	max-height:210px;
@@ -720,11 +716,14 @@ color: #168AED;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
 	zoom: 1;
 }
-/******** 9.13 **********/
-.indexLogo{
-	cursor:default;
+/*9.7*/
+.head_nav>.schoolMain>div>a:hover {
+	color: #168bee;
 }
-	/*9.28*/
-	.laydate-icon{
+.cent a:hover {
+	color: #168BEE;
+}
+	/******** 9.13 **********/
+	.indexLogo{
 		cursor:default;
 	}

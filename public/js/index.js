@@ -4,14 +4,15 @@
 		})
 	})
 	//标签页切换
-// 	$(function(){
-// $('#nav1>li>a').click(function(){
-// 		$(this).css({
-// 			background:'#168AED',
-// 			color:'#fff'
-// 		})
-// })
-// 	});
+	$(function(){
+$('#nav1>li>a').click(function(){
+		$(this).css({
+			background:'#168AED',
+			color:'#fff'
+		})
+})
+	});
+
 $(function(){
 	$('#QQ>ul>li').click(function(){
 		$('.chatRoom').show()
@@ -127,6 +128,12 @@ $(function(){
 });
 })
 
+/********导航栏添加“视频中心”***********/
+$('.schoolMain').before('<li class="schoolMain"> <a href="vedioCenter-myCollection.html">视频中心</a> </li>');
+
+
+	/******** 演示用  开始 ********/
+	//学校首页、与我相关、个人中心、退出
 
 /******** 演示用  开始 ********/
 //退出
@@ -146,6 +153,19 @@ $(function(){
 			var content = $(this).children("a").text();
 			if(content === "学校首页"){
 				$(this).children("a").removeAttr("href").click(function(){
+					window.location = "../../Media/mediaManager.html";
+				});
+				$(this).children("div").children("a").removeAttr("href").click(function(){
+					window.location = "../../Media/relateToMeManager.html";
+				});
+			}else if(content === "个人中心"){
+				$(this).children("div").children("a:last-child").removeAttr("href").click(function(){
+					console.log(111)
+					window.location = "../AdminData/teacherPersonData.html";
+				});
+			}else if(content === "退出"){
+				$(this).children("a").removeAttr("href").click(function(){
+					window.location = "../../index.html";
 					window.location = "../Media/media.html";
 				});
 				$(this).children("div").children("a").removeAttr("href").click(function(){
