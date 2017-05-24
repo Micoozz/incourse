@@ -26,3 +26,6 @@ Route::get('/employeeFile',function(){
 Route::get('/studentFile',function(){
 	return view('admin.studentFile');
 });
+Route::get('/teacherPersonData',function(){
+	return view('admin.teacherPersonData');
+});
