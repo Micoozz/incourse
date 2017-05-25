@@ -54,12 +54,12 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1" style="display: none">
-                        <li><a href="Arrangement_work(homepage).html">作业管理</a></li>
-                        <li><a href="Exercise_editor.html">习题库</a></li>
-                        <li><a href="data.html">资料库</a></li>
-                        <li><a href="duty_arrange.html">班级管理</a></li>
-                        <li><a href="classindex.html">成绩管理</a></li>
-                        <li><a href="class-outline.html">课程大纲</a></li>
+                        <li><a href="Arrangement_work(homepage)">作业管理</a></li>
+                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="data">资料库</a></li>
+                        <li><a href="duty_arrange">班级管理</a></li>
+                        <li><a href="classindex">成绩管理</a></li>
+                        <li><a href="class-outline">课程大纲</a></li>
                     </ul>
                 </div>
                 <!--内容-->

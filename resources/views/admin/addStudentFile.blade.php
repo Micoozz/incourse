@@ -92,8 +92,8 @@
                     <!--左侧栏-->
                     <div class="col-xs-12" id="left">
                         <ul class="nav1 nav" id="nav1">
-                            <li><a href="employeeFile.html">员工档案</a></li>
-                            <li><a href="studentFile.html" class="box">学生档案</a></li>
+                            <li><a href="employeeFile">员工档案</a></li>
+                            <li><a href="studentFile" class="box">学生档案</a></li>
                         </ul>
                     </div>
                     <!--内容-->
@@ -103,7 +103,7 @@
                             <div class="col-md-4 col-xs-4" id="col">学生信息</div>
                             <div class="col-md-4 col-xs-4">
                                 <div id="return">
-                                    <a href="studentFile.html"><img src="images/return1.png" alt="">返回</a>
+                                    <a href="studentFile"><img src="images/return1.png" alt="">返回</a>
                                 </div>
                             </div>
                         </div>

@@ -29,3 +29,33 @@ Route::get('/studentFile',function(){
 Route::get('/teacherPersonData',function(){
 	return view('admin.teacherPersonData');
 });
+Route::get('/Teaching',function(){
+	return view('admin.Teaching');
+});
+Route::get('/Teaching1',function(){
+	return view('admin.Teaching1');
+});
+Route::get('/Teaching2',function(){
+	return view('admin.Teaching2');
+});
+Route::get('/Teaching3',function(){
+	return view('admin.Teaching3');
+});
+Route::get('/Teaching4',function(){
+	return view('admin.Teaching4');
+});
+Route::get('/Teaching5',function(){
+	return view('admin.Teaching5');
+});
+Route::get('/Teaching6',function(){
+	return view('admin.Teaching6');
+});
+Route::get('/edit',function(){
+	return view('admin.edit');
+});
+Route::get('/questionBank',function(){
+	return view('admin.questionBank');
+});
+Route::get('/questionBank1',function(){
+	return view('admin.questionBank1');
+});

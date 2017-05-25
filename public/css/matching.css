@@ -1,0 +1,211 @@
+
+.A,.B,.C,.D,.E,.F{
+	width: 50%;
+	float: left;
+}
+.C{
+	width: 100%;
+}
+.E{
+	width: 77%;
+}
+.F{
+	width: 20%;
+}
+.D{
+	width: 30%;
+}
+.G{
+	width:100%;
+}
+.G>.matching>input{
+	width: 100%;
+}
+.C .matching input,.E .matching input{
+	width: 100%;
+}
+.E .matching input{
+	text-indent: 51px;
+}
+.F .matching img:first-child{
+	margin-top: 2px;
+}
+.F .matching {
+	height: 45px;
+	overflow: hidden;
+	margin-bottom: 0;
+}
+.matching{
+	display: block;
+}
+.F .matching img{
+    	margin-right: 10px;
+    	margin-left: 10px;
+}
+.D .matching input{
+	text-indent: 0px;
+	text-align: center;
+	color: #168BEE;
+}
+.D .matching span{
+	color: #d1d1d1;
+}
+.questio{
+	position: absolute;
+    right: 41px;
+    top: 10px
+}
+.matching{
+	width: 100%;
+	margin-top: 15px;
+}
+.matching input{
+	width: 91%;
+    min-height: 40px;
+    line-height: 40px;
+    text-indent: 24px;
+}
+.matching img{
+	margin-left: -45px;
+	display: inline-block;
+}
+.matching>span{
+	margin-left: 3px;
+}
+.clear{
+	clear: both;
+}
+#answer{
+	margin-top:50px;
+	line-height: 11px;
+}
+.answer_ab{
+	width: 73%;
+	margin: 15px auto;
+}
+.answer_ab span{
+	margin: 0 25px;
+}
+.answer_ab select{
+	width: 176px;
+	margin-left: 0;
+	color: #168BEE;
+}
+#add_add img{
+	margin-left: -5px;
+	margin-right: 5px;
+}
+.ku{
+	color: #168bee;
+	text-decoration: underline;
+	margin-left: 10px;
+}
+ .endd{
+	    color: #fff;
+}
+.endd:hover{
+	color: #fff;
+}
+#select_single{
+	    width: 90%;
+    height: 35px;
+    border: 1px solid #c9c9c9;
+    line-height: 35px;
+    margin-bottom: 20px;
+}
+#gap,#gapp{
+    min-height: 43px;
+    border: 1px solid #a9a9a9;
+    background-color: #FFFFFF;
+    line-height: 40px;
+    padding-left: 5px;
+    width:100%;
+	margin: 0 auto;
+    }
+    #gap span,#gapp span{
+    	color:#168BEE;
+    }
+    #div9>span{
+		display: block;
+		margin-bottom: 20px;
+		margin-left: 14px;
+    }
+    .answer3{
+		width: 100%;
+		height: 30px;
+		margin-top: 10px;
+    }
+    .answer3 a{
+    	  color: #168BEE;
+    	  float: right;
+    }
+    #gap>input,#gapp>input {
+    width: 60px;
+    height: 30px;
+    border: 0;
+    border-bottom: 1px solid #168BEE;
+    text-align: center;
+    outline: none;
+    text-indent: 0;
+    }
+    .G input{
+    	text-indent: 30px;
+    	width: 100%;
+    }
+    .G a{
+    	right: 3%;
+    }
+#gap>#first,#gapp>#first{
+	border: 0;
+    width: 0px;
+}
+.but_b{
+       float: right;
+    display: inline-block;
+}
+.but_s{
+	width:130px;
+	float: right;
+	margin-top: 4px;
+}
+.con2{
+	font-size: 16px;
+}
+#bo{
+	font-size: 17px;
+}
+.fix{
+	border: 1px solid #168BEE;
+    width: 70px;
+    height: 80px;
+    position: absolute;
+    top: 1%;
+    right: 28%;
+    display: none;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+}
+.input-group .form-control{
+	margin-left: -86px;
+    width: 186%;
+}
+#but_a{
+	margin-left: 0;
+}
+#centery{
+	padding: 0;
+}
+.go{
+	float: right;
+	width: 100%;
+	padding-right: 40%;
+}
+#div8,#div7,#div6,#div2,#div5,#div4,#div3,#div9{
+margin: 0 auto;
+	width: 89%;
+}
+/*11.23*/
+#gapp{
+	line-height:28px;padding: 7px 0 0 51px;
+};

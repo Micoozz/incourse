@@ -1,20 +1,35 @@
-$(function() {
-    function hasPlaceholder() {
-        return 'placeholder' in document.createElement('input');
-    };
-    if (!hasPlaceholder()) {
-        $('[placeholder]').focus(function() {
-            var input = $(this);
-            if (input.val() == input.attr('placeholder')) {
-                input.val('');
-                input.removeClass('placeholder');
+$(document).ready(function(){
+    var doc=document,
+        inputs=doc.getElementsByTagName('input'),
+        supportPlaceholder='placeholder'in doc.createElement('input'),
+
+        placeholder=function(input){
+            var text=input.getAttribute('placeholder'),
+                defaultValue=input.defaultValue;
+            if(defaultValue==''){
+                input.value=text
             }
-        }).blur(function() {
-            var input = $(this);
-            if (input.val() == '' || input.val() == input.attr('placeholder')) {
-                input.addClass('placeholder');
-                input.val(input.attr('placeholder'));
+            input.onfocus=function(){
+                if(input.value===text)
+                {
+                    this.value=''
+                }
+            };
+            input.onblur=function(){
+                if(input.value===''){
+                    this.value=text
+                }
             }
-        }).blur();
+        };
+
+    if(!supportPlaceholder){
+        for(var i=0,len=inputs.length;i<len;i++){
+            var input=inputs[i],
+                text=input.getAttribute('placeholder');
+            if(input.type==='text'&&text){
+                placeholder(input)
+            }
+        }
     }
 });
+

@@ -1,0 +1,215 @@
+.clear{clear: both;}
+.choose>ul{
+    font-size: 14px;
+    width: 100%;
+    margin: 0 auto;
+    float: none;
+    margin-bottom:20px;
+}
+.choose,.centent>div{
+    width: 86%;
+    margin: 0 auto;
+    margin-top:0px;
+    display: none;
+}
+.choose ul li:first-child{
+    font-weight: bold;
+}
+.choose ul li{
+    width: 55px;
+    text-align: center;
+    cursor:pointer;
+}
+#choose1{
+    margin-left: -52px;
+}
+#choose1 li{
+    width:100px ;
+}
+#choose1 li:first-child{
+    text-align: right;
+}
+#choose1 li:last-child{
+    text-align:left;
+    text-indent: 12px;
+}
+#choose1>#li{
+    width: 55px;
+    margin-left: 7px;
+}
+.choose>input{
+    border-radius: 4px;
+    border: 1px solid #168AED;
+    color: #fff;
+    background: #168AED;
+    margin-left: 50%;
+    margin-top: 30px;
+    padding: 5px 10px;
+}
+.candidates{
+    margin-top: 30px;
+    font-size: 15px;
+}
+.candidates>.col-md-2,.candidates>.col-md-3>input{
+    text-indent: 30px;
+    color: #fff;
+    padding: 7px;
+}
+.fri{
+	padding: 0;
+	width: 31%;
+	margin-left: 1px;
+}
+ .form-control {
+    height: 32px;
+    width: 80%;
+    padding-left: 2px;
+    outline-color: #168BEE;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    outline-width: 1px;
+    line-height: 10px;
+    text-indent:0!important;
+    color: #333!important;
+}
+ .form-contro{
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    border: 1px solid #168BEE;
+	}
+.fri span{
+	    display: inline-block;
+    height: 32px;
+    border: 1px solid #ccc;
+    width: 30px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: relative;
+        top: -4px;
+    left: -5px;
+    border-left: 0;
+    cursor: pointer;
+}
+.fri span img{
+    position: relative;
+    top: 4px;
+    left: 8px;
+}
+.candidates>.col-md-2{
+    background: url("../images/class_3.jpg") no-repeat #55acee 15px center;
+    cursor: pointer;
+}
+.candidates>.col-md-3>img{
+    position: absolute;
+    right: -16px;
+    top: 7px;
+}
+.candidates>.col-md-1{
+    width:7%;
+}
+.centent{
+    font-size: 14px;
+    border-top: 1px solid #dcdcdc;
+    margin-top: 10px;
+    padding-top: 30px;
+}
+.centent>div{
+    display: block;
+}
+.centent>div>span{
+    color: #3593ee;
+}
+.centent>div>div{
+    margin-top: 25px;
+}
+@media only screen and (max-width:1222px ) {
+    .candidates>.col-md-2{
+        width:20%
+    }
+}
+@media (min-width:1025px) and (max-width:1200px) {
+	.centent>div>div>a {
+		margin-right: 85px;
+	}
+}
+/*12.9 题型*/
+ol{padding: 0;margin: 0;list-style: none;}
+.question-types>ol>li{
+	width: 100%;
+	border:solid 1px #CCC;
+	padding: 20px;
+	padding-bottom: 0;
+	margin-bottom: 25px;
+}
+.questionSelect {
+    opacity: 0;
+    z-index: -1;
+    color: #168BEE;
+    }
+.select-wrapper{
+	    display: inline-block;
+    height: 1em;
+    width: 1em;
+    border: 1px solid #168BEE;
+    transition: background-color 1s;
+    -moz-transition: background-color 1s;
+    -o-transition: background-color 1s;
+    -ms-transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    border-radius: 50%;
+    position: relative;
+    top: 2px;
+    margin-right: 20px;
+}
+.dot{
+		  position: relative;
+		}
+		.blues{
+			background-color: #168BEE;
+		}
+.dot:after {
+  position: absolute;
+  top: 0.65em;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  content: "・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・";
+}
+.radio>div{
+	margin-bottom: 10px;
+}
+b{font-weight: normal;}
+.daan{
+	border-top:1px solid #ccc;
+	margin-top: 20px;
+	padding: 15px 0;
+}
+.daan>.an{
+	padding: 0px 20px;
+	border-right: 1px solid #ccc;
+}
+.star{
+	position: relative;
+	top: -2px;
+}
+.bj{
+	float: right;
+}
+.bj>a:hover{color: #168BEE;}
+.gap_gap {
+    width: 60px;
+    height: 30px;
+    border-bottom: 1px solid #168BEE;
+    text-align: center;
+    outline: none;
+    text-indent: 0;
+    color: #168BEE;
+    display: inline-block;
+    line-height: 30px;
+}

@@ -1,0 +1,85 @@
+.center1>div:last-child>a{
+    color: #fff;
+    background: url("../images/class_6.jpg") no-repeat;
+    background-position: 2px -6px;
+    padding-left: 34px;
+    padding-right: 21px;
+}
+.detailed{
+    width:645px ;
+    height: 510px;
+    background-color:#fff ;
+    border-radius: 6px;
+    position: absolute;
+    left: 4%;
+    top: 23%;
+    box-shadow: 0 0 10px #a7a7a7;
+    z-index: 300;
+    font-size: 14px;
+    display: none;
+}
+.detailed>div:first-child{
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    background-color: #333333;
+    margin: 0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #fff;
+}
+.detailed>div:first-child>div{
+    text-align: center;
+}
+.detailed>div:first-child>div>img{
+    width: 88%;
+}
+.last{
+    overflow-y:scroll;
+    height:445px;
+}
+
+.detailed #table th,.detailed #table td{
+    width: 136px;
+}
+.opca{
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+    background-color: #333;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 290;
+}
+.detailed>div:first-child>div:last-child{
+    cursor:pointer;
+}
+#table th, #table td{
+    width: 116px;
+}
+#table td:last-child span{
+    color: #168AED;
+    cursor: pointer;
+}
+/*������*/
+/* ���Google Chrome��Safari
+3.0��Opera
+9 ��CSS��ʽ */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .detailed #table th,.detailed #table td{
+        width: 137px;
+    }
+}
+
+
+
+
+@media only screen and (max-width:1200px) {
+	   #table th, #table td{
+        width: 98px;
+    }
+        .center1>div:last-child>a{
+    	padding-right: 1px;
+    }
+}

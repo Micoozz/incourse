@@ -1,0 +1,187 @@
+.center1>div:last-child>a{
+    color: #fff;
+    background: url("../images/class_6.jpg") no-repeat;
+    background-position: 2px -6px;
+    padding-left: 34px;
+    padding-right: 21px;
+    padding-top: 4px;
+}
+form{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+form>label{
+    display: block;
+    font-size: 14px;
+    font-weight:normal;
+    position: relative;
+}
+form>label>input,form>label>textarea,form>label>select{
+    width: 85%;
+    height: 30px;
+    text-indent: 10px;
+    margin-bottom: 15px;
+    resize: none;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+    margin-left: 0px;
+}
+form>label>textarea{
+    height: 170px;
+    margin-left: 75px;
+}
+.particular{
+    position: absolute;
+}
+form .add{
+    float: right;
+    margin-right: 17px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    width: 25px;
+    height: 25px;
+    background-color: #ccc;
+    border: 0;
+    outline: none;
+    display: none;
+}
+.clear{
+    clear: both;
+}
+.affi{
+    color: #168AED;
+    margin-left: 48%;
+    cursor: pointer;
+}
+form input{
+    width: 100px;
+    height: 35px;
+    font-size: 14px!important;
+    margin-left: 20px;
+}
+.btn-primary{
+	    background-color: #168AED;
+	    border: 0;
+}
+.succeed{
+    position: absolute;
+    background: #fff;
+    z-index: 300;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 274px;
+    height: 50px;
+    top:30%;
+    left: 30%;
+    display: none;
+    padding-left: 49px;
+    text-indent: 40px;
+    font-size: 18px;
+    line-height: 50px;
+}
+.opca{
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+    background-color: #333;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 290;
+}
+#last_1{
+    position: absolute;
+    top: 13%;
+    left: 16%;
+    display: none;
+    z-index: 300;
+    background: url("../images/Cj_10.jpg") no-repeat;
+    width: 540px;
+    height: 380px;
+}
+#last_1 div{
+	outline: none;
+}
+#last_1 .boxr{
+    background-color: transparent;
+    border: 0;
+    /*border-bottom: 1px solid #333;*/
+    outline: none;
+    color: #333;
+    font-size: 14px;
+    margin: 0;
+    position: relative;
+    min-height: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+#last_1>div{
+    margin-top: 120px;
+    margin-left: 72px;
+    width: 392px;
+}
+#last_1 div{
+	display: inline-block;
+}
+#last_1 span{
+    margin-left: 37px;
+}
+.file{
+    position: absolute;
+    display: block;
+    width: 94%;
+    height: 36px;
+    resize: none;
+    background-color: transparent;
+    top: -5px;
+    left: 73px;
+    overflow: hidden;
+}
+.file>input{
+    width: 102%;
+    height: 97%;
+    background-color: transparent;
+    color: #666;
+    padding-top: 6px;
+    border: none;
+    text-indent: -87px;
+    margin-left: -60px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+#last_1>h2{
+    font-size: 45px;
+    position: absolute;
+    letter-spacing: 40px;
+    width: 182px;
+    left: 50%;
+    top: 32px;
+    margin-left: -55px;
+    color: #bd8e1e;
+    font-weight: bold;
+    font-family: KaiTi;
+}
+.biaot{
+	    width: 144px;
+    position: absolute;
+    bottom: 50px;
+    right: 70px;
+}
+#last_1 input{
+	    position: absolute;
+    bottom: -160px;
+    left: 35%;
+}
+@media only screen and (max-width:1200px) {
+    .center1>div:last-child>a{
+    	padding-right: 1px;
+    }
+    .affi{
+    	margin-left: 40%;
+    }
+    form .add{
+    	    margin-right: 3px;
+    }
+   }
