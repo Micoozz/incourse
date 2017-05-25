@@ -7,19 +7,14 @@
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js" ></script>
-    <script src="js/homework-content.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/password.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
 	<script src="js/selectivizr.js"></script>
-    <![endif]-->
-    <style>
-       
-    </style>
+	<![endif]-->
 </head>
 <body>
 			<div class="navbar">
@@ -38,7 +33,7 @@
 				</li>
             	 <li><a href="zuoyenbenneirongliebiao.html" class="blue">学习中心</a></li>
                 <li><a href="classSpace111.html">班级中心</a></li>
-                <!--<li><a href="javascript:;">交易中心</a></li>-->
+                <li><a href="javascript:;">交易中心</a></li>
                 <li class="affix"><a href="javascript:;"><img src="images/01.png" /></a></li>
                 <li class="personCenter"><a href="javascript:;">个人中心</a>
 					<div class="cent">
@@ -47,7 +42,7 @@
 						<a href="personal_material-password111.html">个人信息</a>
 					</div>
                 </li>
-				<li><a href="../登录页/index.html" class="blue">退出</a></li>
+                <li><a href="../登录页/index.html" class="blue">退出</a></li>
             </ul>
 				</div>
 </div>
@@ -62,7 +57,7 @@
   <div id="cent_nav" class="col-md-3 col-xs-12">
   		<ul class="col-md-12 col-xs-12">
 			<li onclick=window.open("today_homework.html","_self")>今日作业</li>
-  			<li>语文</li>
+            <li class="offt">语文</li>
   			<li>数学</li>
   			<li>英语</li>
   			<li>添加课程</li>
@@ -94,38 +89,72 @@
   					</ul>
   				</div>
   				<!--内容-->
-  				<div class="col-xs-12 col-sm-12" id="centery" style="height: 100%">
+  				<div class="col-xs-12 col-sm-12  data-storage" id="centery">
      				 <div class="row center1">
-  						<div class="col-md-2 col-xs-4">
-  							<a class="return-fyg" href="javascript:history.back(-1);"></a>
-  						</div>
+  						<div class="col-md-2 col-xs-4"></div>
   						<div class="col-md-8 col-xs-4"id="col">语文</div>
   						<div class="col-md-2 col-xs-4"style="display: none;">收藏夹</div>
   					</div>
+					
+					<div class="container-fluid" id="grade-container">
+                        <div class="row new-head">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">客观题得分：<span class="objective-grade">72</span>分</div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">主观题得分：<span class="positive-grade">13</span>分</div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">综合得分：<span class="sum-grade">85</span>分</div>
+                        </div>
+                        <div class="row count">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="text-align: right">客观题分数已计算完毕</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " style="text-align: center">共计<span class="objective-grade">72</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="cuotiben-objective-today-yuwen.html" class="blue">查看</a></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">单选题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-select-grade">12</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">填空题（共20分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-blank-grade">10</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">排序题（共20分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-order-grade">20</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">多选题（共30分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-selectMore-grade">30</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+
+                        <div class="row count3">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="text-align: right">主观题分数未统计完毕</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " style="text-align: center">共计 <span class="positive-grade">13</span> 分</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="cuotiben-positive-today-yuwen.html" class="blue">查看</a></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">问答题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red" style="text-align: center" >得分：<span class="q-article-grade">8</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">画图题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red" style="text-align: center">得分：<span class="q-draw-grade">5</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
   					
-  					<div class="homework-content"style="border: none;">
-	                    <p class="task-step">
-	                        <span class="task-step-head">我的子任务：</span>
-	                        自由选择任务
-		                </p>
-
-						<div class="report-input">
-							<script id="container" name="content" type="text/plain"></script>
-					        <script type="text/javascript" src="ueditor.config.js"></script>
-					        <script type="text/javascript" src="ueditor.all.js"></script>
-						    <script src="kityformula-plugin/addKityFormulaDialog.js"></script>
-							<script src="kityformula-plugin/defaultFilterFix.js"></script>
-							<script src="kityformula-plugin/getKfContent.js"></script>
-						    <script type="text/javascript">
-						        var ue = UE.getEditor('container');
-							</script>
-						</div>
-						<div class="btn yes center-block report-input-btn">保存</div>
-
-	                </div>
-
-	            </div>
-
+                
+      				</div>
+  				</div>
   				<!--右侧栏-->
   				<div class="col-xs-12 left">
   					<div class="col-md-12 col-xs-12">
@@ -254,7 +283,5 @@
   		</div>
   		<div id="footf"></div>
   		<div id="footer"></div>
-
-  		
 </body>
 </html>
