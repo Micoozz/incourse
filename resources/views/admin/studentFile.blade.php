@@ -71,8 +71,8 @@
                     <!--左侧栏-->
                     <div class="col-xs-12" id="left">
                         <ul class="nav1 nav" id="nav1">
-                            <li><a href="employeeFile.html">员工档案</a></li>
-                            <li><a href="studentFile.html" class="box">学生档案</a></li>
+                            <li><a href="employeeFile">员工档案</a></li>
+                            <li><a href="studentFile" class="box">学生档案</a></li>
 
                         </ul>
                     </div>
@@ -82,7 +82,7 @@
                             <div class="col-md-3 col-xs-3"></div>
                             <div class="col-md-6 col-xs-6" id="col">学生档案</div>
                             <div class="col-md-3 col-xs-3">
-                                <a href="addStudentFile.html" class="add-file">+&nbsp;添加档案</a>
+                                <a href="addStudentFile" class="add-file">+&nbsp;添加档案</a>
                             </div>
                         </div>
                         <!--更多分类下拉菜单-->
@@ -142,7 +142,7 @@
                                     <span>一年级</span>
                                 </td>
                                 <td><span>一班</span></td>
-                                <td><a href="addStudentFile.html" class="delete">编辑</a></td>
+                                <td><a href="addStudentFile" class="delete">编辑</a></td>
                             </tr>
                             <tr>
                                 <td>
@@ -158,7 +158,7 @@
                                     <span>一年级</span>
                                 </td>
                                 <td><span>一班</span></td>
-                                <td><a href="addStudentFile.html" class="delete">编辑</a></td>
+                                <td><a href="addStudentFile" class="delete">编辑</a></td>
                             </tr>
                             <tr>
                                 <td>
@@ -174,7 +174,7 @@
                                     <span>一年级</span>
                                 </td>
                                 <td><span>一班</span></td>
-                                <td><a href="addStudentFile.html" class="delete">编辑</a></td>
+                                <td><a href="addStudentFile" class="delete">编辑</a></td>
                             </tr>
                         </table>
                         </div>

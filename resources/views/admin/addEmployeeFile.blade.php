@@ -92,8 +92,8 @@
                     <!--左侧栏-->
                     <div class="col-xs-12" id="left">
                         <ul class="nav1 nav" id="nav1">
-                            <li><a href="employeeFile.html" class="box">员工档案</a></li>
-                            <li><a href="studentFile.html">学生档案</a></li>
+                            <li><a href="employeeFile" class="box">员工档案</a></li>
+                            <li><a href="studentFile">学生档案</a></li>
                         </ul>
                     </div>
                     <!--内容-->
@@ -103,7 +103,7 @@
                             <div class="col-md-4 col-xs-4" id="col">员工档案</div>
                             <div class="col-md-4 col-xs-4">
                                 <div id="return">
-                                    <a href="employeeFile.html"><img src="images/return1.png" alt="">返回</a>
+                                    <a href="employeeFile"><img src="images/return1.png" alt="">返回</a>
                                 </div>
                             </div>
                         </div>
@@ -338,13 +338,13 @@
                     <!--右侧栏-->
                     <div class="col-xs-12 left">
                         <div class="col-md-12 col-xs-12">
-                            <a href="schoolNotice.html">通知</a><span class="openNotice">3</span>
+                            <a href="schoolNotice">通知</a><span class="openNotice">3</span>
                         </div>
                         <div class="col-md-12 col-xs-12 next">
                             <ul class="nav nave">
-                                <li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-                                <li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-                                <li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+                                <li><a href="classNotice">1.明天交语文作业</a></li>
+                                <li><a href="classNotice">2.5.1放假通知</a></li>
+                                <li><a href="classNotice">3.周五语文考试</a></li>
                             </ul>
                         </div>
                         <div class="foot">
