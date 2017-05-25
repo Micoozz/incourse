@@ -1,0 +1,152 @@
+.center1>div:last-child>a{
+    color: #fff;
+    background: url("../images/class_6.jpg") no-repeat;
+    background-position: 2px -6px;
+    padding-left: 34px;
+    padding-right: 21px;
+    padding-top: 4px;
+}
+.reward{
+    width: 95%;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 10px 0;
+}
+.carousel-control{
+    width: 8%;
+    opacity:1;
+}
+.carousel-control.left{
+    background:url("../images/Cj_08.png") no-repeat 10px center;
+}
+.carousel-control.right{
+    background:url("../images/Cj_07.png") no-repeat 10px center;
+}
+.carousel-control:hover{
+    opacity:1;
+}
+.carousel-inner{
+    margin-left: 8%;
+    height:93px;
+    width: 82%;
+}
+.carousel-inner img{
+    margin-left: 15px;
+    float: left;
+}
+#myCarousel{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom:10px;
+    margin-bottom:10px;
+}
+.nei{
+    font-size: 15px;
+    width:98%;
+    margin: 0 auto;
+}
+.nei a,.nei>div:last-child>span{
+    color: #6bb8ff;
+}
+.nei>div:last-child>span{
+    cursor: pointer;
+}
+.prompt{
+    position: absolute;
+    background: #fff;
+    z-index: 300;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 274px;
+    height: 178px;
+    top: -125px;
+    left: -385px;
+    padding-top: 46px;
+    display: none;
+    padding-left: 49px;
+    text-indent: 40px;
+}
+.prompt span{
+    display: inline-block;
+    margin-top: 47px;
+    margin-left: 22px;
+    cursor: pointer;
+    color: #fff!important;
+    border-radius: 2px;
+    font-size: 14px;
+    width: 55px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    text-indent: 0;
+}
+.prompt span{
+    background-color:#168AED;
+}
+.prompt span:last-child{
+    background-color: #ccc;
+}
+.opca{
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+    background-color: #333;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 290;
+}
+.center1>div:first-child a{
+    color: #fff;
+}
+#myCarouselt>.carousel-inner{
+    height: auto;
+}
+.rewardt{
+    display: none;
+    z-index: 300;
+    position: absolute;
+}
+.rewardt>div:last-child{
+    width: 182px;
+    margin: 0 auto;
+}
+.rewardt>div:last-child a,.rewardt>div:last-child span{
+    display: inline-block;
+    margin-top: 40px;
+    margin-left: 22px;
+    cursor: pointer;
+    color: #fff!important;
+    border-radius: 2px;
+    font-size: 14px;
+    width: 55px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    text-indent: 0;
+    cursor: pointer;
+}
+.rewardt>div:last-child a{
+    background-color: #168AED;
+}
+.rewardt>div:last-child span{
+    background-color: #ccc;
+}
+#myCarouselt img{
+    width: 660px;
+    height: 340px;
+}
+
+@media only screen and (max-width:1200px) {
+    .center1>div:last-child>a{
+    	padding-right: 1px;
+    }
+    .nei>div:last-child{
+    	width: 20%;
+    float: right;
+    }
+    .carousel-inner img{
+    	    margin-left: 1px;
+    width: 33%;
+    }
+}
