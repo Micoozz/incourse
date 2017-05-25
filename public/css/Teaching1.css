@@ -1,0 +1,66 @@
+#table td{
+    margin-bottom: 30px;
+}
+#table th, #table td{
+    width: 143px;
+}
+.teaching{
+    width: 89%;
+    margin: 50px auto;
+    margin-bottom: 0;
+    font-size: 15px;
+    display: none;
+}
+.teaching span{
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 20px;;
+    line-height: 30px;
+    border:1px solid #168AED;
+    margin-left: 10px;
+    display: none;
+    color: #168AED;
+    margin-bottom: 10px;
+    position: relative;
+}
+.teaching img{
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+.teaching b{
+    position: relative;
+    margin-right: 10px;
+}
+.center1>div:last-child>a{
+    color: #fff;
+    background: url("../images/class_6.jpg") no-repeat;
+    background-position: 2px -6px;
+    padding-left: 34px;
+    padding-right: 21px;
+    padding-top: 4px;
+}
+.center1>div:first-child>a{
+    color: #fff;
+    position: relative;
+    left: 15px;
+}
+/*������*/
+/* ���Google Chrome��Safari
+3.0��Opera
+9 ��CSS��ʽ */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #table th, #table td{
+        width: 148px;
+    }
+}
+
+
+@media only screen and (max-width:1200px) {
+	   #table th, #table td{
+        width: 120px;
+    }
+    .center1>div:last-child>a{
+    	padding-right: 1px;
+    }
+}
