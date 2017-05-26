@@ -59,3 +59,18 @@ Route::get('/questionBank',function(){
 Route::get('/questionBank1',function(){
 	return view('admin.questionBank1');
 });
+Route::get('/danrenzuoye-chengji',function(){
+	return view('student.danrenzuoye-chengji');
+});
+Route::get('/xiaozuzuoye-chakanzhengji',function(){
+	return view('student.xiaozuzuoye-chakanzhengji');
+});
+Route::get('/xiaozuzuoye-zirenwu',function(){
+	return view('student.xiaozuzuoye-zirenwu');
+});
+Route::get('/zuoyeben-index',function(){
+	return view('student.zuoyeben-index');
+});
+Route::get('/zuoyenbenneirongliebiao',function(){
+	return view('student.zuoyenbenneirongliebiao');
+});
