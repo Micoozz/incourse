@@ -2,35 +2,33 @@
 <html>
 <head>
     <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js" ></script>
     <script src="js/homework-content.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/password.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/f-modal.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <link rel="stylesheet" href="css/classActivity.css">
-    <link rel="stylesheet" type="text/css" href="css/homework-style.css"/>
+   	<link rel="stylesheet" href="css/classActivity.css">
+   	<link rel="stylesheet" type="text/css" href="css/homework-style.css"/>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <script src="js/selectivizr.js"></script>
     <![endif]-->
-
 </head>
 <body>
-			<div class="navbar">
-                <div>
-                <div class="indexLogo">
-                    <img src="images/LOGO.png"/>
-                    <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-                    <b>湖南工程学院</b>
-                </div>
-            <ul class="nav head_nav">
+<div class="navbar">
+    <div>
+        <div class="indexLogo">
+            <img src="images/LOGO.png"/>
+            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
+            <b>湖南工程学院</b>
+        </div>
+        <ul class="nav head_nav">
 				<li class="schoolMain">
 					<a href="/media">学校首页</a>
 					<div>
@@ -50,40 +48,40 @@
                 </li>
                 <li><a href="/index" class="blue">退出</a></li>
             </ul>
-                </div>
+    </div>
 </div>
-	<!--
-    	作者：offline
-    	时间：2016-05-24
-    	描述：内容标签页切换
-  -->
-  <div class="content">
-  <div class="container">
-  <div class="row">
-  <div id="cent_nav" class="col-md-3 col-xs-12">
-  		<ul class="col-md-12 col-xs-12">
-            <li onclick=window.open("today_homework.html","_self")>今日作业</li>
-            <li class="offt">语文</li>
-  			<li>数学</li>
-  			<li>英语</li>
-  			<li>添加课程</li>
-  		</ul>
-  </div>
-  <div class="col-md-6"></div>
-  <div class="col-md-3"></div>
-  </div>
-  </div>
-  <!--
-  	作者：offline
-  	时间：2016-05-24
-  	描述：中心内容
-  -->
-  	<div id="center">
-  		<div class="container">
-  			<div class="row">
-  				<!--左侧栏-->
-  				<div class="col-xs-12" id="left">
-  					<ul class="nav1 nav" id="nav1">
+<!--
+    作者：offline
+    时间：2016-05-24
+    描述：内容标签页切换
+-->
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div id="cent_nav" class="col-md-3 col-xs-12">
+                <ul class="col-md-12 col-xs-12">
+                    <li class="offt" onclick=window.open("today_homework.html","_self")>今日作业</li>
+                    <a href="/zuoyenbenneirongliebiao"><li>语文</li></a>
+                    <li>数学</li>
+                    <li>英语</li>
+                    <li>添加课程</li>
+                </ul>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <!--
+        作者：offline
+        时间：2016-05-24
+        描述：中心内容
+    -->
+    <div id="center">
+        <div class="container">
+            <div class="row">
+                <!--左侧栏-->
+                <div class="col-xs-12" id="left">
+                    <ul class="nav1 nav" id="nav1">
   						<li><a href="/zuoyenbenneirongliebiao" class="box">作业本</a></li>
   						<!--<li><a href="#">学习分析</a></li>-->
   						<li><a href="ziliaoku-neirongliebiao.html">资料库</a></li>
@@ -92,17 +90,18 @@
   						<li><a href="javascript:;">联系人</a></li>
   						<li><a href="javascript:;">课程介绍</a></li>
   					</ul>
-  				</div>
-  				<!--内容-->
-  				<div class="col-xs-12 col-sm-12" id="centery">
-     				 <div class="row center1">
-  						<div class="col-md-2 col-xs-4">
-  							<a class="return-fyg" href="/zuoyenbenneirongliebiao"></a>
-  						</div>
-  						<div class="col-md-8 col-xs-4"id="col">语文</div>
-  						<div class="col-md-2 col-xs-4"style="display: none;">收藏夹</div>
-  					</div>
-  					<div class="homework-content">
+                </div>
+                <!--内容-->
+                <div class="col-xs-12 col-sm-12" id="centery">
+                    <div class="row center1">
+                        <div class="col-md-2 col-xs-4">
+                            <!--<a class="return-fyg" href="zuoyenbenneirongliebiao.html"></a>-->
+                        </div>
+                        <div class="col-md-8 col-xs-4"id="col" style="height:30px;">今日作业</div>
+                        <div class="col-md-2 col-xs-4"style="display: none;">收藏夹</div>
+                    </div>
+                    <div class="todayhomework-subject">语文</div>
+                    <div class="homework-content">
 	                    <p class="question-head">
 	                        <span class="order">
 	                            1.
@@ -128,7 +127,7 @@
 	                        </div><div class="radio">
 	                            <label>
 	                            <input type="radio" name="questionSelect"  class="questionSelect" value="C"/><span class="select-wrapper"></span>C.
-	                            <span class="question-content">羡<span class="dot">慕</span> <span class="dot">募</span>捐 帷<span class="dot">幕</span> <span class="dot">墓</span>地</span>
+	                            <span class="question-content">羡<span class="dot">慕</span> <span class="dot">募</span>捐 <span class="dot">帷</span>幕 <span class="dot">墓</span>地</span>
 	                            </label>
 	                        </div>
 	                        <div class="radio">
@@ -255,7 +254,7 @@
 	                        6.
 	                        </span>
 	                        <!--问题-->
-	                        	填空题：《朝花夕拾》原名《<span class="question-blank">空1</span>》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容 ：<span class="question-blank">空2</span>with a machine.
+	                        	填空题：填空题：《朝花夕拾》原名《<span class="question-blank">空1</span>》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容 ：<span class="question-blank">空2</span>with a machine.
 	                    </p>
 	
 	                    <div class="line"></div>
@@ -301,45 +300,45 @@
 	                </div>
 
 
-                <div class="btn yes center-block"style="margin-top: 20px;margin-bottom: 40px;"onclick="window.location.href='danrenzuoye-chengji.html'">提交</div>
-  			</div>
-  				<!--右侧栏-->
-  				<div class="col-xs-12 left">
-  					<div class="col-md-12 col-xs-12">
+                    <div class="btn yes center-block"style="margin-top: 20px;margin-bottom: 40px;">提交</div>
+                </div>
+                <!--右侧栏-->
+                <div class="col-xs-12 left">
+                    <div class="col-md-12 col-xs-12">
                         <a href="javascript:;">通知</a>
                         <span class="openNotice">3</span>
-  					</div>
-  					<div class="col-md-12 col-xs-12 next">
-  					<ul class="nav nave">
+                    </div>
+                    <div class="col-md-12 col-xs-12 next">
+                        <ul class="nav nave">
 						<li><a href="javascript:;">1.明天交语文作业</a></li>
 						<li><a href="javascript:;">2.5.1放假通知</a></li>
 						<li><a href="javascript:;">3.周五语文考试</a></li>
   					</ul>
-  			</div>
-  			<div class="foot">
-  					<div class="img" id="img"></div>
-  					<ul class="nav">
-  						<li><img src="images/08.png" /><b style="font-weight: normal;">同学</b><span><span>0</span><span>/</span><span>0</span></span>
-  							<div class="QQ" id="QQ">
-  								<!--标签页切换-->
-  								<ul class="nav">
-  									<li>
-  										<span></span>
-  										<img src="images/02.gif" />
-  										<b><span>小明</span></b>
-  									</li>
-  								</ul>
-  							</div>
-  						</li>
-  						<li><img src="images/08.png" />老师<span><span>0</span><span>/</span><span>0</span></span>
-  							<div>
-  								<!--标签页切换-->
-  							</div>
-  						</li>
-  					</ul>
-  				</div>
-  				</div>
-  				<div class="chatRoom">
+                    </div>
+                    <div class="foot">
+                        <div class="img" id="img"></div>
+                        <ul class="nav">
+                            <li><img src="images/08.png" /><b style="font-weight: normal;">同学</b><span><span>0</span><span>/</span><span>0</span></span>
+                                <div class="QQ" id="QQ">
+                                    <!--标签页切换-->
+                                    <ul class="nav">
+                                        <li>
+                                            <span></span>
+                                            <img src="images/02.gif" />
+                                            <b><span>小明</span></b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><img src="images/08.png" />老师<span><span>0</span><span>/</span><span>0</span></span>
+                                <div>
+                                    <!--标签页切换-->
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chatRoom">
                         <ul class="nav">
                             <li class="row">
                                 <div class="chatRoom1 col-md-12">
@@ -424,14 +423,12 @@
                         </div>
                     </div>
                 </div>
-  			</div>
+            </div>
 
-  		</div>
-  		</div>
-  		</div>
-  		<div id="footf"></div>
-  		<div id="footer"></div>
-  		<div class="Bomb">
+        </div>
+    </div>
+</div>
+<div class="Bomb">
 				<div>
 					<div>
 						学习预警
@@ -523,137 +520,105 @@
 			</div>
 
 			<script src="js/classActivity.js"></script>
+<div id="footf"></div>
+<div id="footer"></div>
 
-<div id="f-modal"></div>
-<!--答案框-->
-<div class="answerInput" id="answerInput">
-	<button type="button" class="answerInput-close close"
-           data-dismiss="modal" aria-hidden="true">
-              &times;
-    </button>
-    <h4 class="text-center" id="myModalLabel">
-       请输入你的答案
-    </h4>
-	<div>
-		<script id="container" name="content" type="text/plain"></script>
-        <script type="text/javascript" src="ueditor.config.js"></script>
-        <script type="text/javascript" src="ueditor.all.js"></script>
-	    <script type="text/javascript">
-	        var ue = UE.getEditor('container');
-		</script>
-	    <script src="kityformula-plugin/addKityFormulaDialog.js"></script>
-		<script src="kityformula-plugin/defaultFilterFix.js"></script>
-		<script src="kityformula-plugin/getKfContent.js"></script>
-	    
-	</div>
-
-     <div class="modal-footer">
-        <button type="button" class="btn answer-save-permanent">保存
-        </button>
-        <button type="button" class="btn answer-save-temporary">
-           暂存
-        </button>
-     </div>
-
-
-</div>
-
-<!--data-toggle="modal" data-target="#answerInput"
-	<div class="modal fade" id="answerInput" tabindex="-1" role="dialog">
-   <div class="modal-dialog answer-input-modal">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close"
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title text-center" id="myModalLabel">
-               请输入你的答案
-            </h4>
-         </div>
-         <div class="modal-body">
-         	<script id="container" name="content" type="text/plain"></script>
-            <script type="text/javascript" src="ueditor.config.js"></script>
-            <script type="text/javascript" src="ueditor.all.js"></script>
-            <textarea name="" rows="" cols="" class="answer-input"></textarea>
-
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn answer-save-permanent">保存
-            </button>
-            <button type="button" class="btn answer-save-temporary">
-               暂存
-            </button>
-         </div>
-      </div>
+<!--弹窗均使用了 bootstrap 模态框插件-->
+<!--模态框1 答案框-->
+<div class="modal fade" id="answerInput" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog answer-input-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title text-center" id="myModalLabel">
+                    请输入你的答案
+                </h4>
+            </div>
+            <div class="modal-body">
+                <textarea name="" rows="" cols="" class="answer-input"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn answer-save-permanent">保存
+                </button>
+                <button type="button" class="btn answer-save-temporary">
+                    暂存
+                </button>
+            </div>
+        </div>
     </div>
-</div>-->
+</div>
 
 <!--模态框2 拍照上传-->
 <div class="modal fade" id="getPhoto" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog photo-upload-modal">
-      <div class="modal-content photo-upload-content"style="font-size: 14px">
-         <div class="modal-header photo-upload-modal-header">
-            <button type="button" class="close"
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <input type="button" value="上传图片" class="uploadPhotoWrap">
-	        <input type="file" class="uploadPhoto" style="cursor: pointer;">
-         </div>
-         <div class="photo-center">
- 			<div class="photo-center-1">1.请选择JPG图片</div>
- 			<div class="photo-center-2">2.大小不超过1M</div>
-         </div>
-         <div class="modal-footer photo-footer">
-            <button type="button" class="btn photo-save">完成</button>
-            <button type="button" class="btn photo-cancel">取消</button>
-         </div>
-      </div>
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog photo-upload-modal">
+        <div class="modal-content photo-upload-content"style="font-size: 14px">
+            <div class="modal-header photo-upload-modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <input type="button" value="上传图片" class="uploadPhotoWrap">
+                <input type="file" class="uploadPhoto" style="cursor: pointer;">
+            </div>
+            <div class="photo-center">
+                <div class="photo-center-1">1.请选择JPG图片</div>
+                <div class="photo-center-2">2.大小不超过1M</div>
+            </div>
+            <div class="modal-footer photo-footer">
+                <button type="button" class="btn photo-save">完成</button>
+                <button type="button" class="btn photo-cancel">取消</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <!--模态框4 提交报错-->
 <div class="modal fade" id="uploadFault" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog answer-input-modal">
-      <div class="modal-content upload-fault"style="font-size: 14px">
-         <div class="modal-header text-center upload-fault-header">
-            <button type="button" class="close"
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <span class="upload-fault-header">报错</span>
-         </div>
-         <div class="modal-body">
-            <div class="upload-fault-content">
-            	<form action="">
-            		错误类型：<label class="pointer">
-            			<input type="checkbox" name="upload-fault-checkbox" class="upload-fault-checkbox" />
-            			<span style="vertical-align: middle;"></span><span class="upload-fault-span">题干错误</span>
-            		</label>
-            		<label class="pointer">
-            			<input type="checkbox" name="upload-fault-checkbox"  class="upload-fault-checkbox" />
-            			<span style="vertical-align: middle;"></span><span class="upload-fault-span">选项错误</span>
-            		</label>
-            	</form>
-
-	            <div class="upload-fault-wrapper">
-	            	<span>错误详情：</span>
-	            	<div class="upload-fault-detail">
-	            		<textarea name="" rows="" cols="" class="upload-fault-input"></textarea>
-	            	</div>
-	            </div>
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog answer-input-modal">
+        <div class="modal-content upload-fault"style="font-size: 14px">
+            <div class="modal-header text-center upload-fault-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <span class="upload-fault-header">报错</span>
             </div>
+            <div class="modal-body">
+                <div class="upload-fault-content">
+                    <form action="">
+                        错误类型：<label class="pointer">
+                        <input type="checkbox" name="upload-fault-checkbox" class="upload-fault-checkbox" />
+                        <span style="vertical-align: middle;"></span><span class="upload-fault-span">题干错误</span>
+                    </label>
+                        <label class="pointer">
+                            <input type="checkbox" name="upload-fault-checkbox"  class="upload-fault-checkbox" />
+                            <span style="vertical-align: middle;"></span><span class="upload-fault-span">选项错误</span>
+                        </label>
+                    </form>
 
-         </div>
-         <div class="modal-footer upload-fault-footer">
-            <button type="button" class="btn upload-fault-save center-block">保存
-            </button>
-         </div>
-      </div>
+                    <div class="upload-fault-wrapper">
+                        <span>错误详情：</span>
+                        <div class="upload-fault-detail">
+                            <textarea name="" rows="" cols="" class="upload-fault-input"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer upload-fault-footer">
+                <button type="button" class="btn upload-fault-save center-block">保存
+                </button>
+            </div>
+        </div>
     </div>
+    
+    
 </div>
 </body>
 </html>

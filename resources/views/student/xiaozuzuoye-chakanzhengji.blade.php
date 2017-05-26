@@ -29,26 +29,26 @@
 		<img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
 		<b>湖南工程学院</b>
 	</div>
-	<ul class="nav head_nav">
-		<li class="schoolMain">
-			<a href="../自媒体中心/media.html">学校首页</a>
-			<div>
-				<a href="../自媒体中心/relateToMe.html">@与我相关</a>
-			</div>
-		</li>
-		<li><a href="zuoyenbenneirongliebiao.html" class="blue">学习中心</a></li>
-		<li><a href="classSpace111.html">班级中心</a></li>
-		<!--<li><a href="javascript:;">交易中心</a></li>-->
-		<li class="affix"><a href="javascript:;"><img src="images/01.png"/></a></li>
-		<li class="personCenter"><a href="javascript:;">个人中心</a>
-			<div class="cent">
-				<a href="synthesizeMark.html">分析中心</a>
-				<a href="overTheYears_Report111.html">学习生活记录</a>
-				<a href="personal_material-password111.html">个人信息</a>
-			</div>
-		</li>
-		<li><a href="../登录页/index.html" class="blue">退出</a></li>
-	</ul>
+		<ul class="nav head_nav">
+				<li class="schoolMain">
+					<a href="/media">学校首页</a>
+					<div>
+						<a href="/relateToMe">@与我相关</a>
+					</div>
+				</li>
+            	 <li><a href="/zuoyenbenneirongliebiao" class="blue">学习中心</a></li>
+                <li><a href="javascript:;">班级中心</a></li>
+                <li><a href="javascript:;">交易中心</a></li>
+                <li class="affix"><a href="javascript:;"><img src="images/01.png" /></a></li>
+                <li class="personCenter"><a href="javascript:;">个人中心</a>
+					<div class="cent">
+						<a href="javascript:;">分析中心</a>
+						<a href="javascript:;">学习生活记录</a>
+						<a href="personal_material-password111.html">个人信息</a>
+					</div>
+                </li>
+                <li><a href="/index" class="blue">退出</a></li>
+        </ul>
 	</div>
 </div>
 	<!--
@@ -83,14 +83,13 @@
   				<!--左侧栏-->
   				<div class="col-xs-12" id="left">
   					<ul class="nav1 nav" id="nav1">
-  						
-  						<li><a href="zuoyenbenneirongliebiao.html" class="box">作业本</a></li>
+  						<li><a href="/zuoyenbenneirongliebiao" class="box">作业本</a></li>
   						<!--<li><a href="#">学习分析</a></li>-->
   						<li><a href="ziliaoku-neirongliebiao.html">资料库</a></li>
-  						<li><a href="xitice.html">习题册</a></li>
-  						<li><a href="yuyuelaoshi.html">联系老师</a></li>
-  						<li><a href="contact.html">联系人</a></li>
-  						<li><a href="kechengjieshao.html">课程介绍</a></li>
+  						<li><a href="javascript:;">习题册</a></li>
+  						<li><a href="javascript:;">联系老师</a></li>
+  						<li><a href="javascript:;">联系人</a></li>
+  						<li><a href="javascript:;">课程介绍</a></li>
   					</ul>
   				</div>
   				<!--内容-->
@@ -149,14 +148,14 @@
   				<!--右侧栏-->
   				<div class="col-xs-12 left">
   					<div class="col-md-12 col-xs-12">
-						<a href="classNotice.html">通知</a>
+						<a href="javascript:;">通知</a>
 						<span class="openNotice">3</span>
   					</div>
   					<div class="col-md-12 col-xs-12 next">
   					<ul class="nav nave">
-						<li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-						<li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-						<li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+						<li><a href="javascript:;">1.明天交语文作业</a></li>
+						<li><a href="javascript:;">2.5.1放假通知</a></li>
+						<li><a href="javascript:;">3.周五语文考试</a></li>
   					</ul>
   			</div>
   			<div class="foot">

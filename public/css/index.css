@@ -200,8 +200,10 @@
 }
 #cent_nav ul .offt{
 	border-bottom:2px solid #168BEE;
+}
+#cent_nav ul .offt>a {
+	display: block;
 	color: #168BEE;
-	
 }
 #cent_nav ul li{
 	cursor: pointer;
