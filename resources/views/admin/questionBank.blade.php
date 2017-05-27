@@ -25,21 +25,21 @@
         </div>
         <ul class="nav head_nav">
             <li class="schoolMain">
-                <a href="../../自媒体中心/mediaManager.html">学校首页</a>
+                <a href="mediaManager">学校首页</a>
                 <div>
-                    <a href="../../自媒体中心/relateToMeManager.html">@与我相关</a>
+                    <a href="../../自媒体中心/relateToMeManager">@与我相关</a>
                 </div>
             </li>
-            <li><a href="questionBank.html" class="blue">题库管理</a></li>
+            <li><a href="questionBank" class="blue">题库管理</a></li>
             <li class="affix">
                 <a href="javascript:;"><img src="images/01.png" /></a>
             </li>
                 <li class="personCenter"><a href="javascript:;">个人中心</a>
                     <div class="cent">
-                        <a href="../个人信息/teacherPersonData.html">个人信息</a>
+                        <a href="teacherPersonData">个人信息</a>
                     </div>
                 </li>
-                <li><a href="../../登录页/index.html" class="blue">退出</a></li>
+                <li><a href="index" class="blue">退出</a></li>
         </ul>
    </div>
     </div>
@@ -60,8 +60,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="questionBank.html"class="box">习题管理</a></li>
-                        <li><a href="questionBank1.html">上传习题</a></li>
+                        <li><a href="questionBank"class="box">习题管理</a></li>
+                        <li><a href="questionBank1">上传习题</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -199,7 +199,7 @@
                    							<img src="images/Cj_18.png"/>
                    							<img src="images/Cj_18.png"/>
                    						</span>
-                   						<span class="bj"><a href="edit.html?2">编辑</a></span>
+                   						<span class="bj"><a href="edit?2">编辑</a></span>
                    					</div>
                    					<!--清除浮动-->
                    					<div class="clear"></div>
@@ -229,7 +229,7 @@
                    							<img src="images/Cj_18.png"/>
                    							<img src="images/Cj_18.png"/>
                    						</span>
-                   						<span class="bj"><a href="edit.html?7">编辑</a></span>
+                   						<span class="bj"><a href="editl?7">编辑</a></span>
                    					</div>
                    					<!--清除浮动-->
                    					<div class="clear"></div>
@@ -252,7 +252,7 @@
                    							<img src="images/Cj_18.png"/>
                    							<img src="images/Cj_18.png"/>
                    						</span>
-                   						<span class="bj"><a href="edit.html?9">编辑</a></span>
+                   						<span class="bj"><a href="edit?9">编辑</a></span>
                    					</div>
                    					<!--清除浮动-->
                    					<div class="clear"></div>
@@ -265,7 +265,7 @@
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
-                    <div class="col-md-12 col-xs-12"><a href="schoolNotice.html">
+                    <div class="col-md-12 col-xs-12"><a href="schoolNotice">
                         通知</a><span class="openNotice">3</span>
                     </div>
                     <div class="col-md-12 col-xs-12 next">
