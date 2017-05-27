@@ -53,13 +53,13 @@
 					<div class="clear"></div> -->
 
 					<label for="input1">
-						<input type="radio" id="input1" name="job" value="teacher"/><span>教师</span>
+						<input type="radio" id="input1" name="job" value="teacher" num='1'/><span>教师</span>
 					</label>
 					<label for="input2">
-						<input type="radio" id="input2" name="job" value="student"/><span>学生</span>
+						<input type="radio" id="input2" name="job" value="student" num='2'/><span>学生</span>
 					</label>
 					<label for="input3">
-						<input type="radio" id="input3" name="job" value="manager"/><span>管理员</span>
+						<input type="radio" id="input3" name="job" value="manager" num='3'/><span>管理员</span>
 					</label>	
 					
 					<input type="submit" class="submitBtn" value="登录"/>
@@ -122,7 +122,36 @@
 				})
 			})
 
-
+//	ajax请求
+$(function(){
+	var numbers=null;
+	$('input[name="job"]').click(function(){
+		numbers=parseInt($(this).attr('num'));
+	})
+	$('.submitBtn').click(function(){
+				var name=$('.label input[type="text"]').val(),
+					passwords=$('.label input[type="password"]').val();
+		if(name==''){
+			alert('用户名不能为空')
+		}else if(passwords==''){
+			alert('密码不能为空')
+		}else{
+				$.ajax({
+			type:"post",
+			url:"/login",
+			data:{'name':name,'passwords':passwords,"number":numbers},
+			dataType:'json',
+			success:function(data){
+				if(data.code==200){
+					console.log('登录成功')
+				}else{
+					console.log('登录失败')
+				}
+			}
+				});
+		}	
+	})
+})
 		</script>
 	</body>
 
