@@ -193,7 +193,6 @@
     float: left;
     height: 100%;
     text-align: center;
-    /*line-height: 50px;*/
     line-height: 56px;
     font-size:16px;
     width: 133px;
@@ -204,6 +203,9 @@
 #cent_nav ul .offt>a {
 	display: block;
 	color: #168BEE;
+}
+#cent_nav ul li>a{
+	display: block;
 }
 #cent_nav ul li{
 	cursor: pointer;
