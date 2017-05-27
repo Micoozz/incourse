@@ -55,6 +55,8 @@ Route::get('/edit',function(){
 });
 Route::get('/questionBank',function(){
 	return view('admin.questionBank');
+	
+	
 });
 Route::get('/questionBank1',function(){
 	return view('admin.questionBank1');
