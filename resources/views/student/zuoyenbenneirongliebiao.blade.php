@@ -19,7 +19,7 @@
     <script src="js/respond.min.js"></script>
 	<script src="js/selectivizr.js"></script>
     <![endif]-->
-
+	<script type="text/javascript" src="js/head_student.js"></script>
 </head>
 <body>
 <div class="navbar">
@@ -30,28 +30,26 @@
 		<b>湖南工程学院</b>
 	</div>
 	<ul class="nav head_nav">
-		<!--学习警示内容只有在当日作业错误过多时候会出现 进行提示-->
-		<li><a href="javascript:;"style="background: transparent;">学习警示</a></li>
-		<li class="schoolMain">
-			<a href="../自媒体中心/media.html">学校首页</a>
-			<div>
-				<a href="../自媒体中心/relateToMe.html">@与我相关</a>
-			</div>
-		</li>
-		<li><a href="zuoyenbenneirongliebiao.html" class="blue">学习中心</a></li>
-		<li><a href="classSpace111.html">班级中心</a></li>
-		<!--<li><a href="javascript:;">交易中心</a></li>-->
-		<li class="affix"><a href="javascript:;"><img src="images/01.png"/></a></li>
-		<li class="personCenter"><a href="javascript:;">个人中心</a>
-			<div class="cent">
-				<a href="synthesizeMark.html">分析中心</a>
-				<a href="overTheYears_Report111.html">学习生活记录</a>
-				<a href="personal_material-password111.html">个人信息</a>
-			</div>
-		</li>
-		<li><a href="../登录页/index.html" class="blue">退出</a></li>
-	</ul>
-	</div>
+				<li class="schoolMain">
+					<a href="/media">学校首页</a>
+					<div>
+						<a href="/relateToMe">@与我相关</a>
+					</div>
+				</li>
+            	 <li><a href="/zuoyenbenneirongliebiao" class="blue">学习中心</a></li>
+                <li><a href="javascript:;">班级中心</a></li>
+                <li><a href="javascript:;">交易中心</a></li>
+                <li class="affix"><a href="javascript:;"><img src="images/01.png" /></a></li>
+                <li class="personCenter"><a href="javascript:;">个人中心</a>
+					<div class="cent">
+						<a href="javascript:;">分析中心</a>
+						<a href="javascript:;">学习生活记录</a>
+						<a href="personal_material-password111.html">个人信息</a>
+					</div>
+                </li>
+                <li><a href="/index" class="blue">退出</a></li>
+            </ul>
+</div>
 </div>
 	<!--
     	作者：offline
@@ -63,11 +61,11 @@
   <div class="row">
   <div id="cent_nav" class="col-md-3 col-xs-12">
   		<ul class="col-md-12 col-xs-12">
-			<li onclick=window.open("today_homework.html","_self")>今日作业</li>
-  			<li class="offt">语文</li>
-  			<li>数学</li>
-  			<li>英语</li>
-  			<li>添加课程</li>
+            <li><a href="/today_homework">今日作业</a></li>
+            <li class="offt"><a href="javascript:;">语文</a></li>
+  			<li><a href="javascript:;">数学</a></li>
+  			<li><a href="javascript:;">英语</a></li>
+  			<li><a href="javascript:;">添加课程</a></li>
   		</ul>
   </div>
   <div class="col-md-6"></div>
@@ -85,14 +83,13 @@
   				<!--左侧栏-->
   				<div class="col-xs-12" id="left">
   					<ul class="nav1 nav" id="nav1">
-  						
-  						<li><a href="#" class="box">作业本</a></li>
+  						<li><a href="/zuoyenbenneirongliebiao" class="box">作业本</a></li>
   						<!--<li><a href="#">学习分析</a></li>-->
   						<li><a href="ziliaoku-neirongliebiao.html">资料库</a></li>
-  						<li><a href="xitice.html">习题册</a></li>
-  						<li><a href="yuyuelaoshi.html">联系老师</a></li>
-  						<li><a href="contact.html">联系人</a></li>
-  						<li><a href="kechengjieshao.html">课程介绍</a></li>
+  						<li><a href="javascript:;">习题册</a></li>
+  						<li><a href="javascript:;">联系老师</a></li>
+  						<li><a href="javascript:;">联系人</a></li>
+  						<li><a href="javascript:;">课程介绍</a></li>
   					</ul>
   				</div>
   				<!--内容-->
@@ -116,7 +113,7 @@
 	                </div>
 
 	                <div class="homework-list row">
-	                    <a class="homework-type-link" href="danrenzuoye.html">
+	                    <a class="homework-type-link" href="/zuoyeben-index">
 	                    	<img src="images/homework/engage/single.png" class="homework-type-select-img"/>
 	                    	<span class="homework-order">作业一</span>
 	                    </a>
@@ -223,7 +220,7 @@
 	                (教师分组)点击为 xiaozuzuoye-jiaoshifenzu 页面
 	                （自由分组）点击为 xiaozuzuoye-ziyoufenzu 页面-->
 	                <div class="homework-list row">
-	                    <a class="homework-type-link" href="xiaozuzuoye-jiaoshifenzu-gudingrenwu.html">
+	                    <a class="homework-type-link" href="/zuoyeben-index">
 	                    	<img src="images/homework/engage/team.png" class="homework-type-select-img"/>
 	                    	<span class="homework-order">作业三</span>
 
@@ -277,7 +274,7 @@
 	                </div>
 
 	                <div class="homework-list row">
-	                    <a class="homework-type-link" href="xiaozuzuoye-jiaoshifenzu-xuanzerenwu.html">
+	                    <a class="homework-type-link" href="/zuoyeben-index">
 	                    	<img src="images/homework/engage/team.png" class="homework-type-select-img"/>
 	                    	<span class="homework-order">作业四</span>
 
@@ -329,7 +326,7 @@
 	                </div>
 
 	                <div class="homework-list row">
-	                    <a class="homework-type-link pointer"href="xiaozuzuoye-ziyoufenzu.html">
+	                    <a class="homework-type-link pointer"href="/zuoyeben-index">
 	                    	<img src="images/homework/engage/team.png" class="homework-type-select-img"/>
 	                    	<span class="homework-order">作业五</span>
 	                    </a>
@@ -439,14 +436,14 @@
   				<!--右侧栏-->
   				<div class="col-xs-12 left">
   					<div class="col-md-12 col-xs-12">
-						<a href="classNotice.html">通知</a>
+						<a href="javascript:;">通知</a>
 						<span class="openNotice">3</span>
   					</div>
   					<div class="col-md-12 col-xs-12 next">
   					<ul class="nav nave">
-						<li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-						<li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-						<li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+						<li><a href="javascript:;">1.明天交语文作业</a></li>
+						<li><a href="javascript:;">2.5.1放假通知</a></li>
+						<li><a href="javascript:;">3.周五语文考试</a></li>
   					</ul>
   			</div>
   			<div class="foot">
@@ -648,8 +645,8 @@
 
 				</div>
 				<div>
-					<a href="today_homework.html">查看当前作业</a>
-					<a href="system-push.html" target="_blank">查看系统推送题</a>
+					<a href="/today_homework">查看当前作业</a>
+					<a href="/system-push" target="_blank">查看系统推送题</a>
 				</div>
 			</div>
 

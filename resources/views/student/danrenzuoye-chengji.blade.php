@@ -7,19 +7,14 @@
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js" ></script>
-    <script src="js/homework-content.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/password.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
 	<script src="js/selectivizr.js"></script>
-    <![endif]-->
-    <style>
-       
-    </style>
+	<![endif]-->
 </head>
 <body>
 			<div class="navbar">
@@ -31,23 +26,23 @@
 				</div>
             <ul class="nav head_nav">
 				<li class="schoolMain">
-					<a href="../自媒体中心/media.html">学校首页</a>
+					<a href="/media">学校首页</a>
 					<div>
-						<a href="../自媒体中心/relateToMe.html">@与我相关</a>
+						<a href="/relateToMe">@与我相关</a>
 					</div>
 				</li>
-            	 <li><a href="zuoyenbenneirongliebiao.html" class="blue">学习中心</a></li>
-                <li><a href="classSpace111.html">班级中心</a></li>
-                <!--<li><a href="javascript:;">交易中心</a></li>-->
+            	 <li><a href="/zuoyenbenneirongliebiao" class="blue">学习中心</a></li>
+                <li><a href="javascript:;">班级中心</a></li>
+                <li><a href="javascript:;">交易中心</a></li>
                 <li class="affix"><a href="javascript:;"><img src="images/01.png" /></a></li>
                 <li class="personCenter"><a href="javascript:;">个人中心</a>
 					<div class="cent">
-						<a href="synthesizeMark.html">分析中心</a>
-						<a href="overTheYears_Report111.html">学习生活记录</a>
+						<a href="javascript:;">分析中心</a>
+						<a href="javascript:;">学习生活记录</a>
 						<a href="personal_material-password111.html">个人信息</a>
 					</div>
                 </li>
-				<li><a href="../登录页/index.html" class="blue">退出</a></li>
+                <li><a href="/index" class="blue">退出</a></li>
             </ul>
 				</div>
 </div>
@@ -62,7 +57,7 @@
   <div id="cent_nav" class="col-md-3 col-xs-12">
   		<ul class="col-md-12 col-xs-12">
 			<li onclick=window.open("today_homework.html","_self")>今日作业</li>
-  			<li>语文</li>
+            <li class="offt">语文</li>
   			<li>数学</li>
   			<li>英语</li>
   			<li>添加课程</li>
@@ -83,60 +78,93 @@
   				<!--左侧栏-->
   				<div class="col-xs-12" id="left">
   					<ul class="nav1 nav" id="nav1">
-  						
-  						<li><a href="zuoyenbenneirongliebiao.html" class="box">作业本</a></li>
+  						<li><a href="/zuoyenbenneirongliebiao" class="box">作业本</a></li>
   						<!--<li><a href="#">学习分析</a></li>-->
   						<li><a href="ziliaoku-neirongliebiao.html">资料库</a></li>
-  						<li><a href="xitice.html">习题册</a></li>
-  						<li><a href="yuyuelaoshi.html">联系老师</a></li>
-  						<li><a href="contact.html">联系人</a></li>
-  						<li><a href="kechengjieshao.html">课程介绍</a></li>
+  						<li><a href="javascript:;">习题册</a></li>
+  						<li><a href="javascript:;">联系老师</a></li>
+  						<li><a href="javascript:;">联系人</a></li>
+  						<li><a href="javascript:;">课程介绍</a></li>
   					</ul>
   				</div>
   				<!--内容-->
-  				<div class="col-xs-12 col-sm-12" id="centery" style="height: 100%">
+  				<div class="col-xs-12 col-sm-12  data-storage" id="centery">
      				 <div class="row center1">
-  						<div class="col-md-2 col-xs-4">
-  							<a class="return-fyg" href="javascript:history.back(-1);"></a>
-  						</div>
+  						<div class="col-md-2 col-xs-4"></div>
   						<div class="col-md-8 col-xs-4"id="col">语文</div>
   						<div class="col-md-2 col-xs-4"style="display: none;">收藏夹</div>
   					</div>
+					
+					<div class="container-fluid" id="grade-container">
+                        <div class="row new-head">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">客观题得分：<span class="objective-grade">72</span>分</div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">主观题得分：<span class="positive-grade">13</span>分</div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">综合得分：<span class="sum-grade">85</span>分</div>
+                        </div>
+                        <div class="row count">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="text-align: right">客观题分数已计算完毕</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " style="text-align: center">共计<span class="objective-grade">72</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="/cuotiben-objective-today-yuwen" class="blue">查看</a></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">单选题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-select-grade">12</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">填空题（共20分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-blank-grade">10</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">排序题（共20分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-order-grade">20</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">多选题（共30分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: center">得分：<span class="q-selectMore-grade">30</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+
+                        <div class="row count3">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="text-align: right">主观题分数未统计完毕</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " style="text-align: center">共计 <span class="positive-grade">13</span> 分</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="/cuotiben-objective-today-yuwen" class="blue">查看</a></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">问答题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red" style="text-align: center" >得分：<span class="q-article-grade">8</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
+                        <div class="row count2">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right">画图题（共10分）</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red" style="text-align: center">得分：<span class="q-draw-grade">5</span>分</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                        </div>
   					
-  					<div class="homework-content"style="border: none;">
-	                    <p class="task-step">
-	                        <span class="task-step-head">我的子任务：</span>
-	                        自由选择任务
-		                </p>
-
-						<div class="report-input">
-							<script id="container" name="content" type="text/plain"></script>
-					        <script type="text/javascript" src="ueditor.config.js"></script>
-					        <script type="text/javascript" src="ueditor.all.js"></script>
-						    <script src="kityformula-plugin/addKityFormulaDialog.js"></script>
-							<script src="kityformula-plugin/defaultFilterFix.js"></script>
-							<script src="kityformula-plugin/getKfContent.js"></script>
-						    <script type="text/javascript">
-						        var ue = UE.getEditor('container');
-							</script>
-						</div>
-						<div class="btn yes center-block report-input-btn">保存</div>
-
-	                </div>
-
-	            </div>
-
+                
+      				</div>
+  				</div>
   				<!--右侧栏-->
   				<div class="col-xs-12 left">
   					<div class="col-md-12 col-xs-12">
-						<a href="classNotice.html">通知</a>
+						<a href="javascript:;">通知</a>
 						<span class="openNotice">3</span>
   					</div>
   					<div class="col-md-12 col-xs-12 next">
   					<ul class="nav nave">
-						<li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-						<li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-						<li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+						<li><a href="javascript:;">1.明天交语文作业</a></li>
+						<li><a href="javascript:;">2.5.1放假通知</a></li>
+						<li><a href="javascript:;">3.周五语文考试</a></li>
   					</ul>
   			</div>
   			<div class="foot">
@@ -254,7 +282,5 @@
   		</div>
   		<div id="footf"></div>
   		<div id="footer"></div>
-
-  		
 </body>
 </html>
