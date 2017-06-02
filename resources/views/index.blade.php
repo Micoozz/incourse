@@ -142,8 +142,10 @@ $(function(){
 			data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
 			dataType:'json',
 			success:function(data){
+				// console.log(data);
 				if(data.code==200){
-					console.log('登录成功')
+					// console.log('登录成功');
+					window.location.href = '/media';
 				}else{
 					console.log('登录失败')
 				}

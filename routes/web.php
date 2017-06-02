@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', 'PageController@index')->name('login');
+Route::group(['middleware' => "auth:school,employee,student"],function(){
+	Route::get('/media','PageController@media');
+	Route::get('/logout','LoginController@logout');
 });
+
 Route::get('/addEmployeeFile',function() {
 	return view('admin.addEmployeeFile');
 });

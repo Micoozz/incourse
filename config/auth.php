@@ -47,15 +47,15 @@ return [
         ],
         'school' => [
             'driver' => 'session',
-            'provider' => 'school',
+            'provider' => 'schools',
         ],
         'employee' => [
             'driver' => 'session',
-            'provider' => 'employee',
+            'provider' => 'employees',
         ],
         'student' => [
             'driver' => 'session',
-            'provider' => 'student',
+            'provider' => 'students',
         ],
     ],
 
@@ -81,15 +81,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'school' => [
+        'schools' => [
             'driver' => 'eloquent',
             'model' => App\Models\School::class,
         ],
-        'employee' => [
+        'employees' => [
             'driver' => 'eloquent',
             'model' => App\Models\Employee::class,
         ],
-        'student' => [
+        'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
         ],

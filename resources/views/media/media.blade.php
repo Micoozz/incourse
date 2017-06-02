@@ -33,6 +33,7 @@
 <body>
 <!--顶部固定定位-->
 <div id="fixedTop">
+{{Auth::guard('school')->check()}}
     <div class="navbar">
         <div>
         <div class="indexLogo">

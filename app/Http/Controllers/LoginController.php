@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Input;
+use Redirect;
 
 class LoginController extends Controller
 {
@@ -24,6 +25,12 @@ class LoginController extends Controller
     	if(Auth::guard($guard)->attempt(['username' => $input['name'],'password' => $input['passwords']])){
     		$code = '200';
     	}
-    	return $code;
+    	$data = array('code' => $code);
+    	return json_encode($data);
+    }
+
+    public function logout(){
+    	Auth::logout();
+    	return Redirect::to('/');
     }
 }
