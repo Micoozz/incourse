@@ -60,8 +60,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html" class="box">教师管理</a></li>
-                        <li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -121,11 +121,11 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a href="Teaching1.html">1</a></td>
-                            <td><a href="Teaching1.html">张玲</a></td>
-                            <td><a href="Teaching1.html">一年级</a></td>
-                            <td><a href="Teaching1.html">一班</a></td>
-                            <td><a href="Teaching1.html">数学</a></td>
+                            <td><a href="TeacherTask">1</a></td>
+                            <td><a href="TeacherTask">张玲</a></td>
+                            <td><a href="TeacherTask">一年级</a></td>
+                            <td><a href="TeacherTask">一班</a></td>
+                            <td><a href="TeacherTask">数学</a></td>
                         </tr>
                            <tr>
                             <td><a href="#">2</a></td>

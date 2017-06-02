@@ -61,8 +61,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html">教师管理</a></li>
-                        <li><a href="Teaching2.html" class="box">学生管理</a></li>
+                        <li><a href="TeachingManagement" >教师管理</a></li>
+                        <li><a href="StudentManagement" class="box">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -158,12 +158,12 @@
                         </thead>
                         <tbody>
                            <tr>
-                            <td><a href="Teaching3.html">1</a></td>
-                            <td><a href="Teaching3.html">张三丰</a></td>
-                            <td><a href="Teaching3.html">一年级</a></td>
-                            <td><a href="Teaching3.html">二班</a></td>
-                            <td><a href="Teaching3.html">语文</a></td>
-                            <td><a href="Teaching3.html">450</a></td>
+                            <td><a href="StudentAchievement">1</a></td>
+                            <td><a href="StudentAchievement">张三丰</a></td>
+                            <td><a href="StudentAchievement">一年级</a></td>
+                            <td><a href="StudentAchievement">二班</a></td>
+                            <td><a href="StudentAchievement">语文</a></td>
+                            <td><a href="StudentAchievement">450</a></td>
                             <td><div class="last_td"></div></td>
                         </tr>
                            <tr>

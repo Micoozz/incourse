@@ -62,8 +62,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html">教师管理</a></li>
-                        <li><a href="Teaching2.html" class="box">学生管理</a></li>
+                        <li><a href="TeachingManagement" >教师管理</a></li>
+                        <li><a href="StudentManagement" class="box">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -71,7 +71,7 @@
                     <div class="row center1">
                         <div class="col-md-2 col-xs-4"></div>
                         <div class="col-md-8 col-xs-4" id="col">奖励编辑</div>
-                        <div class="col-md-2 col-xs-4"><a href="Teaching4.html">返回</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="BonusList">返回</a></div>
                     </div>
                     <form action="" >
                         <label for="">
