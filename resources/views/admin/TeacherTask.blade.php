@@ -7,9 +7,8 @@
     <title>In Course</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/Teaching.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/Teaching5.css">
-    <link rel="stylesheet" href="css/Teaching6.css">
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/Teaching1.css">
     <!--[if lt IE 9]>
     <script src="../JS/html5shiv.min.js"></script>
     <script src="../JS/respond.min.js"></script>
@@ -19,7 +18,7 @@
 </head>
 <body>
     <div class="navbar">
-    	<div>
+      	<div>
         <div class="indexLogo">
             <img src="images/LOGO.png"/>
             <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
@@ -44,7 +43,7 @@
                 <li><a href="../../登录页/index.html" class="blue">退出</a></li>
         </ul>
    </div>
-    	</div>
+    </div>
     <!--
     	作者offline
     	时间2016-05-24
@@ -62,48 +61,87 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html">教师管理</a></li>
-                        <li><a href="Teaching2.html" class="box">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
-                        <div class="col-md-2 col-xs-4"></div>
-                        <div class="col-md-8 col-xs-4" id="col">奖励编辑</div>
-                        <div class="col-md-2 col-xs-4"><a href="Teaching4.html">返回</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="BonusList">所获奖励</a></div>
+                        <div class="col-md-8 col-xs-4" id="col">张玲教师</div>
+                        <div class="col-md-2 col-xs-4"><a href="TeachingManagement">返回</a></div>
                     </div>
-                    <form action="" >
-                        <label for="">
-                            <span>上传原图：</span>
-                            <span class="file">
-                            <input type="file" onfocus="this.blur();"/></span>
-                            <input type="text"/>
-                        </label>
-                        <label for="">
-                            <span>颁发类型：</span>
-                            <select>
-                                <option>奖金</option>
-                                <option>奖状</option>
-                                <option>奖杯</option>
-                            </select>
-                        </label>
-                        <label for="">
-                            <span>获奖人员：</span>
-                            <input type="text"/>
-                        </label>
-                        <label for="">
-                            <span>具体金额：</span>
-                            <input type="text"/>
-                        </label>
-                        <label for="">
-                            <span>落款单位：</span>
-                            <input type="text" />
-                        </label>
-                        <input type="button" class="add" value="+">
-                        <div class="clear"></div>
-                        <input type="submit" value="立即保存" class="btn btn-primary"/>
+                    <form action="" class="row choose">
+                        <ul class="nav navbar-nav">
+                            <li>年级：</li>
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">一年级</a></li>
+                            <li><a href="#">二年级</a></li>
+                            <li><a href="#">三年级</a></li>
+                            <li><a href="#">更多</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li>学期：</li>
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">上学期</a></li>
+                            <li><a href="#">下学期</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li>月份：</li>
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">1月</a></li>
+                            <li><a href="#">2月</a></li>
+                            <li><a href="#">3月</a></li>
+                            <li><a href="#">更多</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li>分类：</li>
+                            <li><a href="#">作业</a></li>
+                            <li><a href="#">评分</a></li>
+                        </ul>
                     </form>
+                    <div class="row candidates">
+                        <div class="col-md-1 col-xs-1"></div>
+                        <div class="col-md-2 col-xs-2">条件筛选</div>
+                        <div class="col-md-5 col-xs-5"></div>
+                        <div class="col-md-3 col-xs-3 fri">
+                                   <input type="text" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" class="laydate-icon form-control " placeholder="请输入时间">
+                                    <span><img src="images/search.png" /></span>
+                        </div>
+                        <div class="col-md-1 col-xs-1"></div>
+                    </div>
+                    <div class="row teaching">
+                       <b>搜索条件：</b>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <table id="table">
+                        <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>内容</th>
+                            <th>布置情况</th>
+                            <th>批改情况</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>2016-01-10</td>
+                            <td>日常作业</td>
+                            <td>已布置</td>
+                            <td>已批改</td>
+                        </tr>
+                        <tr>
+                            <td>2016-01-10</td>
+                            <td>日常作业</td>
+                            <td>已布置</td>
+                            <td>已批改</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
@@ -143,7 +181,7 @@
                         </ul>
                     </div>
                 </div>
-              <div class="chatRoom">
+                <div class="chatRoom">
                     <ul class="nav">
                         <li class="row">
                             <div class="chatRoom1 col-md-12">
@@ -225,9 +263,17 @@
         </div>
     </div>
 </div>
-<div class="opca"></div>
     <script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/Teaching1.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script ytpe="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/laydate.js"></script>
+<script>
+	!function(){
+	laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+	laydate({elem: '#demo'});//绑定元素
+}();
+</script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <title>In Course</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/Teaching.css" rel="stylesheet">
+    <link href="css/Teaching2.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css"/>
     <!--[if lt IE 9]>
     <script src="../JS/html5shiv.min.js"></script>
@@ -17,7 +18,7 @@
 </head>
 <body>
     <div class="navbar">
-    	<div>
+     	<div>
         <div class="indexLogo">
             <img src="images/LOGO.png"/>
             <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
@@ -49,93 +50,161 @@
     	描述内容标签页切换
   -->
 <div class="content">
-   <!--
-        作者：offline
-        时间：2016-05-24
-        描述：中心内容
-    -->
+    <!--
+         作者：offline
+         时间：2016-05-24
+         描述：中心内容
+     -->
     <div id="center">
         <div class="container">
             <div class="row">
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html" class="box">教师管理</a></li>
-                        <li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" >教师管理</a></li>
+                        <li><a href="StudentManagement" class="box">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
                         <div class="col-md-2 col-xs-4"></div>
-                        <div class="col-md-8 col-xs-4" id="col">教师管理</div>
+                        <div class="col-md-8 col-xs-4" id="col">学生管理</div>
                         <div class="col-md-2 col-xs-4"></div>
                     </div>
                     <form action="" class="row choose">
+                    	<ul class="nav navbar-nav">
+                            <li>分类：</li>
+                            <li id="1">学生排名</li>
+                            <li id="2">班级排名</li>
+                        </ul>
+                    	<ul class="nav navbar-nav">
+                            <li>方式：</li>
+                            <li>成绩排名</li>
+                            <li class="pm">进步幅度排名</li>
+                        </ul>
                         <ul class="nav navbar-nav">
                             <li>年级：</li>
-                            <li><a href="#">全部</a></li>
-                            <li><a href="#">一年级</a></li>
-                            <li><a href="#">二年级</a></li>
-                            <li><a href="#">三年级</a></li>
-                            <li><a href="#">更多</a></li>
+                            <li>全部</li>
+                            <li>一年级</li>
+                            <li>二年级</li>
+                            <li>三年级</li>
+                            <li>更多</li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li>班级：</li>
-                            <li><a href="#">全部</a></li>
-                            <li><a href="#">1班</a></li>
-                            <li><a href="#">2班</a></li>
-                            <li><a href="#">3班</a></li>
-                            <li><a href="#">4班</a></li>
-                            <li><a href="#">5班</a></li>
-                            <li><a href="#">更多</a></li>
+                            <li>全部</li>
+                            <li>1班</li>
+                            <li>2班</li>
+                            <li>3班</li>
+                            <li>4班</li>
+                            <li>5班</li>
+                            <li>更多</li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li>学科：</li>
-                            <li><a href="#">全科</a></li>
-                            <li><a href="#">语文</a></li>
-                            <li><a href="#">数学</a></li>
-                            <li><a href="#">英语</a></li>
-                            <li><a href="#">更多</a></li>
+                            <li>全科</li>
+                            <li>语文</li>
+                            <li>数学</li>
+                            <li>英语</li>
+                            <li>更多</li>
                         </ul>
+                        <ul class="nav navbar-nav ul">
+                            <li>学期：</li>
+                            <li>全部</li>
+                            <li>上学期</li>
+                            <li>下学期</li>
+                        </ul>
+                        <ul class="nav navbar-nav ul">
+                            <li>月份：</li>
+                            <li>全部</li>
+                            <li>1月</li>
+                            <li>2月</li>
+                            <li>3月</li>
+                            <li>更多</li>
+                        </ul>
+                        <ul class="nav navbar-nav ul">
+                            <li>时间：</li>
+                            <li>全部</li>
+                            <li>第一周</li>
+                            <li>第二周</li>
+                            <li>第三周</li>
+                        </ul>
+                        <input type="submit" value="查找" />
+                        <span>[高级检索]</span>
                     </form>
                     <div class="row candidates">
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-2 col-xs-2">条件筛选</div>
                         <div class="col-md-5 col-xs-5"></div>
                         <div class="col-md-3 col-xs-3 fri">
-                        	        <input type="text" name="" class="form-control " placeholder="请输入姓名" />
+                        	 <input type="text" name="" class="form-control " placeholder="请输入姓名" />
                                     <span><img src="images/search.png" /></span>
                         </div>
                         <div class="col-md-1 col-xs-1"></div>
                     </div>
-                    <table id="table">
+                  <div>
+                  <table id="table" class="table1">
                         <thead>
                         <tr>
-                            <th>编号</th>
-                            <th>教师</th>
+                            <th>排名</th>
+                            <th>姓名</th>
                             <th>年级</th>
                             <th>班级</th>
                             <th>科目</th>
+                            <th>分数</th>
+                            <th class="qs">趋势</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="Teaching1.html">1</a></td>
-                            <td><a href="Teaching1.html">张玲</a></td>
-                            <td><a href="Teaching1.html">一年级</a></td>
-                            <td><a href="Teaching1.html">一班</a></td>
-                            <td><a href="Teaching1.html">数学</a></td>
+                           <tr>
+                            <td><a href="StudentAchievement">1</a></td>
+                            <td><a href="StudentAchievement">张三丰</a></td>
+                            <td><a href="StudentAchievement">一年级</a></td>
+                            <td><a href="StudentAchievement">二班</a></td>
+                            <td><a href="StudentAchievement">语文</a></td>
+                            <td><a href="StudentAchievement">450</a></td>
+                            <td><div class="last_td"></div></td>
                         </tr>
                            <tr>
                             <td><a href="#">2</a></td>
-                            <td><a href="#">张风</a></td>
+                            <td><a href="#">张杰</a></td>
                             <td><a href="#">一年级</a></td>
-                            <td><a href="#">一班</a></td>
-                            <td><a href="#">数学</a></td>
+                            <td><a href="#">二班</a></td>
+                            <td><a href="#">语文</a></td>
+                            <td><a href="#">500</a></td>
+                            <td><div class="last_th"></div></td>
                         </tr>
                         </tbody>
                     </table>
+               		<table id="table" style="display: none;" class="table2">
+                        <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>班级</th>
+                            <th>科目</th>
+                            <th>平均分</th>
+                            <th class="qs">趋势</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                            <td>1</td>
+                            <td>一年级</td>
+                            <td>二班</td>
+                            <td>75</td>
+                            <td><div class="last_td"></div></td>
+                        </tr>
+                                                   <tr>
+                            <td>2</td>
+                            <td>一年级</td>
+                            <td>二班</td>
+                            <td>75</td>
+                            <td><div class="last_th"></div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+               </div>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
@@ -175,7 +244,7 @@
                         </ul>
                     </div>
                 </div>
-               <div class="chatRoom">
+                  <div class="chatRoom">
                     <ul class="nav">
                         <li class="row">
                             <div class="chatRoom1 col-md-12">
@@ -257,10 +326,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/questionBank.js"></script>
+<script src="js/Teaching1.js"></script>
+<script src="js/Teaching2.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/placeholder.js"></script>
+    <script ytpe="text/javascript" src="js/placeholder.js"></script>
 </body>
 </html>

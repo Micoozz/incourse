@@ -6,9 +6,8 @@
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>In Course</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/Teaching.css" rel="stylesheet">
-    <link href="css/Teaching2.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/Teaching4.css" />
     <!--[if lt IE 9]>
     <script src="../JS/html5shiv.min.js"></script>
     <script src="../JS/respond.min.js"></script>
@@ -18,7 +17,7 @@
 </head>
 <body>
     <div class="navbar">
-     	<div>
+    	<div>
         <div class="indexLogo">
             <img src="images/LOGO.png"/>
             <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
@@ -61,154 +60,78 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html">教师管理</a></li>
-                        <li><a href="Teaching2.html" class="box">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
-                        <div class="col-md-2 col-xs-4"></div>
-                        <div class="col-md-8 col-xs-4" id="col">学生管理</div>
-                        <div class="col-md-2 col-xs-4"></div>
+                        <div class="col-md-2 col-xs-4"><a href="TRewardEditor">添加奖励</a></div>
+                        <div class="col-md-8 col-xs-4" id="col">奖励列表</div>
+                        <div class="col-md-2 col-xs-4"><a href="TeacherTask">返回</a></div>
                     </div>
-                    <form action="" class="row choose">
-                    	<ul class="nav navbar-nav">
-                            <li>分类：</li>
-                            <li id="1">学生排名</li>
-                            <li id="2">班级排名</li>
-                        </ul>
-                    	<ul class="nav navbar-nav">
-                            <li>方式：</li>
-                            <li>成绩排名</li>
-                            <li class="pm">进步幅度排名</li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li>年级：</li>
-                            <li>全部</li>
-                            <li>一年级</li>
-                            <li>二年级</li>
-                            <li>三年级</li>
-                            <li>更多</li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li>班级：</li>
-                            <li>全部</li>
-                            <li>1班</li>
-                            <li>2班</li>
-                            <li>3班</li>
-                            <li>4班</li>
-                            <li>5班</li>
-                            <li>更多</li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li>学科：</li>
-                            <li>全科</li>
-                            <li>语文</li>
-                            <li>数学</li>
-                            <li>英语</li>
-                            <li>更多</li>
-                        </ul>
-                        <ul class="nav navbar-nav ul">
-                            <li>学期：</li>
-                            <li>全部</li>
-                            <li>上学期</li>
-                            <li>下学期</li>
-                        </ul>
-                        <ul class="nav navbar-nav ul">
-                            <li>月份：</li>
-                            <li>全部</li>
-                            <li>1月</li>
-                            <li>2月</li>
-                            <li>3月</li>
-                            <li>更多</li>
-                        </ul>
-                        <ul class="nav navbar-nav ul">
-                            <li>时间：</li>
-                            <li>全部</li>
-                            <li>第一周</li>
-                            <li>第二周</li>
-                            <li>第三周</li>
-                        </ul>
-                        <input type="submit" value="查找" />
-                        <span>[高级检索]</span>
-                    </form>
-                    <div class="row candidates">
-                        <div class="col-md-1 col-xs-1"></div>
-                        <div class="col-md-2 col-xs-2">条件筛选</div>
-                        <div class="col-md-5 col-xs-5"></div>
-                        <div class="col-md-3 col-xs-3 fri">
-                        	 <input type="text" name="" class="form-control " placeholder="请输入姓名" />
-                                    <span><img src="images/search.png" /></span>
+                    <div class="reward">
+                        <div id="myCarousel" class="carousel slide">
+                        <!-- 轮播（Carousel）项目 -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                               <img src="images/Cj_04.jpg" id="div1">
+                                <img src="images/Cj_05.jpg"  id="div2">
+                                <img src="images/Cj_06.jpg"  id="div3">
+                            </div>
                         </div>
-                        <div class="col-md-1 col-xs-1"></div>
+                        <!-- 轮播（Carousel）导航 -->
+                        <a class="carousel-control left" href="javascript:;"> </a>
+                        <a class="carousel-control right" href="javascript:;"></a>
                     </div>
-                  <div>
-                  <table id="table" class="table1">
-                        <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>姓名</th>
-                            <th>年级</th>
-                            <th>班级</th>
-                            <th>科目</th>
-                            <th>分数</th>
-                            <th class="qs">趋势</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                            <td><a href="Teaching3.html">1</a></td>
-                            <td><a href="Teaching3.html">张三丰</a></td>
-                            <td><a href="Teaching3.html">一年级</a></td>
-                            <td><a href="Teaching3.html">二班</a></td>
-                            <td><a href="Teaching3.html">语文</a></td>
-                            <td><a href="Teaching3.html">450</a></td>
-                            <td><div class="last_td"></div></td>
-                        </tr>
-                           <tr>
-                            <td><a href="#">2</a></td>
-                            <td><a href="#">张杰</a></td>
-                            <td><a href="#">一年级</a></td>
-                            <td><a href="#">二班</a></td>
-                            <td><a href="#">语文</a></td>
-                            <td><a href="#">500</a></td>
-                            <td><div class="last_th"></div></td>
-                        </tr>
-                        </tbody>
-                    </table>
-               		<table id="table" style="display: none;" class="table2">
-                        <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>班级</th>
-                            <th>科目</th>
-                            <th>平均分</th>
-                            <th class="qs">趋势</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                            <td>1</td>
-                            <td>一年级</td>
-                            <td>二班</td>
-                            <td>75</td>
-                            <td><div class="last_td"></div></td>
-                        </tr>
-                                                   <tr>
-                            <td>2</td>
-                            <td>一年级</td>
-                            <td>二班</td>
-                            <td>75</td>
-                            <td><div class="last_th"></div></td>
-                        </tr>
-                        </tbody>
-                    </table>
-               </div>
+                        <div class="nei row">
+                            <div class="col-md-4">
+                            <span>2008-04-16</span>
+                            <span>颁发</span>
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-2">
+                                <a href="TRewardEditor">添加</a>
+                                <span>删除</span>
+                                <div class="prompt">
+                                    你确定删除吗？
+                                    <br>
+                                    <span>确定</span>
+                                    <span>取消</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rewardt">
+                        <div id="myCarouselt" class="carousel slide">
+                        <!-- 轮播（Carousel）项目 -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="images/Cj_09.jpg" alt="First slide"  class="div1">
+                            </div>
+                            <div class="item">
+                                <img src="images/Cj_12.png" alt="First slide" class="div2">
+                            </div>
+                            <div class="item">
+                                <img src="images/Cj_12.png" alt="First slide" class="div3">
+                            </div>
+                        </div>
+                        <!-- 轮播（Carousel）导航 -->
+                        <a class="carousel-control left" href="#myCarouselt"
+                           data-slide="prev"></a>
+                        <a class="carousel-control right" href="#myCarouselt"
+                           data-slide="next"></a>
+                    </div>
+                        <div>
+                            <a href="TRewardEditor">编辑</a>
+                            <span>删除</span>
+                        </div>
+                    </div>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
-                    <div class="col-md-12 col-xs-12"><a href="schoolNotice.html">
+                    <div class="col-md-12 col-xs-12"><a href="BonusList">
                         通知</a><span class="openNotice">3</span>
                     </div>
                     <div class="col-md-12 col-xs-12 next">
@@ -244,7 +167,7 @@
                         </ul>
                     </div>
                 </div>
-                  <div class="chatRoom">
+               <div class="chatRoom">
                     <ul class="nav">
                         <li class="row">
                             <div class="chatRoom1 col-md-12">
@@ -326,10 +249,10 @@
         </div>
     </div>
 </div>
+<div class="opca"></div>
     <script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/Teaching1.js"></script>
-<script src="js/Teaching2.js"></script>
+<script src="js/Teaching4.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
     <script ytpe="text/javascript" src="js/placeholder.js"></script>
 </body>

@@ -6,8 +6,8 @@
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>In Course</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/Teaching.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css"/>
-    <link rel="stylesheet" href="css/Teaching4.css" />
     <!--[if lt IE 9]>
     <script src="../JS/html5shiv.min.js"></script>
     <script src="../JS/respond.min.js"></script>
@@ -49,85 +49,93 @@
     	描述内容标签页切换
   -->
 <div class="content">
-    <!--
-         作者：offline
-         时间：2016-05-24
-         描述：中心内容
-     -->
+   <!--
+        作者：offline
+        时间：2016-05-24
+        描述：中心内容
+    -->
     <div id="center">
         <div class="container">
             <div class="row">
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html" class="box">教师管理</a></li>
-                        <li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
-                        <div class="col-md-2 col-xs-4"><a href="Teaching5.html">添加奖励</a></div>
-                        <div class="col-md-8 col-xs-4" id="col">奖励列表</div>
-                        <div class="col-md-2 col-xs-4"><a href="Teaching1.html">返回</a></div>
+                        <div class="col-md-2 col-xs-4"></div>
+                        <div class="col-md-8 col-xs-4" id="col">教师管理</div>
+                        <div class="col-md-2 col-xs-4"></div>
                     </div>
-                    <div class="reward">
-                        <div id="myCarousel" class="carousel slide">
-                        <!-- 轮播（Carousel）项目 -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                               <img src="images/Cj_04.jpg" id="div1">
-                                <img src="images/Cj_05.jpg"  id="div2">
-                                <img src="images/Cj_06.jpg"  id="div3">
-                            </div>
+                    <form action="" class="row choose">
+                        <ul class="nav navbar-nav">
+                            <li>年级：</li>
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">一年级</a></li>
+                            <li><a href="#">二年级</a></li>
+                            <li><a href="#">三年级</a></li>
+                            <li><a href="#">更多</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li>班级：</li>
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">1班</a></li>
+                            <li><a href="#">2班</a></li>
+                            <li><a href="#">3班</a></li>
+                            <li><a href="#">4班</a></li>
+                            <li><a href="#">5班</a></li>
+                            <li><a href="#">更多</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li>学科：</li>
+                            <li><a href="#">全科</a></li>
+                            <li><a href="#">语文</a></li>
+                            <li><a href="#">数学</a></li>
+                            <li><a href="#">英语</a></li>
+                            <li><a href="#">更多</a></li>
+                        </ul>
+                    </form>
+                    <div class="row candidates">
+                        <div class="col-md-1 col-xs-1"></div>
+                        <div class="col-md-2 col-xs-2">条件筛选</div>
+                        <div class="col-md-5 col-xs-5"></div>
+                        <div class="col-md-3 col-xs-3 fri">
+                        	        <input type="text" name="" class="form-control " placeholder="请输入姓名" />
+                                    <span><img src="images/search.png" /></span>
                         </div>
-                        <!-- 轮播（Carousel）导航 -->
-                        <a class="carousel-control left" href="javascript:;"> </a>
-                        <a class="carousel-control right" href="javascript:;"></a>
+                        <div class="col-md-1 col-xs-1"></div>
                     </div>
-                        <div class="nei row">
-                            <div class="col-md-4">
-                            <span>2008-04-16</span>
-                            <span>颁发</span>
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-md-2">
-                                <a href="Teaching5.html">添加</a>
-                                <span>删除</span>
-                                <div class="prompt">
-                                    你确定删除吗？
-                                    <br>
-                                    <span>确定</span>
-                                    <span>取消</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rewardt">
-                        <div id="myCarouselt" class="carousel slide">
-                        <!-- 轮播（Carousel）项目 -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="images/Cj_09.jpg" alt="First slide"  class="div1">
-                            </div>
-                            <div class="item">
-                                <img src="images/Cj_12.png" alt="First slide" class="div2">
-                            </div>
-                            <div class="item">
-                                <img src="images/Cj_12.png" alt="First slide" class="div3">
-                            </div>
-                        </div>
-                        <!-- 轮播（Carousel）导航 -->
-                        <a class="carousel-control left" href="#myCarouselt"
-                           data-slide="prev"></a>
-                        <a class="carousel-control right" href="#myCarouselt"
-                           data-slide="next"></a>
-                    </div>
-                        <div>
-                            <a href="Teaching5.html">编辑</a>
-                            <span>删除</span>
-                        </div>
-                    </div>
+                    <table id="table">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>教师</th>
+                            <th>年级</th>
+                            <th>班级</th>
+                            <th>科目</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="TeacherTask">1</a></td>
+                            <td><a href="TeacherTask">张玲</a></td>
+                            <td><a href="TeacherTask">一年级</a></td>
+                            <td><a href="TeacherTask">一班</a></td>
+                            <td><a href="TeacherTask">数学</a></td>
+                        </tr>
+                           <tr>
+                            <td><a href="#">2</a></td>
+                            <td><a href="#">张风</a></td>
+                            <td><a href="#">一年级</a></td>
+                            <td><a href="#">一班</a></td>
+                            <td><a href="#">数学</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
@@ -249,11 +257,10 @@
         </div>
     </div>
 </div>
-<div class="opca"></div>
-    <script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/Teaching4.js"></script>
+<script src="js/questionBank.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-    <script ytpe="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
 </body>
 </html>

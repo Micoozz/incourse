@@ -119,34 +119,6 @@ $(function(){
 	$('.chatRoom .personDataContent').hide()
 });
 })
-
-
-
-	/******** 演示用  开始 ********/
-		//学校首页、与我相关、个人中心、退出
-	$(function(){
-		$(".nav.head_nav>li").map(function(index,value){
-			var content = $(this).children("a").text();
-			if(content === "学校首页"){
-				$(this).children("a").removeAttr("href").click(function(){
-					window.location = "../../Media/mediaManager.html";
-				});
-				$(this).children("div").children("a").removeAttr("href").click(function(){
-					window.location = "../../Media/relateToMeManager.html";
-				});
-			}else if(content === "个人中心"){
-				$(this).children("div").children("a:last-child").removeAttr("href").click(function(){
-					console.log(111)
-					window.location = "../AdminData/teacherPersonData.html";
-				});
-			}else if(content === "退出"){
-				$(this).children("a").removeAttr("href").click(function(){
-					window.location = "../../index.html";
-				});
-			}
-		})
-	})
-
 	//修改导航栏的鼠标指针
 	$(function(){
 		$(".nav.head_nav>li").css("cursor","pointer");

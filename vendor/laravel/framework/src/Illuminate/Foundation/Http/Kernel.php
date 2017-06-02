@@ -61,7 +61,9 @@ class Kernel implements KernelContract
      *
      * @var array
      */
-    protected $routeMiddleware = [];
+    protected $routeMiddleware = [
+        
+    ];
 
     /**
      * The priority-sorted list of middleware.

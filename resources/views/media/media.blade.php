@@ -34,34 +34,7 @@
 <!--顶部固定定位-->
 <div id="fixedTop">
     <div class="navbar">
-        <div>
-        <div class="indexLogo">
-            <img src="images/media/LOGO.png"/>
-            <img src="images/media/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="media.html" class="blue" id="home">学校首页</a>
-                <div>
-                    <a href="relateToMe.html" id="me">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="javascript:;" class="studyCenter" id="study">学习中心</a></li>
-            <li><a href="javascript:;" class="classCenter" id="classroom">班级中心</a></li>
-            <li><a href="javascript:;">交易中心</a></li>
-            <li class="affix"><a href="javascript:;"><img src="images/media/01.png"/></a></li>
-            <li class="personCenter"><a href="javascript:;">个人中心</a>
-                <div class="cent">
-                    <a href="javascript:;" class="analyseCenter" id="analyse">分析中心</a>
-                    <a href="javascript:;" class="studyLife" id="studyLife">学习生活记录</a>
-                    <a href="javascript:;" class="personInfo" id="person">个人信息</a>
-                </div>
-            </li>
-            <!--账号登入了就显示“退出”按钮,没登录就没有“退出”按钮-->
-            <li><a href="javascript:;" class="blue">退出</a></li>
-        </ul>
-        </div>
+        @include('student.include.head')
     </div>
     <div class="mediaDown">
         <img src="images/media/Hpb_mediaDown.png"/>
@@ -147,7 +120,7 @@
         </div>
         <hr/>
         <div class="content">
-            <a href="mediaDetail.html" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
+            <a href="/mediaDetail" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
             <p class="articleBox">
                 “快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，“在一起，我快乐”是快乐学校的理念，也是每一位志愿者和孩子的心声。
             </p>

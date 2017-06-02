@@ -62,7 +62,7 @@
 						<input type="radio" id="input3" name="job" value="manager" num='3'/><span>管理员</span>
 					</label>	
 					
-					<input type="submit" class="submitBtn" value="登录"/>
+					<input type="button" class="submitBtn" value="登录"/>
 				</form>
 			</div>
 		</center>
@@ -103,24 +103,24 @@
 				});
 
 			})
-			$(function(){
-				$(".submitBtn").click(function(event){
-					event.preventDefault();
-					var msg = $("#login").serialize();
-					console.log(msg)
-					sessionStorage.setItem("job",msg);
+			// $(function(){
+			// 	$(".submitBtn").click(function(event){
+			// 		event.preventDefault();
+			// 		var msg = $("#login").serialize();
+			// 		console.log(msg)
+			// 		sessionStorage.setItem("job",msg);
 
-					switch(msg){
-						case "job=teacher" : window.location="./Media/media.html?"+msg;
-							break;
-						case "job=student" : window.location="./Media/media.html?"+msg;
-							break;
-						case "job=manager" : window.location="./Media/mediaManager.html";
-							break;
-						default : break;
-					}
-				})
-			})
+			// 		switch(msg){
+			// 			case "job=teacher" : window.location="./Media/media.html?"+msg;
+			// 				break;
+			// 			case "job=student" : window.location="./Media/media.html?"+msg;
+			// 				break;
+			// 			case "job=manager" : window.location="./Media/mediaManager.html";
+			// 				break;
+			// 			default : break;
+			// 		}
+			// 	})
+			// })
 
 //	ajax请求
 $(function(){
@@ -139,11 +139,13 @@ $(function(){
 				$.ajax({
 			type:"post",
 			url:"/login",
-			data:{'name':name,'passwords':passwords,"number":numbers},
+			data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
 			dataType:'json',
 			success:function(data){
+				// console.log(data);
 				if(data.code==200){
-					console.log('登录成功')
+					// console.log('登录成功');
+					window.location.href = '/media';
 				}else{
 					console.log('登录失败')
 				}
