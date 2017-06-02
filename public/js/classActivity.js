@@ -5,9 +5,6 @@ $(function(){
         width:b,
         height:a
     });
-    $('.head_nav li:first-child a').css({
-        color:'red'
-    });
     $('.head_nav li:first-child').click(function(){
         $('.Bomb').show();
         $('.opca').show();

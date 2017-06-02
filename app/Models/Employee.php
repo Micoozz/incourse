@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Model
+class Employee extends Authenticatable
 {
     /*
     员工账户Model

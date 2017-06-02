@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Input;
 
 class LoginController extends Controller
 {
@@ -11,15 +12,18 @@ class LoginController extends Controller
     
     public  function login(){
     	$input = Input::get();
-    	if($input->login_entry == 1){
-
-    	}elseif($input->login_entry == 2){
-
-    	}elseif($input->login_entry == 3){
-
+    	$guard = 'web';
+    	if($input['number'] == 3){
+    		$guard = 'school';
+    	}elseif($input['number'] == 2){
+    		$guard = 'employee';
+    	}elseif($input['number'] == 1){
+    		$guard = 'student';
     	}
-    	if(Auth::guard($guard)->attempt(['username' => $input->username,'password' => $password])){
-
+    	$code = '201';
+    	if(Auth::guard($guard)->attempt(['username' => $input['name'],'password' => $input['passwords']])){
+    		$code = '200';
     	}
+    	return $code;
     }
 }
