@@ -62,8 +62,8 @@
 						<!--左侧栏-->
 						<div class="col-xs-12" id="left">
 							<ul class="nav1 nav" id="nav1">
-								<li><a href="Teaching.html" class="box">教师管理</a></li>
-								<li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
 							</ul>
 						</div>
 						<!--内容-->

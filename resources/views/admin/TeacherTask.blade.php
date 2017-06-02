@@ -61,16 +61,16 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html" class="box">教师管理</a></li>
-                        <li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
-                        <div class="col-md-2 col-xs-4"><a href="Teaching4.html">所获奖励</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="BonusList">所获奖励</a></div>
                         <div class="col-md-8 col-xs-4" id="col">张玲教师</div>
-                        <div class="col-md-2 col-xs-4"><a href="Teaching.html">返回</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="TeachingManagement">返回</a></div>
                     </div>
                     <form action="" class="row choose">
                         <ul class="nav navbar-nav">

@@ -60,16 +60,16 @@
                 <!--左侧栏-->
                 <div class="col-xs-12" id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Teaching.html" class="box">教师管理</a></li>
-                        <li><a href="Teaching2.html">学生管理</a></li>
+                        <li><a href="TeachingManagement" class="box">教师管理</a></li>
+                        <li><a href="StudentManagement">学生管理</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
-                        <div class="col-md-2 col-xs-4"><a href="Teaching5.html">添加奖励</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="TRewardEditor">添加奖励</a></div>
                         <div class="col-md-8 col-xs-4" id="col">奖励列表</div>
-                        <div class="col-md-2 col-xs-4"><a href="Teaching1.html">返回</a></div>
+                        <div class="col-md-2 col-xs-4"><a href="TeacherTask">返回</a></div>
                     </div>
                     <div class="reward">
                         <div id="myCarousel" class="carousel slide">
@@ -92,7 +92,7 @@
                             </div>
                             <div class="col-md-6"></div>
                             <div class="col-md-2">
-                                <a href="Teaching5.html">添加</a>
+                                <a href="TRewardEditor">添加</a>
                                 <span>删除</span>
                                 <div class="prompt">
                                     你确定删除吗？
@@ -124,14 +124,14 @@
                            data-slide="next"></a>
                     </div>
                         <div>
-                            <a href="Teaching5.html">编辑</a>
+                            <a href="TRewardEditor">编辑</a>
                             <span>删除</span>
                         </div>
                     </div>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
-                    <div class="col-md-12 col-xs-12"><a href="schoolNotice.html">
+                    <div class="col-md-12 col-xs-12"><a href="BonusList">
                         通知</a><span class="openNotice">3</span>
                     </div>
                     <div class="col-md-12 col-xs-12 next">
