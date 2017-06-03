@@ -6,12 +6,12 @@
 	</div>
 	<ul class="nav head_nav">
 				<li class="schoolMain">
-					<a href="/media">学校首页</a>
+					<a href="/media" class="blue">学校首页</a>
 					<div>
 						<a href="javascript:;">@与我相关</a>
 					</div>
 				</li>
-            	 <li><a href="/zuoyenbenneirongliebiao" class="blue">学习中心</a></li>
+            	 <li><a href="/zuoyenbenneirongliebiao">学习中心</a></li>
                 <li><a href="javascript:;">班级中心</a></li>
                 <li><a href="javascript:;">交易中心</a></li>
                 <li class="affix"><a href="javascript:;"><img src="images/01.png" /></a></li>

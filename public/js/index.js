@@ -6,10 +6,8 @@
 	//标签页切换
 	$(function(){
 $('#nav1>li>a').click(function(){
-		$(this).css({
-			background:'#168AED',
-			color:'#fff'
-		})
+		$('#nav1>li>a').removeClass('box');
+		$(this).addClass("box");
 })
 	});
 $(function(){
@@ -119,7 +117,11 @@ $(function(){
 	$('.chatRoom .personDataContent').hide()
 });
 })
-	//修改导航栏的鼠标指针
-	$(function(){
-		$(".nav.head_nav>li").css("cursor","pointer");
+
+/* 顶部导航栏点击字体变蓝 */
+$(function() {
+	$('.head_nav>li a').click(function() {
+		$('.head_nav>li a').removeClass('blue');
+		$(this).addClass('blue');
 	})
+})
