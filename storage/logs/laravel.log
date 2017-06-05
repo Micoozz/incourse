@@ -14272,3 +14272,13 @@ Stack trace:
 #6 D:\application\incourse\public\index.php(58): Illuminate\Foundation\Http\Kernel->terminate(Object(Illuminate\Http\Request), Object(Illuminate\Http\Response))
 #7 {main}  
 >>>>>>> 73874049f084d5a24922117b4daf35dbd7433797
+[2017-06-05 06:21:42] local.ERROR: Symfony\Component\Console\Exception\CommandNotFoundException: Command "db:srrd" is not defined.
+
+Did you mean this?
+    db:seed in D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php:556
+Stack trace:
+#0 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(197): Symfony\Component\Console\Application->find('db:srrd')
+#1 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(122): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 D:\application\apache\htdocs\incourse\artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
