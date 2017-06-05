@@ -4,9 +4,6 @@
     <meta charset="utf-8">
    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/index.js" ></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/homework.css"/>
@@ -193,5 +190,10 @@
   		</div>
   		<div id="footf"></div>
   		<div id="footer"></div>
+  		
+  		
+  	<script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/index.js" ></script>
 </body>
 </html>
