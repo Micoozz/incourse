@@ -38,7 +38,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/correctingPrimarycoverage','PageController@correctingPrimarycoverage');
 		Route::get('/correctionPrimaryCoverage','PageController@correctionPrimaryCoverage');
 		Route::get('/exerciseEditor','PageController@exerciseEditor');
-		Route::get('/Favorites','PageController@Favorites');
+		Route::get('/favorites','PageController@favorites');
 		Route::get('/groupWorkMarshalling','PageController@groupWorkMarshalling');
 		Route::get('/groupWorkScore','PageController@groupWorkScore');
 		Route::get('/groupWorkScoreLoooked','PageController@groupWorkScoreLoooked');

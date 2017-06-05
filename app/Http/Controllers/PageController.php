@@ -74,8 +74,8 @@ class PageController extends Controller
     public function exerciseEditor(){
     	return view('teacher.exerciseEditor');
     }
-    public function Favorites(){
-    	return view('teacher.Favorites');
+    public function favorites(){
+    	return view('teacher.favorites');
     }
     public function groupWorkMarshalling(){
     	return view('teacher.groupWorkMarshalling');
