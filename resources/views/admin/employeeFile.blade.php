@@ -27,33 +27,33 @@
 </head>
 
 <body>
-<div class="navbar">
-    <div>
-        <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="mediaManager">学校首页</a>
-                <div>
-                    <a href="relateToMeManager">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="addEmployeeFile" class="blue">档案管理</a></li>
-            <li class="affix">
-                <a href="javascript:;"><img src="images/01.png" /></a>
-            </li>
+    <div class="navbar">
+        <div>
+            <div class="indexLogo">
+                <img src="images/LOGO.png"/>
+                <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
+                <b>湖南工程学院</b>
+            </div>
+            <ul class="nav head_nav">
+                <li class="schoolMain">
+                    <a href="/media">学校首页</a>
+                    <div>
+                        <a href="relateToMeManager">@与我相关</a>
+                    </div>
+                </li>
+                <li><a href="/addEmployeeFile" class="blue">档案管理</a></li>
+                <li class="affix">
+                    <a href="javascript:;"><img src="images/01.png" /></a>
+                </li>
                 <li class="personCenter"><a href="javascript:;">个人中心</a>
                     <div class="cent">
                         <a href="teacherPersonData">个人信息</a>
                     </div>
                 </li>
-                <li><a href="index" class="blue">退出</a></li>
-        </ul>
+                <li><a href="/logout" class="blue">退出</a></li>
+            </ul>
+        </div>
     </div>
-</div>
     <!--
     	作者：offline
     	时间：2016-05-24

@@ -6,6 +6,8 @@
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
     <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/Correcting_operation.css">
@@ -24,37 +26,38 @@
     <![endif]-->
 </head>
 <body>
-    <div class="navbar">
-    	 <div>
-              <div class="indexLogo">
-                  <img src="images/LOGO.png"/>
-                  <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-                  <b>湖南工程学院</b>
-             </div>
-             <ul class="nav head_nav">
-                 <li class="schoolMain">
-                     <a href="../自媒体中心/media.html">学校首页</a>
-                     <div>
-                         <a href="../自媒体中心/relateToMe.html">@与我相关</a>
-                     </div>
-                 </li>
-                 <li><a href="Arrangement_work(homepage).html" class="blue">学习中心</a></li>
-                 <li><a href="classSpace111.html">班级中心</a></li>
-                 <!--<li><a href="javascript:;">交易中心</a></li>-->
-                 <li class="affix">
-                     <a href="javascript:;"><img src="images/01.png" /></a>
-                 </li>
-                 <li class="personCenter"><a href="javascript:;">个人中心</a>
-                      <div class="cent">
-                          <a href="class.html">分析中心</a>
-                          <a href="老师成绩单1.html">学习生活记录</a>
-                          <a href="teacherPersonData.html">个人信息</a>
-                      </div>
-                 </li>
-                 <li><a href="../登录页/index.html" class="blue">退出</a></li>
-             </ul>
-    	 </div>
-     </div>
+<div class="navbar">
+    <div>
+        <div class="indexLogo">
+            <img src="images/LOGO.png"/>
+            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
+            <b>湖南工程学院</b>
+        </div>
+        <ul class="nav head_nav">
+            <li class="schoolMain">
+                <a href="/media">学校首页</a>
+                <div>
+                    <a href="/relateToMe">@与我相关</a>
+                </div>
+            </li>
+            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
+            <li><a href="classSpace111">班级中心</a></li>
+            <!--<li><a href="javascript:;">交易中心</a></li>-->
+            <li class="affix">
+                <a href="javascript:;"><img src="images/01.png"/></a>
+            </li>
+            <li class="personCenter"><a href="javascript:;">个人中心</a>
+                <div class="cent">
+                    <a href="class">分析中心</a>
+                    <a href="老师成绩单1">学习生活记录</a>
+                    <a href="teacherPersonData">个人信息</a>
+                </div>
+            </li>
+            <li><a href="/logout" class="blue">退出</a></li>
+        </ul>
+
+    </div>
+</div>
     <!--
     	作者offline
     	时间2016-05-24
@@ -65,9 +68,9 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class.html">+创建班级</a></li>
-                    <li><a href="#">一年一班语文</a></li>
-                    <li><a href="#">二年一班音乐</a></li>
+                    <li><a href="create-class">+创建班级</a></li>
+                    <li>一年一班语文</li>
+                    <li>二年一班音乐</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -83,22 +86,25 @@
         <div class="container">
             <div class="row">
                 <!--左侧栏-->
-                <div class="col-xs-12" id="left">
+                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage).html" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor.html">习题库</a></li>
-                        <li><a href="data.html">资料库</a></li>
-                        <li><a href="duty_arrange.html">班级管理</a></li>
-                        <li><a href="classindex.html">成绩管理</a></li>
-                        <li><a href="class-outline.html">课程大纲</a></li>
-                        <li><a href="A_classroom_courseware_111.html">课堂课件</a></li>
+                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
+                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="data">资料库</a></li>
+                        <li><a href="duty_arrange">班级管理</a></li>
+                        <li><a href="classindex">成绩管理</a></li>
+                        <li style="padding: 0"><a href="class-outline" data-step="3"
+                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
+                        </li>
+                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
                     </ul>
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
                         <div id="homework" class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p"><a href="Job_analysis.html">作业分析</a></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p"><a href="#" data-toggle="modal"
+                                                                                      data-target="#myModal"></a></div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center_title" style="font-size: 18px">一年一班作业（语文）
 
@@ -110,75 +116,60 @@
                         </div>
                     </div>
                     <div class="container-fluid" id="container">
-                        <div class="row new-head" id="exl">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">姓名</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">时间</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">评分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">状态</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                        </div>
-                        <div class="row new-head">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1.张玲</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_main_contents.html">批改</a>
+                        <div class="row head_2" id="exl">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="margin-top: 9px">
+                                <span class="bold">负责人：</span>李蓉辉
                             </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 pf" style="margin-top: 3px">
+                                <div>
+                                    评分：
+                                    <input maxlength="3" onkeyup='this.value=this.value.replace(/\D/gi,"")' value="100"><span
+                                        style="color: #f76156;">分</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2"></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <button class="btn btn_s Pc-bc">保存</button>
+                            </div>
+
                         </div>
-                        <div class="row new-head">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2.张玲</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray ">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage.html">查看</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        <div class="go_success" style="top: 45%">保存成功！</div>
+                        <div class="row gap">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span class="bold">小组任务：</span>研究校外附近河流水流的流向以及漂流的基本形态和水的酸碱度和自我净化能力
+                            </div>
                         </div>
-                        <div class="row new-head">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">3.张玲</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage.html">查看</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        <div class="row gap">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span class="bold">个人职责：</span>为小组的研究结果做报告与总结，并论述完整的总结性报告
+                            </div>
                         </div>
-                        <div class="row new-head">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">4.张玲</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage.html">查看</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        <div class="row gap">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span class="bold">结果提交：</span>
+                            </div>
                         </div>
-                        <div class="row new-head">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">5.张玲</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage.html">查看</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        <div class="row gap" style="margin: 0%">
+                             <textarea name="" id="" placeholder="未添加总结报告" readonly style="resize: none"
+                                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></textarea>
+                        </div>
+                        <div class="row gap" style="margin: 0%">
+                             <textarea name="" placeholder="请添加批语" style="resize: none"
+                                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></textarea>
                         </div>
                     </div>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
                     <div class="col-md-12 col-xs-12">
-                        <a href="schoolNotice.html" style="color: #FFFFFF ">通知</a> <span class="openNotice">3</span>
+                        <a href="schoolNotice" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
                     </div>
                     <div class="col-md-12 col-xs-12 next">
                         <ul class="nav nave">
-                            <li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-                            <li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-                            <li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+                            <li><a href="classNotice">1.明天交语文作业</a></li>
+                            <li><a href="classNotice">2.5.1放假通知</a></li>
+                            <li><a href="classNotice">3.周五语文考试</a></li>
                         </ul>
-
                     </div>
                     <div class="foot">
                         <div class="img" id="img"></div>
@@ -289,14 +280,23 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 <div id="footf"></div>
 <div id="footer"></div>
-
-
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+<script>
+    $(function () {
+        $(".Pc-bc").click(
+                function () {
+                    $(".go_success").show();
+                    setTimeout(function () {
+                        $(".go_success").hide()
+                    }, 1000);
+                }
+        )
+    })
+</script>
 </body>
 </html>

@@ -6,9 +6,7 @@
     <title>InCourse</title>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="js/index.js" ></script>
-
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/Correcting_operation.css">
@@ -27,37 +25,38 @@
     <![endif]-->
 </head>
 <body>
-    <div class="navbar">
-    	<div>
-             <div class="indexLogo">
-                 <img src="images/LOGO.png"/>
-                 <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-                 <b>湖南工程学院</b>
-             </div>
-             <ul class="nav head_nav">
-                  <li class="schoolMain">
-                      <a href="../自媒体中心/media.html">学校首页</a>
-                      <div>
-                          <a href="../自媒体中心/relateToMe.html">@与我相关</a>
-                      </div>
-                  </li>
-                  <li><a href="Arrangement_work(homepage).html" class="blue">学习中心</a></li>
-                  <li><a href="classSpace111.html">班级中心</a></li>
-                  <!--<li><a href="javascript:;">交易中心</a></li>-->
-                  <li class="affix">
-                      <a href="javascript:;"><img src="images/01.png" /></a>
-                  </li>
-                  <li class="personCenter"><a href="javascript:;">个人中心</a>
-                      <div class="cent">
-                           <a href="class.html">分析中心</a>
-                           <a href="老师成绩单1.html">学习生活记录</a>
-                           <a href="teacherPersonData.html">个人信息</a>
-                      </div>
-                  </li>
-                  <li><a href="../登录页/index.html" class="blue">退出</a></li>
-             </ul>
-    	 </div>
-     </div>
+<div class="navbar">
+    <div>
+        <div class="indexLogo">
+            <img src="images/LOGO.png"/>
+            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
+            <b>湖南工程学院</b>
+        </div>
+        <ul class="nav head_nav">
+            <li class="schoolMain">
+                <a href="/media">学校首页</a>
+                <div>
+                    <a href="/relateToMe">@与我相关</a>
+                </div>
+            </li>
+            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
+            <li><a href="classSpace111">班级中心</a></li>
+            <!--<li><a href="javascript:;">交易中心</a></li>-->
+            <li class="affix">
+                <a href="javascript:;"><img src="images/01.png"/></a>
+            </li>
+            <li class="personCenter"><a href="javascript:;">个人中心</a>
+                <div class="cent">
+                    <a href="class">分析中心</a>
+                    <a href="老师成绩单1">学习生活记录</a>
+                    <a href="teacherPersonData">个人信息</a>
+                </div>
+            </li>
+            <li><a href="/logout" class="blue">退出</a></li>
+        </ul>
+
+    </div>
+</div>
     <!--
     	作者offline
     	时间2016-05-24
@@ -68,7 +67,7 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class.html">+创建班级</a></li>
+                    <li><a href="create-class">+创建班级</a></li>
                     <li>一年一班语文</li>
                     <li>二年一班音乐</li>
                 </ul>
@@ -86,15 +85,17 @@
         <div class="container">
             <div class="row">
                 <!--左侧栏-->
-                <div class="col-xs-12" id="left">
+                <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage).html" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor.html">习题库</a></li>
-                        <li><a href="data.html">资料库</a></li>
-                        <li><a href="duty_arrange.html">班级管理</a></li>
-                        <li><a href="classindex.html">成绩管理</a></li>
-                        <li><a href="class-outline.html">课程大纲</a></li>
-                        <li><a href="A_classroom_courseware_111.html">课堂课件</a></li>
+                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
+                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="data">资料库</a></li>
+                        <li><a href="duty_arrange">班级管理</a></li>
+                        <li><a href="classindex">成绩管理</a></li>
+                        <li style="padding: 0"><a href="class-outline" data-step="3"
+                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
+                        </li>
+                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -103,71 +104,67 @@
                         <div id="homework" class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p"></div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="font-size: 18px">作业分析
-
-                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center_title" style="font-size: 18px">一年一班作业（语文）</div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
                                 <div id="document"><a href="javascript:history.go(-1)"><img src="images/return2.png" alt="">返回</a></div>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered xb-table">
-                        <thead>
-                        <tr>
-                            <th style="width: 30% ;text-align: center;">作业隶属章节</th>
-                            <th style="text-align: center;" colspan="2">第三章第一节</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>应交作业人数</td>
-                            <td colspan="2">50人</td>
+                    <div class="container-fluid" id="container">
+                        <div class="row new-head" id="exl">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">标题</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">所属章节</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">发布时间</div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">类型</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">状态</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
+                        </div>
+                        <div class="row new-head">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">1.第一次作业详细题目</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">第三章第二节</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未批改</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">批改</a></div>
+                        </div>
+                        <div class="row new-head">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">2.第一次作业详细题目</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">第三章第二节</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">独立</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未批改</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="Correcting_homepage" class="blue">批改</a></div>
+                        </div>
+                        <div class="row new-head">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">3.第一次作业详细题目</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">第三章第二节</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue">批改中</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">批改</a></div>
+                        </div>
+                        <div class="row new-head">
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">4.第一次作业详细题目</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">第三章第二节</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已完结</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">查看</a></div>
+                        </div>
 
-                        </tr>
-                        <tr>
-                            <td>未交作业人数</td>
-                            <td colspan="2">10人</td>
 
-                        </tr>
-                        <tr>
-                            <td>平均作业耗时</td>
-                            <td colspan="2">3h</td>
-                        </tr>
-                        <tr>
-                            <td>作业平均分</td>
-                            <td colspan="2">80分</td>
-                        </tr>
-                        <tr>
-                            <td>合格率</td>
-                            <td colspan="2">80%</td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                    <div class="no-work"><a href="#noworkname" data-toggle="collapse" >查看未交作业名单</a></div>
-                    <div class="nowork_name collapse" id="noworkname">
-                        <span>王菲</span>
-                        <span>刘德华</span>
-                        <span>赵丽颖</span>
-                        <span>张宇</span>
-                        <span>刘翔</span>
-                        <span>章泽天</span>
-                        <span>刘强东</span>
-                        <span>赵本山</span>
-                        <span>小沈阳</span>
-                        <span>章鱼妹妹</span>
                     </div>
                 </div>
                 <!--右侧栏-->
                 <div class="col-xs-12 left">
                     <div class="col-md-12 col-xs-12">
-                        <a href="schoolNotice.html" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
+                        <a href="schoolNotice" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
                     </div>
                     <div class="col-md-12 col-xs-12 next">
                         <ul class="nav nave">
-                            <li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-                            <li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-                            <li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+                            <li><a href="classNotice">1.明天交语文作业</a></li>
+                            <li><a href="classNotice">2.5.1放假通知</a></li>
+                            <li><a href="classNotice">3.周五语文考试</a></li>
                         </ul>
                     </div>
                     <div class="foot">
@@ -197,7 +194,7 @@
                     <ul class="nav">
                         <li class="row">
                             <div class="chatRoom1 col-md-12">
-                                    <a href="#" class="col-md-1" style="width: 4%;padding: 0;color: #fff!important;">小明</a>
+                                                                  <a href="#" class="col-md-1" style="width: 4%;padding: 0;color: #fff!important;">小明</a>
                                     <a href="javascript;" class="col-md-1"><img src="images/bo.png"/></a>
                                     <span class="col-md-1" style="text-align: right;cursor: pointer;float: right;">X</span>
                             </div>
