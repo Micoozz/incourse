@@ -497,6 +497,7 @@ color: #168AED;
 }
 .head_nav li{
 		float: left;
+		cursor: pointer;
 	}
 	/*
  媒体查询
@@ -731,3 +732,6 @@ color: #168AED;
 	.indexLogo{
 		cursor:default;
 	}
+	
+
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Input;
+use Redirect;
 
 class LoginController extends Controller
 {
@@ -15,15 +16,21 @@ class LoginController extends Controller
     	$guard = 'web';
     	if($input['number'] == 3){
     		$guard = 'school';
-    	}elseif($input['number'] == 2){
-    		$guard = 'employee';
     	}elseif($input['number'] == 1){
+    		$guard = 'employee';
+    	}elseif($input['number'] == 2){
     		$guard = 'student';
     	}
     	$code = '201';
     	if(Auth::guard($guard)->attempt(['username' => $input['name'],'password' => $input['passwords']])){
     		$code = '200';
     	}
-    	return $code;
+    	$data = array('code' => $code);
+    	return json_encode($data);
+    }
+
+    public function logout(){
+    	Auth::logout();
+    	return Redirect::to('/');
     }
 }

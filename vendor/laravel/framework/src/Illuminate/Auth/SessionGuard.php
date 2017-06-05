@@ -490,9 +490,9 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         // listening for anytime a user signs out of this application manually.
         $this->clearUserDataFromStorage();
 
-        if (! is_null($this->user)) {
-            $this->cycleRememberToken($user);
-        }
+        // if (! is_null($this->user)) {
+        //     $this->cycleRememberToken($user);
+        // }
 
         if (isset($this->events)) {
             $this->events->dispatch(new Events\Logout($user));

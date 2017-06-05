@@ -1,9 +1,3 @@
-/**
- * Created by Administrator on 2016/7/12.
- */
-/**
- * Created by Administrator on 2016/7/8.
- */
 /****************顶部搜索栏******************/
 /***省，市区，学校****/
 $(function(){

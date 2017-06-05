@@ -5,10 +5,10 @@ $(function(){
         width:b,
         height:a
     });
-    $('.head_nav li:first-child').click(function(){
-        $('.Bomb').show();
-        $('.opca').show();
-    });
+//  $('.head_nav li:first-child').click(function(){
+//      $('.Bomb').show();
+//      $('.opca').show();
+//  });
     $('.opca').click(function(){
         $('.Bomb').hide();
         $('.opca').hide();
