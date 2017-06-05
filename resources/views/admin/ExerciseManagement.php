@@ -27,7 +27,7 @@
             <li class="schoolMain">
                 <a href="mediaManager">学校首页</a>
                 <div>
-                    <a href="../../自媒体中心/relateToMeManager">@与我相关</a>
+                    <a href="relateToMeManager">@与我相关</a>
                 </div>
             </li>
             <li><a href="questionBank" class="blue">题库管理</a></li>

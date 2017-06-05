@@ -23,9 +23,9 @@
         </div>
         <ul class="nav head_nav">
             <li class="schoolMain">
-                <a href="../../自媒体中心/mediaManager.html">学校首页</a>
+                <a href="mediaManager">学校首页</a>
                 <div>
-                    <a href="../../自媒体中心/relateToMeManager.html">@与我相关</a>
+                    <a href="relateToMeManager">@与我相关</a>
                 </div>
             </li>
             <!--根据账号具体身份显示对应的管理员功能-->
@@ -42,7 +42,7 @@
                         <a href="#" class="blue">个人信息</a>
                     </div>
                 </li>
-                <li><a href="../../登录页/index.html" class="blue">退出</a></li>
+                <li><a href="index" class="blue">退出</a></li>
         </ul>
     
     	</div>
