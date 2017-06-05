@@ -33,7 +33,7 @@
 						</div>
 						<div>
 							<span><img src="images/Cj_lock.png" alt="" /></span>
-							<input type="password" placeholder="请输入密码"/>
+							<input type="password" placeholder="请输入密码" class="login-password"/>
 							<img src="images/Cj_password.png" alt="" title="显示密码" onclick="return false"/>
 						</div>
 						<div>验证码：<input type="text" name="" id="yzm" value="" /></div>
@@ -130,7 +130,7 @@ $(function(){
 	})
 	$('.submitBtn').click(function(){
 				var name=$('.label input[type="text"]').val(),
-					passwords=$('.label input[type="password"]').val();
+					passwords=$('.login-password').val();
 		if(name==''){
 			alert('用户名不能为空')
 		}else if(passwords==''){
