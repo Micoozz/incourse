@@ -45,35 +45,27 @@
         </div>
         <ul class="nav head_nav">
             <li class="schoolMain">
-                <a href="../自媒体中心/media.html">学校首页</a>
-
+                <a href="/media">学校首页</a>
                 <div>
-                    <a href="../自媒体中心/relateToMe.html">@与我相关</a>
+                    <a href="/relateToMe">@与我相关</a>
                 </div>
             </li>
-            <li>
-                <a href="Arrangement_work(homepage).html" class="blue">学习中心</a>
-            </li>
-            <li>
-                <a href="classSpace111.html">班级中心</a>
-            </li>
+            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
+            <li><a href="classSpace111">班级中心</a></li>
             <!--<li><a href="javascript:;">交易中心</a></li>-->
             <li class="affix">
                 <a href="javascript:;"><img src="images/01.png"/></a>
             </li>
-            <li class="personCenter">
-                <a href="javascript:;">个人中心</a>
-
+            <li class="personCenter"><a href="javascript:;">个人中心</a>
                 <div class="cent">
-                    <a href="class.html">分析中心</a>
-                    <a href="老师成绩单1.html">学习生活记录</a>
-                    <a href="teacherPersonData.html">个人信息</a>
+                    <a href="class">分析中心</a>
+                    <a href="老师成绩单1">学习生活记录</a>
+                    <a href="teacherPersonData">个人信息</a>
                 </div>
             </li>
-            <li>
-                <a href="../登录页/index.html" class="blue">退出</a>
-            </li>
+            <li><a href="/logout" class="blue">退出</a></li>
         </ul>
+
     </div>
 </div>
 <!--
@@ -106,29 +98,17 @@
         <div class="container">
             <div class="row">
                 <!--左侧栏-->
-                <div class="col-xs-12" id="left">
+                <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li>
-                            <a href="Arrangement_work(homepage).html">作业管理</a>
+                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
+                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="data">资料库</a></li>
+                        <li><a href="duty_arrange">班级管理</a></li>
+                        <li><a href="classindex">成绩管理</a></li>
+                        <li style="padding: 0"><a href="class-outline" data-step="3"
+                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
                         </li>
-                        <li>
-                            <a href="Exercise_editor.html" class="box">习题库</a>
-                        </li>
-                        <li>
-                            <a href="data.html">资料库</a>
-                        </li>
-                        <li>
-                            <a href="duty_arrange.html">班级管理</a>
-                        </li>
-                        <li>
-                            <a href="classindex.html">成绩管理</a>
-                        </li>
-                        <li>
-                            <a href="class-outline.html">课程大纲</a>
-                        </li>
-                        <li>
-                            <a href="A_classroom_courseware_111.html">课堂课件</a>
-                        </li>
+                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -141,7 +121,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
                             <div id="document">
-                                <a href="Favorites.html" data-step="3" data-intro="自己收藏的习题都会在这里保存"><img
+                                <a href="Favorites" data-step="3" data-intro="自己收藏的习题都会在这里保存"><img
                                         src="images/document.png" alt="">收藏夹</a>
                             </div>
                         </div>
@@ -1093,13 +1073,13 @@
                     <div class="col-md-12 col-xs-12 next">
                         <ul class="nav nave">
                             <li>
-                                <a href="classNotice.html#notice_01">1.明天交语文作业</a>
+                                <a href="classNotice">1.明天交语文作业</a>
                             </li>
                             <li>
-                                <a href="classNotice.html#notice_02">2.5.1放假通知</a>
+                                <a href="classNotice">2.5.1放假通知</a>
                             </li>
                             <li>
-                                <a href="classNotice.html#notice_03">3.周五语文考试</a>
+                                <a href="classNotice">3.周五语文考试</a>
                             </li>
                         </ul>
                         <div class="scc">
@@ -1109,7 +1089,7 @@
                                 <li class="c2">简答题（<span>1</span>）</li>
                                 <li class="c3">画图题（<span>1</span>）</li>
                             </ol>
-                            <a href="Independent_operation_Add_job_section.html" class="cs">生成作业</a>
+                            <a href="Independent_operation_Add_job_section" class="cs">生成作业</a>
                         </div>
                     </div>
                     <div class="foot">

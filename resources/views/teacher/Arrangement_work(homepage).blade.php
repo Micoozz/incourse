@@ -31,25 +31,25 @@
         </div>
         <ul class="nav head_nav">
             <li class="schoolMain">
-                <a href="../自媒体中心/media.html">学校首页</a>
+                <a href="/media">学校首页</a>
                 <div>
-                    <a href="../自媒体中心/relateToMe.html">@与我相关</a>
+                    <a href="/relateToMe">@与我相关</a>
                 </div>
             </li>
-            <li><a href="Arrangement_work(homepage).html" class="blue">学习中心</a></li>
-            <li><a href="classSpace111.html">班级中心</a></li>
+            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
+            <li><a href="classSpace111">班级中心</a></li>
             <!--<li><a href="javascript:;">交易中心</a></li>-->
             <li class="affix">
                 <a href="javascript:;"><img src="images/01.png"/></a>
             </li>
             <li class="personCenter"><a href="javascript:;">个人中心</a>
                 <div class="cent">
-                    <a href="class.html">分析中心</a>
-                    <a href="老师成绩单1.html">学习生活记录</a>
-                    <a href="teacherPersonData.html">个人信息</a>
+                    <a href="class">分析中心</a>
+                    <a href="老师成绩单1">学习生活记录</a>
+                    <a href="teacherPersonData">个人信息</a>
                 </div>
             </li>
-            <li><a href="../登录页/index.html" class="blue">退出</a></li>
+            <li><a href="/logout" class="blue">退出</a></li>
         </ul>
 
     </div>
@@ -64,7 +64,7 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class.html" data-step="4" data-intro="如果您有新的班级课程，可在这里点击添加">+创建班级</a></li>
+                    <li><a href="create-class" data-step="4" data-intro="如果您有新的班级课程，可在这里点击添加">+创建班级</a></li>
                     <li>一年一班语文</li>
                     <li>二年一班音乐</li>
                 </ul>
@@ -84,15 +84,15 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage).html" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor.html">习题库</a></li>
-                        <li><a href="data.html">资料库</a></li>
-                        <li><a href="duty_arrange.html">班级管理</a></li>
-                        <li><a href="classindex.html">成绩管理</a></li>
-                        <li style="padding: 0"><a href="class-outline.html" data-step="3"
+                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
+                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="data">资料库</a></li>
+                        <li><a href="duty_arrange">班级管理</a></li>
+                        <li><a href="classindex">成绩管理</a></li>
+                        <li style="padding: 0"><a href="class-outline" data-step="3"
                                                   data-intro="添加对应班级的课程大纲">课程大纲</a>
                         </li>
-                        <li><a href="A_classroom_courseware_111.html">课堂课件</a></li>
+                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
                     </ul>
                 </div>
                 <!--内容-->
@@ -108,7 +108,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="Homework_correcting(home_page).html" data-step="2"
+                            <div id="document"><a href="Homework_correcting(home_page)" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob.html">1.第一章第一节</a></div>
+                                    href="Group_work_Viewjob">1.第一章第一节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob.html">2.第一章第二节</a></div>
+                                    href="Group_work_Viewjob">2.第一章第二节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Single_work_Viewjob.html">3.第一章第三节</a></div>
+                                    href="Single_work_Viewjob">3.第一章第三节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">个人</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob.html">4.第一章第四节</a></div>
+                                    href="Group_work_Viewjob">4.第一章第四节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -174,9 +174,9 @@
                     </div>
                     <div class="col-md-12 col-xs-12 next">
                         <ul class="nav nave">
-                            <li><a href="classNotice.html#notice_01">1.明天交语文作业</a></li>
-                            <li><a href="classNotice.html#notice_02">2.5.1放假通知</a></li>
-                            <li><a href="classNotice.html#notice_03">3.周五语文考试</a></li>
+                            <li><a href="classNotice">1.明天交语文作业</a></li>
+                            <li><a href="classNotice">2.5.1放假通知</a></li>
+                            <li><a href="classNotice">3.周五语文考试</a></li>
                         </ul>
                     </div>
                     <div class="foot">
@@ -377,12 +377,12 @@
                 添加作业
             </div>
             <div class="modal-body">
-                <a href="Independent_operation_Add_job_section.html" class="pop" id="pop_hover"
+                <a href="Independent_operation_Add_job_section" class="pop" id="pop_hover"
                    style="margin-right: 30px">
 
                     <span>独立完成</span>
                 </a>
-                <a href="Group_work_Marshalling.html" class="pop" id="pop2_hover" style="margin-left: 30px">
+                <a href="Group_work_Marshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
 
                     <span>小组作业</span>
                 </a>
