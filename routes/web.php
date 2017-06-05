@@ -54,4 +54,3 @@ Route::get('/zuoyeben-index',function(){
 Route::get('/zuoyenbenneirongliebiao',function(){
 	return view('student.zuoyenbenneirongliebiao');
 });
-Route::post('/login','LoginController@login');
