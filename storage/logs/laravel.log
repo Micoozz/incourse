@@ -14127,3 +14127,28 @@ Stack trace:
 =======
 >>>>>>> 48adcc093cfbb51b6cd330109120beac9b121b8e
 >>>>>>> 35b66d6691ecd7c1e0698a2ed79363667634417c
+[2017-06-03 06:46:24] local.ERROR: Symfony\Component\Console\Exception\CommandNotFoundException: Command "make:migerate" is not defined.
+
+Did you mean one of these?
+    make:migration
+    make:auth
+    make:command
+    make:controller
+    make:event
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:model
+    make:notification
+    make:policy
+    make:provider
+    make:request
+    make:seeder
+    make:test in D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php:556
+Stack trace:
+#0 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(197): Symfony\Component\Console\Application->find('make:migerate')
+#1 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(122): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 D:\application\apache\htdocs\incourse\artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
