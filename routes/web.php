@@ -32,7 +32,22 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/UploadExercises','PageController@uploadExercises');
 	});
 	Route::group(['middleware' => 'employee'],function(){
-
+		Route::get('/arrangementWork','PageController@arrangementWork');
+		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
+		Route::get('/correctingMainContents','PageController@correctingMainContents');
+		Route::get('/correctingPrimarycoverage','PageController@correctingPrimarycoverage');
+		Route::get('/correctionPrimaryCoverage','PageController@correctionPrimaryCoverage');
+		Route::get('/exerciseEditor','PageController@exerciseEditor');
+		Route::get('/Favorites','PageController@Favorites');
+		Route::get('/groupWorkMarshalling','PageController@groupWorkMarshalling');
+		Route::get('/groupWorkScore','PageController@groupWorkScore');
+		Route::get('/groupWorkScoreLoooked','PageController@groupWorkScoreLoooked');
+		Route::get('/groupWorkViewjob','PageController@groupWorkViewjob');
+		Route::get('/homeworkCorrecting','PageController@homeworkCorrecting');
+		Route::get('/independentOperationAddJobSection','PageController@independentOperationAddJobSection');
+		Route::get('/independentOperationAddJobSpecificContent','PageController@independentOperationAddJobSpecificContent');
+		Route::get('/independentOperationAddTopic','PageController@independentOperationAddTopic');
+		Route::get('/jobAnalysis','PageController@jobAnalysis');
 	});
 	Route::group(['middleware' => 'student'],function(){
 

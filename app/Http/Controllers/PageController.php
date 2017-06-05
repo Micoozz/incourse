@@ -56,4 +56,52 @@ class PageController extends Controller
     public function uploadExercises(){
     	return view('admin.UploadExercises');
     }
+    public function arrangementWork(){
+    	return view('teacher.arrangementWork');
+    }
+    public function correctingGroupWork(){
+    	return view('teacher.correctingHomepage');
+    }
+    public function correctingMainContents(){
+    	return view('teacher.correctingMainContents');
+    }
+    public function correctingPrimarycoverage(){
+    	return view('teacher.correctingPrimarycoverage');
+    }
+    public function correctionPrimaryCoverage(){
+    	return view('teacher.correctionPrimaryCoverage');
+    }
+    public function exerciseEditor(){
+    	return view('teacher.exerciseEditor');
+    }
+    public function Favorites(){
+    	return view('teacher.Favorites');
+    }
+    public function groupWorkMarshalling(){
+    	return view('teacher.groupWorkMarshalling');
+    }
+    public function groupWorkScore(){
+    	return view('teacher.groupWorkScore');
+    }
+    public function groupWorkScoreLoooked(){
+    	return view('teacher.groupWorkScoreLoooked');
+    }
+    public function groupWorkViewjob(){
+    	return view('teacher.groupWorkViewjob');
+    }
+    public function homeworkCorrecting(){
+    	return view('teacher.homeworkCorrecting');
+    }
+    public function independentOperationAddJobSection(){
+    	return view('teacher.independentOperationAddJobSection');
+    }
+    public function independentOperationAddJobSpecificContent(){
+    	return view('teacher.independentOperationAddJobSpecificContent');
+    }
+    public function independentOperationAddTopic(){
+    	return view('teacher.independentOperationAddTopic');
+    }
+    public function jobAnalysis(){
+    	return view('teacher.jobAnalysis');
+    }
 }
