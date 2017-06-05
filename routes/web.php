@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PageController@index')->name('login');
+Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/media','PageController@media');
 	Route::group(['middleware' => 'school'],function(){
@@ -54,4 +55,3 @@ Route::get('/zuoyeben-index',function(){
 Route::get('/zuoyenbenneirongliebiao',function(){
 	return view('student.zuoyenbenneirongliebiao');
 });
-Route::post('/login','LoginController@login');
