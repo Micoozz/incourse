@@ -16,9 +16,9 @@ class LoginController extends Controller
     	$guard = 'web';
     	if($input['number'] == 3){
     		$guard = 'school';
-    	}elseif($input['number'] == 2){
-    		$guard = 'employee';
     	}elseif($input['number'] == 1){
+    		$guard = 'employee';
+    	}elseif($input['number'] == 2){
     		$guard = 'student';
     	}
     	$code = '201';
