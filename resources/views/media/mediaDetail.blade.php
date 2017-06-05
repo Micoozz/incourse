@@ -3,9 +3,6 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>InCourse</title>
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/common.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/mediaDetail.css"/>
     <link rel="stylesheet" href="css/common.css"/>
@@ -282,6 +279,10 @@
     </div>
 </div>
 
-<script src="js/chooseUrl.js"></script>
+
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
 </body>
 </html>

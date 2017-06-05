@@ -5,10 +5,6 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/media.js"></script>
-    <script src="js/common.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/media.css"/>
     <link rel="stylesheet" href="css/common.css"/>
@@ -453,6 +449,10 @@
 </div>
 
 
-<script src="js/chooseUrl.js"></script>
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/media.js"></script>
+    <script src="js/common.js"></script>
 </body>
 </html>
