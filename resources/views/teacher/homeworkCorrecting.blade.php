@@ -87,8 +87,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -125,7 +125,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未批改</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">批改</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="correctingGroupWork" class="blue">批改</a></div>
                         </div>
                         <div class="row new-head">
                             <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">2.第一次作业详细题目</div>
@@ -133,7 +133,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">独立</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未批改</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="Correcting_homepage" class="blue">批改</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="correctingHomepage" class="blue">批改</a></div>
                         </div>
                         <div class="row new-head">
                             <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">3.第一次作业详细题目</div>
@@ -141,7 +141,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue">批改中</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">批改</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="correctingGroupWork" class="blue">批改</a></div>
                         </div>
                         <div class="row new-head">
                             <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">4.第一次作业详细题目</div>
@@ -149,7 +149,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月10日</div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已完结</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="Correcting_group_work" class="blue">查看</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "><a href="correctingGroupWork" class="blue">查看</a></div>
                         </div>
 
 

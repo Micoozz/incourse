@@ -88,8 +88,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+						<li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -129,7 +129,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">组长</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">90分</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 red">未批改</div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="Correction_Primary_coverage">批改</a>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="correctionPrimaryCoverage">批改</a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             </div>
@@ -140,7 +140,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">组员</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">90分</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 red">未批改</div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="Correction_Primary_coverage">批改</a>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="correctionPrimaryCoverage">批改</a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             </div>
@@ -151,7 +151,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">组员</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">90分</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue">批改中</div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="Correction_Primary_coverage">批改</a>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="correctionPrimaryCoverage">批改</a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             </div>
@@ -162,7 +162,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">组员</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3">90分</div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 gray">已批改</div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="Correction_Primary_coverage">查看</a>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 head3 blue"><a href="correctionPrimaryCoverage">查看</a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                             </div>

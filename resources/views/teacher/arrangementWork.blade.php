@@ -84,8 +84,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor">习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -108,7 +108,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="Homework_correcting(home_page)" data-step="2"
+                            <div id="document"><a href="homeworkCorrecting" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob">1.第一章第一节</a></div>
+                                    href="groupWorkViewjob">1.第一章第一节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob">2.第一章第二节</a></div>
+                                    href="groupWorkViewjob">2.第一章第二节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Single_work_Viewjob">3.第一章第三节</a></div>
+                                    href="singleWorkViewjob">3.第一章第三节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">个人</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="Group_work_Viewjob">4.第一章第四节</a></div>
+                                    href="groupWorkViewjob">4.第一章第四节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
@@ -377,12 +377,12 @@
                 添加作业
             </div>
             <div class="modal-body">
-                <a href="Independent_operation_Add_job_section" class="pop" id="pop_hover"
+                <a href="independentOperationAddJobSection" class="pop" id="pop_hover"
                    style="margin-right: 30px">
 
                     <span>独立完成</span>
                 </a>
-                <a href="Group_work_Marshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
+                <a href="groupWorkMarshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
 
                     <span>小组作业</span>
                 </a>
