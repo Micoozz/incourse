@@ -34,6 +34,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::group(['middleware' => 'employee'],function(){
 		Route::get('/arrangementWork','PageController@arrangementWork');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
+		Route::get('/correctingHomepage','PageController@correctingHomepage');
 		Route::get('/correctingMainContents','PageController@correctingMainContents');
 		Route::get('/correctingPrimarycoverage','PageController@correctingPrimarycoverage');
 		Route::get('/correctionPrimaryCoverage','PageController@correctionPrimaryCoverage');
