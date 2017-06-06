@@ -107,4 +107,7 @@ class PageController extends Controller
     public function jobAnalysis(){
     	return view('teacher.jobAnalysis');
     }
+    public function singleWorkViewjob(){
+    	return view('teacher.singleWorkViewjob');
+    }
 }
