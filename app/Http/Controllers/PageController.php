@@ -60,6 +60,9 @@ class PageController extends Controller
     	return view('teacher.arrangementWork');
     }
     public function correctingGroupWork(){
+    	return view('teacher.correctingGroupWork');
+    }
+    public function correctingHomepage(){
     	return view('teacher.correctingHomepage');
     }
     public function correctingMainContents(){
