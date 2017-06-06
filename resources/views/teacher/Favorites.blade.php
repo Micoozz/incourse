@@ -22,6 +22,7 @@
             $('input, textarea').placeholder();
         });
     </script>
+    
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
