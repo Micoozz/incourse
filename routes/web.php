@@ -51,23 +51,22 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 	});
 	Route::group(['middleware' => 'student'],function(){
-
+		Route::get('/danrenzuoye-chengji',function(){
+			return view('student.danrenzuoye-chengji');
+		});
+		Route::get('/xiaozuzuoye-chakanzhengji',function(){
+			return view('student.xiaozuzuoye-chakanzhengji');
+		});
+		Route::get('/xiaozuzuoye-zirenwu',function(){
+			return view('student.xiaozuzuoye-zirenwu');
+		});
+		Route::get('/zuoyeben-index',function(){
+			return view('student.zuoyeben-index');
+		});
+		Route::get('/zuoyenbenneirongliebiao',function(){
+			return view('student.zuoyenbenneirongliebiao');
+		});
 	});
 	Route::get('/logout','LoginController@logout');
 });
 
-Route::get('/danrenzuoye-chengji',function(){
-	return view('student.danrenzuoye-chengji');
-});
-Route::get('/xiaozuzuoye-chakanzhengji',function(){
-	return view('student.xiaozuzuoye-chakanzhengji');
-});
-Route::get('/xiaozuzuoye-zirenwu',function(){
-	return view('student.xiaozuzuoye-zirenwu');
-});
-Route::get('/zuoyeben-index',function(){
-	return view('student.zuoyeben-index');
-});
-Route::get('/zuoyenbenneirongliebiao',function(){
-	return view('student.zuoyenbenneirongliebiao');
-});
