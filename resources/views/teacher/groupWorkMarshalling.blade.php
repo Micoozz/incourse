@@ -92,8 +92,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -179,7 +179,7 @@
                                         </div>
                                         <div class="modal_button modal_button_frb">
                                             <a href="javascript:history.go(-1)" class="bt_c">取消</a>
-                                            <a href="Arrangement_work(homepage)" class="bt_s Hpb_btn_1">保存</a>
+                                            <a href="arrangementWork" class="bt_s Hpb_btn_1">保存</a>
                                         </div>
                                     </div>
                                     <!--教师分配板块-->
@@ -260,7 +260,7 @@
                                         <div class="modal_button">
                                             <span class="one_key">一键分配任务</span>
                                             <a href="javascript:history.go(-1)" class="bt_c">取消</a>
-                                            <a href="Arrangement_work(homepage)" class="bt_s Hpb_btn_2">保存</a>
+                                            <a href="arrangementwork" class="bt_s Hpb_btn_2">保存</a>
                                         </div>
                                     </div>
                                 </div>

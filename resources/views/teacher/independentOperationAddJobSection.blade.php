@@ -91,8 +91,8 @@
 						<!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -164,10 +164,10 @@
 											<div class="row">
 												<div class="col-md-4"></div>
 											   <div class=" col-md-8 new_mlbtn">
-												<a href="Favorites"  class="bt_a">取消</a>
+												<a href="favorites"  class="bt_a">取消</a>
 												<a href="#" class="bt_s Ad-se">发布</a>
-												<a href="Exercise_editor" class="bt_s">题库选题</a>
-												<a href="Independent_operation_Add_topic" class="bt_s">添加题目</a>
+												<a href="exerciseEditor" class="bt_s">题库选题</a>
+												<a href="independentOperationAddTopic" class="bt_s">添加题目</a>
 										<!--		<a href="Independent_operation_Add_job_specific_content.html" class="goo"><img src="images/add.png" alt="">去添加题目</a>-->
 											   </div>
 											</div>

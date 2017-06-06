@@ -85,8 +85,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -100,7 +100,7 @@
                 <div class="col-xs-12 col-sm-12" id="centery">
                     <div class="row center1">
                         <div id="homework" class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p"><a href="Job_analysis">作业分析</a></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p"><a href="jobAnalysis">作业分析</a></div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center_title" style="font-size: 18px">一年一班作业（语文）
 
@@ -121,13 +121,13 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">1.科技组</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">张玲</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red">未批改</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="Group_work_Score">批改</a></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="groupWorkScore">批改</a></div>
                         </div>
                         <div class="row new-head">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">2.美术组</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">张玲</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 red">未批改</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="Group_work_Score">批改</a></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="groupWorkScore">批改</a></div>
                         </div>
                         <div class="row new-head">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">3.翻译组</div>
@@ -139,7 +139,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">4.排版组</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">张玲</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue">已批改</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="Group_work_Score-loooked">查看</a></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 blue"><a href="groupWorkScoreLoooked">查看</a></div>
                         </div>
                     </div>
                 </div>

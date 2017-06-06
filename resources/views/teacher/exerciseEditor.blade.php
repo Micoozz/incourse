@@ -100,8 +100,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork">作业管理</a></li>
+                        <li><a href="exerciseEditor" class="box">习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
                             <div id="document">
-                                <a href="Favorites" data-step="3" data-intro="自己收藏的习题都会在这里保存"><img
+                                <a href="favorites" data-step="3" data-intro="自己收藏的习题都会在这里保存"><img
                                         src="images/document.png" alt="">收藏夹</a>
                             </div>
                         </div>
