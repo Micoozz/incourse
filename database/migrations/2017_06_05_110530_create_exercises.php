@@ -16,13 +16,14 @@ class CreateExercises extends Migration
         Schema::create('exercises', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('teacher_id')->default(null);
+            $table->integer('teacher_id')->nullable();
             $table->integer('school_id');
-            $table->integer('chapter_id')->default(null);
+            $table->integer('chapter_id')->nullable();
             $table->integer('course_id');
             $table->tinyinteger('exe_type');
-            $table->integer('score',3);
+            $table->smallInteger('score');
             $table->integer('categroy_id');
+            $table->integer('updata_time');
         });
     }
 
