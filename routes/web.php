@@ -15,6 +15,8 @@ Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/media','PageController@media');
+	Route::get('/getCourse','Controller@getCourse');
+	Route::get('/getCategroy','Controller@getCategroy');
 	Route::group(['middleware' => 'school'],function(){
 		Route::get('/addEmployeeFile','PageController@addEmployeeFile');
 		Route::get('/addStudentFile','PageController@addStudentFile');
