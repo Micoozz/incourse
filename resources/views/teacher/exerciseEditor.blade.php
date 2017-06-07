@@ -161,15 +161,6 @@
                             <div class="row search_hide_row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">条件：</div>
                                 <select class="col-md-2 col-sm-10 col-xs-10" id="but_a">
-                                    <option>&nbsp;&nbsp;&nbsp;选择题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;多选题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;填空题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;多空题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;判断题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;连线题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;排序题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;解答题</option>
-                                    <option>&nbsp;&nbsp;&nbsp;综合题</option>
                                 </select>
                                 <select class="col-md-2 col-sm-10 col-xs-10" id="section_a">
                                     <option>章节内容</option>
@@ -605,16 +596,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 select">
                                         <span>选择标题</span>
                                         <select name="queryType" id="66" onchange="Cmd(this)">
-                                            <option value="1" name="queryType">简答题</option>
-                                            <option value="2" name="queryType">单选题</option>
-                                            <option value="3" name="queryType">多空题</option>
-                                            <option value="4" name="queryType">多选题</option>
-                                            <option value="5" name="queryType">画图题</option>
-                                            <option value="6" name="queryType">连线题</option>
-                                            <option value="7" name="queryType">排序题</option>
-                                            <option value="8" name="queryType">判断题</option>
-                                            <option value="9" name="queryType">填空题</option>
-                                            <option value="10" name="queryType">综合题</option>
+         
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -626,6 +608,13 @@
                                     <div class="col-lg-12 z_introduce">
                                         <span>所属章节</span>
                                         <input type="text" value=" ">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" id="subject">
+                                        <span>科目</span>
+                                        <select name="">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -872,15 +861,6 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 select">
                                         <span>选择标题</span>
                                         <select name="queryType" id="66" onchange="Cmdd(this)">
-                                            <option value="11" name="queryType">简答题</option>
-                                            <option value="12" name="queryType">单选题</option>
-                                            <option value="13" name="queryType">多空题</option>
-                                            <option value="14" name="queryType">多选题</option>
-                                            <option value="15" name="queryType">画图题</option>
-                                            <option value="16" name="queryType">连线题</option>
-                                            <option value="17" name="queryType">排序题</option>
-                                            <option value="18" name="queryType">判断题</option>
-                                            <option value="19" name="queryType">填空题</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -1290,10 +1270,24 @@
 	$(function(){
 		$.ajax({
 			type:"get",
-			url:"/api/getCategroy",
+			url:"/getCategroy",
 			dataType:'json',
 			success:function(data){
-				console.log(data)
+				for(var i=0;i<data.length;i++){
+					$('#66,#but_a').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
+				}
+			}
+		});
+		
+		
+		$.ajax({
+			type:"get",
+			url:"/getCourse",
+			dataType:'json',
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					$('#subject>select').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
+				}
 			}
 		});
 	})
