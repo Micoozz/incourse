@@ -1286,6 +1286,18 @@
 <script>
 </script>
 <script src="js/Exercise_editor.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"/api/getCategroy",
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+			}
+		});
+	})
+</script>
 </body>
 
 </html>
