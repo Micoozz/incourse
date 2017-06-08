@@ -31,9 +31,9 @@
 <div id="fixedTop">
     <div class="navbar">
     	@if(Auth::guard('school')->check())
-        @include('student.include.head_Admin')
+        @include('media.include.head_Admin')
         @elseif(Auth::guard('employee')->check())
-        @include('student.include.head')
+        @include('media.include.head_Tea')
         @elseif(Auth::guard('student')->check())
         @include('student.include.head')
         @endif
