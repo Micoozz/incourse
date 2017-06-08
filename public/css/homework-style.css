@@ -21,19 +21,64 @@
 	border: 0px;
 	width: 14px;
 	text-align: center;
-	background-color: #FFF;
 }
 .input-wrap{
 	margin-right: 40px;
 }
 
 
-/*答案区*/
-.ans-positive{
-	margin:15px 28px;
-	font-size: 14px;
-	line-height: 28px;
+/*
+ 
+ * 评分*/
+.pj{
+	width: 200px;
+	position: absolute;
+	border: 1px solid #eee;
+	padding: 10px;
+	margin-left: 12em;
+	display: none;
+	background-color:#fff ;
 }
-.ans-positive p{
-	text-indent: 28px;
+.pj>div:nth-of-type(2)>span{
+	display: inline-block;
+	width: 20px;
+	height: 8px;
+	background-color: #ccc;
+}
+.pj b{
+	position: absolute;
+	top: 1.5em;
+	right: 0;
+	margin-right: 10px;
+	cursor: pointer;
+	font-weight: normal;
+	color:#168BEE;
+}
+.question-foot>span:nth-of-type(4){
+	position: relative;
+	top:-3px;
+	cursor: pointer;
+}
+.question-foot>span:nth-of-type(3),.question-foot>span:nth-of-type(1),.question-foot>span:nth-of-type(2){
+	position: relative;
+	top:-1px;
+}
+.pj img{
+	margin-right: 5px;
+}
+
+.pj>div:nth-of-type(2)>.mui1{
+	background-color:#e46161;
+}
+.pj>div:nth-of-type(2)>.mui2{
+	background-color:#f19149;
+}
+.pj>div:nth-of-type(2)>.mui3{
+	background-color:#f8d56d;
+}
+.pj>div:nth-of-type(2)>.mui4{
+	background-color:#cce198;
+}
+.pj>div:nth-of-type(2)>.mui5{
+	background-color:#a3ce7a;
 }

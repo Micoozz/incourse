@@ -22,6 +22,7 @@
             $('input, textarea').placeholder();
         });
     </script>
+    
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
@@ -92,8 +93,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                         <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor" >习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>

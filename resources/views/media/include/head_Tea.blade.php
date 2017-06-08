@@ -11,9 +11,9 @@
                     <a href="/relateToMe">@与我相关</a>
                 </div>
             </li>
-            <li><a href="/Arrangement_work(homepage)">学习中心</a></li>
+            <li><a href="/arrangementWork">学习中心</a></li>
             <li><a href="javascript:;">班级中心</a></li>
-            <!--<li><a href="javascript:;">交易中心</a></li>-->
+            <li><a href="javascript:;">交易中心</a></li>
             <li class="affix">
                 <a href="javascript:;"><img src="images/01.png"/></a>
             </li>
@@ -21,7 +21,7 @@
                 <div class="cent">
                     <a href="javascript:;">分析中心</a>
                     <a href="javascript:;">学习生活记录</a>
-                    <a href="/teacherPersonData">个人信息</a>
+                    <a href="teacherPersonData">个人信息</a>
                 </div>
             </li>
             <li><a href="/logout" class="blue">退出</a></li>

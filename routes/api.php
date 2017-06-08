@@ -16,12 +16,7 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['middleware' => 'auth:school'],function(){
 
-});
-Route::group(['middleware' => 'auth:employee'],function(){
-	
-});
-Route::group(['middleware' => 'auth:student'],function(){
+Route::group(['middleware' => "auth:school,employee,student"],function(){
 
 });
