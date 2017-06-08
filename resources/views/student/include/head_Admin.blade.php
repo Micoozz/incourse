@@ -20,6 +20,6 @@
                         <a href="teacherPersonData">个人信息</a>
                     </div>
                 </li>
-                <li><a href="index" class="blue">退出</a></li>
+                <li><a href="/logout" class="blue">退出</a></li>
             </ul>
         </div>
