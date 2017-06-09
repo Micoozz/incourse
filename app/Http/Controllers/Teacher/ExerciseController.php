@@ -7,14 +7,37 @@ use App\Http\Controllers\Controller;
 
 use Input;
 use Auth;
-use Models\Exercises;
-use Models\Objective;
-use Models\Subjective;
-use Models\Compositive;
+use App\Models\Exercises;
+use App\Models\Objective;
+use App\Models\Subjective;
+use App\Models\Compositive;
+use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList(){
-
+    public function showExerciseList($page){
+    	$limit = ($page-1)*5;
+    	$exercise_all = Exercises::all();
+    	$exercise_list = $exercise_all->limit($limit,5);
+    	$data = array();
+    	foreach ($exercise_list as $exercise) {
+    		$cate_title = Categroy::find($exercise->categroy_id)->title;
+    		if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+    			$subjective = Subjective::where('exe_id',$exercise->id)->first();
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥'));
+    		}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+    			$objective = Objective::where('exe_id',$exercise->id)->first();
+				$answers = array();
+    			if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
+    				$answer_list = json_decode($objective->answer);
+    				foreach ($answer_list as $answer) {
+    					array_push($answers,json_decode($objective->option)[$answer]->key);
+    				}
+    			}else{
+    				$answers = json_decode($objective->answer);
+    			}
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'answer' => $answers));
+    		}
+    	}
     }
     public function createExercise(){
     	$input = Input::get();
