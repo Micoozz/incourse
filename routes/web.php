@@ -52,6 +52,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/independentOperationAddTopic','PageController@independentOperationAddTopic');
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
+		Route::get('/showExerciseList/{page?}','Teacher\ExerciseController@showExerciseList');
 		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 	});
 	Route::group(['middleware' => 'student'],function(){
