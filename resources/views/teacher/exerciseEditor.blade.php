@@ -116,7 +116,7 @@
                     <div id="homework" class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 old-p"></div>
 
-                        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 center_title Ee_frbs">一年一班习题库（语文）
+                        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 center_title Ee_frbs">一年一班习题库
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
@@ -860,7 +860,7 @@
                                 <div class="z_t_c row ">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 select">
                                         <span>选择标题</span>
-                                        <select name="queryType" id="66" onchange="Cmdd(this)">
+                                        <select name="queryType" id="66" onchange="Cmdd(this)" class="type">
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -1276,6 +1276,9 @@
 				for(var i=0;i<data.length;i++){
 					$('#66,#but_a').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
 				}
+							$('.type>option').each(function(i){
+				$(this).attr('value',(11+i))
+			})
 			}
 		});
 		
