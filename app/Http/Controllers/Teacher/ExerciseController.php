@@ -7,18 +7,19 @@ use App\Http\Controllers\Controller;
 
 use Input;
 use Auth;
-use Models\Exercises;
-use Models\Objective;
-use Models\Subjective;
-use Models\Compositive;
-use Models\Categroy;
+use App\Models\Exercises;
+use App\Models\Objective;
+use App\Models\Subjective;
+use App\Models\Compositive;
+use App\Models\Categroy;
 class ExerciseController extends Controller
 {
     public function showExerciseList($page){
     	$limit = ($page-1)*5;
-    	$exercise_all = Exercises::all();
+    	$exercise_all = Exercises::all()->total;
+    	$pageLength = intval($exercise_all/5).1;
     	$exercise_list = $exercise_all->limit($limit,5);
-    	$data = array();
+    	$data = array('total' => $exercise_all,'pageLength' => $pageLength,'exercises' => array());
     	foreach ($exercise_list as $exercise) {
     		$cate_title = Categroy::find($exercise->categroy_id)->title;
     		if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
@@ -38,6 +39,7 @@ class ExerciseController extends Controller
     			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'answer' => $answers));
     		}
     	}
+    	return json_encode($data);
     }
     public function createExercise(){
     	$input = Input::get();
