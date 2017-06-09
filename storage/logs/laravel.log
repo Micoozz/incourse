@@ -1,3 +1,25 @@
+
+[2017-06-05 10:39:17] local.ERROR: InvalidArgumentException: View [admin.teacherPersonData] not found. in D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:137
+Stack trace:
+#0 D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php(79): Illuminate\View\FileViewFinder->findInPaths('admin.teacherPe...', Array)
+#1 D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\Factory.php(128): Illuminate\View\FileViewFinder->find('admin.teacherPe...')
+#2 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(921): Illuminate\View\Factory->make('admin.teacherPe...', Array, Array)
+#3 D:\application\incourse\app\Http\Controllers\PageController.php(30): view('admin.teacherPe...')
+#4 [internal function]: App\Http\Controllers\PageController->teacherPersonData()
+#5 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(55): call_user_func_array(Array, Array)
+#6 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(44): Illuminate\Routing\Controller->callAction('teacherPersonDa...', Array)
+#7 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Route.php(203): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\PageController), 'teacherPersonDa...')
+#8 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Route.php(160): Illuminate\Routing\Route->runController()
+#9 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Router.php(559): Illuminate\Routing\Route->run()
+#10 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(30): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#11 D:\application\incourse\app\Http\Middleware\SchoolMiddleware.php(20): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#12 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): App\Http\Middleware\SchoolMiddleware->handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(41): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#15 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php(43): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#18 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): Illuminate\Auth\Middleware\Authenticate->handle(Object(Illuminate\Http\Request), Object(Closure), 'school', 'employee', 'student')
 [2017-06-05 12:49:16] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Middleware\Auth' not found in D:\application\apache\htdocs\incourse\app\Http\Middleware\EmployeeMiddleware.php:18
 Stack trace:
 #0 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): App\Http\Middleware\EmployeeMiddleware->handle(Object(Illuminate\Http\Request), Object(Closure))
@@ -1488,6 +1510,27 @@ Stack trace:
 #55 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(118): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #56 D:\application\incourse\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #57 {main}  
+[2017-06-08 08:56:45] local.ERROR: InvalidArgumentException: View [admin.teacherPersonData] not found. in D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:137
+Stack trace:
+#0 D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php(79): Illuminate\View\FileViewFinder->findInPaths('admin.teacherPe...', Array)
+#1 D:\application\incourse\vendor\laravel\framework\src\Illuminate\View\Factory.php(128): Illuminate\View\FileViewFinder->find('admin.teacherPe...')
+#2 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(921): Illuminate\View\Factory->make('admin.teacherPe...', Array, Array)
+#3 D:\application\incourse\app\Http\Controllers\PageController.php(30): view('admin.teacherPe...')
+#4 [internal function]: App\Http\Controllers\PageController->teacherPersonData()
+#5 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(55): call_user_func_array(Array, Array)
+#6 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(44): Illuminate\Routing\Controller->callAction('teacherPersonDa...', Array)
+#7 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Route.php(203): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\PageController), 'teacherPersonDa...')
+#8 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Route.php(160): Illuminate\Routing\Route->runController()
+#9 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Router.php(559): Illuminate\Routing\Route->run()
+#10 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(30): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#11 D:\application\incourse\app\Http\Middleware\SchoolMiddleware.php(20): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#12 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): App\Http\Middleware\SchoolMiddleware->handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(41): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#15 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Routing\Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php(43): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#18 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(148): Illuminate\Auth\Middleware\Authenticate->handle(Object(Illuminate\Http\Request), Object(Closure), 'school', 'employee', 'student')
 [2017-06-07 07:27:23] local.ERROR: PDOException: SQLSTATE[HY000] [2002] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
  in D:\application\incourse\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:68
 Stack trace:

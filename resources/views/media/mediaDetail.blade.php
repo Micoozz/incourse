@@ -26,34 +26,13 @@
 <body>
 <div id="fixedTop">
     <div class="navbar">
-        <div>
-        <div class="indexLogo">
-            <img src="images/media/LOGO.png"/>
-            <img src="images/media/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-            <ul class="nav head_nav">
-                <li class="schoolMain">
-                    <a href="media.html" class="blue" id="home">学校首页</a>
-                    <div>
-                        <a href="relateToMe.html" id="me">@与我相关</a>
-                    </div>
-                </li>
-                <li><a href="javascript:;" class="studyCenter" id="study">学习中心</a></li>
-                <li><a href="javascript:;" class="classCenter" id="classroom">班级中心</a></li>
-                <li><a href="javascript:;">交易中心</a></li>
-                <li class="affix"><a href="javascript:;"><img src="images/media/01.png"/></a></li>
-                <li class="personCenter"><a href="javascript:;">个人中心</a>
-                    <div class="cent">
-                        <a href="javascript:;" class="analyseCenter" id="analyse">分析中心</a>
-                        <a href="javascript:;" class="studyLife" id="studyLife">学习生活记录</a>
-                        <a href="javascript:;" class="personInfo" id="person">个人信息</a>
-                    </div>
-                </li>
-                <!--账号登入了就显示“退出”按钮,没登录就没有“退出”按钮-->
-                <li><a href="javascript:;" class="blue">退出</a></li>
-            </ul>
-        </div>
+        @if(Auth::guard('school')->check())
+        @include('media.include.head_Admin')
+        @elseif(Auth::guard('employee')->check())
+        @include('media.include.head_Tea')
+        @elseif(Auth::guard('student')->check())
+        @include('student.include.head')
+        @endif
     </div>
     <!-------顶部搜索栏------->
     <div id="searchBar">
