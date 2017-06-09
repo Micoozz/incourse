@@ -1413,7 +1413,7 @@
 			type:"post",
 			url:"/createExercise",
 			dataType:'json',
-			data:{'score':grade,'course':Object.account,'categrog':Object.types,'snbject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'},
+			data:{'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'},
 			success:function(data){
 				console.log(data)
 			}

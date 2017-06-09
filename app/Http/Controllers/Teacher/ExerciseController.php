@@ -17,7 +17,7 @@ class ExerciseController extends Controller
     public function showExerciseList($page){
     	$limit = ($page-1)*5;
     	$exercise_all = Exercises::all()->total;
-    	$pageLength = intval($exercise_all/5).1;
+    	$pageLength = intval($exercise_all/5)+1;
     	$exercise_list = $exercise_all->limit($limit,5);
     	$data = array('total' => $exercise_all,'pageLength' => $pageLength,'exercises' => array());
     	foreach ($exercise_list as $exercise) {
@@ -46,7 +46,7 @@ class ExerciseController extends Controller
     	$user = Auth::guard('employee')->user();
     	$time = time();
     	$code = 200;
-    	try{
+    	// try{
     		$exercise = new Exercises;
 	    	$exercise->teacher_id = $user->id;
 	    	$exercise->school_id = $user->school_id;
@@ -84,9 +84,9 @@ class ExerciseController extends Controller
 	    		$exercise->hasManySubjective()->create($input['subjective']);
 	    		$exercise->hasManyObjective()->create($input['objective']);
 	    	}
-    	}catch(\Exception $e){
-    		$code = 201;
-    	}
+    	// }catch(\Exception $e){
+    	// 	$code = 201;
+    	// }
     	$data = array('code' => $code);
     	return json_encode($data);
     }
