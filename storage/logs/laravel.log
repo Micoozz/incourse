@@ -4165,3 +4165,20 @@ Stack trace:
 #48 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(118): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #49 D:\application\apache\htdocs\incourse\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #50 {main}  
+[2017-06-09 02:53:05] local.ERROR: LogicException: Unable to prepare route [danrenzuoye-chengji] for serialization. Uses Closure. in D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Routing\Route.php:806
+Stack trace:
+#0 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\RouteCacheCommand.php(62): Illuminate\Routing\Route->prepareForSerialization()
+#1 [internal function]: Illuminate\Foundation\Console\RouteCacheCommand->fire()
+#2 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(29): call_user_func_array(Array, Array)
+#3 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(87): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#4 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(31): Illuminate\Container\BoundMethod::callBoundMethod(Object(Illuminate\Foundation\Application), Array, Object(Closure))
+#5 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\Container.php(531): Illuminate\Container\BoundMethod::call(Object(Illuminate\Foundation\Application), Array, Array, NULL)
+#6 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(182): Illuminate\Container\Container->call(Array)
+#7 D:\application\apache\htdocs\incourse\vendor\symfony\console\Command\Command.php(264): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#8 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(167): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#9 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(835): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(200): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Foundation\Console\RouteCacheCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(122): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 D:\application\apache\htdocs\incourse\artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 {main}  
