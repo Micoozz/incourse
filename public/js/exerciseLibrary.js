@@ -1,12 +1,14 @@
 //单选题
 $(function() {
 		var d = 64,
-			a = 64;
+			a = 64,
+			value=0;
 		$('.answer4').on('click', 'a', function() {
 			d++;
+			value++;
 			var b = String.fromCharCode(d)
 			$('.select1').append('<div class="select_single"><span class="question">选项<span>' + b + '</span>：</span><input class="no_addquestion" type="text" value=""><a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-			$(this).next().append('<option value="1" name="queryType">选项' + b + '</option>')
+			$(this).next().append('<option value="'+value+'" name="queryType">选项' + b + '</option>')
 		});
 		$('body').on('click', '.select1 .select_single a', function() {
 				var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -219,15 +221,17 @@ $(function() {
 		$('.xxxx .answer2 a').click(function() {
 			c++;
 			$('.xxxx .E').append('<div class="matching"><span class="question">题目<span>' + c + '</span>:</span><input type="text" value=""></div>');
-			$('.xxxx .F').append('<div class="matching"><img src="images/s09.jpg"  /><img src="images/s05.jpg"  /></div>')
+			$('.xxxx .F').append('<div class="matching"><img src="images/s09.jpg"/><img src="images/s05.jpg"/></div>')
 			$('.xxxx .E .matching').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
 			$('.xxxx .F>.matching>img:first-child').click(function() {
 				$(this).attr('src', 'images/s03.jpg');
 				$(this).next().attr('src', 'images/s05.jpg');
+				$(this).attr('num',0);
 			});
 			$('.xxxx .F>.matching>img:last-child').click(function() {
 				$(this).attr('src', 'images/s12.jpg');
 				$(this).prev().attr('src', 'images/s09.jpg');
+				$(this).attr('num',1);
 			})
 		});
 		$('body').on('click', '.xxxx .E>.matching>a', function() {

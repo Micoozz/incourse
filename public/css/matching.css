@@ -151,6 +151,7 @@
     .G input{
     	text-indent: 30px;
     	width: 100%;
+    	padding-left: 0;
     }
     .G a{
     	right: 3%;
@@ -202,10 +203,9 @@
 	padding-right: 40%;
 }
 #div8,#div7,#div6,#div2,#div5,#div4,#div3,#div9{
-margin: 0 auto;
-	width: 89%;
+	width:100%;
 }
-/*11.23*/
-#gapp{
-	line-height:28px;padding: 7px 0 0 51px;
-};
+
+#div3,#div9{
+	position: relative;
+}
