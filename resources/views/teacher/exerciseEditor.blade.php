@@ -1307,7 +1307,7 @@
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:''
+			result:[]
 		}
 		
 		$('#subject>select').change(function(){
@@ -1320,9 +1320,12 @@
 		})
 		
 		$('#ty').change(function(){
-			Object.result=$(this).val()
+			if($(this).val()==''){
+				Object.result=[0]
+			}else{
+				Object.result.push($(this).val())
+			}
 		})
-		
 		
 		var letter=64
 	$('.button_frb').click(function(){
@@ -1331,6 +1334,7 @@
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
+			console.log(Object.result)
 			Object.arrys=$('.single-selection').val();
 			$('.select1>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
@@ -1348,7 +1352,9 @@
 				objec[lette]=$(this).val()
 				Object.options.push(objec)
 			});
-			Object.result=$('.but_a').text()
+			$('.but_a>b').each(function(){
+				Object.result.push($(this).attr('mu'))
+			})
 		}else if(Object.types=='5'){
 			Object.arrys=$('.draw').val()
 		}else if(Object.types=='6'){
@@ -1413,7 +1419,7 @@
 			type:"post",
 			url:"/createExercise",
 			dataType:'json',
-			data:{'score':grade,'course':Object.account,'categrog':Object.types,'snbject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'},
+			data:{'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'},
 			success:function(data){
 				console.log(data)
 			}
