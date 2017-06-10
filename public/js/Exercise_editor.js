@@ -76,6 +76,7 @@ $(function() {
 });
 //只做出前三个有添加功能的假数据给你看。代码向上
 $(function() {
+
 		$('.bj').click(function() {
 			$('#centery>div').not(":first-child").hide()
 			$('#centery>div:nth-of-type(4)').show()
