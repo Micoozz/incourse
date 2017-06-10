@@ -789,7 +789,7 @@
                                 </div>
                                 <!--综合题-->
                                 <div class="end" id="div10" style="display:none;">
-                                    <div class="text"><span class="textarea">问题：</span><textarea name="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</textarea>
+                                    <div class="text"><span class="textarea">问题：</span><textarea name="" id="scrap"></textarea>
                                     </div>
                                     <div></div>
                                     <div class="text"><span class="textarea">+添加题目</span>
@@ -1307,7 +1307,7 @@
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:'1'
+			result:[]
 		}
 		
 		$('#subject>select').change(function(){
@@ -1320,9 +1320,9 @@
 		})
 		
 		$('#ty').change(function(){
-			Object.result=$(this).val()
+			console.log($(this).val())
+				Object.result.push($(this).val())
 		})
-		
 		
 		var letter=64
 	$('.button_frb').click(function(){
@@ -1338,7 +1338,10 @@
 				objec[lette]=$(this).val()
 				Object.options.push(objec)
 			})
-            console.log(Object.options)
+			if(Object.result.length==0){
+				Object.result.push(1)
+			}
+				console.log(Object.result)
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
@@ -1349,7 +1352,9 @@
 				objec[lette]=$(this).val()
 				Object.options.push(objec)
 			});
-			Object.result=$('.but_a').text()
+			$('.but_a>b').each(function(){
+				Object.result.push($(this).attr('mu'))
+			})
 		}else if(Object.types=='5'){
 			Object.arrys=$('.draw').val()
 		}else if(Object.types=='6'){
@@ -1400,21 +1405,30 @@
 				Object.result.push(objec)
 				removeByValue(Object.result,undefined,i);
 			})
-		}else if(Object.types=='9'){
+		}else{
 			Object.arrys=$('.pack').val()
 			$('#G>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
 				Object.result.push(objec)
 			})
+		}
+		
+		
+		
+		
+		//综合体题型
+		var datas;
+		if(Object.types=='10'){
+			datas={'content':$('#scrap').val(),'subjective':[],'objective':[]}
 		}else{
-			alert('aa')
+			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 			$.ajax({
 			type:"post",
 			url:"/createExercise",
 			dataType:'json',
-			data:{'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'},
+			data:datas,
 			success:function(data){
 				console.log(data)
 			}

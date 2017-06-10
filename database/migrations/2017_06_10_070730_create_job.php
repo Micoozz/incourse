@@ -21,8 +21,10 @@ class CreateJob extends Migration
             $table->integer('course_id');
             $table->tinyinteger('job_type');
             $table->integer('score');
+            $table->text('exercise_id')->nullabele();
             $table->tinyinteger('status');
-            $table->integer('updata_time');
+            $table->integer('pub_time');
+            $table->integer('deadline');
         });
     }
 
@@ -33,6 +35,6 @@ class CreateJob extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('job');
     }
 }
