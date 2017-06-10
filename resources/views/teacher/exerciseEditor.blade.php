@@ -1307,7 +1307,7 @@
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:''
+			result:'1'
 		}
 		
 		$('#subject>select').change(function(){
@@ -1331,13 +1331,14 @@
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
-			Object.arrys=$('.single-selection').val();
+			Object.arrys=$('.single-selection').val()!='' ? $('.single-selection').val() : $('.single-selection').val('请在下列选项中选出正确的一项。');
 			$('.select1>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
 				var objec={}
 				objec[lette]=$(this).val()
 				Object.options.push(objec)
 			})
+            console.log(Object.options)
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
