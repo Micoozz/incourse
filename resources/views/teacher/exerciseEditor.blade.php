@@ -862,7 +862,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <span id="chapter">题目分值</span>
-                                        <input type="text" value=" ">
+                                        <input type="text" value=" " class="fraction">
                                     </div>
                                 </div>
                             </div>
@@ -911,7 +911,7 @@
                                 </div>
                                 <!--多空题板块-->
                                 <div class="end div13" id="div3" style="display:none;">
-                                    <div contenteditable="true" class="select_single" id="gapp"
+                                    <div contenteditable="true" class="select_single gapp" id="gapp"
                                          style="line-height:28px;padding: 7px 51px; overflow: auto"></div>
                                     <div class="fixed_question">问题：</div>
                                     <div class="answer3 answer7 answer7a">
@@ -1310,6 +1310,18 @@
 			result:[]
 		}
 		
+				//综合体题型
+		var colligate={
+			course:'',
+			categroy:'',
+			subject:'',
+			options:[],
+			answer:[],
+			subjective:[],
+			objective:[]
+		}
+		
+		
 		$('#subject>select').change(function(){
 			Object.account=$(this).val()
 		})
@@ -1320,11 +1332,111 @@
 		})
 		
 		$('#ty').change(function(){
-			console.log($(this).val())
 				Object.result.push($(this).val())
+				colligate.answer.push($(this).val())
 		})
 		
 		var letter=64
+		
+			
+				
+		$('.type').change(function(){
+			colligate.course=$(this).val()
+		})
+		
+		var colligat,
+			colligats;
+		$('#bth_cc,#bth_c').click(function(){
+	
+			if(colligate.course=='11'){
+				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div11>div:first-child>textarea').val()}
+			}else if(colligate.course=='12'){
+				
+				$('.div12>.select1a>.select_single>input').each(function(i){
+				var lette=String.fromCharCode(letter+i+1);
+				var objec={}
+				objec[lette]=$(this).val()
+				Object.options.push(objec)
+			})
+				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div12>.select_single>input').val(),'option':colligate.options,'answer':colligate.answer}
+			}else if(colligate.course=='13'){
+				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.gapp').val()}
+			}else if(colligate.course=='14'){
+				$('.div14>.select2>div>input').each(function(i){
+				var lette=String.fromCharCode(letter+i+1);
+				var objec={}
+				objec[lette]=$(this).val()
+				Object.options.push(objec)
+			});
+			$('.xxxxx .nei').prev().find('b').each(function(){
+				Object.answer.push($(this).attr('mu'))
+			})
+				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div14>.select_single>input').val(),'option':colligate.options,'answer':colligate.answer}
+			}else if(colligate.course=='15'){
+				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div15 input').val()}
+			}else if(colligate.course=='16'){
+			var arry1=[]
+			var arry2=[]
+			$('.div16 .A>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				arry1.push(objec)				
+			})
+			$('.div16 .B>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				arry2.push(objec)				
+			})
+			Object.answer.push(arry1,arry2)
+				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div16>.select_single>input').val(),'answer':colligate.answer}
+			}else if(colligate.course=='17'){
+				$('.div17 .C>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				Object.answer.push(objec)				
+			})
+				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div17>.select_single>input').val(),'answer':colligate.answer}
+			}else if(colligate.course=='18'){
+			colligate.subject=[];
+			function removeByValue(arr, val,arry) {
+  				for(var i=0; i<arr.length; i++) {
+   				 if(arr[i] == val) {
+    			  arr.splice(i,arry);
+     			 break;
+    			}
+  			}
+		}
+			$('.div18 .estimate input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				colligate.subject.push(objec)	
+			});
+			
+			$('.div18 .estimates img').each(function(i){
+				var objec=$(this).attr('num')
+				colligate.answer.push(objec)
+				removeByValue(Object.result,undefined,i);
+			})
+				colligat={'score':$('.fraction').val(),'course':colligate.course,'subject':colligate.subject,'answer':colligate.answer}
+			}else{
+				$('.div19 #G>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				colligate.answer.push(objec)
+			})
+				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div19 .fixed_question').text(),'answer':colligate.answer}
+			}
+			colligate.subjective.push(colligat);
+			colligate.objective.push(colligats);
+			console.log(colligate.objective)
+			console.log(colligate.subjective)
+		})
+		
+		
+		
+		
+		
+		
 	$('.button_frb').click(function(){
 		
 		var grade=$("#grade").val();
@@ -1332,6 +1444,7 @@
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
 			Object.arrys=$('.single-selection').val();
+			console.log(Object.arrys)
 			$('.select1>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
 				var objec={}
@@ -1346,7 +1459,7 @@
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
 			Object.arrys=$('.multiple').val()
-			$('.select2>div>input').each(function(i){
+			$('.div4>.select2>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
 				var objec={}
 				objec[lette]=$(this).val()
@@ -1362,12 +1475,12 @@
 			Object.result=[];
 			var arry1=[]
 			var arry2=[]
-			$('.A>div>input').each(function(i){
+			$('.div6 .A>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
 				arry1.push(objec)				
 			})
-			$('.B>div>input').each(function(i){
+			$('.div6 .B>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
 				arry2.push(objec)				
@@ -1415,12 +1528,11 @@
 		}
 		
 		
+
 		
-		
-		//综合体题型
 		var datas;
 		if(Object.types=='10'){
-			datas={'content':$('#scrap').val(),'subjective':[],'objective':[]}
+			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
 			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}

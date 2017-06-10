@@ -28,9 +28,10 @@ $(function() {
 			//
 		$('.answer4a').on('click', 'a', function() {
 			a++;
-			var aa = String.fromCharCode(a)
+			value++;
+			var aa = String.fromCharCode(a);
 			$('.select1a').append('<div class="select_single"><span class="question">选项<span>' + aa + '</span>：</span><input class="no_addquestion" type="text" value=""><a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-			$(this).next().append('<option value="1" name="queryType">选项' + aa + '</option>')
+			$(this).next().append('<option value="'+value+'" name="queryType">选项' + aa + '</option>')
 		});
 		$('body').on('click', '.select1a .select_single a', function() {
 			var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -118,7 +119,7 @@ $(function() {
 		$('.xxxxx #select2').append(' <div class="select_single"> <span class="question">选项<span>' + ba + '</span>：</span> <a href="#"><img src="images/single.jpg" alt=""></a><input class="no_addquestion" type="text" value=""></div>');
 		$('.xxxxx .answer5 #but_a').append(' <option value="1" name="queryType">选项' + ba + '</option>');
 		$('.xxxxx #select2>.select_single').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-		$('.xxxxx .nei').append('<b style="margin:0 5px">' + ba + '</b>')
+		$('.xxxxx .nei').append('<b style="margin:0 5px" mu='+numbes+'>' + ba + '</b>')
 	});
 	$('body').on('click', '.xxxxx #select2 .select_single a', function() {
 		var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -134,7 +135,7 @@ $(function() {
 		a--;
 	});
 	$('body').on('click', '.xxxxx .nei>b', function() {
-		$('.xxxxx .nei').prev().append('<b style="margin:0 5px">' + $(this).text() + '</b>')
+		$('.xxxxx .nei').prev().append('<b style="margin:0 5px" mu='+$(this).attr('mu')+'>' + $(this).text() + '</b>')
 	});
 	$('.xxxxx .nei').prev().click(function() {
 		$('.xxxxx .nei').toggle()

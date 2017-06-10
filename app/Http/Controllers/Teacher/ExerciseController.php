@@ -73,7 +73,7 @@ class ExerciseController extends Controller
 	    	}
 	    	$exercise->save();
 	    	if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-	    		$objective = new Objective(['subject' => $input['subject'],'option' => $input['option'],'answer' => $input['answer']]);
+	    		$objective = new Objective(['subject' => $input['subject'],'option' => json_encode($input['option']),'answer' => json_encode($input['answer'])]);
 	    		$exercise->hasManyObjective()->save($objective);
 	    	}else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 	    		$subjective = new Subjective(['subject' => $input['subject']]);
