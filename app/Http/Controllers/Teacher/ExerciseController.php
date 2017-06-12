@@ -31,7 +31,7 @@ class ExerciseController extends Controller
 				if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
     				$answer_list = explode(',',$objective->answer);
     				foreach ($answer_list as $key => $answer) {
-    					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer])[0]);
+    					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
     				}
     			}else{
     				$answers = json_decode($objective->answer);

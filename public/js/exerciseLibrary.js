@@ -1,6 +1,5 @@
 //单选题
 $(function() {
-	console.log("a");
 		var d = 64,
 			a = 64,
 			value=0;
