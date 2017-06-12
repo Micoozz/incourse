@@ -34,7 +34,7 @@ class ExerciseController extends Controller
     					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
     				}
     			}else{
-    				$answers = json_decode($objective->answer);
+    				array_push($answers,explode(',',$objective->answer));
     			}
     			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'option' => json_decode($objective->option),'answer' => $answers));
     			
@@ -77,7 +77,7 @@ class ExerciseController extends Controller
 	    	}
 	    	$exercise->save();
 	    	if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-	    		$objective = new Objective(['subject' => $input['subject'],'option' => json_encode($input['option'],JSON_UNESCAPED_UNICODE),'answer' => $input['answer']]);
+	    		$objective = new Objective(['subject' => $input['subject'],'option' => isset($input['option']) ? json_encode($input['option'],JSON_UNESCAPED_UNICODE) : null,'answer' => isset($input['answer']) ? $input['answer'] : null]);
 	    		$exercise->hasManyObjective()->save($objective);
 	    	}else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 	    		$subjective = new Subjective(['subject' => $input['subject']]);

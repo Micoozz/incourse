@@ -1306,7 +1306,11 @@
 		url:"/showExerciseList/1",
 		dataType:'json',
 		success:function(data){
-			console.log(data)
+			var exercises=data.exercises;
+			console.log(exercises)
+			for(var i=0;i<exercises.length;i++){
+					
+			}
 		}
 	});	
 		
@@ -1357,16 +1361,13 @@
 		
 		var colligat,
 			colligats;
-		$('#bth_cc,#bth_c').click(function(){
-		})
 		
 		
 		
 		
 		
 		
-	$('.button_frb').click(function(){
-		
+	$('.button_frb').click(function(){	
 		var grade=$("#grade").val();
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
@@ -1381,7 +1382,6 @@
 			if(Object.result.length==0){
 				Object.result=1
 			}
-				console.log(Object.options)
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
@@ -1449,7 +1449,7 @@
 			})
 			Object.result=Object.result.join(",")
 		}else{
-			Object.arrys=$('.pack').val()
+			Object.arrys=$('.pack').text()
 			var objec=''
 			$('#G>div>input').each(function(i){			
 				objec+=$(this).val()+',';
@@ -1457,11 +1457,8 @@
 			})
 		}
 		
-		
-		
 		var datas;
 		if(Object.types=='10'){
-			alert('暂不支持')
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
 			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
@@ -1472,13 +1469,9 @@
 			dataType:'json',
 			data:datas,
 			success:function(data){
-					Object.account='1';
-					Object.types='1';
-					Object.arrys='';
-					Object.options=[];
-					Object.result='';
 			}
-		});			
+		});	
+					
 	})
 
 	})
