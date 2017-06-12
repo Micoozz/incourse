@@ -13,7 +13,18 @@ class CreateWork extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('work', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('job_id');
+            $table->integer('student_id');
+            $table->integer('chapter_id')->nullable();
+            $table->integer('course_id');
+            $table->integer('score');
+            $table->tinyinteger('status');
+            $table->integer('start_time');
+            $table->integer('sub_time');
+        });
     }
 
     /**
@@ -23,6 +34,6 @@ class CreateWork extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('work');
     }
 }
