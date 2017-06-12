@@ -14,9 +14,9 @@ use App\Models\Compositive;
 use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList($page){
+    public function showExerciseList($page = 1){
     	$limit = ($page-1)*5;
-    	$exercise_all = Exercises::all()->total;
+    	$exercise_all = Exercises::all()->count();
     	$pageLength = intval($exercise_all/5)+1;
     	$exercise_list = $exercise_all->limit($limit,5);
     	$data = array('total' => $exercise_all,'pageLength' => $pageLength,'exercises' => array());
