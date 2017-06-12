@@ -1381,7 +1381,7 @@
 			if(Object.result.length==0){
 				Object.result=1
 			}
-				console.log(Object.result)
+				console.log(Object.options)
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
@@ -1404,17 +1404,19 @@
 			Object.result=[];
 			var arry1=[]
 			var arry2=[]
-			$('.div6 .A>div>input').each(function(i){
+			$('.A>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val();
+				arry1.push(objec);				
+			})
+			$('.B>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
-				arry1.push(objec)				
+				arry2.push(objec)			
 			})
-			$('.div6 .B>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				arry2.push(objec)				
-			})
-			Object.result.push(arry1,arry2)
+				arry1.pop()	
+				arry2.pop()	
+			Object.options.push(arry1,arry2)
 			console.log(Object.result)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
@@ -1470,7 +1472,11 @@
 			dataType:'json',
 			data:datas,
 			success:function(data){
-				console.log(data)
+					Object.account='1';
+					Object.types='1';
+					Object.arrys='';
+					Object.options=[];
+					Object.result='';
 			}
 		});			
 	})
