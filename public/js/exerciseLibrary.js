@@ -28,9 +28,10 @@ $(function() {
 			//
 		$('.answer4a').on('click', 'a', function() {
 			a++;
-			var aa = String.fromCharCode(a)
+			value++;
+			var aa = String.fromCharCode(a);
 			$('.select1a').append('<div class="select_single"><span class="question">选项<span>' + aa + '</span>：</span><input class="no_addquestion" type="text" value=""><a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-			$(this).next().append('<option value="1" name="queryType">选项' + aa + '</option>')
+			$(this).next().append('<option value="'+value+'" name="queryType">选项' + aa + '</option>')
 		});
 		$('body').on('click', '.select1a .select_single a', function() {
 			var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -76,14 +77,16 @@ $(function() {
 		$('.nei').hide()
 	})
 	var d = 64,
-		a = 64;
+		a = 64,
+		numbes=0;
 	$('.xxxx .answer5 a').click(function() {
 		d++;
+		++numbes;
 		var b = String.fromCharCode(d)
 		$('.xxxx #select2').append(' <div class="select_single"> <span class="question">选项<span>' + b + '</span>：</span> <a href="#"><img src="images/single.jpg" alt=""></a><input class="no_addquestion" type="text" value=""></div>');
 		$('.xxxx .answer5 #but_a').append(' <option value="1" name="queryType">选项' + b + '</option>');
 		$('.xxxx #select2>.select_single').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-		$('.xxxx .nei').append('<b style="margin:0 5px">' + b + '</b>')
+		$('.xxxx .nei').append('<b style="margin:0 5px" mu='+numbes+'>' + b + '</b>')
 	});
 	$('body').on('click', '.xxxx #select2 .select_single a', function() {
 		var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -99,7 +102,7 @@ $(function() {
 		d--;
 	});
 	$('body').on('click', '.xxxx .nei>b', function() {
-		$('.xxxx .nei').prev().append('<b style="margin:0 5px">' + $(this).text() + '</b>')
+		$('.xxxx .nei').prev().append('<b style="margin:0 5px" mu='+$(this).attr('mu')+'>' + $(this).text() + '</b>')
 	});
 	$('.xxxx .nei').prev().click(function() {
 			$('.xxxx .nei').toggle()
@@ -116,7 +119,7 @@ $(function() {
 		$('.xxxxx #select2').append(' <div class="select_single"> <span class="question">选项<span>' + ba + '</span>：</span> <a href="#"><img src="images/single.jpg" alt=""></a><input class="no_addquestion" type="text" value=""></div>');
 		$('.xxxxx .answer5 #but_a').append(' <option value="1" name="queryType">选项' + ba + '</option>');
 		$('.xxxxx #select2>.select_single').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-		$('.xxxxx .nei').append('<b style="margin:0 5px">' + ba + '</b>')
+		$('.xxxxx .nei').append('<b style="margin:0 5px" mu='+numbes+'>' + ba + '</b>')
 	});
 	$('body').on('click', '.xxxxx #select2 .select_single a', function() {
 		var div = $(this).parent('.select_single').nextAll().find('.question>span')
@@ -132,7 +135,7 @@ $(function() {
 		a--;
 	});
 	$('body').on('click', '.xxxxx .nei>b', function() {
-		$('.xxxxx .nei').prev().append('<b style="margin:0 5px">' + $(this).text() + '</b>')
+		$('.xxxxx .nei').prev().append('<b style="margin:0 5px" mu='+$(this).attr('mu')+'>' + $(this).text() + '</b>')
 	});
 	$('.xxxxx .nei').prev().click(function() {
 		$('.xxxxx .nei').toggle()
@@ -223,16 +226,6 @@ $(function() {
 			$('.xxxx .E').append('<div class="matching"><span class="question">题目<span>' + c + '</span>:</span><input type="text" value=""></div>');
 			$('.xxxx .F').append('<div class="matching"><img src="images/s09.jpg"/><img src="images/s05.jpg"/></div>')
 			$('.xxxx .E .matching').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-			$('.xxxx .F>.matching>img:first-child').click(function() {
-				$(this).attr('src', 'images/s03.jpg');
-				$(this).next().attr('src', 'images/s05.jpg');
-				$(this).attr('num',0);
-			});
-			$('.xxxx .F>.matching>img:last-child').click(function() {
-				$(this).attr('src', 'images/s12.jpg');
-				$(this).prev().attr('src', 'images/s09.jpg');
-				$(this).attr('num',1);
-			})
 		});
 		$('body').on('click', '.xxxx .E>.matching>a', function() {
 			var div = $(this).parent('.matching').nextAll().find('.question>span');
@@ -245,6 +238,21 @@ $(function() {
 			$(this).parent('.matching').remove();
 			c--;
 		});
+		
+		
+		
+					$('.xxxx .F>.matching>img:first-child').click(function() {
+				$(this).attr('src', 'images/s03.jpg');
+				$(this).next().attr('src', 'images/s05.jpg');
+				$(this).attr('num',1);
+			});
+			$('.xxxx .F>.matching>img:last-child').click(function() {
+				$(this).attr('src', 'images/s12.jpg');
+				$(this).prev().attr('src', 'images/s09.jpg');
+				$(this).attr('num',2);
+			})
+			
+			
 		//
 		//
 		//
