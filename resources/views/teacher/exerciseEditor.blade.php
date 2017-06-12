@@ -1386,7 +1386,7 @@
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
 			Object.arrys=$('.multiple').val()
-			$('.div4>.select2>div>input').each(function(i){
+			$('.select2>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
 				var objec={};
 				Object.result=[];
@@ -1420,12 +1420,13 @@
 			console.log(Object.result)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
-			var objec=''
 			$('.C>div>input').each(function(i){
-				objec+=$(this).val()+','
-				Object.result=objec				
+				var objec={}
+				objec[i+1]=$(this).val()
+				Object.options.push(objec)				
 			})
-			console.log(Object.result)
+			Object.options.pop()	
+			console.log(Object.options)
 		}else if(Object.types=='8'){
 			Object.arrys=[];
 			Object.result=[];
@@ -1450,11 +1451,13 @@
 			Object.result=Object.result.join(",")
 		}else{
 			Object.arrys=$('.pack').text()
-			var objec=''
+			var objec=[]
 			$('#G>div>input').each(function(i){			
-				objec+=$(this).val()+',';
+				objec.push($(this).val());
 				Object.result=objec
 			})
+			Object.result=Object.result.join(',')
+			console.log(Object.result)
 		}
 		
 		var datas;
