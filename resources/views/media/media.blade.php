@@ -30,7 +30,13 @@
 <!--顶部固定定位-->
 <div id="fixedTop">
     <div class="navbar">
+    	@if(Auth::guard('school')->check())
+        @include('media.include.head_Admin')
+        @elseif(Auth::guard('employee')->check())
+        @include('media.include.head_Tea')
+        @elseif(Auth::guard('student')->check())
         @include('student.include.head')
+        @endif
     </div>
     <div class="mediaDown">
         <img src="images/media/Hpb_mediaDown.png"/>

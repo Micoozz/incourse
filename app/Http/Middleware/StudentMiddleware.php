@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class StudentMiddleware
 {
@@ -18,6 +19,6 @@ class StudentMiddleware
         if(Auth::guard('student')->check()){
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/media');
     }
 }

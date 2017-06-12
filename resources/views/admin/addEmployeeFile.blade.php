@@ -57,12 +57,12 @@
             </div>
             <ul class="nav head_nav">
                 <li class="schoolMain">
-                    <a href="mediaManager">学校首页</a>
+                    <a href="/media">学校首页</a>
                     <div>
                         <a href="relateToMeManager">@与我相关</a>
                     </div>
                 </li>
-                <li><a href="addEmployeeFile" class="blue">档案管理</a></li>
+                <li><a href="/addEmployeeFile" class="blue">档案管理</a></li>
                 <li class="affix">
                     <a href="javascript:;"><img src="images/01.png" /></a>
                 </li>
@@ -71,7 +71,7 @@
                         <a href="teacherPersonData">个人信息</a>
                     </div>
                 </li>
-                <li><a href="index" class="blue">退出</a></li>
+                <li><a href="/logout" class="blue">退出</a></li>
             </ul>
         </div>
     </div>

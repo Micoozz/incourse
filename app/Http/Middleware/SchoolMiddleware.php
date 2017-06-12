@@ -19,6 +19,6 @@ class SchoolMiddleware
         if(Auth::guard('school')->check()){
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/media');
     }
 }

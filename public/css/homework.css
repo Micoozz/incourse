@@ -227,11 +227,6 @@ a {
 	float: left;
 }
 
-.order,
-#select1,
-#select2 {
-	margin-left: 20px;
-}
 
 .select {
 	cursor: pointer;

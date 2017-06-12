@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class EmployeeMiddleware
 {
@@ -18,6 +19,6 @@ class EmployeeMiddleware
         if(Auth::guard('employee')->check()){
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/media');
     }
 }
