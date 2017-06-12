@@ -226,16 +226,6 @@ $(function() {
 			$('.xxxx .E').append('<div class="matching"><span class="question">题目<span>' + c + '</span>:</span><input type="text" value=""></div>');
 			$('.xxxx .F').append('<div class="matching"><img src="images/s09.jpg"/><img src="images/s05.jpg"/></div>')
 			$('.xxxx .E .matching').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-			$('.xxxx .F>.matching>img:first-child').click(function() {
-				$(this).attr('src', 'images/s03.jpg');
-				$(this).next().attr('src', 'images/s05.jpg');
-				$(this).attr('num',1);
-			});
-			$('.xxxx .F>.matching>img:last-child').click(function() {
-				$(this).attr('src', 'images/s12.jpg');
-				$(this).prev().attr('src', 'images/s09.jpg');
-				$(this).attr('num',2);
-			})
 		});
 		$('body').on('click', '.xxxx .E>.matching>a', function() {
 			var div = $(this).parent('.matching').nextAll().find('.question>span');
@@ -248,6 +238,21 @@ $(function() {
 			$(this).parent('.matching').remove();
 			c--;
 		});
+		
+		
+		
+					$('.xxxx .F>.matching>img:first-child').click(function() {
+				$(this).attr('src', 'images/s03.jpg');
+				$(this).next().attr('src', 'images/s05.jpg');
+				$(this).attr('num',1);
+			});
+			$('.xxxx .F>.matching>img:last-child').click(function() {
+				$(this).attr('src', 'images/s12.jpg');
+				$(this).prev().attr('src', 'images/s09.jpg');
+				$(this).attr('num',2);
+			})
+			
+			
 		//
 		//
 		//
