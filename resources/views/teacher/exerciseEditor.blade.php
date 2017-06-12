@@ -880,7 +880,7 @@
                             <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx" class="xxxxx">
                                 <!--简答题板块-->
-                                <div class="end div11" id="div1">
+                                <div class="end div1" id="div1">
                                     <div class="text"><span class="textarea">问题：</span><textarea name=""></textarea>
                                     </div>
                                     <div class="text"><span class="textarea">回答：</span><textarea name=""></textarea>
@@ -888,7 +888,7 @@
 
                                 </div>
                                 <!--单选题板块-->
-                                <div class="end div12" id="div2" style="display:none;">
+                                <div class="end div2" id="div2" style="display:none;">
 
                                     <div class="select_single">
                                         <span class="question">问题：</span>
@@ -910,7 +910,7 @@
                                     </div>
                                 </div>
                                 <!--多空题板块-->
-                                <div class="end div13" id="div3" style="display:none;">
+                                <div class="end div3" id="div3" style="display:none;">
                                     <div contenteditable="true" class="select_single gapp" id="gapp"
                                          style="line-height:28px;padding: 7px 51px; overflow: auto"></div>
                                     <div class="fixed_question">问题：</div>
@@ -928,7 +928,7 @@
                                 </div>
 
                                 <!--多选题板块-->
-                                <div class="end div14" id="div4" style="display:none;">
+                                <div class="end div4" id="div4" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
@@ -950,7 +950,7 @@
                                 </div>
 
                                 <!--画图题板块-->
-                                <div class="end div15" id="div5" style="display:none;">
+                                <div class="end div5" id="div5" style="display:none;">
                                     <div class="select_single">
                                         <!--<input type="file" name="" id="" value="" style="color: #fff;"/>
                                         <div class="imgg"><img src=""/></div>-->
@@ -960,7 +960,7 @@
                                 </div>
 
                                 <!--连线题板块-->
-                                <div class="end div16" id="div6" style="display:none;">
+                                <div class="end div6" id="div6" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion">
@@ -987,7 +987,7 @@
                                     </div>
                                 </div>
                                 <!--排序题板块-->
-                                <div class="end div17" id="div7" style="display:none;">
+                                <div class="end div7" id="div7" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <input type="text" value="请将下列诗人按照朝代排序" class="no_addquestion">
@@ -1007,7 +1007,7 @@
                                     </div>
                                 </div>
                                 <!--判断题板块-->
-                                <div class="end div18" id="div8" style="display:none;">
+                                <div class="end div8" id="div8" style="display:none;">
                                     <div class="E">
                                         问题:
                                     </div>
@@ -1022,7 +1022,7 @@
                                     </div>
                                 </div>
                                 <!--填空题板块-->
-                                <div class="end div19" id="div9" style="display:none;">
+                                <div class="end div9" id="div9" style="display:none;">
                                     <div contenteditable="true" class="select_single" id="gap"
                                          style="padding-left: 50px;overflow: auto">
 
@@ -1283,9 +1283,7 @@
 				for(var i=0;i<data.length;i++){
 					$('#66,#but_a').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
 				}
-				$('.type>option').each(function(i){
-				$(this).attr('value',(11+i))
-			})
+				$('.type>option').last().hide()
 			}
 		});
 		
@@ -1301,13 +1299,26 @@
 			}
 		});
 		
+		
+	//显示题目
+	$.ajax({
+		type:"get",
+		url:"/showExerciseList/1",
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+		}
+	});	
+		
+		
+		
 		//数据提交
 		var Object={
 			account:'1',//科目
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:[]
+			result:''
 		}
 		
 				//综合体题型
@@ -1332,7 +1343,7 @@
 		})
 		
 		$('#ty').change(function(){
-				Object.result.push($(this).val())
+				Object.result=$(this).val()
 				colligate.answer.push($(this).val())
 		})
 		
@@ -1347,89 +1358,6 @@
 		var colligat,
 			colligats;
 		$('#bth_cc,#bth_c').click(function(){
-	
-			if(colligate.course=='11'){
-				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div11>div:first-child>textarea').val()}
-			}else if(colligate.course=='12'){
-				
-				$('.div12>.select1a>.select_single>input').each(function(i){
-				var lette=String.fromCharCode(letter+i+1);
-				var objec={}
-				objec[lette]=$(this).val()
-				Object.options.push(objec)
-			})
-				colligat={'score':$('.fraction').val(),'categroy':colligate.course - 10,'subject':$('.div12>.select_single>input').val(),'option':colligate.options,'answer':colligate.answer}
-			}else if(colligate.course=='13'){
-				colligats={'score':$('.fraction').val(),'categroy':colligate.course - 10,'subject':$('.gapp').val()}
-			}else if(colligate.course=='14'){
-				$('.div14>.select2>div>input').each(function(i){
-				var lette=String.fromCharCode(letter+i+1);
-				var objec={}
-				objec[lette]=$(this).val()
-				Object.options.push(objec)
-			});
-			$('.xxxxx .nei').prev().find('b').each(function(){
-				Object.answer.push($(this).attr('mu'))
-			})
-				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div14>.select_single>input').val(),'option':colligate.options,'answer':colligate.answer}
-			}else if(colligate.course=='15'){
-				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div15 input').val()}
-			}else if(colligate.course=='16'){
-			var arry1=[]
-			var arry2=[]
-			$('.div16 .A>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				arry1.push(objec)				
-			})
-			$('.div16 .B>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				arry2.push(objec)				
-			})
-			Object.answer.push(arry1,arry2)
-				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div16>.select_single>input').val(),'answer':colligate.answer}
-			}else if(colligate.course=='17'){
-				$('.div17 .C>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				Object.answer.push(objec)				
-			})
-				colligat={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div17>.select_single>input').val(),'answer':colligate.answer}
-			}else if(colligate.course=='18'){
-			colligate.subject=[];
-			function removeByValue(arr, val,arry) {
-  				for(var i=0; i<arr.length; i++) {
-   				 if(arr[i] == val) {
-    			  arr.splice(i,arry);
-     			 break;
-    			}
-  			}
-		}
-			$('.div18 .estimate input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				colligate.subject.push(objec)	
-			});
-			
-			$('.div18 .estimates img').each(function(i){
-				var objec=$(this).attr('num')
-				colligate.answer.push(objec)
-				removeByValue(Object.result,undefined,i);
-			})
-				colligat={'score':$('.fraction').val(),'course':colligate.course,'subject':colligate.subject,'answer':colligate.answer}
-			}else{
-				$('.div19 #G>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				colligate.answer.push(objec)
-			})
-				colligats={'score':$('.fraction').val(),'categroy':colligate.course,'subject':$('.div19 .fixed_question').text(),'answer':colligate.answer}
-			}
-			colligate.subjective.push(colligat);
-			colligate.objective.push(colligats);
-			console.log(colligate.objective)
-			console.log(colligate.subjective)
 		})
 		
 		
@@ -1451,7 +1379,7 @@
 				Object.options.push(objec)
 			})
 			if(Object.result.length==0){
-				Object.result.push(1)
+				Object.result=1
 			}
 				console.log(Object.result)
 		}else if(Object.types=='3'){
@@ -1460,13 +1388,15 @@
 			Object.arrys=$('.multiple').val()
 			$('.div4>.select2>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
-				var objec={}
+				var objec={};
+				Object.result=[];
 				objec[lette]=$(this).val()
 				Object.options.push(objec)
 			});
 			$('.but_a>b').each(function(){
 				Object.result.push($(this).attr('mu'))
 			})
+			Object.result=Object.result.join(',')
 		}else if(Object.types=='5'){
 			Object.arrys=$('.draw').val()
 		}else if(Object.types=='6'){
@@ -1488,11 +1418,10 @@
 			console.log(Object.result)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
-			Object.result=[];
+			var objec=''
 			$('.C>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				Object.result.push(objec)				
+				objec+=$(this).val()+','
+				Object.result=objec				
 			})
 			console.log(Object.result)
 		}else if(Object.types=='8'){
@@ -1511,27 +1440,27 @@
 				objec[i+1]=$(this).val()
 				Object.arrys.push(objec)	
 			});
-			
 			$('.estimates img').each(function(i){
-				var objec=$(this).attr('num')
+				objec=$(this).attr('num')
 				Object.result.push(objec)
 				removeByValue(Object.result,undefined,i);
 			})
+			Object.result=Object.result.join(",")
 		}else{
 			Object.arrys=$('.pack').val()
-			$('#G>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				Object.result.push(objec)
+			var objec=''
+			$('#G>div>input').each(function(i){			
+				objec+=$(this).val()+',';
+				Object.result=objec
 			})
 		}
 		
 		
-
 		
 		var datas;
 		if(Object.types=='10'){
-			datas={'content':$('#scrap').val(),'categroy':10,'course':Object.account,'subjective':colligate.subjective,'objective':colligate.objective,'_token':'{{csrf_token()}}'}
+			alert('暂不支持')
+//			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
 			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
