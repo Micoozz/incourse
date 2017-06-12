@@ -1381,7 +1381,7 @@
 			if(Object.result.length==0){
 				Object.result=1
 			}
-				console.log(Object.result)
+				console.log(Object.options)
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').val()
 		}else if(Object.types=='4'){
@@ -1468,11 +1468,15 @@
 		}
 			$.ajax({
 			type:"post",
-//			url:"/createExercise",
+			url:"/createExercise",
 			dataType:'json',
 			data:datas,
 			success:function(data){
-				console.log(data)
+					Object.account='1';
+					Object.types='1';
+					Object.arrys='';
+					Object.options=[];
+					Object.result='';
 			}
 		});			
 	})

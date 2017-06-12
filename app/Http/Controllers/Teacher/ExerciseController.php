@@ -36,7 +36,7 @@ class ExerciseController extends Controller
     			}else{
     				$answers = json_decode($objective->answer);
     			}
-    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'answer' => $answers));
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'option' => json_decode($objective->option),'answer' => $answers));
     			
     		}
 //  		else{
