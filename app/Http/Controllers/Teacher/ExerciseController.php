@@ -50,7 +50,7 @@ class ExerciseController extends Controller
     	$user = Auth::guard('employee')->user();
     	$time = time();
     	$code = 200;
-      	 try{
+      	 // try{
     		$exercise = new Exercises;
 	    	$exercise->teacher_id = $user->id;
 	    	$exercise->school_id = $user->school_id;
@@ -88,9 +88,9 @@ class ExerciseController extends Controller
 	    		$exercise->hasManySubjective()->create($input['subjective']);
 	    		$exercise->hasManyObjective()->create($input['objective']);
 	    	}
-      	 }catch(\Exception $e){
-      	 	$code = 201;
-      	 }
+      	 // }catch(\Exception $e){
+      	 // 	$code = 201;
+      	 // }
     	$data = array('code' => $code);
     	return json_encode($data);
     }

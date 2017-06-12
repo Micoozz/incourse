@@ -13,6 +13,7 @@ class LoginController extends Controller
     
     public  function login(){
     	$input = Input::get();
+        dd($input);
     	$guard = 'web';
     	if($input['number'] == 3){
     		$guard = 'school';
