@@ -7,21 +7,50 @@ use App\Http\Controllers\Controller;
 
 use Input;
 use Auth;
-use Models\Exercises;
-use Models\Objective;
-use Models\Subjective;
-use Models\Compositive;
+use App\Models\Exercises;
+use App\Models\Objective;
+use App\Models\Subjective;
+use App\Models\Compositive;
+use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList(){
-
+    public function showExerciseList($page){
+    	$limit = ($page-1)*5;
+    	$exercise_all = Exercises::all();
+    	$pageLength = intval($exercise_all->count()/5)+1;
+    	$exercise_list = Exercises::skip($limit)->take(5)->get();
+    	$data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
+    	foreach ($exercise_list as $exercise) {
+    		$cate_title = Categroy::find($exercise->categroy_id)->title;
+    		if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+    			$subjective = Subjective::where('exe_id',$exercise->id)->first();
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥'));
+    		}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+    			$objective = Objective::where('exe_id',$exercise->id)->first();
+				$answers = array();
+				if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
+    				$answer_list = explode(',',$objective->answer);
+    				foreach ($answer_list as $key => $answer) {
+    					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
+    				}
+    			}else{
+    				$answers = json_decode($objective->answer);
+    			}
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'option' => json_decode($objective->option),'answer' => $answers));
+    			
+    		}
+//  		else{
+//  			
+//  		}
+    	}
+    	return json_encode($data);
     }
     public function createExercise(){
     	$input = Input::get();
     	$user = Auth::guard('employee')->user();
     	$time = time();
     	$code = 200;
-    	try{
+      	 try{
     		$exercise = new Exercises;
 	    	$exercise->teacher_id = $user->id;
 	    	$exercise->school_id = $user->school_id;
@@ -48,7 +77,7 @@ class ExerciseController extends Controller
 	    	}
 	    	$exercise->save();
 	    	if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-	    		$objective = new Objective(['subject' => $input['subject'],'option' => $input['option'],'answer' => $input['answer']]);
+	    		$objective = new Objective(['subject' => $input['subject'],'option' => json_encode($input['option']),'answer' => json_encode($input['answer'])]);
 	    		$exercise->hasManyObjective()->save($objective);
 	    	}else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 	    		$subjective = new Subjective(['subject' => $input['subject']]);
@@ -59,9 +88,9 @@ class ExerciseController extends Controller
 	    		$exercise->hasManySubjective()->create($input['subjective']);
 	    		$exercise->hasManyObjective()->create($input['objective']);
 	    	}
-    	}catch(\Exception $e){
-    		$code = 201;
-    	}
+      	 }catch(\Exception $e){
+      	 	$code = 201;
+      	 }
     	$data = array('code' => $code);
     	return json_encode($data);
     }

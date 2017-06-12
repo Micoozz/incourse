@@ -26,12 +26,12 @@ class Exercises extends Model
     public $timestamps = false;
 
     public function hasOneCompositive(){
-    	return $this->hasOne('App\Models\Compositive');
+    	return $this->hasOne('App\Models\Compositive','exe_id');
     }
     public function hasManyObjective(){
-    	return $this->hasMany('App\Models\Objective');
+    	return $this->hasMany('App\Models\Objective','exe_id');
     }
     public function hasManySubjective(){
-    	return $this->hasMany('App\Models\Subjective');
+    	return $this->hasMany('App\Models\Subjective','exe_id');
     }
 }

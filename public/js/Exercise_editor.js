@@ -76,6 +76,7 @@ $(function() {
 });
 //只做出前三个有添加功能的假数据给你看。代码向上
 $(function() {
+
 		$('.bj').click(function() {
 			$('#centery>div').not(":first-child").hide()
 			$('#centery>div:nth-of-type(4)').show()
@@ -111,7 +112,6 @@ $(function() {
 			$('#centery>div').not(":first-child").hide();
 			$('#centery>div:nth-of-type(3)').show();
 			var sd = $('#centery>div:nth-of-type(5) #66').val();
-			console.log(sd)
 			var nei = $('#centery>div:nth-of-type(5) #xxx>.div' + sd).html();
 			var a = $('#centery>div:nth-of-type(5) #xxx>.div' + sd + 'textarea').val();
 			$('#centery>div:nth-of-type(3) #div10>div:nth-of-type(2) textarea').val(a)

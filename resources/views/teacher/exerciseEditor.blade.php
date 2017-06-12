@@ -116,7 +116,7 @@
                     <div id="homework" class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 old-p"></div>
 
-                        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 center_title Ee_frbs">一年一班习题库（语文）
+                        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 center_title Ee_frbs">一年一班习题库
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
@@ -214,107 +214,6 @@
                             </div>
                         </div>
                         <div class="row work">
-                            <div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head">
-											<span class="order">
-                            					1.
-                        					</span>
-                                        <!--问题-->
-                                        <span class="xz">选择题</span>：下列词语中的加点字读音完全相同的一组是（）
-                                    </p>
-
-                                    <form action="" class="select">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled"
-                                                       value="A"/><span class="select-wrapper"></span>A.
-                                                <span class="question-content"><span class="dot">着</span>陆 <span
-                                                        class="dot">着</span>落 <span class="dot">着</span>火 <span
-                                                        class="dot">着</span>急</span>
-                                            </label>
-                                        </div>
-                                        <!--问题字符大小均为14px-->
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled"
-                                                       value="B"/><span class="select-wrapper"></span>B.
-                                                <span class="question-content">舟<span class="dot">楫</span> 逻<span
-                                                        class="dot">辑</span> 作<span class="dot">揖</span> <span
-                                                        class="dot">缉</span>拿</span>
-                                            </label>
-
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect" checked
-                                                       value="C"/><span class="select-wrapper"></span>C.
-                                                <span class="question-content">羡<span class="dot">慕</span> <span
-                                                        class="dot">募</span>捐 帷<span class="dot">幕 </span><span
-                                                        class="dot">墓</span>地</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="questionSelect" name="questionSelect"
-                                                       disabled="disabled"
-                                                       value="D"/><span class="select-wrapper"></span>D.
-                                                <span class="question-content"><span class="dot">参</span>差 人<span
-                                                        class="dot">参</span> <span class="dot">参</span>加 <span
-                                                        class="dot">参</span>考</span>
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">C</span><span
-                                            class="col-line"></span>
-											<span title="难度(1)">
-	    <a><img src="images/Cj_17mm.png" class="yellow"></a>
-
-          <a><img src="images/Cj_18mm.png"></a>
-
-           <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-								</span>
-
-                                        <div class="pj">
-                                            <div title="难度(1)">
-                                                <img src="images/Cj_17mm.png" class="yellow" num=1>
-
-                                                <img src="images/Cj_18mm.png" num=2>
-
-                                                <img src="images/Cj_18mm.png" num=3>
-
-                                                <img src="images/Cj_18mm.png" num=4>
-
-                                                <img src="images/Cj_18mm.png" num=5>
-                                            </div>
-                                            <div>
-                                                <span class="mui4" title="差" mui=1></span>
-                                                <span class="mui4" title="较差" mui=2></span>
-                                                <span class="mui4" title="一般" mui=3></span>
-                                                <span class="mui4" title="好" mui=4></span>
-                                                <span title="很好" mui=5></span>
-                                            </div>
-                                            <b>评分</b>
-                                        </div>
-
-                                        <div style="float: right;" class="hidee">
-                                            <span class="tj bo"><input type="checkbox" name="" id=""
-                                                                       value="1"/>添加</span>
-                                            <a href="javascript:;" class="bj">编辑</a>
-                                            <a href="javascript:;" class="bo">（收藏</a><span
-                                                class="collection_num">998</span>）
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row mar_tb">
                                 <div class="homework-content">
                                     <p class="question-head">
@@ -595,13 +494,13 @@
                                 <div class="z_t_c row ">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 select">
                                         <span>选择标题</span>
-                                        <select name="queryType" id="66" onchange="Cmd(this)">
+                                        <select name="queryType" id="66" onchange="Cmd(this)" class="types">
          
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <span id="chapter">题目分值</span>
-                                        <input type="text" value=" ">
+                                        <input type="text" value=" " id='grade'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -609,8 +508,6 @@
                                         <span>所属章节</span>
                                         <input type="text" value=" ">
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-lg-12" id="subject">
                                         <span>科目</span>
                                         <select name="">
@@ -633,9 +530,9 @@
                             <div id="xxx" class="xxxx">
                                 <!--简答题板块-->
                                 <div class="end" id="div1">
-                                    <div class="text"><span class="textarea">问题：</span><textarea name=""></textarea>
+                                    <div class="text"><span class="textarea">问题：</span><textarea name="" class="Short-answer"></textarea>
                                     </div>
-                                    <div class="text"><span class="textarea">回答：</span><textarea name=""></textarea>
+                                    <div class="text"><span class="textarea">回答：</span><textarea name="" class="Short-answer-result"></textarea>
                                     </div>
 
                                 </div>
@@ -644,7 +541,7 @@
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
-                                        <input type="text" placeholder="请在下列选项中选出正确的一项。" class="no_addquestion">
+                                        <input type="text" placeholder="请在下列选项中选出正确的一项。" class="no_addquestion single-selection">
                                     </div>
                                     <div class="select1" id="select1">
 
@@ -662,12 +559,12 @@
                                 </div>
                                 <!--多空题板块-->
                                 <div class="end" id="div3" style="display:none;">
-                                    <div contenteditable="true" class="select_single" id="gapp"
+                                    <div contenteditable="true" class="select_single long-short" id="gapp"
                                          style="line-height:28px;padding: 7px 51px; overflow: auto"></div>
                                     <div class="fixed_question">问题：</div>
                                     <div class="answer3 answer7">
                                         <input type="text" value=""
-                                               style="text-indent: 7px; margin-top: -11px;width: 30%;position: absolute;left:22px;border:none"
+                                               style="margin-top: -10px;width: 30%;position: absolute;border:none"
                                                placeholder="请填写空格提示答案" id="gapp" disabled="disabled">
                                         <a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;&nbsp;插入空格
@@ -683,19 +580,18 @@
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
-                                        <input type="text" value="请在下列选项中选出正确的一项。" class="no_addquestion">
+                                        <input type="text" value="请在下列选项中选出正确的一项。" class="no_addquestion multiple">
                                     </div>
-                                    <div id="select2">
+                                    <div id="select2" class="select2">
 
                                     </div>
-                                    <div class="answer5" style="line-height:42px;margin-top: 30px;width: 89%;">
+                                    <div class="answer5" style="line-height:42px;margin-top: 30px;width:100%;">
                                         <a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;&nbsp;添加选项
                                         </a>
-                                        <span style="display: inline-block;min-width: 120px;height: 40px;border: 1px solid #a4a4a4;float: right;"></span>
+                                        <span class="but_a"></span>
 
-                                        <div class="nei"
-                                             style="position: absolute;border: 1px solid #a4a4a4;min-width: 120px;right: 38px;min-height: 40px;margin-top: -3px;display: none;"></div>
+                                        <div class="nei"></div>
                                         <span class="but_b">正确答案：</span>
 
                                     </div>
@@ -705,7 +601,7 @@
                                 <div class="end" id="div5" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
-                                        <input type="text" value="请绘出您心中的大海。" class="no_addquestion">
+                                        <input type="text" value="请绘出您心中的大海。" class="no_addquestion draw">
                                         <!--<input type="file" name="" id="" value="" style="color: #fff;"/>-->
                                         <!--<div class="img"><img src=""/></div>-->
                                     </div>
@@ -715,7 +611,7 @@
 									<div class="end" id="div6" style="display:none;">
 										<div class="select_single">
 											<span class="question">问题：</span>
-											<input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion">
+											<input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion ligature">
 										</div>
 										<div class="A">
 											子项A组：
@@ -742,7 +638,7 @@
                                 <div class="end" id="div7" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
-                                        <input type="text" value="请将下列诗人按照朝代排序" class="no_addquestion">
+                                        <input type="text" value="请将下列诗人按照朝代排序" class="no_addquestion sort">
                                     </div>
                                     <div class="C">
                                         答案:
@@ -760,22 +656,22 @@
                                 </div>
                                 <!--判断题板块-->
                                 <div class="end" id="div8" style="display:none;">
-                                    <div class="E">
-                                        问题:
+                                    <div class="E estimate">
+                                        问题:     <div class="matching"><span class="question">题目<span>1</span>:</span><input type="text" value=""></div>
                                     </div>
-                                    <div class="F">
-                                        答案：
+                                    <div class="F estimates">
+                                        答案：<div class="matching"><img src="images/s09.jpg"/><img src="images/s05.jpg"/></div>
                                     </div>
                                     <div class="clear"></div>
                                     <div id="answer" class="answer2">
-                                        <a href="javascript:;">
+                                        <!--<a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;继续添加题目
-                                        </a>
+                                        </a>-->
                                     </div>
                                 </div>
                                 <!--填空题板块-->
                                 <div class="end" id="div9" style="display:none;">
-                                    <div contenteditable="true" class="select_single" id="gap"
+                                    <div contenteditable="true" class="select_single pack" id="gap"
                                          style="text-indent:50px;">
                                         <input type="text" value="" id="first">
                                     </div>
@@ -787,12 +683,12 @@
                                     </div>
                                     <span>正确答案：</span>
 
-                                    <div class="G">
+                                    <div class="G" id="G">
                                     </div>
                                 </div>
                                 <!--综合题-->
                                 <div class="end" id="div10" style="display:none;">
-                                    <div class="text"><span class="textarea">问题：</span><textarea name="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</textarea>
+                                    <div class="text"><span class="textarea">问题：</span><textarea name="" id="scrap"></textarea>
                                     </div>
                                     <div></div>
                                     <div class="text"><span class="textarea">+添加题目</span>
@@ -802,7 +698,7 @@
                             <div class="button button_frb">
                                 <button class="btn btn_r">返回</button>
                                 <button class="btn btn_c bc" type="button">添加至</button>
-                                <button class="btn btn_c" onclick="return false">提交</button>
+                                <button class="btn btn_c" onclick="return false">上传</button>
                                 <div class="fix">
                                     <div class="on" data-toggle="modal" data-target="#myModal3">作业</div>
                                     <div data-toggle="modal" data-target="#myModal4">试卷</div>
@@ -860,20 +756,30 @@
                                 <div class="z_t_c row ">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 select">
                                         <span>选择标题</span>
-                                        <select name="queryType" id="66" onchange="Cmdd(this)">
+                                        <select name="queryType" id="66" onchange="Cmdd(this)" class="type">
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <span id="chapter">题目分值</span>
-                                        <input type="text" value=" ">
+                                        <input type="text" value=" " class="fraction">
                                     </div>
                                 </div>
                             </div>
+                            <div id="add">
+                                <div id="add_add">
+                                    <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
+                                    <input type="file" id="addword" style="display: none">
+                                    <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
+                                    <input type="file" id="addpic" style="display: none">
+                                    <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
+                                    <input type="file" id="addmov" style="display: none">
+                                </div>
+                            </div>                
                             <div class="go_success" style="top: 45%">提交成功！</div>
                             <div class="go_tj" style="top: 45%">添加成功！</div>
-                            <div id="xxx" style="margin-top: -4rem;" class="xxxxx">
+                            <div id="xxx" class="xxxxx">
                                 <!--简答题板块-->
-                                <div class="end div11" id="div1">
+                                <div class="end div1" id="div1">
                                     <div class="text"><span class="textarea">问题：</span><textarea name=""></textarea>
                                     </div>
                                     <div class="text"><span class="textarea">回答：</span><textarea name=""></textarea>
@@ -881,7 +787,7 @@
 
                                 </div>
                                 <!--单选题板块-->
-                                <div class="end div12" id="div2" style="display:none;">
+                                <div class="end div2" id="div2" style="display:none;">
 
                                     <div class="select_single">
                                         <span class="question">问题：</span>
@@ -903,13 +809,13 @@
                                     </div>
                                 </div>
                                 <!--多空题板块-->
-                                <div class="end div13" id="div3" style="display:none;">
-                                    <div contenteditable="true" class="select_single" id="gapp"
+                                <div class="end div3" id="div3" style="display:none;">
+                                    <div contenteditable="true" class="select_single gapp" id="gapp"
                                          style="line-height:28px;padding: 7px 51px; overflow: auto"></div>
-                                    <div class="fixed_question" style="top:190px">问题：</div>
+                                    <div class="fixed_question">问题：</div>
                                     <div class="answer3 answer7 answer7a">
                                         <input type="text" value=""
-                                               style="text-indent: 7px; margin-top: -11px;width: 30%;position: absolute;left:22px;border:none"
+                                               style="margin-top: -10px;width: 30%;position: absolute;left:22px;border:none"
                                                placeholder="请填写空格提示答案" id="gapp" disabled="disabled">
                                         <a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;&nbsp;插入空格
@@ -921,7 +827,7 @@
                                 </div>
 
                                 <!--多选题板块-->
-                                <div class="end div14" id="div4" style="display:none;">
+                                <div class="end div4" id="div4" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
@@ -930,21 +836,20 @@
                                     <div id="select2">
 
                                     </div>
-                                    <div class="answer5" style="line-height:42px;margin-top: 30px;width: 89%;">
+                                    <div class="answer5" style="line-height:42px;margin-top: 30px;width: 100%;">
                                         <a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;&nbsp;添加选项
                                         </a>
                                         <span style="display: inline-block;min-width: 120px;height: 40px;border: 1px solid #a4a4a4;float: right;"></span>
 
-                                        <div class="nei"
-                                             style="position: absolute;border: 1px solid #a4a4a4;min-width: 120px;right: 38px;min-height: 40px;margin-top: -3px;display: none;"></div>
+                                        <div class="nei"></div>
                                         <span class="but_b">正确答案：</span>
 
                                     </div>
                                 </div>
 
                                 <!--画图题板块-->
-                                <div class="end div15" id="div5" style="display:none;">
+                                <div class="end div5" id="div5" style="display:none;">
                                     <div class="select_single">
                                         <!--<input type="file" name="" id="" value="" style="color: #fff;"/>
                                         <div class="imgg"><img src=""/></div>-->
@@ -954,7 +859,7 @@
                                 </div>
 
                                 <!--连线题板块-->
-                                <div class="end div16" id="div6" style="display:none;">
+                                <div class="end div6" id="div6" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion">
@@ -981,7 +886,7 @@
                                     </div>
                                 </div>
                                 <!--排序题板块-->
-                                <div class="end div17" id="div7" style="display:none;">
+                                <div class="end div7" id="div7" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <input type="text" value="请将下列诗人按照朝代排序" class="no_addquestion">
@@ -1001,27 +906,27 @@
                                     </div>
                                 </div>
                                 <!--判断题板块-->
-                                <div class="end div18" id="div8" style="display:none;">
+                                <div class="end div8" id="div8" style="display:none;">
                                     <div class="E">
-                                        问题:
+                                        问题:           
                                     </div>
                                     <div class="F">
-                                        答案：
+                                        答案：		
                                     </div>
                                     <div class="clear"></div>
                                     <div id="answer" class="answer2">
-                                        <a href="javascript:;">
+                                        <!--<a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;继续添加题目
-                                        </a>
+                                        </a>-->
                                     </div>
                                 </div>
                                 <!--填空题板块-->
-                                <div class="end div19" id="div9" style="display:none;">
+                                <div class="end div9" id="div9" style="display:none;">
                                     <div contenteditable="true" class="select_single" id="gap"
                                          style="padding-left: 50px;overflow: auto">
 
                                     </div>
-                                    <div class="fixed_question" style="position: relative;top: -50px;left: 12px;">问题：
+                                    <div class="fixed_question" style="position: relative;top: -30px;left: 12px;">问题：
                                     </div>
                                     <div class="answer3 answer10">
                                         <a href="javascript:;">
@@ -1268,6 +1173,7 @@
 <script src="js/Exercise_editor.js"></script>
 <script>
 	$(function(){
+		//题型数据
 		$.ajax({
 			type:"get",
 			url:"/getCategroy",
@@ -1276,10 +1182,11 @@
 				for(var i=0;i<data.length;i++){
 					$('#66,#but_a').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
 				}
+				$('.type>option').last().hide()
 			}
 		});
 		
-		
+		//科目数据
 		$.ajax({
 			type:"get",
 			url:"/getCourse",
@@ -1290,6 +1197,184 @@
 				}
 			}
 		});
+		
+		
+	//显示题目
+	$.ajax({
+		type:"get",
+		url:"/showExerciseList/1",
+		dataType:'json',
+		success:function(data){
+			var exercises=data.exercises;
+			console.log(exercises)
+			for(var i=0;i<exercises.length;i++){
+					if(exercises[i].cate_title=='单选题'){
+						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
+					}else if(exercises[i].cate_title=='填空题'){
+						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
+					}
+			}
+		}
+	});	
+		
+		
+		
+		//数据提交
+		var Object={
+			account:'1',//科目
+			types:'1',//题型
+			arrys:'',
+			options:[],
+			result:''
+		}
+		
+				//综合体题型
+		var colligate={
+			course:'',
+			categroy:'',
+			subject:'',
+			options:[],
+			answer:[],
+			subjective:[],
+			objective:[]
+		}
+		
+		
+		$('#subject>select').change(function(){
+			Object.account=$(this).val()
+		})
+		
+		
+		$('.types').change(function(){
+			Object.types=$(this).val()
+		})
+		
+		$('#ty').change(function(){
+				Object.result=$(this).val()
+				colligate.answer.push($(this).val())
+		})
+		
+		var letter=64
+		
+			
+				
+		$('.type').change(function(){
+			colligate.course=$(this).val()
+		})
+		
+		var colligat,
+			colligats;
+		
+		
+		
+		
+		
+		
+	$('.button_frb').click(function(){	
+		var grade=$("#grade").val();
+		if(Object.types=='1'){
+			Object.arrys=$('.Short-answer').val()
+		}else if(Object.types=='2'){
+			Object.arrys=$('.single-selection').val()!='' ? $('.single-selection').val() : $('.single-selection').val('请在下列选项中选出正确的一项。');
+			$('.select1>div>input').each(function(i){
+				var lette=String.fromCharCode(letter+i+1);
+				var objec={}
+				objec[lette]=$(this).val()
+				Object.options.push(objec)
+			})
+			if(Object.result.length==0){
+				Object.result=1
+			}
+		}else if(Object.types=='3'){
+			Object.arrys=$('.long-short').val()
+		}else if(Object.types=='4'){
+			Object.arrys=$('.multiple').val()
+			$('.select2>div>input').each(function(i){
+				var lette=String.fromCharCode(letter+i+1);
+				var objec={};
+				Object.result=[];
+				objec[lette]=$(this).val()
+				Object.options.push(objec)
+			});
+			$('.but_a>b').each(function(){
+				Object.result.push($(this).attr('mu'))
+			})
+			Object.result=Object.result.join(',')
+		}else if(Object.types=='5'){
+			Object.arrys=$('.draw').val()
+		}else if(Object.types=='6'){
+			Object.arrys=$('.ligature').val()
+			Object.result=[];
+			var arry1=[]
+			var arry2=[]
+			$('.A>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val();
+				arry1.push(objec);				
+			})
+			$('.B>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				arry2.push(objec)			
+			})
+				arry1.pop()	
+				arry2.pop()	
+			Object.options.push(arry1,arry2)
+			console.log(Object.result)
+		}else if(Object.types=='7'){
+			Object.arrys=$('.sort').val()
+			$('.C>div>input').each(function(i){
+				var objec={}
+				objec[i+1]=$(this).val()
+				Object.options.push(objec)				
+			})
+			Object.options.pop()	
+			console.log(Object.options)
+		}else if(Object.types=='8'){
+			Object.arrys=$('.estimate input').val();
+			Object.result=[];
+			function removeByValue(arr, val,arry) {
+  				for(var i=0; i<arr.length; i++) {
+   				 if(arr[i] == val) {
+    			  arr.splice(i,arry);
+     			 break;
+    			}
+  			}
+		}
+			$('.estimates img').each(function(i){
+				objec=$(this).attr('num')
+				Object.result.push(objec)
+				removeByValue(Object.result,undefined,i);
+			})
+			Object.result=Object.result.join(",")
+		}else{
+			Object.arrys=$('.pack').text()
+			var objec=[]
+			$('#G>div>input').each(function(i){			
+				objec.push($(this).val());
+				Object.result=objec
+			})
+			Object.result=Object.result.join(',')
+			console.log(Object.result)
+		}
+		
+		var datas;
+		if(Object.types=='10'){
+//			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
+		}else{
+			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
+		}
+			$.ajax({
+			type:"post",
+//			url:"/createExercise",
+			dataType:'json',
+			data:datas,
+			success:function(data){
+			}
+		});	
+					
+	})
+
 	})
 </script>
 </body>
