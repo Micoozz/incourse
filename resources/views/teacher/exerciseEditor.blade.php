@@ -218,107 +218,6 @@
                                 <div class="homework-content">
                                     <p class="question-head">
 											<span class="order">
-                            					1.
-                        					</span>
-                                        <!--问题-->
-                                        <span class="xz">选择题</span>：下列词语中的加点字读音完全相同的一组是（）
-                                    </p>
-
-                                    <form action="" class="select">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled"
-                                                       value="A"/><span class="select-wrapper"></span>A.
-                                                <span class="question-content"><span class="dot">着</span>陆 <span
-                                                        class="dot">着</span>落 <span class="dot">着</span>火 <span
-                                                        class="dot">着</span>急</span>
-                                            </label>
-                                        </div>
-                                        <!--问题字符大小均为14px-->
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled"
-                                                       value="B"/><span class="select-wrapper"></span>B.
-                                                <span class="question-content">舟<span class="dot">楫</span> 逻<span
-                                                        class="dot">辑</span> 作<span class="dot">揖</span> <span
-                                                        class="dot">缉</span>拿</span>
-                                            </label>
-
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect" checked
-                                                       value="C"/><span class="select-wrapper"></span>C.
-                                                <span class="question-content">羡<span class="dot">慕</span> <span
-                                                        class="dot">募</span>捐 帷<span class="dot">幕 </span><span
-                                                        class="dot">墓</span>地</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="questionSelect" name="questionSelect"
-                                                       disabled="disabled"
-                                                       value="D"/><span class="select-wrapper"></span>D.
-                                                <span class="question-content"><span class="dot">参</span>差 人<span
-                                                        class="dot">参</span> <span class="dot">参</span>加 <span
-                                                        class="dot">参</span>考</span>
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">C</span><span
-                                            class="col-line"></span>
-											<span title="难度(1)">
-	    <a><img src="images/Cj_17mm.png" class="yellow"></a>
-
-          <a><img src="images/Cj_18mm.png"></a>
-
-           <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-								</span>
-
-                                        <div class="pj">
-                                            <div title="难度(1)">
-                                                <img src="images/Cj_17mm.png" class="yellow" num=1>
-
-                                                <img src="images/Cj_18mm.png" num=2>
-
-                                                <img src="images/Cj_18mm.png" num=3>
-
-                                                <img src="images/Cj_18mm.png" num=4>
-
-                                                <img src="images/Cj_18mm.png" num=5>
-                                            </div>
-                                            <div>
-                                                <span class="mui4" title="差" mui=1></span>
-                                                <span class="mui4" title="较差" mui=2></span>
-                                                <span class="mui4" title="一般" mui=3></span>
-                                                <span class="mui4" title="好" mui=4></span>
-                                                <span title="很好" mui=5></span>
-                                            </div>
-                                            <b>评分</b>
-                                        </div>
-
-                                        <div style="float: right;" class="hidee">
-                                            <span class="tj bo"><input type="checkbox" name="" id=""
-                                                                       value="1"/>添加</span>
-                                            <a href="javascript:;" class="bj">编辑</a>
-                                            <a href="javascript:;" class="bo">（收藏</a><span
-                                                class="collection_num">998</span>）
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head">
-											<span class="order">
                                                            2.
                                                      </span>
                                         <!--问题-->
@@ -758,16 +657,16 @@
                                 <!--判断题板块-->
                                 <div class="end" id="div8" style="display:none;">
                                     <div class="E estimate">
-                                        问题:
+                                        问题:     <div class="matching"><span class="question">题目<span>1</span>:</span><input type="text" value=""></div>
                                     </div>
                                     <div class="F estimates">
-                                        答案：
+                                        答案：<div class="matching"><img src="images/s09.jpg"/><img src="images/s05.jpg"/></div>
                                     </div>
                                     <div class="clear"></div>
                                     <div id="answer" class="answer2">
-                                        <a href="javascript:;">
+                                        <!--<a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;继续添加题目
-                                        </a>
+                                        </a>-->
                                     </div>
                                 </div>
                                 <!--填空题板块-->
@@ -799,7 +698,7 @@
                             <div class="button button_frb">
                                 <button class="btn btn_r">返回</button>
                                 <button class="btn btn_c bc" type="button">添加至</button>
-                                <button class="btn btn_c" onclick="return false">提交</button>
+                                <button class="btn btn_c" onclick="return false">上传</button>
                                 <div class="fix">
                                     <div class="on" data-toggle="modal" data-target="#myModal3">作业</div>
                                     <div data-toggle="modal" data-target="#myModal4">试卷</div>
@@ -1009,16 +908,16 @@
                                 <!--判断题板块-->
                                 <div class="end div8" id="div8" style="display:none;">
                                     <div class="E">
-                                        问题:
+                                        问题:           
                                     </div>
                                     <div class="F">
-                                        答案：
+                                        答案：		
                                     </div>
                                     <div class="clear"></div>
                                     <div id="answer" class="answer2">
-                                        <a href="javascript:;">
+                                        <!--<a href="javascript:;">
                                             <img src="images/add_07.jpg" alt="">&nbsp;&nbsp;继续添加题目
-                                        </a>
+                                        </a>-->
                                     </div>
                                 </div>
                                 <!--填空题板块-->
@@ -1309,7 +1208,11 @@
 			var exercises=data.exercises;
 			console.log(exercises)
 			for(var i=0;i<exercises.length;i++){
-					
+					if(exercises[i].cate_title=='单选题'){
+						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
+					}else if(exercises[i].cate_title=='填空题'){
+						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
+					}
 			}
 		}
 	});	
@@ -1428,7 +1331,7 @@
 			Object.options.pop()	
 			console.log(Object.options)
 		}else if(Object.types=='8'){
-			Object.arrys=[];
+			Object.arrys=$('.estimate input').val();
 			Object.result=[];
 			function removeByValue(arr, val,arry) {
   				for(var i=0; i<arr.length; i++) {
@@ -1438,11 +1341,6 @@
     			}
   			}
 		}
-			$('.estimate input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				Object.arrys.push(objec)	
-			});
 			$('.estimates img').each(function(i){
 				objec=$(this).attr('num')
 				Object.result.push(objec)
