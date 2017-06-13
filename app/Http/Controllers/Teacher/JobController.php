@@ -11,21 +11,47 @@ use App\Models\Job;
 class JobController extends Controller
 {
     //
-    public function createJob(){
+    public function createJob($status = Job::STATUS_UNPUB){
     	$input = Input::get();
+    	$code = 200;
     	$user = Auth::guard('employee')->user();
-    	$job = new Job;
-    	$job->teacher_id = $user->id;
-    	$job->course_id = intval($input['course']);
-    	$job->job_type = intval($input['type']);
-    	$job->score = intval($input['score'])*100;
-    	$job->exercise_id = json_encode($input['exercise_id']);
-    	$job->status = Job::STATUS_UNPUB;
-    	$job->pub_time = 0;
-    	$job->deadline = intval($input['deadline']);
-    	$job->save();
+    	try{
+    		$job = new Job;
+	    	$job->teacher_id = $user->id;
+	    	$job->course_id = intval($input['course']);
+	    	$job->job_type = intval($input['type']);
+	    	$job->score = intval($input['score'])*100;
+	    	$job->exercise_id = json_encode($input['exercise_id']);
+	    	$job->status = $status;
+	    	$job->pub_time = 0;
+	    	$job->deadline = intval($input['deadline']);
+	    	$job->save();
+    	}catch(\Exception $e){
+    		$code = 201;
+    	}
+    	if($status == Job::STATUS_UNPUB){
+    		$data = array('code' => $code);
+    		return json_encode($data);
+    	}else{
+    		return $job;
+    	}
     }
     public function pubJob(){
-    	
+    	$input = Input::get();
+    	$code = 200;
+    	$job_id = intval($input['job_id']);
+    	if(empty($job_id)){
+    		$job = createJob(Job::STATUS_PUB);
+    	}else{
+    		$job = Job::find($job_id);
+    		if($job->teacher_id != Auth::guard('employee')->user()->id){
+    			$code = 201;
+    			break 2;
+    		}
+    		$job->status = Job::STATUS_PUB;
+    		$job->save();
+    	}
+    	$data = array('code' => $code);
+		return json_encode($data);
     }
 }
