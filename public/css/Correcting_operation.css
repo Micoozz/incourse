@@ -568,7 +568,7 @@ button.close:hover {
     height: 200px;
 }
 .mar_tb{
-    margin:25px auto ;
+    margin:0 auto ;
     padding: 0px 30px;
 }
 .mar{
@@ -801,3 +801,10 @@ label{
     }
 }
 /*end*/
+
+
+/*标题颜色*/
+{
+	background-color: #eee;
+    padding: 10px 0 10px 10px;
+}

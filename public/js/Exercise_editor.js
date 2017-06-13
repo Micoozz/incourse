@@ -80,9 +80,6 @@ $(function() {
 	})
 	//动态生成，遇到一个问题样式生成了但是里面的内容并没有生成，麻烦写下。见上
 $(document).ready(function() {
-	$('.btn_c').click(function(){
-		window.location.href=''
-	})
 	$(".bc").click(function() {
 		$(".fix").toggle()
 	});
