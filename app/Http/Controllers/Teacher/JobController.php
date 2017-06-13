@@ -8,8 +8,25 @@ use App\Http\Controllers\Controller;
 use Input;
 use Auth;
 use App\Models\Job;
+use App\Models\work;
 class JobController extends Controller
 {
+
+    public function showJoblist($page = 1)
+    {
+        $job_all = Job::all();
+        $limit = ($page-1)*5;
+        $pageLength = intval($job_all->count()/5)+1;
+        $job_list = Job::skip($limit)->take(5)->get();
+        $data = array('total' => $job_all->count(),'pageLength' => $pageLength,'jobs' => array());
+        foreach ($job_list as $job){
+          $job_type = $job->job_type == Job::STATUS_UNPUB?'小组':'个人';
+          $job_status = $job->job_status == Job::STATUS_UNPUB?'已发布':'未发布';
+          array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,'job_type' => $job_type,'pub_time' => $job->pub_time,'job_status' => $job->status));
+          }
+        }
+        return json_encode($data);
+    }
     //
     public function createJob($status = Job::STATUS_UNPUB){
     	$input = Input::get();
@@ -19,10 +36,14 @@ class JobController extends Controller
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
 	    	$job->course_id = intval($input['course']);
-	    	$job->title = $input['title'];
+            $job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
+<<<<<<< HEAD
 	    	$job->exercise_id = $input['exercise_id'];
+=======
+	    	$job->exercise_id = json_encode($input['exercise_id']); 
+>>>>>>> d9122dc37e23c3f9e047ecf0630ad66f128c3dae
 	    	$job->status = $status;
 	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
 	    	$job->deadline = strtotime($input['deadline']);
@@ -52,6 +73,16 @@ class JobController extends Controller
     		}
     		$job->status = Job::STATUS_PUB;
     	}
+        if($job->teacher_id == Auth::guard('employee')->user()->id){
+            $work = new work;
+            $work->student_id = 1；
+            $word->job_id = $job->id;
+            $word->course = $job->course_id;
+            $word->status = 1;
+            $work->start_time = 0;
+            $word->sub_time = 0;
+            $word->save();
+        }
 		$job->save();
     	$data = array('code' => $code);
 		return json_encode($data);
