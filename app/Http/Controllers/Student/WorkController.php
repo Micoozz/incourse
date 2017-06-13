@@ -21,12 +21,12 @@ class WorkController extends Controller
         $data = array('total' => $work_all->count(),'pageLength' => $pageLength,'works' => array());
         foreach ($work_list as $work) {
             array_push($data['works'],array('work_id' => $work->id,
-                'title' => $work->belongsToJob()->title,
-                'pub_time' => $work->belongsToJob()->pub_time,
-                'deadline' => $work->belongsToJob()->deadline,
+                'title' => $work->belongsToJob()->first()->title,
+                'pub_time' => $work->belongsToJob()->first()->pub_time,
+                'deadline' => $work->belongsToJob()->first()->deadline,
                 'start_time' => $work->start_time,
                 'sub_time' => $work->sub_time,
-                'score' => $work->score,
+                'score' => $work->score/100,
                 'status' => $work->status));
         }
         return json_encode($data);
