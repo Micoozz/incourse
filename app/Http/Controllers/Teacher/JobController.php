@@ -37,11 +37,7 @@ class JobController extends Controller
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
 	    	$job->course_id = intval($input['course']);
-<<<<<<< HEAD
             $job->title = $input['title'];
-=======
-	    	$job->title = $input['title'];
->>>>>>> d85fb331c01fd209050d7d35316ca4da10ed7cab
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
 	    	$job->exercise_id = json_encode($input['exercise_id']); 
@@ -74,7 +70,6 @@ class JobController extends Controller
     		}
     		$job->status = Job::STATUS_PUB;
     	}
-<<<<<<< HEAD
         if($job->teacher_id == Auth::guard('employee')->user()->id){
             $work = new work;
             $work->student_id = 1；
@@ -85,9 +80,7 @@ class JobController extends Controller
             $word->sub_time = 0;
             $word->save();
         }
-=======
 		$job->save();
->>>>>>> d85fb331c01fd209050d7d35316ca4da10ed7cab
     	$data = array('code' => $code);
 		return json_encode($data);
     }
