@@ -1366,7 +1366,7 @@
 		}
 			$.ajax({
 			type:"post",
-//			url:"/createExercise",
+			url:"/createExercise",
 			dataType:'json',
 			data:datas,
 			success:function(data){
