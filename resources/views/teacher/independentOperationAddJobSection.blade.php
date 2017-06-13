@@ -426,10 +426,10 @@
 			}
 		});
 			
-			var splits=localStorage.id.substring(0,localStorage.id.length-1).split(',');
+			var splits=localStorage.id.substring(0,localStorage.id.length-1);
 	 			$.ajax({
-				type:"get",
-				url:"/showExerciseList/1",
+				type:"post",
+				url:"/getExerciseList",
 				dataType:'json',
 				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
 				success:function(data){
@@ -441,9 +441,11 @@
 			//发布
 	var colligate={
 			course:'',
-			categroy:'',
 			score:'',
-			title:''
+			title:'',
+			type:'1',
+			deadline:'',
+			exerciseid:splits
 		}
 
 //题目类型
@@ -452,16 +454,21 @@
 		})
 		
 		$('.Ad-se').click(function(){
-			colligate.title=$('.titles').val()
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
 	 			$.ajax({
 				type:"post",
 				url:"/pubJob",
 				dataType:'json',
-				data:{'course':colligate.course,type:'1','score':colligate.score,'exercise_id':splits,'deadline':$('.laydate-icon').val(),'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
+				data:{'course':colligate.course,type:colligate.type,'score':colligate.score,'exercise_id':colligate.exerciseid,'deadline':colligate.deadline,'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
 				success:function(data){
 					console.log(data)
 				}
-			});			
+			});	
+			
+			for(var key in colligate){
+				localStorage.setItem(key,colligate[key])
+			}
 		});
 		
 	 	})

@@ -419,7 +419,15 @@
     
     $(function(){
     	$('#button').click(function(){
-    		
+	 			$.ajax({
+				type:"post",
+				url:"/createJob",
+				dataType:'json',
+				data:{'course':localStorage.course,type:localStorage.type,'score':localStorage.score,'exercise_id':localStorage.exerciseid,'deadline':localStorage.deadline,'title':localStorage.title,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});	   		
     	})
     })
 </script>

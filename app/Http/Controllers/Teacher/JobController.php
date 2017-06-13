@@ -19,12 +19,13 @@ class JobController extends Controller
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
 	    	$job->course_id = intval($input['course']);
+	    	$job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
-	    	$job->exercise_id = json_encode($input['exercise_id']);
+	    	$job->exercise_id = $input['exercise_id'];
 	    	$job->status = $status;
-	    	$job->pub_time = 0;
-	    	$job->deadline = intval($input['deadline']);
+	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
+	    	$job->deadline = strtotime($input['deadline']);
 	    	$job->save();
     	}catch(\Exception $e){
     		$code = 201;
@@ -46,10 +47,12 @@ class JobController extends Controller
     		$job = Job::find($job_id);
     		if($job->teacher_id != Auth::guard('employee')->user()->id){
     			$code = 201;
+    			$data = array('code' => $code);
+				return json_encode($data);
     		}
     		$job->status = Job::STATUS_PUB;
-    		$job->save();
     	}
+		$job->save();
     	$data = array('code' => $code);
 		return json_encode($data);
     }
