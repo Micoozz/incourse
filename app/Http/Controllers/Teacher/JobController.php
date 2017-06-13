@@ -19,6 +19,7 @@ class JobController extends Controller
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
 	    	$job->course_id = intval($input['course']);
+	    	$job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
 	    	$job->exercise_id = json_encode($input['exercise_id']);
