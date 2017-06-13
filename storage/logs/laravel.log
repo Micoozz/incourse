@@ -19368,3 +19368,41 @@ Stack trace:
 #12 D:\application\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(189): Illuminate\Foundation\Http\Kernel->terminateMiddleware(Object(Illuminate\Http\Request), Object(Illuminate\Http\Response))
 #13 D:\application\incourse\public\index.php(58): Illuminate\Foundation\Http\Kernel->terminate(Object(Illuminate\Http\Request), Object(Illuminate\Http\Response))
 #14 {main}  
+[2017-06-13 04:32:40] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Parse error: syntax error, unexpected '}', expecting ',' or ')' in D:\application\apache\htdocs\incourse\database\migrations\2017_06_13_043129_updata_job.php:20
+Stack trace:
+#0 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php(440): Illuminate\Filesystem\Filesystem->requireOnce('D:\\application\\...')
+#1 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php(89): Illuminate\Database\Migrations\Migrator->requireFiles(Array)
+#2 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php(69): Illuminate\Database\Migrations\Migrator->run(Array, Array)
+#3 [internal function]: Illuminate\Database\Console\Migrations\MigrateCommand->fire()
+#4 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(29): call_user_func_array(Array, Array)
+#5 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(87): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(31): Illuminate\Container\BoundMethod::callBoundMethod(Object(Illuminate\Foundation\Application), Array, Object(Closure))
+#7 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\Container.php(531): Illuminate\Container\BoundMethod::call(Object(Illuminate\Foundation\Application), Array, Array, NULL)
+#8 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(182): Illuminate\Container\Container->call(Array)
+#9 D:\application\apache\htdocs\incourse\vendor\symfony\console\Command\Command.php(264): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#10 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(167): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#11 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(835): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(200): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\Migrations\MigrateCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(122): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 D:\application\apache\htdocs\incourse\artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 {main}  
+[2017-06-13 04:33:33] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Parse error: syntax error, unexpected '}', expecting ',' or ')' in D:\application\apache\htdocs\incourse\database\migrations\2017_06_13_043129_updata_job.php:20
+Stack trace:
+#0 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php(440): Illuminate\Filesystem\Filesystem->requireOnce('D:\\application\\...')
+#1 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php(89): Illuminate\Database\Migrations\Migrator->requireFiles(Array)
+#2 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php(69): Illuminate\Database\Migrations\Migrator->run(Array, Array)
+#3 [internal function]: Illuminate\Database\Console\Migrations\MigrateCommand->fire()
+#4 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(29): call_user_func_array(Array, Array)
+#5 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(87): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php(31): Illuminate\Container\BoundMethod::callBoundMethod(Object(Illuminate\Foundation\Application), Array, Object(Closure))
+#7 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Container\Container.php(531): Illuminate\Container\BoundMethod::call(Object(Illuminate\Foundation\Application), Array, Array, NULL)
+#8 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(182): Illuminate\Container\Container->call(Array)
+#9 D:\application\apache\htdocs\incourse\vendor\symfony\console\Command\Command.php(264): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#10 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Console\Command.php(167): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#11 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(835): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(200): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\Migrations\MigrateCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 D:\application\apache\htdocs\incourse\vendor\symfony\console\Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 D:\application\apache\htdocs\incourse\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(122): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 D:\application\apache\htdocs\incourse\artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 {main}  
