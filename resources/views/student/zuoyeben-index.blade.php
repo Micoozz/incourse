@@ -428,71 +428,23 @@
 			</div>
 <div id="f-modal"></div>
 <!--答案框-->
-<div class="answerInput" id="answerInput">
-	<button type="button" class="answerInput-close close"
-           data-dismiss="modal" aria-hidden="true">
-              &times;
+<div id="answerInput" class="answerInput">
+	<button type="button" class="answerInput-close close" data-dismiss="modal" aria-hidden="true">
+        &times;
     </button>
-    <h4 class="text-center" id="myModalLabel">
-       请输入你的答案
-    </h4>
-	<div>
-		<script id="container" name="content" type="text/plain"></script>
-        <script type="text/javascript" src="ueditor.config.js"></script>
-        <script type="text/javascript" src="ueditor.all.js"></script>
-	    <script type="text/javascript">
-	        var ue = UE.getEditor('container');
-		</script>
-	    <script src="kityformula-plugin/addKityFormulaDialog.js"></script>
-		<script src="kityformula-plugin/defaultFilterFix.js"></script>
-		<script src="kityformula-plugin/getKfContent.js"></script>
-	    
-	</div>
-
-     <div class="modal-footer">
-        <button type="button" class="btn answer-save-permanent">保存
-        </button>
-        <button type="button" class="btn answer-save-temporary">
-           暂存
-        </button>
-     </div>
-
-
+    <input class="title" type="text" placeholder="请输入作文题目">
+	<textarea id="composition" class="composition" placeholder="请输入作文正文..."></textarea>
+    <div class="modal-footer">
+    	<p class="words">
+    		<span>0</span> 字
+    	</p>
+        <button type="button" class="btn answer-save-permanent">保存</button>
+        <button type="button" class="btn answer-save-temporary">暂存</button>
+    </div>
 </div>
 
-<!--data-toggle="modal" data-target="#answerInput"
-	<div class="modal fade" id="answerInput" tabindex="-1" role="dialog">
-   <div class="modal-dialog answer-input-modal">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close"
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title text-center" id="myModalLabel">
-               请输入你的答案
-            </h4>
-         </div>
-         <div class="modal-body">
-         	<script id="container" name="content" type="text/plain"></script>
-            <script type="text/javascript" src="ueditor.config.js"></script>
-            <script type="text/javascript" src="ueditor.all.js"></script>
-            <textarea name="" rows="" cols="" class="answer-input"></textarea>
-
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn answer-save-permanent">保存
-            </button>
-            <button type="button" class="btn answer-save-temporary">
-               暂存
-            </button>
-         </div>
-      </div>
-    </div>
-</div>-->
-
 <!--模态框2 拍照上传-->
-<div class="modal fade" id="getPhoto" tabindex="-1" role="dialog"
+<div class="modal fade" id="getPhoto" data-backdrop="static" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog photo-upload-modal">
       <div class="modal-content photo-upload-content"style="font-size: 14px">
@@ -564,9 +516,9 @@
 	<script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js" ></script>
-    <script src="js/homework-content.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/classActivity.js"></script>
-    <script src="js/password.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/f-modal.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sJS/classActivity.js"></script>
+    <script src="js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sJS/f-modal.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

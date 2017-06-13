@@ -946,10 +946,10 @@
     </div>
 </div>
 <!--引导-->
-<script type="text/javascript" src="js/intro.js"></script>
-<script type="text/javascript">
+<!--<script type="text/javascript" src="js/intro.js"></script>-->
+<!--<script type="text/javascript">
     introJs().start();
-</script>
+</script>-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1307,7 +1307,7 @@
 		}
 			$.ajax({
 			type:"post",
-//			url:"/createExercise",
+			url:"/createExercise",
 			dataType:'json',
 			data:datas,
 			success:function(data){

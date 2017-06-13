@@ -114,8 +114,8 @@
 									<div id="z_1">
 										<div class="z_t_c row ">
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-												<span>作业章节</span>
-												<input type="text" value=" ">
+												<span >作业标题</span>
+												<input type="text" value=" " class="titles">
 											</div>
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 												<span>截止时间</span>
@@ -127,6 +127,10 @@
 												<span>所属章节</span>
 												<input type="text" value=" ">
 											</div>
+											<div class="col-lg-12 submits" id="subject">
+                                        		<span>科目</span>
+                                       			<select name=""></select>
+                                    		</div>												
 										</div>
 									</div>
 									<!--<div id="add">
@@ -408,16 +412,58 @@
 		 
 		 
 		$(function(){
+			
+			
+					//科目数据
+		$.ajax({
+			type:"get",
+			url:"/getCourse",
+			dataType:'json',
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					$('#subject>select').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
+				}
+			}
+		});
+			
 			var splits=localStorage.id.substring(0,localStorage.id.length-1).split(',');
 	 			$.ajax({
 				type:"get",
 				url:"/showExerciseList/1",
 				dataType:'json',
-				data:splits,
+				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
 				success:function(data){
 					console.log(data)
 				}
-			})
+			});
+			
+			
+			//发布
+	var colligate={
+			course:'',
+			categroy:'',
+			score:'',
+			title:''
+		}
+
+//题目类型
+		$('#subject>select').change(function(){
+			colligate.course=$(this).val()
+		})
+		
+		$('.Ad-se').click(function(){
+			colligate.title=$('.titles').val()
+	 			$.ajax({
+				type:"post",
+				url:"/pubJob",
+				dataType:'json',
+				data:{'course':colligate.course,type:'1','score':colligate.score,'exercise_id':splits,'deadline':$('.laydate-icon').val(),'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});			
+		});
+		
 	 	})
 	 </script>
 	</body>

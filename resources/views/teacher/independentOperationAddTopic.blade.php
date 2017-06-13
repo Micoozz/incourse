@@ -206,9 +206,8 @@
                                     继续添加
                                 </button>
                                 <button class="btn btn_s" onclick="window.location='exerciseEditor'">题库选题</button>
-                                <button class="btn btn_s"
-                                        onclick="window.location='independentOperationAddJobSection'">保存
-                                </button>
+                                <button class="btn btn_s" di="button"
+                                        onclick="window.location='independentOperationAddJobSection'">保存</button>
                                 <button class="btn btn_s" data-toggle="modal" data-target="#myModal">转发</button>
                             </div>
                         </div>
@@ -417,6 +416,12 @@
             $(this).attr('class', 'balk');
         }
     });
+    
+    $(function(){
+    	$('#button').click(function(){
+    		
+    	})
+    })
 </script>
 </body>
 </html>
