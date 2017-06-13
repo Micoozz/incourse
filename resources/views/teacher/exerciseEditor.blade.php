@@ -214,131 +214,13 @@
                             </div>
                         </div>
                         <div class="row work">
-                            <div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head">
-											<span class="order">
-                                                           2.
-                                                     </span>
-                                        <!--问题-->
-                                        <span class="xz">简答题</span>： 作文题：
-                                        亲爱的同学，现在你正坐在考场中进行着语文学科的考试，相信你经过小学六年的努力，一定会交出一份满意的答卷。其实，我们学习中、工作中、生活中……无不经历着一次次的“考试”，倘若能交出一份份满意的“答卷”，那么，在行进的路上，我们会走的更欢畅，更坚实。
-                                        请以“一份满意的答卷”为题目，写一篇不少于600字的文章。立意自定，文体自选。文中不得出现你所在的学校名称，以及教职员工，同学和本人的真实姓名。
-
-                                    </p>
-
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">自由发挥</span><span
-                                            class="col-line"></span>
-											<span title="难度(2)">
-	    <a><img src="images/Cj_17mm.png" class="yellow"></a>
-
-          <a><img src="images/Cj_17mm.png" class="yellow"></a>
-
-           <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-
-            <a><img src="images/Cj_18mm.png"></a>
-								</span>
-
-                                        <div class="pj">
-                                            <div title="难度(2)">
-                                                <img src="images/Cj_17mm.png" class="yellow" num=1>
-
-                                                <img src="images/Cj_17mm.png" class="yellow" num=2>
-
-                                                <img src="images/Cj_18mm.png" num=3>
-
-                                                <img src="images/Cj_18mm.png" num=4>
-
-                                                <img src="images/Cj_18mm.png" num=5>
-                                            </div>
-                                            <div title="难度(2)">
-                                                <span class="mui3" title="差" mui=1></span>
-                                                <span class="mui3" title="较差" mui=2></span>
-                                                <span class="mui3" title="一般" mui=3></span>
-                                                <span title="好" mui=4></span>
-                                                <span title="很好" mui=5></span>
-                                            </div>
-                                            <b>评分</b>
-                                        </div>
-
-                                        <div style="float: right;">
-                                            <span class="tj bo"><input type="checkbox" name="" id=""
-                                                                       value="2"/>添加</span>
-                                            <a href="javascript:;" class="bo">报错</a>
-                                            <a href="javascript:;" class="bo">（收藏</a><span
-                                                class="collection_num">998</span>）
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head">
-											<span class="order">
-                            3.
-                        </span>
-                                        <!--问题-->
-                                        多选题：下列出自姜夔的《暗香》的有：
-                                    </p>
-
-                                    <form action="" class="select">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="checkbox" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled" style="display: none"
-                                                       value="A"/><span class="select-wrapper"></span>A.
-                                                <span class="question-content">人而全真,全不复有初矣</span>
-                                            </label>
-                                        </div>
-                                        <!--问题字符大小均为14px-->
-                                        <div class="radio">
-                                            <label>
-                                                <input type="checkbox" name="questionSelect" class="questionSelect"
-                                                       checked style="display: none"
-                                                       value="B"/><span class="select-wrapper"></span>B.
-                                                <span class="question-content">唤起玉人,不管清寒雨攀摘</span>
-                                            </label>
-
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="checkbox" name="questionSelect" class="questionSelect"
-                                                       disabled="disabled" style="display: none"
-                                                       value="C"/><span class="select-wrapper"></span>C.
-                                                <span class="question-content">镜里朱颜都变尽,只有丹心难灭</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="checkbox" class="questionSelect" name="questionSelect"
-                                                       checked style="display: none"
-                                                       value="D"/><span class="select-wrapper"></span>D.
-                                                <span class="question-content">叹寄与路遥,夜雪初积</span>
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">B,D</span><span
-                                            class="col-line"></span>
-
-                                        <div style="float: right">
-                                            <a href="javascript:;">收藏</a><span class="collection_num">998</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mar_tb">
+                            <!--<div class="row mar_tb">
                                 <div class="homework-content">
                                     <p class="question-head">
 											<span class="order">
                             4.
                         </span>
-                                        <!--问题-->
+                                      
                                         排序题：请给下列句子排序：
                                     </p>
 
@@ -356,32 +238,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head" style="display: inline-block">
-											<span class="order">
-                            5.
-                        </span>
-                                        <!--问题-->
-                                        填空题：《朝花夕拾》原名《
-
-                                    <div class="gap_gap">空1</div>
-                                    》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容 ：
-                                    <div class="gap_gap">空1</div>
-                                    </p>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">1、《旧事重提》2、示例：《二十四孝图》主要内容：童年时代的我和我的伙伴实在没有什么好画册可看.我拥有的最早一本画图本子只是《二十四孝图》.
-                                        其中最使我不解,甚至于发生反感的,是"老莱娱亲"和"郭巨埋儿"两 件事.</span>
-
-                                        <div class="lot_word">
-                                            <a href="javascript:;">收藏</a>
-                                            <span class="collection_num">997</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>-->
                             <!--<div class="row mar_tb">
                                 <div class="homework-content">
                                     <p class="question-head" style="display: inline-block">
@@ -532,8 +389,7 @@
                                 <div class="end" id="div1">
                                     <div class="text"><span class="textarea">问题：</span><textarea name="" class="Short-answer"></textarea>
                                     </div>
-                                    <div class="text"><span class="textarea">回答：</span><textarea name="" class="Short-answer-result"></textarea>
-                                    </div>
+                                 
 
                                 </div>
                                 <!--单选题板块-->
@@ -970,11 +826,8 @@
                         <div class="scc">
                             <div class="yit">已添加 <img src="images/s05.jpg"/></div>
                             <ol>
-                                <li class="c1">选择题（<span>1</span>）</li>
-                                <li class="c2">简答题（<span>1</span>）</li>
-                                <li class="c3">画图题（<span>1</span>）</li>
                             </ol>
-                            <a href="Independent_operation_Add_job_section" class="cs">生成作业</a>
+                            <a href="independentOperationAddJobSection" class="cs">生成作业</a>
                         </div>
                     </div>
                     <div class="foot">
@@ -1170,7 +1023,6 @@
 <!-- /.modal -->
 <script>
 </script>
-<script src="js/Exercise_editor.js"></script>
 <script>
 	$(function(){
 		//题型数据
@@ -1205,15 +1057,111 @@
 		url:"/showExerciseList/1",
 		dataType:'json',
 		success:function(data){
+			var choose;
 			var exercises=data.exercises;
-			console.log(exercises)
+			console.log(data)
 			for(var i=0;i<exercises.length;i++){
 					if(exercises[i].cate_title=='单选题'){
-						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
-					}else if(exercises[i].cate_title=='填空题'){
-						$('.work').append('<div>'+exercises[i].cate_title+'</div>')
+						for(var a=0;a<exercises[i].answer.length;a++){
+							choose=exercises[i].answer[a]
+						}
+						$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><span class="xz'+i+' question-types">'+exercises[i].cate_title+'</span>：'+exercises[i].subject+'</p> <form action="" class="selectt'+i+'"></form>				                                  <div class="line"></div>                                    <div class="question-foot">                                        <span class="blue">正确答案：</span><span class="answerOrder'+i+'">'+choose+'</span><span class="col-line"></span>											<span title="难度(1)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>            <a><img src="images/Cj_18mm.png"></a>								</span>                                        <div class="pj">                                            <div title="难度(1)">                                                <img src="images/Cj_17mm.png" class="yellow" num=1>                                                <img src="images/Cj_18mm.png" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                                <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div>                                               <span class="mui4" title="差" mui=1></span>                                               <span class="mui4" title="较差" mui=2></span>                                                <span class="mui4" title="一般" mui=3></span>                                                <span class="mui4" title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                            <b>评分</b>                                        </div>                                        <div style="float: right;" class="hidee">                                            <span class="tj"><input type="checkbox" name="" id=""  value="'+i+'"/>添加</span>                                            <a href="javascript:;" class="bj">编辑</a>                                            <a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                      </div>                                    </div>                               </div>                            </div>')
+						for(var j=0;j<exercises[i].options.length;j++){
+							for(var key in exercises[i].options[j]){
+						$('.selectt'+i).append('<div class="radio"><label><input type="radio" name="questionSelect" class="questionSelect" disabled="disabled" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content"> '+exercises[i].options[j][key]+' </label></div>')
+							}
+						}
+					}else if(exercises[i].cate_title=='填空题'){		
+							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"><p class="question-head" style="display: inline-block"><span class="order"></span> '+exercises[i].cate_title+'：'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder"></span>                                       <div class="lot_word">                                           <a href="javascript:;" class="bo">收藏</a>                                           <span class="collection_num">0</span>                                       </div>                                    </div>                                </div>                           </div>                           ')
+					}else if(exercises[i].cate_title=='多选题'){
+						$('.work').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span>'+exercises[i].cate_title+'：'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder'+i+'"></span><span  class="col-line"></span><div style="float: right"><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                       </div>                                    </div>                                </div>                           </div>')					
+						for(var j=0;j<exercises[i].options.length;j++){
+							for(var key in exercises[i].options[j]){
+							$('.selects'+i).append('<div class="radio"><label><input type="checkbox" name="questionSelect" class="questionSelect" disabled="disabled" style="display: none" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content">'+exercises[i].options[j][key]+' </span></label> </div>')
+							}
+						}
+						var nu='';
+						for(var a=0;a<exercises[i].answer.length;a++){
+							nu+=exercises[i].answer[a];
+							$(".answerOrder"+i).text(nu)
+						}
+					}else if(exercises[i].cate_title=='简答题'){
+								$('.work').append('<div class="row mar_t work" num="'+exercises[i].id+'"> <div class="row mar_tb"> <div class="homework-content"><p class="question-head"><span class="order"> </span><span class="xz'+i+' question-types">'+exercises[i].cate_title+'</span>：'+exercises[i].subject+'</p><div class="line"></div>                                   <div class="question-foot">                                       <span class="blue">正确答案：</span><span class="answerOrder">自由发挥</span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span> <a href="javascript:;">报错</a> <a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')
 					}
+					
+}
+
+
+//添加题目
+
+
+function removeByValue(arr, val) {
+  for(var i=0; i<arr.length; i++) {
+    if(arr[i] == val) {
+      arr.splice(i,1);
+      break;
+    }
+  }
+}
+
+	var arrayId=[];
+	$('.work').on('click','.tj>input',function(e) {
+			var cen=$('.xz'+$(this).val()).text();
+			$('.scc>ol').append('<li class="busywork'+$(this).val()+'">'+cen+'</li>')
+		if($(this).is(":checked")) {
+			$(this).parent('.tj').addClass('ok')
+			$('.nave').next().show()
+			$('.nave').next().css({
+				position: 'absolute',
+				width: '100%',
+				textAlign: "left",
+				background: '#fff',
+				marginTop: '30px'
+			})
+			$('.nave').next().find('ol').css('padding-left', '50px')
+			$('.nave').next().find('ol').children('li').css({
+				color: '#333',
+				margin: '10px 0',
+				listStyle: 'inherit'
+			});
+			arrayId.push($(this).parents('.mar_t').attr('num'))
+		} else {
+			removeByValue(arrayId,$(this).parents('.mar_t').attr('num'));
+			
+			
+				$('.busywork'+$(this).val()).remove()
+		}
+		localStorage.setItem('id',arrayId)
+		$('.yit>img').click(function() {
+			$('.scc ol li').remove()
+			$('.scc').hide()
+			$('.tj').removeClass('ok')
+			$('.tj input').attr("checked", false)
+		})
+		event.stopPropagation();
+	})
+	
+	//编辑
+			var rubric={
+				rubricA:'',
+				rubricB:''
 			}
+			$('.work').on('click','.bj',function() {
+			var choie=$(this).parents('.homework-content');
+			$('#centery>div').not(":first-child").hide()
+			$('#centery>div:nth-of-type(4)').show()
+			$('.hidee').hide();
+			var selectt = $(this).parents('.homework-content').find('.question-head').find('.xz').text();
+			$('#centery>div:nth-of-type(4) #66 option').text(selectt);
+			if(choie.find('.question-types').text()=='单选题'){
+				rubric.rubricA=choie.find('.question-head').text()
+				rubric.rubricB=choie.find('.question-content').text()
+			}else{
+				console.log('a')
+			}
+			localStorage.setItem('choie',[rubric.rubricA,rubric.rubricB])			
+		});
+
 		}
 	});	
 		
@@ -1286,7 +1234,8 @@
 				Object.result=1
 			}
 		}else if(Object.types=='3'){
-			Object.arrys=$('.long-short').val()
+			Object.arrys=$('.long-short').text()
+			console.log(Object.arrys)
 		}else if(Object.types=='4'){
 			Object.arrys=$('.multiple').val()
 			$('.select2>div>input').each(function(i){
@@ -1355,7 +1304,7 @@
 				Object.result=objec
 			})
 			Object.result=Object.result.join(',')
-			console.log(Object.result)
+			console.log(Object.arrys)
 		}
 		
 		var datas;
@@ -1377,6 +1326,7 @@
 
 	})
 </script>
+<script src="js/Exercise_editor.js"></script>
 </body>
 
 </html>

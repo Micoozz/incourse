@@ -45,15 +45,16 @@ class ExerciseController extends Controller
         }
         return json_encode($data);
     }
+
     public function getExerciseList($page = 1){
         $input = Input::get();
         $limit = ($page-1)*5;
         $exercise_id_arr = explode(',',$input['exercise_id']);
         $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval($exercise_id_arr->length()/5)+1;
-        $data = array('total' => $exercise_id_arr->length(),'pageLength' => $pageLength,'exercises' => array());
+        $pageLength = intval(count($exercise_id_arr)/5)+1;
+        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_id as $eid) {
-            $exercise = Exercises::find($id);
+            $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
