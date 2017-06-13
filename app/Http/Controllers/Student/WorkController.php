@@ -26,7 +26,7 @@ class WorkController extends Controller
                 'deadline' => $work->belongsToJob()->first()->deadline,
                 'start_time' => $work->start_time,
                 'sub_time' => $work->sub_time,
-                'score' => $work->score,
+                'score' => $work->score/100,
                 'status' => $work->status));
         }
         return json_encode($data);
