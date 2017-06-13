@@ -15,7 +15,6 @@ use App\Models\Categroy;
 class ExerciseController extends Controller
 {
     public function showExerciseList($page = 1){
-        
         $limit = ($page-1)*5;
         $exercise_all = Exercises::all();
         $pageLength = intval($exercise_all->count()/5)+1;
