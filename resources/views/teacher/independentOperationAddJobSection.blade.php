@@ -395,6 +395,30 @@
 			 min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
 			 max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
 		 });
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		$(function(){
+			var splits=localStorage.id.substring(0,localStorage.id.length-1).split(',');
+	 			$.ajax({
+				type:"get",
+				url:"/showExerciseList/1",
+				dataType:'json',
+				data:splits,
+				success:function(data){
+					console.log(data)
+				}
+			})
+	 	})
 	 </script>
 	</body>
 

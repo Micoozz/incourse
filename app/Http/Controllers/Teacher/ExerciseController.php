@@ -34,9 +34,9 @@ class ExerciseController extends Controller
     					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
     				}
     			}else{
-    				$answers = json_decode($objective->answer);
+    				$answers = explode(',',$objective->answer);
     			}
-    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'option' => json_decode($objective->option),'answer' => $answers));
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'options' => json_decode($objective->option),'answer' => $answers));
     			
     		}
 //  		else{
