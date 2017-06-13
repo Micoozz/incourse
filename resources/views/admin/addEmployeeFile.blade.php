@@ -484,7 +484,7 @@
                     确定要保存此资料吗？
                 </div>
                 <div class="modal-footer my_conf">
-                    <button type="button" class="btn btn-primary btn_confirm" data-dismiss="modal">确定</button>
+                    <button type="button" onclick="employee()" class="btn btn-primary btn_confirm" data-dismiss="modal">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -553,6 +553,9 @@
             format:'YYYY-MM-DD'
         });
     </script>
+    <script type="text/javascript">
+        $.ajax
+    </script>>
 </body>
 
 </html>
