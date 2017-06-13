@@ -982,7 +982,7 @@ a {
 
 .photo-upload-content {
 	left: -12.5%;
-	height: 535px;
+	min-height: 535px;
 	width: 125%;
 	overflow: hidden;
 	margin-top: 2%;
@@ -1003,14 +1003,17 @@ a {
 
 .photo-center {
 	text-align: center;
-	position: absolute;
-	height: 30%;
+	min-height: 30%;
 	width: 45%;
-	padding-top: 5%;
-	left: 27.5%;
-	top: 25%;
+	margin: 100px auto;
+	padding: 37px 0;
 	background-color: #e0e0e0;
 	font-size: 16px;
+}
+.photo-upload-content .photo-center>img {
+	width: 100%;
+	margin-top: -37px;
+	margin-bottom: -37px;
 }
 
 .photo-center-2 {
@@ -1912,18 +1915,43 @@ a {
 
 #answerInput {
 	padding: 20px 20px 0 20px;
-	width: 600px;
+	width: 75%;
+	max-width: 980px;
 	border-radius: 4px;
 	background: #FFF;
 	position: fixed;
-	top: 25%;
+	top: 5%;
 	left: 0px;
 	right: 0px;
 	margin: auto;
 	z-index: 100;
 	display: none;
 }
-
+.answerInput .title {
+	width: 100%;
+	font-size: 16px;
+	text-align: center;
+	border: none;
+}
+.answerInput .composition {
+	width: 100%;
+	height: 600px;
+	overflow-y: auto;
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: .1em;
+}
+.answerInput .modal-footer {
+	position: relative;
+	border: none;
+}
+.answerInput .words {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 .answer-photo {
 	margin-top: 6px;
 	margin-left: 40px;

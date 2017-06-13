@@ -14,7 +14,7 @@ use App\Models\Compositive;
 use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList($page){
+    public function showExerciseList($page = 1){
     	$limit = ($page-1)*5;
     	$exercise_all = Exercises::all();
     	$pageLength = intval($exercise_all->count()/5)+1;
@@ -34,9 +34,9 @@ class ExerciseController extends Controller
     					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
     				}
     			}else{
-    				$answers = json_decode($objective->answer);
+    				array_push($answers,explode(',',$objective->answer));
     			}
-    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'option' => json_decode($objective->option),'answer' => $answers));
+    			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'options' => json_decode($objective->option),'answer' => $answers));
     			
     		}
 //  		else{
@@ -50,7 +50,7 @@ class ExerciseController extends Controller
     	$user = Auth::guard('employee')->user();
     	$time = time();
     	$code = 200;
-      	 // try{
+      	  try{
     		$exercise = new Exercises;
 	    	$exercise->teacher_id = $user->id;
 	    	$exercise->school_id = $user->school_id;
@@ -77,7 +77,7 @@ class ExerciseController extends Controller
 	    	}
 	    	$exercise->save();
 	    	if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-	    		$objective = new Objective(['subject' => $input['subject'],'option' => json_encode($input['option']),'answer' => json_encode($input['answer'])]);
+	    		$objective = new Objective(['subject' => $input['subject'],'option' => isset($input['option']) ? json_encode($input['option'],JSON_UNESCAPED_UNICODE) : null,'answer' => isset($input['answer']) ? $input['answer'] : null]);
 	    		$exercise->hasManyObjective()->save($objective);
 	    	}else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 	    		$subjective = new Subjective(['subject' => $input['subject']]);
@@ -88,9 +88,9 @@ class ExerciseController extends Controller
 	    		$exercise->hasManySubjective()->create($input['subjective']);
 	    		$exercise->hasManyObjective()->create($input['objective']);
 	    	}
-      	 // }catch(\Exception $e){
-      	 // 	$code = 201;
-      	 // }
+      	  }catch(\Exception $e){
+      	 	$code = 201;
+      	  }
     	$data = array('code' => $code);
     	return json_encode($data);
     }
