@@ -27,7 +27,6 @@ class JobController extends Controller
         }
         return json_encode($data);
     }
-
     //
     public function createJob($status = Job::STATUS_UNPUB){
     	$input = Input::get();
