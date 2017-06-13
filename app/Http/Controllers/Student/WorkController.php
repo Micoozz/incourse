@@ -24,10 +24,11 @@ class WorkController extends Controller
                 'title' => $work->belongsToJob()->first()->title,
                 'pub_time' => $work->belongsToJob()->first()->pub_time,
                 'deadline' => $work->belongsToJob()->first()->deadline,
+                'type' => $work->belongsToJob()->first()->job_type,
                 'start_time' => $work->start_time,
                 'sub_time' => $work->sub_time,
                 'score' => $work->score/100,
-                'status' => $work->status));
+                'status' => $work->status == Work::STATUS_OPEN ? '开放' : $work->status == Work::STATUS_UNSUB ? '未提交' : '关闭'));
         }
         return json_encode($data);
     }

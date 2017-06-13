@@ -426,7 +426,7 @@
 			}
 		});
 			
-			var splits=localStorage.id.substring(0,localStorage.id.length-1);
+			var splits=localStorage.id;
 	 			$.ajax({
 				type:"post",
 				url:"/getExerciseList",
@@ -472,7 +472,6 @@
 		$('.bt_ss').click(function(){
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
-			return false;
 			if($('.titles').val()==''){
 				alert('作业标题 不能为空')
 			}else if($('.laydate-icon').val()==''){
@@ -483,6 +482,7 @@
 					}
 				window.location.href='/independentOperationAddTopic'
 			}
+			return false
 		})
 		
 		

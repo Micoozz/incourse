@@ -1093,7 +1093,18 @@
 
 
 //添加题目
-	var arrayId='';
+
+
+function removeByValue(arr, val) {
+  for(var i=0; i<arr.length; i++) {
+    if(arr[i] == val) {
+      arr.splice(i,1);
+      break;
+    }
+  }
+}
+
+	var arrayId=[];
 	$('.work').on('click','.tj>input',function(e) {
 			var cen=$('.xz'+$(this).val()).text();
 			$('.scc>ol').append('<li class="busywork'+$(this).val()+'">'+cen+'</li>')
@@ -1113,21 +1124,21 @@
 				margin: '10px 0',
 				listStyle: 'inherit'
 			});
-			arrayId+=$(this).parents('.mar_t').attr('num')+','
-			event.stopPropagation();
-			localStorage.setItem('id',arrayId)
+			arrayId.push($(this).parents('.mar_t').attr('num'))
 		} else {
+			removeByValue(arrayId,$(this).parents('.mar_t').attr('num'));
+			
+			
 				$('.busywork'+$(this).val()).remove()
-				$(this).parents('.mar_t').removeAttr('num').removeClass('mar_t')
-				console.log(arrayId)
 		}
-		
+		localStorage.setItem('id',arrayId)
 		$('.yit>img').click(function() {
 			$('.scc ol li').remove()
 			$('.scc').hide()
 			$('.tj').removeClass('ok')
 			$('.tj input').attr("checked", false)
 		})
+		event.stopPropagation();
 	})
 	
 	//编辑

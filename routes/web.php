@@ -53,6 +53,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{page?}','Teacher\ExerciseController@showExerciseList');
+		Route::post('/getExerciseList/{page?}','Teacher\ExerciseController@getExerciseList');
 		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 		Route::post('/createJob','Teacher\JobController@createJob');
 		Route::post('/pubJob','Teacher\JobController@pubJob');
