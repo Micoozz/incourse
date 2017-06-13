@@ -73,6 +73,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/zuoyenbenneirongliebiao',function(){
 			return view('student.zuoyenbenneirongliebiao');
 		});
+		
 		Route::get('/cuotiben',function(){
 			reutrn view('student.cuotibenObjectiveTodayYuwen');
 		});

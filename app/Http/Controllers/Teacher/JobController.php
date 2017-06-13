@@ -83,5 +83,6 @@ class JobController extends Controller
 		$job->save();
     	$data = array('code' => $code);
 		return json_encode($data);
+        
     }
 }
