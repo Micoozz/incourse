@@ -56,6 +56,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 		Route::post('/createJob','Teacher\JobController@createJob');
 		Route::post('/pubJob','Teacher\JobController@pubJob');
+		Route::get('/showJobList/{page?}','Teacher\JobController@showJobList');
 	});
 	Route::group(['middleware' => 'student'],function(){
 		Route::get('/danrenzuoye-chengji',function(){

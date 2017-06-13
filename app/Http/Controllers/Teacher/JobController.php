@@ -39,11 +39,7 @@ class JobController extends Controller
             $job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
-<<<<<<< HEAD
 	    	$job->exercise_id = $input['exercise_id'];
-=======
-	    	$job->exercise_id = json_encode($input['exercise_id']); 
->>>>>>> d9122dc37e23c3f9e047ecf0630ad66f128c3dae
 	    	$job->status = $status;
 	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
 	    	$job->deadline = strtotime($input['deadline']);

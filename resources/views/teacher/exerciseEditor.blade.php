@@ -1119,9 +1119,6 @@
 		} else {
 				$('.busywork'+$(this).val()).remove()
 				$(this).parents('.mar_t').removeAttr('num').removeClass('mar_t')
-				$('.mar_t').each(function(){
-					arrayId=$(this).attr('num')
-				})
 				console.log(arrayId)
 		}
 		

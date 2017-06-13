@@ -171,7 +171,7 @@
 												<a href="favorites"  class="bt_a">取消</a>
 												<a href="#" class="bt_s Ad-se">发布</a>
 												<a href="exerciseEditor" class="bt_s">题库选题</a>
-												<a href="independentOperationAddTopic" class="bt_s">添加题目</a>
+												<a href="" class="bt_s bt_ss">添加题目</a>
 										<!--		<a href="Independent_operation_Add_job_specific_content.html" class="goo"><img src="images/add.png" alt="">去添加题目</a>-->
 											   </div>
 											</div>
@@ -465,11 +465,26 @@
 					console.log(data)
 				}
 			});	
-			
-			for(var key in colligate){
-				localStorage.setItem(key,colligate[key])
-			}
 		});
+		
+		
+		//
+		$('.bt_ss').click(function(){
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
+			return false;
+			if($('.titles').val()==''){
+				alert('作业标题 不能为空')
+			}else if($('.laydate-icon').val()==''){
+				alert('截止时间 不能为空')
+			}else{
+				for(var key in colligate){
+					localStorage.setItem(key,colligate[key])
+					}
+				window.location.href='/independentOperationAddTopic'
+			}
+		})
+		
 		
 	 	})
 	 </script>
