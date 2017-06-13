@@ -75,7 +75,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		});
 		Route::get('/cuotiben',function(){
 			reutrn view('student.cuotibenObjectiveTodayYuwen');
-		})
+		});
 	});
 	Route::get('/logout','LoginController@logout');
 });

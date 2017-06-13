@@ -19,7 +19,6 @@ class CreateJob extends Migration
             $table->integer('teacher_id')->nullable();
             $table->integer('chapter_id')->nullable();
             $table->integer('course_id');
-            $table->string('title');
             $table->tinyinteger('job_type');
             $table->integer('score');
             $table->text('exercise_id')->nullabele();

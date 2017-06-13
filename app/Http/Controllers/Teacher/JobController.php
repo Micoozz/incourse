@@ -37,13 +37,17 @@ class JobController extends Controller
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
 	    	$job->course_id = intval($input['course']);
+<<<<<<< HEAD
             $job->title = $input['title'];
+=======
+	    	$job->title = $input['title'];
+>>>>>>> d85fb331c01fd209050d7d35316ca4da10ed7cab
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = intval($input['score'])*100;
 	    	$job->exercise_id = json_encode($input['exercise_id']); 
 	    	$job->status = $status;
-	    	$job->pub_time = 0;
-	    	$job->deadline = intval($input['deadline']);
+	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
+	    	$job->deadline = strtotime($input['deadline']);
 	    	$job->save();
     	}catch(\Exception $e){
     		$code = 201;
@@ -60,16 +64,17 @@ class JobController extends Controller
     	$code = 200;
     	$job_id = intval($input['job_id']);
     	if(empty($job_id)){
-    		$job = createJob(Job::STATUS_PUB);
+    		$job = $this->createJob(Job::STATUS_PUB);
     	}else{
     		$job = Job::find($job_id);
     		if($job->teacher_id != Auth::guard('employee')->user()->id){
     			$code = 201;
-    			break 2;
+    			$data = array('code' => $code);
+				return json_encode($data);
     		}
     		$job->status = Job::STATUS_PUB;
-    		$job->save();
     	}
+<<<<<<< HEAD
         if($job->teacher_id == Auth::guard('employee')->user()->id){
             $work = new work;
             $work->student_id = 1；
@@ -80,6 +85,9 @@ class JobController extends Controller
             $word->sub_time = 0;
             $word->save();
         }
+=======
+		$job->save();
+>>>>>>> d85fb331c01fd209050d7d35316ca4da10ed7cab
     	$data = array('code' => $code);
 		return json_encode($data);
     }
