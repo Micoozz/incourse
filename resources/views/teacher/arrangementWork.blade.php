@@ -133,7 +133,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">发布</a>
                             </div>
                         </div>
-<!--                         <div class="row new-creat">
+                        <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
                                     href="groupWorkViewjob">2.第一章第二节</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
@@ -163,7 +163,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已发布</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Aw-del">删除</a>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <!--右侧栏-->
@@ -416,6 +416,9 @@
 
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+
+</script>>
 </body>
 </html>
 
