@@ -1,7 +1,7 @@
 $(function(){
 	const id = sessionStorage.getItem("homeworkId"); //保存是作业几
 	console.log(id)
-	$.post("",{"homeworkId":id, "_token":{{csrf_token()}}}).success(function(data){
+	$.post("",{"work_id":id, "_token":{{csrf_token()}}}).success(function(data){
 		
 	});
 	

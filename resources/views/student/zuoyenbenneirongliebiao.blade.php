@@ -51,12 +51,12 @@
                         </form>
                     </div>
                     <div class="homework-list-box">
+                    	<!-- 
                         <div class="homework-list row">
                             <a class="homework-type-link" href="/zuoyeben-index" data-id="no1">
                                 <img src="images/homework/engage/single.png" class="homework-type-select-img"/>
                                 <span class="homework-order">作业一</span>
                             </a>
-                            <!--单人作业为蓝色  小组作业为橘黄色-->
                             <table class="homework-list-content col-lg-8 col-md-8 col-xs-8" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
@@ -72,21 +72,21 @@
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value3">
-	                                        2/30h<!--格式为 时/分 x/x  -->
+	                                        2/30h
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value4">
-	                                        92<!--格式为 xx 有分数显示分数，没分数显示图标 -->
+	                                        92
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value5">
-	                                    	开放<!--开放或者关闭  -->
+	                                    	开放
 	                                    </span>
                                         </div>
                                     </td>
@@ -100,7 +100,6 @@
                                 </tr>
                             </table>
                         </div>
-                        <!--同上-->
                         <div class="homework-list row">
                             <a class="pointer homework-type-link not-open">
                                 <img src="images/homework/engage/team.png" class="homework-type-select-img"/>
@@ -112,7 +111,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value1">
-	                                        06-06-3:00<!--格式为 月-日-时  xx-xx-xx  -->
+	                                        06-06-3:00
 	                                    </span>
                                         </div>
                                     </td>
@@ -126,7 +125,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value3">
-	                                        1/h<!--格式为 时/分 x/x  -->
+	                                        1/h
 	                                    </span>
                                         </div>
                                     </td>
@@ -149,11 +148,7 @@
                                     <td>状态</td>
                                 </tr>
                             </table>
-
                         </div>
-                        <!--
-    (教师分组)点击为 xiaozuzuoye-jiaoshifenzu 页面
-    （自由分组）点击为 xiaozuzuoye-ziyoufenzu 页面-->
                         <div class="homework-list row">
                             <a class="homework-type-link" href="/zuoyeben-index">
                                 <img src="images/homework/engage/team.png" class="homework-type-select-img"/>
@@ -166,7 +161,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value1">
-	                                        06-08-18:00<!--格式为 月-日-时  xx-xx-xx  -->
+	                                        06-08-18:00
 	                                    </span>
                                         </div>
                                     </td>
@@ -180,7 +175,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value3">
-	                                        2/h<!--格式为 时/分 x/x  -->
+	                                        2/h
 	                                    </span>
                                         </div>
                                     </td>
@@ -218,7 +213,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value1">
-	                                        06-10-18:00<!--格式为 月-日-时  xx-xx-xx  -->
+	                                        06-10-18:00
 	                                    </span>
                                         </div>
                                     </td>
@@ -232,7 +227,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value3">
-	                                        2/h<!--格式为 时/分 x/x  -->
+	                                        2/h
 	                                    </span>
                                         </div>
                                     </td>
@@ -268,7 +263,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value1">
-	                                        06-10-3:00<!--格式为 月-日-时  xx-xx-xx  -->
+	                                        06-10-3:00
 	                                    </span>
                                         </div>
                                     </td>
@@ -282,7 +277,7 @@
                                     <td>
                                         <div class="homework-list-circle-team">
 	                                    <span class="circle-value3">
-	                                        1/30h<!--格式为 时/分 x/x  -->
+	                                        1/30h
 	                                    </span>
                                         </div>
                                     </td>
@@ -317,35 +312,35 @@
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value1">
-	                                        06-14-10:00<!--格式为 月-日-时   06-06-3:00 -->
+	                                        06-14-10:00
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value2">
-	                                        06-15-10:00<!--格式为 月-日 xx-xx  -->
+	                                        06-15-10:00
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value3">
-	                                       1/30h<!--格式为 时/分 x/x  -->
+	                                       1/30h
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value4">
-	                                        <img src="images/homework/subject/grade.png"/><!--格式为 xx 有分数显示分数，没分数显示图标 -->
+	                                        <img src="images/homework/subject/grade.png"/>
 	                                    </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="homework-list-circle-single">
 	                                    <span class="circle-value5">
-	                                    	关闭<!--开放或者关闭  -->
+	                                    	关闭
 	                                    </span>
                                         </div>
                                     </td>
@@ -359,6 +354,7 @@
                                 </tr>
                             </table>
                         </div>
+                        -->
                     </div>
                 </div>
 
