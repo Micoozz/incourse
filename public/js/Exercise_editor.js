@@ -26,42 +26,15 @@ $(function() {
 })
 
 $(function() {
-	$('.mar_tb').hover(function() {
+	$('.work').on('mousemove','.mar_tb',function() {
 		$(this).find('.tj').show()
-	}, function() {
-		$(this).find('.tj').hide()
 	});
-	$('.nave').next().find('input').addClass('cs')
-	$('.mar_tb').find('.tj').find('input').click(function() {
-		var a = $(this).val()
-		if($(this).is(":checked")) {
-			$('.scc .c' + a).show()
-			$(this).parent('.tj').addClass('ok')
-			$('.nave').next().show()
-			$('.nave').next().css({
-				position: 'absolute',
-				width: '100%',
-				textAlign: "left",
-				background: '#fff',
-				marginTop: '30px'
-			})
-			$('.nave').next().find('ol').css('padding-left', '50px')
-			$('.nave').next().find('ol').children('li').css({
-				color: '#333',
-				margin: '10px 0',
-				listStyle: 'inherit'
-			})
-		} else {
-			$(this).parent('.tj').removeClass('ok')
-			$('.scc .c' + a).hide()
-		}
-		$('.yit>img').click(function() {
-			$('.scc ol li').hide()
-			$('.scc').hide()
-			$('.tj').removeClass('ok')
-			$('.tj input').attr("checked", false)
+		$('.work').on('mouseout','.mar_tb',function() {
+		$(this).find('.tj').hide()
 		})
-	})
+	$('.nave').next().find('input').addClass('cs')
+	
+	
 	$('.yit>img').hover(function() {
 		$(this).attr('src', 'images/s12.jpg')
 	}, function() {
@@ -76,29 +49,6 @@ $(function() {
 });
 //只做出前三个有添加功能的假数据给你看。代码向上
 $(function() {
-
-		$('.bj').click(function() {
-			$('#centery>div').not(":first-child").hide()
-			$('#centery>div:nth-of-type(4)').show()
-			var wen = $('#content #xxx>#div2').html();
-			$('#centery>div:nth-of-type(4) #xxx').append("<div class='homework-content' style='width:97%;border:0;'>" + wen + "</div>")
-			var d = 64;
-			$('.answer4 a').click(function() {
-				d++;
-				var b = String.fromCharCode(d)
-				$('.select1').append('<div class="select_single"><span class="question">选项' + b + '：</span><input class="no_addquestion" type="text" value=""><input type="file" name="pic" style="position: absolute;width:35%;height: 60%;line-height: 0px;text-indent: 0;top: 8px;right: 150px;    text-indent: 177px; color: #fff;"/></div>');
-				$('#answer select').append(' <option value="1" name="queryType">选项' + b + '</option>');
-				$('#select1>.select_single').append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
-				$('.select1 .select_single a').click(function() {
-					$('#ty option').last().remove('option')
-					$(this).parent('.select_single').remove('div')
-					d--;
-				})
-			})
-			$('.hidee').hide();
-			var selectt = $(this).parents('.homework-content').find('.question-head').find('.xz').text();
-			$('#centery>div:nth-of-type(4) #66 option').text(selectt);
-		});
 		$('#div10>div:nth-of-type(3)').css('cursor', 'pointer')
 		$('#div10>div:nth-of-type(3)').click(function() {
 			$('#centery>div').not(":first-child").hide()
@@ -177,8 +127,7 @@ $(document).ready(function() {
 		}
 	);
 
-	$(".collection_num").prev().click(
-		function() {
+	$(".work").on('click','.bo',function() {
 			if($(this).html() == "收藏") {
 				$(this).html("已收藏");
 				var cn = $(this).next().html();
@@ -194,8 +143,7 @@ $(document).ready(function() {
 				nn -= 1;
 				$(this).next().html(nn);
 			}
-		}
-	)
+		})
 })
 
 //星星评分
@@ -203,14 +151,14 @@ $(function() {
 	$('body').click(function() {
 		$('.pj').hide()
 	})
-	$('.col-line').next().click(function() {
+	$('.work').on('click','.colLine',function() {
 		$(this).next().show()
 		return false
 	});
-	$('.pj>div,.pj>div:nth-of-type(1)>img,.pj>div:nth-of-type(2)>span').click(function() {
+	$('.work').on('click','.pj',function() {
 		return false;
 	})
-	$('.pj>b').click(function() {
+	$('.work').on('click','.pj>b',function() {
 		//星星评分
 		$(this).siblings('.pj>div:nth-of-type(1)').find('img').on('click', function() {
 			var th = $(this).attr('num');

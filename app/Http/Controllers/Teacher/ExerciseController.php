@@ -58,6 +58,7 @@ class ExerciseController extends Controller
         }
         return json_encode($data);
     }
+
     public function getExerciseList($page = 1){
         $input = Input::get();
         $limit = ($page-1)*5;

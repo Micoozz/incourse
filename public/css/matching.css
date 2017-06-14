@@ -139,14 +139,11 @@
     	  color: #168BEE;
     	  float: right;
     }
-    #gap>input,#gapp>input {
-    width: 60px;
-    height: 30px;
-    border: 0;
-    border-bottom: 1px solid #168BEE;
-    text-align: center;
-    outline: none;
-    text-indent: 0;
+     #gap>input,#gapp>input{width: 0;opacity: 0;}
+    #gap>span,#gapp>span{
+    	display: inline-block;
+    	text-decoration: underline;
+    	text-indent: 0;
     }
     .G input{
     	text-indent: 30px;

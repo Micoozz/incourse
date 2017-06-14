@@ -416,6 +416,19 @@
 
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script>
+	
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"/showJobList/1",
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+			}
+		});
+	})
+</script>
 </body>
 </html>
 
