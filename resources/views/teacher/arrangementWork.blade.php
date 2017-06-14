@@ -123,16 +123,6 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">状态</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
                         </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">1.第一章第一节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">发布</a>
-                            </div>
-                        </div>
 <!--                         <div class="row new-creat">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
                                     href="groupWorkViewjob">2.第一章第二节</a></div>
@@ -425,6 +415,14 @@
 			dataType:'json',
 			success:function(data){
 				console.log(data)
+				var jobs=data.jobs
+				for(var i=0;i<jobs.length;i++){
+					if(jobs[i].job_status==1){
+					$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="groupWorkViewjob">1.第一章第一节</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">发布</a></div></div>')
+					}else{
+						
+					}
+				}
 			}
 		});
 	})

@@ -418,6 +418,18 @@
     });
     
     $(function(){
+    	
+			var splits=localStorage.id;
+	 			$.ajax({
+				type:"post",
+				url:"/getExerciseList",
+				dataType:'json',
+				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});
+    	
     	$('#button').click(function(){
 	 			$.ajax({
 				type:"post",

@@ -804,7 +804,19 @@ label{
 
 
 /*标题颜色*/
-{
-	background-color: #eee;
+/*.title_bj1{
+	background-color: #666;
     padding: 10px 0 10px 10px;
 }
+.title_bj2{
+	background-color: #ccc;
+    padding: 10px 0 10px 10px;
+}
+.title_bj3{
+	background-color: #999;
+    padding: 10px 0 10px 10px;
+}
+.title_bj4{
+	background-color: gray;
+    padding: 10px 0 10px 10px;
+}*/
