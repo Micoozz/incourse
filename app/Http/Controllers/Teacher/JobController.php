@@ -28,6 +28,20 @@ class JobController extends Controller
         }
         return json_encode($data);
     }
+    //分页实验
+/*    public function showJoblist1()
+    {
+        $job_all = Job::where('teacher_id',Auth::guard('employee')->user()->id)->paginate(2);
+        $data = array('total' => $job_all->count(),'job_all' => $job_all,'jobs' => array());
+        foreach ($job_all as $job){
+          $job_type = $job->job_type == Job::TYPE_JOB?'小组':'个人';
+          $job_status = $job->job_status == Job::STATUS_JOB?'已发布':'未发布';
+          array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,
+            'job_type' => $job_type,'pub_time' => $job->pub_time,
+            'job_status' => $job->status,'deadline' => $job->deadline));
+        }
+        return json_encode($data);/*{{ $data['job_all']->links() }}*/
+    }
     //
     public function createJob($status = Job::STATUS_UNPUB){
     	$input = Input::get();
