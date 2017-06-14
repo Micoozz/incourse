@@ -24,7 +24,13 @@ class ExerciseController extends Controller
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
-                array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥','score' => $exercise->score/100));
+                array_push($data['exercises'],array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $subjective->subject,
+                    'answer' => '自由发挥',
+                    'score' => $exercise->score/100
+                    ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
                 $answers = array();
@@ -36,7 +42,14 @@ class ExerciseController extends Controller
                 }else{
                     array_push($answers,explode(',',$objective->answer));
                 }
-                array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'options' => json_decode($objective->option),'answer' => $answers,'score' => $exercise->score/100));
+                array_push($data['exercises'],array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $objective->subject,
+                    'options' => json_decode($objective->option),
+                    'answer' => $answers,
+                    'score' => $exercise->score/100
+                    ));
                 
             }
 //          else{
@@ -50,14 +63,20 @@ class ExerciseController extends Controller
         $limit = ($page-1)*5;
         $exercise_id_arr = explode(',',$input['exercise_id']);
         $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval($exercise_id_arr->length()/5)+1;
-        $data = array('total' => $exercise_id_arr->length(),'pageLength' => $pageLength,'exercises' => array());
+        $pageLength = intval(count($exercise_id_arr)/5)+1;
+        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_id as $eid) {
-            $exercise = Exercises::find($id);
+            $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
-                array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥','score' => $exercise->score/100));
+                array_push($data['exercises'],array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $subjective->subject,
+                    'answer' => '自由发挥',
+                    'score' => $exercise->score/100
+                    ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
                 $answers = array();
@@ -69,7 +88,14 @@ class ExerciseController extends Controller
                 }else{
                     array_push($answers,explode(',',$objective->answer));
                 }
-                array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'options' => json_decode($objective->option),'answer' => $answers,'score' => $exercise->score/100));
+                array_push($data['exercises'],array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $objective->subject,
+                    'options' => json_decode($objective->option),
+                    'answer' => $answers,
+                    'score' => $exercise->score/100
+                    ));
                 
             }
         }
@@ -107,7 +133,11 @@ class ExerciseController extends Controller
             }
             $exercise->save();
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-                $objective = new Objective(['subject' => $input['subject'],'option' => isset($input['option']) ? json_encode($input['option'],JSON_UNESCAPED_UNICODE) : null,'answer' => isset($input['answer']) ? $input['answer'] : null]);
+                $objective = new Objective([
+                    'subject' => $input['subject'],
+                    'option' => isset($input['option']) ? json_encode($input['option'],JSON_UNESCAPED_UNICODE) : null,
+                    'answer' => isset($input['answer']) ? $input['answer'] : null
+                    ]);
                 $exercise->hasManyObjective()->save($objective);
             }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = new Subjective(['subject' => $input['subject']]);
