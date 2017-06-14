@@ -9,6 +9,11 @@ use Input;
 use Auth;
 use App\Models\Job;
 use App\Models\Work;
+use App\Models\Exercises;
+use App\Models\Objective;
+use App\Models\Subjective;
+use App\Models\Compositive;
+use App\Models\Categroy;
 class WorkController extends Controller
 {
     //
@@ -36,13 +41,13 @@ class WorkController extends Controller
     }
     public function showWorkDetail($work_id,$page = 1){
         if(empty($work_id)){
-            return '1';
+            return;
         }
         $limit = ($page-1)*5;
         $user = Auth::guard('student')->user();
         $work = Work::find($work_id);
         if(!$work || $work->student_id != $user->id){
-            return '2';
+            return;
         }
         $exercise_id_arr = explode(',',$work->belongsToJob()->first()->exercise_id);
         $exercise_id = array_slice($exercise_id_arr,$limit,5);
@@ -85,6 +90,6 @@ class WorkController extends Controller
         return json_encode($data);
     }
     public function subWork(){
-        
+
     }
 }
