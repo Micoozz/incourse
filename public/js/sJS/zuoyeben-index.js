@@ -1,8 +1,8 @@
 $(function(){
 	const id = sessionStorage.getItem("homeworkId"); //保存是作业几
 	console.log(id)
-	$.post("",{"work_id":id, "_token":{{csrf_token()}}}).success(function(data){
-		
+	$.get("showWorkDetail/" + id + '/1').success(function(data){
+		console.log(data)
 	});
 	
 	//控制排序题只能输入数字

@@ -114,8 +114,8 @@
 									<div id="z_1">
 										<div class="z_t_c row ">
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-												<span>作业章节</span>
-												<input type="text" value=" ">
+												<span >作业标题</span>
+												<input type="text" value=" " class="titles">
 											</div>
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 												<span>截止时间</span>
@@ -127,6 +127,10 @@
 												<span>所属章节</span>
 												<input type="text" value=" ">
 											</div>
+											<div class="col-lg-12 submits" id="subject">
+                                        		<span>科目</span>
+                                       			<select name=""></select>
+                                    		</div>												
 										</div>
 									</div>
 									<!--<div id="add">
@@ -167,7 +171,7 @@
 												<a href="favorites"  class="bt_a">取消</a>
 												<a href="#" class="bt_s Ad-se">发布</a>
 												<a href="exerciseEditor" class="bt_s">题库选题</a>
-												<a href="independentOperationAddTopic" class="bt_s">添加题目</a>
+												<a href="" class="bt_s bt_ss">添加题目</a>
 										<!--		<a href="Independent_operation_Add_job_specific_content.html" class="goo"><img src="images/add.png" alt="">去添加题目</a>-->
 											   </div>
 											</div>
@@ -395,6 +399,94 @@
 			 min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
 			 max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
 		 });
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		$(function(){
+			
+			
+					//科目数据
+		$.ajax({
+			type:"get",
+			url:"/getCourse",
+			dataType:'json',
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					$('#subject>select').append('<option value='+data[i].id+'>'+data[i].title+'</option>')
+				}
+			}
+		});
+			
+			var splits=localStorage.id;
+	 			$.ajax({
+				type:"post",
+				url:"/getExerciseList",
+				dataType:'json',
+				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});
+			
+			
+			//发布
+	var colligate={
+			course:'',
+			score:'',
+			title:'',
+			type:'1',
+			deadline:'',
+			exerciseid:splits
+		}
+
+//题目类型
+		$('#subject>select').change(function(){
+			colligate.course=$(this).val()
+		})
+		
+		$('.Ad-se').click(function(){
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
+	 			$.ajax({
+				type:"post",
+				url:"/pubJob",
+				dataType:'json',
+				data:{'course':colligate.course,type:colligate.type,'score':colligate.score,'exercise_id':colligate.exerciseid,'deadline':colligate.deadline,'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});	
+		});
+		
+		
+		//
+		$('.bt_ss').click(function(){
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
+			if($('.titles').val()==''){
+				alert('作业标题 不能为空')
+			}else if($('.laydate-icon').val()==''){
+				alert('截止时间 不能为空')
+			}else{
+				for(var key in colligate){
+					localStorage.setItem(key,colligate[key])
+					}
+				window.location.href='/independentOperationAddTopic'
+			}
+			return false
+		})
+		
+		
+	 	})
 	 </script>
 	</body>
 

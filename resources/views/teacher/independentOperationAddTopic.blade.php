@@ -87,8 +87,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                         <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor">习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -202,13 +202,12 @@
                             <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9 fourbtn_frbs">
 
                                 <button class="btn btn_s"
-                                        onclick="window.location='Independent_operation_Add_job_specific_content.html'">
+                                        onclick="window.location='independentOperationAddJobSpecificContent'">
                                     继续添加
                                 </button>
-                                <button class="btn btn_s" onclick="window.location='Exercise_editor.html'">题库选题</button>
-                                <button class="btn btn_s"
-                                        onclick="window.location='Independent_operation_Add_job_section.html'">保存
-                                </button>
+                                <button class="btn btn_s" onclick="window.location='exerciseEditor'">题库选题</button>
+                                <button class="btn btn_s" di="button"
+                                        onclick="window.location='independentOperationAddJobSection'">保存</button>
                                 <button class="btn btn_s" data-toggle="modal" data-target="#myModal">转发</button>
                             </div>
                         </div>
@@ -417,6 +416,20 @@
             $(this).attr('class', 'balk');
         }
     });
+    
+    $(function(){
+    	$('#button').click(function(){
+	 			$.ajax({
+				type:"post",
+				url:"/createJob",
+				dataType:'json',
+				data:{'course':localStorage.course,type:localStorage.type,'score':localStorage.score,'exercise_id':localStorage.exerciseid,'deadline':localStorage.deadline,'title':localStorage.title,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+				}
+			});	   		
+    	})
+    })
 </script>
 </body>
 </html>
