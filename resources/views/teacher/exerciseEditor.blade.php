@@ -1030,8 +1030,12 @@
 			
 			//页数
 			for(var o=0;o<pageLength;o++){
-				console.log(o)
-				$('.pagination>li:first-child').after('<li><a href="#">'+(o+1)+'</a></li>')
+				if(o<5){
+					$('.pagination>li:first-child').after('<li><a href="#">'+(o+1)+'</a></li>')
+				}
+				if(o==29){
+					$('.pagination>li:last-child').before('<li><a href="#">'+(o+1)+'</a></li>')
+				}
 			}
 			
 			
