@@ -279,7 +279,6 @@ li{
 #search{
     margin:0%;
     padding-top: 20px;
-     padding-bottom: 20px;
      padding-left:15px ;
 }
 #search2{
@@ -364,9 +363,7 @@ line-height: 12%;
 .scc{
 	display: none;
 }
-.scc ol li{
-	display: none;
-}
+
 .collection_num{
     display: inline-block;
     margin-left: 5px;

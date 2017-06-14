@@ -57,7 +57,6 @@
             </li>
             <li><a href="/logout" class="blue">退出</a></li>
         </ul>
-
     </div>
 </div>
     <!--
@@ -90,8 +89,8 @@
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
                     <ul class="nav1 nav" id="nav1">
-                        <li><a href="Arrangement_work(homepage)" class="box">作业管理</a></li>
-                        <li><a href="Exercise_editor">习题库</a></li>
+                        <li><a href="arrangementWork" class="box">作业管理</a></li>
+                        <li><a href="exerciseEditor">习题库</a></li>
                         <li><a href="data">资料库</a></li>
                         <li><a href="duty_arrange">班级管理</a></li>
                         <li><a href="classindex">成绩管理</a></li>
@@ -357,7 +356,7 @@
 									</div>
 								<div class="modal_button" style="margin-right: 45px">
                                         <a href="javascript:history.go(-1)" class="bt_c">取消</a>
-                                        <a href="Independent_operation_Add_job_specific_content" class="bt_s">继续添加</a>
+                                        <a href="independentOperationAddJobSpecificContent" class="bt_s">继续添加</a>
                                         <a href="#" class="bt_s Ad-sc" data-toggle="modal" data-target="#myModal">保存</a>
                                     </div>
                             </div>

@@ -835,3 +835,10 @@ button.close {
     margin-top: -2.4rem;
     cursor: pointer;
 }
+.submits{
+	margin-top: 20px;
+}
+.submits>select{
+	width: 20%;
+	margin-left: 8.5%;
+}

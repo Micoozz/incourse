@@ -54,9 +54,11 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{page?}','Teacher\ExerciseController@showExerciseList');
+		Route::post('/getExerciseList/{page?}','Teacher\ExerciseController@getExerciseList');
 		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 		Route::post('/createJob','Teacher\JobController@createJob');
 		Route::post('/pubJob','Teacher\JobController@pubJob');
+		Route::get('/showJobList/{page?}','Teacher\JobController@showJobList');
 	});
 	Route::group(['middleware' => 'student'],function(){
 		Route::get('/danrenzuoye-chengji',function(){
@@ -78,6 +80,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
 		Route::get('/showWorkList/{page?}','Student\WorkController@showWorkList');
+		Route::get('/showWorkDetail/{work_id}/{page?}','Student\WorkController@showWorkDetail');
 	});
 	Route::get('/logout','LoginController@logout');
 });

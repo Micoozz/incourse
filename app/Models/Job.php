@@ -20,6 +20,6 @@ class Job extends Model
     public $timestamps = false;
 
     public function hasManyWork(){
-    	return $this->hasMany('App\Models\Work');
+    	return $this->hasMany('App\Models\Work','job_id');
     }
 }
