@@ -21,7 +21,7 @@ class ExerciseController extends Controller
     	$exercise_list = Exercises::skip($limit)->take(5)->get();
     	$data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
     	foreach ($exercise_list as $exercise) {
-    		$cate_title = Categroy::find($exercise->categroy_id)->title;
+    		$cate_title = Categroy::find($exercise->categroy_id)->title;//获取题型
     		if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
     			$subjective = Subjective::where('exe_id',$exercise->id)->first();
     			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥'));
@@ -31,7 +31,7 @@ class ExerciseController extends Controller
 				if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
     				$answer_list = explode(',',$objective->answer);
     				foreach ($answer_list as $key => $answer) {
-    					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
+    					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);//有点不大懂
     				}
     			}else{
     				array_push($answers,explode(',',$objective->answer));
