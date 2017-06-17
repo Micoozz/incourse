@@ -19,7 +19,7 @@
 					<div class="cent">
 						<a href="javascript:;">分析中心</a>
 						<a href="javascript:;">学习生活记录</a>
-						<a href="/teacherPersonData">个人信息</a>
+						<a href="javascript:;">个人信息</a>
 					</div>
                 </li>
                 <li><a href="/logout" class="blue">退出</a></li>

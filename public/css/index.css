@@ -132,7 +132,7 @@
 		    background: url(../images/001_03.png) no-repeat 85px 28px;
 		width: 112px;
 	}
-	.head_nav li a:hover{
+	.head_nav li a:hover, .head_nav li a:focus{
 		background-color:transparent ;
 	}
 	#header>.navbar{

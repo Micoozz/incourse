@@ -4,7 +4,7 @@
 $(function(){
 	$(".questionSelect,.questionMultiBlankSelect").click(function(){
 		var select = $(this).val();
-		$(this).parent().parent().parent().siblings().find("#answerOrder").text(select);
+		$(this).parent().parent().parent().siblings().find(".answerOrder").text(select);
 	})
 })
 
@@ -12,10 +12,14 @@ $(function(){
 $(function(){
 	$(".questionMultiSelect").click(function(){
 		var container =[];
-		$("input[type='checkbox']:checked").each(function(){
+//		$("input[type='checkbox']:checked").each(function(){
+//			container.push($(this).val());
+//		});
+		$(this).parent().parent().parent().find("input[type='checkbox']:checked").each(function(){
 			container.push($(this).val());
 		});
-		$(this).parent().parent().parent().siblings().find("#answerOrder").text(container);
+		
+		$(this).parent().parent().parent().siblings().find(".answerOrder").text(container);
 	})
 })
 	

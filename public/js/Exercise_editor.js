@@ -26,12 +26,6 @@ $(function() {
 })
 
 $(function() {
-	$('.work').on('mousemove','.mar_tb',function() {
-		$(this).find('.tj').show()
-	});
-		$('.work').on('mouseout','.mar_tb',function() {
-		$(this).find('.tj').hide()
-		})
 	$('.nave').next().find('input').addClass('cs')
 	
 	

@@ -453,9 +453,11 @@ select {
 
 .fix>div {
 	display: block;
-	padding: 3px;
-	text-align: center;
-	cursor: pointer;
+    padding: 3px;
+    text-align: center;
+    cursor: pointer;
+    height: 33%;
+    line-height: 19px;
 }
 
 .on {

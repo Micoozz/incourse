@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/aaa', 'shiyanController@index');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
@@ -79,6 +80,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
 		Route::get('/showWorkList/{page?}','Student\WorkController@showWorkList');
+		Route::get('/showWorkDetail/{work_id}/{page?}','Student\WorkController@showWorkDetail');
 	});
 	Route::get('/logout','LoginController@logout');
 });

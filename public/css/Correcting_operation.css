@@ -574,6 +574,7 @@ button.close:hover {
 .mar{
     display: inline-block;
     margin-left: 35px;
+    color: #168BEE;
 }
 .buttons{
     margin: 0%;
