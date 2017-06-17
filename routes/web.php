@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/aaa', 'shiyanController@index');
+Route::get('/aaa/{page}', 'Admin\ArchivesController@showStudentList');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdataJob extends Migration
+class UpdateEmployee extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class UpdataJob extends Migration
      */
     public function up()
     {
-         Schema::table('job', function(Blueprint $table)
+           Schema::table('employee', function(Blueprint $table)
         {
-            $table->string('title',20)->after('password');
+            $table->integer('phone')->after('department');
+            $table->string('IDcard',20)->after('phone');
+            $table->char('sex',1)->agter('IDcard');
         });
     }
 
