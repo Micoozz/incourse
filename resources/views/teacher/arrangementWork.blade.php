@@ -123,50 +123,11 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">状态</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
                         </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">1.第一章第一节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">发布</a>
-                            </div>
-                        </div>
-<!--                         <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">2.第一章第二节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">撤销</a>
-                            </div>
-                        </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="singleWorkViewjob">3.第一章第三节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">个人</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" id="delete" class="blue Aw-del"
-                                                                                data-toggle="modal"
-                                                                                data-target="#myModal2">删除</a></div>
-                        </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">4.第一章第四节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Aw-del">删除</a>
-                            </div>
-                        </div> -->
-                    </div>
                 </div>
-                <!--右侧栏-->
+                                                <ul class="pagination fy">
+                                                	
+                                </ul>
+                </div>
                 <div class="col-sm-12 col-xs-12 left">
                     <div class="col-md-12 col-xs-12">
                         <a href="schoolNotice.html" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
@@ -323,14 +284,25 @@
                             )
                         }
                 );
-                $(".Nocfix").click(
+                $('body').on('click',".Nocfix",
                         function () {
-                            if ($(this).html() == "发布") {
+                            if ($(this).html() == "发布") {            
                                 $(".go_success").show();
                                 setTimeout(function () {
                                     $(".go_success").hide()
                                 }, 1000);
                                 $(this).html("撤销").parent().prev().html("已发布").removeClass("red").addClass("gray");
+                            
+								 $.ajax({
+									type:"post",
+									url:"/pubJob",
+									dataType:'json',
+									data:{'job_id':$(this).attr('num'),'_token':'{{csrf_token()}}'},
+									success:function(data){
+											console.log(data)
+												}
+							});	        
+                            
                             } else {
                                 $(".go_filed").show();
                                 setTimeout(function () {
@@ -419,14 +391,84 @@
 <script>
 	
 	$(function(){
+			if(localStorage.pargins==undefined){
+		localStorage.setItem('pargins',1)
+			}
 		$.ajax({
 			type:"get",
-			url:"/showJobList/1",
+			url:"/showJobList/"+localStorage.pargins,
 			dataType:'json',
 			success:function(data){
 				console.log(data)
+				var jobs=data.jobs;
+				var pageLength=data.pageLength;	
+				for(var i=0;i<jobs.length;i++){
+					var time=new Date(jobs[i].pub_time),
+						times=new Date(jobs[i].deadline)
+					if(jobs[i].job_status==1){
+						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="groupWorkViewjob">'+(i+1)+'.'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
+					}else{
+						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="groupWorkViewjob">'+(i+1)+'.'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
+					}
+				};
+
+			//页数
+					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
+					var five;
+			for(var o=0;o<pageLength;o++){
+				if(o<5){
+					$('.pagination').append('<li><a href="#"><i>'+(o+1)+'</i></a></li>')
+				}
+				else if(o==6){
+					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
+				}else{}
+				five=o;
+			}
+			
+			
+			$('.pagination>li>a').eq(five+1).attr('class','five');
+			$('.pagination>li>a').eq(1).attr('class','zero');
+			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
+			
+			if(five==4){
+				$('.pagination').on('click','.five',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())+5)
+					})
+				});
+
+				$('.pagination').on('click','.zero',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())-5)
+					})
+				});
+			}
+			
+			//
+			$('.pagination').on('click','li>a>i',function(){
+			localStorage.setItem('pargins',$(this).text())
+				window.location.href=''
+			});
+			
+			//上一页
+			$('.pagination').on('click','.PREV',function(){
+				if(localStorage.pargin>1){
+				localStorage.setItem('pargins',parseInt(--localStorage.pargin));
+				window.location.href=''
+				}
+			})
+
+			//下一页
+			$('.pagination').on('click','.Next',function(){
+				if(localStorage.pargin<=$('.five').text()){
+				localStorage.setItem('pargins',parseInt(++localStorage.pargin));
+				window.location.href=''
+				}
+			})
 			}
 		});
+		
+		
 	})
 </script>
 </body>

@@ -112,6 +112,16 @@
 							<div id="content">
 								<form action="">
 									<div id="z_1">
+										<div class=" row">
+											<div class="col-lg-12 submits" id="subject">
+                                        		<span>科目</span>
+                                       			<select name=""></select>
+                                    		</div>												
+											<div class="col-lg-12 z_introduce">
+												<span>所属章节</span>
+												<input type="text" value=" ">
+											</div>											
+										</div>										
 										<div class="z_t_c row ">
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
 												<span >作业标题</span>
@@ -121,16 +131,6 @@
 												<span>截止时间</span>
 												<input style="padding-left: 10px" class="laydate-icon" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
 											</div>
-										</div>
-										<div class=" row">
-											<div class="col-lg-12 z_introduce">
-												<span>所属章节</span>
-												<input type="text" value=" ">
-											</div>
-											<div class="col-lg-12 submits" id="subject">
-                                        		<span>科目</span>
-                                       			<select name=""></select>
-                                    		</div>												
 										</div>
 									</div>
 									<!--<div id="add">
@@ -170,7 +170,6 @@
 											   <div class=" col-md-8 new_mlbtn">
 												<a href="favorites"  class="bt_a">取消</a>
 												<a href="#" class="bt_s Ad-se">发布</a>
-												<a href="exerciseEditor" class="bt_s">题库选题</a>
 												<a href="" class="bt_s bt_ss">添加题目</a>
 										<!--		<a href="Independent_operation_Add_job_specific_content.html" class="goo"><img src="images/add.png" alt="">去添加题目</a>-->
 											   </div>
@@ -309,14 +308,6 @@
 		<div id="footer"></div>
 		<script>
 			$(function() {
-				$(".Ad-se").click(
-					function() {
-						$(".go_success").show();
-						setTimeout(function() {
-							$(".go_success").hide()
-						}, 2000);
-					}
-				);
 				var box = localStorage.getItem('key');
 				var boxx = localStorage.getItem('keyy')
 				$('.goo').css('display', box)
@@ -427,15 +418,6 @@
 		});
 			
 			var splits=localStorage.id;
-	 			$.ajax({
-				type:"post",
-				url:"/getExerciseList",
-				dataType:'json',
-				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
-				success:function(data){
-					console.log(data)
-				}
-			});
 			
 			
 			//发布
@@ -452,42 +434,52 @@
 		$('#subject>select').change(function(){
 			colligate.course=$(this).val()
 		})
-		
-		$('.Ad-se').click(function(){
-			colligate.title=$('.titles').val();
-			colligate.deadline=$('.laydate-icon').val();
-	 			$.ajax({
-				type:"post",
-				url:"/pubJob",
-				dataType:'json',
-				data:{'course':colligate.course,type:colligate.type,'score':colligate.score,'exercise_id':colligate.exerciseid,'deadline':colligate.deadline,'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
-				success:function(data){
-					console.log(data)
-				}
-			});	
-		});
+	
 		
 		
 		//
 		$('.bt_ss').click(function(){
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
-			if($('.titles').val()==''){
-				alert('作业标题 不能为空')
-			}else if($('.laydate-icon').val()==''){
-				alert('截止时间 不能为空')
-			}else{
 				for(var key in colligate){
 					localStorage.setItem(key,colligate[key])
 					}
 				window.location.href='/independentOperationAddTopic'
-			}
 			return false
-		})
+		});
 		
 		
+		
+		$('.Ad-se').click(function(e){
+			event.stopPropagation();
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
+						if($('.titles').val()==''){
+				alert('作业标题 不能为空')
+			}else if($('.laydate-icon').val()==''){
+				alert('截止时间 不能为空')
+			}else{
+			if(localStorage.issue=='0'){			
+	 			$.ajax({
+				type:"post",
+				url:"/pubJob",
+				dataType:'json',
+				data:{'course':colligate.course,type:colligate.type,'score':colligate.score,'exercise_id':colligate.exerciseid,'deadline':colligate.deadline,'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					window.location.href='/arrangementWork'
+				}
+			});	
+
+						$(".go_success").show();
+						setTimeout(function() {
+							$(".go_success").hide()
+						}, 2000);
+						}else{
+							alert('请添加题目')
+						}
+						}
+		});	
 	 	})
 	 </script>
 	</body>
-
 </html>

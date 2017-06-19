@@ -8,10 +8,13 @@ class Job extends Model
 {
     //
     const STATUS_UNPUB = 1;
+    const STATUS_JOB = 1;
     const STATUS_PUB = 2;
     const TYPE_PERSONAL = 1;
     const TYPE_FREE = 2;
     const TYPE_INTO = 3;
+    const TYPE_JOB = 1;
+
 
     protected $table = 'job';
     public $timestamps = false;

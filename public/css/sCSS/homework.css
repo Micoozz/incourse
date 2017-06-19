@@ -2095,3 +2095,8 @@ a {
 #centery{
     width: 720px!important;
 }*/
+.float{
+	float: left;
+	margin-right: 50px;
+	margin-bottom: 10px;
+}
