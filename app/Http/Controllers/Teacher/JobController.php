@@ -8,24 +8,28 @@ use App\Http\Controllers\Controller;
 use Input;
 use Auth;
 use App\Models\Job;
-use App\Models\work;
+use App\Models\Work;
 class JobController extends Controller
 {
 
     public function showJoblist($page = 1)
     {
-        $job_all = Job::all();
-        $limit = ($page-1)*5;
-        $pageLength = intval($job_all->count()/5)+1;
-        $job_list = Job::skip($limit)->take(5)->get();
+
+        $job_all = Job::where('teacher_id',Auth::guard('employee')->user()->id)->get();
+        $limit = ($page-1)*10;
+        $pageLength = intval($job_all->count()/10)+1;
+        $job_list = Job::skip($limit)->take(10)->get();
         $data = array('total' => $job_all->count(),'pageLength' => $pageLength,'jobs' => array());
         foreach ($job_list as $job){
-          $job_type = $job->job_type == Job::STATUS_UNPUB?'小组':'个人';
-          $job_status = $job->job_status == Job::STATUS_UNPUB?'已发布':'未发布';
-          array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,'job_type' => $job_type,'pub_time' => $job->pub_time,'job_status' => $job->status));
+          $job_type = $job->job_type == Job::TYPE_JOB?'小组':'个人';
+          $job_status = $job->job_status == Job::STATUS_JOB?'已发布':'未发布';
+          array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,
+            'job_type' => $job_type,'pub_time' => $job->pub_time,
+            'job_status' => $job->status,'deadline' => $job->deadline));
         }
         return json_encode($data);
     }
+    
     //
     public function createJob($status = Job::STATUS_UNPUB){
     	$input = Input::get();
@@ -37,7 +41,7 @@ class JobController extends Controller
 	    	$job->course_id = intval($input['course']);
             $job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
-	    	$job->score = intval($input['score'])*100;
+	    	$job->score = 0;//intval($input['score'])*100;
 	    	$job->exercise_id = $input['exercise_id'];
 	    	$job->status = $status;
 	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();

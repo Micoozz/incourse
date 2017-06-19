@@ -249,6 +249,11 @@ a {
 	top: 4px;
 }
 
+.homework-list .homework-type-link {
+	position: relative;
+	top: 5px;
+}
+
 .homework-list-content {
 	float: right;
 	margin-top: 10px;
@@ -258,7 +263,6 @@ a {
 	width: 80px;
 	font-size: 12px;
 	text-align: center;
-	/*11-12 add fyg*/
 	padding-left: 6px;
 }
 
@@ -276,6 +280,7 @@ a {
 .homework-list-circle-single {
 	width: 80px;
 	height: 26px;
+	line-height: 26px;
 	border-radius: 4px;
 	background-color: #158BEE;
 	margin: auto;
@@ -284,6 +289,7 @@ a {
 .homework-list-circle-team {
 	width: 80px;
 	height: 26px;
+	line-height: 26px;
 	border-radius: 4px;
 	background-color: #FF920E;
 	margin: auto;
@@ -294,13 +300,11 @@ a {
 .circle-value3,
 .circle-value4,
 .circle-value5 {
-	position: relative;
-	top: 10%;
 	color: #FFF;
 	font-size: 12px;
 }
 
-.search-wiki {
+.search-wiki, .search-wiki:focus {
 	color: #FFD656;
 }
 
@@ -882,7 +886,7 @@ a {
 /*拍照上传*/
 
 .photo-upload-modal {
-	margin-top: 10%;
+	margin-top: 5%;
 }
 
 .photo-upload-modal-header,
@@ -990,9 +994,6 @@ a {
 
 .photo-footer {
 	text-align: center;
-	position: absolute;
-	bottom: 15%;
-	left: 35%;
 }
 
 @media (max-width:991px) {
@@ -1005,13 +1006,13 @@ a {
 	text-align: center;
 	min-height: 30%;
 	width: 45%;
-	margin: 100px auto;
+	margin: 100px auto 30px;
 	padding: 37px 0;
 	background-color: #e0e0e0;
 	font-size: 16px;
 }
 .photo-upload-content .photo-center>img {
-	width: 100%;
+	width: 50%;
 	margin-top: -37px;
 	margin-bottom: -37px;
 }
@@ -1898,14 +1899,15 @@ a {
 /*8-29 单人作业 模态框*/
 
 #f-modal {
-	width: 100%;
-	height: 100%;
 	position: fixed;
+	top: 0;
+	left: 0;
+    right: 0;
+    bottom: 0;
 	z-index: 100;
 	background: #000000;
 	opacity: 0.5;
 	filter: progid: DXImageTransform.Microsoft.Alpha(opacity=50)!important;
-	top: 0;
 	display: none;
 }
 
@@ -2093,3 +2095,8 @@ a {
 #centery{
     width: 720px!important;
 }*/
+.float{
+	float: left;
+	margin-right: 50px;
+	margin-bottom: 10px;
+}

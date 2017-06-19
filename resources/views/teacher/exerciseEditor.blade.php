@@ -201,16 +201,7 @@
                             </div>
                             <div class="col-lg-3  "></div>
                             <div class="col-lg-3  col-sm-4 ">
-                                <form class="bs-example bs-example-form" role="form">
-                                    <div class="input-group row" id="search2">
-                                        <input type="text" class="form-control " placeholder="搜索">
-											<span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <img src="images/search.png" alt="">
-                                    </button>
-                                </span>
-                                    </div>
-                                </form>
+    
                             </div>
                         </div>
                         <div class="row work">
@@ -295,45 +286,7 @@
                         <div class="row">
                             <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9 ">
                                 <ul class="pagination fy">
-                                    <li>
-                                        <a href="#">上一页 </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">4</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">5</a>
-                                    </li>
-                                    <li><span class="out">···</span></li>
-                                    <li>
-                                        <a href="#">下一页 </a>
-                                    </li>
                                 </ul>
-                            </div>
-                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 turn_to">
-                                <div>
-										<span class="choose">向第<input type="text"
-                                                                      style="width: 15%;text-align: center">页</span>
-                                    <ul class="pagination">
-                                        <li>
-                                            <a href="#">跳转</a>
-                                        </li>
-                                    </ul>
-                                    <!--<button class="btn">跳转</button>-->
-                                </div>
-
-                                <!--<ul class="pagination">-->
-                                <!--<li><a href="#">跳转</a></li>-->
-                                <!--</ul>-->
                             </div>
                             <!--<div class="jump">-->
                             <!--<div>-->
@@ -1051,30 +1004,105 @@
 		});
 		
 		
+		
 	//显示题目
+		if(localStorage.pargin==undefined){
+		localStorage.setItem('pargin',1)
+		}
 	$.ajax({
 		type:"get",
-		url:"/showExerciseList/1",
+		url:"/showExerciseList/"+localStorage.pargin,
 		dataType:'json',
 		success:function(data){
+			console.log(data)
 			var choose;
 			var exercises=data.exercises;
-			console.log(data)
+			var pageLength=data.pageLength;			
+			//页数
+					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
+					var five;
+			for(var o=0;o<pageLength;o++){
+				if(o<5){
+					$('.pagination').append('<li><a href="#"><i>'+(o+1)+'</i></a></li>')
+				}
+				else if(o==6){
+					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
+				}else{}
+				five=o;
+			}
+			
+			
+			$('.pagination>li>a').eq(five+1).attr('class','five');
+			$('.pagination>li>a').eq(1).attr('class','zero');
+			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
+			
+			if(five==4){
+				$('.pagination').on('click','.five',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())+5)
+					})
+				});
+
+				$('.pagination').on('click','.zero',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())-5)
+					})
+				});
+			}
+			
+			//
+			$('.pagination').on('click','li>a>i',function(){
+				localStorage.setItem('pargin',$(this).text())
+				window.location.href=''
+			});
+			
+			//上一页
+			$('.pagination').on('click','.PREV',function(){
+				if(localStorage.pargin>1){
+				localStorage.setItem('pargin',parseInt(--localStorage.pargin));
+				window.location.href=''
+				}
+			})
+
+			//下一页
+			$('.pagination').on('click','.Next',function(){
+				if(localStorage.pargin<=$('.five').text()){
+				localStorage.setItem('pargin',parseInt(++localStorage.pargin));
+				window.location.href=''
+				}
+			})
+						
 			for(var i=0;i<exercises.length;i++){
 					if(exercises[i].cate_title=='单选题'){
 						for(var a=0;a<exercises[i].answer.length;a++){
 							choose=exercises[i].answer[a]
 						}
-						$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="xz'+i+' question-types">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p> <form action="" class="selectt'+i+'"></form>				                                  <div class="line"></div>                                    <div class="question-foot">                                        <span class="blue">正确答案：</span><span class="answerOrder'+i+'">'+choose+'</span><span class="col-line"></span>											<span title="难度(1)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>            <a><img src="images/Cj_18mm.png"></a>								</span>                                        <div class="pj">                                            <div title="难度(1)">                                                <img src="images/Cj_17mm.png" class="yellow" num=1>                                                <img src="images/Cj_18mm.png" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                                <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div>                                               <span class="mui4" title="差" mui=1></span>                                               <span class="mui4" title="较差" mui=2></span>                                                <span class="mui4" title="一般" mui=3></span>                                                <span class="mui4" title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                            <b>评分</b>                                        </div>                                        <div style="float: right;" class="hidee">                                            <span class="tj"><input type="checkbox" name="" id=""  value="'+i+'"/>添加</span>                                            <a href="javascript:;" class="bj">编辑</a>                                            <a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                      </div>                                    </div>                               </div>                            </div>')
+						$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="xz'+i+' question-types title_bj1">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p> <form action="" class="selectt'+i+'"></form>				                                  <div class="line"></div>                                    <div class="question-foot">                                        <span class="blue">正确答案：</span><span class="answerOrder'+i+'">'+choose+'</span><span class="col-line"></span>											<span title="难度(1)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>            <a><img src="images/Cj_18mm.png"></a>								</span>                                        <div class="pj">                                            <div title="难度(1)">                                                <img src="images/Cj_17mm.png" class="yellow" num=1>                                                <img src="images/Cj_18mm.png" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                                <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div>                                               <span class="mui4" title="差" mui=1></span>                                               <span class="mui4" title="较差" mui=2></span>                                                <span class="mui4" title="一般" mui=3></span>                                                <span class="mui4" title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>     <b>评分</b></div><div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""  value="'+i+'"/>添加</span>                                            <a href="javascript:;" class="bj">编辑</a>                                            <a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                      </div>                                    </div>                               </div>                            </div>')
 						for(var j=0;j<exercises[i].options.length;j++){
 							for(var key in exercises[i].options[j]){
 						$('.selectt'+i).append('<div class="radio"><label><input type="radio" name="questionSelect" class="questionSelect" disabled="disabled" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content"> '+exercises[i].options[j][key]+' </label></div>')
 							}
 						}
-					}else if(exercises[i].cate_title=='填空题'){		
-							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"><p class="question-head" style="display: inline-block"><span class="order"></span> <h4>'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder"></span>                                       <div class="lot_word">                                           <a href="javascript:;" class="bo">收藏</a>                                           <span class="collection_num">0</span>                                       </div>                                    </div>                                </div>                           </div>                           ')
+					}else if(exercises[i].cate_title=='填空题'){	
+						console.log(exercises[i].subject)	
+							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"><p class="question-head" style="display: inline-block"><span class="order"></span> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span>																<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div><div class="lot_word" ><div><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a> <span class="collection_num">0</span> </div></div>                                    </div>                                </div>                           </div>                           ')
+										for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
+						}
+							
+						}	
+					}else if(exercises[i].cate_title=='多空题'){	
+						console.log(exercises[i].subject)	
+							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"><p class="question-head" style="display: inline-block"><span class="order"></span> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span>																<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div><div class="lot_word" ><div><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a> <span class="collection_num">0</span> </div></div>                                    </div>                                </div>                           </div>                           ')
+										for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
+						}
+							
+						}	
 					}else if(exercises[i].cate_title=='多选题'){
-						$('.work').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4>'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder'+i+'"></span><span  class="col-line"></span><div style="float: right"><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                       </div>                                    </div>                                </div>                           </div>')					
+						$('.work').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="title_bj3 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder'+i+'"></span><span  class="col-line"></span>																<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div><div style="float: right"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span>                                       </div>                                    </div>                                </div>                           </div>')					
 						for(var j=0;j<exercises[i].options.length;j++){
 							for(var key in exercises[i].options[j]){
 							$('.selects'+i).append('<div class="radio"><label><input type="checkbox" name="questionSelect" class="questionSelect" disabled="disabled" style="display: none" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content">'+exercises[i].options[j][key]+' </span></label> </div>')
@@ -1086,9 +1114,39 @@
 							$(".answerOrder"+i).text(nu)
 						}
 					}else if(exercises[i].cate_title=='简答题'){
-								$('.work').append('<div class="row mar_t work" num="'+exercises[i].id+'"> <div class="row mar_tb"> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line"></div>                                   <div class="question-foot">                                       <span class="blue">正确答案：</span><span class="answerOrder">自由发挥</span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span> <a href="javascript:;">报错</a> <a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')
-					}
-					
+								$('.work').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder">自由发挥</span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')
+					}else if(exercises[i].cate_title=='判断题'){
+											var answer=exercises[i].answer.toString()=='1'?'对':'错'
+								$('.work').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kin"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrder">'+answer+'</span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a></span>                                  <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')						
+					}else if(exercises[i].cate_title=='排序题'){				
+								$('.work').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kink"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders"></span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a></span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')						
+										
+								for(var j=0;j<exercises[i].options.length;j++){
+								for(var key in exercises[i].options[j]){
+									$('.answerOrders').append('<span>'+key+'</span>')
+								$('.kink').append('<div>'+key+','+exercises[i].options[j][key]+'</div>')
+								}
+							}
+										}else if(exercises[i].cate_title=='连线题'){
+												$('.work').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kins'+i+'"><div class="linne float"></div><div class="linnes float"></div><div class="clear"></div></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a></span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')											
+
+					for(var j=0;j<exercises[i].options.length;j++){
+						for(var b=0;b<exercises[i].options[j].length;b++){
+							for(var key in exercises[i].options[j][b]){
+					$('.kins'+i+'>.linne').append('<div>'+key+'， '+exercises[i].options[j][b][key]+'</div>')
+					$('.answerOrders'+i).append('<span>'+key+'-'+key+'|</span>')
+							}
+						}
+						}	
+						
+						
+					for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.kins'+i+'>.linnes').append('<div>'+(b+1)+'， '+exercises[i].answer[jj][b]+'</div>')
+						}
+							
+						}											
+										}							
 }
 
 
@@ -1164,9 +1222,7 @@ function removeByValue(arr, val) {
 
 		}
 	});	
-		
-		
-		
+	
 		//数据提交
 		var Object={
 			account:'1',//科目
@@ -1253,7 +1309,7 @@ function removeByValue(arr, val) {
 			Object.arrys=$('.draw').val()
 		}else if(Object.types=='6'){
 			Object.arrys=$('.ligature').val()
-			Object.result=[];
+			Object.result='';
 			var arry1=[]
 			var arry2=[]
 			$('.A>div>input').each(function(i){
@@ -1262,13 +1318,12 @@ function removeByValue(arr, val) {
 				arry1.push(objec);				
 			})
 			$('.B>div>input').each(function(i){
-				var objec={}
-				objec[i+1]=$(this).val()
-				arry2.push(objec)			
+				arry2.push($(this).val())			
 			})
 				arry1.pop()	
 				arry2.pop()	
-			Object.options.push(arry1,arry2)
+			Object.options.push(arry1)
+			Object.result+=arry2
 			console.log(Object.result)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
@@ -1313,16 +1368,24 @@ function removeByValue(arr, val) {
 		}else{
 			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
+		
+		console.log(grade)
+		if(Object.account==''){
+			alert('请选择课程')
+		}else if(Object.types==''){
+			alert('请选择科目')
+		}else{
 			$.ajax({
 			type:"post",
 			url:"/createExercise",
 			dataType:'json',
 			data:datas,
 			success:function(data){
+				console.log(data)
 				window.location.href=''
 			}
 		});	
-					
+		}			
 	})
 
 	})
