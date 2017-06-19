@@ -23,7 +23,6 @@ class JobController extends Controller
           $job_type = $job->job_type == Job::STATUS_UNPUB?'小组':'个人';
           $job_status = $job->job_status == Job::STATUS_UNPUB?'已发布':'未发布';
           array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,'job_type' => $job_type,'pub_time' => $job->pub_time,'job_status' => $job->status));
-          }
         }
         return json_encode($data);
     }
@@ -68,18 +67,19 @@ class JobController extends Controller
 				return json_encode($data);
     		}
     		$job->status = Job::STATUS_PUB;
-    	}
-        if($job->teacher_id == Auth::guard('employee')->user()->id){
-            $work = new work;
-            $work->student_id = 1；
-            $word->job_id = $job->id;
-            $word->course = $job->course_id;
-            $word->status = 1;
-            $work->start_time = 0;
-            $word->sub_time = 0;
-            $word->save();
         }
 		$job->save();
+        if($job->teacher_id == Auth::guard('employee')->user()->id){
+            $work = new work;
+            $work->student_id = 1;
+            $work->job_id = $job->id;
+            $work->course_id = $job->course_id;
+            $work->score = 0;
+            $work->status = 1;
+            $work->start_time = 0;
+            $work->sub_time = 0;
+            $work->save();
+        }
     	$data = array('code' => $code);
 		return json_encode($data);
     }
