@@ -257,6 +257,7 @@
 							});	        
                             
                             } else {
+                            	
                                 $(".go_filed").show();
                                 setTimeout(function () {
                                     $(".go_filed").hide()
