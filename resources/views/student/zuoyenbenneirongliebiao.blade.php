@@ -8,9 +8,9 @@
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework-2.css"/>
-    <link rel="stylesheet" href="css/classActivity.css">
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework-2.css"/>
+    <link rel="stylesheet" href="css/sCSS/classActivity.css">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>

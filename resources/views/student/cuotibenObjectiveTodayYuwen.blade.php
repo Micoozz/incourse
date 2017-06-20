@@ -42,8 +42,8 @@
                         <div class="col-md-2 col-xs-4">
                             <a class="return-fyg pointer" onclick="window.history.go(-1);"></a>
                         </div>
-                        <div class="col-md-8 col-xs-4" id="col">今日错题</div>
-                        <div class="col-md-2 col-xs-4" style="display: none;">收藏夹</div>
+                        <div class="col-md-8 col-xs-4" id="col">客观题</div>
+                        <div class="col-md-2 col-xs-4"></div>
                     </div>
                     <div class="wrong">
                         <div class="falseHead">

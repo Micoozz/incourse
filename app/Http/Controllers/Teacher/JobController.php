@@ -71,7 +71,8 @@ class JobController extends Controller
 				return json_encode($data);
     		}
     		$job->status = Job::STATUS_PUB;
-    	}
+        }
+		$job->save();
         if($job->teacher_id == Auth::guard('employee')->user()->id){
             $work = new work;
             $work->student_id = 1;
@@ -83,7 +84,6 @@ class JobController extends Controller
             $work->sub_time = 0;
             $work->save();
         }
-		$job->save();
     	$data = array('code' => $code);
 		return json_encode($data);
     }

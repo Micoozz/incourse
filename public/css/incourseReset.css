@@ -1,0 +1,41 @@
+/* 颜色相关 */
+.fff {
+	color: #fff;
+}
+
+/* 位置相关 */
+.p-r {
+	position: relative;
+}
+.p-a {
+	position: absolute;
+}
+.p-f {
+	position: fixed;
+}
+.ta-c {
+	text-align: center;
+}
+.ta-r {
+	text-align: right;
+}
+.f-l {
+	float: left;
+}
+.f-r {
+	float: right;
+}
+.clear:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+
+/* 鼠标指针相关 */
+.c-p {
+	cursor: pointer;
+}
+
+
+
