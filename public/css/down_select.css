@@ -555,7 +555,8 @@ height: 30px;
 }
 .lot_word{
     text-align: right;
-    margin-top: 20px;
+    width: 50%;
+    float: right;
 }
 .Select{
 	position: relative;
