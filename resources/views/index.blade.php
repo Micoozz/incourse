@@ -109,6 +109,10 @@ $(function(){
 			alert('用户名不能为空')
 		}else if(passwords==''){
 			alert('密码不能为空')
+			
+			
+			
+			
 		}else{
 				$.ajax({
 			type:"post",

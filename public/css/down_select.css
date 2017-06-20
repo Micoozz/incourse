@@ -431,15 +431,12 @@ right: 10px;
 }
 #hide_row input{
 height: 30px;
-    width:526px;
+    width:246px;
     padding-left: 2px;
     display:inline-block;
     text-indent: 10px;
     border: 1px solid #bdbdbd;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius:4px;
-    border-top-right-radius:0px;
-    border-bottom-right-radius:0px;
+    border-radius: 4px;
     outline-width: 1px;
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;

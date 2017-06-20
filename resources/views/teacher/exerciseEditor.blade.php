@@ -37,36 +37,7 @@
     <script type="text/javascript" src="js/exerciseLibrary.js"></script>
 </head>
 <div class="navbar">
-    <div>
-        <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="/media">学校首页</a>
-                <div>
-                    <a href="/relateToMe">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
-            <li><a href="classSpace111">班级中心</a></li>
-            <!--<li><a href="javascript:;">交易中心</a></li>-->
-            <li class="affix">
-                <a href="javascript:;"><img src="images/01.png"/></a>
-            </li>
-            <li class="personCenter"><a href="javascript:;">个人中心</a>
-                <div class="cent">
-                    <a href="class">分析中心</a>
-                    <a href="老师成绩单1">学习生活记录</a>
-                    <a href="teacherPersonData">个人信息</a>
-                </div>
-            </li>
-            <li><a href="/logout" class="blue">退出</a></li>
-        </ul>
-
-    </div>
+@include('teacher.header.head_Tea')
 </div>
 <!--
     作者offline
@@ -99,17 +70,7 @@
             <div class="row">
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
-                    <ul class="nav1 nav" id="nav1">
-                        <li><a href="arrangementWork">作业管理</a></li>
-                        <li><a href="exerciseEditor" class="box">习题库</a></li>
-                        <li><a href="data">资料库</a></li>
-                        <li><a href="duty_arrange">班级管理</a></li>
-                        <li><a href="classindex">成绩管理</a></li>
-                        <li style="padding: 0"><a href="class-outline" data-step="3"
-                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
-                        </li>
-                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
-                    </ul>
+@include('teacher.header.left_nav')
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
@@ -151,13 +112,6 @@
                                     <option>三中</option>
                                 </select>
                             </div>
-                            <div class="row search_hide_row" id='hide_row'>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">搜索：</div>
-                                <form action="">
-                                    <input type="text" name="" class="form-control " placeholder="请输入学校名称"/>
-                                    <span><img src="images/search.png"/></span>
-                                </form>
-                            </div>
                             <div class="row search_hide_row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">条件：</div>
                                 <select class="col-md-2 col-sm-10 col-xs-10" id="but_a">
@@ -180,6 +134,12 @@
                                 <select class="col-md-2 col-sm-10 col-xs-10" id="teacher_a">
                                     <option>教材</option>
                                 </select>
+                            </div>
+                            <div class="row search_hide_row" id='hide_row'>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">搜索：</div>
+                                <form action="">
+                                    <input type="text" name="" class="form-control " placeholder="关键字"/>
+                                </form>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="search_a">
@@ -205,82 +165,6 @@
                             </div>
                         </div>
                         <div class="row work">
-                            <!--<div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head">
-											<span class="order">
-                            4.
-                        </span>
-                                      
-                                        排序题：请给下列句子排序：
-                                    </p>
-
-                                    <div class="older_ti">①当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花。<br/>
-                                        ②不久，它从泥土里探出了小脑袋，渐渐地，种子变成了嫩芽。<br/>③从此，它变得沉默，只有它知道它在努力，它在默默地汲取土壤中的养料。<br/>
-                                        ④虽然它经受着黑暗的恐惧，暴雨的侵袭，但是它依然努力地生长着。<br/>⑤种子在这块土地上的生活并不那么顺利，周围的各种杂草都嘲笑它，排挤它，认为它只是一粒平凡的种子。
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">正确的顺序为⑤③④②①</span><span
-                                            class="col-line"></span>
-
-                                        <div style="float: right">
-                                            <a href="javascript:;">收藏</a><span class="collection_num">998</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>-->
-                            <!--<div class="row mar_tb">
-                                <div class="homework-content">
-                                    <p class="question-head" style="display: inline-block">
-                                        <span class="order">
-                        4.
-                    </span>
-
-                                        多空题：I made my coat <div class="gap_gap">空1</div> my own hands.It was made<div class="gap_gap">空2</div>hand not with a machine.
-                                    </p>
-
-                                    <form action="" class="select">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect" disabled="disabled"
-                                                       value="A"/><span class="select-wrapper"></span>A.
-                                                <span class="question-content">in;in</span>
-                                            </label>
-                                        </div>
-
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect" checked
-                                                       value="B"/><span class="select-wrapper"></span>B.
-                                                <span class="question-content">in;with</span>
-                                            </label>
-
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="questionSelect" class="questionSelect" disabled="disabled"
-                                                       value="C"/><span class="select-wrapper"></span>C.
-                                                <span class="question-content">with;by</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="questionSelect" name="questionSelect" disabled="disabled"
-                                                       value="D"/><span class="select-wrapper"></span>D.
-                                                <span class="question-content">with;with</span>
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span class="blue">正确答案：</span><span class="answerOrder">B</span><span class="col-line"></span>
-                                        <div style="float: right">
-                                            <a href="javascript:;">收藏</a><span class="collection_num">998</span>
-                                        </div>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
                         </div>
 
                         <div class="row">
@@ -760,22 +644,8 @@
 
                 </div>
                 <!--右侧栏-->
-                <div class="col-xs-12 left">
-                    <div class="col-md-12 col-xs-12">
-                        <a href="schoolNotice.html" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
-                    </div>
-                    <div class="col-md-12 col-xs-12 next">
-                        <ul class="nav nave">
-                            <li>
-                                <a href="classNotice">1.明天交语文作业</a>
-                            </li>
-                            <li>
-                                <a href="classNotice">2.5.1放假通知</a>
-                            </li>
-                            <li>
-                                <a href="classNotice">3.周五语文考试</a>
-                            </li>
-                        </ul>
+                <div class="col-xs-12 left"> 
+@include('teacher.header.right_nav')
                         <div class="scc">
                             <div class="yit">已添加 <img src="images/s05.jpg"/></div>
                             <ol>
@@ -977,6 +847,19 @@
 <script>
 </script>
 <script>
+	
+	$(function(){
+		//关键字
+		$('#hide_row input').keydown(function(){
+			if($(this).val()!=''){
+				$('#search_a>span').css('background-color','#168bee')
+			}else{
+				$('#search_a>span').css('background-color','#c1c1c1')
+			}
+		})
+	})
+	
+	
 	$(function(){
 		//题型数据
 		$.ajax({
@@ -1009,6 +892,9 @@
 		if(localStorage.pargin==undefined){
 		localStorage.setItem('pargin',1)
 		}
+		function ajax(){
+			$('.work>div').remove();
+			$('.pagination>li').remove();
 	$.ajax({
 		type:"get",
 		url:"/showExerciseList/"+localStorage.pargin,
@@ -1021,7 +907,8 @@
 			//页数
 					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
 					var five;
-			for(var o=0;o<pageLength;o++){
+			for(var o=0;o<pageLength;o++){			
+				sessionStorage.setItem('pagin',(o+1))
 				if(o<5){
 					$('.pagination').append('<li><a href="#"><i>'+(o+1)+'</i></a></li>')
 				}
@@ -1049,28 +936,6 @@
 					})
 				});
 			}
-			
-			//
-			$('.pagination').on('click','li>a>i',function(){
-				localStorage.setItem('pargin',$(this).text())
-				window.location.href=''
-			});
-			
-			//上一页
-			$('.pagination').on('click','.PREV',function(){
-				if(localStorage.pargin>1){
-				localStorage.setItem('pargin',parseInt(--localStorage.pargin));
-				window.location.href=''
-				}
-			})
-
-			//下一页
-			$('.pagination').on('click','.Next',function(){
-				if(localStorage.pargin<=$('.five').text()){
-				localStorage.setItem('pargin',parseInt(++localStorage.pargin));
-				window.location.href=''
-				}
-			})
 						
 			for(var i=0;i<exercises.length;i++){
 					if(exercises[i].cate_title=='单选题'){
@@ -1127,16 +992,15 @@
 								$('.kink').append('<div>'+key+','+exercises[i].options[j][key]+'</div>')
 								}
 							}
-										}else if(exercises[i].cate_title=='连线题'){
+					}else if(exercises[i].cate_title=='连线题'){
 												$('.work').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kins'+i+'"><div class="linne float"></div><div class="linnes float"></div><div class="clear"></div></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span                                           class="col-line"></span>											<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a></span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div> <div style="float: right;" class="hidee"><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a><span class="collection_num">0</span> </div></div></div></div>')											
 
-					for(var j=0;j<exercises[i].options.length;j++){
-						for(var b=0;b<exercises[i].options[j].length;b++){
-							for(var key in exercises[i].options[j][b]){
-					$('.kins'+i+'>.linne').append('<div>'+key+'， '+exercises[i].options[j][b][key]+'</div>')
+					for(var j=0;j<exercises[i].options.length;j++){			
+							for(var key in exercises[i].options[j]){
+					$('.kins'+i+'>.linne').append('<div>'+key+'， '+exercises[i].options[j][key]+'</div>')
 					$('.answerOrders'+i).append('<span>'+key+'-'+key+'|</span>')
 							}
-						}
+						
 						}	
 						
 						
@@ -1149,8 +1013,35 @@
 										}							
 }
 
+		}
+	});	
+	}
+	ajax()
+				//
+			$('.pagination').on('click','li>a>i',function(){
+				localStorage.setItem('pargin',$(this).text())
+				ajax()
+			});
+			
+			//上一页
+			$('.pagination').on('click','.PREV',function(){
+				if(localStorage.pargin>1){
+				localStorage.setItem('pargin',parseInt(--localStorage.pargin));
+				ajax()
+				}
+			})
 
-//添加题目
+			//下一页
+			$('.pagination').on('click','.Next',function(){
+				if(localStorage.pargin<=$('.five').text()){
+				localStorage.setItem('pargin',parseInt(++localStorage.pargin));
+				ajax()
+				}
+			})
+			
+			
+	
+	//添加题目
 
 
 function removeByValue(arr, val) {
@@ -1168,26 +1059,24 @@ function removeByValue(arr, val) {
 			$('.scc>ol').append('<li class="busywork'+$(this).val()+'">'+cen+'</li>')
 		if($(this).is(":checked")) {
 			$(this).parent('.tj').addClass('ok')
-			$('.nave').next().show()
-			$('.nave').next().css({
+			$('.scc').show()
+			$('.scc').css({
 				position: 'absolute',
-				width: '100%',
+				width: '88%',
 				textAlign: "left",
 				background: '#fff',
-				marginTop: '30px'
+				top: '17rem',
 			})
-			$('.nave').next().find('ol').css('padding-left', '50px')
-			$('.nave').next().find('ol').children('li').css({
+			$('.scc ol').css('padding-left', '50px')
+			$('.scc ol').children('li').css({
 				color: '#333',
 				margin: '10px 0',
 				listStyle: 'inherit'
 			});
 			arrayId.push($(this).parents('.mar_t').attr('num'))
 		} else {
-			removeByValue(arrayId,$(this).parents('.mar_t').attr('num'));
-			
-			
-				$('.busywork'+$(this).val()).remove()
+			removeByValue(arrayId,$(this).parents('.mar_t').attr('num'));			
+			$('.busywork'+$(this).val()).remove()
 		}
 		localStorage.setItem('id',arrayId)
 		$('.yit>img').click(function() {
@@ -1220,9 +1109,6 @@ function removeByValue(arr, val) {
 			localStorage.setItem('choie',[rubric.rubricA,rubric.rubricB])			
 		});
 
-		}
-	});	
-	
 		//数据提交
 		var Object={
 			account:'1',//科目
@@ -1310,21 +1196,19 @@ function removeByValue(arr, val) {
 		}else if(Object.types=='6'){
 			Object.arrys=$('.ligature').val()
 			Object.result='';
-			var arry1=[]
 			var arry2=[]
 			$('.A>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val();
-				arry1.push(objec);				
+				Object.options.push(objec);				
 			})
 			$('.B>div>input').each(function(i){
 				arry2.push($(this).val())			
 			})
-				arry1.pop()	
+				Object.options.pop()	
 				arry2.pop()	
-			Object.options.push(arry1)
 			Object.result+=arry2
-			console.log(Object.result)
+			console.log(Object.options)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
 			$('.C>div>input').each(function(i){
@@ -1387,7 +1271,6 @@ function removeByValue(arr, val) {
 		});	
 		}			
 	})
-
 	})
 </script>
 <script src="js/Exercise_editor.js"></script>
