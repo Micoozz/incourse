@@ -69,7 +69,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="homeworkCorrecting" data-step="2"
+                            <div id="document"><a href="" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -308,7 +308,7 @@
 
                     <span>独立完成</span>
                 </a>
-                <a href="groupWorkMarshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
+                <a href="" class="pop" id="pop2_hover" style="margin-left: 30px">
 
                     <span>小组作业</span>
                 </a>
@@ -371,7 +371,7 @@
 					var five;
 			for(var o=0;o<pageLength;o++){
 				if(o<5){
-					$('.pagination').append('<li><a href="#"><i>'+(o+1)+'</i></a></li>')
+					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
 				}
 				else if(o==6){
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
@@ -380,8 +380,8 @@
 			}
 			
 			
-			$('.pagination>li>a').eq(five+1).attr('class','five');
-			$('.pagination>li>a').eq(1).attr('class','zero');
+			$('.pagination>li').eq(five+1).find('i').attr('class','five');
+			$('.pagination>li').eq(1).find('i').attr('class','zero');
 			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
 			
 			if(five==4){
@@ -399,7 +399,7 @@
 			}
 			
 			//
-			$('.pagination').on('click','li>a>i',function(){
+			$('.pagination').on('click','li>i',function(){
 			localStorage.setItem('pargins',$(this).text())
 				window.location.href=''
 			});
