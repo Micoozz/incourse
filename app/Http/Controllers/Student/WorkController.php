@@ -78,49 +78,35 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    public function showWorkDetail($work_id,$page = 1){
+    public function showWorkDetail($work_id){
         if(empty($work_id)){
             return;
         }
-        $limit = ($page-1)*5;
         $user = Auth::guard('student')->user();
         $work = Work::find($work_id);
         if(!$work || $work->student_id != $user->id){
             return;
         }
-        $exercise_id_arr = explode(',',$work->belongsToJob()->first()->exercise_id);
-        $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval(count($exercise_id_arr)/5)+1;
-        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
+        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
+        $data = array();
         foreach ($exercise_id as $eid) {
             $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
-                array_push($data['exercises'],array(
+                array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $subjective->subject,
-                    'answer' => '自由发挥',
                     'score' => $exercise->score/100
                     ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
-                $answers = array();
-                if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-                    $answer_list = explode(',',$objective->answer);
-                    foreach ($answer_list as $key => $answer) {
-                        array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
-                    }
-                }else{
-                    array_push($answers,explode(',',$objective->answer));
-                }
-                array_push($data['exercises'],array(
+                array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
                     'options' => json_decode($objective->option),
-                    'answer' => $answers,
                     'score' => $exercise->score/100
                     ));
                 
@@ -194,12 +180,18 @@ class WorkController extends Controller
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $data['objective_score'] += $info['score'];
                 switch($exercise->categroy_id){
-                    case Exercises::CATE_RADIO : $data['objective_radio_score'] += $info['score'] break;
-                    case Exercises::CATE_CHOOSE : $data['objective_choose_score'] += $info['score'] break;
-                    case Exercises::CATE_LINE : $data['objective_line_score'] += $info['score'] break;
-                    case Exercises::CATE_SORT : $data['objective_sort_score'] += $info['score'] break;
-                    case Exercises::CATE_JUDGE : $data['objective_judge_score'] += $info['score'] break;
-                    case Exercises::CATE_FILL : $data['objective_fill_score'] += $info['score'] break;
+                    case Exercises::CATE_RADIO : $data['objective_radio_score'] += $info['score'];
+                    break;
+                    case Exercises::CATE_CHOOSE : $data['objective_choose_score'] += $info['score'];
+                    break;
+                    case Exercises::CATE_LINE : $data['objective_line_score'] += $info['score'];
+                    break;
+                    case Exercises::CATE_SORT : $data['objective_sort_score'] += $info['score'];
+                    break;
+                    case Exercises::CATE_JUDGE : $data['objective_judge_score'] += $info['score'];
+                    break;
+                    case Exercises::CATE_FILL : $data['objective_fill_score'] += $info['score'];
+                    break;
                 }
             }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $data['subjective_score'] += $info['score'];
@@ -207,20 +199,17 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    public function showWorkObjectiveDetail($work_id,$page = 1){
+    public function showWorkObjectiveDetail($work_id){
         if(empty($work_id)){
             return;
         }
-        $limit = ($page-1)*5;
         $user = Auth::guard('student')->user();
         $work = Work::find($work_id);
         if(!$work || $work->student_id != $user->id){
             return;
         }
-        $exercise_id_arr = explode(',',$work->belongsToJob()->first()->exercise_id);
-        $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval(count($exercise_id_arr)/5)+1;
-        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
+        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
+        $data = array();
         foreach ($exercise_id as $eid) {
             $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
@@ -235,7 +224,7 @@ class WorkController extends Controller
                 }else{
                     array_push($answers,explode(',',$objective->answer));
                 }
-                array_push($data['exercises'],array(
+                array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
