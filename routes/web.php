@@ -79,7 +79,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
 		Route::get('/showWorkList/{page?}','Student\WorkController@showWorkList');
-		Route::get('/showWorkDetail/{work_id}/{page?}','Student\WorkController@showWorkDetail');
+		Route::get('/showWorkDetail/{work_id}','Student\WorkController@showWorkDetail');
 		Route::post('/subWork','Student\WorkController@subWork');
 		Route::get('/showScore/{work_id}','Student\WorkController@showScore');
 	});

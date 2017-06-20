@@ -29,7 +29,7 @@ $(function () {
 			var deadline = changeTime(item.deadline);
 			var take = item.sub_time===0 ? "计算中" : takeTime(item.start_time, item.sub_time);
 			if(item.type === 1) {
-				html = '<div class="homework-list row">\
+				html += '<div class="homework-list row">\
                             <a class="homework-type-link" data-id="' + item.work_id + '">\
                                 <img src="images/homework/engage/single.png" class="homework-type-select-img"/>\
                                 <span class="homework-order">' + item.title + '</span>\
