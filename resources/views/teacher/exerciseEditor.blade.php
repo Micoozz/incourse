@@ -273,7 +273,7 @@
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
-                                        <input type="text" value="请在下列选项中选出正确的一项。" class="no_addquestion multiple">
+                                        <input type="text" placeholder="请在下列选项中选出正确的一项。" class="no_addquestion multiple">
                                     </div>
                                     <div id="select2" class="select2">
 
@@ -304,7 +304,7 @@
 									<div class="end" id="div6" style="display:none;">
 										<div class="select_single">
 											<span class="question">问题：</span>
-											<input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion ligature">
+											<input type="text" placeholder="请在下列选项中选出正确的一项" class="no_addquestion ligature">
 										</div>
 										<div class="A">
 											子项A组：
@@ -331,7 +331,7 @@
                                 <div class="end" id="div7" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
-                                        <input type="text" value="请将下列诗人按照朝代排序" class="no_addquestion sort">
+                                        <input type="text" placeholder="请将下列正确排序" class="no_addquestion sort">
                                     </div>
                                     <div class="C">
                                         答案:
@@ -485,7 +485,7 @@
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
-                                        <input type="text" value="请在下列选项中选出正确的一项。" class="no_addquestion">
+                                        <input type="text" placeholder="请在下列选项中选出正确的一项。" class="no_addquestion">
                                     </div>
                                     <div class="select1a" id="select1">
 
@@ -524,7 +524,7 @@
                                     <div class="select_single">
                                         <span class="question">问题：</span>
                                         <!--<span class=" bracket">(&nbsp;&nbsp;&nbsp;)</span>-->
-                                        <input type="text" value="请在下列选项中选出正确的一项。" class="no_addquestion">
+                                        <input type="text" placeholder="请在下列选项中选出正确的一项。" class="no_addquestion">
                                     </div>
                                     <div id="select2">
 
@@ -555,7 +555,7 @@
                                 <div class="end div6" id="div6" style="display:none;">
                                     <div class="select_single">
                                         <span class="question">问题：</span>
-                                        <input type="text" value="请在下列选项中选出正确的一项" class="no_addquestion">
+                                        <input type="text" placeholder="请在下列选项中选出正确的一项" class="no_addquestion">
                                     </div>
                                     <div class="A">
                                         子项A组：
@@ -972,8 +972,22 @@
 							
 						}	
 					}else if(exercises[i].cate_title=='多空题'){	
-						console.log(exercises[i].subject)	
-							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"></span> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span>																<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div><div class="lot_word" ><div><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a> <span class="collection_num">0</span> </div></div>                                    </div>                                </div>                           </div>                           ')
+						function tkChange(str) {
+        var obj = {};
+        var tk_reg = /&空\d+&/g;
+        var tk_arr = str.split(tk_reg);
+        var result = "";
+        
+        for(var i=0; i<tk_arr.length-1; i++) {
+            result += tk_arr[i] + '<span class="question-blank">空' + (i+1) + '</span>';
+        }
+        result += tk_arr[tk_arr.length-1];
+        obj.data = result;
+
+        return obj;
+   }	
+   tkChange(exercises[i].subject)
+							$('.work').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"></span> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+tkChange(exercises[i].subject).data+'<div class="line"></div><div class="question-foot"><span class="blue">正确答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span>																<span title="难度(2)" class="colLine">	    <a><img src="images/Cj_17mm.png" class="yellow"></a>         <a><img src="images/Cj_17mm.png" class="yellow"></a>          <a><img src="images/Cj_18mm.png"></a>           <a><img src="images/Cj_18mm.png"></a>          <a><img src="images/Cj_18mm.png"></a>								</span>                                       <div class="pj">                                           <div title="难度(2)">                                               <img src="images/Cj_17mm.png" class="yellow" num=1>                                               <img src="images/Cj_17mm.png" class="yellow" num=2>                                                <img src="images/Cj_18mm.png" num=3>                                               <img src="images/Cj_18mm.png" num=4>                                               <img src="images/Cj_18mm.png" num=5>                                            </div>                                           <div title="难度(2)">                                                <span class="mui3" title="差" mui=1></span>                                               <span class="mui3" title="较差" mui=2></span>                                                <span class="mui3" title="一般" mui=3></span>                                                <span title="好" mui=4></span>                                                <span title="很好" mui=5></span>                                           </div>                                           <b>评分</b>                                        </div><div class="lot_word" ><div><span class="tj"><input type="checkbox" name="" id=""value="'+i+'"/>添加</span><a href="javascript:;" class="bo">收藏</a> <span class="collection_num">0</span> </div></div>                                    </div>                                </div>                           </div>                           ')
 										for(var jj=0;jj<exercises[i].answer.length;jj++){
 						for(var b=0;b<exercises[i].answer[jj].length;b++){
 							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
@@ -1179,7 +1193,7 @@ function removeByValue(arr, val) {
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
-			Object.arrys=$('.single-selection').val()!='' ? $('.single-selection').val() : $('.single-selection').val('请在下列选项中选出正确的一项。');
+			Object.arrys=$('.single-selection').val()
 			$('.select1>div>input').each(function(i){
 				var lette=String.fromCharCode(letter+i+1);
 				var objec={}
@@ -1191,7 +1205,6 @@ function removeByValue(arr, val) {
 			}
 		}else if(Object.types=='3'){
 			Object.arrys=$('.long-short').text()
-			console.log(Object.arrys)
 		}else if(Object.types=='4'){
 			Object.arrys=$('.multiple').val()
 			$('.select2>div>input').each(function(i){
@@ -1225,6 +1238,7 @@ function removeByValue(arr, val) {
 			console.log(Object.options)
 		}else if(Object.types=='7'){
 			Object.arrys=$('.sort').val()
+			console.log(Object.arrys)
 			$('.C>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
@@ -1267,12 +1281,15 @@ function removeByValue(arr, val) {
 			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 		
-		console.log(grade)
+		console.log(Object.arrys)
 		if(Object.account==''){
 			alert('请选择课程')
 		}else if(Object.types==''){
 			alert('请选择科目')
-		}else{
+		}else if(Object.arrys==''){
+			alert('请添加问题')
+		}
+		else{
 			$.ajax({
 			type:"post",
 			url:"/createExercise",
