@@ -389,6 +389,10 @@
 		
 		//
 		$('.bt_ss').click(function(){
+			localStorage.introduce=$('.z_introduce>input').val();
+			localStorage.titles=$('.titles').val();
+			localStorage.laydate=$('.laydate-icon').val();
+			
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
 				for(var key in colligate){
@@ -397,6 +401,10 @@
 				window.location.href='/independentOperationAddTopic'
 			return false
 		});
+		
+		$('.z_introduce>input').val(localStorage.introduce)
+		$('.titles').val(localStorage.titles)
+		$('.laydate-icon').val(localStorage.laydate)
 		
 		
 		

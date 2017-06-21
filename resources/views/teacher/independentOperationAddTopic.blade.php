@@ -382,8 +382,11 @@
 							
 						}											
 										}		
+										    	//题目个数
+	$('.bold').text($('.cate_title>div').size())
 				}
 				}
+				
 			});
     	
     	$('#button').click(function(){
