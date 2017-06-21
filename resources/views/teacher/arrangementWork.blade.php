@@ -344,6 +344,7 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script>
 	
+	
 	$(function(){
 			if(localStorage.pargins==undefined){
 		localStorage.setItem('pargins',1)
