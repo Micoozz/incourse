@@ -2,6 +2,28 @@
 .fff {
 	color: #fff;
 }
+.ic-blue {
+	color: #168bee;
+}
+.orange {
+	color: #FFD656;
+}
+.red {
+	color: red;
+}
+
+.gray-bg {
+	background-color: #F1F1F1;
+}
+.black-bg {
+	background-color: #444547;
+}
+.ic-blue-bg {
+	background-color: #168bee;
+}
+.btn-hover-bg {
+	background-color: #1681DC;
+}
 
 /* 位置相关 */
 .p-r {

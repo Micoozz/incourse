@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/mediaDetail.css"/>
-    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/mCSS/mediaDetail.css"/>
+    <link rel="stylesheet" href="css/mCSS/common.css"/>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>

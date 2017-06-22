@@ -1,9 +1,15 @@
 $(function(){
+    //点亮顶部导航和左侧导航栏对应项
+    $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
+    $("#nav1>li:first-child>a").addClass("box");
+
+    
     var id = sessionStorage.getItem("homeworkId"); //保存是作业几
     var current = 0;  //保存当前题号
     var lxt_options = 0;  //保存连线题的对数
-    var jdt_answer = {};  //保存简答题的答案
     var comp_photo = {};  //保存作文的照片
+    var obj = {};   //保存所有题的答案
+
 
     //把填空题的题目空格格式化
     function tkChange(str) {
@@ -84,7 +90,7 @@ $(function(){
                                             <div class="line"></div>\
                                             <div class="question-foot">\
                                                 <span>你的答案：</span>\
-                                                <span id="" class="questionBlankAnswerWrap">' + tk_answerInput + '</span>\
+                                                <span class="questionBlankAnswerWrap">' + tk_answerInput + '</span>\
                                              <span class="col-line"></span>\
                                              <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                                 <span class="search-wiki-span">查看资料</span></a>\
@@ -92,7 +98,26 @@ $(function(){
                                             </div>\
                                         </div>';
             }else if(item.cate_title === "多空题") {
-                html += '';
+                var dk_obj = tkChange(item.subject);
+                var dk_answerInput = "";
+                for(var k=0; k<dk_obj.n; k++) {
+                    dk_answerInput += '<input type="textarea" class="questionBlankAnswer" placeholder="答案' + (k+1) + '">'
+                }
+                html += '<div class="homework-content" data-type="多空题" data-id="' + item.id+ '">\
+                                            <p class="question-head">\
+                                                <span class="order">' + (i+1) + '.</span>\
+                                                多空题：' + dk_obj.data + '\
+                                            </p>\
+                                            <div class="line"></div>\
+                                            <div class="question-foot">\
+                                                <span>你的答案：</span>\
+                                                <span class="questionBlankAnswerWrap">' + dk_answerInput + '</span>\
+                                             <span class="col-line"></span>\
+                                             <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
+                                                <span class="search-wiki-span">查看资料</span></a>\
+                                                <span class="question-fault">报错</span>\
+                                            </div>\
+                                        </div>';
             }else if(item.cate_title === "多选题") {
                 var dux_options = "";
                 item.options.forEach(function(item){
@@ -136,10 +161,10 @@ $(function(){
                                                 <span>你的答案：</span>\
                                                 <span class="right-or-wrong">\
                                                     <label>对\
-                                                        <input type="radio" name="chooseTi" vlaue="1">\
+                                                        <input class="choose-input" type="radio" name="chooseTi" value="1">\
                                                     </label>\
                                                     <label>错\
-                                                        <input type="radio" name="chooseTi" vlaue="0">\
+                                                        <input class="choose-input" type="radio" name="chooseTi" value="0">\
                                                     </label>\
                                                 </span>\
                                              <span class="col-line"></span>\
@@ -173,7 +198,42 @@ $(function(){
                                         </div>';
             }else if(item.cate_title === "连线题") {
                 lxt_options = item.options.length;
-                html += '';
+                var lxt_left = "";
+                var lxt_right = "";
+                const Height = 54;
+                item.options.forEach(function(k,i){
+                    for(var key in k) {
+                        lxt_left += '<li style="top:' + 54*i + 'px;">' + k[key] + '</li>';
+                    }
+                });
+                item.answer[0].forEach(function(k,i){
+                    lxt_right += '<li style="top:' + 54*i + 'px;">' + k + '</li>';
+                });
+
+                html += '<div class="homework-content" data-type="连线题" data-id="' + item.id+ '">\
+                                <p class="question-head">\
+                                    <span class="order">' + (i+1) + '.</span>连线题：\
+                                </p>\
+                                <div class="box_hpb">\
+                                    <div class="line_hpb">\
+                                        <ul class="question_hpb">' + lxt_left + '</ul>\
+                                        <div class="container_hpb">\
+                                            <canvas id="canvas1" width="368">您的浏览器暂不支持Canvas！</canvas>\
+                                            <canvas id="canvas2" width="368">您的浏览器暂不支持Canvas！</canvas>\
+                                        </div>\
+                                        <ul class="answer_hpb">' + lxt_right + '</ul>\
+                                    </div>\
+                                </div>\
+                                <div class="btn_hpb clear">\
+                                        <button class="return_hpb">撤销</button>\
+                                </div>\
+                                <div class="line"></div>\
+                                <div class="question-foot lianXianTi-padding">\
+                                    <span class="col-line"></span>\
+                                    <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
+                                        <span class="question-fault">报错</span>\
+                                    </div>\
+                                </div>';
             }else if(item.cate_title === "简答题") {
                 html += '<div class="homework-content" data-type="简答题" data-id="' + item.id+ '">\
                                <p class="question-head">\
@@ -211,94 +271,85 @@ $(function(){
             }
         });
 
-        // $(".exercise-box").html(html);
+        $(".exercise-box").html(html);
     }
     });
-	// $.get("showWorkDetail/" + id).success();
-	
-	//控制排序题只能输入数字
-	$(".questionOrderAnswerWrap .questionOrderAnswer").keyup(function(){
-		if(!(/\d{1}/.test($(this).val()))) {
-			$(this).val('');
-		}
-	});
+    
+    //控制排序题只能输入数字
+    $(".questionOrderAnswerWrap .questionOrderAnswer").keyup(function(){
+        if(!(/\d{1}/.test($(this).val()))) {
+            $(this).val('');
+        }
+    });
 
     lianXianTiFunc(lxt_options);
     jianDaTiFunc();
     compositionFunc();
 
-	//提交作业
-	$("#submit-btn").click(function(){
-		/*参数格式*/
-        //1-单选题，2-填空题，3-判断题，4-多选题，5-排序题, 6-连线题，7-简答题, 8-作文题
-		var param = {
-			"work_id":111,
-            '_token':'{{csrf_token()}}',
-			data: [
-                {id:1, answer:2},
-                {id:2, answer:["李白","杜甫"]},
-                {id:3, answer:1},
-                {id:4, answer:[2,3]},
-                {id:5, answer:[5,3,1,4,2]},
-                {id:6, answer:[{1:3},{2:1},{3:2}]},
-                {id:7, answer:"我是简答题"},
-                {id:8, answer:"我是作文题"},
-            ]
-		}
-		
-        /*
-        var obj = {};
+    //提交作业
+    $("#submit-btn").click(function(){
         $(".homework-content").each(function(i,item){
-            // console.log(this);
             var type = $(item).attr("data-type");
             var id = $(item).attr("data-id");
             if(type === "单选题") {
-                obj[id] = $(this).find(".answerOrder").text();
+                var dxt_answer = $(this).find(".answerOrder").text();
+                obj[id] = AchangeTo65(dxt_answer);
             }else if(type === "填空题") {
                 var tk_arr = [];
                 $(this).find(".questionBlankAnswer").each(function(i,item){
                     tk_arr.push($(item).val());
-                })
-                obj[id] = tk_arr;
+                });
+                obj[id] = tk_arr.join(",");
+            }else if(type === "多空题") {
+                var dk_arr = [];
+                $(this).find(".questionBlankAnswer").each(function(i,item){
+                    dk_arr.push($(item).val());
+                });
+                obj[id] = dk_arr.join(",");
             }else if(type === "多选题") {
                 var dx_arr = $(this).find(".answerOrder").text().split(",");
-                obj[id] = dx_arr;
+                var dx_num_arr = [];
+                dx_arr.forEach(function(a){
+                    dx_num_arr.push(AchangeTo65(a));
+                });
+                obj[id] = dx_num_arr.join(",");
+            }else if(type === "判断题") {
+                var pdt = $(this).find(".choose-input:checked").val();
+                obj[id] = pdt ? pdt : "";
             }else if(type === "排序题") {
                 var px_arr = [];
                 $(this).find(".questionOrderAnswer").each(function(i,item){
                     px_arr.push($(item).val());
                 });
-                obj[id] = px_arr;
-            }else if(type === "简答题") {
-                obj[id] = $(this).find(".jianDaTi-answer"+id).text();
-            }else if(type === "作文题") {
-                var composition = {};
-                composition.title = $(this).find(".title").val();
-                composition.content = $(this).find(".composition").val();
-                composition.photo = comp_photo;
-                obj[id] = composition;
+                obj[id] = px_arr.join(",");
             }
         });
 
         var param = {
+            '_token':'{{csrf_token()}}',
             "work_id": id,
             "data": obj
-        }  */
+        } 
+        console.log(obj)
+        $.post("subWork",param).success(function(data){
+           if(data === "200") {
+               window.location.href='/danrenzuoye-chengji';
+           }
+        });
+    });
 
-		// $.post("subWork",param).success(function(data){
-//			if() {
-//				window.location.href='/danrenzuoye-chengji';
-//			}
-		// });
-        // window.location.href='/danrenzuoye-chengji';
-	});
-
+function AchangeTo65(a) {
+    if(a) {
+        return a.charCodeAt() - 64 + "";
+    }
+    return "";
+}
 
 /********** 简答题 *********/
 function jianDaTiFunc(){
     $(".exercise-box").on("click",".jianDaTi",function(){
         current = $(this).parents(".homework-content").attr("data-id");
-        var msg = jdt_answer[current];
+        var msg = obj[current];
         if(msg) {
             $(".jianDaTi-txar").val(msg);
         }
@@ -310,22 +361,22 @@ function jianDaTiFunc(){
 
     //保存
     $("#jianDaTi-save").click(function(){
-        jdt_answer[current] = $(".jianDaTi-txar").val();
+        obj[current] = $(".jianDaTi-txar").val();
         $("#f-modal, .jianDaTi-modal").fadeOut();
-    })
+    });
 }
 
 /********** 作文题 *********/
 function compositionFunc(){
+    //var zwt_answer = {};   作文题答案
+    //var comp = {};    作文题照片暂存
+    var comp = "";    //作文题照片暂存
+
     $(".exercise-box").on("click",".zuoWenTi",function(){
         current = $(this).parents(".homework-content").attr("data-id");
-        var title = sessionStorage.getItem("incourse"+current+"title");
-        var content = sessionStorage.getItem("incourse"+current+"content");
-        if(title) {
-            $(".answerInput .title").val(title);
-        }
-        if(content) {
-            $("#composition").val(content);
+        if(obj[current]) {
+            $(".answerInput .title").val(obj[current].title);
+            $("#composition").val(obj[current].content);
         }
 
         $("#f-modal, #answerInput").fadeIn();
@@ -333,19 +384,20 @@ function compositionFunc(){
     
     $(".exercise-box").on("click","#takePhoto",function(){
         current = $(this).parents(".homework-content").attr("data-id");
-        var photo = sessionStorage.getItem("incourse"+current+"photo");
-        if(photo) {
-            $(".photo-upload-content .photo-center").html("<img src='" + this.result + "'/>");
+        if(comp_photo[current]) {
+            $(".photo-upload-content .photo-center").html("<img src='" + comp_photo[current] + "'/>");
+        }else {
+            $(".photo-upload-content .photo-center").html('<div class="photo-center-1">1.请选择JPG图片</div><div class="photo-center-2">2.大小不超过1M</div>');
         }
     });
 
     //保存作文
-    $(".exercise-box").on("click","#posi-save",function(){
-        var title = $(".homework-content .title").val();
-        var content = $("#composition").val();
-        //作文题目 incourse+题号+title, 作文正文 incourse+题号+content，作文照片 incourse+题号+photo
-        sessionStorage.setItem("incourse"+current+"title",title);
-        sessionStorage.setItem("incourse"+current+"content",content);
+    $("#posi-save").on("click",function(){
+        // zwt_answer.title = $(".answerInput .title").val() + "\n" + ;
+        // zwt_answer.content = $("#composition").val();;
+        // obj[current] = zwt_answer;
+        obj[current] = $(".answerInput .title").val() + "\n" + $("#composition").val();
+        alert("保存成功！");
     });
 
     //作文上传照片
@@ -384,17 +436,28 @@ function compositionFunc(){
             var formData = new FormData();
             formData.append("upload_file", convertBase64UrlToBlob(base64, fileType), filename);
             var img = "<img src='" + this.result + "'/>";
-            sessionStorage.setItem("incourse"+current+"photo",this.result);
+            // comp.photo = this.result;
+            // comp.result = formData;
+            comp = this.result;
             $(".photo-upload-content .photo-center").html(img);
-            comp_photo[current] = formData;
         };
+    });
+
+    //点击“完成”
+    $(".photo-save").click(function(){
+        // comp_photo[current] = comp.photo;
+        // zwt_answer.photo = comp.result;
+        obj[current] = comp;
     });
 
     //取消上传照片
     $("#photo-cancel").click(function(){
-        $(".photo-upload-modal-header .uploadPhoto").val("");
+        // comp = {};
+        comp = "";
         $(".photo-upload-content .photo-center").html('<div class="photo-center-1">1.请选择JPG图片</div><div class="photo-center-2">2.大小不超过1M</div>');
-        comp_photo[current] = "";
+        // if(obj[current] &&　obj[current].photo) {
+        //     obj[current].photo = "";
+        // }
     });
 
     //统计作文字数
@@ -413,8 +476,6 @@ function compositionFunc(){
 
 /********** 连线题 *********/
     function lianXianTiFunc(n){
-        var n = 5;
-        console.log(n)
         //动态生成对应LI的数据
         var dist={
             liHeight:38, //保存每个LI的高度
@@ -427,6 +488,9 @@ function compositionFunc(){
             question:[],    //保存问题的坐标数据
             answer:[]       //保存答案的坐标数据
         }
+        //var answer = {}      保存连线题的答案 
+        var answer = [];      //保存连线题的答案
+
         dist.y1=dist.borderWidth+dist.liHeight/2;
         dist.D=dist.liHeight+2*dist.borderWidth+dist.marginBottom;
         trends();
@@ -456,6 +520,7 @@ function compositionFunc(){
         var exist=[];   //保存已经用过的坐标点以便回退时用
         //鼠标开始点击的时候获取起始坐标
         $(".question_hpb").on("click","li",function() {
+            current = $(this).parents(".homework-content").attr("data-id");
             var n = $(".question_hpb>li").index(this);
             if (dist.question[n].can === "yes") {
                 pos.start = n;
@@ -469,8 +534,10 @@ function compositionFunc(){
             if($(this).text().length >= 6) {
                 $(this).addClass("active");
             }
+            $(this).addClass("active-common");
         },function(){
             $(this).removeClass("active");
+            $(this).removeClass("active-common");
         });
 
         //鼠标在画布上移动时显示实时画线
@@ -540,13 +607,13 @@ function compositionFunc(){
             }
             changeToAnswer(exist);
         });
-        //把连线转化成字符串
+        //连线题答案格式化并输出
         function changeToAnswer(exist) {
-            var answer = [];
             exist.forEach(function(item){
-                answer.push((item.start+1) + "-" + (item.end+1));
+                // answer[item.start+1] = item.end+1;
+                answer.push((item.start+1) + ":" +　(item.end+1));
             });
+            obj[current] = answer.join(",");
         }
     };
 })
-

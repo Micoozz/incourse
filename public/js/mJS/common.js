@@ -1,31 +1,3 @@
-/* 点亮顶部导航和左侧导航对应的标签 */
-$(function(){
-	$(".head_nav>li a").click(function(){
-		const txt = $(this).text();
-		sessionStorage.setItem("InCourse-state-top",txt);
-		sessionStorage.removeItem("InCourse-state-left");
-	});
-	
-	$("#nav1>li>a").click(function(){
-		const txt = $(this).text();
-		sessionStorage.setItem("InCourse-state-left",txt);
-	});
-	
-	const top_txt = sessionStorage.getItem("InCourse-state-top") || "学校首页";
-	const left_txt = sessionStorage.getItem("InCourse-state-left") || "作业本";
-	$(".head_nav>li a").removeClass("blue");
-	$("#nav1>li>a").removeClass("box");
-	$(".head_nav>li a").map(function(){
-		if($(this).text() === top_txt) {
-			$(this).addClass("blue");
-		}
-	});
-	$("#nav1>li>a").map(function(){
-		if($(this).text() === left_txt) {
-			$(this).addClass("box");
-		}
-	});
-});
 
 /****************顶部搜索栏******************/
 /***省，市区，学校****/

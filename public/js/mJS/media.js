@@ -1,9 +1,8 @@
-/**
- * Created by Administrator on 2016/7/8.
- */
-/****************顶部搜索栏******************/
-/****** 点击向下箭头的效果 *******/
 $(function(){
+    /***** 点亮顶部导航对应项 ******/
+    $(".head_nav>li:first-child>a, .head_nav>li:last-child>a").addClass("blue");
+
+    /****** 顶部搜索栏点击向下箭头的效果 ****/
     $("#fixedTop>.mediaDown>img").hover(function(){
         $("#searchBar").show();
         $(this).hide();
