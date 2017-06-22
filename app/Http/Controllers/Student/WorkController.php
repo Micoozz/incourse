@@ -241,7 +241,7 @@ class WorkController extends Controller
                 $objective = Objective::where('exe_id',$exercise->id)->first();
                 $answers = array();
                 $answer_list = explode(',',$objective->answer);
-                $user_answer_list = explode(','$work_info->answer);
+                $user_answer_list = explode(',',$work_info->answer);
                 if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
                     foreach ($answer_list as $key => $answer) {
                         array_push($answers,array('standard' => array_keys(json_decode($objective->option,true)[(int)$answer-1])[0],'user_answer' => array_keys(json_decode($objective->option,true)[(int)$user_answer_list[$key]-1])[0]));
