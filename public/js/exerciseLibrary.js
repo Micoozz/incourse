@@ -99,6 +99,7 @@ $(function() {
 		$('.xxxx #but_a option').last().remove()
 		$(this).parent('.select_single').remove()
 		$('.xxxx .nei').find('b:last-child').remove()
+		$('.xxxx .but_a').find('b:last-child').remove()
 		d--;
 	});
 	$('body').on('click', '.xxxx .nei>b', function() {

@@ -139,6 +139,7 @@
                             <div class="col-md-2 col-xs-4"></div>
                         </div>
                         <div class="exercise-box">
+                        <!--
                             <div class="homework-content" data-type="单选题" data-id="1">
                                 <p class="question-head">
                                     <span class="order">1.</span>
@@ -193,7 +194,6 @@
                                         <span class="question-fault">报错</span>
                                     </div>
                                 </div>
-                                <!--
                                 <div class="homework-content" data-type="填空题" data-id="2">
                                     <p class="question-head">
                                         <span class="order">2.</span>
@@ -223,7 +223,6 @@
                                                 <span class="question-fault">报错</span>
                                             </div>
                                     </div>
-                                    -->
                                     <div class="homework-content" data-type="判断题" data-id="3">
                                     <p class="question-head">
                                         <span class="order">3.</span>
@@ -431,7 +430,7 @@
                                             <span class="question-fault">报错</span>
                                 </div>
                             </div>
-                            <!-- 结束 -->
+                            结束 -->
                             </div>
                             <!--简答题答案模态框框-->
                             <div class="answerInput jianDaTi-modal">
@@ -651,6 +650,7 @@
 <script src="js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/sJS/classActivity.js"></script>
 <script src="js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/inCourse.js"></script>
 <!-- <script src="js/sJS/zuoyeben-index.js" type="text/javascript" charset="utf-8"></script> -->
 <script>
     
@@ -667,34 +667,14 @@ $(function(){
     var comp_photo = {};  //保存作文的照片
     var obj = {};   //保存所有题的答案
 
-
-    //把填空题的题目空格格式化
-    function tkChange(str) {
-        var obj = {};
-        var tk_reg = /&空\d+&/g;
-        var tk_arr = str.split(tk_reg);
-        var result = "";
-        
-        for(var i=0; i<tk_arr.length-1; i++) {
-            result += tk_arr[i] + '<span class="question-blank">空' + (i+1) + '</span>';
-        }
-        result += tk_arr[tk_arr.length-1];
-        obj.data = result;
-        if(str.match(tk_reg)) {
-            obj.n = str.match(tk_reg).length;
-        }
-
-        return obj;
-    }
-
     /********* 显示题目列表 ********/
     $.ajax({
         type: "GET",
         url: "showWorkDetail/" + id,
         async: false,
         success: function(data){
-            console.log(data)
         var data = JSON.parse(data);
+        console.log(data)
         var html = "";  //保存整个题目列表
         var n = 0;   //保存填空题空格的个数
         var px_index = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];   //排序题序号
@@ -863,7 +843,7 @@ $(function(){
                         lxt_left += '<li style="top:' + 54*i + 'px;">' + k[key] + '</li>';
                     }
                 });
-                item.answer[0].forEach(function(k,i){
+                item.answer.forEach(function(k,i){
                     lxt_right += '<li style="top:' + 54*i + 'px;">' + k + '</li>';
                 });
 
@@ -989,10 +969,8 @@ $(function(){
         } 
         console.log(obj)
         $.post("subWork",param).success(function(data){
-            console.log(data);
            if(data === "200") {
-            window.location.href='/danrenzuoye-chengji';
-               // window.location.href='/danrenzuoye-chengji';
+                window.location.href='/danrenzuoye-chengji';
            }
         });
     });
@@ -1044,7 +1022,7 @@ function compositionFunc(){
         }else {
             $(".answerInput .title").val("");
             $("#composition").val("");
-            $("#answerInput .words>span").text(0);
+            $("#answerInput .words>span").text("0");
         }
 
         $("#f-modal, #answerInput").fadeIn();
@@ -1157,8 +1135,6 @@ function compositionFunc(){
             question:[],    //保存问题的坐标数据
             answer:[]       //保存答案的坐标数据
         }
-        //var answer = {}      保存连线题的答案 
-        var answer = [];      //保存连线题的答案
 
         dist.y1=dist.borderWidth+dist.liHeight/2;
         dist.D=dist.liHeight+2*dist.borderWidth+dist.marginBottom;
@@ -1278,6 +1254,9 @@ function compositionFunc(){
         });
         //连线题答案格式化并输出
         function changeToAnswer(exist) {
+            //var answer = {}      保存连线题的答案 
+            var answer = [];      //保存连线题的答案
+            console.log(exist);
             exist.forEach(function(item){
                 // answer[item.start+1] = item.end+1;
                 answer.push((item.start+1) + ":" +　(item.end+1));

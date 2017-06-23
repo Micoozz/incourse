@@ -1,12 +1,12 @@
 .head_nav{
 	    position: relative;
 }
-.head_nav li:first-child{
+/*.head_nav li:first-child{
     background: url('../images/Cj_15.png') no-repeat 3px 21px;
     padding-left: 25px;
     cursor: pointer;
     background-size: 20%;
-}
+}*/
 .center1>div:first-child{
 	cursor: pointer;
 }

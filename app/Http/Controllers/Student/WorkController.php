@@ -98,28 +98,29 @@ class WorkController extends Controller
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $subjective->subject,
-                    'answer' => '自由发挥',
                     'score' => $exercise->score/100
                     ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
-                $answers = array();
-                if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-                    $answer_list = explode(',',$objective->answer);
-                    foreach ($answer_list as $key => $answer) {
-                        array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
-                    }
-                }else{
-                    array_push($answers,explode(',',$objective->answer));
-                }
-                array_push($data,array(
+                if($exercise->categroy_id == Exercises::CATE_LINE){
+                    array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
                     'options' => json_decode($objective->option),
-                    'answer' => $answers,
+                    'answer' => explode(',', $objective->answer),
                     'score' => $exercise->score/100
                     ));
+                }else{
+                    array_push($data,array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $objective->subject,
+                    'options' => json_decode($objective->option),
+                    'score' => $exercise->score/100
+                    ));
+                }
+                
                 
             }
         }
@@ -144,10 +145,10 @@ class WorkController extends Controller
             Schema::connection($db_name)->create($user->id, function ($table) {
                 $table->integer('work_id');
                 $table->integer('exe_id');
-                $table->text('answer');
+                $table->text('answer')->nullable();
                 $table->integer('start_time')->nullable();
                 $table->integer('end_time')->nullable();
-                $table->smallInteger('score')->nullable();
+                $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
             });
         }
@@ -179,6 +180,7 @@ class WorkController extends Controller
 
     public function showScore($work_id){
         $data = array();
+        $user = Auth::guard('student')->user();
         $user = Auth::guard('student')->user();
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -228,35 +230,43 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    public function showWorkObjectiveDetail($work_id,$page = 1){
+    public function showWorkObjectiveDetail($work_id){
         if(empty($work_id)){
             return;
         }
-        $limit = ($page-1)*5;
         $user = Auth::guard('student')->user();
         $work = Work::find($work_id);
         if(!$work || $work->student_id != $user->id){
             return;
         }
-        $exercise_id_arr = explode(',',$work->belongsToJob()->first()->exercise_id);
-        $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval(count($exercise_id_arr)/5)+1;
-        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
-        foreach ($exercise_id as $eid) {
-            $exercise = Exercises::find($eid);
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            return $e;
+        }
+        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
+        $data = array('type' => 'objective');
+        foreach ($exercise_id as $exe_id) {
+            $work_info = $db->table($user->id)->where(['work_id' => $work_id,'exe_id' => $exe_id])->first();
+            $exercise = Exercises::find($exe_id);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
                 $answers = array();
+                $answer_list = explode(',',$objective->answer);
+                $user_answer_list = explode(',',$work_info->answer);
                 if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-                    $answer_list = explode(',',$objective->answer);
                     foreach ($answer_list as $key => $answer) {
-                        array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
+                        array_push($answers,array('standard' => array_keys(json_decode($objective->option,true)[(int)$answer-1])[0],
+                            'user_answer' => empty($user_answer_list[$key]) ? '' : array_keys(json_decode($objective->option,true)[(int)$user_answer_list[$key]-1])[0])
+                        );
                     }
                 }else{
-                    array_push($answers,explode(',',$objective->answer));
+                    array_push($answers,array('standard' => $answer_list,'user_answer' => $user_answer_list));
                 }
-                array_push($data['exercises'],array(
+                array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
@@ -269,4 +279,5 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
+    
 }

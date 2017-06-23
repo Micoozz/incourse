@@ -38,7 +38,6 @@ $(function(){
 		var objective = "";
 		var subjective = "";
 		for(var key in data.objective) {
-				console.log(key)
 				if(key!=="cate" && key!=="score") {
 					objective += '<div class="row count2">\
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>\

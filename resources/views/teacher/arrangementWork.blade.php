@@ -69,7 +69,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="homeworkCorrecting" data-step="2"
+                            <div id="document"><a href="" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -257,6 +257,7 @@
 							});	        
                             
                             } else {
+                            	
                                 $(".go_filed").show();
                                 setTimeout(function () {
                                     $(".go_filed").hide()
@@ -307,7 +308,7 @@
 
                     <span>独立完成</span>
                 </a>
-                <a href="groupWorkMarshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
+                <a href="" class="pop" id="pop2_hover" style="margin-left: 30px">
 
                     <span>小组作业</span>
                 </a>
@@ -343,6 +344,7 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script>
 	
+	
 	$(function(){
 			if(localStorage.pargins==undefined){
 		localStorage.setItem('pargins',1)
@@ -359,9 +361,9 @@
 					var time=new Date(jobs[i].pub_time),
 						times=new Date(jobs[i].deadline)
 					if(jobs[i].job_status==1){
-						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="groupWorkViewjob">'+(i+1)+'.'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
+						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span style="position: absolute;left:30%">'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
 					}else{
-						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="groupWorkViewjob">'+(i+1)+'.'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
+						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span style="position: absolute;left:30%">'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
 					}
 				};
 
@@ -370,7 +372,7 @@
 					var five;
 			for(var o=0;o<pageLength;o++){
 				if(o<5){
-					$('.pagination').append('<li><a href="#"><i>'+(o+1)+'</i></a></li>')
+					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
 				}
 				else if(o==6){
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
@@ -379,8 +381,8 @@
 			}
 			
 			
-			$('.pagination>li>a').eq(five+1).attr('class','five');
-			$('.pagination>li>a').eq(1).attr('class','zero');
+			$('.pagination>li').eq(five+1).find('i').attr('class','five');
+			$('.pagination>li').eq(1).find('i').attr('class','zero');
 			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
 			
 			if(five==4){
@@ -398,7 +400,7 @@
 			}
 			
 			//
-			$('.pagination').on('click','li>a>i',function(){
+			$('.pagination').on('click','li>i',function(){
 			localStorage.setItem('pargins',$(this).text())
 				window.location.href=''
 			});
