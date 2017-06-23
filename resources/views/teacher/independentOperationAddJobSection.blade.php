@@ -28,36 +28,7 @@
 
 	<body>
 <div class="navbar">
-    <div>
-        <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="/media">学校首页</a>
-                <div>
-                    <a href="/relateToMe">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
-            <li><a href="classSpace111">班级中心</a></li>
-            <!--<li><a href="javascript:;">交易中心</a></li>-->
-            <li class="affix">
-                <a href="javascript:;"><img src="images/01.png"/></a>
-            </li>
-            <li class="personCenter"><a href="javascript:;">个人中心</a>
-                <div class="cent">
-                    <a href="class">分析中心</a>
-                    <a href="老师成绩单1">学习生活记录</a>
-                    <a href="teacherPersonData">个人信息</a>
-                </div>
-            </li>
-            <li><a href="/logout" class="blue">退出</a></li>
-        </ul>
-
-    </div>
+@include('teacher.header.head_Tea')
 </div>
     <!--
     	作者offline
@@ -90,17 +61,7 @@
 					<div class="row">
 						<!--左侧栏-->
                 <div class="col-xs-12 " id="left">
-                    <ul class="nav1 nav" id="nav1">
-                        <li><a href="arrangementWork" class="box">作业管理</a></li>
-                        <li><a href="exerciseEditor" >习题库</a></li>
-                        <li><a href="data">资料库</a></li>
-                        <li><a href="duty_arrange">班级管理</a></li>
-                        <li><a href="classindex">成绩管理</a></li>
-                        <li style="padding: 0"><a href="class-outline" data-step="3"
-                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
-                        </li>
-                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
-                    </ul>
+@include('teacher.header.left_nav')
                 </div>
 						<!--内容-->
 						<div class="col-xs-12 col-sm-12" id="centery">
@@ -112,6 +73,16 @@
 							<div id="content">
 								<form action="">
 									<div id="z_1">
+										<div class=" row">
+											<div class="col-lg-12 submits" id="subject">
+                                        		<span>科目</span>
+                                       			<select name=""></select>
+                                    		</div>												
+											<div class="col-lg-12 z_introduce">
+												<span>所属章节</span>
+												<input type="text" value=" ">
+											</div>											
+										</div>										
 										<div class="z_t_c row ">
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
 												<span >作业标题</span>
@@ -121,16 +92,6 @@
 												<span>截止时间</span>
 												<input style="padding-left: 10px" class="laydate-icon" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
 											</div>
-										</div>
-										<div class=" row">
-											<div class="col-lg-12 z_introduce">
-												<span>所属章节</span>
-												<input type="text" value=" ">
-											</div>
-											<div class="col-lg-12 submits" id="subject">
-                                        		<span>科目</span>
-                                       			<select name=""></select>
-                                    		</div>												
 										</div>
 									</div>
 									<!--<div id="add">
@@ -170,7 +131,6 @@
 											   <div class=" col-md-8 new_mlbtn">
 												<a href="favorites"  class="bt_a">取消</a>
 												<a href="#" class="bt_s Ad-se">发布</a>
-												<a href="exerciseEditor" class="bt_s">题库选题</a>
 												<a href="" class="bt_s bt_ss">添加题目</a>
 										<!--		<a href="Independent_operation_Add_job_specific_content.html" class="goo"><img src="images/add.png" alt="">去添加题目</a>-->
 											   </div>
@@ -183,16 +143,7 @@
 						</div>
 						<!--右侧栏-->
 						<div class="col-xs-12 left">
-                    <div class="col-md-12 col-xs-12">
-                        <a href="schoolNotice" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
-                    </div>
-                    <div class="col-md-12 col-xs-12 next">
-                        <ul class="nav nave">
-                            <li><a href="classNotice">1.明天交语文作业</a></li>
-                            <li><a href="classNotice">2.5.1放假通知</a></li>
-                            <li><a href="classNotice">3.周五语文考试</a></li>
-                        </ul>
-                    </div>
+@include('teacher.header.right_nav')
 							<div class="foot">
 								<div class="img" id="img"></div>
 								<ul class="nav">
@@ -309,14 +260,6 @@
 		<div id="footer"></div>
 		<script>
 			$(function() {
-				$(".Ad-se").click(
-					function() {
-						$(".go_success").show();
-						setTimeout(function() {
-							$(".go_success").hide()
-						}, 2000);
-					}
-				);
 				var box = localStorage.getItem('key');
 				var boxx = localStorage.getItem('keyy')
 				$('.goo').css('display', box)
@@ -425,18 +368,7 @@
 				}
 			}
 		});
-			
-			var splits=localStorage.id;
-	 			$.ajax({
-				type:"post",
-				url:"/getExerciseList",
-				dataType:'json',
-				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
-				success:function(data){
-					console.log(data)
-				}
-			});
-			
+			var splits=localStorage.id
 			
 			//发布
 	var colligate={
@@ -452,42 +384,60 @@
 		$('#subject>select').change(function(){
 			colligate.course=$(this).val()
 		})
+	
 		
-		$('.Ad-se').click(function(){
+		
+		//
+		$('.bt_ss').click(function(){
+			localStorage.introduce=$('.z_introduce>input').val();
+			localStorage.titles=$('.titles').val();
+			localStorage.laydate=$('.laydate-icon').val();
+			
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
+				for(var key in colligate){
+					localStorage.setItem(key,colligate[key])
+					}
+				window.location.href='/independentOperationAddTopic'
+			return false
+		});
+		
+		$('.z_introduce>input').val(localStorage.introduce)
+		$('.titles').val(localStorage.titles)
+		$('.laydate-icon').val(localStorage.laydate)
+		
+		
+		
+		$('.Ad-se').click(function(e){
+			event.stopPropagation();
+			colligate.title=$('.titles').val();
+			colligate.deadline=$('.laydate-icon').val();
+						if($('.titles').val()==''){
+				alert('作业标题 不能为空')
+			}else if($('.laydate-icon').val()==''){
+				alert('截止时间 不能为空')
+			}else{
+			if(localStorage.issue=='0'){			
 	 			$.ajax({
 				type:"post",
 				url:"/pubJob",
 				dataType:'json',
 				data:{'course':colligate.course,type:colligate.type,'score':colligate.score,'exercise_id':colligate.exerciseid,'deadline':colligate.deadline,'job_id':0,'title':colligate.title,'_token':'{{csrf_token()}}'},
 				success:function(data){
-					console.log(data)
+					window.location.href='/arrangementWork'
 				}
 			});	
-		});
-		
-		
-		//
-		$('.bt_ss').click(function(){
-			colligate.title=$('.titles').val();
-			colligate.deadline=$('.laydate-icon').val();
-			if($('.titles').val()==''){
-				alert('作业标题 不能为空')
-			}else if($('.laydate-icon').val()==''){
-				alert('截止时间 不能为空')
-			}else{
-				for(var key in colligate){
-					localStorage.setItem(key,colligate[key])
-					}
-				window.location.href='/independentOperationAddTopic'
-			}
-			return false
-		})
-		
-		
+
+						$(".go_success").show();
+						setTimeout(function() {
+							$(".go_success").hide()
+						}, 2000);
+						}else{
+							alert('请添加题目')
+						}
+						}
+		});	
 	 	})
 	 </script>
 	</body>
-
 </html>

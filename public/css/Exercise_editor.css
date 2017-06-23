@@ -47,10 +47,6 @@ a:focus {
     top: -6px;
     left:65%;
 }
-a:hover{
-    color:#168bee;
-    text-decoration: none;
-}
 a{
     border: none;
     outline: none;
@@ -316,7 +312,7 @@ color: #ffffff;
     float: right;
 }
 .z_introduce{
-margin-top: 20px;
+margin-top: 10px;
 }
 .z_introduce>input{
 
@@ -410,7 +406,7 @@ margin-top: 80px;
 .bt_a,.bt_s,.bt_c{
     width: 80px;
     height: 32px;
-    color: #FFFFFF;
+    color: #FFFFFF!important;
     display: inline-block;
     text-align: center;
     border-radius: 4px;
@@ -431,19 +427,14 @@ margin-top: 80px;
 .bt_s{
     background-color: #168BEE;
 }
-.bt_s:hover{
-    background-color: #1681dc;
-}
+
 /***************************button模拟*********************************/
 .btn_r_1,.btn_s{
     background-color: #999999;
     margin-left:20px ;
     color: white;
 }
-.btn_r_1:hover{
-    background-color:#168BEE ;
-    color:#FFFFFF;
-}
+
 .btn_s:hover{
     background-color:#168BEE ;
     color:#FFFFFF;
@@ -834,9 +825,6 @@ button.close {
     right: 3rem;
     margin-top: -2.4rem;
     cursor: pointer;
-}
-.submits{
-	margin-top: 20px;
 }
 .submits>select{
 	width: 20%;

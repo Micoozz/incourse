@@ -82,3 +82,15 @@
 .pj>div:nth-of-type(2)>.mui5{
 	background-color:#a3ce7a;
 }
+
+/* 简答题答案模态框框 */
+.jianDaTi-modal {
+	width: 50%;
+	max-width: 600px;
+}
+.answerInput .jianDaTi-txar {
+	height: 300px;
+}
+.d-n {
+	display: none;
+}

@@ -6,8 +6,8 @@
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/media.css"/>
-    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/mCSS/media.css"/>
+    <link rel="stylesheet" href="css/mCSS/common.css"/>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
@@ -41,7 +41,7 @@
     <div class="mediaDown">
         <img src="images/media/Hpb_mediaDown.png"/>
     </div>
-    <!-------顶部搜索栏------->
+    <!--顶部搜索栏-->
     <div id="searchBar">
         <form id="searchNav" method="get" action="">
             <div class="area">
@@ -87,7 +87,7 @@
         </form>
     </div>
 </div>
-<!-----------------------------瀑布流--------------------->
+<!--瀑布流-->
 <div id="waterfall">
     <!--分享的模态框开始-->
     <div class="umodal">
@@ -122,7 +122,7 @@
         </div>
         <hr/>
         <div class="content">
-            <a href="/mediaDetail" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
+            <a href="javascript:;" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
             <p class="articleBox">
                 “快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，“在一起，我快乐”是快乐学校的理念，也是每一位志愿者和孩子的心声。
             </p>
@@ -237,7 +237,7 @@
         </div>
         <hr/>
         <div class="content">
-            <a href="mediaDetail.html" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
+            <a href="javascript:;" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
             <p class="articleBox">
                 “快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，“在一起，我快乐”是快乐学校的理念，也是每一位志愿者和孩子的心声。“快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，“在一起，我快乐”是快乐学校的理念，也是每一位志愿者和孩子的心声。
             </p>
@@ -353,7 +353,7 @@
         </div>
         <hr/>
         <div class="content">
-            <a href="mediaDetail.html" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
+            <a href="javascript:;" target="_blank">2016暑期卫康公益“快乐学校”关爱农民工子女专项志愿服务行动招募公告</a>
             <p class="articleBox">
                 “快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，“在一起，我快乐”是快乐学校的理念，也是每一位志愿者和孩子的心声。“快乐学校”是由中国青年报社主办，卫康公益特别支持的青年志愿者关爱农民工子女专项志愿服务活动，
             </p>
@@ -458,7 +458,7 @@
 
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/media.js"></script>
-    <script src="js/common.js"></script>	
+    <script src="js/mJS/common.js"></script>
+    <script src="js/mJS/media.js"></script>	
 </body>
 </html>

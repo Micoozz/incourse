@@ -52,7 +52,7 @@ $(function() {
 			a = 0;
 		$('.xxxx .answer7').on('click', 'a', function() {
 			d++;
-			$('.xxxx #gapp').append('<span num="' + d + '" style="color:#168BEE">空' + d + '</span><input />');
+			$('.xxxx #gapp').append('<span num="' + d + '" style="color:#168BEE">&空' + d + '&</span><input />');
 			$('.xxxx .G .select_single a').click(function() {
 				$(this).parent('.select_single').remove('div')
 				d--;
@@ -99,6 +99,7 @@ $(function() {
 		$('.xxxx #but_a option').last().remove()
 		$(this).parent('.select_single').remove()
 		$('.xxxx .nei').find('b:last-child').remove()
+		$('.xxxx .but_a').find('b:last-child').remove()
 		d--;
 	});
 	$('body').on('click', '.xxxx .nei>b', function() {
@@ -290,7 +291,7 @@ $(function() {
 		a = 0;
 	$('.xxxx .answer10 a').click(function() {
 		d++;
-		$('.xxxx #gap').append('<span num="' + d + '" style="color:#168BEE">空' + d + '</span><input />');
+		$('.xxxx #gap').append('<span num="' + d + '" style="color:#168BEE">&空' + d + '&</span><input />');
 		$('.xxxx .G').append('<div class="select_single"><span class="question">' + d + '：</span><a href="#"></a><input type="text"value="" class="no_addquestion"></div>')
 		$('.xxxx .G .select_single').last().append('<a href="javascript:;"><img src="images/single.jpg" alt=""></a>')
 	});
@@ -358,6 +359,12 @@ $(function() {
 //})
 $(function() {
 	$('#a').click(function() {
-		$('#search_hide').slideToggle()
+		if($('#search_hide').css('display')!='none'){
+			$('#search_hide').slideUp()
+			$('#a>img').attr('src','images/11.png')
+		}else{
+			$('#search_hide').slideDown()
+			$('#a>img').attr('src','images/11s.png')
+		}
 	})
 })

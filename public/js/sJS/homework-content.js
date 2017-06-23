@@ -2,21 +2,30 @@
 
 //单选
 $(function(){
-	$(".questionSelect,.questionMultiBlankSelect").click(function(){
+	$(".exercise-box").on("click",".questionSelect,.questionMultiBlankSelect",function(){
 		var select = $(this).val();
-		$(this).parent().parent().parent().siblings().find("#answerOrder").text(select);
-	})
+		$(this).parent().parent().parent().siblings().find(".answerOrder").text(select);
+	});
 })
 
 //多选
 $(function(){
-	$(".questionMultiSelect").click(function(){
+	$(".exercise-box").on("click",".questionMultiSelect",function(){
 		var container =[];
-		$("input[type='checkbox']:checked").each(function(){
+		$(this).parent().parent().parent().find("input[type='checkbox']:checked").each(function(){
 			container.push($(this).val());
 		});
-		$(this).parent().parent().parent().siblings().find("#answerOrder").text(container);
-	})
+		
+		$(this).parent().parent().parent().siblings().find(".answerOrder").text(container);
+	});
+	// $(".questionMultiSelect").click(function(){
+	// 	var container =[];
+	// 	$(this).parent().parent().parent().find("input[type='checkbox']:checked").each(function(){
+	// 		container.push($(this).val());
+	// 	});
+		
+	// 	$(this).parent().parent().parent().siblings().find(".answerOrder").text(container);
+	// })
 })
 	
 		

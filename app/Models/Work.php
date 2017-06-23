@@ -15,6 +15,6 @@ class Work extends Model
     public $timestamps = false;
 
     public function belongsToJob(){
-    	return $this->belongsTo('App\Models\Job');
+    	return $this->belongsTo('App\Models\Job','job_id');
     }
 }

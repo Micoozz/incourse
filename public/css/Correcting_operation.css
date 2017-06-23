@@ -574,6 +574,7 @@ button.close:hover {
 .mar{
     display: inline-block;
     margin-left: 35px;
+    color: #168BEE;
 }
 .buttons{
     margin: 0%;
@@ -804,7 +805,31 @@ label{
 
 
 /*标题颜色*/
-{
-	background-color: #eee;
+/*.title_bj1{
+	background-color: #666;
     padding: 10px 0 10px 10px;
+}
+.title_bj2{
+	background-color: #ccc;
+    padding: 10px 0 10px 10px;
+}
+.title_bj3{
+	background-color: #999;
+    padding: 10px 0 10px 10px;
+}
+.title_bj4{
+	background-color: gray;
+    padding: 10px 0 10px 10px;
+}*/
+.pagination i{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
 }

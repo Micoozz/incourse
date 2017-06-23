@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route::get('/test','Student\WorkController@test');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
@@ -79,6 +79,11 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
 		Route::get('/showWorkList/{page?}','Student\WorkController@showWorkList');
+		Route::get('/showWorkDetail/{work_id}','Student\WorkController@showWorkDetail');
+		Route::post('/subWork','Student\WorkController@subWork');
+		Route::get('/showScore/{work_id}','Student\WorkController@showScore');
+		Route::get('/showWorkObjectiveDetail/{work_id}','Student\WorkController@showWorkObjectiveDetail');
+		Route::get('/cuotibenObjectiveTodayYuwen','PageController@cuotibenObjectiveTodayYuwen');
 	});
 	Route::get('/logout','LoginController@logout');
 });

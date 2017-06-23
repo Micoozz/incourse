@@ -23,35 +23,7 @@
 </head>
 <body>
 <div class="navbar">
-    <div>
-        <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="/media">学校首页</a>
-                <div>
-                    <a href="/relateToMe">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
-            <li><a href="classSpace111">班级中心</a></li>
-            <!--<li><a href="javascript:;">交易中心</a></li>-->
-            <li class="affix">
-                <a href="javascript:;"><img src="images/01.png"/></a>
-            </li>
-            <li class="personCenter"><a href="javascript:;">个人中心</a>
-                <div class="cent">
-                    <a href="class">分析中心</a>
-                    <a href="老师成绩单1">学习生活记录</a>
-                    <a href="teacherPersonData">个人信息</a>
-                </div>
-            </li>
-            <li><a href="/logout" class="blue">退出</a></li>
-        </ul>
-    </div>
+@include('teacher.header.head_Tea')
 </div>
 <!--
     作者offline
@@ -82,17 +54,7 @@
             <div class="row">
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
-                    <ul class="nav1 nav" id="nav1">
-                        <li><a href="arrangementWork" class="box">作业管理</a></li>
-                        <li><a href="exerciseEditor">习题库</a></li>
-                        <li><a href="data">资料库</a></li>
-                        <li><a href="duty_arrange">班级管理</a></li>
-                        <li><a href="classindex">成绩管理</a></li>
-                        <li style="padding: 0"><a href="class-outline" data-step="3"
-                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
-                        </li>
-                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
-                    </ul>
+                	@include('teacher.header.left_nav')
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
@@ -107,7 +69,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="homeworkCorrecting" data-step="2"
+                            <div id="document"><a href="" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -123,61 +85,13 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">状态</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
                         </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">1.第一章第一节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">发布</a>
-                            </div>
-                        </div>
-<!--                         <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">2.第一章第二节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix">撤销</a>
-                            </div>
-                        </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="singleWorkViewjob">3.第一章第三节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">个人</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" id="delete" class="blue Aw-del"
-                                                                                data-toggle="modal"
-                                                                                data-target="#myModal2">删除</a></div>
-                        </div>
-                        <div class="row new-creat">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a
-                                    href="groupWorkViewjob">4.第一章第四节</a></div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">小组</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月1日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">10月3日</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已发布</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Aw-del">删除</a>
-                            </div>
-                        </div> -->
-                    </div>
                 </div>
-                <!--右侧栏-->
-                <div class="col-sm-12 col-xs-12 left">
-                    <div class="col-md-12 col-xs-12">
-                        <a href="schoolNotice.html" style="color: #FFFFFF ">通知</a><span class="openNotice">3</span>
-                    </div>
-                    <div class="col-md-12 col-xs-12 next">
-                        <ul class="nav nave">
-                            <li><a href="classNotice">1.明天交语文作业</a></li>
-                            <li><a href="classNotice">2.5.1放假通知</a></li>
-                            <li><a href="classNotice">3.周五语文考试</a></li>
-                        </ul>
-                    </div>
+                                                <ul class="pagination fy">
+                                                	
+                                </ul>
+                </div>
+                <div class="col-xs-12 left"> 
+@include('teacher.header.right_nav')
                     <div class="foot">
                         <div class="img" id="img"></div>
                         <ul class="nav">
@@ -323,15 +237,27 @@
                             )
                         }
                 );
-                $(".Nocfix").click(
+                $('body').on('click',".Nocfix",
                         function () {
-                            if ($(this).html() == "发布") {
+                            if ($(this).html() == "发布") {            
                                 $(".go_success").show();
                                 setTimeout(function () {
                                     $(".go_success").hide()
                                 }, 1000);
                                 $(this).html("撤销").parent().prev().html("已发布").removeClass("red").addClass("gray");
+                            
+								 $.ajax({
+									type:"post",
+									url:"/pubJob",
+									dataType:'json',
+									data:{'job_id':$(this).attr('num'),'_token':'{{csrf_token()}}'},
+									success:function(data){
+											console.log(data)
+												}
+							});	        
+                            
                             } else {
+                            	
                                 $(".go_filed").show();
                                 setTimeout(function () {
                                     $(".go_filed").hide()
@@ -382,7 +308,7 @@
 
                     <span>独立完成</span>
                 </a>
-                <a href="groupWorkMarshalling" class="pop" id="pop2_hover" style="margin-left: 30px">
+                <a href="" class="pop" id="pop2_hover" style="margin-left: 30px">
 
                     <span>小组作业</span>
                 </a>
@@ -418,15 +344,86 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script>
 	
+	
 	$(function(){
+			if(localStorage.pargins==undefined){
+		localStorage.setItem('pargins',1)
+			}
 		$.ajax({
 			type:"get",
-			url:"/showJobList/1",
+			url:"/showJobList/"+localStorage.pargins,
 			dataType:'json',
 			success:function(data){
 				console.log(data)
+				var jobs=data.jobs;
+				var pageLength=data.pageLength;	
+				for(var i=0;i<jobs.length;i++){
+					var time=new Date(jobs[i].pub_time),
+						times=new Date(jobs[i].deadline)
+					if(jobs[i].job_status==1){
+						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span style="position: absolute;left:30%">'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
+					}else{
+						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span style="position: absolute;left:30%">'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
+					}
+				};
+
+			//页数
+					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
+					var five;
+			for(var o=0;o<pageLength;o++){
+				if(o<5){
+					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
+				}
+				else if(o==6){
+					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
+				}else{}
+				five=o;
+			}
+			
+			
+			$('.pagination>li').eq(five+1).find('i').attr('class','five');
+			$('.pagination>li').eq(1).find('i').attr('class','zero');
+			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
+			
+			if(five==4){
+				$('.pagination').on('click','.five',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())+5)
+					})
+				});
+
+				$('.pagination').on('click','.zero',function(){
+					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
+					$(this).find('a>i').text(parseInt($(this).text())-5)
+					})
+				});
+			}
+			
+			//
+			$('.pagination').on('click','li>i',function(){
+			localStorage.setItem('pargins',$(this).text())
+				window.location.href=''
+			});
+			
+			//上一页
+			$('.pagination').on('click','.PREV',function(){
+				if(localStorage.pargin>1){
+				localStorage.setItem('pargins',parseInt(--localStorage.pargin));
+				window.location.href=''
+				}
+			})
+
+			//下一页
+			$('.pagination').on('click','.Next',function(){
+				if(localStorage.pargin<=$('.five').text()){
+				localStorage.setItem('pargins',parseInt(++localStorage.pargin));
+				window.location.href=''
+				}
+			})
 			}
 		});
+		
+		
 	})
 </script>
 </body>

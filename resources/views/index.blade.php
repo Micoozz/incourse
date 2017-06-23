@@ -25,8 +25,8 @@
 		<center>
 			<div class="form">
 				<form id="login" action="">
-					<h4>用户登录</h4>
-					<label class="label">
+				<!--	<h4>用户登录</h4>-->
+					<div class="label">
 						<div>
 							<span><img src="images/Cj_ures.png" alt="" /></span>
 							<input type="text" placeholder="学号/手机号"/>
@@ -39,18 +39,9 @@
 						<div>验证码：<input type="text" name="" id="yzm" value="" /></div>
 						<div  class="clear"></div>
 								<!--验证码图片还没写，-->
-					</label>
+					</div>
 					<div class="clear"></div>
-					<!-- <label for="input1">
-						<input type="radio" id="input1" name="Fruit"/><span>教师</span>
-					</label>
-					<label for="input2">
-						<input type="radio" id="input2" name="Fruit"/><span>学生</span>
-					</label>
-					<label for="input3">
-						<input type="radio" id="input3" name="Fruit"/><span>管理员</span>
-					</label>	
-					<div class="clear"></div> -->
+
 
 					<label for="input1">
 						<input type="radio" id="input1" name="job" value="teacher" num='1'/><span>教师</span>
@@ -103,24 +94,7 @@
 				});
 
 			})
-			// $(function(){
-			// 	$(".submitBtn").click(function(event){
-			// 		event.preventDefault();
-			// 		var msg = $("#login").serialize();
-			// 		console.log(msg)
-			// 		sessionStorage.setItem("job",msg);
 
-			// 		switch(msg){
-			// 			case "job=teacher" : window.location="./Media/media.html?"+msg;
-			// 				break;
-			// 			case "job=student" : window.location="./Media/media.html?"+msg;
-			// 				break;
-			// 			case "job=manager" : window.location="./Media/mediaManager.html";
-			// 				break;
-			// 			default : break;
-			// 		}
-			// 	})
-			// })
 
 //	ajax请求
 $(function(){
@@ -135,6 +109,10 @@ $(function(){
 			alert('用户名不能为空')
 		}else if(passwords==''){
 			alert('密码不能为空')
+			
+			
+			
+			
 		}else{
 				$.ajax({
 			type:"post",

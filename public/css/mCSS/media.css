@@ -1,6 +1,7 @@
 body{
     padding-top:59px;
 }
+
 /**********************¶¥²¿ËÑË÷À¸*********************/
 #fixedTop>.mediaDown{
     width:1200px;
@@ -57,10 +58,10 @@ body{
     position: absolute;
     top: 19px;
     right: 10px;
-    background: url("../images/media/Hpb_down.png") no-repeat;
+    background: url("../../images/media/Hpb_down.png") no-repeat;
 }
 .area>.personArea .upPng{
-    background: url("../images/media/Hpb_up_p.png") no-repeat;
+    background: url("../../images/media/Hpb_up_p.png") no-repeat;
 }
 .area>.personArea>ul{
     min-width:110px;
@@ -103,7 +104,7 @@ body{
     padding-left: 50px;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
-    background: url("../images/media/Hpb_search.png") no-repeat #fff 10px center;
+    background: url("../../images/media/Hpb_search.png") no-repeat #fff 10px center;
 }
 #searchNav>.searchContent>input[type="button"]{
     width:105px;
@@ -168,19 +169,19 @@ body{
     padding: 10px 10px;
 }
 #qq{
-    background: url("../images/media/Hpb_qq.png") no-repeat;
+    background: url("../../images/media/Hpb_qq.png") no-repeat;
 }
 #qqRoom{
-    background: url("../images/media/Hpb_qqRoom.png") no-repeat;
+    background: url("../../images/media/Hpb_qqRoom.png") no-repeat;
 }
 #weixin{
-    background: url("../images/media/Hpb_friends.png") no-repeat;
+    background: url("../../images/media/Hpb_friends.png") no-repeat;
 }
 #tqq{
-    background: url("../images/media/Hpb_weibo.png") no-repeat;
+    background: url("../../images/media/Hpb_weibo.png") no-repeat;
 }
 #tsina{
-    background: url("../images/media/Hpb_xinlang.png") no-repeat;
+    background: url("../../images/media/Hpb_xinlang.png") no-repeat;
 }
 /******ÐÂ·ÖÏí½áÊø*****/
 /******·ÖÏíµÄÄ£Ì¬¿ò½áÊø******/
@@ -254,7 +255,7 @@ hr{
     display: inline-block;
     width:22px;
     height:22px;
-    background: url("../images/media/Hpb_comment.png") no-repeat;
+    background: url("../../images/media/Hpb_comment.png") no-repeat;
     background-size:22px 22px;
     /*behavior: url(../js/backgroundsize.min.htc);*/
     position: relative;
@@ -266,7 +267,7 @@ hr{
     color:#158BEE;
 }
 .waterfallFoot>.current>b{
-    background-image: url("../images/media/Hpb_comment_pre.png");
+    background-image: url("../../images/media/Hpb_comment_pre.png");
 }
 /******ÆÀÂÛ×´Ì¬ÇÐ»»½áÊø*******/
 
@@ -421,11 +422,11 @@ hr{
     margin-top: 5px;
     margin-left:30px ;
     cursor: pointer;
-    background:url("../images/media/Hpb_support.png") no-repeat;
+    background:url("../../images/media/Hpb_support.png") no-repeat;
     background-size:25px 25px;
 }
 .detailBox>ul>.right>.supportIcon{
-    background-image:url("../images/media/Hpb_support_pre.png");
+    background-image:url("../../images/media/Hpb_support_pre.png");
 }
 .detailBox .response{
     padding-right:30px;
