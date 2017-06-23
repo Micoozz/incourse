@@ -57,6 +57,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="/cuotibenObjectiveTodayYuwen" class="blue">查看</a></div>
                             </div>
                             <div class="objective-box">
+                            <!--
                                 <div class="row count2">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                                     <div class="ta-r col-lg-4 col-md-4 col-sm-4 col-xs-4">单选题（共10分）</div>
@@ -89,6 +90,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                 </div>
+                                -->
                             </div>
                             <div class="row count3">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
@@ -96,10 +98,11 @@
                                 <div class="ta-c col-lg-3 col-md-3 col-sm-3 col-xs-3">共计 <span
                                     class="positive-grade">13</span> 分
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="/cuotibenPositiveTodayYuwen"
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a class="" href="javascript:;"
                                     class="blue">查看</a></div>
                                 </div>
                                 <div class="subjective">
+                                <!--
                                     <div class="row count2">
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                                         <div class="ta-r col-lg-4 col-md-4 col-sm-4 col-xs-4">问答题（共10分）</div>
@@ -116,6 +119,7 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                         </div>

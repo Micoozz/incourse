@@ -102,13 +102,25 @@ class WorkController extends Controller
                     ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
-                array_push($data,array(
+                if($exercise->categroy_id == Exercises::CATE_LINE){
+                    array_push($data,array(
+                    'id' => $exercise->id,
+                    'cate_title' => $cate_title,
+                    'subject' => $objective->subject,
+                    'options' => json_decode($objective->option),
+                    'answer' => explode(',', $objective->answer),
+                    'score' => $exercise->score/100
+                    ));
+                }else{
+                    array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
                     'options' => json_decode($objective->option),
                     'score' => $exercise->score/100
                     ));
+                }
+                
                 
             }
         }
@@ -119,7 +131,8 @@ class WorkController extends Controller
         $user = Auth::guard('student')->user();
         $work = Work::find(intval($input['work_id']));
         $data = $input['data'];
-        $work->answer = json_encode($data['data']);
+        $code = 200 ;
+        // $work->answer = json_encode($data['data']);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -144,13 +157,14 @@ class WorkController extends Controller
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $db->table($user->id)->insert(['work_id' => $work->id,'exe_id' => $exe_id,'answer' => $answer]);
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-                $objective = $exercise->hasManyObjective();
+                $objective = $exercise->hasManyObjective()->first();
                 $flag = true;
                 $standard = explode(',',$objective->answer);
                 $answer_arr = explode(',',$answer);
                 foreach ($standard as $key => $value) {
                     if($value != $answer_arr[$key]){
                         $flag = false;
+                        break;
                     }
                 }
                 if($flag){
@@ -161,6 +175,7 @@ class WorkController extends Controller
                 $db->table($user->id)->insert(['work_id' => $work->id,'exe_id' => $exe_id,'answer' => $answer,'score' => $score]);
             }
         }
+        return json_encode($code);
     }
 
     public function showScore($work_id){
@@ -232,7 +247,7 @@ class WorkController extends Controller
             return $e;
         }
         $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
-        $data = array();
+        $data = array('type' => 'objective');
         foreach ($exercise_id as $exe_id) {
             $work_info = $db->table($user->id)->where(['work_id' => $work_id,'exe_id' => $exe_id])->first();
             $exercise = Exercises::find($exe_id);
@@ -244,7 +259,9 @@ class WorkController extends Controller
                 $user_answer_list = explode(',',$work_info->answer);
                 if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
                     foreach ($answer_list as $key => $answer) {
-                        array_push($answers,array('standard' => array_keys(json_decode($objective->option,true)[(int)$answer-1])[0],'user_answer' => array_keys(json_decode($objective->option,true)[(int)$user_answer_list[$key]-1])[0]));
+                        array_push($answers,array('standard' => array_keys(json_decode($objective->option,true)[(int)$answer-1])[0],
+                            'user_answer' => empty($user_answer_list[$key]) ? '' : array_keys(json_decode($objective->option,true)[(int)$user_answer_list[$key]-1])[0])
+                        );
                     }
                 }else{
                     array_push($answers,array('standard' => $answer_list,'user_answer' => $user_answer_list));
@@ -262,7 +279,7 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    public function test(){
-        dd(session());
-    }
+    // public function test(){
+    //     dd(session());
+    // }
 }

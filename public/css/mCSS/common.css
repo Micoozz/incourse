@@ -1,0 +1,157 @@
+body{
+    font-size: 12px;
+    margin: 0;
+    font-family:"Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei","΢���ź�","WenQuanYi Micro Hei", sans-serif;
+    overflow-y: scroll;
+    color:#333;
+    overflow: scroll;
+    transition:padding-top 0.3s linear;
+    background:url("../../images/media/Hpb_bg.jpg") no-repeat fixed;
+    background-size:100% 100%;
+}
+a:hover, a:visited, a:focus{
+    text-decoration: none;
+}
+input{
+    outline:none;
+}
+/*******************��������*********************/
+.blue{
+    color: #168BEE;
+}
+#fixedTop{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:800;
+}
+.navbar{
+    width:100%;
+    position:relative;
+    margin-bottom: 0;
+    background-color: #E2F5F6;
+    border-bottom: 1px solid #eee;
+}
+a{
+    color: #333;
+}
+.head_nav{
+    float: right;
+    font-size: 1.2em;
+    line-height: 45px;
+    height: 60px;
+    margin-right:18px;
+}
+.head_nav li img{
+    margin-top: -13px;
+    position: relative;
+    margin-left: -23px;
+    left: 20px;
+}
+.head_nav .personCenter{
+    background: url(../../images/media/001_03.png) no-repeat 85px 28px;
+    width: 112px;
+}
+/********��ܵ����޸�*******/
+.navbar>div{
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+
+.navbar>div>.indexLogo{
+    height:60px;
+    line-height:60px;
+    float: left;
+    margin-left:30px;
+}
+.navbar>div>.indexLogo>b{
+    font-size:1.2em;
+}
+.schoolMain>div{
+    width:100%;
+    border-radius: 4px;
+    font-size: 12px;
+    border:1px solid #ccc;
+    position:absolute;
+    top: 50px;
+    background-color: rgba(255,255,255,0.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
+    z-index: 100;
+    display:none;
+}
+.schoolMain>div>a{
+    display: block;
+    margin: 10px 10px;
+    line-height: 20px;
+    position:relative;
+}
+.schoolMain>div>a:after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:0;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background-color:#f76156;
+}
+.head_nav>.schoolMain:hover>div{
+    display:block;
+}
+
+.nav>li>a:hover{
+    color: #168AED;
+}
+.head_nav li a:hover{
+    background-color:transparent ;
+}
+.cent{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    display: none;
+    position: absolute;
+    top:50px;
+    background-color: #fff;
+    z-index: 100;
+    margin-left:-10px;
+}
+.head_nav .personCenter:hover .cent{
+    display:block;
+}
+.head_nav .cent>a{
+    display: block;
+    padding: 10px 10px;
+    line-height: 15px;
+}
+.navbar>.indexLogo{
+    width:1200px;
+    height:59px;
+    line-height:59px;
+    position:absolute;
+    left:50%;
+    margin-left:-600px;
+}
+.indexLogo>.schoolLogo{
+    width:40px;
+    margin-left:20px;
+}
+.head_nav li {
+    float: left;
+}
+/******** 9.13 **********/
+.indexLogo{
+    cursor:default;
+}
+/******** 11.7����Ӧ **********/
+@media only screen and (max-width:1219px) {
+    .navbar>div, #searchNav, #waterfall, #fixedTop>.mediaDown{
+        width: 98%;
+    }
+    #fixedTop>.mediaDown>img{
+        right: -10px;
+    }
+}
