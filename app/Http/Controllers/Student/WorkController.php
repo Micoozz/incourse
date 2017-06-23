@@ -134,12 +134,12 @@ class WorkController extends Controller
                 $table->integer('exe_id');
                 $table->text('answer')->nullable();
                 $table->integer('start_time')->nullable();
-            });
-        }
-        foreach ($data as $exe_id => $answer) {
                 $table->integer('end_time')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
+            });
+        }
+        foreach ($data as $exe_id => $answer) {
             $exercise = Exercises::find($exe_id);
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $db->table($user->id)->insert(['work_id' => $work->id,'exe_id' => $exe_id,'answer' => $answer]);
@@ -262,5 +262,7 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    
+    public function test(){
+        dd(session());
+    }
 }
