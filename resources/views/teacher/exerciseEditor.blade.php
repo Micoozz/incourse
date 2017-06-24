@@ -905,12 +905,12 @@
 			for(var o=0;o<pageLength;o++){			
 				sessionStorage.setItem('pagin',(o+1))
 				if(o<5){
+					five=o;
 					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
 				}
 				else if(o==6){
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
 				}else{}
-				five=o;
 			}
 			console.log(five)
 			$('.pagination>li').eq(five+1).find('i').attr('class','five');
