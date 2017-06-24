@@ -90,6 +90,7 @@ $(function () {
     var courseID = ["语文","数学","物理","化学","英语"];
     $("#cent_nav ul>li:not(:first-child").click(function(){
         var course = $(this).text();
+        $("#col").text(course);
         var id = (courseID.indexOf(course)) + 1;
         console.log(id);
         loadResource(id);

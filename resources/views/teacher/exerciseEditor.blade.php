@@ -191,7 +191,16 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <span id="chapter">题目分值</span>
-                                        <input type="text" value=" " id='grade'>
+                                        <select name="" id='grade' style="margin-top: 10px;">
+                                        	<option value="1">1分</option>
+                                        	<option value="3">2分</option>
+                                        	<option value="4">4分</option>
+                                        	<option value="5">6分</option>
+                                        	<option value="6">8分</option>
+                                        	<option value="7">10分</option>
+                                        	<option value="8">20分</option>
+                                        	<option value="9">30分</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -841,6 +850,7 @@
 <script>
 	
 	$(function(){
+		
 		//关键字
 		$('#hide_row input').keydown(function(){
 			if($(this).val()!=''){
@@ -1134,7 +1144,8 @@ function removeByValue(arr, val) {
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:''
+			result:'',
+			score:'1'
 		}
 		
 				//综合体题型
@@ -1153,6 +1164,11 @@ function removeByValue(arr, val) {
 			Object.account=$(this).val()
 		})
 
+		$('#grade').change(function(){
+			Object.score=$(this).val()
+		})
+		
+		
 		$('.types').change(function(){
 			Object.types=$(this).val()
 		})
@@ -1179,7 +1195,6 @@ function removeByValue(arr, val) {
 				console.log(Object.account)
 		
 	$('.button_frb').click(function(){	
-		var grade=$("#grade").val();
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
@@ -1267,7 +1282,7 @@ function removeByValue(arr, val) {
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
-			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
+			datas={'score':Object.score,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 		
 		console.log(Object.arrys)
