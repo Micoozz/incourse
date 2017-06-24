@@ -30,7 +30,7 @@ $(function () {
     //加载作业列表内容
     function loadResource(courseID) {
         //语文-1，数学-2，物理-3，化学-4，英语-5
-        $.get("showWorkList/' + courseID + '/1").success(function(data){
+        $.get("showWorkList/" + courseID + "/1").success(function(data){
         var data = JSON.parse(data).works;
         var html = '';
         data.forEach(function(item) {
@@ -85,11 +85,12 @@ $(function () {
         })
     });
     }
-    loadResource("1");
+    loadResource(1);
 
     var courseID = ["语文","数学","物理","化学","英语"];
     $("#cent_nav ul>li:not(:first-child").click(function(){
         var course = $(this).text();
+        $("#col").text(course);
         var id = (courseID.indexOf(course)) + 1;
         console.log(id);
         loadResource(id);
