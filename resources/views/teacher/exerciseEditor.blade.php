@@ -190,8 +190,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <span id="chapter">题目分值</span>
-                                        <input type="text" value=" " id='grade'>
+        
                                     </div>
                                 </div>
                                 <div class="row">
@@ -642,7 +641,7 @@
                             <div class="yit">已添加 <img src="images/s05.jpg"/></div>
                             <ol>
                             </ol>
-                            <a href="independentOperationAddJobSection" class="cs">生成作业</a>
+                            <a href="/independentOperationAddTopic" class="cs">生成作业</a>
                         </div>
                     </div>
                     <div class="foot">
@@ -841,6 +840,7 @@
 <script>
 	
 	$(function(){
+		
 		//关键字
 		$('#hide_row input').keydown(function(){
 			if($(this).val()!=''){
@@ -1134,7 +1134,7 @@ function removeByValue(arr, val) {
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:''
+			result:'',
 		}
 		
 				//综合体题型
@@ -1153,6 +1153,8 @@ function removeByValue(arr, val) {
 			Object.account=$(this).val()
 		})
 
+		
+		
 		$('.types').change(function(){
 			Object.types=$(this).val()
 		})
@@ -1179,7 +1181,6 @@ function removeByValue(arr, val) {
 				console.log(Object.account)
 		
 	$('.button_frb').click(function(){	
-		var grade=$("#grade").val();
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
@@ -1227,15 +1228,19 @@ function removeByValue(arr, val) {
 			Object.result+=arry2
 			console.log(Object.options)
 		}else if(Object.types=='7'){
+			Object.result='';
+			var arry2=[]
 			Object.arrys=$('.sort').val()
 			console.log(Object.arrys)
 			$('.C>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
-				Object.options.push(objec)				
+				Object.options.push(objec)	
+				arry2.push(i+1)				
 			})
+			arry2.pop()	
+			Object.result+=arry2
 			Object.options.pop()	
-			console.log(Object.options)
 		}else if(Object.types=='8'){
 			Object.arrys=$('.estimate input').val();
 			Object.result=[];
@@ -1267,7 +1272,7 @@ function removeByValue(arr, val) {
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
-			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
+			datas={'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 		
 		console.log(Object.arrys)
