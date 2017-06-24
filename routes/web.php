@@ -52,7 +52,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/independentOperationAddTopic','PageController@independentOperationAddTopic');
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
-		Route::get('/showExerciseList/{page?}','Teacher\ExerciseController@showExerciseList');
+		Route::get('/showExerciseList/{course}/{page?}','Teacher\ExerciseController@showExerciseList');
 		Route::post('/getExerciseList/{page?}','Teacher\ExerciseController@getExerciseList');
 		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 		Route::post('/createJob','Teacher\JobController@createJob');
@@ -78,7 +78,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/cuotiben',function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
-		Route::get('/showWorkList/{page?}','Student\WorkController@showWorkList');
+		Route::get('/showWorkList/{course}/{page?}','Student\WorkController@showWorkList');
 		Route::get('/showWorkDetail/{work_id}','Student\WorkController@showWorkDetail');
 		Route::post('/subWork','Student\WorkController@subWork');
 		Route::get('/showScore/{work_id}','Student\WorkController@showScore');

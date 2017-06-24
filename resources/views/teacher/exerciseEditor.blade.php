@@ -49,11 +49,8 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li>
-                        <a href="create-class.html">+创建班级</a>
-                    </li>
-                    <li>一年一班语文</li>
-                    <li>二年一班音乐</li>
+
+                    <li class="topic">一年一班语文</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -210,14 +207,14 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
                             <div id="xxx" class="xxxx">
                                 <!--简答题板块-->
@@ -422,14 +419,14 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
                             <div id="xxx">
                             </div>
@@ -455,14 +452,14 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>                
 
                             <div id="xxx" class="xxxxx">
@@ -892,7 +889,7 @@
 			$('.pagination>li').remove();
 	$.ajax({
 		type:"get",
-		url:"/showExerciseList/"+localStorage.pargin,
+		url:"/showExerciseList/1/"+localStorage.pargin,
 		dataType:'json',
 		success:function(data){
 			console.log(data)

@@ -4,10 +4,11 @@
 		})
 	})
 	//标签页切换
+	localStorage.boxs='box'
 	$(function(){
 $('#nav1>li>a').click(function(){
-		$('#nav1>li>a').removeClass('box');
-		$(this).addClass("box");
+		$('#nav1>li>a').removeClass(localStorage.boxs);
+		$(this).addClass(localStorage.boxs);
 })
 	});
 $(function(){
