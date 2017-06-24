@@ -4,12 +4,16 @@
 		})
 	})
 	//标签页切换
-	localStorage.boxs='box'
 	$(function(){
 $('#nav1>li>a').click(function(){
-		$('#nav1>li>a').removeClass(localStorage.boxs);
-		$(this).addClass(localStorage.boxs);
+	localStorage.boxs=1
+		localStorage.clas=$(this).attr('num')
 })
+if(localStorage.boxs=='1'){
+	$('#nav1>li>a').removeClass('box');
+	$('[num='+localStorage.clas+']').addClass('box')
+	console.log($('num['+localStorage.clas+']'))
+}
 	});
 $(function(){
 	$('#QQ>ul>li').click(function(){
