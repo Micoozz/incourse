@@ -219,8 +219,6 @@
                                     <input type="file" id="addmov" style="display: none">
                                 </div>
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx" class="xxxx">
                                 <!--简答题板块-->
                                 <div class="end" id="div1">
@@ -433,8 +431,6 @@
                                     <input type="file" id="addmov" style="display: none">
                                 </div>
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx">
                             </div>
                             <div class="button" style="width: 36%;margin: 0 auto;">
@@ -468,8 +464,7 @@
                                     <input type="file" id="addmov" style="display: none">
                                 </div>
                             </div>                
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
+
                             <div id="xxx" class="xxxxx">
                                 <!--简答题板块-->
                                 <div class="end div1" id="div1">
@@ -910,15 +905,14 @@
 			for(var o=0;o<pageLength;o++){			
 				sessionStorage.setItem('pagin',(o+1))
 				if(o<5){
+					five=o;
 					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
 				}
 				else if(o==6){
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
 				}else{}
-				five=o;
 			}
-			
-			
+			console.log(five)
 			$('.pagination>li').eq(five+1).find('i').attr('class','five');
 			$('.pagination>li').eq(1).find('i').attr('class','zero');
 			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
@@ -1161,8 +1155,7 @@ function removeByValue(arr, val) {
 		$('#subject>select').change(function(){
 			Object.account=$(this).val()
 		})
-		
-		
+
 		$('.types').change(function(){
 			Object.types=$(this).val()
 		})
@@ -1186,7 +1179,7 @@ function removeByValue(arr, val) {
 		
 		
 		
-		
+				console.log(Object.account)
 		
 	$('.button_frb').click(function(){	
 		var grade=$("#grade").val();
@@ -1273,7 +1266,6 @@ function removeByValue(arr, val) {
 			Object.result=Object.result.join(',')
 			console.log(Object.arrys)
 		}
-		
 		var datas;
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
