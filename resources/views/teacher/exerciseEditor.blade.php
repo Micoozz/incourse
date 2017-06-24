@@ -911,13 +911,13 @@
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
 				}else{}
 				five=o;
-				console.log(five)
 			}
+			console.log(five)
+			$('.pagination>li').eq(five+1).find('i').attr('class','five');
 			$('.pagination>li').eq(1).find('i').attr('class','zero');
 			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
 			
 			if(five==4){
-				$('.pagination>li').eq(five+1).find('i').attr('class','five');
 				$('.pagination').on('click','.five',function(){
 					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
 					$(this).find('a>i').text(parseInt($(this).text())+5)
