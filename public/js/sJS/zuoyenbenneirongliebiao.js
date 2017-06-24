@@ -1,4 +1,8 @@
 $(function () {
+    //点亮顶部导航和左侧导航栏对应项
+    $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
+    $("#nav1>li:first-child>a").addClass("box");
+
 	//重写Date的toLocalString
 	Date.prototype.toLocaleString = function() {
 		var h = this.getHours();

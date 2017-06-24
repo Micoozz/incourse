@@ -37,7 +37,7 @@
                     <div class="row center1">
                         <div class="col-md-2 col-xs-4"></div>
                         <div class="col-md-8 col-xs-4" id="col">语文</div>
-                        <div class="col-md-2 col-xs-4" style="display: none;">收藏夹</div>
+                        <div class="col-md-2 col-xs-4"></div>
                     </div>
                     <div class="order row form-group">
                         <span style="position: relative;top:4px">排序：</span>

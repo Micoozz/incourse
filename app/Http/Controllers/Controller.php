@@ -22,9 +22,9 @@ class Controller extends BaseController
     	return json_encode($categroy_list);
     }
     protected function createDatabase($baseNum){
-    	$servername = "localhost"; 
+    	$servername = "10.110.18.106"; 
 		$username = "root"; 
-		$password = "gogo1993"; 
+		$password = "root"; 
 		$code = 200;
 
 		try { 
