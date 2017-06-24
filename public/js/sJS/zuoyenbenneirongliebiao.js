@@ -87,9 +87,11 @@ $(function () {
     }
     loadResource(1);
 
+    //点击学科显示相应学科的作业
     var courseID = ["语文","数学","物理","化学","英语"];
     $("#cent_nav ul>li:not(:first-child").click(function(){
         var course = $(this).text();
+        sessionStorage.setItem("inCourse-course",course);
         $("#col").text(course);
         var id = (courseID.indexOf(course)) + 1;
         console.log(id);

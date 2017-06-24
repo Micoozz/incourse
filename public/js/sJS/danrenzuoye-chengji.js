@@ -2,39 +2,28 @@ $(function(){
 	//点亮顶部导航和左侧导航栏对应项
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
-
+    var course = sessionStorage.getItem("inCourse-course");
+    if(course) {
+        $("#col").text(course);
+    }
+    $("#cent_nav ul>li").each(function(){
+        if($(this).text() === course) {
+            $("#cent_nav ul>li").removeClass("offt");
+            $(this).addClass("offt");
+        }
+    });
 
 	const id = sessionStorage.getItem("homeworkId");
 	$.get("/showScore/" + id).success(function(data){
 		var data = JSON.parse(data);
-		// var data = {
-		// 	tatal_score: 100,
-		// 	objective : {
-		// 		score: 78,
-		// 		children: [{
-		// 			type: "选择题",
-		// 			score: 11
-		// 		},{
-		// 			type: "填空题",
-		// 			score: 30
-		// 		},{
-		// 			type: "选择题",
-		// 			score: 10
-		// 		}],
-		// 	},
-		// 	subjective: {
-		// 		score: "未批改",
-		// 		children: [{
-		// 			type: "简答题",
-		// 			score: "未批改"
-		// 		}]
-		// 	}
-		// }
 
-		$(".objective-grade").text(data.objective.score);  //客观题总分
+		$(".objective-grade, .objective-box .circle").text(data.objective.score);  //客观题总分
 		$(".positive-grade").text(data.subjective.score);    //主观题总分
 		$(".sum-grade").text(data.score);    //综合得分
+		$(".objective-total").text(data.objective.total);
+		$(".positive-total").text(data.positive.total);
 
+/*
 		var objective = "";
 		var subjective = "";
 		for(var key in data.objective) {
@@ -66,5 +55,6 @@ $(function(){
 
 		$(".objective-box").html(objective);
 		$(".subjective").html(subjective);
+		*/
 	});
 })

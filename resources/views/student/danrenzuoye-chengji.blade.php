@@ -9,6 +9,19 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" type="text/css" href="css/sCSS/homework.css"/>
     <link rel="stylesheet" href="css/incourseReset.css">
+    <style>
+        .objective-box {
+            font-size: 70px;
+        }
+        .objective-box .circle {
+            width: 120px;
+            margin: 30px auto;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
@@ -40,23 +53,25 @@
                         <div class="container-fluid" id="grade-container">
                             <div class="row new-head">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">客观题得分：<span
-                                    class="objective-grade">72</span>分
+                                    class="objective-grade"></span>分
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">主观题得分：<span
-                                    class="positive-grade">13</span>分
+                                    class="positive-grade"></span>分
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">综合得分：<span class="sum-grade">85</span>分
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">综合得分：<span class="sum-grade"></span>分
                                 </div>
                             </div>
                             <div class="row count">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                                 <div class="ta-r col-lg-4 col-md-4 col-sm-4 col-xs-4">客观题分数已计算完毕</div>
-                                <div class="ta-c col-lg-3 col-md-3 col-sm-3 col-xs-3">共计<span
-                                    class="objective-grade">72</span>分
+                                <div class="ta-c col-lg-3 col-md-3 col-sm-3 col-xs-3">总分 <span
+                                    class="objective-total"></span> 分
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="/cuotibenObjectiveTodayYuwen" class="blue">查看</a></div>
                             </div>
                             <div class="objective-box">
+                                <div class="circle ta-c ic-blue"></div>
+
                             <!--
                                 <div class="row count2">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
@@ -95,8 +110,8 @@
                             <div class="row count3">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                                 <div class="ta-r col-lg-4 col-md-4 col-sm-4 col-xs-4">主观题分数未统计完毕</div>
-                                <div class="ta-c col-lg-3 col-md-3 col-sm-3 col-xs-3">共计 <span
-                                    class="positive-grade">13</span> 分
+                                <div class="ta-c col-lg-3 col-md-3 col-sm-3 col-xs-3">总分 <span
+                                    class="positive-total"></span> 分
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a class="" href="javascript:;"
                                     class="blue">查看</a></div>

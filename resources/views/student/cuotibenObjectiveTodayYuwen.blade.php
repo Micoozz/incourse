@@ -39,27 +39,36 @@
             float:left;
         }
         .question_hpb>li, .answer_hpb>li{
+            margin-bottom:14px;
+            border:1px solid #ccc;
+            position: absolute;
+        }
+        .question_hpb>li>div, .answer_hpb>li>div {
             width:104px;
             min-height:40px;
             line-height: 38px;
             padding: 0 5px;
             text-align: center;
-            margin-bottom:14px;
-            border:1px solid #ccc;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            position: absolute;
             background-color: #fff;
+        }
+        .question_hpb>li>span, .answer_hpb>li>span {
+            position: absolute;
+            top: 9px;
+            color: #777;
+        }
+        .question_hpb>li>span {
+            left: -15px;
+        }
+        .answer_hpb>li>span {
+            right: -15px;
         }
         .box_hpb .active {
             white-space: normal;
             padding: 9px 5px;
             line-height: 20px;
-        }
-        .box_hpb .active-common {
-            background-color: #D8EAFF;
-            border-color:  #A4CEFF;
         }
         .question_hpb>li:last-child,  .answer_hpb>li:last-child{
             margin-bottom:0;
@@ -143,7 +152,7 @@
                         </div>
                         <br/>
                         <div id="cQuestion">
-                            <!--选择题-->
+                        <!--
                             <div class="homework-content">
                                 <p class="question-head">
                                              <span class="order">
@@ -195,8 +204,6 @@
                                     <div>正确答案：<span class="correctAnswer">C</span></div>
                                 </div>
                             </div>
-
-                            <!--简答题-->
                             <div class="homework-content">
                                 <p class="question-head">
 			                        <span class="order">
@@ -306,7 +313,6 @@
 			                        <span class="order">
 			                        6.
 			                        </span>
-                                    <!--问题-->
                                     填空题：《朝花夕拾》原名《<span class="question-blank">空1</span>》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容
                                     ：<span class="question-blank">空2</span>with a machine.
                                 </p>
@@ -330,22 +336,52 @@
                                 <div class="box_hpb">
                                     <div class="line_hpb">
                                         <ul class="question_hpb">
-                                            <li style="top:0;">湖广会馆放到奋斗奋斗方法</li>
-                                            <li style="top:54px;">大妈</li>
-                                            <li style="top:108px;">大嫂</li>
-                                            <li style="top:162px;">哥哥</li>
-                                            <li style="top:216px;">大姨</li>
+                                            <li style="top:0;">
+                                                <span>1</span>
+                                                <div>湖广会馆放到奋斗奋斗方法</div>
+                                            </li>
+                                            <li style="top:54px;">
+                                                <span>2</span>
+                                                <div>大妈</div>
+                                            </li>
+                                            <li style="top:108px;">
+                                                <span>3</span>
+                                                <div>大嫂</div>
+                                            </li>
+                                            <li style="top:162px;">
+                                                <span>4</span>
+                                                <div>哥哥</div>
+                                            </li>
+                                            <li style="top:216px;">
+                                                <span>1</span>
+                                                <div>大姨</div>
+                                            </li>
                                         </ul>
                                         <div class="container_hpb">
                                             <canvas id="canvas1" width="368">您的浏览器暂不支持Canvas！</canvas>
                                             <canvas id="canvas2" width="368">您的浏览器暂不支持Canvas！</canvas>
                                         </div>
                                         <ul class="answer_hpb">
-                                            <li style="top:0;">哥哥</li>
-                                            <li style="top:54px;">大姨</li>
-                                            <li style="top:108px;">大妈</li>
-                                            <li style="top:162px;">大爷</li>
-                                            <li style="top:216px;">大嫂</li>
+                                            <li style="top:0;">
+                                                <span>1</span>
+                                                <div>哥哥</div>
+                                            </li>
+                                            <li style="top:54px;">
+                                                <span>2</span>
+                                                <div>大姨</div>
+                                            </li>
+                                            <li style="top:108px;">
+                                                <span>3</span>
+                                                <div>大妈</div>
+                                            </li>
+                                            <li style="top:162px;">
+                                                <span>4</span>
+                                                <div>大爷</div>
+                                            </li>
+                                            <li style="top:216px;">
+                                                <span>5</span>
+                                                <div>大嫂</div>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -355,6 +391,7 @@
                                     <div>正确答案：<span class="correctAnswer">1:1, 2:2, 3:3</span></div>
                                 </div>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>
