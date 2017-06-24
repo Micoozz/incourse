@@ -123,3 +123,13 @@ $(function(){
 });
 })
 
+$(function(){
+	//路径
+			var str=document.URL;
+		var index = str .lastIndexOf("\/");  
+			str  = str .substring(index + 1, str.length);
+		
+		if(str!='exerciseEditor'){
+		localStorage.pargin=1	
+		}
+})
