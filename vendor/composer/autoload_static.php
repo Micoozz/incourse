@@ -69,6 +69,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         array (
             'League\\Flysystem\\' => 17,
             'Laravel\\Tinker\\' => 15,
+            'Laravel\\Scout\\' => 14,
         ),
         'I' => 
         array (
@@ -198,6 +199,10 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Laravel\\Scout\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/scout/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -305,6 +310,11 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'App\\Models\\Job' => __DIR__ . '/../..' . '/app/Models/Job.php',
         'App\\Models\\Objective' => __DIR__ . '/../..' . '/app/Models/Objective.php',
         'App\\Models\\School' => __DIR__ . '/../..' . '/app/Models/School.php',
+        'App\\Models\\Section' => __DIR__ . '/../..' . '/app/Models/Section.php',
+        'App\\Models\\StuEvaluate' => __DIR__ . '/../..' . '/app/Models/StuEvaluate.php',
+        'App\\Models\\StuFamily' => __DIR__ . '/../..' . '/app/Models/StuFamily.php',
+        'App\\Models\\StuInfo' => __DIR__ . '/../..' . '/app/Models/StuInfo.php',
+        'App\\Models\\StuRewardPunishment' => __DIR__ . '/../..' . '/app/Models/StuRewardPunishment.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
         'App\\Models\\Subjective' => __DIR__ . '/../..' . '/app/Models/Subjective.php',
         'App\\Models\\Work' => __DIR__ . '/../..' . '/app/Models/Work.php',
@@ -320,6 +330,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'CreateCategroy' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_083913_create_categroy.php',
         'CreateCompositive' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_091203_create_compositive.php',
         'CreateCourse' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_074517_create_course.php',
+        'CreateDuty' => __DIR__ . '/../..' . '/database/migrations/2017_06_20_092142_create_section.php',
         'CreateEmEmoccupational' => __DIR__ . '/../..' . '/database/migrations/2017_06_16_133706_create_em_emoccupational.php',
         'CreateEmfamily' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_025323_create_emfamily.php',
         'CreateEminfo' => __DIR__ . '/../..' . '/database/migrations/2017_06_16_113917_create_eminfo.php',
@@ -329,7 +340,11 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'CreateJob' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_070730_create_job.php',
         'CreateObjective' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090902_create_objective.php',
         'CreateSchool' => __DIR__ . '/../..' . '/database/migrations/2017_06_03_064640_create_school.php',
+        'CreateStuRewardPunishment' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_100033_create_stuReward_punishment.php',
         'CreateStudent' => __DIR__ . '/../..' . '/database/migrations/2017_06_03_064715_create_student.php',
+        'CreateStuevaluate' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_101118_create_stuevaluate.php',
+        'CreateStufamily' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_091846_create_stufamily.php',
+        'CreateStuinfo' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_084556_create_stuinfo.php',
         'CreateSubjective' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090844_create_subjective.php',
         'CreateWork' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_071033_create_work.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
@@ -1556,6 +1571,19 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
+        'Laravel\\Scout\\Builder' => __DIR__ . '/..' . '/laravel/scout/src/Builder.php',
+        'Laravel\\Scout\\Console\\FlushCommand' => __DIR__ . '/..' . '/laravel/scout/src/Console/FlushCommand.php',
+        'Laravel\\Scout\\Console\\ImportCommand' => __DIR__ . '/..' . '/laravel/scout/src/Console/ImportCommand.php',
+        'Laravel\\Scout\\EngineManager' => __DIR__ . '/..' . '/laravel/scout/src/EngineManager.php',
+        'Laravel\\Scout\\Engines\\AlgoliaEngine' => __DIR__ . '/..' . '/laravel/scout/src/Engines/AlgoliaEngine.php',
+        'Laravel\\Scout\\Engines\\Engine' => __DIR__ . '/..' . '/laravel/scout/src/Engines/Engine.php',
+        'Laravel\\Scout\\Engines\\NullEngine' => __DIR__ . '/..' . '/laravel/scout/src/Engines/NullEngine.php',
+        'Laravel\\Scout\\Events\\ModelsImported' => __DIR__ . '/..' . '/laravel/scout/src/Events/ModelsImported.php',
+        'Laravel\\Scout\\Jobs\\MakeSearchable' => __DIR__ . '/..' . '/laravel/scout/src/Jobs/MakeSearchable.php',
+        'Laravel\\Scout\\ModelObserver' => __DIR__ . '/..' . '/laravel/scout/src/ModelObserver.php',
+        'Laravel\\Scout\\ScoutServiceProvider' => __DIR__ . '/..' . '/laravel/scout/src/ScoutServiceProvider.php',
+        'Laravel\\Scout\\Searchable' => __DIR__ . '/..' . '/laravel/scout/src/Searchable.php',
+        'Laravel\\Scout\\SearchableScope' => __DIR__ . '/..' . '/laravel/scout/src/SearchableScope.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
         'Laravel\\Tinker\\TinkerServiceProvider' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerServiceProvider.php',
@@ -3208,6 +3236,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'UpdataJob' => __DIR__ . '/../..' . '/database/migrations/2017_06_13_043129_updata_job.php',
         'UpdateEmployee' => __DIR__ . '/../..' . '/database/migrations/2017_06_16_104115_update_employee.php',
+        'UpdateEmployeeDuty' => __DIR__ . '/../..' . '/database/migrations/2017_06_20_095140_update_employee_duty.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',

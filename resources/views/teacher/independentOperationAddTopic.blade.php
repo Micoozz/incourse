@@ -109,92 +109,9 @@
                         </div>
                     </div>
                     <!--已经添加题目的显示效果-->
-                    <div>
-                        <div class="center2">
-                            <div class="row mar_tb">
-                                <div>
-                                    <div class="homework-content">
-                                        <p class="question-head">
-                        <span class="order">
-                            1.
-                        </span>
-                                            <!--问题-->
-                                            秦始皇吞并六国采用了以下哪种算法思想？
-                                        </p>
-
-                                        <form action="" class="select">
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="questionSelect" class="questionSelect"
-                                                           disabled="disabled"
-                                                           value="A"/><span class="select-wrapper"></span>A.
-                                                    <span class="question-content">递归</span>
-                                                </label>
-                                            </div>
-                                            <!--问题字符大小均为14px-->
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="questionSelect" class="questionSelect"
-                                                           checked
-                                                           value="B"/><span class="select-wrapper"></span>B.
-                                                    <span class="question-content">分治</span>
-                                                </label>
-
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="questionSelect" class="questionSelect"
-                                                           disabled="disabled"
-                                                           value="C"/><span class="select-wrapper"></span>C.
-                                                    <span class="question-content">迭代</span>
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" class="questionSelect" name="questionSelect"
-                                                           disabled="disabled"
-                                                           value="D"/><span class="select-wrapper"></span>D.
-                                                    <span class="question-content">模拟</span>
-                                                </label>
-                                            </div>
-                                        </form>
-                                        <div class="line"></div>
-                                        <div class="question-foot">
-                                            <span>你的答案：</span><span class="answerOrder">B</span><span
-                                                class="col-line"></span>
-                                            <div class="blue" style="float: right"><a
-                                                    href="Independent_operation_Add_job_specific_content">修改</a><a
-                                                    href="#" class="blue mar" data-toggle="modal"
-                                                    data-target="#myModal2">撤销</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mar_tb">
-                            <div>
-                                <div class="homework-content">
-                                    <p class="question-head">
-                        <span class="order">
-                            2.
-                        </span>
-                                        <!--问题-->
-                                        简答题：请写出你的头发数量。
-                                    </p>
-
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>正确答案：</span><span
-                                            class="answerOrder">B145416546549846189465584</span><span
-                                            class="col-line"></span>
-                                        <div class="blue" style="float: right"><a
-                                                href="Independent_operation_Add_job_specific_content">修改</a><a
-                                                href="#" class="blue mar" data-toggle="modal"
-                                                data-target="#myModal2">撤销</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class='cate_title'>
+                
+                         </div>
                         <div class="row buttons">
                             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" style="text-indent: 15px;">现在已添加 <span
                                     class="bold">2</span> 题
@@ -206,12 +123,11 @@
                                     继续添加
                                 </button>
                                 <button class="btn btn_s" onclick="window.location='exerciseEditor'">题库选题</button>
-                                <button class="btn btn_s" di="button"
-                                        onclick="window.location='independentOperationAddJobSection'">保存</button>
+                                <button class="btn btn_s" id="button">保存</button>
                                 <button class="btn btn_s" data-toggle="modal" data-target="#myModal">转发</button>
                             </div>
                         </div>
-                    </div>
+   
                     <!--还未添加题目的显示效果-->
                     <div class="empty_add" style="display: none">
                         <h3>作业本空空的，快去<a href="Independent_operation_Add_job_specific_content">添加作业</a>吧！</h3>
@@ -418,14 +334,108 @@
     });
     
     $(function(){
+    	
+			var splits=localStorage.id;
+	 			$.ajax({
+				type:"post",
+				url:"/getExerciseList/1",
+				dataType:'json',
+				data:{'exercise_id':splits,'_token':'{{csrf_token()}}'},
+				success:function(data){
+					console.log(data)
+					var choose;
+					var exercises=data.exercises;
+					for(var i=0;i<exercises.length;i++){
+						if(exercises[i].cate_title=='单选题'){
+								for(var a=0;a<exercises[i].answer.length;a++){
+									choose=exercises[i].answer[a]
+								}						
+								$('.cate_title').append('<div class="center2"><div class="row mar_tb"><div> <div class="homework-content"><p class="question-head"><span class="order" style="display: block;">'+exercises[i].cate_title+'</span>'+exercises[i].subject+'</p><form action="" class="select'+i+'"></form><div class="line"></div>                                        <div class="question-foot">                                            <span>你的答案：</span><span class="answerOrder">'+choose+'</span><span                                                class="col-line"></span> <div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div>                                        </div>                                    </div>                                </div>                           </div>                        </div>')
+						
+						for(var j=0;j<exercises[i].options.length;j++){
+							for(var key in exercises[i].options[j]){
+						$('.select'+i).append('<div class="radio"><label><input type="radio" name="questionSelect" class="questionSelect" disabled="disabled" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content"> '+exercises[i].options[j][key]+' </label></div>')
+							}
+						}						
+					}else if(exercises[i].cate_title=='简答题题'){
+								$('.cate_title').append('<div class="row mar_t work" num="'+exercises[i].id+'"> <div class="row mar_tb"> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line"></div>                                   <div class="question-foot">                                       <span class="blue">你的答案：</span><span class="answerOrder">自由发挥</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
+				}else if(exercises[i].cate_title=='填空题'){	
+						console.log(exercises[i].subject)	
+							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>                           ')
+										for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
+						}
+							
+						}	
+					}else if(exercises[i].cate_title=='多空题'){	
+						console.log(exercises[i].subject)	
+							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
+										for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
+						}
+							
+						}	
+					}else if(exercises[i].cate_title=='多选题'){
+						$('.cate_title').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="title_bj3 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div></div>')					
+						for(var j=0;j<exercises[i].options.length;j++){
+							for(var key in exercises[i].options[j]){
+							$('.selects'+i).append('<div class="radio"><label><input type="checkbox" name="questionSelect" class="questionSelect" disabled="disabled" style="display: none" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content">'+exercises[i].options[j][key]+' </span></label> </div>')
+							}
+						}
+						var nu='';
+						for(var a=0;a<exercises[i].answer.length;a++){
+							nu+=exercises[i].answer[a];
+							$(".answerOrder"+i).text(nu)
+						}
+					}else if(exercises[i].cate_title=='排序题'){				
+								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kink"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders"></span><span                                           class="col-line"></span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
+										
+								for(var j=0;j<exercises[i].options.length;j++){
+								for(var key in exercises[i].options[j]){
+									$('.answerOrders').append('<span>'+key+'</span>')
+								$('.kink').append('<div>'+key+','+exercises[i].options[j][key]+'</div>')
+								}
+							}
+										}else if(exercises[i].cate_title=='判断题'){
+											var answer=exercises[i].answer.toString()=='1'?'对':'错'
+								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kin"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder">'+answer+'</span><span                                           class="col-line"><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
+					}else if(exercises[i].cate_title=='连线题'){
+												$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line kins'+i+'"><div class="linne float"></div><div class="linnes float"></div><div style="clear: both;"></div></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')											
+
+					for(var j=0;j<exercises[i].options.length;j++){
+						for(var b=0;b<exercises[i].options[j].length;b++){
+							for(var key in exercises[i].options[j][b]){
+					$('.kins'+i+'>.linne').append('<div>'+key+'， '+exercises[i].options[j][b][key]+'</div>')
+					$('.answerOrders'+i).append('<span>'+key+'-'+key+'|</span>')
+							}
+						}
+						}	
+						
+						
+					for(var jj=0;jj<exercises[i].answer.length;jj++){
+						for(var b=0;b<exercises[i].answer[jj].length;b++){
+							$('.kins'+i+'>.linnes').append('<div>'+(b+1)+'， '+exercises[i].answer[jj][b]+'</div>')
+						}
+							
+						}											
+										}		
+				}
+				}
+			});
+    	
     	$('#button').click(function(){
+    		console.log('a')
 	 			$.ajax({
 				type:"post",
 				url:"/createJob",
 				dataType:'json',
 				data:{'course':localStorage.course,type:localStorage.type,'score':localStorage.score,'exercise_id':localStorage.exerciseid,'deadline':localStorage.deadline,'title':localStorage.title,'_token':'{{csrf_token()}}'},
 				success:function(data){
-					console.log(data)
+					localStorage.setItem('issue',0)
+					localStorage.removeItem('id')
+					window.location.href='/independentOperationAddJobSection'
 				}
 			});	   		
     	})
