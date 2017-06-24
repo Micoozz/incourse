@@ -18,7 +18,7 @@ class ExerciseController extends Controller
         $limit = ($page-1)*5;
         $exercise_all = Exercises::where('course_id',$course);
         $pageLength = intval($exercise_all->count()/5)+1;
-        $exercise_list = Exercises::skip($limit)->take(5)->get();
+        $exercise_list = Exercises::where('course_id',$course)->skip($limit)->take(5)->get();
         $data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_list as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;

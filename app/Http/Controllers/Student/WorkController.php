@@ -61,7 +61,7 @@ class WorkController extends Controller
         $user = Auth::guard('student')->user();
         $work_all = Work::where(['student_id' => $user->id,'course_id' => $course])->get();
         $pageLength = intval($work_all->count()/10)+1;
-        $work_list = Work::where('student_id',$user->id)->skip($limit)->take(10)->get();
+        $work_list = Work::where(['student_id' => $user->id,'course_id' => $course])->skip($limit)->take(10)->get();
         $data = array('total' => $work_all->count(),'pageLength' => $pageLength,'works' => array());
         foreach ($work_list as $work) {
             array_push($data['works'],array(
