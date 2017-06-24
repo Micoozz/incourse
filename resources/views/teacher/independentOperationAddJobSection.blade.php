@@ -372,7 +372,7 @@
 			
 			//发布
 	var colligate={
-			course:'',
+			course:'1',
 			score:'',
 			title:'',
 			type:'1',

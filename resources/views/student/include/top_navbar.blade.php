@@ -5,7 +5,6 @@
         <li class="offt">语文</li>
   			<li>数学</li>
   			<li>英语</li>
-  			<li>添加课程</li>
   		</ul>
   	</div>
   	<div class="col-md-6"></div>

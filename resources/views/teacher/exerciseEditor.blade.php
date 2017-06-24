@@ -49,11 +49,8 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li>
-                        <a href="create-class.html">+创建班级</a>
-                    </li>
-                    <li>一年一班语文</li>
-                    <li>二年一班音乐</li>
+
+                    <li class="topic">一年一班语文</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -210,17 +207,15 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx" class="xxxx">
                                 <!--简答题板块-->
                                 <div class="end" id="div1">
@@ -424,17 +419,15 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx">
                             </div>
                             <div class="button" style="width: 36%;margin: 0 auto;">
@@ -459,17 +452,16 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>                
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
+
                             <div id="xxx" class="xxxxx">
                                 <!--简答题板块-->
                                 <div class="end div1" id="div1">
@@ -897,7 +889,7 @@
 			$('.pagination>li').remove();
 	$.ajax({
 		type:"get",
-		url:"/showExerciseList/"+localStorage.pargin,
+		url:"/showExerciseList/1/"+localStorage.pargin,
 		dataType:'json',
 		success:function(data){
 			console.log(data)
@@ -910,15 +902,14 @@
 			for(var o=0;o<pageLength;o++){			
 				sessionStorage.setItem('pagin',(o+1))
 				if(o<5){
+					five=o;
 					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
 				}
 				else if(o==6){
 					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
 				}else{}
-				five=o;
 			}
-			
-			
+			console.log(five)
 			$('.pagination>li').eq(five+1).find('i').attr('class','five');
 			$('.pagination>li').eq(1).find('i').attr('class','zero');
 			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
@@ -1161,8 +1152,7 @@ function removeByValue(arr, val) {
 		$('#subject>select').change(function(){
 			Object.account=$(this).val()
 		})
-		
-		
+
 		$('.types').change(function(){
 			Object.types=$(this).val()
 		})
@@ -1186,7 +1176,7 @@ function removeByValue(arr, val) {
 		
 		
 		
-		
+				console.log(Object.account)
 		
 	$('.button_frb').click(function(){	
 		var grade=$("#grade").val();
@@ -1273,7 +1263,6 @@ function removeByValue(arr, val) {
 			Object.result=Object.result.join(',')
 			console.log(Object.arrys)
 		}
-		
 		var datas;
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
