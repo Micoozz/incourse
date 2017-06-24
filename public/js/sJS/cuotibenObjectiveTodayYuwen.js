@@ -2,7 +2,13 @@ $(function(){
 	//点亮顶部导航和左侧导航栏对应项
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
-
+    var course = sessionStorage.getItem("inCourse-course");
+    $("#cent_nav ul>li").each(function(){
+        if($(this).text() === course) {
+            $("#cent_nav ul>li").removeClass("offt");
+            $(this).addClass("offt");
+        }
+    });
 	
 	const id = sessionStorage.getItem("homeworkId");
 	var lxt_options = 0;  //保存连线题的对数
@@ -134,7 +140,8 @@ $(function(){
                                     <div>你的答案：\
                                         <span class="' + (px_myAnswer === "1,2,3,4" ? "correctAnswer" : "answer-users" ) +'">' + px_myAnswer + '</span>\
                                     </div>\
-                                    <div>正确答案：<span class="correctAnswer">' + px_correctAnswer + '1,2,3,4</span></div>\
+                                    <div>正确答案：\
+                                        <span class="correctAnswer">' + px_correctAnswer + '1,2,3,4</span></div>\
                                 </div>\
                             </div>';
 			}else if(child.cate_title === "连线题") {

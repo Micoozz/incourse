@@ -16,12 +16,13 @@ $(function(){
 	const id = sessionStorage.getItem("homeworkId");
 	$.get("/showScore/" + id).success(function(data){
 		var data = JSON.parse(data);
-
+		console.log(data);
+		
 		$(".objective-grade, .objective-box .circle").text(data.objective.score);  //客观题总分
 		$(".positive-grade").text(data.subjective.score);    //主观题总分
 		$(".sum-grade").text(data.score);    //综合得分
 		$(".objective-total").text(data.objective.total);
-		$(".positive-total").text(data.positive.total);
+		$(".positive-total").text(data.subjective.total);
 
 /*
 		var objective = "";

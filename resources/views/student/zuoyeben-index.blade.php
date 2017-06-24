@@ -1175,6 +1175,9 @@ function compositionFunc(){
                 dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li>div").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
             }
         }
+        if(!$("#canvas1")[0]) {
+            return;
+        }
         var ctx1=$("#canvas1")[0].getContext("2d");
         var ctx2=$("#canvas2")[0].getContext("2d");
         var pos={
