@@ -8,9 +8,9 @@
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework-2.css"/>
-    <link rel="stylesheet" href="css/classActivity.css">
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework-2.css"/>
+    <link rel="stylesheet" href="css/sCSS/classActivity.css">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
@@ -37,7 +37,7 @@
                     <div class="row center1">
                         <div class="col-md-2 col-xs-4"></div>
                         <div class="col-md-8 col-xs-4" id="col">语文</div>
-                        <div class="col-md-2 col-xs-4" style="display: none;">收藏夹</div>
+                        <div class="col-md-2 col-xs-4"></div>
                     </div>
                     <div class="order row form-group">
                         <span style="position: relative;top:4px">排序：</span>

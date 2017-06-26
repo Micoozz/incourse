@@ -1,14 +1,12 @@
-//单人作业
+//单人作业弹出模态框
 $(function(){
 	$(".q-block-trigger").click(function(){
-		$("#f-modal").fadeIn();
-		$("#answerInput").fadeIn();
+		$("#f-modal, #answerInput").fadeIn();
 	})
 })
 $(function(){
 	$(".answerInput-close").click(function(){
-		$("#answerInput").fadeOut();
-		$("#f-modal").fadeOut();
+		$("#answerInput, #f-modal").fadeOut();
 	})
 })
 

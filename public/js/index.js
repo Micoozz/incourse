@@ -6,9 +6,14 @@
 	//标签页切换
 	$(function(){
 $('#nav1>li>a').click(function(){
-		$('#nav1>li>a').removeClass('box');
-		$(this).addClass("box");
+	localStorage.boxs=1
+		localStorage.clas=$(this).attr('num')
 })
+if(localStorage.boxs=='1'){
+	$('#nav1>li>a').removeClass('box');
+	$('[num='+localStorage.clas+']').addClass('box')
+	console.log($('num['+localStorage.clas+']'))
+}
 	});
 $(function(){
 	$('#QQ>ul>li').click(function(){
@@ -118,31 +123,13 @@ $(function(){
 });
 })
 
-/* 点亮顶部导航和左侧导航对应的标签 */
 $(function(){
-	$(".head_nav>li a").click(function(){
-		const txt = $(this).text();
-		sessionStorage.setItem("InCourse-state-top",txt);
-		sessionStorage.removeItem("InCourse-state-left");
-	});
-	
-	$("#nav1>li>a").click(function(){
-		const txt = $(this).text();
-		sessionStorage.setItem("InCourse-state-left",txt);
-	});
-	
-	const top_txt = sessionStorage.getItem("InCourse-state-top") || "学校首页";
-	const left_txt = sessionStorage.getItem("InCourse-state-left") || "作业管理";
-	$(".head_nav>li a").removeClass("blue");
-	$("#nav1>li>a").removeClass("box");
-	$(".head_nav>li a").map(function(){
-		if($(this).text() === top_txt) {
-			$(this).addClass("blue");
+	//路径
+			var str=document.URL;
+		var index = str .lastIndexOf("\/");  
+			str  = str .substring(index + 1, str.length);
+		
+		if(str!='exerciseEditor'){
+		localStorage.pargin=1	
 		}
-	});
-	$("#nav1>li>a").map(function(){
-		if($(this).text() === left_txt) {
-			$(this).addClass("box");
-		}
-	});
-});
+})

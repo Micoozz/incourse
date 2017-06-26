@@ -101,7 +101,6 @@ class ExerciseController extends Controller
     
     public function createExercise(){
         $input = Input::get();
-        dd($input);
         $user = Auth::guard('employee')->user();
         $time = time();
         $code = 200;

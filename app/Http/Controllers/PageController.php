@@ -110,4 +110,7 @@ class PageController extends Controller
     public function singleWorkViewjob(){
     	return view('teacher.singleWorkViewjob');
     }
+    public function cuotibenObjectiveTodayYuwen(){
+        return view('student.cuotibenObjectiveTodayYuwen');
+    }
 }

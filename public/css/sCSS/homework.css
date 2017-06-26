@@ -789,7 +789,9 @@ a {
 
 
 /*报错*/
-
+#cQuestion {
+	margin-top: 36px;
+}
 .homework-content {
 	font-size: 14px;
 }
@@ -1871,6 +1873,7 @@ a {
 	color: #168BEE;
 	text-align: center;
 	padding-top: 4px;
+	margin-right: 5px;
 	outline: none;
 	border: none;
 	overflow: hidden;
@@ -1889,6 +1892,7 @@ a {
 	color: #168BEE;
 	text-align: center;
 	padding-top: 4px;
+	margin-right: 5px;
 	outline: none;
 	border: none;
 	/*	overflow: hidden;*/

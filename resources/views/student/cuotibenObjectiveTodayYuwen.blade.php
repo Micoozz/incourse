@@ -7,19 +7,106 @@
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework-2.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework-style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework-2.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework-style.css"/>
+    <style>
+        /********** 连线题 ***********/
+        .box_hpb{
+            margin:0;
+            padding:0;
+            width:472px;
+            margin:21px auto;
+        }
+        .box_hpb * {
+            margin:0;
+            padding:0;
+        }
+        .box_hpb ul, .box_hpb ol {
+            list-style:none;
+            width: 104px;
+        }
+        .line_hpb{
+            width:472px;
+            position:relative;
+        }
+        .line_hpb:after{
+            content:"";
+            clear:both;
+            display:table;
+        }
+        .question_hpb, .container_hpb {
+            float:left;
+        }
+        .question_hpb>li, .answer_hpb>li{
+            width:104px;
+            min-height:40px;
+            line-height: 38px;
+            padding: 0 5px;
+            text-align: center;
+            margin-bottom:14px;
+            border:1px solid #ccc;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            position: absolute;
+            background-color: #fff;
+        }
+        .box_hpb .active {
+            white-space: normal;
+            padding: 9px 5px;
+            line-height: 20px;
+        }
+        .box_hpb .active-common {
+            background-color: #D8EAFF;
+            border-color:  #A4CEFF;
+        }
+        .question_hpb>li:last-child,  .answer_hpb>li:last-child{
+            margin-bottom:0;
+        }
+        .container_hpb{
+            width:300px;
+            position:relative;
+        }
+        .container_hpb>canvas{
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        #canvas1{
+            z-index:10;
+        }
+        #canvas2{
+            z-index:50;
+        }
+        .answer_hpb{
+            position:absolute;
+            right:0;
+            top:0;
+            z-index:70;
+        }
+        .btn_hpb{
+            margin-top:10px;
+        }
+        .btn_hpb>button{
+            padding:2px 20px 2px 2px;
+            border-radius: 2px;
+            color:#168bee;
+            float: right;
+            background: url(images/homework/subject/cancel.png) no-repeat right center;
+            border:none;
+        }
+
+        /* 连线题 */
+        .homework-content .lianXianTi-padding {
+            padding-left: 50px;
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <script src="js/selectivizr.js"></script>
     <![endif]-->
-    <style type="text/css">
-        .false-homework-content {
-            margin-top: 40px;
-        }
-    </style>
 </head>
 <body>
 <div class="navbar">
@@ -42,8 +129,8 @@
                         <div class="col-md-2 col-xs-4">
                             <a class="return-fyg pointer" onclick="window.history.go(-1);"></a>
                         </div>
-                        <div class="col-md-8 col-xs-4" id="col">今日错题</div>
-                        <div class="col-md-2 col-xs-4" style="display: none;">收藏夹</div>
+                        <div class="col-md-8 col-xs-4" id="col">客观题</div>
+                        <div class="col-md-2 col-xs-4"></div>
                     </div>
                     <div class="wrong">
                         <div class="falseHead">
@@ -57,12 +144,11 @@
                         <br/>
                         <div id="cQuestion">
                             <!--选择题-->
-                            <div class="homework-content false-homework-content">
+                            <div class="homework-content">
                                 <p class="question-head">
                                              <span class="order">
                                                   1.
                                              </span>
-                                    <!--问题-->
                                     下列各词组中加点字的读音，与所给的注音完全相同的一组是
                                 </p>
                                 <form action="" class="select" id="myForm">
@@ -75,7 +161,6 @@
                                                         class="dot">着</span>急</span>
                                         </label>
                                     </div>
-                                    <!--问题字符大小均为14px-->
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="questionSelect" class="questionSelect" value="B"/><span
@@ -117,10 +202,9 @@
 			                        <span class="order">
 			                            2.
 			                        </span>
-                                    <!--问题-->
                                     填空题：根据拼音填汉字。
                                 </p>
-                                <form action="" class="" id="">
+                                <form>
 			                        <span class="input-block">
 			                        	<span class="input-wrap">收liǎn（<input type="text" class="input-single"
                                                                               maxlength="1"/>）</span>
@@ -140,10 +224,22 @@
                             </div>
                             <div class="homework-content">
                                 <p class="question-head">
+                                    <span class="order">
+                                        3.
+                                    </span>
+                                    判断题：1 + 1 = 3。
+                                </p>
+                                <div class="line"></div>
+                                <div class="question-foot" style="margin-top: 5px;">
+                                    <div>你的答案：<span class="falseAnswer">错</span></div>
+                                    <div>正确答案：<span class="correctAnswer">对</span></div>
+                                </div>
+                            </div>
+                            <div class="homework-content">
+                                <p class="question-head">
 			                        <span class="order">
-			                            3.
+			                            4.
 			                        </span>
-                                    <!--问题-->
                                     多选题：下列出自姜夔的《暗香》的有：
                                 </p>
                                 <form action="" class="select" id="myForm">
@@ -155,7 +251,6 @@
                                             <span class="question-content">人而全真,全不复有初矣</span>
                                         </label>
                                     </div>
-                                    <!--问题字符大小均为14px-->
                                     <div class="radio">
                                         <label>
                                             <input type="checkbox" name="questionMultiSelect"
@@ -190,9 +285,8 @@
                             <div class="homework-content">
                                 <p class="question-head">
 			                        <span class="order">
-			                            4.
+			                            5.
 			                        </span>
-                                    <!--问题-->
                                     排序题：请给下列句子排序：
                                 <div class="questionOrderContent">
                                     ①当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花。<br/>②不久，它从泥土里探出了小脑袋，渐渐地，种子变成了嫩芽。<br/>③从此，它变得沉默，只有它知道它在努力，它在默默地汲取土壤中的养料。
@@ -210,10 +304,10 @@
                             <div class="homework-content">
                                 <p class="question-head">
 			                        <span class="order">
-			                        5.
+			                        6.
 			                        </span>
                                     <!--问题-->
-                                    填空题：填空题：《朝花夕拾》原名《<span class="question-blank">空1</span>》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容
+                                    填空题：《朝花夕拾》原名《<span class="question-blank">空1</span>》,是鲁迅的回忆性散文集,请简介一下其中的一篇（课内学过的除外）的主要内容
                                     ：<span class="question-blank">空2</span>with a machine.
                                 </p>
                                 <div class="line"></div>
@@ -224,6 +318,41 @@
 			                    		<span class="answer-users">朝花惜拾</span>
 			                    	</span>
                                     <div>正确答案：<span class="correctAnswer">朝花惜拾</span></div>
+                                </div>
+                            </div>
+                            <div class="homework-content">
+                                <p class="question-head">
+                                    <span class="order">
+                                        7.
+                                    </span>
+                                    连线题：下列连线。
+                                </p>
+                                <div class="box_hpb">
+                                    <div class="line_hpb">
+                                        <ul class="question_hpb">
+                                            <li style="top:0;">湖广会馆放到奋斗奋斗方法</li>
+                                            <li style="top:54px;">大妈</li>
+                                            <li style="top:108px;">大嫂</li>
+                                            <li style="top:162px;">哥哥</li>
+                                            <li style="top:216px;">大姨</li>
+                                        </ul>
+                                        <div class="container_hpb">
+                                            <canvas id="canvas1" width="368">您的浏览器暂不支持Canvas！</canvas>
+                                            <canvas id="canvas2" width="368">您的浏览器暂不支持Canvas！</canvas>
+                                        </div>
+                                        <ul class="answer_hpb">
+                                            <li style="top:0;">哥哥</li>
+                                            <li style="top:54px;">大姨</li>
+                                            <li style="top:108px;">大妈</li>
+                                            <li style="top:162px;">大爷</li>
+                                            <li style="top:216px;">大嫂</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <div class="question-foot" style="margin-top: 5px;">
+                                    <div>你的答案：<span class="falseAnswer">1:3, 2:1, 3:2</span></div>
+                                    <div>正确答案：<span class="correctAnswer">1:1, 2:2, 3:3</span></div>
                                 </div>
                             </div>
                         </div>
@@ -319,9 +448,11 @@
 <script src="js/jquery-1.12.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<script src="js/homework-content.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/fenye.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/password.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/fenye.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/inCourse.js"></script>
+<script src="js/sJS/cuotibenObjectiveTodayYuwen.js"></script>
 
 <script type="text/javascript">
     $(function () {

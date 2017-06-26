@@ -26,36 +26,7 @@
 </head>
 <body>
 <div class="navbar">
-    <div>
-        <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
-            <b>湖南工程学院</b>
-        </div>
-        <ul class="nav head_nav">
-            <li class="schoolMain">
-                <a href="/media">学校首页</a>
-                <div>
-                    <a href="/relateToMe">@与我相关</a>
-                </div>
-            </li>
-            <li><a href="Arrangement_work(homepage)" class="blue">学习中心</a></li>
-            <li><a href="classSpace111">班级中心</a></li>
-            <!--<li><a href="javascript:;">交易中心</a></li>-->
-            <li class="affix">
-                <a href="javascript:;"><img src="images/01.png"/></a>
-            </li>
-            <li class="personCenter"><a href="javascript:;">个人中心</a>
-                <div class="cent">
-                    <a href="class">分析中心</a>
-                    <a href="老师成绩单1">学习生活记录</a>
-                    <a href="teacherPersonData">个人信息</a>
-                </div>
-            </li>
-            <li><a href="/logout" class="blue">退出</a></li>
-        </ul>
-
-    </div>
+@include('teacher.header.head_Tea')
 </div>
 <!--
     作者offline
@@ -86,17 +57,7 @@
             <div class="row">
                 <!--左侧栏-->
                 <div class="col-xs-12 " id="left">
-                    <ul class="nav1 nav" id="nav1">
-                         <li><a href="arrangementWork" class="box">作业管理</a></li>
-                        <li><a href="exerciseEditor">习题库</a></li>
-                        <li><a href="data">资料库</a></li>
-                        <li><a href="duty_arrange">班级管理</a></li>
-                        <li><a href="classindex">成绩管理</a></li>
-                        <li style="padding: 0"><a href="class-outline" data-step="3"
-                                                  data-intro="添加对应班级的课程大纲">课程大纲</a>
-                        </li>
-                        <li><a href="A_classroom_courseware_111">课堂课件</a></li>
-                    </ul>
+@include('teacher.header.left_nav')
                 </div>
                 <!--内容-->
                 <div class="col-xs-12 col-sm-12" id="centery">
@@ -118,13 +79,13 @@
                             </div>
                             <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9 fourbtn_frbs">
 
-                                <button class="btn btn_s"
+                                <!--<button class="btn btn_s"
                                         onclick="window.location='independentOperationAddJobSpecificContent'">
                                     继续添加
-                                </button>
+                                </button>-->
                                 <button class="btn btn_s" onclick="window.location='exerciseEditor'">题库选题</button>
                                 <button class="btn btn_s" id="button">保存</button>
-                                <button class="btn btn_s" data-toggle="modal" data-target="#myModal">转发</button>
+                                <!--<button class="btn btn_s" data-toggle="modal" data-target="#myModal">转发</button>-->
                             </div>
                         </div>
    
@@ -350,18 +311,18 @@
 								for(var a=0;a<exercises[i].answer.length;a++){
 									choose=exercises[i].answer[a]
 								}						
-								$('.cate_title').append('<div class="center2"><div class="row mar_tb"><div> <div class="homework-content"><p class="question-head"><span class="order" style="display: block;">'+exercises[i].cate_title+'</span>'+exercises[i].subject+'</p><form action="" class="select'+i+'"></form><div class="line"></div>                                        <div class="question-foot">                                            <span>你的答案：</span><span class="answerOrder">'+choose+'</span><span                                                class="col-line"></span> <div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div>                                        </div>                                    </div>                                </div>                           </div>                        </div>')
+								$('.cate_title').append('<div class="center2"><div class="row mar_tb"><div> <div class="homework-content"><p class="question-head"><span class="order" style="display: block;">'+exercises[i].cate_title+'</span>'+exercises[i].subject+'</p><form action="" class="select'+i+'"></form><div class="line"></div>                                        <div class="question-foot">                                            <span>你的答案：</span><span class="answerOrder">'+choose+'</span><span                                                class="col-line"></span> <div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div>                                        </div>                                    </div>                                </div>                           </div>                        </div>')
 						
 						for(var j=0;j<exercises[i].options.length;j++){
 							for(var key in exercises[i].options[j]){
 						$('.select'+i).append('<div class="radio"><label><input type="radio" name="questionSelect" class="questionSelect" disabled="disabled" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content"> '+exercises[i].options[j][key]+' </label></div>')
 							}
 						}						
-					}else if(exercises[i].cate_title=='简答题题'){
-								$('.cate_title').append('<div class="row mar_t work" num="'+exercises[i].id+'"> <div class="row mar_tb"> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line"></div>                                   <div class="question-foot">                                       <span class="blue">你的答案：</span><span class="answerOrder">自由发挥</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
+					}else if(exercises[i].cate_title=='简答题'){
+								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line"></div>                                   <div class="question-foot">                                       <span class="blue">你的答案：</span><span class="answerOrder">自由发挥</span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
 				}else if(exercises[i].cate_title=='填空题'){	
 						console.log(exercises[i].subject)	
-							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>                           ')
+							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>                           ')
 										for(var jj=0;jj<exercises[i].answer.length;jj++){
 						for(var b=0;b<exercises[i].answer[jj].length;b++){
 							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
@@ -370,7 +331,7 @@
 						}	
 					}else if(exercises[i].cate_title=='多空题'){	
 						console.log(exercises[i].subject)	
-							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
+							$('.cate_title').append('<div class="row mar_tb mar_t" num="'+exercises[i].id+'"> <div class="homework-content"> <h4 class="title_bj2 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')
 										for(var jj=0;jj<exercises[i].answer.length;jj++){
 						for(var b=0;b<exercises[i].answer[jj].length;b++){
 							$('.answerOrders'+i).append('<span>'+exercises[i].answer[jj][b]+'</span>')
@@ -378,7 +339,7 @@
 							
 						}	
 					}else if(exercises[i].cate_title=='多选题'){
-						$('.cate_title').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="title_bj3 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div></div>')					
+						$('.cate_title').append(' <div class="row mar_tb mar_t" num="'+exercises[i].id+'"><div class="homework-content"><p class="question-head"><span class="order"></span><h4 class="title_bj3 xz'+i+'">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'     </p><form action="" class="selects'+i+'"> </form> <div class="line"></div> <div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder'+i+'"></span><span class="answerOrder" style="color:#ccc">|</span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div></div>')					
 						for(var j=0;j<exercises[i].options.length;j++){
 							for(var key in exercises[i].options[j]){
 							$('.selects'+i).append('<div class="radio"><label><input type="checkbox" name="questionSelect" class="questionSelect" disabled="disabled" style="display: none" value="A"/><span class="select-wrapper"></span>'+key+'，<span class="question-content">'+exercises[i].options[j][key]+' </span></label> </div>')
@@ -390,7 +351,7 @@
 							$(".answerOrder"+i).text(nu)
 						}
 					}else if(exercises[i].cate_title=='排序题'){				
-								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kink"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders"></span><span                                           class="col-line"></span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
+								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kink"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders"></span><span                                           class="col-line"></span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
 										
 								for(var j=0;j<exercises[i].options.length;j++){
 								for(var key in exercises[i].options[j]){
@@ -400,9 +361,9 @@
 							}
 										}else if(exercises[i].cate_title=='判断题'){
 											var answer=exercises[i].answer.toString()=='1'?'对':'错'
-								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kin"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder">'+answer+'</span><span                                           class="col-line"><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
+								$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><p class="question-head"><span class="order"> </span><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'</p><div class="line kin"></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrder">'+answer+'</span><span                                           class="col-line"><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')						
 					}else if(exercises[i].cate_title=='连线题'){
-												$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line kins'+i+'"><div class="linne float"></div><div class="linnes float"></div><div style="clear: both;"></div></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><div class="blue" style="float: right"><a href="Independent_operation_Add_job_specific_content">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')											
+												$('.cate_title').append('<div class="row mar_t mar_tb" num="'+exercises[i].id+'"> <div> <div class="homework-content"><h4 class="xz'+i+' question-types title_bj4">'+exercises[i].cate_title+'</h4>'+exercises[i].subject+'<div class="line kins'+i+'"><div class="linne float"></div><div class="linnes float"></div><div style="clear: both;"></div></div><div class="question-foot"><span class="blue">你的答案：</span><span class="answerOrders'+i+'"></span><div class="blue" style="float: right"><a href="">修改</a><a href="#" class="blue mar" data-toggle="modal" data-target="#myModal2">撤销</a></div></div>')											
 
 					for(var j=0;j<exercises[i].options.length;j++){
 						for(var b=0;b<exercises[i].options[j].length;b++){
@@ -421,8 +382,11 @@
 							
 						}											
 										}		
+										    	//题目个数
+	$('.bold').text($('.cate_title>div').size())
 				}
 				}
+				
 			});
     	
     	$('#button').click(function(){

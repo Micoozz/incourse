@@ -1,0 +1,63 @@
+/* 颜色相关 */
+.fff {
+	color: #fff;
+}
+.ic-blue {
+	color: #168bee;
+}
+.orange {
+	color: #FFD656;
+}
+.red {
+	color: red;
+}
+
+.gray-bg {
+	background-color: #F1F1F1;
+}
+.black-bg {
+	background-color: #444547;
+}
+.ic-blue-bg {
+	background-color: #168bee;
+}
+.btn-hover-bg {
+	background-color: #1681DC;
+}
+
+/* 位置相关 */
+.p-r {
+	position: relative;
+}
+.p-a {
+	position: absolute;
+}
+.p-f {
+	position: fixed;
+}
+.ta-c {
+	text-align: center;
+}
+.ta-r {
+	text-align: right;
+}
+.f-l {
+	float: left;
+}
+.f-r {
+	float: right;
+}
+.clear:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+
+/* 鼠标指针相关 */
+.c-p {
+	cursor: pointer;
+}
+
+
+
