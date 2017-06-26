@@ -40,18 +40,31 @@
             float:left;
         }
         .question_hpb>li, .answer_hpb>li{
+            margin-bottom:14px;
+            border:1px solid #ccc;
+            position: absolute;
+        }
+        .question_hpb>li>div, .answer_hpb>li>div {
             width:104px;
             min-height:40px;
             line-height: 38px;
             padding: 0 5px;
             text-align: center;
-            margin-bottom:14px;
-            border:1px solid #ccc;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            position: absolute;
             background-color: #fff;
+        }
+        .question_hpb>li>span, .answer_hpb>li>span {
+            position: absolute;
+            top: 9px;
+            color: #777;
+        }
+        .question_hpb>li>span {
+            left: -15px;
+        }
+        .answer_hpb>li>span {
+            right: -15px;
         }
         .box_hpb .active {
             white-space: normal;
@@ -658,7 +671,16 @@ $(function(){
     //点亮顶部导航和左侧导航栏对应项
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
-
+    var course = sessionStorage.getItem("inCourse-course");
+    if(course) {
+        $("#col").text(course);
+    }
+    $("#cent_nav ul>li").each(function(){
+        if($(this).text() === course) {
+            $("#cent_nav ul>li").removeClass("offt");
+            $(this).addClass("offt");
+        }
+    });
 
 
     var id = sessionStorage.getItem("homeworkId"); //保存是作业几
@@ -840,11 +862,11 @@ $(function(){
                 const Height = 54;
                 item.options.forEach(function(k,i){
                     for(var key in k) {
-                        lxt_left += '<li style="top:' + 54*i + 'px;">' + k[key] + '</li>';
+                        lxt_left += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k[key] + '</div></li>';
                     }
                 });
                 item.answer.forEach(function(k,i){
-                    lxt_right += '<li style="top:' + 54*i + 'px;">' + k + '</li>';
+                    lxt_right += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k + '</div></li>';
                 });
 
                 html += '<div class="homework-content" data-type="连线题" data-id="' + item.id+ '">\
@@ -878,7 +900,7 @@ $(function(){
                             </p>\
                             <div class="line"></div>\
                             <div class="question-foot">\
-                                <a class="hover-blue jianDaTi" href="javascript:;">点击输入答案</a>\
+                                <a class="hover-blue jianDaTi jianDaTi' + item.id + '" href="javascript:;">点击输入答案</a>\
                                 <span class="col-line"></span>\
                                 <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
                                     <span class="question-fault">报错</span>\
@@ -999,7 +1021,9 @@ function jianDaTiFunc(){
     //保存
     $("#jianDaTi-save").click(function(){
         obj[current] = $(".jianDaTi-txar").val();
+        console.log(Boolean(obj[current]))
         $("#f-modal, .jianDaTi-modal").fadeOut();
+        $(".jianDaTi" + current).text(obj[current] ? "编辑答案" : "点击输入答案");
     });
 }
 
@@ -1148,8 +1172,11 @@ function compositionFunc(){
             dist.answer=[];
             for(var i=0; i<$(".question_hpb>li").length; i++){
                 dist.question.push({"x":0,"y":dist.y1+i*dist.D,"can":"yes"});
-                dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
+                dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li>div").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
             }
+        }
+        if(!$("#canvas1")[0]) {
+            return;
         }
         var ctx1=$("#canvas1")[0].getContext("2d");
         var ctx2=$("#canvas2")[0].getContext("2d");
@@ -1175,7 +1202,7 @@ function compositionFunc(){
             }
         });
         //字数超过6个的LI被hover时的效果
-        $(".question_hpb>li, .answer_hpb>li").hover(function(){
+        $(".question_hpb>li>div, .answer_hpb>li>div").hover(function(){
             if($(this).text().length >= 6) {
                 $(this).addClass("active");
             }
@@ -1252,11 +1279,12 @@ function compositionFunc(){
             }
             changeToAnswer(exist);
         });
+
         //连线题答案格式化并输出
         function changeToAnswer(exist) {
             //var answer = {}      保存连线题的答案 
             var answer = [];      //保存连线题的答案
-            console.log(exist);
+            // console.log(exist);
             exist.forEach(function(item){
                 // answer[item.start+1] = item.end+1;
                 answer.push((item.start+1) + ":" +　(item.end+1));

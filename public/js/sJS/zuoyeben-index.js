@@ -3,7 +3,8 @@ $(function(){
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
 
-    
+
+
     var id = sessionStorage.getItem("homeworkId"); //保存是作业几
     var current = 0;  //保存当前题号
     var lxt_options = 0;  //保存连线题的对数
@@ -183,11 +184,11 @@ $(function(){
                 const Height = 54;
                 item.options.forEach(function(k,i){
                     for(var key in k) {
-                        lxt_left += '<li style="top:' + 54*i + 'px;">' + k[key] + '</li>';
+                        lxt_left += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k[key] + '</div></li>';
                     }
                 });
-                item.answer[0].forEach(function(k,i){
-                    lxt_right += '<li style="top:' + 54*i + 'px;">' + k + '</li>';
+                item.answer.forEach(function(k,i){
+                    lxt_right += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k + '</div></li>';
                 });
 
                 html += '<div class="homework-content" data-type="连线题" data-id="' + item.id+ '">\
@@ -221,7 +222,7 @@ $(function(){
                             </p>\
                             <div class="line"></div>\
                             <div class="question-foot">\
-                                <a class="hover-blue jianDaTi" href="javascript:;">点击输入答案</a>\
+                                <a class="hover-blue jianDaTi jianDaTi' + item.id + '" href="javascript:;">点击输入答案</a>\
                                 <span class="col-line"></span>\
                                 <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
                                     <span class="question-fault">报错</span>\
@@ -313,7 +314,7 @@ $(function(){
         console.log(obj)
         $.post("subWork",param).success(function(data){
            if(data === "200") {
-               window.location.href='/danrenzuoye-chengji';
+                window.location.href='/danrenzuoye-chengji';
            }
         });
     });
@@ -342,7 +343,9 @@ function jianDaTiFunc(){
     //保存
     $("#jianDaTi-save").click(function(){
         obj[current] = $(".jianDaTi-txar").val();
+        console.log(Boolean(obj[current]))
         $("#f-modal, .jianDaTi-modal").fadeOut();
+        $(".jianDaTi" + current).text(obj[current] ? "编辑答案" : "点击输入答案");
     });
 }
 
@@ -354,9 +357,18 @@ function compositionFunc(){
 
     $(".exercise-box").on("click",".zuoWenTi",function(){
         current = $(this).parents(".homework-content").attr("data-id");
-        if(obj[current]) {
-            $(".answerInput .title").val(obj[current].title);
-            $("#composition").val(obj[current].content);
+        var comp_text = obj[current];
+        var ifPhoto_reg = /^data:image\/jpeg;base64/; 
+        if(comp_text && !ifPhoto_reg.test(comp_text)) {
+            // $(".answerInput .title").val(comp_text.title);
+            // $("#composition").val(comp_text.content);
+            var index = comp_text.indexOf("\n");
+            $(".answerInput .title").val(comp_text.slice(0,index));
+            $("#composition").val(comp_text.slice(index + 2));
+        }else {
+            $(".answerInput .title").val("");
+            $("#composition").val("");
+            $("#answerInput .words>span").text("0");
         }
 
         $("#f-modal, #answerInput").fadeIn();
@@ -373,8 +385,8 @@ function compositionFunc(){
 
     //保存作文
     $("#posi-save").on("click",function(){
-        // zwt_answer.title = $(".answerInput .title").val() + "\n" + ;
-        // zwt_answer.content = $("#composition").val();;
+        // zwt_answer.title = $(".answerInput .title").val();
+        // zwt_answer.content = $("#composition").val();
         // obj[current] = zwt_answer;
         obj[current] = $(".answerInput .title").val() + "\n" + $("#composition").val();
         alert("保存成功！");
@@ -419,6 +431,7 @@ function compositionFunc(){
             // comp.photo = this.result;
             // comp.result = formData;
             comp = this.result;
+            console.log(formData);
             $(".photo-upload-content .photo-center").html(img);
         };
     });
@@ -468,8 +481,6 @@ function compositionFunc(){
             question:[],    //保存问题的坐标数据
             answer:[]       //保存答案的坐标数据
         }
-        //var answer = {}      保存连线题的答案 
-        var answer = [];      //保存连线题的答案
 
         dist.y1=dist.borderWidth+dist.liHeight/2;
         dist.D=dist.liHeight+2*dist.borderWidth+dist.marginBottom;
@@ -483,7 +494,7 @@ function compositionFunc(){
             dist.answer=[];
             for(var i=0; i<$(".question_hpb>li").length; i++){
                 dist.question.push({"x":0,"y":dist.y1+i*dist.D,"can":"yes"});
-                dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
+                dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li>div").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
             }
         }
         var ctx1=$("#canvas1")[0].getContext("2d");
@@ -510,7 +521,7 @@ function compositionFunc(){
             }
         });
         //字数超过6个的LI被hover时的效果
-        $(".question_hpb>li, .answer_hpb>li").hover(function(){
+        $(".question_hpb>li>div, .answer_hpb>li>div").hover(function(){
             if($(this).text().length >= 6) {
                 $(this).addClass("active");
             }
@@ -587,8 +598,12 @@ function compositionFunc(){
             }
             changeToAnswer(exist);
         });
+        
         //连线题答案格式化并输出
         function changeToAnswer(exist) {
+            //var answer = {}      保存连线题的答案 
+            var answer = [];      //保存连线题的答案
+            // console.log(exist);
             exist.forEach(function(item){
                 // answer[item.start+1] = item.end+1;
                 answer.push((item.start+1) + ":" +　(item.end+1));

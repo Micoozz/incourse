@@ -2,6 +2,7 @@ $(function () {
     //点亮顶部导航和左侧导航栏对应项
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
+    sessionStorage.removeItem("inCourse-course");
 
 	//重写Date的toLocalString
 	Date.prototype.toLocaleString = function() {
@@ -87,9 +88,11 @@ $(function () {
     }
     loadResource(1);
 
+    //点击学科显示相应学科的作业
     var courseID = ["语文","数学","物理","化学","英语"];
     $("#cent_nav ul>li:not(:first-child").click(function(){
         var course = $(this).text();
+        sessionStorage.setItem("inCourse-course",course);
         $("#col").text(course);
         var id = (courseID.indexOf(course)) + 1;
         console.log(id);
