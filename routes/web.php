@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test','Student\WorkController@test');
+Route::get('/test','Student\WorkController@test');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
