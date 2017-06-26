@@ -198,10 +198,12 @@ class WorkController extends Controller
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $data['objective']['cate'] = '客观题得分';
                 $data['objective']['score'] = isset($data['objective']['score']) ? $data['objective']['score'] + $info->score/100 : 0 + $info->score/100;
+                $data['objective']['total'] = isset($data['objective']['total']) ? $data['objective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
                 
             }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $data['subjective']['cate'] = '主观题得分';
                 $data['subjective']['score'] = isset($data['subjective']['score']) ? $data['subjective']['score'] + $info->score/100 : 0 + $info->score/100;
+                $data['subjective']['total'] = isset($data['subjective']['total']) ? $data['subjective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             }
         }
         return json_encode($data);
