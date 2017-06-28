@@ -1,4 +1,5 @@
 	$(function(){
+		$('.foot').hide()
 		$('.foot .img').click(function(){
 			$('.foot ul').slideToggle()
 		})
