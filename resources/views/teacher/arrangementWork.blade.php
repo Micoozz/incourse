@@ -90,6 +90,7 @@
                                                                 <div class="jumpas">
                                 	第 <input type="" name="" id="" value="" />页
                                 	<span>跳转</span>
+                                	<b class="gross"></b>
                                 </div>
                 </div>
                 <div class="col-xs-12 left"> 
@@ -373,6 +374,7 @@
 				if(data.pageLength==0){
 					$('.pagination').hide()
 				}
+				$('.gross').text('共'+data.pageLength+'页')
 								$('.pagination>li').eq(five+1).find('i').attr('class','five cen');
 		$('.pagination>li').eq(1).find('i').attr('class','zero cen');
 			}

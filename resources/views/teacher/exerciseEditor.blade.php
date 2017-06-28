@@ -171,6 +171,7 @@
                                 <div class="jumpas">
                                 	第 <input type="" name="" id="" value="" />页
                                 	<span>跳转</span>
+                                	<b class="gross"></b>
                                 </div>
                             </div>
                         </div>
@@ -893,6 +894,7 @@
 			var choose;
 			var exercises=data.exercises;
 			 sessionStorage.pagin=data.pageLength;	
+			 $('.gross').text('共'+data.pageLength+'页')
 			if(data.pageLength==0){
 				$('.pagination').hide()
 			}
