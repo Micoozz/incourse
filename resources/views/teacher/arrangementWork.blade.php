@@ -67,7 +67,7 @@
 
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                            <div id="document"><a href="" data-step="2"
+                            <div id="document"><a href="/homeworkCorrecting" data-step="2"
                                                   data-intro="点击此处批改学生已完成的作业"><img src="images/create.png"
                                                                                    alt="">作业批改</a></div>
                         </div>
@@ -87,6 +87,10 @@
                                                 <ul class="pagination fy">
                                                 	
                                 </ul>
+                                                                <div class="jumpas">
+                                	第 <input type="" name="" id="" value="" />页
+                                	<span>跳转</span>
+                                </div>
                 </div>
                 <div class="col-xs-12 left"> 
 @include('teacher.header.right_nav')
@@ -347,82 +351,114 @@
 			if(localStorage.pargins==undefined){
 		localStorage.setItem('pargins',1)
 			}
-		$.ajax({
+		function ajax(){
+			$('#container>.new-creat').remove();			
+					$.ajax({
 			type:"get",
 			url:"/showJobList/"+localStorage.pargins,
 			dataType:'json',
 			success:function(data){
 				console.log(data)
 				var jobs=data.jobs;
-				var pageLength=data.pageLength;	
+				sessionStorage.pagins=data.pageLength;
 				for(var i=0;i<jobs.length;i++){
 					var time=new Date(jobs[i].pub_time),
 						times=new Date(jobs[i].deadline)
 					if(jobs[i].job_status=='已发布'){
-						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
+						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>'+(i+1)+'.</span><a>'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
 											}else{
-						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>'+(i+1)+'.</span><a href="groupWorkViewjob">'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
+						$('#container').append('<div class="row new-creat"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>'+(i+1)+'.</span><a>'+jobs[i].title+'</a></div><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red Noc">未发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>发布</a></div></div>')
 							}
 				};
-
-			//页数
-					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
-					var five;
-			for(var o=0;o<pageLength;o++){
-				if(o<5){
-					five=o;
-					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
+				if(data.pageLength==0){
+					$('.pagination').hide()
 				}
-				else if(o==6){
-					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
-				}else{}
+								$('.pagination>li').eq(five+1).find('i').attr('class','five cen');
+		$('.pagination>li').eq(1).find('i').attr('class','zero cen');
+			}
+		});
+		}
+		ajax()
+	$('.pagination').append('<li><i  class="PREV">上一页 </i></li>')	
+			//页数
+			var five;
+			for(var o=0;o<parseInt(sessionStorage.pagins);o++){			
+				if(o<5){
+					$('.pagination').append('<li><i class="cen" num="'+(o)+'">'+(o+1)+'</i></li>')
+					five=o
+					}
 				
 			}
 			
-			
-			$('.pagination>li').eq(five+1).find('i').attr('class','five');
-			$('.pagination>li').eq(1).find('i').attr('class','zero');
-			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
-			
-			if(five==4){
-				$('.pagination').on('click','.five',function(){
-					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
-					$(this).find('a>i').text(parseInt($(this).text())+5)
-					})
-				});
-
-				$('.pagination').on('click','.zero',function(){
-					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
-					$(this).find('a>i').text(parseInt($(this).text())-5)
-					})
-				});
-			}
-			
-			//
-			$('.pagination').on('click','li>i',function(){
-			localStorage.setItem('pargins',$(this).text())
-				window.location.href=''
+		$('.pagination').append('<li><i class="Next">下一页 </i> </li>')
+				//
+			$('.pagination').on('click','li>.cen',function(){			
+				localStorage.setItem('pargins',$(this).text())
+			$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			})
+			$(this).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
+				ajax()
 			});
-			
 			//上一页
 			$('.pagination').on('click','.PREV',function(){
-				if(localStorage.pargin>1){
-				localStorage.setItem('pargins',parseInt(--localStorage.pargin));
-				window.location.href=''
+				if(parseInt(localStorage.pargins)>1){
+				localStorage.setItem('pargins',parseInt(--localStorage.pargins));
+							$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			})
+					$('.pagination>li>i').eq(localStorage.pargins).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
+				ajax()
 				}
 			})
 
 			//下一页
 			$('.pagination').on('click','.Next',function(){
-				if(localStorage.pargin<=$('.five').text()){
-				localStorage.setItem('pargins',parseInt(++localStorage.pargin));
-				window.location.href=''
+				if(parseInt(localStorage.pargins)<=$('.five').text()){
+				localStorage.setItem('pargins',parseInt(++localStorage.pargins));
+							$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			})
+					$('.pagination>li>i').eq(localStorage.pargins).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
+				ajax()
 				}
 			})
+			
+			if(five==4){
+				$('.pagination').on('click','.five',function(){
+					if(parseInt(localStorage.pargins)<parseInt(sessionStorage.pagins)){
+						$('.pagination>li>i').removeClass('five')		
+						$(this).parent().after('<li><i class="cen five">'+(parseInt($(this).text())+1)+'</i></li>')
+						$('.pagination>li').eq(1).remove()
+					}
+				});
+
+				$('.pagination').on('click','.zero',function(){
+					if(parseInt(localStorage.pargins)>1){
+						$('.pagination>li>i').removeClass('zero')
+						$('.PREV').parent().after('<li><i class="cen zero">'+(parseInt($(this).text())-1)+'</i></li>')
+						$('.pagination>li').last().prev().remove()
+					}
+				});
 			}
-		});
-		
-		
+			
+			//第几页
+$('.jumpas>span').click(function(){
+	localStorage.pargins=$('.jumpas>input').val();
+	ajax()
+})	
 	})
 </script>
 </body>

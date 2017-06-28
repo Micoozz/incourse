@@ -740,3 +740,7 @@ color: #168AED;
     color: #168BEE;
     cursor: pointer;
 }
+
+.pagination{
+	cursor: pointer;
+}

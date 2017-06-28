@@ -37,9 +37,7 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class">+创建班级</a></li>
-                    <li><a href="#">一年一班语文</a></li>
-                    <li><a href="#">二年一班音乐</a></li>
+                    <li class="topic"><a href="#">一年一班语文</a></li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -89,7 +87,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 red">未评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_main_contents">批改</a>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="correctingMainContents">批改</a>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         </div>
@@ -99,7 +97,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray ">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage">查看</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="correctingPrimarycoverage">查看</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         </div>
                         <div class="row new-head">
@@ -108,7 +106,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage">查看</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="correctingPrimarycoverage">查看</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         </div>
                         <div class="row new-head">
@@ -117,7 +115,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage">查看</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="correctingPrimarycoverage">查看</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         </div>
                         <div class="row new-head">
@@ -126,7 +124,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">9月1日</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">90分</div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray">已评价</div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="Correcting_Primarycoverage">查看</a></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 blue"><a href="correctingPrimarycoverage">查看</a></div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         </div>
                     </div>
