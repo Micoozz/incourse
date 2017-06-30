@@ -1,4 +1,5 @@
 	$(function(){
+		$('.foot').hide()
 		$('.foot .img').click(function(){
 			$('.foot ul').slideToggle()
 		})
@@ -10,9 +11,9 @@ $('#nav1>li>a').click(function(){
 		localStorage.clas=$(this).attr('num')
 })
 if(localStorage.boxs=='1'){
+
 	$('#nav1>li>a').removeClass('box');
 	$('[num='+localStorage.clas+']').addClass('box')
-	console.log($('num['+localStorage.clas+']'))
 }
 	});
 $(function(){

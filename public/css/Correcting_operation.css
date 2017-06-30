@@ -833,3 +833,17 @@ label{
     border: 1px solid #ddd;
 
 }
+.jumpas{
+	    width: 75%;
+    position: absolute;
+    margin-top: -7%;
+    margin-left: 40%;
+}
+.jumpas>input{	
+    width: 10%;
+    height: 20px;
+
+}
+.jumpas>span{
+	cursor: pointer;
+}
