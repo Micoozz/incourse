@@ -17,4 +17,8 @@ class Work extends Model
     public function belongsToJob(){
     	return $this->belongsTo('App\Models\Job','job_id');
     }
+
+/*    public function belongsToCourse(){
+    	return $this->belongsTo('App\Models\Course','course_id');
+    }*/
 }

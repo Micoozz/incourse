@@ -16,6 +16,7 @@ use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
 use App\Models\Categroy;
+use App\Models\Course;
 
 class WorkController extends Controller
 {
@@ -57,8 +58,8 @@ class WorkController extends Controller
                 ]]);
         }
     }
-    public function showWorkList($course,$page = 1){
-        $limit = ($page-1)*10;
+    public function showWorkList($course = 1){
+     /*   $limit = ($page-1)*10;
         $user = Auth::guard('student')->user();
         $work_all = Work::where(['student_id' => $user->id,'course_id' => $course])->get();
         $pageLength = intval($work_all->count()/10)+1;
@@ -77,9 +78,17 @@ class WorkController extends Controller
                 'status' => $work->status == Work::STATUS_OPEN ? '开放' : $work->status == Work::STATUS_UNSUB ? '未提交' : '关闭'
                 ));
         }
-        return json_encode($data);
+        return json_encode($data);*/
+        /**
+         * undocumented constant
+         **/
+        $user = Auth::guard('student')->user();
+        $workList = Work::where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
+        return view('student.zuoyenbeneirongliebiao',compact('workList'));
+
     }
     public function showWorkDetail($work_id){
+
         if(empty($work_id)){
             return;
         }
@@ -88,18 +97,25 @@ class WorkController extends Controller
         if(!$work || $work->student_id != $user->id){
             return;
         }
-        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
         $data = array();
+        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
+        $data['course_all'] = Course::all();
+        $data['course_first'] = Course::where(['id' => isset($course) ? $course : 1])->get()->toArray();
+       
         foreach ($exercise_id as $eid) {
             $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
+                if (Exercises::CATE_FILLS) {
+                    $countFills = preg_match_all('/&空\d+&/',$subjective['subject']);
+                }
                 array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $subjective->subject,
-                    'score' => $exercise->score/100
+                    'score' => $exercise->score/100,
+                    'count' => $countFills
                     ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
@@ -113,27 +129,31 @@ class WorkController extends Controller
                     'score' => $exercise->score/100
                     ));
                 }else{
+                    if (Exercises::CATE_FILL) {
+                        $countFill = preg_match_all('/&空\d+&/',$objective['subject']);
+                    }
                     array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
                     'options' => json_decode($objective->option),
-                    'score' => $exercise->score/100
+                    'score' => $exercise->score/100,
+                    'count' => $countFill
                     ));
                 }
-                
-                
+                 
             }
         }
-        return json_encode($data);
+        return view('student.zuoyeben-index', compact('data'));
     }
     public function subWork(){
         $input = Input::get();
         $user = Auth::guard('student')->user();
         $work = Work::find(intval($input['work_id']));
         $data = $input['data'];
+        //dd($data);
         $code = 200 ;
-        // $work->answer = json_encode($data['data']);
+        //$work->answer = json_encode($data['data']);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -154,16 +174,21 @@ class WorkController extends Controller
             });
         }
         foreach ($data as $exe_id => $answer) {
+           
             $exercise = Exercises::find($exe_id);
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $db->table($user->id)->insert(['work_id' => $work->id,'exe_id' => $exe_id,'answer' => $answer]);
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = $exercise->hasManyObjective()->first();
+                //dd($objective);
                 $flag = true;
                 $standard = explode(',',$objective->answer);
                 $answer_arr = explode(',',$answer);
+                dd($answer_arr);
                 foreach ($standard as $key => $value) {
+                   // dump($value); dd($answer_arr[$key]);
                     if($value != $answer_arr[$key]){
+                        //dd($answer[$key]);
                         $flag = false;
                         break;
                     }
@@ -195,38 +220,16 @@ class WorkController extends Controller
             $data['cate'] = '综合得分';
             $data['score'] = isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
             $exercise = Exercises::find($info->exe_id);
+            $data['total'] = isset($data['total']) ? $data['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $data['objective']['cate'] = '客观题得分';
                 $data['objective']['score'] = isset($data['objective']['score']) ? $data['objective']['score'] + $info->score/100 : 0 + $info->score/100;
-                switch($exercise->categroy_id){
-                    case Exercises::CATE_RADIO : 
-                    $data['objective'][0]['cate'] = '单选题';
-                    $data['objective'][0]['score'] = isset($data['objective'][0]['score']) ? $data['objective'][0]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_CHOOSE : 
-                    $data['objective'][1]['cate'] = '多选题';
-                    $data['objective'][1]['score'] = isset($data['objective'][1]['score']) ? $data['objective'][1]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_LINE : 
-                    $data['objective'][2]['cate'] = '连线题';
-                    $data['objective'][2]['score'] = isset($data['objective'][2]['score']) ? $data['objective'][2]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_SORT : 
-                    $data['objective'][3]['cate'] = '排序题';
-                    $data['objective'][3]['score'] = isset($data['objective'][3]['score']) ? $data['objective'][3]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_JUDGE : 
-                    $data['objective'][4]['cate'] = '判断题';
-                    $data['objective'][4]['score'] = isset($data['objective'][4]['score']) ? $data['objective'][4]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_FILL : 
-                    $data['objective'][5]['cate'] = '填空题';
-                    $data['objective'][5]['score'] = isset($data['objective'][5]['score']) ? $data['objective'][5]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                }
+                $data['objective']['total'] = isset($data['objective']['total']) ? $data['objective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
+                
             }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $data['subjective']['cate'] = '主观题得分';
                 $data['subjective']['score'] = isset($data['subjective']['score']) ? $data['subjective']['score'] + $info->score/100 : 0 + $info->score/100;
+                $data['subjective']['total'] = isset($data['subjective']['total']) ? $data['subjective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             }
         }
         return json_encode($data);

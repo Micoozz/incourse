@@ -2,7 +2,13 @@ $(function(){
 	//点亮顶部导航和左侧导航栏对应项
     $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
     $("#nav1>li:first-child>a").addClass("box");
-
+    var course = sessionStorage.getItem("inCourse-course");
+    $("#cent_nav ul>li").each(function(){
+        if($(this).text() === course) {
+            $("#cent_nav ul>li").removeClass("offt");
+            $(this).addClass("offt");
+        }
+    });
 	
 	const id = sessionStorage.getItem("homeworkId");
 	var lxt_options = 0;  //保存连线题的对数
@@ -84,7 +90,7 @@ $(function(){
 				child.answer.forEach(function(item){
 					dux_myAnswer.push(item.user_answer);
 					tk_correctAnswer.push(item.standard);
-				})
+				});
 
 				html += '<div class="homework-content">\
                                 <p class="question-head">\
@@ -94,13 +100,13 @@ $(function(){
                                 <form class="select" id="myForm">' + dux_options + '</form>\
                                 <div class="line"></div>\
                                 <div class="question-foot">\
-                                    <div>你的答案：<span class="' + (dux_myAnswer===tk_correctAnswer ? "correctAnswer" : "falseAnswer") + '">' + dux_myAnswer.join(",") + '</span></div>\
+                                    <div>你的答案：<span class="' + (dux_myAnswer.join("")===tk_correctAnswer.join("") ? "correctAnswer" : "falseAnswer") + '">' + dux_myAnswer.join(",") + '</span></div>\
                                     <div>正确答案：<span class="correctAnswer">' + tk_correctAnswer.join(",") + '</span></div>\
                                 </div>\
                             </div>';
 			}else if(child.cate_title === "判断题") {
-				var pd_myAnswer = child.answer[0].user_answer[0] === 1 ? "对" : "错";
-				var pd_correctAnswer = child.answer[0].standard[0] === 1 ? "对" : "错";
+				var pd_myAnswer = child.answer[0].user_answer[0] === "1" ? "对" : "错";
+				var pd_correctAnswer = child.answer[0].standard[0] === "1" ? "对" : "错";
 
 				html += '<div class="homework-content">\
                                 <p class="question-head">\
@@ -132,9 +138,10 @@ $(function(){
                                 <div class="line"></div>\
                                 <div class="question-foot">\
                                     <div>你的答案：\
-                                        <span class="' + (px_myAnswer === px_correctAnswer ? "correctAnswer" : "answer-users" ) +'">' + px_myAnswer + '</span>\
+                                        <span class="' + (px_myAnswer === "1,2,3,4" ? "correctAnswer" : "answer-users" ) +'">' + px_myAnswer + '</span>\
                                     </div>\
-                                    <div>正确答案：<span class="correctAnswer">' + px_correctAnswer + '1,2,3,4</span></div>\
+                                    <div>正确答案：\
+                                        <span class="correctAnswer">' + px_correctAnswer + '1,2,3,4</span></div>\
                                 </div>\
                             </div>';
 			}else if(child.cate_title === "连线题") {
@@ -145,11 +152,11 @@ $(function(){
                 const Height = 54;
                 child.options.forEach(function(k,i){
                     for(var key in k) {
-                        lxt_left += '<li style="top:' + 54*i + 'px;">' + k[key] + '</li>';
+                        lxt_left += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k[key] + '</div></li>';
                     }
                 });
                 child.answer[0].standard.forEach(function(k,i){
-                    lxt_right += '<li style="top:' + 54*i + 'px;">' + k + '</li>';
+                    lxt_right += '<li style="top:' + 54*i + 'px;"><span>' + (i+1) + '</span><div>' + k + '</div></li>';
                 });
 
 				html += '<div class="homework-content">\
@@ -207,5 +214,14 @@ $(function(){
             $(".question_hpb, .answer_hpb").height(dist.canvasH);
             $(".container_hpb>canvas").attr("height",dist.canvasH);
         }
+
+        //字数超过6个的LI被hover时的效果
+        $(".question_hpb>li>div, .answer_hpb>li>div").hover(function(){
+            if($(this).text().length >= 6) {
+                $(this).addClass("active");
+            }
+        },function(){
+            $(this).removeClass("active");
+        });
 	}
 })

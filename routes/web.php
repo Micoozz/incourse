@@ -74,12 +74,19 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/zuoyenbenneirongliebiao',function(){
 			return view('student.zuoyenbenneirongliebiao');
 		});
+		//Route::get('/zuoyeben-index/{work}','Student\WorkController@showWorkDetail');
+		
+
+
 		Route::get('/cuotiben',function(){
 			return view('student.cuotibenObjectiveTodayYuwen');
 		});
-		Route::get('/showWorkList/{course}/{page?}','Student\WorkController@showWorkList');
+		Route::get('/learningCenter/{course?}/{mod?}/{work?}/{func?}','Student\LearningCenterController@learningCenter');
+		Route::get('/learningCenter/submitExercisebook','Student\LearningCenterController@submitExercisebook');
+		//Route::get('/showWorkList/{course?}','Student\LearningCenterController@showWorkList');
+		//Route::get('/showAssignments','Student\WorkController@showWorkList');
+		//Route::get('/showWorkDetail/{course}/{work_id}/{mod}','Student\LearningCenterController@showWorkDetail');
 
-		Route::get('/showWorkDetail/{work_id}','Student\WorkController@showWorkDetail');
 		Route::post('/subWork','Student\WorkController@subWork');
 		Route::get('/showScore/{work_id}','Student\WorkController@showScore');
 		Route::get('/showWorkObjectiveDetail/{work_id}','Student\WorkController@showWorkObjectiveDetail');

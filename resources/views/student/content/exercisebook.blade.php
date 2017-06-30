@@ -1,0 +1,759 @@
+    <style>
+        /********** 连线题 ***********/
+        .box_hpb{
+            margin:0;
+            padding:0;
+            width:472px;
+            margin:21px auto;
+        }
+        .box_hpb * {
+            margin:0;
+            padding:0;
+        }
+        .box_hpb ul, .box_hpb ol {
+            list-style:none;
+            width: 104px;
+        }
+        .line_hpb{
+            width:472px;
+            position:relative;
+        }
+        .line_hpb:after{
+            content:"";
+            clear:both;
+            display:table;
+        }
+        .question_hpb, .container_hpb {
+            float:left;
+        }
+        .question_hpb>li, .answer_hpb>li{
+            margin-bottom:14px;
+            border:1px solid #ccc;
+            position: absolute;
+        }
+        .question_hpb>li>div, .answer_hpb>li>div {
+            width:104px;
+            min-height:40px;
+            line-height: 38px;
+            padding: 0 5px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            background-color: #fff;
+        }
+        .question_hpb>li>span, .answer_hpb>li>span {
+            position: absolute;
+            top: 9px;
+            color: #777;
+        }
+        .question_hpb>li>span {
+            left: -15px;
+        }
+        .answer_hpb>li>span {
+            right: -15px;
+        }
+        .box_hpb .active {
+            white-space: normal;
+            padding: 9px 5px;
+            line-height: 20px;
+        }
+        .box_hpb .active-common {
+            background-color: #D8EAFF;
+            border-color:  #A4CEFF;
+        }
+        .question_hpb>li:last-child,  .answer_hpb>li:last-child{
+            margin-bottom:0;
+        }
+        .container_hpb{
+            width:300px;
+            position:relative;
+        }
+        .container_hpb>canvas{
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        #canvas1{
+            z-index:10;
+        }
+        #canvas2{
+            z-index:50;
+        }
+        .answer_hpb{
+            position:absolute;
+            right:0;
+            top:0;
+            z-index:70;
+        }
+        .btn_hpb{
+            margin-top:10px;
+        }
+        .btn_hpb>button{
+            padding:2px 20px 2px 2px;
+            border-radius: 2px;
+            color:#168bee;
+            float: right;
+            background: url(/images/homework/subject/cancel.png) no-repeat right center;
+            border:none;
+        }
+
+        /* 选择题 */
+        .question-foot label{
+            margin-right: 5px;
+            font-weight: normal;
+        }
+        /* 连线题 */
+        .homework-content .lianXianTi-padding {
+            padding-left: 50px;
+        }
+    </style>
+<div class="col-xs-12 col-sm-12" id="centery">
+    <div class="row center1">
+
+        <div class="col-md-2 col-xs-4">     
+            <a class="return-fyg" href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}"></a>
+        </div>
+        <div class="col-md-8 col-xs-4" id="col">语文</div>
+        <div class="col-md-2 col-xs-4"></div>
+    </div>
+    <div class="exercise-box">
+    @foreach($data as $exercise)
+        @if($exercise['cate_title'] === "单选题")
+           <div class="homework-content" data-type="单选题" data-id="{{$exercise['id']}}">
+            <p class="question-head">
+               <!--  <span class="order">{{$exercise['id']}}.</span> -->
+                单选题：{{  $exercise['subject']  }}
+            </p>
+            <form class="select" id="myForm">
+                @foreach($exercise['options'] as $option)
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="questionSelect" class="questionSelect" value="{{ array_keys($option)[0]}}"/>
+                        <span class="select-wrapper"></span>{{ array_keys($option)[0] }}
+                        <span class="question-content">{{ $option[array_keys($option)[0]] }}</span>
+                    </label>  
+                </div>
+                @endforeach
+            </form>
+            <div class="line"></div>
+            <div class="question-foot">
+                <span>你的答案：</span>
+                <span class="answerOrder"></span>
+                <span class="col-line"></span>
+                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                    <span class="search-wiki-span">查看资料</span></a>
+                    <span class="question-fault">报错</span>
+                </div>
+            </div>
+        @elseif($exercise['cate_title'] === "填空题")
+            <div class="homework-content" data-type="填空题" data-id="{{ $exercise['id'] }}">
+                <p class="question-head">
+                 <!--    <span class="order">' + (i+1) + '.</span> -->
+                    填空题：{{ $exercise['subject'] }}
+                </p>
+                <div class="line"></div>
+                <div class="question-foot">
+                    <span>你的答案：</span>
+                        @for($i = 1; $i<= $exercise['count']; $i++)  
+                            <input type="textarea" class="questionBlankAnswer" placeholder="答案①">
+                        @endfor
+                <span class="col-line"></span>
+                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                    <span class="search-wiki-span">查看资料</span></a>
+                    <span class="question-fault">报错</span>
+                </div>
+            </div>
+        @elseif($exercise['cate_title'] === "多空题")
+            <div class="homework-content" data-type="多空题" data-id="{{ $exercise['id'] }}">
+                <p class="question-head">
+                 <!--    <span class="order">' + (i+1) + '.</span> -->
+                    多空题：{{  $exercise['subject']  }}
+                </p>
+                <div class="line"></div>
+                <div class="question-foot">
+                    <span>你的答案：</span>
+                    <span class="questionBlankAnswerWrap">
+                        @for($i = 1; $i<= $exercise['count']; $i++)  
+                         <input type="textarea" class="questionBlankAnswer" placeholder="答案①">
+                        @endfor
+                     </span>
+                    <span class="col-line"></span>
+                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                    <span class="search-wiki-span">查看资料</span></a>
+                    <span class="question-fault">报错</span>
+                </div>
+            </div>  
+        @elseif($exercise['cate_title'] === "多选题")
+            <div class="homework-content" data-type="多选题" data-id="{{ $exercise['id'] }}">
+                <p class="question-head">
+                  <!--   <span class="order">' + (i+1) + '.</span> -->
+                    多选题：{{ $exercise['subject'] }}
+                </p>
+                <form class="select" id="myForm">
+                    @foreach($exercise['options'] as $option)
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="questionSelect" class="questionSelect" value="{{ array_keys($option)[0]}}"/>
+                                <span class="select-wrapper"></span>{{ array_keys($option)[0] }}
+                                <span class="question-content">{{ $option[array_keys($option)[0]] }}</span>
+                            </label>  
+                        </div>
+                    @endforeach
+                </form>
+                <div class="line"></div>
+                <div class="question-foot">
+                    <span>你的答案：</span>
+                    <span class="answerOrder"></span>
+                    <span class="col-line"></span>
+                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                        <span class="search-wiki-span">查看资料</span></a>
+                        <span class="question-fault">报错</span>
+                </div>
+            </div>
+        @elseif($exercise['cate_title'] === "判断题")
+            <div class="homework-content" data-type="判断题" data-id="{{ $exercise['id'] }}">
+                <p class="question-head">
+                    <!-- <span class="order">' + (i+1) + '.</span> -->
+                    判断题：{{ $exercise['subject'] }}
+                </p>
+                <div class="line"></div>
+                <div class="question-foot">
+                    <span>你的答案：</span>
+                    <span class="right-or-wrong">
+                        <label>对
+                            <input class="choose-input" type="radio" name="chooseTi" value="1">
+                        </label>
+                            <label>错
+                                <input class="choose-input" type="radio" name="chooseTi" value="0">
+                            </label>
+                        </span>
+                    <span class="col-line"></span>
+                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                        <span class="search-wiki-span">查看资料</span></a>
+                        <span class="question-fault">报错</span>
+                </div>
+            </div>         
+        @elseif($exercise['cate_title'] === "排序题")
+            <div class="homework-content" data-type="排序题" data-id="{{ $exercise['id'] }}">
+                <p class="question-head">
+                   <!--  <span class="order">' + (i+1) + '.</span> -->
+                    排序题：{{ $exercise['subject'] }}
+                   @foreach($exercise['options'] as $option)
+                        <br/>{{array_keys($option)[0]}}{{ array_values($option)[0] }}
+                   @endforeach
+                </p>
+                <div class="line"></div>
+                <div class="question-foot">
+                    <span>你的答案：</span>
+                    <span class="questionOrderAnswerWrap">
+                        @for($i = 1; $i<= count($exercise['options']); $i++)
+                        <input type="text" class="questionOrderAnswer" placeholder="答案1" maxlength="1">
+                        @endfor
+                    </span>
+                <span class="col-line"></span>
+                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
+                    <span class="search-wiki-span">查看资料</span></a>
+                    <span class="question-fault">报错</span>
+                </div>
+            </div>
+        @elseif($exercise['cate_title'] === "连线题")
+        <div class="homework-content homework-lxt" data-type="连线题" data-id="{{ $exercise['id'] }}" data-length="{{ count($exercise['options']) }}">
+            <p class="question-head">
+                连线题：
+            </p>
+            <div class="box_hpb">
+                <div class="line_hpb">   
+                    <ul class="question_hpb">
+                    @foreach($exercise['options'] as $option)
+                        @foreach($option as $value) 
+                        <li style="top: {{ $loop->parent->index * 54 }}px;"><span></span><div>{{$value}}</div></li>
+                        @endforeach
+                    @endforeach
+                    </ul>
+                    <div class="container_hpb">
+                        <canvas id="canvas1" width="368">您的浏览器暂不支持Canvas！</canvas>
+                        <canvas id="canvas2" width="368">您的浏览器暂不支持Canvas！</canvas>
+                    </div>
+                
+                <ul class="answer_hpb">
+                    @foreach($exercise['answer'] as $answer)
+                        <li style="top: {{ $loop->index * 54 }}px;"><span></span><div>{{ $answer }}</div></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="btn_hpb clear">
+                <button class="return_hpb">撤销</button>
+        </div>
+        <div class="line"></div>
+        <div class="question-foot lianXianTi-padding">
+            <span class="col-line"></span>
+            <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>查看资料</a>
+                <span class="question-fault">报错</span>
+            </div>
+        </div>
+        @elseif($exercise['cate_title'] === "简答题")
+        <div class="homework-content" data-type="简答题" data-id="{{ $exercise['id'] }}">
+           <p class="question-head">
+<!--<span class="order">8.</span> -->
+                 简答题：{{ $exercise['subject'] }}
+            </p>
+        <div class="line"></div>
+        <div class="question-foot">
+            <a class="hover-blue jianDaTi" href="javascript:;">点击输入答案</a>
+            <span class="col-line"></span>
+            <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png"
+                alt=""/>查看资料</a>
+                <span class="question-fault">报错</span>
+            </div>
+        </div>                            
+
+        @endif
+    @endforeach
+        </div>
+        <!--简答题答案模态框框-->
+        <div class="answerInput jianDaTi-modal">
+            <button id="jianDaTi-close" type="button" class="close" aria-hidden="true">
+                &times;
+            </button>
+            <textarea class="composition jianDaTi-txar" placeholder="请输入简答题答案..."></textarea>
+            <div class="modal-footer">
+                <button id="jianDaTi-save" type="button" class="btn answer-save-permanent">保存</button>
+            </div>
+        </div>
+        <!-- 作文题答案框 -->
+                    <div id="answerInput" class="answerInput">
+                        <button type="button" class="answerInput-close close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <input class="title" type="text" placeholder="请输入作文题目">
+                        <textarea id="composition" class="composition" placeholder="请输入作文正文..."></textarea>
+                        <div class="modal-footer">
+                            <p class="words">
+                                <span>0</span> 字
+                            </p>
+                            <button id="posi-save" type="button" class="btn answer-save-permanent">保存</button>
+                        </div>
+                    </div>
+
+                    <!-- -模态框2 拍照上传- -->
+                    <div class="modal fade" id="getPhoto" data-backdrop="static" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog photo-upload-modal">
+                        <div class="modal-content photo-upload-content" style="font-size: 14px">
+                            <div class="modal-header photo-upload-modal-header">
+                                <button type="button" class="close close-photo-modal" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <input type="button" value="上传图片" class="uploadPhotoWrap">
+                                <input type="file" class="uploadPhoto" style="cursor: pointer;">
+                            </div>
+                            <div class="photo-center">
+                                <div class="photo-center-1">1.请选择JPG图片</div>
+                                <div class="photo-center-2">2.大小不超过1M</div>
+                            </div>
+                            <div class="modal-footer photo-footer">
+                                <button type="button" class="btn photo-save" data-dismiss="modal">完成</button>
+                                <button id="photo-cancel" type="button" class="btn photo-cancel">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div id="submit-btn" class="btn yes center-block" style="margin-top: 20px;margin-bottom: 40px;">提交</div>
+    </div>
+
+<script src="/js/jquery-1.12.4.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script src="/js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/sJS/classActivity.js"></script>
+<script src="/js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/sJS/inCourse.js"></script>
+<!-- <script src="js/sJS/zuoyeben-index.js" type="text/javascript" charset="utf-8"></script> -->
+<script>
+    
+$(function(){
+    //点亮顶部导航和左侧导航栏对应项
+    $(".head_nav>li:nth-child(2)>a, .head_nav>li:last-child>a").addClass("blue");
+    $("#nav1>li:first-child>a").addClass("box");
+    var course = sessionStorage.getItem("inCourse-course");
+    if(course) {
+        $("#col").text(course);
+    }
+    $("#cent_nav ul>li").each(function(){
+        if($(this).text() === course) {
+            $("#cent_nav ul>li").removeClass("offt");
+            $(this).addClass("offt");
+        }
+    });
+
+
+    var id = sessionStorage.getItem("homeworkId"); //保存是作业几
+    console.log(id);
+    var current = 0;  //保存当前题号
+    var lxt_options = 0;  //保存连线题的对数
+    var comp_photo = {};  //保存作文的照片
+    var obj = {};   //保存所有题的答案
+    //控制排序题只能输入数字
+    $(".questionOrderAnswerWrap .questionOrderAnswer").keyup(function(){
+        if(!(/\d{1}/.test($(this).val()))) {
+            $(this).val('');
+        }
+    });
+    $(".homework-lxt").each(function () {
+        lianXianTiFunc($(this).attr('data-length'))
+    })
+    // lianXianTiFunc();//lxt_options);
+    jianDaTiFunc();
+    compositionFunc();
+
+    //提交作业
+    $("#submit-btn").click(function(){
+        $(".homework-content").each(function(i,item){
+            var type = $(item).attr("data-type");
+            var id = $(item).attr("data-id");
+            if(type === "单选题") {
+                var dxt_answer = $(this).find(".answerOrder").text();
+                obj[id] = AchangeTo65(dxt_answer);
+            }else if(type === "填空题") {
+                var tk_arr = [];
+                $(this).find(".questionBlankAnswer").each(function(i,item){
+                    tk_arr.push($(item).val());
+                });
+                obj[id] = tk_arr.join(",");
+            }else if(type === "多空题") {
+                var dk_arr = [];
+                $(this).find(".questionBlankAnswer").each(function(i,item){
+                    dk_arr.push($(item).val());
+                });
+                obj[id] = dk_arr.join(",");
+            }else if(type === "多选题") {
+                var dx_arr = $(this).find(".answerOrder").text().split(",");
+                var dx_num_arr = [];
+                dx_arr.forEach(function(a){
+                    dx_num_arr.push(AchangeTo65(a));
+                });
+                obj[id] = dx_num_arr.join(",");
+            }else if(type === "判断题") {
+                var pdt = $(this).find(".choose-input:checked").val();
+                obj[id] = pdt ? pdt : "";
+            }else if(type === "排序题") {
+                var px_arr = [];
+                $(this).find(".questionOrderAnswer").each(function(i,item){
+                    px_arr.push($(item).val());
+                });
+                obj[id] = px_arr.join(",");
+            }
+        });
+
+        var param = {
+            '_token':'{{csrf_token()}}',
+            "work_id": '{{ $work_id }}',
+            "data": obj
+        } 
+        console.log(param)
+        $.post("/subWork",param).success(function(data){
+           if(data === "200") {
+                window.location.href='/danrenzuoye-chengji';
+           }
+        });
+    });
+
+function AchangeTo65(a) {
+    if(a) {
+        return a.charCodeAt() - 64 + "";
+    }
+    return "";
+}
+
+/********** 简答题 *********/
+function jianDaTiFunc(){
+    $(".exercise-box").on("click",".jianDaTi",function(){
+        current = $(this).parents(".homework-content").attr("data-id");
+        var msg = obj[current];
+        if(msg) {
+            $(".jianDaTi-txar").val(msg);
+        }
+        $("#f-modal,.jianDaTi-modal").fadeIn();
+    });
+    $("#jianDaTi-close").click(function(){
+        $("#f-modal, .jianDaTi-modal").fadeOut();
+    });
+
+    //保存
+    $("#jianDaTi-save").click(function(){
+        obj[current] = $(".jianDaTi-txar").val();
+        console.log(Boolean(obj[current]))
+        $("#f-modal, .jianDaTi-modal").fadeOut();
+        $(".jianDaTi" + current).text(obj[current] ? "编辑答案" : "点击输入答案");
+    });
+}
+
+/********** 作文题 *********/
+function compositionFunc(){
+    //var zwt_answer = {};   作文题答案
+    //var comp = {};    作文题照片暂存
+    var comp = "";    //作文题照片暂存
+
+    $(".exercise-box").on("click",".zuoWenTi",function(){
+        current = $(this).parents(".homework-content").attr("data-id");
+        var comp_text = obj[current];
+        var ifPhoto_reg = /^data:image\/jpeg;base64/; 
+        if(comp_text && !ifPhoto_reg.test(comp_text)) {
+            // $(".answerInput .title").val(comp_text.title);
+            // $("#composition").val(comp_text.content);
+            var index = comp_text.indexOf("\n");
+            $(".answerInput .title").val(comp_text.slice(0,index));
+            $("#composition").val(comp_text.slice(index + 2));
+        }else {
+            $(".answerInput .title").val("");
+            $("#composition").val("");
+            $("#answerInput .words>span").text("0");
+        }
+
+        $("#f-modal, #answerInput").fadeIn();
+    });
+    
+    $(".exercise-box").on("click","#takePhoto",function(){
+        current = $(this).parents(".homework-content").attr("data-id");
+        if(comp_photo[current]) {
+            $(".photo-upload-content .photo-center").html("<img src='" + comp_photo[current] + "'/>");
+        }else {
+            $(".photo-upload-content .photo-center").html('<div class="photo-center-1">1.请选择JPG图片</div><div class="photo-center-2">2.大小不超过1M</div>');
+        }
+    });
+
+    //保存作文
+    $("#posi-save").on("click",function(){
+        // zwt_answer.title = $(".answerInput .title").val();
+        // zwt_answer.content = $("#composition").val();
+        // obj[current] = zwt_answer;
+        obj[current] = $(".answerInput .title").val() + "\n" + $("#composition").val();
+        alert("保存成功！");
+    });
+
+    //作文上传照片
+    // -------- 将以base64的图片url数据转换为Blob --------
+    function convertBase64UrlToBlob(urlData, filetype){
+        //去掉url的头，并转换为byte
+        var bytes = window.atob(urlData.split(',')[1]);
+        
+        //处理异常,将ascii码小于0的转换为大于0
+        var ab = new ArrayBuffer(bytes.length);
+        var ia = new Uint8Array(ab);
+        var i;
+        for (i = 0; i < bytes.length; i++) {
+            ia[i] = bytes.charCodeAt(i);
+        }
+        return new Blob([ab], {type : filetype});
+    }
+    
+    //safari5.0.4不支持FileReader和file.files.item(0).getAsDataURL方法
+    $('.photo-upload-modal-header .uploadPhoto').change(function(){
+        var input = $(this)[0];
+        var files = input.files || [];
+        if (files.length === 0) {
+            return;
+        }
+        if (!input['value'].match(/.jpg|.png|.bmp/i)) {   //判断上传文件格式
+            return alert("上传的图片格式不正确，请重新选择");
+        }
+        var file = files[0];
+        var filename = file.name || '';
+        var fileType = file.type || '';
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function(e) {
+            var base64 = e.target.result || this.result;
+            var formData = new FormData();
+            formData.append("upload_file", convertBase64UrlToBlob(base64, fileType), filename);
+            var img = "<img src='" + this.result + "'/>";
+            // comp.photo = this.result;
+            // comp.result = formData;
+            comp = this.result;
+            console.log(formData);
+            $(".photo-upload-content .photo-center").html(img);
+        };
+    });
+
+    //点击“完成”
+    $(".photo-save").click(function(){
+        // comp_photo[current] = comp.photo;
+        // zwt_answer.photo = comp.result;
+        obj[current] = comp;
+    });
+
+    //取消上传照片
+    $("#photo-cancel").click(function(){
+        // comp = {};
+        comp = "";
+        $(".photo-upload-content .photo-center").html('<div class="photo-center-1">1.请选择JPG图片</div><div class="photo-center-2">2.大小不超过1M</div>');
+        // if(obj[current] &&　obj[current].photo) {
+        //     obj[current].photo = "";
+        // }
+    });
+
+    //统计作文字数
+    $("#composition").keyup(function(){
+        const txt = $("#composition").val().replace(/\s/g,'');
+        const len = txt.length;
+        $("#answerInput .words>span").text(len);
+    });
+
+    //关闭作文模态框
+    $(".answerInput-close").click(function(){
+        $("#answerInput, #f-modal").fadeOut();
+    });
+}
+
+
+/********** 连线题 *********/
+    function lianXianTiFunc(n){
+        //动态生成对应LI的数据
+        var dist={
+            liHeight:38, //保存每个LI的高度
+            borderWidth:1,  //保存每个LI的边框宽度
+            marginBottom:14, //保存每个LI的下外边距
+            y1:0,   //保存第一个LI的y坐标
+            D:0,     //保存每个LI y坐标之间相差的距离
+            canvasW:368,  //保存canvas的宽度
+            canvasH:0,   //保存canvas的高度
+            question:[],    //保存问题的坐标数据
+            answer:[]       //保存答案的坐标数据
+        }
+
+        dist.y1=dist.borderWidth+dist.liHeight/2;
+        dist.D=dist.liHeight+2*dist.borderWidth+dist.marginBottom;
+        trends();
+        //动态设置Canvas高度和生成数据
+        function trends(){
+            dist.canvasH = (dist.liHeight + 2*dist.borderWidth + dist.marginBottom) * n - dist.marginBottom;
+            $(".question_hpb, .answer_hpb").height(dist.canvasH);
+            $(".container_hpb>canvas").attr("height",dist.canvasH);
+            dist.question=[];
+            dist.answer=[];
+            for(var i=0; i<$(".question_hpb>li").length; i++){
+                dist.question.push({"x":0,"y":dist.y1+i*dist.D,"can":"yes"});
+                dist.answer.push({"x":dist.canvasW-$(".answer_hpb>li>div").width()-2,"y":dist.y1+i*dist.D,"can":"yes"});
+            }
+        }
+        if(!$("#canvas1")[0]) {
+            return;
+        }
+        var ctx1=$("#canvas1")[0].getContext("2d");
+        var ctx2=$("#canvas2")[0].getContext("2d");
+        var pos={
+            x1:0,    //保存起始的X坐标
+            y1:0,     //保存起始的Y坐标
+            x2:0,    //保存结束的X坐标
+            y2:0,    //保存结束的Y坐标
+            start:0, //保存起始的选项序号
+            canDraw:false,   //保存画布上能不能画出线条
+            COLOR:"orange" //保存画笔的颜色
+        }
+        var exist=[];   //保存已经用过的坐标点以便回退时用
+        //鼠标开始点击的时候获取起始坐标
+        $(".question_hpb").on("click","li",function() {
+            current = $(this).parents(".homework-content").attr("data-id");
+            var n = $(".question_hpb>li").index(this);
+            if (dist.question[n].can === "yes") {
+                pos.start = n;
+                pos.canDraw = true;
+                pos.x1 = dist.question[n].x;
+                pos.y1 = dist.question[n].y;
+            }
+        });
+        //字数超过6个的LI被hover时的效果
+        $(".question_hpb>li>div, .answer_hpb>li>div").hover(function(){
+            if($(this).text().length >= 6) {
+                $(this).addClass("active");
+            }
+            $(this).addClass("active-common");
+        },function(){
+            $(this).removeClass("active");
+            $(this).removeClass("active-common");
+        });
+
+        //鼠标在画布上移动时显示实时画线
+        $("#canvas2").mousemove(function(){
+            if(pos.canDraw){
+                ctx2.strokeStyle=pos.COLOR;
+                ctx2.clearRect(0,0,dist.canvasW,dist.canvasH);
+                var mouseX=event.offsetX;
+                var mouseY=event.offsetY;
+                ctx2.beginPath();
+                ctx2.moveTo(pos.x1,pos.y1);
+                ctx2.lineTo(mouseX,mouseY);
+                ctx2.stroke();
+                ctx2.closePath();
+            }
+        });
+        $(".answer_hpb").mousemove(function(){
+            if(pos.canDraw){
+                ctx2.strokeStyle=pos.COLOR;
+                ctx2.clearRect(0,0,dist.canvasW,dist.canvasH);
+                var mouseX=event.pageX-$("#canvas2").offset().left;
+                var mouseY=event.pageY-$("#canvas2").offset().top;
+                ctx2.beginPath();
+                ctx2.moveTo(pos.x1,pos.y1);
+                ctx2.lineTo(mouseX,mouseY);
+                ctx2.stroke();
+                ctx2.closePath();
+            }
+        });
+        //用户点击答案触发的事件
+        $(".answer_hpb").on("click","li",function(){
+            var n=$(".answer_hpb>li").index(this);
+            if((pos.canDraw===true) && (dist.answer[n].can==="yes")){
+                ctx1.strokeStyle=pos.COLOR;
+                pos.x2=dist.answer[n].x;
+                pos.y2=dist.answer[n].y;
+                ctx2.clearRect(0,0,dist.canvasW,dist.canvasH);
+                ctx1.beginPath();
+                ctx1.moveTo(pos.x1,pos.y1);
+                ctx1.lineTo(pos.x2,pos.y2);
+                ctx1.stroke();
+                ctx1.closePath();
+                dist.question[pos.start].can="no";
+                dist.answer[n].can="no";
+                exist.push({"start":pos.start,"end":n});
+                pos.canDraw=false;
+            }
+            changeToAnswer(exist);
+        });
+        //撤销
+        $(".return_hpb").click(function(){
+            event.preventDefault();
+            if(exist.length !== 0){
+                ctx1.clearRect(0,0,dist.canvasW,dist.canvasH);
+                var del=exist.pop();
+                dist.question[del.start].can="yes";
+                dist.answer[del.end].can="yes";
+                ctx1.beginPath();
+                for(var i=0; i<exist.length; i++){
+                    var start=exist[i].start;
+                    var end=exist[i].end;
+                    ctx1.moveTo(dist.question[start].x,dist.question[start].y);
+                    ctx1.lineTo(dist.answer[end].x,dist.answer[end].y);
+                }
+                ctx1.stroke();
+                ctx1.closePath();
+            }
+            changeToAnswer(exist);
+        });
+
+        //连线题答案格式化并输出
+        function changeToAnswer(exist) {
+            //var answer = {}      保存连线题的答案 
+            var answer = [];      //保存连线题的答案
+            // console.log(exist);
+            exist.forEach(function(item){
+                // answer[item.start+1] = item.end+1;
+                answer.push((item.start+1) + ":" +　(item.end+1));
+            });
+            obj[current] = answer.join(",");
+        }
+    };
+})
+
+
+</script>

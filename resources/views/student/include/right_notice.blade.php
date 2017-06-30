@@ -12,19 +12,19 @@
   			<div class="foot">
   					<div class="img" id="img"></div>
   					<ul class="nav">
-  						<li><img src="images/08.png" /><b style="font-weight: normal;">同学</b><span><span>0</span><span>/</span><span>0</span></span>
+  						<li><img src="/images/08.png" /><b style="font-weight: normal;">同学</b><span><span>0</span><span>/</span><span>0</span></span>
   							<div class="QQ" id="QQ">
   								<!--标签页切换-->
   								<ul class="nav">
   									<li>
   										<span></span>
-  										<img src="images/02.gif" />
+  										<img src="/images/02.gif" />
   										<b><span>小明</span></b>
   									</li>
   								</ul>
   							</div>
   						</li>
-  						<li><img src="images/08.png" />老师<span><span>0</span><span>/</span><span>0</span></span>
+  						<li><img src="/images/08.png" />老师<span><span>0</span><span>/</span><span>0</span></span>
   							<div>
   								<!--标签页切换-->
   							</div>

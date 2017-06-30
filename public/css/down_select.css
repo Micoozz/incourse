@@ -589,6 +589,3 @@ height: 30px;
     width: 15%;
 }
 
-.types>option:last-child,.types>option:nth-of-type(5){
-display: none;
-}

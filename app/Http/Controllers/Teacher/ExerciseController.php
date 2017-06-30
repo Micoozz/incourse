@@ -109,25 +109,35 @@ class ExerciseController extends Controller
             $exercise->teacher_id = $user->id;
             $exercise->school_id = $user->school_id;
             $exercise->course_id =  intval($input['course']);
-            $exercise->score = intval($input['score'])*100;
             $exercise->categroy_id = intval($input['categroy']);
             $exercise->updata_time = $time;
             if($exercise->categroy_id == Exercises::CATE_RADIO ||
-                $exercise->categroy_id == Exercises::CATE_CHOOSE || 
-                $exercise->categroy_id == Exercises::CATE_LINE || 
-                $exercise->categroy_id == Exercises::CATE_SORT || 
+                $exercise->categroy_id == Exercises::CATE_CHOOSE ||
                 $exercise->categroy_id == Exercises::CATE_JUDGE ||
                 $exercise->categroy_id == Exercises::CATE_FILL)
             {
                 $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 2 * count(explode(',',$input['answer'])) * 100 : 2 * count(explode(',',$input['answer'])) * 100;
             }
-            else if($exercise->categroy_id == Exercises::CATE_COMPOSITIVE)
+            else if($exercise->categroy_id == Exercises::CATE_LINE || 
+                    $exercise->categroy_id == Exercises::CATE_SORT)
             {
-                $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
+                $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 1 * count(explode(',',$input['answer'])) * 100 : 1 * count(explode(',',$input['answer'])) * 100;
+            }
+            else if($exercise->categroy_id == Exercises::CATE_FILLS)
+            {
+                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 2 * preg_match_all('/&空\d+&/',$input['subject']) * 100 : 2 * preg_match_all('/&空\d+&/',$input['subject']) * 100;
+            }
+            else if($exercise->categroy_id == Exercises::CATE_SHORT)
+            {
+                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 10 * 100 : 10 * 100;
             }
             else
             {
-                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
             }
             $exercise->save();
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){

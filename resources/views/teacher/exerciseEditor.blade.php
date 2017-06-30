@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/matching.css"/>
     <link rel="stylesheet" type="text/css" href="css/homework.css"/>
-    <link rel="stylesheet" type="text/css" href="css/homework-style.css"/>
+    <!--     <link rel="stylesheet" type="text/css" href="css/homework-style.css"/> -->
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/homework-style.css"/>
+
     <!--引导-->
     <link rel="stylesheet" href="css/introjs.css">
     <link rel="stylesheet" href="css/down_select.css">
@@ -190,17 +192,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <span id="chapter">题目分值</span>
-                                        <select name="" id='grade' style="margin-top: 10px;">
-                                        	<option value="1">1分</option>
-                                        	<option value="3">2分</option>
-                                        	<option value="4">4分</option>
-                                        	<option value="5">6分</option>
-                                        	<option value="6">8分</option>
-                                        	<option value="7">10分</option>
-                                        	<option value="8">20分</option>
-                                        	<option value="9">30分</option>
-                                        </select>
+        
                                     </div>
                                 </div>
                                 <div class="row">
@@ -651,7 +643,7 @@
                             <div class="yit">已添加 <img src="images/s05.jpg"/></div>
                             <ol>
                             </ol>
-                            <a href="independentOperationAddJobSection" class="cs">生成作业</a>
+                            <a href="/independentOperationAddTopic" class="cs">生成作业</a>
                         </div>
                     </div>
                     <div class="foot">
@@ -1145,7 +1137,6 @@ function removeByValue(arr, val) {
 			arrys:'',
 			options:[],
 			result:'',
-			score:'1'
 		}
 		
 				//综合体题型
@@ -1164,9 +1155,6 @@ function removeByValue(arr, val) {
 			Object.account=$(this).val()
 		})
 
-		$('#grade').change(function(){
-			Object.score=$(this).val()
-		})
 		
 		
 		$('.types').change(function(){
@@ -1242,15 +1230,19 @@ function removeByValue(arr, val) {
 			Object.result+=arry2
 			console.log(Object.options)
 		}else if(Object.types=='7'){
+			Object.result='';
+			var arry2=[]
 			Object.arrys=$('.sort').val()
 			console.log(Object.arrys)
 			$('.C>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
-				Object.options.push(objec)				
+				Object.options.push(objec)	
+				arry2.push(i+1)				
 			})
+			arry2.pop()	
+			Object.result+=arry2
 			Object.options.pop()	
-			console.log(Object.options)
 		}else if(Object.types=='8'){
 			Object.arrys=$('.estimate input').val();
 			Object.result=[];
@@ -1282,7 +1274,7 @@ function removeByValue(arr, val) {
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
-			datas={'score':Object.score,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
+			datas={'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 		
 		console.log(Object.arrys)

@@ -25,9 +25,11 @@ class LoginController extends Controller
     	$code = '201';
     	if(Auth::guard($guard)->attempt(['username' => $input['name'],'password' => $input['passwords']])){
     		$code = '200';
+           // return redirect('/showAssignments');
     	}
     	$data = array('code' => $code);
     	return json_encode($data);
+
     }
 
     public function logout(){
