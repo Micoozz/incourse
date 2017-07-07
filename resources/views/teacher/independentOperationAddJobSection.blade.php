@@ -356,7 +356,7 @@
 		 
 		$(function(){
 			
-			
+					$('#subject>select>option').attr('ni','selected')
 					//科目数据
 		$.ajax({
 			type:"get",
@@ -372,7 +372,7 @@
 			
 			//发布
 	var colligate={
-			course:'',
+			course:'1',
 			score:'',
 			title:'',
 			type:'1',
@@ -392,6 +392,8 @@
 			localStorage.introduce=$('.z_introduce>input').val();
 			localStorage.titles=$('.titles').val();
 			localStorage.laydate=$('.laydate-icon').val();
+			localStorage.curse=$('[value='+colligate.course+']').text()
+			localStorage.id=''
 			
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
@@ -401,14 +403,14 @@
 				window.location.href='/independentOperationAddTopic'
 			return false
 		});
-		
 		$('.z_introduce>input').val(localStorage.introduce)
 		$('.titles').val(localStorage.titles)
 		$('.laydate-icon').val(localStorage.laydate)
 		
-		
-		
 		$('.Ad-se').click(function(e){
+			localStorage.introduce=''
+			localStorage.titles=''
+			localStorage.laydate=''
 			event.stopPropagation();
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();

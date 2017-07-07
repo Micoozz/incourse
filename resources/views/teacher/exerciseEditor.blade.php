@@ -49,11 +49,8 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li>
-                        <a href="create-class.html">+创建班级</a>
-                    </li>
-                    <li>一年一班语文</li>
-                    <li>二年一班音乐</li>
+
+                    <li class="topic">一年一班语文</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -171,15 +168,12 @@
                             <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9 ">
                                 <ul class="pagination fy">
                                 </ul>
+                                <div class="jumpas">
+                                	第 <input type="" name="" id="" value="" />页
+                                	<span>跳转</span>
+                                	<b class="gross"></b>
+                                </div>
                             </div>
-                            <!--<div class="jump">-->
-                            <!--<div>-->
-                            <!--向第<input type="text">页-->
-                            <!--</div>-->
-                            <!--<ul class="pagination">-->
-                            <!--<li><a href="#">跳转</a></li>-->
-                            <!--</ul>-->
-                            <!--</div>-->
                         </div>
                     </div>
                     <div id="content">
@@ -193,8 +187,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <span id="chapter">题目分值</span>
-                                        <input type="text" value=" " id='grade'>
+        
                                     </div>
                                 </div>
                                 <div class="row">
@@ -210,17 +203,15 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx" class="xxxx">
                                 <!--简答题板块-->
                                 <div class="end" id="div1">
@@ -424,17 +415,15 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
                             <div id="xxx">
                             </div>
                             <div class="button" style="width: 36%;margin: 0 auto;">
@@ -459,17 +448,16 @@
                                 </div>
                             </div>
                             <div id="add">
-                                <div id="add_add">
+                                <!--<div id="add_add">
                                     <label for="addword"><img src="images/email.png">&nbsp;添加附件</label>
                                     <input type="file" id="addword" style="display: none">
                                     <label for="addpic"><img src="images/picture.png">&nbsp;添加图片</label>
                                     <input type="file" id="addpic" style="display: none">
                                     <label for="addmov"><img src="images/video.png"> &nbsp;添加影音</label>
                                     <input type="file" id="addmov" style="display: none">
-                                </div>
+                                </div>-->
                             </div>                
-                            <div class="go_success" style="top: 45%">提交成功！</div>
-                            <div class="go_tj" style="top: 45%">添加成功！</div>
+
                             <div id="xxx" class="xxxxx">
                                 <!--简答题板块-->
                                 <div class="end div1" id="div1">
@@ -650,7 +638,8 @@
                             <div class="yit">已添加 <img src="images/s05.jpg"/></div>
                             <ol>
                             </ol>
-                            <a href="independentOperationAddJobSection" class="cs">生成作业</a>
+                            <a href="/independentOperationAddTopic" class="cs">生成作业</a>
+                            <span><a href="/independentOperationAddTopic" class="cs removers">返回</a></span>
                         </div>
                     </div>
                     <div class="foot">
@@ -849,6 +838,7 @@
 <script>
 	
 	$(function(){
+		
 		//关键字
 		$('#hide_row input').keydown(function(){
 			if($(this).val()!=''){
@@ -889,53 +879,30 @@
 		
 		
 	//显示题目
-		if(localStorage.pargin==undefined){
 		localStorage.setItem('pargin',1)
-		}
+		localStorage.color=1
+		var five;
+		
 		function ajax(){
 			$('.work>div').remove();
-			$('.pagination>li').remove();
 	$.ajax({
 		type:"get",
-		url:"/showExerciseList/"+localStorage.pargin,
+		url:"/showExerciseList/1/"+localStorage.pargin,
 		dataType:'json',
 		success:function(data){
 			console.log(data)
 			var choose;
 			var exercises=data.exercises;
-			var pageLength=data.pageLength;			
-			//页数
-					$('.pagination').append('<li><a href="#" class="PREV">上一页 </a></li>')
-					var five;
-			for(var o=0;o<pageLength;o++){			
-				sessionStorage.setItem('pagin',(o+1))
-				if(o<5){
-					$('.pagination').append('<li><i>'+(o+1)+'</i></li>')
-				}
-				else if(o==6){
-					$('.pagination').append('<li><span class="out">···</span></li><li><a href="#">'+pageLength+'</a></li>')
-				}else{}
-				five=o;
+			 sessionStorage.pagin=data.pageLength;	
+			 $('.gross').text('共'+data.pageLength+'页')
+			if(data.pageLength==0){
+				$('.pagination').hide()
 			}
 			
-			
-			$('.pagination>li').eq(five+1).find('i').attr('class','five');
-			$('.pagination>li').eq(1).find('i').attr('class','zero');
-			$('.pagination').append('<li><a href="#" class="Next">下一页 </a> </li>')
-			
-			if(five==4){
-				$('.pagination').on('click','.five',function(){
-					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
-					$(this).find('a>i').text(parseInt($(this).text())+5)
-					})
-				});
+				
+				$('.pagination>li').eq(five+1).find('i').attr('class','five cen');
+		$('.pagination>li').eq(1).find('i').attr('class','zero cen');
 
-				$('.pagination').on('click','.zero',function(){
-					$('.pagination>li').not('li:last-child').not('li:first-child').each(function(){
-					$(this).find('a>i').text(parseInt($(this).text())-5)
-					})
-				});
-			}
 						
 			for(var i=0;i<exercises.length;i++){
 					if(exercises[i].cate_title=='单选题'){
@@ -1043,32 +1010,90 @@
 
 		}
 	});	
+	
 	}
 	ajax()
+	$('.pagination').append('<li><i  class="PREV">上一页 </i></li>')	
+			//页数
+			var five;
+			for(var o=0;o<parseInt(sessionStorage.pagin);o++){			
+				if(o<5){
+					$('.pagination').append('<li><i class="cen" num="'+(o)+'">'+(o+1)+'</i></li>')
+					five=o
+					}
+				
+			}
+			
+		$('.pagination').append('<li><i class="Next">下一页 </i> </li>')
 				//
-			$('.pagination').on('click','li>i',function(){
+			$('.pagination').on('click','li>.cen',function(){			
 				localStorage.setItem('pargin',$(this).text())
+			$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			})
+			$(this).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
 				ajax()
 			});
-			
 			//上一页
 			$('.pagination').on('click','.PREV',function(){
-				if(localStorage.pargin>1){
+				if(parseInt(localStorage.pargin)>1){
 				localStorage.setItem('pargin',parseInt(--localStorage.pargin));
+							$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			});
+								$('.pagination>li>i').eq(localStorage.pargin).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
 				ajax()
 				}
 			})
 
 			//下一页
 			$('.pagination').on('click','.Next',function(){
-				if(localStorage.pargin<=$('.five').text()){
+				if(parseInt(localStorage.pargin)<=$('.five').text()){
 				localStorage.setItem('pargin',parseInt(++localStorage.pargin));
+							$('.pagination>li>i').css({
+				'background-color':'#fff',
+				'color':'#333'
+			});
 				ajax()
 				}
+				$('.pagination>li>i').eq(localStorage.pargin).css({
+				'background-color':'#ccc',
+				'color':'#fff'
+			})
+				
 			})
 			
-			
+			if(five==4){
+				$('.pagination').on('click','.five',function(){
+					if(parseInt(localStorage.pargin)<parseInt(sessionStorage.pagin)){
+						$('.pagination>li>i').removeClass('five')		
+						$(this).parent().after('<li><i class="cen five" num=5>'+(parseInt($(this).text())+1)+'</i></li>')
+						$('.pagination>li').eq(1).remove()
+					}
+				});
+
+				$('.pagination').on('click','.zero',function(){
+					if(parseInt(localStorage.pargin)>1){
+						$('.pagination>li>i').removeClass('zero')
+						$('.PREV').parent().after('<li><i class="cen zero" num="'+(parseInt($(this).text()))+'">'+(parseInt($(this).text())-1)+'</i></li>')
+						$('.pagination>li').last().prev().remove()
+					}
+				});
+			}			
 	
+	//第几页
+$('.jumpas>span').click(function(){
+	localStorage.pargin=$('.jumpas>input').val();
+	ajax()
+})
 	//添加题目
 
 
@@ -1115,7 +1140,10 @@ function removeByValue(arr, val) {
 		})
 		event.stopPropagation();
 	})
-	
+	//删除添加题目
+		$('.removers').click(function(){
+			localStorage.id=''
+		})
 	//编辑
 			var rubric={
 				rubricA:'',
@@ -1143,7 +1171,7 @@ function removeByValue(arr, val) {
 			types:'1',//题型
 			arrys:'',
 			options:[],
-			result:''
+			result:'',
 		}
 		
 				//综合体题型
@@ -1161,6 +1189,7 @@ function removeByValue(arr, val) {
 		$('#subject>select').change(function(){
 			Object.account=$(this).val()
 		})
+
 		
 		
 		$('.types').change(function(){
@@ -1186,10 +1215,9 @@ function removeByValue(arr, val) {
 		
 		
 		
-		
+				console.log(Object.account)
 		
 	$('.button_frb').click(function(){	
-		var grade=$("#grade").val();
 		if(Object.types=='1'){
 			Object.arrys=$('.Short-answer').val()
 		}else if(Object.types=='2'){
@@ -1237,15 +1265,19 @@ function removeByValue(arr, val) {
 			Object.result+=arry2
 			console.log(Object.options)
 		}else if(Object.types=='7'){
+			Object.result='';
+			var arry2=[]
 			Object.arrys=$('.sort').val()
 			console.log(Object.arrys)
 			$('.C>div>input').each(function(i){
 				var objec={}
 				objec[i+1]=$(this).val()
-				Object.options.push(objec)				
+				Object.options.push(objec)	
+				arry2.push(i+1)				
 			})
+			arry2.pop()	
+			Object.result+=arry2
 			Object.options.pop()	
-			console.log(Object.options)
 		}else if(Object.types=='8'){
 			Object.arrys=$('.estimate input').val();
 			Object.result=[];
@@ -1273,12 +1305,11 @@ function removeByValue(arr, val) {
 			Object.result=Object.result.join(',')
 			console.log(Object.arrys)
 		}
-		
 		var datas;
 		if(Object.types=='10'){
 //			datas={'content':$('#scrap').val(),'subjective':colligate.subjective,'objective':colligate.objective}
 		}else{
-			datas={'score':grade,'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
+			datas={'course':Object.account,'categroy':Object.types,'subject':Object.arrys,'option':Object.options,'answer':Object.result,'_token':'{{csrf_token()}}'}
 		}
 		
 		console.log(Object.arrys)

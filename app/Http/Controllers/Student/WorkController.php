@@ -56,12 +56,12 @@ class WorkController extends Controller
                 ]]);
         }
     }
-    public function showWorkList($page = 1){
+    public function showWorkList($course,$page = 1){
         $limit = ($page-1)*10;
         $user = Auth::guard('student')->user();
-        $work_all = Work::where('student_id',$user->id)->get();
+        $work_all = Work::where(['student_id' => $user->id,'course_id' => $course])->get();
         $pageLength = intval($work_all->count()/10)+1;
-        $work_list = Work::where('student_id',$user->id)->skip($limit)->take(10)->get();
+        $work_list = Work::where(['student_id' => $user->id,'course_id' => $course])->skip($limit)->take(10)->get();
         $data = array('total' => $work_all->count(),'pageLength' => $pageLength,'works' => array());
         foreach ($work_list as $work) {
             array_push($data['works'],array(
@@ -194,38 +194,16 @@ class WorkController extends Controller
             $data['cate'] = '综合得分';
             $data['score'] = isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
             $exercise = Exercises::find($info->exe_id);
+            $data['total'] = isset($data['total']) ? $data['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $data['objective']['cate'] = '客观题得分';
                 $data['objective']['score'] = isset($data['objective']['score']) ? $data['objective']['score'] + $info->score/100 : 0 + $info->score/100;
-                switch($exercise->categroy_id){
-                    case Exercises::CATE_RADIO : 
-                    $data['objective'][0]['cate'] = '单选题';
-                    $data['objective'][0]['score'] = isset($data['objective'][0]['score']) ? $data['objective'][0]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_CHOOSE : 
-                    $data['objective'][1]['cate'] = '多选题';
-                    $data['objective'][1]['score'] = isset($data['objective'][1]['score']) ? $data['objective'][1]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_LINE : 
-                    $data['objective'][2]['cate'] = '连线题';
-                    $data['objective'][2]['score'] = isset($data['objective'][2]['score']) ? $data['objective'][2]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_SORT : 
-                    $data['objective'][3]['cate'] = '排序题';
-                    $data['objective'][3]['score'] = isset($data['objective'][3]['score']) ? $data['objective'][3]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_JUDGE : 
-                    $data['objective'][4]['cate'] = '判断题';
-                    $data['objective'][4]['score'] = isset($data['objective'][4]['score']) ? $data['objective'][4]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                    case Exercises::CATE_FILL : 
-                    $data['objective'][5]['cate'] = '填空题';
-                    $data['objective'][5]['score'] = isset($data['objective'][5]['score']) ? $data['objective'][5]['score'] + $info->score/100 : 0 + $info->score/100;
-                    break;
-                }
+                $data['objective']['total'] = isset($data['objective']['total']) ? $data['objective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
+                
             }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $data['subjective']['cate'] = '主观题得分';
                 $data['subjective']['score'] = isset($data['subjective']['score']) ? $data['subjective']['score'] + $info->score/100 : 0 + $info->score/100;
+                $data['subjective']['total'] = isset($data['subjective']['total']) ? $data['subjective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             }
         }
         return json_encode($data);

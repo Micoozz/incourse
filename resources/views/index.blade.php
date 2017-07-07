@@ -92,7 +92,7 @@
 						$(this).prev().attr('type','password');
 					}
 				});
-
+		localStorage.clear()
 			})
 
 

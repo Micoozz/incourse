@@ -21,11 +21,11 @@ class JobController extends Controller
         $job_list = Job::skip($limit)->take(10)->get();
         $data = array('total' => $job_all->count(),'pageLength' => $pageLength,'jobs' => array());
         foreach ($job_list as $job){
-          $job_type = $job->job_type == Job::TYPE_JOB?'小组':'个人';
-          $job_status = $job->job_status == Job::STATUS_JOB?'已发布':'未发布';
+          $job_type = $job->job_type == Job::TYPE_PERSONAL ? '个人' : '小组';
+          $job_status = $job->status == Job::STATUS_PUB ? '已发布' : '未发布';
           array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,
             'job_type' => $job_type,'pub_time' => $job->pub_time,
-            'job_status' => $job->status,'deadline' => $job->deadline));
+            'job_status' => $job_status,'deadline' => $job->deadline));
         }
         return json_encode($data);
     }

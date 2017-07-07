@@ -14,40 +14,11 @@ use App\Models\Compositive;
 use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList($page = 1){
-//  	$limit = ($page-1)*5;
-//  	$exercise_all = Exercises::all();
-//  	$pageLength = intval($exercise_all->count()/5)+1;
-//  	$exercise_list = Exercises::skip($limit)->take(5)->get();
-//  	$data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
-//  	foreach ($exercise_list as $exercise) {
-//  		$cate_title = Categroy::find($exercise->categroy_id)->title;
-//  		if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-//  			$subjective = Subjective::where('exe_id',$exercise->id)->first();
-//  			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $subjective->subject,'answer' => '自由发挥'));
-//  		}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-//  			$objective = Objective::where('exe_id',$exercise->id)->first();
-//				$answers = array();
-//				if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-//  				$answer_list = explode(',',$objective->answer);
-//  				foreach ($answer_list as $key => $answer) {
-//  					array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
-//  				}
-//  			}else{
-//  				array_push($answers,explode(',',$objective->answer));
-//  			}
-//  			array_push($data['exercises'],array('id' => $exercise->id,'cate_title' => $cate_title,'subject' => $objective->subject,'options' => json_decode($objective->option),'answer' => $answers));
-//  			
-//  		}
-////  		else{
-////  			
-////  		}
-//  	}
-//  	return json_encode($data);
+    public function showExerciseList($course,$page = 1){
         $limit = ($page-1)*5;
-        $exercise_all = Exercises::all();
+        $exercise_all = Exercises::where('course_id',$course);
         $pageLength = intval($exercise_all->count()/5)+1;
-        $exercise_list = Exercises::skip($limit)->take(5)->get();
+        $exercise_list = Exercises::where('course_id',$course)->skip($limit)->take(5)->get();
         $data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_list as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
@@ -141,25 +112,35 @@ class ExerciseController extends Controller
             $exercise->teacher_id = $user->id;
             $exercise->school_id = $user->school_id;
             $exercise->course_id =  intval($input['course']);
-            $exercise->score = intval($input['score'])*100;
             $exercise->categroy_id = intval($input['categroy']);
             $exercise->updata_time = $time;
             if($exercise->categroy_id == Exercises::CATE_RADIO ||
                 $exercise->categroy_id == Exercises::CATE_CHOOSE || 
-                $exercise->categroy_id == Exercises::CATE_LINE || 
-                $exercise->categroy_id == Exercises::CATE_SORT || 
                 $exercise->categroy_id == Exercises::CATE_JUDGE ||
                 $exercise->categroy_id == Exercises::CATE_FILL)
             {
                 $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 2 * count(explode(',',$input['answer'])) * 100 : 2 * count(explode(',',$input['answer'])) * 100;
             }
-            else if($exercise->categroy_id == Exercises::CATE_COMPOSITIVE)
+            else if($exercise->categroy_id == Exercises::CATE_LINE || 
+                    $exercise->categroy_id == Exercises::CATE_SORT)
             {
-                $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
+                $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 1 * count(explode(',',$input['answer'])) * 100 : 1 * count(explode(',',$input['answer'])) * 100;
+            }
+            else if($exercise->categroy_id == Exercises::CATE_FILLS)
+            {
+                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 2 * preg_match_all('/&空\d+&/',$input['subject']) * 100 : 2 * preg_match_all('/&空\d+&/',$input['subject']) * 100;
+            }
+            else if($exercise->categroy_id == Exercises::CATE_SHORT)
+            {
+                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->score = isset($input['level']) ? intval($input['level']) * 10 * 100 : 10 * 100;
             }
             else
             {
-                $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+                $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
             }
             $exercise->save();
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){

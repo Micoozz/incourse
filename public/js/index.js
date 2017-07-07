@@ -1,4 +1,5 @@
 	$(function(){
+		$('.foot').hide()
 		$('.foot .img').click(function(){
 			$('.foot ul').slideToggle()
 		})
@@ -6,9 +7,14 @@
 	//标签页切换
 	$(function(){
 $('#nav1>li>a').click(function(){
-		$('#nav1>li>a').removeClass('box');
-		$(this).addClass("box");
+	localStorage.boxs=1
+		localStorage.clas=$(this).attr('num')
 })
+if(localStorage.boxs=='1'){
+
+	$('#nav1>li>a').removeClass('box');
+	$('[num='+localStorage.clas+']').addClass('box')
+}
 	});
 $(function(){
 	$('#QQ>ul>li').click(function(){
@@ -118,3 +124,13 @@ $(function(){
 });
 })
 
+$(function(){
+	//路径
+			var str=document.URL;
+		var index = str .lastIndexOf("\/");  
+			str  = str .substring(index + 1, str.length);
+		
+		if(str!='exerciseEditor'){
+		localStorage.pargin=1	
+		}
+})

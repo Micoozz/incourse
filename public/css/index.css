@@ -198,6 +198,7 @@
     width: 133px;
 }
 #cent_nav ul .offt{
+	color: #168bee;
 	border-bottom:2px solid #168BEE;
 }
 #cent_nav ul .offt>a {
@@ -435,7 +436,7 @@ color: #168AED;
 		color: #7f838d;
 		width: 81%;
 		text-align: right;
-		background: url(../images/index4.jpg) no-repeat 91% center;
+		/*background: url(../images/index4.jpg) no-repeat 91% center;*/
 	}
 	
 	.chatRoom1 a{
@@ -734,4 +735,12 @@ color: #168AED;
 	}
 	
 
+.topic{
+    border-bottom: 2px solid #168BEE;
+    color: #168BEE;
+    cursor: pointer;
+}
 
+.pagination{
+	cursor: pointer;
+}

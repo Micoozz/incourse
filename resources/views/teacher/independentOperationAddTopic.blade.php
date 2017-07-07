@@ -75,7 +75,7 @@
                          </div>
                         <div class="row buttons">
                             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" style="text-indent: 15px;">现在已添加 <span
-                                    class="bold">2</span> 题
+                                    class="bold">0</span> 题
                             </div>
                             <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9 fourbtn_frbs">
 
@@ -398,7 +398,6 @@
 				data:{'course':localStorage.course,type:localStorage.type,'score':localStorage.score,'exercise_id':localStorage.exerciseid,'deadline':localStorage.deadline,'title':localStorage.title,'_token':'{{csrf_token()}}'},
 				success:function(data){
 					localStorage.setItem('issue',0)
-					localStorage.removeItem('id')
 					window.location.href='/independentOperationAddJobSection'
 				}
 			});	   		
