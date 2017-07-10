@@ -407,6 +407,7 @@
 		$('.titles').val(localStorage.titles)
 		$('.laydate-icon').val(localStorage.laydate)
 		
+
 		$('.Ad-se').click(function(e){
 			localStorage.introduce=''
 			localStorage.titles=''

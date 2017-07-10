@@ -21,6 +21,13 @@
     <script type="text/javascript" src="js/selectivizr.js"></script>
     <![endif]-->
 </head>
+    <style>
+    	    .pageTest{ width: 1000px; height: 50px; margin-top: 100px;    }
+    .activP{
+      background-color: #367fa9!important;
+      color: #fff!important;
+    }
+    </style>
 <body>
 <div class="navbar">
 @include('teacher.header.head_Tea')
@@ -84,12 +91,12 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
                         </div>
                 </div>
-                                                <ul class="pagination fy">
+                                                <div class="pagination fy">
                                                 	
-                                </ul>
-                                                                <div class="jumpas">
-                                	第 <input type="" name="" id="" value="" />页
-                                	<span>跳转</span>
+                                </div>
+                                                               <div class="jumpas">
+                                	<!--第 <input type="" name="" id="" value="" />页-->
+                                	<!--<span>跳转</span>-->
                                 	<b class="gross"></b>
                                 </div>
                 </div>
@@ -348,7 +355,7 @@
 <script>
 	
 	
-	$(function(){
+	(function ($) {
 			if(localStorage.pargins==undefined){
 		localStorage.setItem('pargins',1)
 			}
@@ -363,8 +370,8 @@
 				var jobs=data.jobs;
 				sessionStorage.pagins=data.pageLength;
 				for(var i=0;i<jobs.length;i++){
-					var time=new Date(jobs[i].pub_time),
-						times=new Date(jobs[i].deadline)
+					var time=new Date(jobs[i].pub_time*1000),
+						times=new Date(jobs[i].deadline*1000)
 					if(jobs[i].job_status=='已发布'){
 						$('#container').append(' <div class="row new-creat"> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>'+(i+1)+'.</span><a>'+jobs[i].title+'</a></div> <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 frb">'+jobs[i].job_type+'</div> <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(time.getMonth()+1)+'月'+time.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+(times.getMonth()+1)+'月'+times.getDate()+'日</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 gray Noc">已发布</div><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><a href="#" class="blue Nocfix" num='+jobs[i].id+'>撤销</a></div></div>')
 											}else{
@@ -375,92 +382,215 @@
 					$('.pagination').hide()
 				}
 				$('.gross').text('共'+data.pageLength+'页')
-								$('.pagination>li').eq(five+1).find('i').attr('class','five cen');
-		$('.pagination>li').eq(1).find('i').attr('class','zero cen');
 			}
 		});
 		}
 		ajax()
-	$('.pagination').append('<li><i  class="PREV">上一页 </i></li>')	
-			//页数
-			var five;
-			for(var o=0;o<parseInt(sessionStorage.pagins);o++){			
-				if(o<5){
-					$('.pagination').append('<li><i class="cen" num="'+(o)+'">'+(o+1)+'</i></li>')
-					five=o
-					}
-				
-			}
-			
-		$('.pagination').append('<li><i class="Next">下一页 </i> </li>')
-				//
-			$('.pagination').on('click','li>.cen',function(){			
-				localStorage.setItem('pargins',$(this).text())
-			$('.pagination>li>i').css({
-				'background-color':'#fff',
-				'color':'#333'
-			})
-			$(this).css({
-				'background-color':'#ccc',
-				'color':'#fff'
-			})
-				ajax()
-			});
-			//上一页
-			$('.pagination').on('click','.PREV',function(){
-				if(parseInt(localStorage.pargins)>1){
-				localStorage.setItem('pargins',parseInt(--localStorage.pargins));
-							$('.pagination>li>i').css({
-				'background-color':'#fff',
-				'color':'#333'
-			})
-					$('.pagination>li>i').eq(localStorage.pargins).css({
-				'background-color':'#ccc',
-				'color':'#fff'
-			})
-				ajax()
-				}
-			})
 
-			//下一页
-			$('.pagination').on('click','.Next',function(){
-				if(parseInt(localStorage.pargins)<=$('.five').text()){
-				localStorage.setItem('pargins',parseInt(++localStorage.pargins));
-							$('.pagination>li>i').css({
-				'background-color':'#fff',
-				'color':'#333'
-			})
-					$('.pagination>li>i').eq(localStorage.pargins).css({
-				'background-color':'#ccc',
-				'color':'#fff'
-			})
-				ajax()
-				}
-			})
-			
-			if(five==4){
-				$('.pagination').on('click','.five',function(){
-					if(parseInt(localStorage.pargins)<parseInt(sessionStorage.pagins)){
-						$('.pagination>li>i').removeClass('five')		
-						$(this).parent().after('<li><i class="cen five">'+(parseInt($(this).text())+1)+'</i></li>')
-						$('.pagination>li').eq(1).remove()
-					}
-				});
+  //默认参数 (放在插件外面，避免每次调用插件都调用一次，节省内存)
+  var defaults = {
+    //id : '#paging',//id
+    leng: 9,//总页数
+    activeClass: 'page-active' ,//active类
+    firstPage: '首页',//
+    lastPage: '末页',
+    prv: '<',
+    next: '>',
+	  clickBack:function(){
+	  }
+  };
+  var opts,myOptions;
+  //扩展
+  $.fn.extend({
+    //插件名称
+    page: function (options) {
+      //覆盖默认参数
+      myOptions = options
+      opts = $.extend(defaults, options);
+      console.log(opts,998,this)
+      //主函数
+      return this.each(function () {
+        //激活事件
+        var obj = $(this);
+        var str1 = '';
+        var str = '';
+        var l = opts.leng;
+        if (l > 1&&l < 10) {
+          str1 = '<li><a href="javascript:" class="'+ opts.activeClass +'">1</a></li>';
+          for (i = 2; i < l + 1; i++) {
+            str += '<li><a href="javascript:">' + i + '</a></li>';
+          }
+        }else if(l > 9){
+          str1 = '<li><a href="javascript:" class="'+ opts.activeClass +'">1</a></li>';
+          for (i = 2; i < 10; i++) {
+            str += '<li><a href="javascript:">' + i + '</a></li>';
+          }
+          //str += '<li><a href="javascript:">...</a></li>'
+        } else {
+          str1 = '<li><a href="javascript:" class="'+ opts.activeClass +'">1</a></li>';
+        }
+        obj.html('<div class="nextse" style="float:right">' + opts.next + '</div><div class="last" style="float:right">' + opts.lastPage + '</div><ul class="pagingUl">' + str1 + str + '</ul><div class="first" style="float:right">' + opts.firstPage + '</div><div class="prv" style="float:right">' + opts.prv + '</div>');
 
-				$('.pagination').on('click','.zero',function(){
-					if(parseInt(localStorage.pargins)>1){
-						$('.pagination>li>i').removeClass('zero')
-						$('.PREV').parent().after('<li><i class="cen zero">'+(parseInt($(this).text())-1)+'</i></li>')
-						$('.pagination>li').last().prev().remove()
-					}
-				});
-			}
-			
-			//第几页
-$('.jumpas>span').click(function(){
-	localStorage.pargins=$('.jumpas>input').val();
-	ajax()
-})	
+        obj.on('click', '.nextse', function () {
+          var pageshow = parseInt($('.' + opts.activeClass).html());
+          if(pageshow==l){
+            return false;
+          }
+          if(pageshow == l) {
+          }else if(pageshow > l-5&&pageshow < l){
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().next().find('a').addClass(opts.activeClass);
+          }else if(pageshow > 0&&pageshow < 6){
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().next().find('a').addClass(opts.activeClass);
+          }else {
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().next().find('a').addClass(opts.activeClass);
+            fpageShow();
+          }
+          opts.clickBack(pageshow+1)
+         	localStorage.setItem('pargins',parseInt(++localStorage.pargins));
+          	ajax()
+        });
+        obj.on('click', '.prv', function () {
+          var pageshow = parseInt($('.' + opts.activeClass).html());
+
+          if (pageshow == 1) {
+            return false;
+          }else if(pageshow > l-5&&pageshow < l+1){
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+                  //this.fpageBranch(pageshow-1);
+          }else if(pageshow > 1&&pageshow < 6){
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+                  //this.fpageBranch(pageshow-1);
+          }else {
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+                    //this.fpageBranch(pageshow-1);
+            fpageShow();
+          }
+          opts.clickBack(pageshow-1)
+         	localStorage.setItem('pargins',parseInt(--localStorage.pargins));
+          	ajax()
+        });
+
+        obj.on('click', '.first', function(){
+          var pageshow = 1;
+          var nowshow = parseInt($('.' + opts.activeClass).html());
+          if(nowshow==1){
+            return false;
+          }
+          $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+          fpagePrv(0);
+          opts.clickBack(pageshow)
+          localStorage.pargins=1;
+          ajax()
+        })
+        obj.on('click', '.last', function(){
+          var pageshow = l;
+          var nowshow = parseInt($('.' + opts.activeClass).html());
+          if(nowshow==l){
+            return false;
+          }
+          if(l>9){
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+            fpageNext(8);
+          }else{
+            $('.' + opts.activeClass).removeClass(opts.activeClass).parent().prev().find('a').addClass(opts.activeClass);
+            fpageNext(l-1);
+          }
+          opts.clickBack(pageshow)
+          localStorage.pargins=parseInt(sessionStorage.pagins);
+          ajax()
+        })
+
+        obj.on('click', 'li', function(){
+          var $this = $(this);
+          var pageshow = parseInt($this.find('a').html());
+          var nowshow = parseInt($('.' + opts.activeClass).html());
+          console.log(l,256)
+          if(pageshow==nowshow){
+            return false;
+          }
+          if(l>9){
+            console.log(1234567,pageshow,l)
+            if(pageshow > l-5&&pageshow < l+1){
+              $('.' + opts.activeClass).removeClass(opts.activeClass);
+              $this.find('a').addClass(opts.activeClass);
+              fpageNext(8-(l-pageshow));
+            }else if(pageshow > 0&&pageshow < 5){
+              $('.' + opts.activeClass).removeClass(opts.activeClass);
+              $this.find('a').addClass(opts.activeClass);
+              fpagePrv(pageshow-1);
+            }else{
+              $('.' + opts.activeClass).removeClass(opts.activeClass);
+              $this.find('a').addClass(opts.activeClass);
+              fpageShow();
+            }
+          }else{
+            console.log(123456)
+            $('.' + opts.activeClass).removeClass(opts.activeClass);
+            $this.find('a').addClass(opts.activeClass);
+          }
+          opts.clickBack(pageshow)
+          localStorage.pargins=$(this).text();
+          ajax()
+        })
+
+        function fpageShow(){
+          var pageshow = parseInt($('.' + opts.activeClass).html());
+          var pageStart = pageshow - 4;
+          var pageEnd = pageshow + 5;
+          var str1 = '';
+          for(i=0;i<9;i++){
+            str1 += '<li><a href="javascript:" class="">' + (pageStart+i) + '</a></li>'
+          }
+          obj.find('ul').html(str1);
+          obj.find('ul li').eq(4).find('a').addClass(opts.activeClass);
+		      
+        }
+
+        function fpagePrv(prv){
+          var str1 = '';
+          if(l>8){
+            for(i=0;i<9;i++){
+              str1 += '<li><a href="javascript:" class="">' + (i+1) + '</a></li>'
+            }
+          }else{
+            for(i=0;i<l;i++){
+              str1 += '<li><a href="javascript:" class="">' + (i+1) + '</a></li>'
+            }
+          }
+          obj.find('ul').html(str1);
+          obj.find('ul li').eq(prv).find('a').addClass(opts.activeClass);
+        }
+
+        function fpageNext(next){
+          var str1 = '';
+          if(l>8){
+            for(i=l-8;i<l+1;i++){
+              str1 += '<li><a href="javascript:" class="">' + i + '</a></li>'
+            }
+           obj.find('ul').html(str1);
+           obj.find('ul li').eq(next).find('a').addClass(opts.activeClass);
+          }else{
+            for(i=0;i<l;i++){
+              str1 += '<li><a href="javascript:" class="">' + (i+1) + '</a></li>'
+            }
+           obj.find('ul').html(str1);
+           obj.find('ul li').eq(next).find('a').addClass(opts.activeClass);
+          }
+        }
+      });
+    },
+    setLength: function(newLength){
+      myOptions.leng = newLength
+      $(this).html('')
+      $(this).unbind()
+      $(this).page(myOptions)
+    }
+  })
+})(jQuery);
+
+	$('.pagination').page({
+	leng:parseInt(sessionStorage.pagins),
+	activeClass: 'activP'
 	})
 </script>
 </body>
