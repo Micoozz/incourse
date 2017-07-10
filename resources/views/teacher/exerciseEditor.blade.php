@@ -853,7 +853,6 @@
 		localStorage.setItem('pargin',1)
 		localStorage.color=1
 		var five;
-		
 		function ajax(){
 			$('.work>div').remove();
 	$.ajax({
@@ -865,6 +864,7 @@
 			var choose;
 			var exercises=data.exercises;
 			 sessionStorage.pagin=data.pageLength;	
+			 box(data.pageLength)
 			 $('.gross').text('共'+data.pageLength+'页')
 			if(data.pageLength==0){
 				$('.pagination').hide()
@@ -1182,10 +1182,12 @@
     }
   })
 })(jQuery);
+function box(leng){
 	$('.pagination').page({
-	leng:parseInt(sessionStorage.pagin),
+	leng:leng,
 	activeClass: 'activP'
 })
+}
 </script>
 <script>
 	
