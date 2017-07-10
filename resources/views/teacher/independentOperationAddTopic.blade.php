@@ -398,7 +398,7 @@
 				data:{'course':localStorage.course,type:localStorage.type,'score':localStorage.score,'exercise_id':localStorage.exerciseid,'deadline':localStorage.deadline,'title':localStorage.title,'_token':'{{csrf_token()}}'},
 				success:function(data){
 					localStorage.setItem('issue',0)
-					window.location.href='/independentOperationAddJobSection'
+					window.location.href='/arrangementWork'
 				}
 			});	   		
     	})
