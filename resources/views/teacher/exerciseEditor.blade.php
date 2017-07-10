@@ -864,7 +864,6 @@
 			var choose;
 			var exercises=data.exercises;
 			 sessionStorage.pagin=data.pageLength;	
-			 box(data.pageLength)
 			 $('.gross').text('共'+data.pageLength+'页')
 			if(data.pageLength==0){
 				$('.pagination').hide()
@@ -1182,17 +1181,17 @@
     }
   })
 })(jQuery);
-function box(leng){
-	$('.pagination').page({
-	leng:leng,
+	setTimeout(function(){
+			$('.pagination').page({
+	leng:parseInt(sessionStorage.pagin),
 	activeClass: 'activP'
 })
-}
+	},1000)
+
 </script>
 <script>
 	
 	$(function(){
-		
 		//关键字
 		$('#hide_row input').keydown(function(){
 			if($(this).val()!=''){
