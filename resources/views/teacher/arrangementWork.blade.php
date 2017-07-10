@@ -369,6 +369,7 @@
 				console.log(data)
 				var jobs=data.jobs;
 				sessionStorage.pagins=data.pageLength;
+				box(data.pageLength)
 				for(var i=0;i<jobs.length;i++){
 					var time=new Date(jobs[i].pub_time*1000),
 						times=new Date(jobs[i].deadline*1000)
@@ -587,11 +588,12 @@
     }
   })
 })(jQuery);
-
+function box(leng){
 	$('.pagination').page({
 	leng:parseInt(sessionStorage.pagins),
 	activeClass: 'activP'
 	})
+}
 </script>
 </body>
 </html>
