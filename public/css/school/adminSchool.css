@@ -1,0 +1,140 @@
+/******** addAdmin.html ********/
+/*基本信息*/
+.school-container .basic-info {
+	font-size: 16px;
+	padding-left: 7px;
+	border-left: 3px solid #168bee;
+	font-weight: bold;
+}
+.info-form {
+	margin-top: 20px;
+	line-height: 28px;
+}
+.info-box {
+	padding-bottom: 14px;
+}
+.info-box>div {
+	margin-bottom: 16px;
+}
+.info-form input[type="text"] {
+	width: 106px;
+}
+.info-form .ic-input.input-l {
+	width: 195px;
+}
+.info-form .username {
+	margin-right: 90px;
+}
+.info-form .nation {
+	margin-right: 71px;
+}
+
+
+/*照片框*/
+.info-form .photo {
+	width: 142px;
+	height: 151px;
+	text-align: center;
+	background-color: #FBFBFB;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border: 1px dashed #D9D9D9;
+}
+.photo .photo-in {
+	height: 100%;
+}
+.photo .add-photo {
+	margin-top: 31px;
+}
+.photo .upload-img {
+	width: 100%;
+	height: 100%;
+}
+.info-form .photo p {
+	margin-top: 24px;
+}
+.info-form .photo .file {
+	z-index: 50;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.info-form .btns {
+	clear: both;
+}
+
+
+/********** manageAdmin.html ***********/
+.search-box .fa-search {
+	right: 10px;
+	top: 7px;
+}
+.admin-list {
+	width: 100%;
+	text-align: center;
+	margin: 21px auto;
+}
+.admin-list th {
+	text-align: center;
+	background-color: #F1F1F1;
+}
+.admin-list th, .admin-list td {
+	height: 36px;
+}
+.admin-list td {
+	border-top: 1px solid #D9D9D9;
+}
+.admin-list tr th:last-child, .admin-list tr td:last-child {
+	width: 140px;
+	text-align: left;
+}
+.admin-list .ic-blue {
+	color: #168bee;
+}
+.admin-list .ic-blue>i {
+	margin-right: 15px;
+}
+
+
+
+/******** seeInfor.html ********/
+.info-form .seeInfoBox {
+	font-size: 14px;
+}
+.seeInfoBox span {
+	margin-right: 8px;
+}
+.seeInfoBox .info-pa {
+	top: 0;
+	left: 200px;
+	width: 150px;
+}
+.info-form .big-head-box {
+	border: none;
+}
+.info-form .big-head-box img {
+	width: 100%;
+	height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

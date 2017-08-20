@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Course;
 use App\Models\Categroy;
+use App\Models\Chapter;
 use PDO;
 
 class Controller extends BaseController
@@ -15,16 +16,25 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function getCourse(){
     	$course_list = Course::all();
-    	return json_encode($course_list);
+    	return $course_list;
     }
     public function getCategroy(){
-    	$categroy_list = Categroy::all();
-    	return json_encode($categroy_list);
+    	$categroy_list = Categroy::all()->pluck('title','id');
+    	return $categroy_list;
+    }
+    public function getUnit(){
+    	$grade_list = Chapter::where('parent_id',1)->pluck('id');
+    	$unit_list = Chapter::whereIn('parent_id',$grade_list)->pluck('title','id');
+    	return $unit_list;
+    }
+    public function getSection($unit_id){
+    	$section_list = Chapter::where('parent_id',$unit_id)->pluck('title','id');
+    	return $section_list;
     }
     protected function createDatabase($baseNum){
-    	$servername = "10.110.18.106"; 
+    	$servername = "localhost"; 
 		$username = "root"; 
-		$password = "root"; 
+		$password = "gogo1993"; 
 		$code = 200;
 
 		try { 

@@ -684,6 +684,7 @@ $(function(){
 
 
     var id = sessionStorage.getItem("homeworkId"); //保存是作业几
+    console.log(id);
     var current = 0;  //保存当前题号
     var lxt_options = 0;  //保存连线题的对数
     var comp_photo = {};  //保存作文的照片
