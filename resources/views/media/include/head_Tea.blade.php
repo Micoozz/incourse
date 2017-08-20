@@ -11,7 +11,7 @@
                     <a href="/relateToMe">@与我相关</a>
                 </div>
             </li>
-            <li><a href="/arrangementWork">学习中心</a></li>
+            <li><a href="/learningCenter">学习中心</a></li>
             <li><a href="javascript:;">班级中心</a></li>
             <li><a href="javascript:;">交易中心</a></li>
             <li class="affix">

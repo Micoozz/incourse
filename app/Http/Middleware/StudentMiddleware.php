@@ -19,6 +19,6 @@ class StudentMiddleware
         if(Auth::guard('student')->check()){
             return $next($request);
         }
-        return redirect('/media');
+        return redirect('/learningCenter');///media
     }
 }

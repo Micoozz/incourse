@@ -10,13 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test','Student\WorkController@test');
+Route::get('/test','Teacher\LearningCenterController@test');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/media','PageController@media');
 	Route::get('/getCourse','Controller@getCourse');
 	Route::get('/getCategroy','Controller@getCategroy');
+	Route::get('/getSectionAjax/{unit_id}','Controller@getSection');
 	Route::group(['middleware' => 'school'],function(){
 		Route::get('/addEmployeeFile','PageController@addEmployeeFile');
 		Route::get('/addStudentFile','PageController@addStudentFile');
@@ -33,8 +34,9 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/TRewardEditor','PageController@tRewardEditor');
 		Route::get('/UploadExercises','PageController@uploadExercises');
 	});
-	Route::group(['middleware' => 'employee'],function(){
-		Route::get('/arrangementWork','PageController@arrangementWork');
+	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
+		Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}','LearningCenterController@learningCenter');
+		Route::post('/uploadExercise','LearningCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
 		Route::get('/correctingHomepage','PageController@correctingHomepage');
 		Route::get('/correctingMainContents','PageController@correctingMainContents');
@@ -54,7 +56,6 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{course}/{page?}','Teacher\ExerciseController@showExerciseList');
 		Route::post('/getExerciseList/{page?}','Teacher\ExerciseController@getExerciseList');
-		Route::post('/createExercise','Teacher\ExerciseController@createExercise');
 		Route::post('/createJob','Teacher\JobController@createJob');
 		Route::post('/pubJob','Teacher\JobController@pubJob');
 		Route::get('/showJobList/{page?}','Teacher\JobController@showJobList');

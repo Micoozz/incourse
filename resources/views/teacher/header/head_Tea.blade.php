@@ -1,7 +1,7 @@
 <div>
         <div class="indexLogo">
-            <img src="images/LOGO.png"/>
-            <img src="images/Hpb_schoolLogo.png" class="schoolLogo"/>
+            <img src="/images/LOGO.png"/>
+            <img src="/images/Hpb_schoolLogo.png" class="schoolLogo"/>
             <b>湖南工程学院</b>
         </div>
         <ul class="nav head_nav">
@@ -11,11 +11,11 @@
                     <a href="/relateToMe">@与我相关</a>
                 </div>
             </li>
-            <li><a href="/arrangementWork">学习中心</a></li>
+            <li><a href="/learningCenter">学习中心</a></li>
             <li><a href="javascript:;">班级中心</a></li>
             <li><a href="javascript:;">交易中心</a></li>
             <li class="affix">
-                <a href="javascript:;"><img src="images/01.png"/></a>
+                <a href="javascript:;"><img src="/images/01.png"/></a>
             </li>
             <li class="personCenter"><a href="javascript:;">个人中心</a>
                 <div class="cent">

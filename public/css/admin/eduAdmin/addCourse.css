@@ -1,0 +1,208 @@
+.time,.add-course{
+	text-align:left;
+	margin-top: 20px;
+}
+.time>div>span,.times>span{
+	display: inline-block;
+	color: #ccc;
+	padding:3px 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.time>div{
+	display: inline-block;
+	margin-left: 15px;
+}
+.pull-down{
+    position: absolute;
+    border: 1px solid #eee;
+    text-align: center;
+    width: 89px;
+    margin: 10px 0px 0 -7px;
+    border-radius: 4px;	
+    padding-bottom: 10px;
+    display: none;
+	background-color: #fff;
+	z-index: 101;
+}
+.pull-down>b{
+	font-weight: normal;
+	display: block;
+	padding-top: 10px;
+	cursor: pointer;
+}
+.add-course,.fiex-up{
+	padding: 10px;
+	border: 1px solid #eee;
+	position: relative;
+	margin-bottom: 10px;
+}
+.add-course>div{
+	display: inline-block;
+	width: 88%;
+}
+.add-course>div>input,.and>div>input{
+	border: 1px solid #eee;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;	
+    margin-right: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+.add-course>span{
+	color: #168BEE;
+	cursor: pointer;
+}
+.fiex-up>ul{
+	float: right;
+	height: 40px;
+	line-height: 40px;
+}
+.fiex-up{
+	padding-bottom: 0;
+}
+.fiex-up>ul>li{
+	float: left;
+	margin-right: 30px;
+}
+
+.fie{
+	border-top: 1px solid #eee;
+}
+
+.fie-left{
+	width: 29%;
+	border-right: 1px solid #eee;
+	height: 100%;
+}
+.fie-right{
+	width: 70%;
+	height: 100%;
+}
+.fie-right>div{
+	float: left;
+}
+.fie-right>div:first-child{
+	width: 75%;
+	height: 100%;
+}
+.fie-right>div:last-child{
+	width: 25%;
+	background-color: #eee;
+	height: 100%;
+	line-height: 100%;
+}
+
+.fie>div{
+	float:left;
+}
+.fie-left #h1{
+	text-align: left;
+	font-size: 12px;
+}
+#h1{
+	display: block;
+	margin: 10px 0;
+}
+#h1>span{
+	display: inline-block;
+	width: 80%;
+}
+.fie-left #h1>i{
+	color: #168BEE;
+	cursor: pointer;
+}
+.times>span:first-child{
+	float: left;
+	margin-left: 0;
+}
+
+.and{
+	border-bottom: 1px solid #eee;
+	height:62px;
+	text-align: left;
+}
+.and:last-child{
+	border: none;
+}
+.and>div{
+	display: inline-block;
+	width: 19%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+.hourHsDate{
+	text-align: left;
+	    width: 90px;
+    background-color: #fff;
+    z-index: 101;
+    position: absolute;
+    border: 1px solid #eee;
+    margin-top: 10px;
+    display: none;
+}
+.hourHsDate>span{
+	display: inline-block;
+	width: 48%;
+	text-align: center;
+	height: 150px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+.hourHsDate>span>b{
+	font-weight: normal;
+	display: inline-block;
+	width: 100%;
+	padding: 5px 0;
+	cursor: pointer;
+	color: #333;
+}
+.ic-btn>a{
+	color: #fff;
+}
+.sub{
+	margin-top: 40px;
+}
+.sub>button:last-child{
+	margin-left: 20px;
+}
+
+
+/*添加课程的背景颜色*/
+.bj0{
+	background-color: #fef1e4;
+	color: #ff9933;
+}
+.bj1{
+	background-color: #d7f8e2;
+	color: #33cc66;
+}
+.bj2{
+	background-color: #dff3fd;
+	color: #66ccff;
+}
+.bj3{
+	background-color: #feecfb;
+	color:#ff66cc;
+}
+
+/*引导*/
+.one{
+	z-index: 101;
+    position: relative;
+    background-color: #fff;
+    padding: 10px;
+}
+.one_img{
+    position: absolute;
+    z-index: 101;
+    top: 335px;
+    left: 38%;
+    height: 150px;
+    width: 181px;
+}

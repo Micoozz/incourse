@@ -257,7 +257,10 @@ class WorkController extends Controller
         }
         return json_encode($data);
     }
-    // public function test(){
-    //     dd(session());
-    // }
+    public function test(){
+        $arr = '';
+        $test = explode(',',$arr);
+        dd($test);
+        dd(session());
+    }
 }

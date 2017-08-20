@@ -123,7 +123,7 @@ $(function(){
 				// console.log(data);
 				if(data.code==200){
 					// console.log('登录成功');
-					window.location.href = '/media';
+					window.location.href = '/learningCenter';///media
 				}else{
 					console.log('登录失败')
 				}
