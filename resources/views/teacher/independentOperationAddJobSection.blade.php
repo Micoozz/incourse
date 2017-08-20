@@ -393,6 +393,7 @@
 			localStorage.titles=$('.titles').val();
 			localStorage.laydate=$('.laydate-icon').val();
 			localStorage.curse=$('[value='+colligate.course+']').text()
+			localStorage.id=''
 			
 			colligate.title=$('.titles').val();
 			colligate.deadline=$('.laydate-icon').val();
@@ -406,6 +407,7 @@
 		$('.titles').val(localStorage.titles)
 		$('.laydate-icon').val(localStorage.laydate)
 		
+
 		$('.Ad-se').click(function(e){
 			localStorage.introduce=''
 			localStorage.titles=''

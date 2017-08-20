@@ -38,9 +38,7 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class">+创建班级</a></li>
-                    <li>一年一班语文</li>
-                    <li>二年一班音乐</li>
+                    <li class="topic">一年一班语文</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
@@ -84,7 +82,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bold" style="text-align: right">客观题分数已计算完毕</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bold" style="text-align: center">共计 <span>80</span> 分</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="Correcting_Primarycoverage" class="blue">查看</a></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="correctingPrimarycoverage" class="blue">查看</a></div>
                         </div>
                         <div class="row count2">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
@@ -122,7 +120,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bold" style="text-align: right">主观题分数未统计完毕</div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bold" style="text-align: center">共计 <span>？</span> 分</div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="Correcting_Primarycoverage" class="blue">批改</a></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="correctingPrimarycoverage" class="blue">批改</a></div>
                         </div>
                         <div class="row count2">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>

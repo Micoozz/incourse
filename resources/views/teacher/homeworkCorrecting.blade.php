@@ -38,9 +38,7 @@
         <div class="row">
             <div id="cent_nav" class="col-md-3 col-xs-12">
                 <ul class="col-md-12 col-xs-12">
-                    <li><a href="create-class">+创建班级</a></li>
-                    <li>一年一班语文</li>
-                    <li>二年一班音乐</li>
+                    <li class="topic">一年一班语文</li>
                 </ul>
             </div>
             <div class="col-md-6"></div>
