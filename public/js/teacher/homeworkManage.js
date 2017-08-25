@@ -1,10 +1,28 @@
-/********** homeworkManage.html ***********/
 
-
-
-
+/*************** personHw.html *************/
 /***** 布置作业 *****/
 $(function(){
+    var ic_personHw = sessionStorage.getItem("ic_personHw");  //页面跳转过来后获取本地信息
+    var ic_hw_order = sessionStorage.getItem("ic_hw_order");  //习题库选中的题型
+    var ic_hw_order_eR = sessionStorage.getItem("ic_hw_order_eR");  ////我的题库"同类型习题"选中的题型
+
+    //显示之前填写的信息
+    if(ic_personHw){
+        var personHw_obj = JSON.parse(ic_personHw);
+        $(".hw-title-input").val(personHw_obj.title);
+        // $(".chapter").text(personHw_obj.chapter[0]);
+        $(".trifle").text(personHw_obj.chapter[1]);
+        $("#expiration-time").val(personHw_obj.deadline);
+        $(".person_hw_box .hw-content").val(personHw_obj.commonHw);
+    }
+
+    //获取选中的题型
+    if(ic_hw_order || ic_hw_order_eR){
+        var hw_order = ic_hw_order ? ic_hw_order.split(",") : [];
+        var hw_order_eR = ic_hw_order_eR ? ic_hw_order_eR.split(",") : [];
+        var all_order = hw_order.concat(hw_order_eR);   //保存所有选中题目的序号（数组）
+    }
+
     $(".person_hw_box").on("click",".delete-modal .btn-white",function(){
         $(this).parents(".delete-modal").hide();
         $(".ic-modal").hide();
@@ -35,27 +53,68 @@ $(function(){
         }
     });
 
+    //添加习题
+    $("body").on("click",".personHw-addExer",function(){
+        var str_msg = JSON.stringify(getInfo());
+        sessionStorage.setItem("ic_personHw",str_msg);
+        window.location.href = "exerRoom.html";
+    });
+
     //保存
     $("#save-person-hw").click(function(){
-        var msg = {
-            "作业标题": $(".hw-title-input").val(),
-            "所属章节": [$(".person_hw_box .chapter").text(),$(".person_hw_box .trifle").text()],
-            "截止时间": $("#expiration-time").val(),
-            "常规作业": $(".person_hw_box .hw-content").val(),
-            "习题练习": ""
-        };
-        console.log(msg)
+        var msg = getInfo();
+    });
+
+    //发布
+    $("#public").click(function(){
+        var msg = getInfo();
+        clearContent();
     });
 
     //取消
     $("#cancel-person-hw").click(function(){
         $(".ic-modal,.delete-modal").show();
     });
-})
+
+    //点了"取消"弹出的模态框中点击"确定"的效果
+    $("#cancelCreateHw").click(function(){
+        clearContent();
+    });
+
+    //添加习题获取页面信息
+    function getInfo(){
+        var msg = {
+            "title": $(".hw-title-input").val(),
+            "chapter": [$(".person_hw_box .chapter").text(),$(".person_hw_box .trifle").text()],
+            "deadline": $("#expiration-time").val(),
+            "commonHw": $(".person_hw_box .hw-content").val(),
+            "exercise": []
+        };
+        $(".person-exer-list [data-id]").each(function(i,item){
+            msg.exercise.push($(item).attr("data-id"));
+        });
+
+        return msg;
+    }
+
+    //清空“布置作业”页面内容
+    function clearContent(){
+        sessionStorage.removeItem("ic_personHw");
+        sessionStorage.removeItem("ic_hw_order");
+        sessionStorage.removeItem("ic_hw_order_eR");
+
+        $(".hw-title-input").val("");
+        $(".person_hw_box .chapter").text("");
+        $(".person_hw_box .trifle").text("");
+        $("#expiration-time").val("");
+        $(".person_hw_box .hw-content").val("");
+        $(".has-exer").hide();
+    }
+});
 
 
 
-/***** 习题库 *****/
+/***** exerRoom.html *****/
 $(function(){
     //查找
     $("#search-exer").click(function(){
@@ -94,7 +153,15 @@ $(function(){
     //添加
     $(".exer-list").on("click",".checkbox-add",function(){
         var type = $(this).parents(".exer-head").children(".exer-type-list").text();
+        var id = $(this).parents(".exer-in-list").attr("data-id");
+
         if($(this).prop("checked")){
+            if($(".hw-type-list").attr("data-all")){
+                $(".hw-type-list").attr("data-all", $(".hw-type-list").attr("data-all") + "," + id);
+            }else {
+                $(".hw-type-list").attr("data-all", id);
+            }
+
             var is_exist = false;
            $(".hw-list .type").each(function(i,item){
                 if($(item).text() === type){
@@ -109,6 +176,11 @@ $(function(){
                                                 </li>');
             }
         }else {
+            var data_all = $(".hw-type-list").attr("data-all");
+            var arr = data_all.split(",");
+            arr.splice(arr.indexOf(id), 1);
+            $(".hw-type-list").attr("data-all", arr.join(","));
+
             $(".hw-list .type").each(function(i,item){
                 if($(item).text() === type){
                     var number = Number($(item).next(".number").text().slice(1,-1)) - 1;
@@ -139,13 +211,25 @@ $(function(){
         }
     });
 
+    //生成作业
+    $("#create-hw").click(function(){
+        sessionStorage.setItem("ic_hw_order",$(".hw-type-list").attr("data-all"));
+        window.location.href = "personHw.html";
+    });
+
+    var exerRoomArr = []; //保存预览里面删除了哪些题
+
     //点击“预览”的效果
     $("#preview").click(function(){
+        exerRoomArr = [];
         $(".ic-modal, .preview-guide").fadeIn();
+
+        var hw_order = $(".hw-type-list").attr("data-all").split(",");  //选中的题型
     });
 
     //删除预览框里面的题目
     $(".preview-hw-wrap").on("click",".exer-head .delete-icon",function(){
+        exerRoomArr.push($(this).parents(".exer-in-list").attr("data-id"));
         $(this).parents(".exer-in-list").remove();
     });
 
@@ -156,6 +240,12 @@ $(function(){
 
     //点击预览里的"完成"
     $(".preview-hw-wrap .complete").click(function(){
+        var hw_order = $(".hw-type-list").attr("data-all").split(",");
+        exerRoomArr.forEach(function(item,i){
+            hw_order.splice(hw_order.indexOf(item), 1);
+        });
+        $(".hw-type-list").attr("data-all", hw_order.join(","));
+
         var type_obj = {};
         $(".preview-hw-wrap .exer-type-list").each(function(i,item){
             if(type_obj[$(item).text()]){
@@ -185,7 +275,7 @@ $(function(){
 $(function(){
      //查看同类型练习题
      $(".lookSameExer").click(function(){
-     $(".ic-modal,.person-hw-mark").show();
+        $(".ic-modal,.person-hw-mark").show();
      });
 })
 
@@ -252,169 +342,144 @@ $(function(){
 //         $(this).parents(".guide").hide();
 //         $(".preview-hw-box").show();
 //     });
-// })
+// });
 
 
 
 
 
 
-/********************************************* 合成一个页面的js **********************************/
-
-/*布置作业、批改作业、习题库 标签切换*/
-/*
- $(function(){
- //点击"布置作业"
- $(".arrange-hw-icon").click(function(){
- $(".homework-manage-title a").removeClass("active");
- $(this).addClass("active");
- $(".person_hw_box,.homeWork-cen,.exer-room").hide();
- $(".person_hw_box,.homework-type-box").show();
- });
-
- //点击"批改作业"
- $(".correct-hw-icon").click(function(){
- $(".homework-manage-title a").removeClass("active");
- $(this).addClass("active");
- $(".homework-type-box,.person_hw_box,.exer-room").hide();
- $(".homeWork-cen").show();
- });
-
- //点击"习题库"
- $(".exer-room-icon").click(function(){
- $(".homework-manage-title a").removeClass("active");
- $(this).addClass("active");
- $(".homework-type-box,.person_hw_box,.homeWork-cen").hide();
- $(".exer-room").show();
- });
- })*/
-
-
-/***** 习题库 *****/
-/*
-//生成作业
-$("#create-hw").click(function(){
-    $(".homework-manage-title a").removeClass("active");
-    $(".arrange-hw-icon").addClass("active");
-    $(".exer-room,.no-exer").hide();
-    $(".person_hw_box,.person-hw,.person_hw_box .has-exer").show();
-});
-
- //作业选择
- $(".homework-type-box .person_hw").click(function(){
- $(".homework-type-box").hide();
- $(".person-hw, .ic-modal, .no-exer .guide").show();
- });
- //"添加习题"按钮
- $(".person_hw_box").on("click",".personHw-addExer",function(){
- $(".person_hw_box").hide();
- $(".arrange-hw-icon").removeClass("active");
- $(".exer-room-icon").addClass("active");
- $(".admin-container, .ic-modal, .exercise-room>.guide").show();
- });
-*/
-
-
-
-
-/**** 批改作业 *****/
-/*
-$(function() {
-    setTimeout(function() {
-        $('.homeWork-head li a').removeClass('box').find('i').remove();
-        $('.homeWork-head li:last-child a').addClass('box').append('<sub style="font-size: 12px; color: #FFFFFF;line-height: 18px;width: 17px;height: 18px;display: inline-block;background-color: #F56A00;border-radius: 10px;position: relative;top: 5px;">班</sub>');
-    }, 10);
-
-    //已发布和未发布切换
-    var estimate = true;
-    $('.estate>span').click(function() {
-        $('.estate>span').attr('class', '');
-        $(this).attr('class', 'blue last');
-        $('.pigaizuoye').hide()
-        $('.pigaizuoye:nth-of-type(' + $(this).attr("num") + ')').show()
-        if(estimate) {
-            $('.Panel-selection').hide()
-            estimate = false;
-        } else {
-            $('.Panel-selection').show()
-            estimate = true;
-        }
+/************** myExerRoom.html *****************/
+$(function(){
+    //"我上传的"按钮
+    $(".my-exer-room-head .doMark").click(function(){
+        $(".myUpload").show();
+        $(".myCollect").hide();
+        $(".my-exer-room-head .isMark").removeClass("active");
+        $(".my-exer-room-head .doMark").addClass("active");
     });
 
-    //删选内容
-    $('body').on('click', '.Panel-selection>div>span', function() {
-        $(this).parent().find('span').removeClass('entirely');
-        $(this).addClass('entirely');
-        if($(this).attr("num") != '3') {
-            $('.pigaizuoye:nth-of-type(2)').show()
-            $('.pigaizuoye:nth-of-type(3)').hide()
-            $('.Panel-selection>div').show()
-        }
-    })
+    //"我收藏的"按钮
+    $(".my-exer-room-head .notMark").click(function(){
+        $(".myUpload").hide();
+        $(".myCollect").show();
+        $(".my-exer-room-head .isMark").removeClass("active");
+        $(".my-exer-room-head .notMark").addClass("active");
+    });
+
+
+    /****我上传的***/
+    //默认字段
+    var text = [
+        ["全国","全省","全市","全部老师"],
+        ["全部篇章","全部小节","全部题型"],
+        ""
+    ];
+    //查找
+    $("#search_myUpload").click(function(){
+        //保存查找的条件
+        var obj_myUpload = {
+            "condition": [],
+            "keyword": ""
+        };
+
+        $(".myUpload .condition-item").each(function(i,item){
+            obj_myUpload.condition.push($(item).text());
+        });
+        obj_myUpload.keyword = $(".myUpload .kw").val();
+
+        console.log(obj_myUpload);
+    });
+
+    //清空
+    $("#clear_myUpload").click(function(){
+        $(".myUpload .condition-item").each(function(i,item){
+            $(item).text(text[1][i]);
+        });
+        $(".myUpload .kw").val(text[2]);
+    });
+
+    //"删除"题目
+    $(".myUpload").on("click",".exer-list-delete",function(){
+        $(this).parents(".exer-in-list").remove();
+    });
+
+    //点击"同类型习题"清空"已添加作业"里面的值
+    //$("body").on("click",".myUpload .lookSameExer",function(){
+    //   $(".hw-type-list").attr("data-all","");
+    //});
+
+    //生成作业
+    $("#exerRoomCreateHw").click(function(){
+        sessionStorage.setItem("ic_hw_order_eR",$(".hw-type-list").attr("data-all"));
+        window.location.href = "personHw.html";
+    });
+
+    /****我收藏的***/
+        //查找
+    $("#search_myCollect").click(function(){
+        //保存查找的条件
+        var obj_myCollect = {
+            "position": [],
+            "condition": [],
+            "keyword": ""
+        };
+
+        $(".myCollect .position-item").each(function(i,item){
+            obj_myCollect.position.push($(item).text());
+        });
+        $(".myCollect .condition-item").each(function(i,item){
+            obj_myCollect.condition.push($(item).text());
+        });
+        obj_myCollect.keyword = $(".myCollect .kw").val();
+
+        console.log(obj_myCollect);
+    });
+
+    //清空
+    $("#clear_myCollect").click(function(){
+        $(".myCollect .position-item").each(function(i,item){
+            $(item).text(text[0][i]);
+        });
+        $(".myCollect .condition-item").each(function(i,item){
+            $(item).text(text[1][i]);
+        });
+        $(".myCollect .kw").val(text[2]);
+    });
+
+    //取消收藏
+    $(".myCollect").on("click",".exer-foot .collect",function(){
+        $(this).parents(".exer-in-list").remove();
+    });
 })
 
-//小组
-$('body').on('click', '.group', function() {
-    $('.pigaizuoye').hide()
-    $('.pigaizuoye:nth-of-type(' + $(this).attr("num") + ')').show()
-    $(this).parent().nextAll().hide()
-})
-
-//个人作业批改
-$('body').on('click', '.correction_pg', function() {
-    $('.manageAdmin-wrap').hide()
-    $('.work-correction').show()
-    return false;
-})
-$("body").on("click",".correct-person-hw",function(){
-    $(".work-correction").hide();
-    $(".person-hw-correct").show();
-});
-
-
-$('body').on('click', '.work-correction>button', function() {
-    $('.manageAdmin-wrap').show()
-    $('.work-correction').hide()
-    return false;
-})
-
-//小组批改
-$('body').click(function(){
-    $('.Group-search>span ul').hide()
-})
-$('body').on('click','.Group-search>span',function(){
-    $('.Group-search>span ul').hide()
-    $(this).find('ul').show()
-    return false;
-})
-
-//小组作业批改
-$('body').on('click', '.Group', function() {
-    $('.manageAdmin-wrap').hide()
-    $('.Group-correction').show()
-    $('.Group-correction .pigaizuoye').show()
-    return false;
-})
-$('body').on('click', '.Group-correction>button', function() {
-    $('.manageAdmin-wrap').show()
-    $('.Group-correction').hide()
-    return false;
-})
-*/
 
 
 
 
-/******* personHwMark.html *********/
-/*
- //生成作业
- $("#create-hw-personHwMark").click(function(){
- $(".homework-manage-title a").removeClass("active");
- $(".arrange-hw-icon").addClass("active");
- $(".person-hw-mark,.homeWork-cen,.no-exer,.homework-type-box .guide,.ic-modal").hide();
- $(".person_hw_box,.person_hw,.person_hw_box .has-exer").show();
- });
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

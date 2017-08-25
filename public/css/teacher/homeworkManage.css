@@ -1,3 +1,7 @@
+/*#left ul>li:first-child>a {
+     color: #fff;
+     background-color: #168bee;
+}*/
 
 /**************** homeworkManage.html ******************/
 
@@ -72,10 +76,6 @@
 
 
 /*布置作业（个人）*/
-.person_hw_box {
-    padding: 33px 26px;
-    min-height: 475px;
-}
 .person_hw_box .one-line {
     margin-bottom: 20px;
 }
@@ -256,6 +256,8 @@
     font-size: 16px;
 }
 .preview-hw-wrap .exer-list {
+    /*height: 500px;*/
+    /*overflow-y: auto;*/
     margin-top: 0;
 }
 .preview-hw-wrap .complete {
@@ -372,7 +374,24 @@
 
 
 
+/************** myExerRoom.html **************/
 
+/*“我上传的”，“我收藏的”*/
+.my-exer-room-head .isMark {
+    float: right;
+    width: 67px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    cursor: default;
+    color: #666;
+    border: 1px solid #d9d9d9;
+}
+.my-exer-room-head .isMark.active {
+    color: #168bee;
+    border: 1px solid #168bee;
+    background-color: #e1f5fa;
+}
 
 
 

@@ -38,7 +38,12 @@ $(function () {
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
-})
+
+    //删除每道题
+$("body").on("click",".admin-container .type .ic-close-icon",function(){
+   $(this).parent(".type").parent(".exercise").remove();
+});
+});
 
 
 /*选中题型*/
@@ -55,7 +60,7 @@ $(function () {
 	<input class="addFile" type="file" />\
 	</button>\
 	<b class="vertical-line f-l"></b>\
-	<button class="f-l blank">\
+	<button class="f-l blank d-n">\
 	<i class="tool"></i>\
 	<span>插入空格</span>\
 	</button>\
@@ -222,6 +227,7 @@ $(function () {
         } else if (text === "填空题") {
             $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
             $(this).parents(".select-action-box").siblings(".answer-wrap").html(duo_kong);
+            $(this).parents(".select-action-box").siblings(".question-box").find(".blank").show();
         } else if (text === "判断题") {
             $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
             $(this).parents(".select-action-box").siblings(".answer-wrap").html(pan_duan);
@@ -234,6 +240,7 @@ $(function () {
         } else if (text === "完形填空") {
             $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
             $(this).parents(".select-action-box").siblings(".answer-wrap").html(wan_xing_tk);
+            $(this).parents(".select-action-box").siblings(".question-box").find(".blank").show();
         } else if (text === "简答题" || text === "画图题") {
             $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
             $(this).parents(".select-action-box").siblings(".answer-wrap").html(jian_da);
@@ -529,7 +536,7 @@ $(function () {
 $(function () {
     //默认添加单选题
     var html = '<div class="exercise">\
-											<div class="type select-action-box">\
+											<div class="type select-action-box p-r">\
 												<span class="f-l fs14">题型：</span>\
 												<div class="select-form clear">\
 													<div>\
@@ -555,6 +562,7 @@ $(function () {
 														</ul>\
 													</div>\
 												</div>\
+												<i class="common-icon ic-close-icon p-a"></i>\
 											</div>\
 											<div class="question-box">\
 											<div class="question clear">\
@@ -567,7 +575,7 @@ $(function () {
 															<input class="addFile" type="file" />\
 														</button>\
 														<b class="vertical-line f-l"></b>\
-														<button class="f-l blank">\
+														<button class="f-l blank d-n">\
 															<i class="tool"></i>\
 															<span>插入空格</span>\
 														</button>\
@@ -608,8 +616,10 @@ $(function () {
         $(this).prev(".mul-answer-box").append(html);
     });
 
+    var unit;
     $(".unit-li").click(function(){
         $(".section-li").remove();
+        unit = $(this).attr("data");
         $.get("/getSectionAjax/"+$(this).attr("data"),function(result){
             $.each(result,function(index,value,array){
                 $(".section-ul").append("<li class='section-li' data='"+index+"'>"+value+"</li>");
@@ -621,14 +631,13 @@ $(function () {
         section = $(this).attr("data");
     })
 
-
 	//上传
 	$("body").on("click","#upload-btn",function(){
 		//保存所有要保存的数据
 		var obj = {
 			"subject": $(".filter-box-upload .subject-text").text(),
 			"grade": $(".filter-box-upload .grade-text").text(),
-			"chapter": section,
+			"chapter": {"unit":unit,"section":section},
 			"exercise": [],
 			"_token" : token
 		};
@@ -813,7 +822,7 @@ $(function () {
 
 		console.log(obj)
 		$.post("/uploadExercise",obj,function(result){
-			console.log(result);
+			window.location.href = "/learningCenter/"+class_id+"/"+course_id+"/"+mod;
 		})
 	});
 })
@@ -1026,7 +1035,7 @@ $(function () {
         }
     }
 
-    lianXianTiFunc(7,3);
+    lianXianTiFunc(148,3,3);
 })
 
 

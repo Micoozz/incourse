@@ -15,13 +15,15 @@ use App\Models\Categroy;
 use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
+use App\Models\Chapter;
+use App\Models\TeacherExerciseChapterCategroyMap;
 use Input;
 
 class LearningCenterController extends Controller
 {
     //学习中心controller
     const MOD_HOMEWORK = 'homework';
-    const MOD_EXERCISE = 'exercise';
+    const MOD_EXERCISE = 'my-exercise';
 
     const FUNC_ADD_HOMEWORK = 'addHomework';
     const FUNC_ADD_HOMEWORK_PERS = 'addHomework-personal';
@@ -37,6 +39,7 @@ class LearningCenterController extends Controller
     	$teacher = Auth::guard('employee')->user();
     	$map_list = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->get();//查询出所有老师关联的数据 
     	$class_course = array();
+    	$select_data = array();
     	foreach ($map_list as $map) {
     		if(empty($class_id)){
     			$class_id = $map->class_id;
@@ -60,7 +63,9 @@ class LearningCenterController extends Controller
     			$data = array('unit_list' => $unit_list);
     			$title = $grade->title.$class->title.'('.$course->title.'作业)';
     		}else if($func == self::FUNC_ADD_HOMEWORK_EXERCISE){
-    			$data = Exercises::where('course_id',$course_id)->paginate(5);
+    			$title = "习题库";
+    			$chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+    			$data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(5);
     			foreach ($data as $exercise) {
 		            $cate_title = Categroy::find($exercise->categroy_id)->title;
 		            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
@@ -96,49 +101,55 @@ class LearningCenterController extends Controller
     	}elseif($mod == self::MOD_EXERCISE){
     		$title = '我的题库';
     		if(empty($func)){
-    			$data = Exercises::where('course_id',$course_id)->paginate(10);
+    			$chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+    			$data = Exercises::where("teacher_id",$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
 		        foreach ($data as $exercise) {
 		            $cate_title = Categroy::find($exercise->categroy_id)->title;
+	                $exercise->cate_title = $cate_title;
+	                $exercise->score = $exercise->score/100;
 		            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 		                $subjective = $exercise->hasManySubjective->first();
-		                $exercise->cate_title = $cate_title;
 		                $exercise->subject = $subjective->subject;
 		                $exercise->answer = array('自由发挥');
-		                $exercise->score = $exercise->score/100;
 		            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
 		            	$objective = $exercise->hasManyObjective->first();
-		                $answers = array();
-		                $answer_list = explode(',',$objective->answer);
-		                if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-		                    foreach ($answer_list as $key => $answer) {
-		                        array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
-		                    }
-		                }else{
-		                	foreach ($answer_list as $answer) {
-		                    	array_push($answers,$answer);
-		                	}
-		                }
-		                $exercise->cate_title = $cate_title;
+		                // if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
+		                //     foreach ($answer_list as $key => $answer) {
+		                //         array_push($answers,array_keys(json_decode($answer)));
+		                //     }
+		                // }else{
+		                // 	foreach ($answer_list as $answer) {
+		                //     	array_push($answers,$answer);
+		                // 	}
+		                // }
 		                $exercise->subject = $objective->subject;
 		                $exercise->options = json_decode($objective->option,TRUE);
-		                $exercise->answer = $answers;
-		                $exercise->score = $exercise->score/100;
+		                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
 		            }
 		//          else{
 		//              
 		//          }
 		        }
+		        $select_categroy = Categroy::where("course_id","like","%{$course_id}%")->get();
+		        $exer_chapter_list = Exercises::where("teacher_id",$teacher->id)->whereIn('chapter_id',$chapter_list)->pluck("chapter_id");
+		        $parent_section = Chapter::whereIn("id",$exer_chapter_list)->pluck("parent_id");
+		        $parent_unit = Chapter::whereIn("id",$parent_section)->pluck("parent_id");
+		        $select_unit = Chapter::whereIn("id",$parent_section)->get();
+		        $select_grade = Chapter::whereIn("id",$parent_unit)->get();
+		        $select_data["select_categroy"] = $select_categroy;
+		        $select_data["select_unit"] = $select_unit;
+		        $select_data["select_grade"] = $select_grade;
     		}else if($func == self::FUNC_ADD_EXERCISE){
     			$unit_list = parent::getUnit();
     			$categroy_list = parent::getCategroy();
     			$data = array('unit_list' => $unit_list,'categroy_list' => $categroy_list);
     		}else if($func == self::FUNC_MY_UPLOAD){
 
-    		}else if($func == self::FUNC_MY_COLLECTION){
+    		}else if($func == self::FUNC_MY_COLLECTION){	
 
     		}
     	}
-    	return view('teacher.learningCenter',compact('class_course','data','class_id','course_id','mod','func','title'));
+    	return view('teacher.learningCenter',compact("class_course","data","class_id","course_id","mod","func","title","select_data"));
     }
     public function uploadExercise(){
     	$input = Input::get();
@@ -159,8 +170,7 @@ class LearningCenterController extends Controller
         $exercise = new Exercises;
         $exercise->teacher_id = $user->id;
         $exercise->school_id = $user->school_id;
-        $exercise->chapter_id = $chapter;
-        // $exercise->course_id =  intval($item['course']);
+        $exercise->chapter_id = $chapter["section"];
         $exercise->categroy_id = intval($item['categroy']);
         $exercise->updata_time = $time;
         if($exercise->categroy_id == Exercises::CATE_RADIO ||
@@ -175,7 +185,7 @@ class LearningCenterController extends Controller
                 $exercise->categroy_id == Exercises::CATE_SORT)
         {
             $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
-            $exercise->score = 1 * count($item['answer']) * 100;
+            $exercise->score = 1 * count($item['option'][0]) * 100;
         }
         else if($exercise->categroy_id == Exercises::CATE_FILLS)
         {
@@ -192,26 +202,49 @@ class LearningCenterController extends Controller
             $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
         }
         $exercise->save();
+        $map = new TeacherExerciseChapterCategroyMap;
+        $map->teacher_id = $user->id;
+        $map->exercise_id = $exercise->id;
+        $input_unit = Chapter::find($chapter["unit"]);
+        $map->grade_id = Chapter::find($input_unit->parent_id)->id;
+        $map->unit_id = $chapter["unit"];
+        $map->section_id = $chapter["section"];
+        $map->categroy_id = intval($item['categroy']);
+        $map->save();
         if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         	if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
+        		$item["answer"] = array();
         		for($i = 0;$i < count($item["option"]);$i++){
         			array_push($item["answer"],$i);
         		}
         	}
         	if($exercise->categroy_id == Exercises::CATE_LINE && empty($item['answer'])){
-        		for($i = 0;$i < count($item["option"]);$i++){
-        			array_push($item["answer"],$i.":".$i);
+        		$item["answer"] = array();
+        		for($i = 0;$i < count($item["option"][0]);$i++){
+        			array_push($item["answer"],($i+1).":".($i+1));
         		}
         	}
 			$option = array();
     		if(isset($item["option"])){
-	        	foreach ($item["option"] as $key => $value) {
-	        		array_push($option,array($key+1 => $value));
+	        	if($exercise->categroy_id == Exercises::CATE_LINE){
+	        		foreach($item["option"] as $i => $options){
+        				$option[$i] = array();
+	        			foreach($options as $key => $value){
+	        				array_push($option[$i],array(($key+1) => $value));
+	        			}
+	        		}
+	        	}else{
+	        		foreach ($item["option"] as $key => $value) {
+		        		array_push($option,array($key+1 => $value));
+		        	}
 	        	}
     		}
-        	foreach ($item["answer"] as $key => &$value) {
-        		$value += 1;
-        	}
+        	if($exercise->categroy_id == Exercises::CATE_RADIO ||
+                $exercise->categroy_id == Exercises::CATE_CHOOSE){
+                foreach ($item["answer"] as $key => &$value) {
+                    $value += 1;
+                }
+            }
         	$answer = array("answer" => $item["answer"]);
             $objective = new Objective([
                 'subject' => $item['subject'],
