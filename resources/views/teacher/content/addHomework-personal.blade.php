@@ -60,14 +60,14 @@
                 <span>习题练习：</span>
 
                 <div class="f-l p-r no-exer">
-                    <a class="addExerBtn ic-blue c-d personHw-addExer" href="exerRoom.html">
+                    <a class="addExerBtn ic-blue c-d personHw-addExer" href="/learningCenter/{{$class_id}}/{{$course_id}}/{{$mod}}/exercise">
                         <i class="uploadExerIcons"></i>
                         <span>添加习题</span>
                     </a>
 
                     <!--"添加习题" 页面引导-->
                     <div class="p-a guide" style="display: none;">
-                        <img src="../../images/add_exer.jpg" alt="">
+                        <img src="/images/add_exer.jpg" alt="">
 
                         <div class="p-a"><div class="p-a part">
 <i class="fa fa-exclamation-circle f-l ic-blue p-r"></i>
@@ -225,7 +225,7 @@
 
         <!--发布、保存、取消-->
         <div class="btns">
-            <button class="ic-btn public">
+            <button id="public" class="ic-btn public">
                 <i class="fa fa-paper-plane-o"></i>
                 <span>发 布</span>
             </button>

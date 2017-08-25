@@ -7,6 +7,6 @@
         <a href="Pigaizuoye.html">批改作业</a>
     </li>
     <li>
-        <a href="exerRoom.html">习题库</a>
+        <a href="/learningCenter/{{$class_id}}/{{$course_id}}/{{$mod}}/exercise" {{$func == "exercise" ? "class=active" : ""}}>习题库</a>
     </li>
 </ul>

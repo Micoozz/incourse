@@ -122,7 +122,7 @@
                 <div class="col-xs-12 " id="left">
                 	 <ul class="nav1 nav" id="nav1">
                         <li><a href="/learningCenter/{{$class_id}}/{{$course_id}}/homework" {{$mod == 'homework' ? 'class=box' : ''}} num='1'>作业管理</a></li>
-                        <li><a href="/learningCenter/{{$class_id}}/{{$course_id}}/exercise" {{$mod == 'exercise' ? 'class=box' : ''}} num='2'>我的题库</a></li>
+                        <li><a href="/learningCenter/{{$class_id}}/{{$course_id}}/my-exercise" {{$mod == 'my-exercise' ? 'class=box' : ''}} num='2'>我的题库</a></li>
                         <li><a href="" num='3'>资料库</a></li>
                         <li><a href="" num='4'>班级管理</a></li>
                         <li><a href="" num='5'>成绩管理</a></li>
@@ -143,9 +143,9 @@
                         @elseif($func == 'exercise')
                             @include('teacher.content.exercise')
                         @endif
-                    @elseif($mod == 'exercise')
+                    @elseif($mod == 'my-exercise')
                         @if(empty($func))
-                        @include('teacher.content.exercise')
+                        @include('teacher.content.my-exercise')
                         @elseif($func == 'addExercise')
                         @include('teacher.content.addExercise')
                         @endif
@@ -177,6 +177,9 @@
 <script src="/js/teacher/homeworkManage.js" charset="utf-8"></script>
 <script type="text/javascript">
     var token = "{{csrf_token()}}";
+    var class_id = "{{$class_id}}";
+    var course_id = "{{$course_id}}";
+    var mod = "{{$mod}}";
     $(function(){
         $("body").click(function(event){
             //点击空白关闭联动下拉框

@@ -39,6 +39,7 @@
 .school-container {min-height: 487px; padding: 41px 33px;}
 .setLimit-container {min-height: 487px; padding: 30px 73px;}
 .admin-container {min-height: 487px; padding: 30px 17px;}
+.person_hw_box {padding: 33px 26px; min-height: 475px;}
 
 /* 鼠标指针相关 */
 .c-p {cursor: pointer;}
@@ -49,14 +50,8 @@
 
 /********* 标签相关 **********/
 /*ul,ol下的li横着排列*/
-.ic-inline:after {
-	content: "";
-	clear: both;
-	display: table;
-}
-.ic-inline>li {
-	float: left
-}
+.ic-inline:after {content: ""; clear: both; display: table;}
+.ic-inline>li {float: left}
 
 /* input输入框 */
 .ic-input {
@@ -66,6 +61,12 @@
 	border: 1px solid #D9D9D9;
 	background-color: #fff;
 }
+
+/*错误红边框输入框*/
+.input-error{border-color: red;}
+
+/*搜索框*/
+.ic-search-box .fa-search {color: #ccc; right: 10px; top: 6px;}
 
 /*提示字*/
 .tip {font-size: 12px; color: #c9c9c9;}
@@ -82,10 +83,9 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
+	cursor: pointer;
 }
-.ic-btn:hover {
-	background-color: #1681DC;
-}
+.ic-btn:hover {background-color: #1681DC;}
 
 /*白色按钮*/
 .btn-white {
@@ -99,10 +99,12 @@
 	border-radius: 4px;
 	color: #333;
 	border: 1px solid #D9D9D9;
+	cursor: pointer;
 }
-.btn-white:hover {
-	background-color: #FCFAFA;
-}
+.btn-white:hover {background-color: #FCFAFA;}
+
+/*单个按钮居中*/
+.btn-center {display:block; margin:0 auto;}
 
 /*icon + 文字 背景蓝色按钮*/
 .icon-text-btn {
@@ -116,11 +118,9 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
-	cursor: default;
+	cursor: pointer;
 }
-.icon-text-btn:hover {
-	color: #fff;
-}
+.icon-text-btn:hover {color: #fff;}
 
 /*灰色边框 + 4圆角*/
 .border {border: 1px solid #D9D9D9; border-radius: 4px;}
@@ -302,7 +302,7 @@
 .no-content>p {font-size: 16px; margin-top: 30px;}
 
 /*背景白色高亮*/
-.highlight1 {position: relative; z-index: 300; background-color: #fff;}
+/*.highlight1 {position: relative; z-index: 300; background-color: #fff;}*/
 
 /*字体白色高亮*/
 .highlight2 {position: relative; z-index: 600; color: #fff;}
@@ -317,7 +317,8 @@
 }
 
 /*页面引导弹出框*/
-.part {
+.guide-active {z-index: 300;}
+.guide-active .part,.part {
 	z-index: 500;
 	width: 211px;
 	height: 100px;
@@ -325,6 +326,7 @@
 	border-radius: 4px;
 	font-size: 12px;
 	box-shadow: 0 1px 4px 0 #c9c9c9;
+	color: #333;
 	background-color: #fff;
 }
 .part:before {
@@ -355,7 +357,7 @@
 .ic-editor {width:554px; border-radius:4px;}
 .ic-editor .tools {padding:6px 10px; border-bottom:1px solid #d9d9d9;}
 .ic-editor .tools>div {margin-right: 12px; cursor:default;}
-.ic-editor .vertical-line {height:20px; margin-right:4px; border-left: 1px solid #E9E9E9;;}
+.ic-editor .vertical-line {height:20px; margin-right: 7px; margin-left: 7px; border-left: 1px solid #E9E9E9;}
 .addFile {
 	position: absolute;
 	top: 0;
@@ -367,7 +369,7 @@
 }
 .ic-editor .editor-content {height: 220px; padding:10px; letter-spacing: 0.2em; overflow-y:auto;}
 .ic-editor .editor-content:focus {outline: none;}
-.editor-content img {max-width: 200px; vertical-align:baseline;}
+.editor-content .img-canBigger {max-width: 150px; vertical-align:baseline;}
 .tool {
 	display: inline-block;
 	width: 15px;
@@ -382,6 +384,23 @@
 .ic-editor .dotted>i {background-position: -52px -12px;}
 .ic-editor .underline>i {background-position: -92px -12px;}
 
+/*编辑器里图片点击出现的大图*/
+.big-img-box {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 50;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+}
+.big-img-box .fa-times-circle-o {
+	font-size: 26px;
+	top: 12px;
+	left: 12px;
+}
 
 /*空格*/
 .blank-item {
@@ -440,6 +459,30 @@
 }
 .imgs .d-n {display: none;}
 
+/*简单的确认弹出框*/
+.ic-sure-modal {
+	position: fixed;
+	z-index: 300;
+	top: 50%;
+	left: 50%;
+	width: 260px;
+	height: 136px;
+	margin-top: -68px;
+	margin-left: -130px;
+	padding: 30px;
+	background-color: #fff;
+}
+.ic-sure-modal .fa-exclamation-circle {
+	font-size: 25px;
+	margin-right: 8px;
+	top: 2px;
+	color: #FFBF00;
+}
+.ic-sure-modal .is-delete-msg {font-size: 16px;}
+.ic-sure-modal .btns {margin-top: 20px;}
+.ic-sure-modal .ic-btn {margin-right: 10px;}
+
+
 /*确认弹出框*/
 .delete-modal {
 	position: fixed;
@@ -496,5 +539,7 @@
     margin: -125px 0 0 -100px;
 }
 
-
-
+/*//验证提示*/
+.hint{
+	color: red;
+}

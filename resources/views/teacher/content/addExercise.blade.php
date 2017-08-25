@@ -30,7 +30,7 @@
 	<div class="big-box">
 		<div class="exercise-box">
 			<div class="exercise">
-				<div class="type select-action-box">
+				<div class="type select-action-box p-r">
 					<span class="f-l fs14">题型：</span>
 					<div class="select-form clear">
 						<div>
@@ -60,6 +60,7 @@
 							</ul>
 						</div>
 					</div>
+					<i class="common-icon ic-close-icon p-acommon-icon ic-close-icon p-a"></i>
 				</div>
 				<!--问题框-->
 				<div class="question-box">
@@ -73,7 +74,7 @@
 									<input class="addFile" type="file" />
 								</button>
 								<b class="vertical-line f-l"></b>
-								<button class="f-l blank">
+								<button class="f-l blank d-n">
 									<i class="tool"></i>
 									<span>插入空格</span>
 								</button>
@@ -281,7 +282,7 @@
 			</button>
 		</div>
 		<div class="btns">
-			<button class="ic-btn" id="upload-btn">保 存</button>
+			<button class="ic-btn" id="upload-btn">上 传</button>
 			<button class="btn-white">返 回</button>
 		</div>
 	</div>
