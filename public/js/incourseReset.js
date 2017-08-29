@@ -5,9 +5,10 @@ var ic = {
 	}
 }
 
+
 /*三级联动*/
 $(function(){
-	$(".select-form .ic-text").click(function() {
+	$("body").on("click",".select-form .ic-text",function() {
 		var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
 		$(".select-action-box .select-form .ic-text .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
 		$(".select-action-box .select-form .lists").hide();
@@ -20,7 +21,8 @@ $(function(){
 			$(this).next("ul").hide();
 		}
 	});
-	$(".select-form .lists").on("click","li",function() {
+
+	$("body").on("click",".select-form .lists>li",function() {
 		var $p = $(this).parent().prev();
 		$p.children("span").text($(this).text());
 		$p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
@@ -29,6 +31,12 @@ $(function(){
 })
 
 $(function() {
+	/*页面引导*/
+	$("body").on("click",".guide-active .part button",function(){
+		$(this).parents(".guide-active").hide();
+		$(".ic-modal").hide();
+	});
+
 	/*单选框*/
 	$(".radio-box label.p-r input").change(function() {
 		$("input[name='" + this.name + "']").prev(".radio").removeClass("active");
@@ -67,7 +75,7 @@ $(function(){
 		var _self = this;
 		reader.onload = function(e) {
 			var img = '<div class="p-r f-l one-img">\
-							<img src="' + this.result + '"/>\
+							<img class="img-canBigger" src="' + this.result + '"/>\
 							<i class="common-icon p-a delete d-n"></i>\
 						</div>';
 			$(_self).parents(".addFileBox").children(".imgs").append(img).addClass("border");
@@ -105,20 +113,18 @@ $(function(){
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
-		console.log(file)
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
 		var _self = this;
 		reader.onload = function(e) {
-			var img = '<img src="' + this.result + '"/>';
+			var img = '<img class="img-canBigger" src="' + this.result + '"/>';
 			$(_self).parents(".ic-editor").children(".editor-content").append(img);
 		}
 	});
 
-	/*标点*/
+	/*下标点*/
 	$(".exercise-box").on("click",".ic-editor .dotted",function(){
 		var selObj = window.getSelection().toString();  //获取选中的文本
-		console.log(selObj)
 		var html = "";
 		for(var i=0; i<selObj.length; i++){
 			html += '<span class="totted-active">' + selObj[i] + '</span>';
@@ -128,14 +134,47 @@ $(function(){
 		$(this).parents(".ic-editor").find(".totted-active").attr("contenteditable", false); //禁止加点的元素编辑
 	});
 
+	/*上标点*/
+	$(".exercise-box").on("click",".ic-editor .up-dotted",function(){
+		var selObj = window.getSelection().toString();
+		var html = "";
+		for(var i=0; i<selObj.length; i++){
+			html += '<span class="up-totted-active">' + selObj[i] + '</span>';
+		}
+
+		document.execCommand("insertHTML","false",html);
+		$(this).parents(".ic-editor").find(".up-totted-active").attr("contenteditable", false);
+	});
+
 	/*下划线*/
 	$(".exercise-box").on("click",".ic-editor .underline",function(){
 		var selObj = window.getSelection().toString();  //获取选中的文本
 		document.execCommand("insertHTML","false",'<span class="underline-active">' + selObj + '<span>');  //在光标处插入html代码
 		$(this).parents(".ic-editor").find(".underline-active").attr("contenteditable", false); //禁止下划线的元素编辑
 	});
+
+	//编辑器里面的图片点击放大效果
+	$("body").on("click",".img-canBigger",function(){
+		var img = $(this).attr("src");
+		$(".big-img-box").show();
+		$(".big-img-box>img").attr("src",img);
+	});
+	//关闭大图
+	$(".big-img-box .fa-times-circle-o").click(function(){
+		$(".big-img-box").hide();
+	});
 })
 
+
+/*简单的确认弹出框*/
+$(function(){
+	$("body").on("click",".ic-sure-modal .btn-white",function(){
+		$(".ic-modal,.ic-sure-modal").hide();
+	});
+	$("body").on("click",".ic-sure-modal .ic-btn",function(){
+		$(".ic-modal,.ic-sure-modal").hide();
+	});
+})
 
 
 

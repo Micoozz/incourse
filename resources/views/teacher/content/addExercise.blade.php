@@ -35,12 +35,12 @@
 					<div class="select-form clear">
 						<div>
 							<p class="ic-text-exer">
-								<span>{{$data['categroy_list'][1]}}</span>
+								<span>{{$data['categroy_list'][0]->title}}</span>
 								<i class="fa fa-angle-down"></i>
 							</p>
 							<ul class="lists-exer">
-								@foreach($data['categroy_list'] as $id => $title)
-								<li data="{{$id}}" class="exer-li">{{$title}}</li>
+								@foreach($data['categroy_list'] as $categroy)
+								<li data="{{$categroy->id}}" class="exer-li">{{$categroy->title}}</li>
 								@endforeach
 								<!-- <li>单选题</li>
 								<li>多选题</li>
@@ -80,7 +80,11 @@
 								</button>
 								<button class="f-l dotted">
 									<i class="tool"></i>
-									<span>标点</span>
+									<span>下标点</span>
+								</button>
+								<button class="f-l up-dotted">
+								   <i class="tool"></i>
+								   <span>上标点</span>
 								</button>
 								<button class="f-l underline">
 									<i class="tool"></i>
@@ -289,7 +293,7 @@
 </div>
 <script type="text/javascript">
 	var categroy_list = "";
-	@foreach($data['categroy_list'] as $id => $title)
-	categroy_list += '<li class="exer-li" data="{{$id}}">{{$title}}</li>';
+	@foreach($data['categroy_list'] as $categroy)
+	categroy_list += '<li class="exer-li" data="{{$categroy->id}}">{{$categroy->title}}</li>';
 	@endforeach
 </script>

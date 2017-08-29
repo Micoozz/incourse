@@ -13,6 +13,7 @@
 .btn-hover-bg:hover {background-color: #1681DC;}
 .lightblue-bg {background-color: #e1f5fa;}
 .fff-bg {background-color: #fff;}
+.purple-bg {background-color: #E0EEFF}
 .gray-hover-bg:hover {background-color: #FCFAFA;}
 
 /* 位置相关 */
@@ -133,33 +134,36 @@
 	width: 20px;
 	height: 20px;
 	overflow: hidden;
-	background: url(/images/common_icon.png) no-repeat;
+	background: url(../images/common_icon.png) no-repeat;
 }
 .uploadExerIcons {
 	display: inline-block;
 	width: 17px;
 	height: 17px;
 	overflow: hidden;
-	background: url(/images/uploadExerIcons.png) no-repeat;
+	background: url(../images/uploadExerIcons.png) no-repeat;
 }
 .teacher_icons {
 	display: inline-block;
 	width: 17px;
 	height: 17px;
 	overflow: hidden;
-	background: url(/images/teacher_icons.png) no-repeat;
+	background: url(../images/teacher_icons.png) no-repeat;
 }
 .student_icons {
 	display: inline-block;
 	width: 19px;
 	height: 19px;
 	overflow: hidden;
-	background: url(/images/student_icons.png) no-repeat;
+	background: url(../images/student_icons.png) no-repeat;
 }
 
 
 
 /* *** 组件相关 **** */
+
+/*中间顶部标题左侧的"返回"*/
+
 
 /*遮罩层*/
 .shad{
@@ -382,6 +386,7 @@
 .ic-editor .addFileTool>i {background-position: -18px -10px;}
 .ic-editor .blank>i {width: 18px; background-position: -93px -31px;}
 .ic-editor .dotted>i {background-position: -52px -12px;}
+.ic-editor .up-dotted>i {background-position: -6px -69px;}
 .ic-editor .underline>i {background-position: -92px -12px;}
 
 /*编辑器里图片点击出现的大图*/
@@ -428,13 +433,23 @@
 }
 .blank-answer>span {position: absolute; top: 6px; left: 6px; border-right:1px solid #d9d9d9;}
 
-/*文本加点*/
+/*文本加上标点*/
 .ic-editor .totted-active {position: relative;  overflow: hidden;}
 .ic-editor .totted-active:before {
 	content: ".";
 	position: absolute;
 	top: 5px;
 	left: 4px;
+	font-weight: bold;
+}
+
+/*文本加下标点*/
+.ic-editor .up-totted-active {position: relative;  overflow: hidden;}
+.ic-editor .up-totted-active:before {
+	content: ".";
+	position: absolute;
+	top: -14px;
+	left: 2px;
 	font-weight: bold;
 }
 

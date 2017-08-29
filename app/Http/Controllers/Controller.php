@@ -18,8 +18,8 @@ class Controller extends BaseController
     	$course_list = Course::all();
     	return $course_list;
     }
-    public function getCategroy(){
-    	$categroy_list = Categroy::all()->pluck('title','id');
+    public function getCategroy($course_id){
+    	$categroy_list = Categroy::where("course_id","like","%{$course_id}%")->get();;
     	return $categroy_list;
     }
     public function getUnit(){
