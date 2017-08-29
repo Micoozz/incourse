@@ -273,6 +273,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Duty' => __DIR__ . '/../..' . '/app/Duty.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\ArchivesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ArchivesController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -312,6 +313,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'App\\Models\\Shiyan' => __DIR__ . '/../..' . '/app/Models/Shiyan.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
         'App\\Models\\Subjective' => __DIR__ . '/../..' . '/app/Models/Subjective.php',
+        'App\\Models\\TeacherExerciseChapterCategroyMap' => __DIR__ . '/../..' . '/app/Models/TeacherExerciseChapterCategroyMap.php',
         'App\\Models\\Work' => __DIR__ . '/../..' . '/app/Models/Work.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -328,6 +330,7 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'CreateClassTeacherCourseMap' => __DIR__ . '/../..' . '/database/migrations/2017_06_26_152144_create_class_teacher_course_map.php',
         'CreateCompositive' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_091203_create_compositive.php',
         'CreateCourse' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_074517_create_course.php',
+        'CreateDutiesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_29_090742_create_duties_table.php',
         'CreateEmployee' => __DIR__ . '/../..' . '/database/migrations/2017_06_03_064706_create_employee.php',
         'CreateExercises' => __DIR__ . '/../..' . '/database/migrations/2017_06_05_110530_create_exercises.php',
         'CreateGroup' => __DIR__ . '/../..' . '/database/migrations/2017_07_20_083400_create_group.php',

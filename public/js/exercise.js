@@ -66,8 +66,12 @@ $(function () {
 	</button>\
 	<button class="f-l dotted">\
 	<i class="tool"></i>\
-	<span>标点</span>\
+	<span>下标点</span>\
 	</button>\
+	<button class="f-l up-dotted">\
+   <i class="tool"></i>\
+   <span>上标点</span>\
+</button>\
 	<button class="f-l underline">\
 	<i class="tool"></i>\
 	<span>下划线</span>\
@@ -545,20 +549,7 @@ $(function () {
 															<i class="fa fa-angle-down"></i>\
 														</p>\
 														<ul class="lists-exer">\
-															<li>单选题</li>\
-															<li>多选题</li>\
-															<li>填空题</li>\
-															<li>判断题</li>\
-															<li>连线题</li>\
-															<li>排序题</li>\
-															<li>完形填空</li>\
-															<li>画图题</li>\
-															<li>计算题</li>\
-															<li>简答题</li>\
-															<li>解答题</li>\
-															<li>听力题</li>\
-															<li>阅读题</li>\
-															<li>作文题</li>\
+															'+categroy_list+'\
 														</ul>\
 													</div>\
 												</div>\

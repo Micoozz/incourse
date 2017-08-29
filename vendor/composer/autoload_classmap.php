@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Duty' => $baseDir . '/app/Duty.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Admin\\ArchivesController' => $baseDir . '/app/Http/Controllers/Admin/ArchivesController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -46,6 +47,7 @@ return array(
     'App\\Models\\Shiyan' => $baseDir . '/app/Models/Shiyan.php',
     'App\\Models\\Student' => $baseDir . '/app/Models/Student.php',
     'App\\Models\\Subjective' => $baseDir . '/app/Models/Subjective.php',
+    'App\\Models\\TeacherExerciseChapterCategroyMap' => $baseDir . '/app/Models/TeacherExerciseChapterCategroyMap.php',
     'App\\Models\\Work' => $baseDir . '/app/Models/Work.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
@@ -62,6 +64,7 @@ return array(
     'CreateClassTeacherCourseMap' => $baseDir . '/database/migrations/2017_06_26_152144_create_class_teacher_course_map.php',
     'CreateCompositive' => $baseDir . '/database/migrations/2017_06_06_091203_create_compositive.php',
     'CreateCourse' => $baseDir . '/database/migrations/2017_06_06_074517_create_course.php',
+    'CreateDutiesTable' => $baseDir . '/database/migrations/2017_08_29_090742_create_duties_table.php',
     'CreateEmployee' => $baseDir . '/database/migrations/2017_06_03_064706_create_employee.php',
     'CreateExercises' => $baseDir . '/database/migrations/2017_06_05_110530_create_exercises.php',
     'CreateGroup' => $baseDir . '/database/migrations/2017_07_20_083400_create_group.php',

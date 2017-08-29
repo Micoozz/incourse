@@ -175,6 +175,8 @@
 <script src="/js/lhgcore.js" charset="utf-8"></script>
 <script src="/js/lhgcalendar.js" charset="utf-8"></script>
 <script src="/js/teacher/homeworkManage.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/teacher/exerRoom.js"></script>
+<script type="text/javascript" src="/js/teacher/personHw.js"></script>
 <script type="text/javascript">
     var token = "{{csrf_token()}}";
     var class_id = "{{$class_id}}";

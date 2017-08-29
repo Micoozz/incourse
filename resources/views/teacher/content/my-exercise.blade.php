@@ -32,9 +32,7 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        @foreach($select_data["select_grade"] as $grade)
-                        <li>{{$grade->title}}</li>
-                        @endforeach
+                        
                     </ul>
                 </div>
                 <!-- <div>
@@ -71,9 +69,7 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        @foreach($select_data["select_unit"] as $unit)
-                        <li>{{$unit->title}}</li>
-                        @endforeach
+                        
                     </ul>
                 </div>
                 <div>
@@ -93,9 +89,7 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        @foreach($select_data["select_categroy"] as $categroy)
-                        <li>{{$categroy->title}}</li>
-                        @endforeach
+                        
                     </ul>
                 </div>
             </div>

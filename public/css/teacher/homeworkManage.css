@@ -3,10 +3,8 @@
      background-color: #168bee;
 }*/
 
-/**************** homeworkManage.html ******************/
 
-/**** 布置作业 ****/
-/*作业选择*/
+/************* hwType.html ************/
 .homework-manage-title {
     font-size: 16px;
     padding-left: 10px;
@@ -75,7 +73,7 @@
 }
 
 
-/*布置作业（个人）*/
+/**************** personHw.html ******************/
 .person_hw_box .one-line {
     margin-bottom: 20px;
 }
@@ -188,15 +186,58 @@
     background-position: -72px -32px;
 }
 
+/*发布弹出框*/
+.dBUploadBox {
+    z-index: 300;
+    width: 600px;
+    height: 300px;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -300px;
+}
+.dBUpload-head {
+    height: 54px;
+    line-height: 54px;
+    padding-left: 20px;
+}
+.dBUploadBox .right-icon {
+    width: 28px;
+    height: 28px;
+    top: 7px;
+    margin-right: 7px;
+    background-position: -361px -30px;
+}
+.dBUpload-body {
+    padding: 16px 32px 20px;
+}
+.dBUpload-body .classes {
+    width: 400px;
+}
+.dBUpload-body .classes>span {
+    padding: 3px 7px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.dBUpload-body .checked {
+    color: #168bee;
+    background-color: #E0EEFF;
+}
+.dBUpload-body ul>li:first-child {
+    margin-top: 3px;
+}
 
 
-/**** 习题库 *****/
+/**************** exerRoom.html **************/
 /*已添加的作业*/
 .hw-list {
     position: absolute;
     right: -251px;
     top: 100px;
-    z-index: 100;
+    z-index: 300;
     width: 204px;
     padding-bottom: 10px;
     background-color: #fff;
