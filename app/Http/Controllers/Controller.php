@@ -19,7 +19,7 @@ class Controller extends BaseController
     	return $course_list;
     }
     public function getCategroy($course_id){
-    	$categroy_list = Categroy::where("course_id","like","%{$course_id}%")->get();;
+    	$categroy_list = Categroy::where("course_id","like","%{$course_id}%")->pluck('title','id');
     	return $categroy_list;
     }
     public function getUnit(){
@@ -64,7 +64,7 @@ class Controller extends BaseController
 		// }
 		// $content = implode($contentArray->toArray(), "\n");
 		// \File::put($envPath, $content);
-  //   }
+  //  }
     protected function modifyConfFile(string $path,int $begin,array $data){
     	$code = 200;
     	$confPath = base_path($path);
@@ -73,5 +73,22 @@ class Controller extends BaseController
     	$content = implode($contentArray, "\n");
 		\File::put($confPath, $content);
 		return $code;
+    }
+    protected function send_post($url, $post_data) {    
+        header("Content-type:text/html;charset=utf-8");  
+          
+        $ch = curl_init ();  //初始化curl  
+          
+        curl_setopt ( $ch, CURLOPT_URL, $url );
+        curl_setopt ( $ch, CURLOPT_POST, 1 );  //使用post请求  
+        curl_setopt ( $ch, CURLOPT_HEADER, 0 );  
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );  
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $post_data);  //提交数据  
+        curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true);  //重定向地址也输出  
+        $return = curl_exec ( $ch ); //得到返回值  
+          
+        curl_close ( $ch );  //关闭  
+          
+        return $return;  //输出返回值    
     }
 }

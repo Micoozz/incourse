@@ -437,9 +437,11 @@
 .ic-editor .totted-active {position: relative;  overflow: hidden;}
 .ic-editor .totted-active:before {
 	content: ".";
+	width: 100%;
+	text-align: center;
 	position: absolute;
 	top: 5px;
-	left: 4px;
+	/*left: 4px;*/
 	font-weight: bold;
 }
 
@@ -447,9 +449,11 @@
 .ic-editor .up-totted-active {position: relative;  overflow: hidden;}
 .ic-editor .up-totted-active:before {
 	content: ".";
+	width: 100%;
+	text-align: center;
 	position: absolute;
 	top: -14px;
-	left: 2px;
+	/*left: 2px;*/
 	font-weight: bold;
 }
 

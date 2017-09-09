@@ -12,6 +12,7 @@
 */
 Route::get('/test','Teacher\LearningCenterController@test');
 Route::get('/', 'PageController@index')->name('login');
+Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/media','PageController@media');
@@ -35,7 +36,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/UploadExercises','PageController@uploadExercises');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
-		Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}','LearningCenterController@learningCenter');
+		Route::get('/test','LearningCenterController@test');
+		Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		Route::post('/uploadExercise','LearningCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
 		Route::get('/correctingHomepage','PageController@correctingHomepage');
@@ -54,11 +56,11 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/independentOperationAddTopic','PageController@independentOperationAddTopic');
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
-		Route::get('/showExerciseList/{course}/{page?}','Teacher\ExerciseController@showExerciseList');
-		Route::post('/getExerciseList/{page?}','Teacher\ExerciseController@getExerciseList');
-		Route::post('/createJob','Teacher\JobController@createJob');
-		Route::post('/pubJob','Teacher\JobController@pubJob');
-		Route::get('/showJobList/{page?}','Teacher\JobController@showJobList');
+		Route::get('/showExerciseList/{course}/{page?}','ExerciseController@showExerciseList');
+		Route::post('/getExerciseList/{page?}','ExerciseController@getExerciseList');
+		Route::post('/createJob','JobController@createJob');
+		Route::post('/pubJob','JobController@pubJob');
+		Route::get('/showJobList/{page?}','JobController@showJobList');
 	});
 	Route::group(['middleware' => 'student'],function(){
 		Route::get('/danrenzuoye-chengji',function(){

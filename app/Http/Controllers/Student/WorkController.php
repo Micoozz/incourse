@@ -146,8 +146,7 @@ class WorkController extends Controller
                 $table->integer('work_id');
                 $table->integer('exe_id');
                 $table->text('answer')->nullable();
-                $table->integer('start_time')->nullable();
-                $table->integer('end_time')->nullable();
+                $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
             });
