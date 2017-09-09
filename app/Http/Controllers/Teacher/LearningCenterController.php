@@ -34,26 +34,34 @@ class LearningCenterController extends Controller
     const FUNC_MY_UPLOAD = 'my-upload';
     const FUNC_MY_COLLECTION = 'my-conllection';
 
+    protected $class_course;
+    protected $teacher;
+
+    public function __construct(Request $request){
+        $this->teacher = Auth::guard('employee')->user();
+        dd($this->teacher);
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$this->teacher->id)->get();//查询出所有老师关联的数据
+        $class_course = array();
+        foreach ($map_list as $map) {
+            if(empty($class_id)){
+                $class_id = $map->class_id;
+            }
+            if(empty($course_id)){
+                $course_id = $map->course_id;
+            }
+            $class = Classs::find($map->class_id);
+            $grade = Classs::find($class->parent_id);
+            $course = Course::find($map->course_id);
+            array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
+        }
+        $this->class_course = $class_course;
+    }
+
     /**
      * 学习中心主体页面
      */
     public function learningCenter($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
-    	$teacher = Auth::guard('employee')->user();
-    	$map_list = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->get();//查询出所有老师关联的数据 
-    	$class_course = array();
     	$select_data = array();
-    	foreach ($map_list as $map) {
-    		if(empty($class_id)){
-    			$class_id = $map->class_id;
-    		}
-    		if(empty($course_id)){
-    			$course_id = $map->course_id;
-    		}
-    		$class = Classs::find($map->class_id);
-    		$grade = Classs::find($class->parent_id);
-    		$course = Course::find($map->course_id);
-    		array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
-    	}
     	if($mod == self::MOD_HOMEWORK){
     		$class = Classs::find($class_id);
     		$grade = Classs::find($class->parent_id);
