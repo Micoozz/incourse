@@ -6,7 +6,7 @@
 				<div class="select-form clear">
 					<div class="ic-text-lg">
 						<p class="ic-text">
-							<span>选择章篇</span>
+							<span>{{empty($data["exercise"]) ? "选择章篇" : $data['unit_list'][$data["exercise"]->unit_id]}}</span>
 							<i class="fa fa-angle-down"></i>
 						</p>
 						<ul class="lists unit-ul">
@@ -17,10 +17,15 @@
 					</div>
 					<div class="ic-text-lg">
 						<p class="ic-text">
-							<span>选择小节</span>
+							<span>{{empty($data["exercise"]) ? "选择小节" : $data['section_list'][$data["exercise"]->section_id]}}</span>
 							<i class="fa fa-angle-down"></i>
 						</p>
 						<ul class="lists section-ul">
+							@if(!empty($data['section_list']))
+							@foreach($data['section_list'] as $id => $title)
+							<li class="section-li" data="{{$id}}">{{$title}}</li>
+							@endforeach
+							@endif
 						</ul>
 					</div>
 				</div>
@@ -35,12 +40,12 @@
 					<div class="select-form clear">
 						<div>
 							<p class="ic-text-exer">
-								<span>{{$data['categroy_list'][0]->title}}</span>
+								<span>{{$data['categroy_list'][empty($data["exercise"]) ? 1 : $data["exercise"]->categroy_id]}}</span>
 								<i class="fa fa-angle-down"></i>
 							</p>
 							<ul class="lists-exer">
-								@foreach($data['categroy_list'] as $categroy)
-								<li data="{{$categroy->id}}" class="exer-li">{{$categroy->title}}</li>
+								@foreach($data['categroy_list'] as $id => $title)
+								<li data="{{$id}}" class="exer-li">{{$title}}</li>
 								@endforeach
 								<!-- <li>单选题</li>
 								<li>多选题</li>
@@ -92,6 +97,7 @@
 								</button>
 							</div>
 							<div class="editor-content" contenteditable="true">
+							{!!!empty($data["exercise"]) ? $data["exercise"]->subject : null!!}
 							</div>
 						</div>
 					</div>
@@ -103,11 +109,12 @@
 						<!--单选题-->
 						<div class="dan-xuan">
 							<div class="dan-xuan-options dan-xuan-only">
-								<!--
+								@if(!empty($data["exercise"]))
+								@foreach($data["exercise"]->answer as $answer)
 								<div class="radio-wrap dan-xuan-option>
 									<label class="ic-radio border p-r">
 										<i class="ic-blue-bg p-a"></i>
-										<input type="radio" name="radio" value="A"/>
+										<input type="radio" name="radio" value="{{$answer}}"/>
 									</label>
 									<div class="radio-ipt p-r">
 										<span class="p-a">A：</span>
@@ -115,7 +122,8 @@
 									</div>
 									<i class="delete uploadExerIcons"></i>
 								</div>
-								-->
+								@endforeach
+								@endif
 							</div>
 							<span class="addOptionBtn addXzOptionBtn c-d ic-blue">
 								<i class="uploadExerIcons"></i>
@@ -136,6 +144,14 @@
 								<span>答案1：</span>
 								<input type="text" />
 							</div>-->
+							@if(!empty($data["exercise"]))
+							@foreach($data["exercise"]->answer as $answer)
+							<div class="blank-answer p-r" data-num="1">
+								<span>答案1：</span>
+								<input type="text" />
+							</div>
+							@endforeach
+							@endif
 						</div>
 						<!--判断题-->
 						<div class="pan-duan no-active d-n">
@@ -293,7 +309,7 @@
 </div>
 <script type="text/javascript">
 	var categroy_list = "";
-	@foreach($data['categroy_list'] as $categroy)
-	categroy_list += '<li class="exer-li" data="{{$categroy->id}}">{{$categroy->title}}</li>';
+	@foreach($data['categroy_list'] as $id => $title)
+	categroy_list += '<li class="exer-li" data="{{$id}}">{{$title}}</li>';
 	@endforeach
 </script>
