@@ -89,3 +89,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/logout','LoginController@logout');
 });
 
+
+
+
+

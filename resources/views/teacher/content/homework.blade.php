@@ -1,3 +1,10 @@
+@extends('learningCenter')
+@section('CSS:OPTIONAL')
+	<!--<link rel="stylesheet" href="" />-->
+@endsection
+
+
+
 <div id="homework" class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 old-p">
         <a href="#" data-toggle="modal" data-target="#myModal" class="modaladd" data-step="1" data-intro="点击此处添加学生作业">+&nbsp;添加作业</a>
