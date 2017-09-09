@@ -22,12 +22,12 @@
 	color: #FFBF00;
 }
 
-.option{
+.optionse{
 	border-bottom: 1px solid #eee;
 	padding-bottom: 20px;
 	margin-bottom: 20px;
 }
-.option>span{
+.optionse>span{
 	display: block;
 	margin-bottom: 10px;
 }
@@ -36,15 +36,22 @@
 .bj-green{
 	color: #3DBD7D;
 }
-.proper_div>p{
-	margin-left: 30px;
+.proper_div>span{
+	display: inline-block;
+	margin-bottom: 20px;
+	margin-left: 45px;
 }
-
+.proper>p{
+	margin-bottom: 24px;
+}
 .video_analyze>div{
 	border: 1px solid #eee;
 	border-radius: 4px;
 	padding: 20px;
-	margin-top: 20px;
+	margin-top: 24px;
+}
+.proper_div>p{
+	position: absolute;
 }
 .teachername{
 	margin-bottom: 20px;
@@ -89,7 +96,7 @@
 	left: 50%;
 	margin: -80px 0 0 -150px;
 	display: none;
-	z-index: 101;
+	z-index: 1000;
 }
 .bad-information li{
 	    float: left;
@@ -138,10 +145,10 @@ padding: 20px 0;
 .return{
 	margin: 5% 0 0 40%;
 }
-.option>span{
+.optionse>span{
 	display: block;
 	padding-top: 10px;
 }
-.option>span:first-child{
+.optionse>span:first-child{
 	border: none;
 }

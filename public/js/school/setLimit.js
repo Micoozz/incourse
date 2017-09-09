@@ -10,9 +10,15 @@ $(function(){
 	$(".nav1 li:last-child a").addClass("box");
 	
 	//管理员列表点击乡下箭头的效果
-	$(".limit-box").on("click",".ic-collapse",function(){
+	$("body").on("click",".left-list .ic-collapse",function(){
 		$(this).next("ul").slideToggle("fast");
 		$(this).find("i").toggleClass("fa-angle-down fa-angle-right");
+	});
+	$("body").on("click",".right-list .ic-collapse",function(){
+		if($(this).children(".teamName").attr("contenteditable") === "false"){
+			$(this).next("ul").slideToggle("fast");
+			$(this).find("i").toggleClass("fa-angle-down fa-angle-right");
+		}
 	});
 	
 	//我知道了

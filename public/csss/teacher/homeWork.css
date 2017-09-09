@@ -1,0 +1,33 @@
+.homeWork-cen{
+	padding:0 20px;
+	padding-top:30px ;
+}
+.Job-content>div{
+    position: relative;
+    top: -20px;
+    left: 65px;
+	border: 1px solid #eee;
+    border-radius: 4px;
+    width: 89%;
+}
+.Job-content>div>div{
+	display: inline-block;
+}
+.Job-content>div>div:nth-of-type(1){
+	    border-right: 1px solid #eee;
+    height: 25px;
+    line-height: 25px;
+    margin: 10px 0;
+    width: 100px;
+    text-align: center;
+}
+.Job-content>div>div:nth-of-type(2){
+	    width: 100%;
+    border-top: 1px solid #eee;
+    height: 200px;
+    padding: 10px;
+    margin: 0;
+}
+.waitBoxs .activityse>input{
+	margin-right: 10px!important;
+}

@@ -51,6 +51,7 @@
     margin-right: 10px;
     margin-top: 10px;
     text-align: center;
+    outline: none;
 }
 .add-course>span{
 	color: #168BEE;
@@ -66,9 +67,12 @@
 }
 .fiex-up>ul>li{
 	float: left;
-	margin-right: 30px;
+	margin-right: 32px;
 }
 
+.fiex-up>ul>li:last-child{
+	margin-right: 15px;
+}
 .fie{
 	border-top: 1px solid #eee;
 }
@@ -77,6 +81,7 @@
 	width: 29%;
 	border-right: 1px solid #eee;
 	height: 100%;
+	padding-bottom: 10px;
 }
 .fie-right{
 	width: 70%;
@@ -94,6 +99,8 @@
 	background-color: #eee;
 	height: 100%;
 	line-height: 100%;
+	position: relative;
+	left: 5px;
 }
 
 .fie>div{

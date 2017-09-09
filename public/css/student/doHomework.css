@@ -197,6 +197,16 @@ html,body,
     outline: none;
 }
 
+/*完形填空*/
+.do-hw .wan-xing-tk-only .id {
+	margin-top: -1px;
+	margin-right: 15px;
+}
+.do-hw .wan-xing-tk-only .option{
+	width: 130px;
+}
+
+
 /*排序题*/
 .exer-in-list .sortable>li {
     cursor: default;

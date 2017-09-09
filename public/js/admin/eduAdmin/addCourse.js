@@ -57,8 +57,8 @@ $(function() {
 	//休息日
 	function off() {
 		$('.fie-right>div:last-child').css({
-			height: $('.fie-right>div').height(),
-			'line-height': $('.fie-right>div').height() + 'px',
+			height: $('.fie-right>div').height()+10,
+			'line-height': $('.fie-right>div').height()+10 + 'px',
 		});
 	};
 	off();

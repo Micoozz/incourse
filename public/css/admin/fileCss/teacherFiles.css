@@ -19,9 +19,9 @@
 .none{
 	display: none;
 }
-.ic-blue>a>i{
+.admin-list .ic-blue i{
 	color: #168BEE;
-	margin-right: 15px;
+	margin-right: 8px;
 }
 .ic-blue>a>.gray{
 	color: #ccc;

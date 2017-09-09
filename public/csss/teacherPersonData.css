@@ -1,0 +1,359 @@
+/*修改之前的样式*/
+.center1 div:last-child{
+    background:none;
+}
+#centery{
+    background-color:transparent;
+}
+/*****************************老师个人信息***************************************/
+#centery>.personDataContent{
+    border:1px solid #ccc;
+    margin-right: -15px;
+    margin-left: -15px;
+    background-color:#fff;
+}
+
+
+
+    /*********************个人资料***********************/
+    #form_e {
+        /*width:748px;*/
+        width: 100%;
+        padding-bottom: 20px;
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        color: #333;
+    }
+
+    #form_e table {
+        width: 346px;
+        margin: 0px auto;
+    }
+    #form_e>table tr>td:last-child{
+        padding-left: 10px;
+        color: #999;
+    }
+    #t1_e>td>span{
+        color:#158BEE;
+        margin-left:55px;
+        cursor: pointer;
+    }
+    #t1_e, #t2_e, #t3_e, #t4_e, #t5_e, #t6_e, #t7_e, #t8_e, #t9_e, #t10_e {
+        height: 48px;
+        line-height: 48px;
+    }
+
+    #t1_e > td, #t2_e > td, #t3_e > td, #t4_e > td, #t5_e > td, #t6_e > td, #t7_e > td, #t8_e > td, #t9_e > td, #t10_e > td {
+        height: 26px;
+        line-height: 26px;
+    }
+
+#t1_e > td.td, #t2_e > td.td, #t3_e > td.td, #t4_e > td.td, #t5_e > td.td, #t6_e > td.td, #t7_e > td.td, #t8_e > td.td, #t9_e > td.td, #t10_e > td.td {
+        text-align: right;
+    }
+    #t4_e > td > input {
+        width: 40px;
+    }
+
+    #t5_e > td > span {
+        display: inline-block;
+        margin-left: 3px;
+        margin-right: 5px;
+    }
+
+
+
+/*****************************修改资料和修改密码***************************************/
+.change{
+    height:50px;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height:50px;
+    position:relative;
+}
+.change>button{
+    color:#fff;
+    background-color:#158BEE;
+}
+.change>button:hover{
+    background-color:#2FBEF2;
+}
+.change>.btn:hover{
+    color:#fff;
+}
+.change>.btn:focus{
+    color:#fff;
+}
+.btn_rt{
+    margin-top:9px;
+    margin-left:5px;
+}
+
+/********************修改资料Modal*********************/
+#password .modal-header{
+    height:45px;
+}
+#form_m{
+    /*width:748px;*/
+    width:100%;
+    padding-bottom:20px;
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+    color: #333;
+}
+#form_m label{
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+#form_m table{
+    width:346px;
+    margin:0px auto;
+}
+
+#t1_m{
+    height:92px;
+    line-height:92px;
+}
+#t1_m>td:last-child{
+    position: relative;
+}
+#t1_m>td.td{
+    width:80px;
+    text-align:right;
+}
+#t1_m .headImg{
+    display: inline-block;
+}
+#t1_m .headImg>img{
+    width:72px;
+    height: 72px;
+    border-radius: 50%;
+}
+#t1_m>td>input{
+    height: 30px;
+    line-height:25px;
+    width:83px;
+    margin-left:52px;
+}
+#t1_m .unloadHeadImg{
+    position: absolute;
+    left: 104px;
+    top: 31px;
+    z-index: 700;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+#t2_m, #t3_m, #t4_m{
+    height:48px;
+    line-height:48px;
+}
+#t2_m>td,#t3_m>td,#t4_m>td{
+    height:26px;
+    line-height:26px;
+}
+#t2_m>td.td, #t3_m>td.td, #t4_m>td.td{
+    text-align:right;
+}
+#t2_m>td>input,#t3_m>td>input,#t4_m>td>input{
+    width:210px;
+    padding-left:5px;
+}
+
+#t5_m>td>span{
+    display:inline-block;
+    margin-left:3px;
+    margin-right:5px;
+}
+#t11_m input{
+    margin-left:50px;
+    margin-top:30px;
+    width:110px;
+    height:40px;
+    line-height:40px;
+    background-color:#168bee;
+    border-radius:3px;
+    padding:0px;
+    border:0px;
+    font-size:20px;
+    color:#fff;
+}
+#t11_m input:hover{
+    background-color:#2FBEF2;
+}
+
+/*修改资料点了保存上传成功框*/
+.change .unloadStatus {
+    width: 294px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 19px;
+    background-color: #fff;
+    display:none;
+    position:absolute;
+    left: 30%;
+    bottom: 300px;
+}
+
+
+/***********************修改密码********************/
+@media (min-width: 768px) {
+    #ziLiao .modal-dialog {
+        width: 630px;
+    }
+}
+#ziLiao .modal-header {
+    height: 45px;
+}
+
+#form_p {
+    padding-bottom: 20px;
+}
+
+#form_p table {
+    width: 668px;
+    margin: 0px auto;
+}
+
+.state1 {
+    color: #aaa;
+}
+
+.state2 {
+    color: #2aabd2;
+}
+
+.state3 {
+    color: red;
+}
+
+.state4 {
+    color: #777;
+}
+
+#form_p table td.td_in {
+    width: 200px;
+}
+
+#form_p table td.td_p {
+    width: 160px;
+    height: 46px;
+    line-height: 46px;
+    text-align: right;
+    font-size: 16px;
+    color: #333;
+}
+
+#form_p input[type="password"], input[type="submit"] {
+    width: 180px;
+    line-height: 26px;
+    margin-left: 10px;
+}
+
+#form_p input[type="submit"] {
+    width: 70px;
+    margin-top: 20px;
+    margin-left: 70px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #168BEE;
+    outline: medium;
+    border: none;
+    border-radius: 3px;
+}
+#form_p input[type="submit"]:hover{
+    background-color:#2FBEF2;
+}
+
+
+
+
+    /***********************设置头像*****************************/
+    #centery > div {
+        display: block;
+    }
+
+    #ps {
+        width: 400px;
+        height: 450px;
+        margin-left: 16%;
+        padding-top: 30px;
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1023px) {
+        #ps {
+            margin-left: 26%;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        #ps {
+            margin: 0px auto;
+        }
+    }
+    #ps > input {
+        display: block;
+        width: 142px;
+        height: 30px;
+        background-color: #f1f1f1;
+        border-radius: 3px;
+        color: rgb(102, 102, 102);
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+    }
+
+    #ps > input:hover {
+        background-color: #168bee;
+        outline: medium;
+        color: rgb(255, 255, 255);
+    }
+
+    #ps .c-middle {
+        margin-top: 48px;
+        margin-left: 34%;
+        margin-bottom: 70px;
+        border-radius: 50%;
+        background-color: rgb(241, 241, 241);
+        width: 210px;
+        height: 208px;
+        position: relative;
+    }
+
+    #ps .c-middle > span {
+        position: absolute;
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+        color: rgb(102, 102, 102);
+        top: 80px;
+        left: 44px;
+    }
+
+    #ps > div > input.ip {
+        margin-left: 30%;
+        margin-right: 50px;
+        display: inline-block;
+        width: 111px;
+        height: 41px;
+        border-radius: 3px;
+        background-color: rgb(241, 241, 241);
+        font-size: 20px;
+    }
+
+    #ps > div > input {
+        border: none;
+        display: inline-block;
+        width: 111px;
+        height: 41px;
+        border-radius: 3px;
+        background-color: rgb(241, 241, 241);
+        font-size: 20px;
+    }
+
+    #ps > div > input:hover {
+        background-color: #168bee;
+        outline: medium;
+        color: rgb(255, 255, 255);
+    }
+
+

@@ -16,9 +16,14 @@ $(function(){
 	//规定身份证号只能是数字,旧的15位，新的18位
 	$("#idCode").keyup(function(event){
 		var code = event.keyCode;
-		if(!((code>=96&&code<=105) || code===88)){
+		if(!((code>=96&&code<=105) || (code>=48&&code<=57) || code===88)){
 			var text = $(this).val().match(/[\dX]/g);
-			$(this).val(text.join(""));
+			if(!text){
+				$(this).val("");
+			}else {
+				$(this).val(text.join(""));
+			}
+			//$(this).val($(this).val().substring(0,$(this).val().length-1));
 		}
 	});
 	
@@ -34,8 +39,11 @@ $(function(){
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
+		console.log(file)
+		if(file.size/1024 >= 100){
+			return alert("上传的图片大小要小于100kb，请重新选择");
+		}
 		var reader = new FileReader();
-		console.log(reader)
 		reader.readAsDataURL(file);
 		reader.onload = function(e) {
 			headResult.value = this.result;
@@ -47,38 +55,68 @@ $(function(){
 	//提交
 	$("#addAdminBtn").click(function(event){
 		event.preventDefault();
-		var paramArr = $(".info-form").serializeArray(); //照片的信息得另外获取
-		paramArr.push(headResult);
-		console.log(paramArr)
-		$.post("",paramArr).success();
+			$(".account-input").removeClass("input-error");
+			var paramArr = $(".info-form").serializeArray(); //照片的信息得另外获取
+			paramArr.push(headResult);
+			$.post("",paramArr).success();
 	});
-})
+});
 
 
 /********** manageAdmin.html ***********/
 $(function(){
+	//"新建员工"页面引导
+	$(".right-tag").append('<div class="p-a guide-active" style="top:-13px; left:-3px;">\
+	<img src="../../images/addEmployee.jpg" alt=""/>\
+	<div class="p-a">\
+	<div class="p-a part" style="left:52px;text-align:left;">\
+	<i class="fa fa-exclamation-circle f-l ic-blue p-r"></i>\
+	<p class="f-l msg">快去新建员工吧~</p>\
+	<button class="ic-btn p-a">我知道了</button>\
+	</div>\
+	</div>\
+	</div>\
+	<div class="ic-modal"></div>');
+
+	//"新建员工"页面跳转
+	$(".create-employee").click(function(){
+		window.location.href = "addAdmin.html";
+	});
+
 	//查看
-//	$(".admin-list").on("click",".fa-eye",function(){
-//		if(!$(this).hasClass("gray")){
-//			$.ajax({
-//			type: "GET",
-//			url: "template/seeInfo.html",
-//			async: false,
-//			success: function(data){
-//				$(".addAdminTag").hide();
-//				$(".school-container").html(data);
-//			}
-//		});
-//		}
-//	});
-	
+	$("body").on("click",".admin-list .fa-eye",function(){
+		$.ajax({
+			url: "template/seeInfo.html",
+			type: "GET",
+			async: false,
+			success: function(data){
+				$(".seeInfo-wrap").html(data).show();
+				$(".emplooy-list,.no-content").hide();
+			}
+		})
+	});
+
 	//禁用
 	$(".admin-list").on("click",".center",function(){
 		$(this).parent().parent().toggleClass("gray");
 		$(this).prev().toggleClass("gray");
 		$(this).toggleClass("fa-ban fa-times-circle-o");
 		$(this).prev(".fa-eye").off("click");
-	})
+	});
+
+	//删除员工
+	$("body").on("click",".admin-list .fa-trash",function(){
+		$(".ic-modal,.ic-sure-modal").show();
+		var _self = this;
+		$("body").on("click",".ic-sure-modal .ic-btn",function(){
+			$(_self).parents("tr").remove();
+		});
+	});
+
+	//重置密码
+	$("body").on("click","#reset",function(){
+		alert("重置密码成功！");
+	});
 })
 
 

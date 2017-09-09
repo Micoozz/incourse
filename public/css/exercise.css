@@ -28,29 +28,29 @@
 .mul-answer-box .exercise {
     border-top: none;
 }
-.admin-container .type {
+.exercise .type {
     line-height: 28px;
     margin-bottom: 6px;
 }
-.admin-container .type .ic-close-icon {
+.exercise .type .ic-close-icon {
     top: 5px;
     right: 0;
 }
-.admin-container .select-form .ic-text,
-.admin-container .select-form .ic-text-exer {
+.exercise .select-form .ic-text,
+.exercise .select-form .ic-text-exer {
     margin-bottom: 3px;
 }
-.admin-container .question {
+.exercise .question {
     margin-bottom: 10px;
 }
 .exercise .addChildExer {
     padding-left: 41px;
     margin-bottom: 20px;
 }
-.admin-container .question .text {
+.exercise .question .text {
     margin-bottom: 16px;
 }
-.admin-container .addExerBtn-box {
+.addExerBtn-box {
     padding-top: 25px;
     border-top: 1px solid #d9d9d9;
 }
@@ -74,7 +74,7 @@
 
 
 /*选择题的添加选项*/
-.admin-container .addOptionBtn>i {
+.exercise .addOptionBtn>i {
     position: relative;
     top: 4px;
     background-position: -19px -29px;
@@ -282,6 +282,10 @@
 .exer-in-list .answer-box {
     margin-top: 10px;
     padding-bottom: 10px;
+}
+.exer-in-list .child-exer {
+    margin-left: -16px;
+    margin-right: -16px;
 }
 .exer-in-list .exer-ans-order {
     margin-right: 10px;

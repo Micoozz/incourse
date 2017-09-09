@@ -16,6 +16,12 @@
 .info-box>div {
 	margin-bottom: 16px;
 }
+.info-form .account {
+	margin-bottom: 3px;
+}
+.info-form .account-tip {
+	padding-left: 38px;
+}
 .info-form input[type="text"] {
 	width: 106px;
 }
@@ -27,6 +33,9 @@
 }
 .info-form .nation {
 	margin-right: 71px;
+}
+.info-form .select-form {
+	width: 300px;
 }
 
 
@@ -72,7 +81,7 @@
 /********** manageAdmin.html ***********/
 .search-box .fa-search {
 	right: 10px;
-	top: 7px;
+	top: 6px;
 }
 .admin-list {
 	width: 100%;
@@ -92,13 +101,25 @@
 .admin-list tr th:last-child, .admin-list tr td:last-child {
 	width: 140px;
 	text-align: left;
+	font-size: 14px;
 }
 .admin-list .ic-blue {
 	color: #168bee;
 }
-.admin-list .ic-blue>i {
-	margin-right: 15px;
+.admin-list .ic-blue .fa:hover {
+	color: #65B4F6;
 }
+.admin-list .ic-blue>i {
+	margin-right: 24px;
+}
+.school-container .search-return {
+	display: block;
+	margin: 20px auto 0;
+}
+
+
+
+
 
 
 
@@ -112,7 +133,7 @@
 .seeInfoBox .info-pa {
 	top: 0;
 	left: 200px;
-	width: 150px;
+	width: 230px;
 }
 .info-form .big-head-box {
 	border: none;

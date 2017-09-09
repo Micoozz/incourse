@@ -39,8 +39,24 @@
 .ic-container {min-height: 600px; padding: 30px 55px;}
 .school-container {min-height: 487px; padding: 41px 33px;}
 .setLimit-container {min-height: 487px; padding: 30px 73px;}
-.admin-container {min-height: 487px; padding: 30px 17px;}
 .person_hw_box {padding: 33px 26px; min-height: 475px;}
+.admin-container {min-height: 487px; padding: 30px 17px;}
+
+/*模态框容器*/
+.preview-hw-wrap {
+	position: fixed;
+	z-index: 230;
+	width: 700px;
+	height: 630px;
+	padding: 0 20px 20px;
+	top: 50%;
+	left: 50%;
+	margin-top: -315px;
+	margin-left: -350px;
+	overflow-y: auto;
+	border-radius: 4px;
+	background-color: #fff;
+}
 
 /* 鼠标指针相关 */
 .c-p {cursor: pointer;}
@@ -104,6 +120,22 @@
 }
 .btn-white:hover {background-color: #FCFAFA;}
 
+/*蓝边白底蓝字按钮*/
+.ic-blueB-btn {
+	display: inline-block;
+	font-size: 12px;
+	width: 68px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 4px;
+	color: #168bee;
+	border: 1px solid #168bee;
+	cursor: pointer;
+}
+.ic-blueB-btn:hover {background-color: #E0EEFF;}
+
 /*单个按钮居中*/
 .btn-center {display:block; margin:0 auto;}
 
@@ -163,6 +195,25 @@
 /* *** 组件相关 **** */
 
 /*中间顶部标题左侧的"返回"*/
+
+
+
+
+/*提示框*/
+.ic-tip-box {
+	font-size: 17px;
+	width: 200px;
+	position: fixed;
+	left: 50%;
+	margin-top: 70px;
+	margin-left: -100px;
+	z-index: 500;
+	padding: 20px;
+	text-align: center;
+	color: #3F51B5;
+	border-radius: 4px;
+	background-color: lightgreen;
+}
 
 
 /*遮罩层*/
@@ -321,7 +372,7 @@
 }
 
 /*页面引导弹出框*/
-.guide-active {z-index: 300;}
+.guide-active {z-index: 500;}
 .guide-active .part,.part {
 	z-index: 500;
 	width: 211px;
@@ -394,7 +445,7 @@
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	z-index: 50;
+	z-index: 350;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%,-50%);
 	-ms-transform: translate(-50%,-50%);

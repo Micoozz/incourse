@@ -1,9 +1,60 @@
 /******* 公用方法 **********/
 var ic = {
-	change: function() {
-		console.log(111)
+	//筛选框的"查找"
+	"search_exer": function(){
+		//保存查找的条件
+		var obj_myCollect = {
+			"position": [],
+			"condition": [],
+			"keyword": ""
+		};
+
+		$(".position-item").each(function(i,item){
+			obj_myCollect.position.push($(item).text());
+		});
+		$(".condition-item").each(function(i,item){
+			obj_myCollect.condition.push($(item).text());
+		});
+		obj_myCollect.keyword = $(".kw").val();
+
+		return obj_myCollect;
+	},
+	//页面引导内容
+	"guide": function(x1,y1,x2,y2,url,msg){ //x1,y1:整个引导框的left,top偏移量；x2,y2:"我知道"提示框的right,bottom偏移量
+		var html = '<div class="p-a guide-active" style="left:' + x1 + 'px; top:' + y1 + 'px;">\
+     <img src=' + url + ' alt=""/>\
+     <div class="p-a" style="right:' + x2 + 'px; bottom:' + y2 + 'px;">\
+     <div class="p-a part">\
+     <i class="fa fa-exclamation-circle f-l ic-blue p-r"></i>\
+     <p class="f-l msg">' + msg + '</p>\
+     <button class="ic-btn p-a">我知道了</button>\
+     </div>\
+     </div>\
+     </div><div class="ic-modal"></div>';
+		return html;
 	}
-}
+};
+
+
+/*筛选框的"清空"*/
+$("body").on("click",".search_clear",function(){
+	//默认字段
+	var text = [
+		["全国","全省","全部学校","全部老师"],
+		["全部篇章","全部小节","全部题型"],
+		""
+	];
+
+	//清空
+	$(".position-item").each(function(i,item){
+		$(item).text(text[0][i]);
+	});
+	$(".condition-item").each(function(i,item){
+		$(item).text(text[1][i]);
+	});
+	$(".kw").val(text[2]);
+});
+
 
 
 /*三级联动*/
@@ -28,13 +79,15 @@ $(function(){
 		$p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
 		$p.next("ul").toggle();
 	});
-})
+});
+
+
 
 $(function() {
-	/*页面引导*/
+	/*关闭页面引导*/
 	$("body").on("click",".guide-active .part button",function(){
-		$(this).parents(".guide-active").hide();
-		$(".ic-modal").hide();
+		$(this).parents(".guide-active").next(".ic-modal").remove();
+		$(this).parents(".guide-active").remove();
 	});
 
 	/*单选框*/
@@ -44,7 +97,7 @@ $(function() {
 	});
 
 	/*日期插件的显示位置*/
-	$(".fa-calendar").click(function(event) {
+	$("body").on("click",".fa-calendar",function(event) {
 		$(".lhgcal").css({
 			"left": event.clientX - 150,
 			"top": event.clientY + 20
@@ -55,7 +108,7 @@ $(function() {
 	$(".ic-return").click(function(){
 		window.history.back();
 	});
-})
+});
 
 
 /*************通用的"添加附件",在下方显示多张图片**************/
@@ -100,10 +153,12 @@ $(function(){
 })
 
 
+
 /*编辑器*/
 $(function(){
 	/*添加附件*/
-	$(".exercise-box").on("change",".ic-editor .addFile",function(){
+	$("body").on("change",".ic-editor .addFile",function(){
+		alert("111")
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
@@ -119,11 +174,12 @@ $(function(){
 		reader.onload = function(e) {
 			var img = '<img class="img-canBigger" src="' + this.result + '"/>';
 			$(_self).parents(".ic-editor").children(".editor-content").append(img);
+			$(_self).val("");
 		}
 	});
 
 	/*下标点*/
-	$(".exercise-box").on("click",".ic-editor .dotted",function(){
+	$("body").on("click",".ic-editor .dotted",function(){
 		var selObj = window.getSelection().toString();  //获取选中的文本
 		var html = "";
 		for(var i=0; i<selObj.length; i++){
@@ -135,7 +191,7 @@ $(function(){
 	});
 
 	/*上标点*/
-	$(".exercise-box").on("click",".ic-editor .up-dotted",function(){
+	$("body").on("click",".ic-editor .up-dotted",function(){
 		var selObj = window.getSelection().toString();
 		var html = "";
 		for(var i=0; i<selObj.length; i++){
@@ -147,7 +203,7 @@ $(function(){
 	});
 
 	/*下划线*/
-	$(".exercise-box").on("click",".ic-editor .underline",function(){
+	$("body").on("click",".ic-editor .underline",function(){
 		var selObj = window.getSelection().toString();  //获取选中的文本
 		document.execCommand("insertHTML","false",'<span class="underline-active">' + selObj + '<span>');  //在光标处插入html代码
 		$(this).parents(".ic-editor").find(".underline-active").attr("contenteditable", false); //禁止下划线的元素编辑
@@ -158,12 +214,14 @@ $(function(){
 		var img = $(this).attr("src");
 		$(".big-img-box").show();
 		$(".big-img-box>img").attr("src",img);
+		alert("111")
 	});
+
 	//关闭大图
-	$(".big-img-box .fa-times-circle-o").click(function(){
+	$("body").on("click",".big-img-box .fa-times-circle-o",function(){
 		$(".big-img-box").hide();
 	});
-})
+});
 
 
 /*简单的确认弹出框*/
@@ -174,7 +232,7 @@ $(function(){
 	$("body").on("click",".ic-sure-modal .ic-btn",function(){
 		$(".ic-modal,.ic-sure-modal").hide();
 	});
-})
+});
 
 
 
@@ -189,10 +247,7 @@ $(function(){
 	$(".delete-modal .ic-btn").click(function(){
 		$(".delete-modal .btn-white").trigger("click");
 	});
-})
-
-
-
+});
 
 
 

@@ -1,7 +1,7 @@
-/*#left ul>li:first-child>a {
+#left ul>li:first-child>a {
      color: #fff;
      background-color: #168bee;
-}*/
+}
 
 
 /************* hwType.html ************/
@@ -107,8 +107,16 @@
     bottom: 3px;
     right: 44px;
 }
+.no-exer .ic-blueB-btn {
+    margin-right: 30px;
+}
+body .lhgcal {
+    position: absolute;
+    left: 32%;
+    top: 446px;
+}
 
-/*习题练习*/
+/*添加习题*/
 .person_hw_box .person-exer-list {
     position: relative;
     top: 10px;
@@ -120,7 +128,7 @@
 .person-exer-list th,
 .person-exer-list td {
     height: 42px;
-    /*line-height: 42px;*/
+    padding: 5px 0;
 }
 .person-exer-list th,
 .person-exer-list td {
@@ -142,8 +150,7 @@
 .person-exer-list tr>td:nth-child(3) {
     width: 360px;
 }
-.person-exer-list th:last-child,
-.person-exer-list tr>td:last-child {
+.person-exer-list .table-last {
     width: 70px;
     padding-right: 15px;
     text-align: right;
@@ -160,6 +167,10 @@
 .person-exer-list tbody.d-b .slide-down-exer {
     padding-left: 190px;
 }
+.person-exer-list .pan-duan i {
+    position: relative;
+    top: 6px;
+}
 .tfoot {
     margin-top: 10px;
     height: 42px;
@@ -173,9 +184,6 @@
 .tfoot .fa-trash-o {
     top: 0;
 }
-.tfoot .disabled-add {
-    color: #9B9B9B;
-}
 .tfoot .d-n {
     display: none;
 }
@@ -184,6 +192,39 @@
 }
 .tfoot .disabled-add i {
     background-position: -72px -32px;
+}
+.has-exer {
+    margin-bottom: 26px;
+}
+
+
+
+/*上传习题弹出框*/
+.personHw-exer {
+    z-index: 230;
+    width: 700px;
+    height: 630px;
+    padding: 0 20px 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -315px;
+    margin-left: -350px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+.personHw-exer .preview-hw-head {
+    margin-bottom: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid #d9d9d9;
+}
+.personHw-exer .hw-title {
+    font-size: 16px;
+}
+.personHw-exer .exercise-box .exercise:first-child {
+    border: none;
+}
+.exercise .select-form {
+    margin-top: 9px;
 }
 
 /*发布弹出框*/
@@ -231,6 +272,20 @@
 }
 
 
+/*习题样式修改*/
+.person-exer-list .exer-in-list .option {
+    width: 360px;
+}
+.person-exer-list tbody .lian-xian.slide-down-exer {
+    padding-left: 100px;
+}
+.person-exer-list .wan-xing-tk-box {
+    width: 380px;
+}
+
+
+
+
 /**************** exerRoom.html **************/
 /*已添加的作业*/
 .hw-list {
@@ -276,17 +331,8 @@
 }
 
 /*预览作业*/
-.preview-hw-wrap {
-    z-index: 230;
-    width: 700px;
-    height: 630px;
-    padding: 0 20px 20px;
-    top: 50%;
-    left: 50%;
-    margin-top: -315px;
-    margin-left: -350px;
-    overflow-y: auto;
-    border-radius: 4px;
+.exer-room .ic-modal {
+    z-index: 310;
 }
 .preview-hw-wrap .preview-hw-head {
     margin-bottom: 10px;
@@ -436,10 +482,198 @@
 
 
 
+/******************* editorExerPage.html *********************/
+.editorExerModal {
+    padding-top: 20px;
+}
+.editorExerModal hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
 
 
 
+
+
+
+/******* 陈杰写 ********/
+/*查看解析*/
+.analyticType>span {
+    display: inline-block;
+    border: 1px solid #eee;
+    padding: .5rem;
+    cursor: pointer;
+}
+.analyticType>span:first-child{
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+
+}
+.analyticType>span:last-child{
+    border-bottom-right-radius:4px;
+    border-top-right-radius:4px;
+    position: relative;
+    left: -4px;
+    border-left: 0;
+}
+.analyticType>.pitchOn{
+    color: #168BEE;
+    border: 1px solid #168BEE;
+}
+.video_analyze{
+    display: none;
+}
+
+
+
+
+/*批改作业*/
+.pigaizuoye {
+    width: 100%;
+}
+
+.manageAdmin-wrap .pigaizuoye:nth-of-type(1),
+.manageAdmin-wrap .pigaizuoye:nth-of-type(3) {
+    display: none;
+}
+
+.pigaizuoye td,
+.pigaizuoye th {
+    padding: 10px;
+    text-align: center;
+}
+
+.pigaizuoye th {
+    background-color: #E7E7E7;
+}
+
+.estate {
+    float: right;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.estate>span {
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+    width: 73px;
+    height: 28px;
+    background-color: #fff;
+    border: 1px solid #eee;
+}
+
+.estate>span:last-child {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    position: relative;
+    left: -3px;
+}
+
+.estate>span:first-child {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.estate>.last {
+    background: #E0EEFF;
+    border: 1px solid #0F86DD;
+}
+
+.Panel-selection {
+    margin-bottom: 20px;
+}
+
+.Panel-selection span {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    width: 62px;
+    text-align: center;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.Panel-selection .entirely {
+    background: #E0EEFF;
+    border-radius: 2px;
+    color: #168bee;
+}
+
+.work-correction,
+.Group-correction {
+    display: none;
+    text-align: center;
+}
+
+.Group-search {
+    text-align: left
+}
+
+.work-correction table,
+.Group-correction table {
+    margin: 15px 0 20px 0;
+}
+
+.Group-search>span {
+    display: inline-block;
+    width: 108px;
+    height: 28px;
+    margin-right: 10px;
+    line-height: 28px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    position: relative;
+    text-indent: 10px;
+    cursor: pointer;
+}
+
+.Group-search>span>input {
+    border: none;
+    height: 100%;
+    width: 85%;
+    text-indent: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: medium;
+}
+
+.Group-search>span>i {
+    float: right;
+    margin-right: 7px;
+    margin-top: 7px;
+}
+
+.Group-search>span:last-child {
+    width: 152px;
+    margin-right: 0;
+}
+
+.Group-search>span>div>ul {
+    width: 108px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    position: relative;
+    z-index: 102;
+    margin-top: 5px;
+    position: absolute;
+    background-color: #fff;
+    display: none;
+}
+
+.Group-search>span>div>ul>li {
+    border-bottom: 1px solid #eee;
+}
+
+.Group-search>span>div>ul>li:last-child {
+    border: none;
+}
+
+table td:last-child span {
+    cursor: pointer;
+}
 
 
 

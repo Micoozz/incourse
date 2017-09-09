@@ -12,7 +12,7 @@ $(function() {
 		window.history.go(-1);
 	});
 	
-	//左边导航栏标签切换
+	//左边导航栏标签切换（后端使用时请删掉）
 	$('#nav1>li>a').click(function() {
 		localStorage.boxs = 1
 		localStorage.clas = $(this).attr('num')
@@ -21,7 +21,7 @@ $(function() {
 		$('#nav1>li>a').removeClass('box');
 		$('[num=' + localStorage.clas + ']').addClass('box')
 	}
-})
+});
 
 
 
@@ -34,4 +34,4 @@ $(function() {
 	if(str != 'exerciseEditor') {
 		localStorage.pargin = 1
 	}
-})
+});
