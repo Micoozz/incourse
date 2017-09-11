@@ -1,0 +1,471 @@
+/************ 出题 ***********/
+/****** 筛选框 *******/
+.filter-box-upload {
+    line-height: 28px;
+}
+.filter-box-upload .select-form {
+    margin-top: 0;
+}
+.filter-box-upload .grade {
+    width: 270px;
+}
+.filter-box-upload .chapter {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+/*每题的容器*/
+.admin-container .big-box {
+    padding-bottom: 33px;
+}
+
+.exercise-box .exercise {
+    padding-top: 5px;
+    margin-bottom: 10px;
+    border-top: 1px solid #D9D9D9;
+}
+.mul-answer-box .exercise {
+    border-top: none;
+}
+.admin-container .type {
+    line-height: 28px;
+    margin-bottom: 6px;
+}
+.admin-container .type .ic-close-icon {
+    top: 5px;
+    right: 0;
+}
+.admin-container .select-form .ic-text,
+.admin-container .select-form .ic-text-exer {
+    margin-bottom: 3px;
+}
+.admin-container .question {
+    margin-bottom: 10px;
+}
+.exercise .addChildExer {
+    padding-left: 41px;
+    margin-bottom: 20px;
+}
+.admin-container .question .text {
+    margin-bottom: 16px;
+}
+.admin-container .addExerBtn-box {
+    padding-top: 25px;
+    border-top: 1px solid #d9d9d9;
+}
+.addExerBtn {
+    font-size: 14px;
+    display: inline-block;
+    cursor: pointer;
+}
+.addExerBtn:hover {
+    color: #1681DC;
+}
+.addExerBtn>i {
+    position: relative;
+    top: 3px;
+    background-position: -99px -57px;
+}
+
+.exercise .answer-box {
+    width: 552px;
+}
+
+
+/*选择题的添加选项*/
+.admin-container .addOptionBtn>i {
+    position: relative;
+    top: 4px;
+    background-position: -19px -29px;
+}
+
+/*单选题选项*/
+.radio-wrap {margin-bottom: 10px;}
+.radio-wrap .ic-radio {width:14px; height:14px; border-radius: 50%; margin: 0 10px 0 0;}
+.radio-wrap .ic-radio>i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    z-index: 20;
+    top:3px;
+    left: 3px;
+    border-radius: 50%;
+    opacity: 0;
+}
+.radio-wrap .ic-radio.active {border-color: #168bee;}
+.radio-wrap .ic-radio.active i {opacity: 1; background-color:#168bee;}
+.radio-wrap .ic-radio>input {
+    width:100%;
+    height: 100%;
+    margin: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+}
+.radio-wrap .radio-ipt {display: inline-block; margin-right:15px;}
+.radio-wrap .radio-ipt span.p-a {
+    border-right: 1px solid #d9d9d9;
+    left: 0;
+    top:6px;
+    padding-left: 9px;
+    padding-right: 1px;
+}
+.radio-wrap>i.delete { position: relative; top: 4px; background-position: -101px -82px;}
+.radio-wrap .radio-ipt input {width: 480px; padding-left: 34px;}
+
+
+/*判断题*/
+.answer-box .pan-duan i {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+.answer-box .pan-duan>li:first-child {margin-bottom: 5px;}
+.answer-box .no-active .right,
+.answer-box .wrongActive .right {
+    background-position: -20px -50px;
+}
+.answer-box .no-active .wrong,
+.answer-box .rightActive .wrong {
+    background-position: -68px -50px;
+}
+.answer-box .rightActive .right {
+    background-position: -22px -86px;
+}
+.answer-box .wrongActive .wrong {
+    background-position: -70px -86px;
+}
+
+
+/*连线题*/
+.lian-xian-option {
+    margin-bottom: 10px;
+}
+.lian-xian-option .delete {
+    top: 5px;
+    margin-left: 20px;
+    background-position: -101px -82px;
+}
+.lian-xian-option .ic-input {
+    width: 200px;
+}
+.lian-xian-option .ic-input:first-child {
+    margin-right: 100px;
+}
+
+
+/*排序题*/
+.pai-xu .pai-xu-options .radio-ipt input {
+    padding-left: 60px;
+}
+
+
+/*听力题*/
+.exercise .listen>p {
+    margin-bottom: 5px;
+}
+.mp3-box {
+    padding: 4px 16px;
+}
+.mp3-box>div {
+    padding: 3px;
+}
+.mp3-box .uploadExerIcons {
+    top: 5px;
+    margin-right: 8px;
+    background-position: -70px -15px;
+}
+.mp3-box .delete {
+    margin-top: 3px;
+}
+.mp3-box .audio-child {
+    opacity: 0;
+    z-index: -10;
+}
+
+/*完形填空题*/
+.wan-xing-tk-option .id {
+    margin-top: 4px;
+}
+.wan-xing-tk-option {
+    margin-bottom: 10px;
+}
+.wan-xing-tk-box {
+    width: 500px;
+    margin-left: 15px;
+}
+.wan-xing-tk-option .radio-wrap {
+    float: left;
+    margin-right: 30px;
+}
+.wan-xing-tk-option .radio-wrap .ic-input {
+    width: 165px;
+}
+.wan-xing-tk-input {
+	width: 475px;
+}
+
+
+
+
+
+
+
+
+
+
+/************* 显示题目 ***********/
+.uploadExer-btn {
+    margin-bottom: 14px;
+}
+.uploadExer-btn:hover {
+    background-color: #1681DC;
+}
+.uploadExer-btn>i {
+    position: relative;
+    top: 4px;
+    background-position: -50px -69px;
+}
+
+/*筛选框*/
+.admin-container .filter-box {
+    padding: 5px 17px 11px 0;
+}
+.admin-container .filter-box-title {
+    margin-top: 4px;
+    width: 78px;
+    text-align: right;
+}
+.admin-container .filter-box .ic-text {
+    margin: 0;
+}
+.admin-container .filter-box .kw {
+    width: 98px;
+}
+.admin-container .filter-box .btn-white {
+    margin-left: 8px;
+}
+
+/*题目列表*/
+.exer-list {
+    margin-top: 24px;
+}
+.exer-in-list {
+    margin-bottom: 24px;
+}
+.exer-in-list .exer-head {
+    padding-right: 10px;
+}
+.exer-type-list {
+    display: inline-block;
+    width: 61px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #168bee;
+    background-color: #E0EEFF;
+}
+.exer-in-list .checkbox-add {
+    margin-right: 3px;
+    position: relative;
+    top: 2px;
+}
+.exer-in-list .exer-wrap {
+    padding: 16px 16px 0;
+}
+.exer-in-list .question {
+    width: 560px;
+}
+.exer-in-list .answer-box {
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.exer-in-list .exer-ans-order {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.exer-in-list .exer-foot {
+    padding: 10px 10px 7px;
+    border-top: 1px solid #d9d9d9;
+}
+.exer-in-list .exer-foot ul,
+.exer-in-list .exer-foot p {margin: 0;}
+.exer-foot .fa-star {
+    color: #D9D9D9;
+}
+.exer-foot .fa-star.active {
+    color: #F5A623;
+}
+.exer-foot .ic-inline>li {
+    margin-left: 15px;
+    cursor: pointer;
+}
+.exer-foot .collect .fa {
+    font-size: 14px;
+}
+.exer-foot .collect .red:hover {
+    color: #FF5B5B;
+}
+.exer-list-ul>li:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.exer-list-img {
+    max-width: 400px;
+}
+
+/*单选题*/
+.exer-in-list .ic-radio {
+    position: relative;
+    top: 1px;
+}
+.exer-in-list .option {
+    width: 510px;
+}
+.radio-wrap .ic-radio.radio-right {border-color: #3DBD7D;}
+.radio-wrap .ic-radio.radio-right i {opacity: 1; background-color:#3DBD7D;}
+.radio-wrap .ic-radio.radio-wrong {border-color: #FF5B5B;}
+.radio-wrap .ic-radio.radio-wrong i {opacity: 1; background-color:#FF5B5B;}
+
+
+
+/*填空题*/
+.blank-item.tk-wrong {
+    color: #FF5B5B;
+    border-bottom: 1px solid #FF5B5B;
+}
+
+.exer-in-list .pan-duan-answ {
+    position: relative;
+    top: -6px;
+    margin-left: 5px;
+}
+
+
+/*完形填空题*/
+.exer-in-list .id {
+    margin-top: 0;
+}
+.exer-in-list .wan-xing-tk-box .radio-wrap {
+    width: 50%;
+    margin-right: 0;
+}
+
+
+/*连线题*/
+.box_hpb{
+    margin:0;
+    padding:0;
+    width:472px;
+}
+.box_hpb * {
+    margin:0;
+    padding:0;
+}
+.box_hpb ul, .box_hpb ol {
+    list-style:none;
+    width: 150px;
+}
+.line_hpb{
+    width:472px;
+    position:relative;
+}
+.line_hpb:after{
+    content:"";
+    clear:both;
+    display:table;
+}
+.question_hpb, .container_hpb {
+    float:left;
+}
+.question_hpb>li, .answer_hpb>li{
+    margin-bottom:14px;
+    border:1px solid #ccc;
+    position: absolute;
+    border-radius: 4px;
+}
+.question_hpb>li, .answer_hpb>li {
+    width:150px;
+    min-height:40px;
+    line-height: 38px;
+    padding: 0 5px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: #fff;
+}
+.box_hpb .active {
+    white-space: normal;
+    padding: 9px 5px;
+    line-height: 20px;
+    z-index: 350;
+}
+.box_hpb .active-common {
+    background-color: #D8EAFF;
+    border-color:  #A4CEFF;
+}
+.question_hpb>li:last-child,  .answer_hpb>li:last-child{
+    margin-bottom:0;
+}
+.container_hpb{
+    width:300px;
+    position:relative;
+}
+.container_hpb>canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+.canvas1{
+    z-index:10;
+}
+.canvas2{
+    z-index:50;
+}
+.answer_hpb{
+    position:absolute;
+    right:0;
+    top:0;
+    z-index:70;
+}
+
+/*阅读题*/
+.question-img {
+    margin-top: 15px;
+}
+.question-img img {
+    max-width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

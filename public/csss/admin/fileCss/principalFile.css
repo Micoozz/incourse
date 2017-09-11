@@ -1,0 +1,14 @@
+/*重复代码可以删除*/
+.on {
+    color: #168BEE;
+    border-bottom: 2px solid #168BEE;
+    display: inline-block;
+    height: 25px;
+    width: 9%;
+    text-align: center;
+}
+.admeasure {
+    margin: 0 20px 0 10px;
+    cursor: pointer;
+    }
+    /*重复代码可以删除*/

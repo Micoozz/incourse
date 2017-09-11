@@ -1,0 +1,28 @@
+.admin-container .admin-list th, .admin-container .admin-list td{
+	width: 17%;
+}
+.forbidden{
+	color: red;
+}
+.admeasure{
+	margin: 0 20px 0 10px;
+	cursor: pointer;
+}
+.on{
+    color: #168BEE;
+    border-bottom: 2px solid #168BEE;
+    display: inline-block;
+    height: 25px;
+    width: 9%;
+    text-align: center;
+}
+.none{
+	display: none;
+}
+.ic-blue>a>i{
+	color: #168BEE;
+	margin-right: 15px;
+}
+.ic-blue>a>.gray{
+	color: #ccc;
+}

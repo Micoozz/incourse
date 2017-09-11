@@ -1,0 +1,445 @@
+/*#left ul>li:first-child>a {
+     color: #fff;
+     background-color: #168bee;
+}*/
+
+
+/************* hwType.html ************/
+.homework-manage-title {
+    font-size: 16px;
+    padding-left: 10px;
+    padding-top: 8px;
+    margin: 0 -15px;
+}
+.homework-manage-title>li {
+    width: 126px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.homework-manage-title>li>a {
+    cursor: default;
+    display: block;
+}
+.homework-manage-title .active {
+    color: #168bee;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: #fff;
+}
+.homework-type-box {
+    min-height: 420px;
+    padding-top: 133px;
+}
+.homework-type-box .homework-type {
+    width: 284px;
+    margin: 0 auto;
+}
+.homework-type-box .homework-type>li>a {
+    width: 120px;
+    height: 120px;
+    padding-top: 23px;
+    text-align: center;
+}
+.homework-type-box .homework-type>li:first-child {
+    margin-right: 44px;
+}
+.homework-type-box .homework-type .teacher_icons {
+    width: 46px;
+    height: 42px;
+    margin-bottom: 14px;
+}
+.homework-type-box .person_hw>i {
+    background-position: -297px -24px;
+}
+.homework-type-box .group_hw>i {
+    background-position: -249px -24px;
+}
+.homework-type-box .person_hw:hover>i {
+    background-position: -131px -24px;
+}
+.homework-type-box .group_hw:hover>i {
+    background-position: -197px -24px;
+}
+.homework-type-box .guide {
+    z-index: 300;
+    top: 115px;
+    left: 50%;
+    margin-left: -161px;
+}
+.homework-type-box .guide>div {
+    right: 74px;
+    bottom: 27px;
+}
+
+
+/**************** personHw.html ******************/
+.person_hw_box .one-line {
+    margin-bottom: 20px;
+}
+.person_hw_box .one-line>span {
+    width: 75px;
+    font-size: 14px;
+    float: left;
+    margin-top: 4px;
+}
+.person_hw_box .select-form {
+    margin-top: 0;
+}
+.person_hw_box .select-form .ic-text {
+    margin: 0;
+}
+.person_hw_box .calendar,.person_hw_box .calendar>input {
+    width: 170px;
+}
+.person_hw_box .hw-content {
+    width: 530px;
+    height: 138px;
+    padding: 10px;
+    resize: none;
+}
+.no-exer .guide {
+    z-index: 300;
+    top: -5px;
+    left: 0;
+}
+.person_hw_box .guide>div {
+    bottom: 3px;
+    right: 44px;
+}
+
+/*习题练习*/
+.person_hw_box .person-exer-list {
+    position: relative;
+    top: 10px;
+    clear: both;
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.person-exer-list th,
+.person-exer-list td {
+    height: 42px;
+    /*line-height: 42px;*/
+}
+.person-exer-list th,
+.person-exer-list td {
+    border-bottom: 1px solid #d9d9d9;
+}
+.person-exer-list .spread td {
+    border-bottom: none;
+}
+.person-exer-list th:first-child,
+.person-exer-list tr>td:first-child {
+    width: 90px;
+    padding-left: 15px;
+}
+.person-exer-list th:nth-child(2),
+.person-exer-list tr>td:nth-child(2) {
+    width: 100px;
+}
+.person-exer-list th:nth-child(3),
+.person-exer-list tr>td:nth-child(3) {
+    width: 360px;
+}
+.person-exer-list th:last-child,
+.person-exer-list tr>td:last-child {
+    width: 70px;
+    padding-right: 15px;
+    text-align: right;
+    font-weight: normal;
+}
+.person-exer-list tbody tr>td:last-child .fa {
+    font-size: 16px;
+}
+.person-exer-list input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+    margin: 0 5px 0 0;
+}
+.person-exer-list tbody.d-b .slide-down-exer {
+    padding-left: 190px;
+}
+.tfoot {
+    margin-top: 10px;
+    height: 42px;
+    line-height: 39px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.tfoot .fa-trash-o {
+    top: 0;
+}
+.tfoot .disabled-add {
+    color: #9B9B9B;
+}
+.tfoot .d-n {
+    display: none;
+}
+.tfoot .addExerBtn i {
+    background-position: -99px -57px;
+}
+.tfoot .disabled-add i {
+    background-position: -72px -32px;
+}
+
+/*发布弹出框*/
+.dBUploadBox {
+    z-index: 300;
+    width: 600px;
+    height: 300px;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -300px;
+}
+.dBUpload-head {
+    height: 54px;
+    line-height: 54px;
+    padding-left: 20px;
+}
+.dBUploadBox .right-icon {
+    width: 28px;
+    height: 28px;
+    top: 7px;
+    margin-right: 7px;
+    background-position: -361px -30px;
+}
+.dBUpload-body {
+    padding: 16px 32px 20px;
+}
+.dBUpload-body .classes {
+    width: 400px;
+}
+.dBUpload-body .classes>span {
+    padding: 3px 7px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.dBUpload-body .checked {
+    color: #168bee;
+    background-color: #E0EEFF;
+}
+.dBUpload-body ul>li:first-child {
+    margin-top: 3px;
+}
+
+
+/**************** exerRoom.html **************/
+/*已添加的作业*/
+.hw-list {
+    position: absolute;
+    right: -251px;
+    top: 100px;
+    z-index: 300;
+    width: 204px;
+    padding-bottom: 10px;
+    background-color: #fff;
+}
+.hw-list .title {
+    font-size: 16px;
+    height: 54px;
+    line-height: 54px;
+    margin-bottom: 0;
+    text-align: center;
+    color: #fff;
+    background-color: #444547;
+}
+.hw-list ul>li {
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-size: 16px;
+}
+.hw-list .preview {
+   margin-left: 10px;
+}
+.hw-list .ic-btn:hover {
+    color: #fff;
+}
+
+/*添加作业 页面引导*/
+.exercise-room .guide {
+    z-index: 300;
+    top: 51px;
+    left: 0;
+}
+.exercise-room .guide>div {
+    top: 170px;
+    right: 321px;
+}
+
+/*预览作业*/
+.preview-hw-wrap {
+    z-index: 230;
+    width: 700px;
+    height: 630px;
+    padding: 0 20px 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -315px;
+    margin-left: -350px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+.preview-hw-wrap .preview-hw-head {
+    margin-bottom: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid #d9d9d9;
+}
+.preview-hw-wrap .hw-title {
+    font-size: 16px;
+}
+.preview-hw-wrap .exer-list {
+    /*height: 500px;*/
+    /*overflow-y: auto;*/
+    margin-top: 0;
+}
+.preview-hw-wrap .complete {
+    display: block;
+    margin: 30px auto 0;
+}
+
+/*预览作业 页面引导*/
+.preview-guide {
+    z-index: 300;
+    top: 50%;
+    left: 50%;
+    margin-top: -365px;
+    margin-left: -351px;
+}
+.preview-guide>div {
+    top: 137px;
+    right: 70px;
+}
+
+
+/******************** personHwMark.html *********************/
+.person-hw-mark .hw-list {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 250;
+    margin-left: 367px;
+    margin-top: -107px;
+}
+
+
+
+
+
+
+
+
+
+/*************** errorRoom.html ****************/
+.error-room .admin-container {
+    padding: 10px 17px 30px;
+}
+.error-room .exer-foot .error-num {
+    /*margin-bottom: 7px;*/
+}
+.error-room-return {
+    display: block;
+    margin: 40px auto 0;
+}
+.error-room .exer-foot .pan-duan-icon {
+    width: 24px;
+    height: 24px;
+    right: -30px;
+    top: -5px;
+}
+.error-room .exer-foot .right {
+    background-position: -22px -86px;
+}
+.error-room .exer-foot .wrong {
+    background-position: -70px -86px;
+}
+
+
+
+/************* personHwMark.html ************/
+.person-hw-mark-head {
+    margin-top: 17px;
+}
+.person-hw-mark-head .lookSameExer {
+    top: 8px;
+    text-decoration: underline;
+}
+.person-hw-mark-head .isMark {
+    float: right;
+    width: 67px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    cursor: default;
+    color: #666;
+    border: 1px solid #d9d9d9;
+}
+.person-hw-mark-head .notMark {
+    /*border-right: none;*/
+}
+.person-hw-mark-head .doMark {
+    /*border-left: none;*/
+}
+.person-hw-mark-head .isMark.active {
+    color: #168bee;
+    border: 1px solid #168bee;
+    background-color: #e1f5fa;
+}
+.person-hw-derail {
+    margin-top: 35px;
+}
+.person-hw-derail>li {
+    width: 22%;
+    height: 25px;
+    line-height: 25px;
+}
+.person-hw-derail>li:first-child {
+    width: 34%;
+}
+.person-hw-derail .score {
+    width: 50px;
+    height: 25px;
+    outline: none;
+    padding-left: 10px;
+
+}
+
+
+
+
+/************** myExerRoom.html **************/
+
+/*“我上传的”，“我收藏的”*/
+.my-exer-room-head .isMark {
+    float: right;
+    width: 67px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    cursor: default;
+    color: #666;
+    border: 1px solid #d9d9d9;
+}
+.my-exer-room-head .isMark.active {
+    color: #168bee;
+    border: 1px solid #168bee;
+    background-color: #e1f5fa;
+}
+
+
+
+
+
+
+
+
+
+

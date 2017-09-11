@@ -1,54 +1,27 @@
 /***** exerRoom.html *****/
 $(function(){
-    //页面刚加载就显示已经添加的题目数
-    var personHw_str = sessionStorage.getItem("ic_personHw");
-    var personHw_num = 0; //保存已经存在的题目数量
-    if(personHw_str){
-        var exist_exer = JSON.parse(personHw_str).exercise;
-        personHw_num = exist_exer.length;
+    var exer = id_type.exercise;
+    var order = hwInfo_obj.exercise_id;
 
-        //把从personHw.html传过来的题目按题型整合
-        var integration_obj = integration(exist_exer);
-        console.log(integration(exist_exer))
-        $(".hw-type-list").attr("data-all",integration_obj.order.join(","));
+    //"我上传的"按钮
+    $("body").on("click",".my-exer-room-head .doMark",function(){
+        $(".myUpload").show();
+        $(".all-exer,.myCollect").hide();
+        $(".my-exer-room-head .isMark").removeClass("active");
+        $(".my-exer-room-head .doMark").addClass("active");
+    });
 
-        //生成右边的题目栏
-        createHwList(integration_obj.orderList);
-    }
+    //"我收藏的"按钮
+    $("body").on("click",".my-exer-room-head .notMark",function(){
+        $(".all-exer,.myUpload").hide();
+        $(".myCollect").show();
+        $(".my-exer-room-head .isMark").removeClass("active");
+        $(".my-exer-room-head .notMark").addClass("active");
+    });
 
-
-    function integration(param){
-        var obj_big = {
-            "order": [],
-            "orderList": {}
-        };
-        var obj = {};
-        if(param.length !== 0){
-            param.forEach(function(item,i){
-                obj[item.type] = obj[item.type] ? obj[item.type] + 1 : 1;
-                obj_big.order.push(item.id);
-            });
-        }
-        obj_big.orderList = obj;
-
-        return obj_big;
-    }
-
-    function createHwList(obj){
-        var html = "";
-        for(var key in obj){
-            html += '<li>\
-            <span class="type">' + key + '</span>\
-            <span class="number">（' + obj[key] + '）</span>\
-            </li>';
-        }
-        $(".hw-type-list").html(html);
-    }
-
-    $(".hw-list .exer-num>span").text(String(personHw_num));
 
     //查找
-    $("#search-exer").click(function(){
+    $("body").on("click","#search-exer",function(){
         //保存查找的条件
         var obj = {
             "position": [],
@@ -65,33 +38,14 @@ $(function(){
         obj.keyword = $(".filter-box .kw").val();
     });
 
-    //清空
-    var text = [
-        ["全国","全省","全部学校","全部老师"],
-        ["全部篇章","全部小节","全部题型"],
-        ""
-    ];
-    $("#clear").click(function(){
-        $(".filter-box .position-item").each(function(i,item){
-            $(item).text(text[0][i]);
-        });
-        $(".filter-box .condition-item").each(function(i,item){
-            $(item).text(text[1][i]);
-        });
-        $(".filter-box .kw").val(text[2]);
-    });
-
     //添加
-    $(".exer-list").on("click",".checkbox-add",function(){
+    $("body").on("click",".exer-list .checkbox-add",function(){
         var type = $(this).parents(".exer-head").children(".exer-type-list").text();
         var id = $(this).parents(".exer-in-list").attr("data-id");
 
         if($(this).prop("checked")){
-            if($(".hw-type-list").attr("data-all")){
-                $(".hw-type-list").attr("data-all", $(".hw-type-list").attr("data-all") + "," + id);
-            }else {
-                $(".hw-type-list").attr("data-all", id);
-            }
+            exer.push({"id":id, "type":type});
+            order.push(id);
 
             var is_exist = false;
             $(".hw-list .type").each(function(i,item){
@@ -109,10 +63,9 @@ $(function(){
 
             $(".hw-list .exer-num>span").text(Number($(".hw-list .exer-num>span").text()) + 1 + "");
         }else {
-            var data_all = $(".hw-type-list").attr("data-all");
-            var arr = data_all.split(",");
-            arr.splice(arr.indexOf(id), 1);
-            $(".hw-type-list").attr("data-all", arr.join(","));
+            var index = order.indexOf(id);
+            order.splice(index,1);
+            exer.splice(index,1);
 
             $(".hw-list .type").each(function(i,item){
                 if($(item).text() === type){
@@ -128,29 +81,18 @@ $(function(){
             $(".hw-list .exer-num>span").text(Number($(".hw-list .exer-num>span").text()) - 1 + "");
         }
 
-        console.log(personHw_num)
-        is15(personHw_num);
+        //题目有15题之后不能再添加
+        is15();
     });
 
-    //判断题数是否到达15题("习题库"每次分页也得调用一下此方法)
-    function is15(){
-        var total = $(".hw-type-list").attr("data-all").split(",").length;
-        console.log(total)
-        if(total >= 15){
-            $(".exer-head .checkbox-add:not(:checked)").prop("disabled",true);
-        }else {
-            $(".exer-head .checkbox-add:not(:checked)").prop("disabled",false);
-        }
-    }
-
     //点赞
-    $(".exer-list").on("click",".exer-foot .thumbs-up",function(){
+    $("body").on("click",".exer-list .exer-foot .thumbs-up",function(){
         $(this).toggleClass("ic-blue");
         $(this).children("i").toggleClass("fa-thumbs-o-up fa-thumbs-up");
     });
 
     //收藏
-    $(".exer-list").on("click",".exer-foot .collect-icon",function(){
+    $("body").on("click",".exer-list .exer-foot .collect-icon",function(){
         $(this).toggleClass("red");
         $(this).children("i").toggleClass("fa-heart-o fa-heart");
         if($(this).children("i").hasClass("fa-heart")){
@@ -160,102 +102,188 @@ $(function(){
         }
     });
 
-    //生成作业
-    $("#create-hw").click(function(){
-        sessionStorage.setItem("ic_hw_order",$(".hw-type-list").attr("data-all"));
-        window.location.href = "/learningCenter/"+class_id+"/"+course_id+"/"+mod+"/addHomework-personal";
+    //点击"生成作业"
+    $("body").on("click","#create-hw",function(){
+        $(".homework-manage-title a").removeClass("active");
+        $(".homework-manage-title li:first-child a").addClass("active");
+
+        //填充题目信息
+        fillInfo(hwInfo_obj);
+        $(".personHw-num").text(order.length);
+        personHwIs15();
     });
 
-    //var exerRoomArr = []; //保存预览里面删除了哪些题
-
     //点击“预览”的效果
-    $("#preview").click(function(){
-        exerRoomArr = [];
-        $(".ic-modal, .preview-guide").fadeIn();
+    $("body").on("click","#preview",function(){
+        $(".preview-hw-box, .row .ic-modal").show();
+        //"预览作业"页面引导
+        var msg = "点击 <b>完成</b> 即可生成作业，若不需要，请点击 <b>关闭</b> 按钮噢～";
+        $(".admin-container").append(ic.guide(-15,68,70,500,"../../images/preview_guide.jpg",msg));
+    });
 
-        var hw_order = $(".hw-type-list").attr("data-all").split(",");  //选中的题型
+    //"预览作业"页面引导的"我知道了"
+    $("body").on("click",".preview-guide .part button",function(){
+        $(".guide-active, .admin-container .ic-modal").hide();
+        $(".preview-hw-box, .row .ic-modal").show();
     });
 
     //删除预览框里面的题目
-    $(".preview-hw-wrap").on("click",".exer-head .delete-icon",function(){
-        //exerRoomArr.push($(this).parents(".exer-in-list").attr("data-id"));
+    $("body").on("click",".preview-hw-wrap .exer-head .delete-icon",function(){
         $(this).parents(".exer-in-list").remove();
     });
 
     //关闭预览框
-    $(".preview-hw-wrap .ic-close-icon").click(function(){
+    $("body").on("click",".preview-hw-wrap .close-preview",function(){
         $(".preview-hw-wrap, .ic-modal").hide();
-        //exerRoomArr = [];
     });
 
     //点击预览里的"完成"
-    $(".preview-hw-wrap .complete").click(function(){
+    $("body").on("click",".preview-hw-wrap .complete",function(){
         $(".hw-list .exer-num>span").text($(".preview-hw-box .exer-in-list").length);
+        exer = [];
+        order = [];
 
-        var order = []; //保存题目ID
-        var obj = {}; //保存整合后的题目
+        var obj,id;
         $(".preview-hw-box .exer-in-list").each(function(i,item){
-            order.push($(item).attr("data-id"));
-            var type = $(item).children(".exer-head").find(".exer-type-list").text();
-            obj[type] = obj[type] ? obj[type] + 1 : 1;
-        });
-        createHwList(obj);
-        $(".hw-type-list").attr("data-all",order.join(","));
+            id = $(item).attr("data-id");
+            order.push(id);
 
-
-        /*
-        var hw_order = $(".hw-type-list").attr("data-all").split(",");
-        exerRoomArr.forEach(function(item,i){
-            hw_order.splice(hw_order.indexOf(item), 1);
-        });
-        $(".hw-type-list").attr("data-all", hw_order.join(","));
-
-        var type_obj = {};
-        $(".preview-hw-wrap .exer-type-list").each(function(i,item){
-            if(type_obj[$(item).text()]){
-                type_obj[$(item).text()] += 1;
-            }else {
-                type_obj[$(item).text()] = 1;
-            }
+            obj = {
+                "id": id,
+                "type": $(item).children(".exer-head").find(".exer-type-list").text()
+            };
+            exer.push(obj);
         });
 
-
-        console.log(type_obj);
-        var html = "";
-        for(var key in type_obj){
-            html += '<li>\
-                        <span class="type">' + key + '</span>\
-                        <span class="number">（' + type_obj[key] + '）</span>\
-                    </li>';
-        }
-        $(".hw-list .hw-type-list").html(html);
-        */
-
-        $(".preview-hw-wrap .ic-close-icon").trigger("click");
+        createHwList(exer);
+        $(".preview-hw-wrap .close-preview").trigger("click");
     });
-
-
-
-    //"预览作业"页面引导
-    // $.ajax({
-    //     type: "get",
-    //     url: "../template/guideH.html",
-    //     async: false,
-    //     success: function(data){
-    //         $(".preview-guide>div").html(data);
-    //     }
-    // });
-    // $(".preview-guide .msg").html('点击 <b>完成</b> 即可生成作业，若不需要，请点击 <b>关闭</b> 按钮噢～');
-    // $(".preview-guide").on("click",".part button",function(){
-    //     $(this).parents(".guide").hide();
-    //     $(".preview-hw-box").show();
-    // });
 
     //查看同类型练习题
-    $(".lookSameExer").click(function(){
+    $("body").on("click",".lookSameExer",function(){
         $(".ic-modal,.person-hw-mark").show();
     });
+
+    //"我收藏的"的里面的取消收藏
+    $("body").on("click",".myCollect .collect-icon",function(){
+        var id = $(this).parents(".exer-in-list").attr("data-id");
+        console.log(id);
+
+        $(this).parents(".exer-in-list").remove();
+    });
+
+    //判断题数是否到达15题("习题库"每次分页也得调用一下此方法)
+    function is15(){
+        if(order.length >= 15){
+            $(".exer-head .checkbox-add:not(:checked)").prop("disabled",true);
+        }else {
+            $(".exer-head .checkbox-add:not(:checked)").prop("disabled",false);
+        }
+    }
+});
+
+
+/********** editorExerPage.html ************/
+$(function(){
+   $("body").on("click","#editorModal-close",function(){
+       $(".editorExerModal").remove();
+       $(".ic-modal").hide();
+       $(".hw-list").css("z-index","300");
+   });
 });
 
 
 
+
+
+
+/**** 陈杰的代码 ***/
+$(function() {
+    //我的解析和教师解析切换
+    var pd=0;//判断条件
+    $('body').on('click','.analyticType>span',function(){
+        $('.analyticType>span').removeClass('pitchOn')
+        $(this).addClass('pitchOn')
+        if(pd==0){
+            $('.video_analyze').show()
+            $('.myAnalytic').hide()
+            pd=1
+        }else{
+            $('.myAnalytic').show()
+            $('.video_analyze').hide()
+            pd=0
+        }
+    })
+
+
+    //查看解析
+    $('body').on('click', '.collect>li:nth-of-type(2)>a', function() {
+        $('.resolution,.ic-modal').show()
+        return false
+    })
+
+    //举报
+    $('body').click(function() {
+        $('.report').removeClass('red')
+        $('.reprot-a').hide()
+    })
+    $('body').on('click', '.report', function() {
+        $(this).addClass('red')
+        $('.reprot-a').show()
+        return false
+    });
+    $('body').on('click','.bad-information li',function() {
+        if($(this).find('i').attr('class') != 'fa fa-dot-circle-o blue') {
+            $(this).find('i').attr('class', 'fa fa-dot-circle-o blue')
+        } else {
+            $(this).find('i').attr('class', 'fa fa-circle-o')
+        }
+
+    });
+    $('.bad-information li:last-child').prev().click(function() {
+        if($(this).find('i').attr('class') == 'fa fa-circle-o') {
+            $(this).next().hide()
+        } else {
+            $(this).next().show()
+        }
+    });
+    $('body').on('click','.reprot-a>span:last-child',function() {
+        $('.bad-information').show()
+        $('.shad').height(window.innerHeight).show()
+    });
+    $('body').on('click','.shad,.bad-information button,.ic-modal',function() {
+        $('.bad-information,.shad').hide();
+    });
+
+    //举报提交
+    $('body').on('click','.bad-information button',function() {
+
+    });
+
+    //上传文件
+    $('body').on('change','#file',function() {
+        input = $(this)[0];
+        if(!input['value'].match(/.jpg|.gif|.png|.bmp/i)) { //判断上传文件格式
+            return alert("上传的图片格式不正确，请重新选择");
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function(e) {
+            $('.imgse').append('<img src="' + this.result + '" style="width:70px";height:70px/>')
+        };
+    });
+
+    //评论
+    $('body').on('focus','.comment>input',function() {
+        $('.appear').show();
+    });
+
+    $('body').on('blur','.comment>input',function() {
+        $('.appear').hide();
+    });
+
+    //提交评论
+    $('.appear').click(function() {
+
+    });
+});

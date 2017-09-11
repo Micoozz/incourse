@@ -1,0 +1,18 @@
+.step-change {line-height: 21px; color: rgba(0,0,0,0.43); list-style: none;}
+.step-change>li {float: left;}
+.step-change .line {display: inline-block; width: 135px; margin: 0 10px 4px; border: 1px solid #E9E9E9;}
+.step-change .fa {font-size: 18px;}
+.step-change .fa-check-circle-o {font-size: 20px;}
+.step i{
+	color: #168BEE;
+}
+.step .step-change .line{
+	border-color: #168BEE;
+}
+
+
+/*js引用样式*/
+.position{
+	top: 130px;
+    left: 500px;
+}

@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Redirect;
 
 class PageController extends Controller
 {
     //页面跳转控制器
     public function index(){
+        if(Auth::guard("student")->user()){
+            return Redirect::to("/media");
+        }
     	return view('index');
     }
     public function media(){

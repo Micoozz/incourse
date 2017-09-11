@@ -15,7 +15,7 @@ class UpdataJob extends Migration
     {
          Schema::table('job', function(Blueprint $table)
         {
-            $table->string('title',20)->after('course_id');
+            $table->string('title',20)->after('password');
         });
     }
 

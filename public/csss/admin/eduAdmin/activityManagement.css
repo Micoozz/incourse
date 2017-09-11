@@ -1,0 +1,11 @@
+.media{
+	text-align: left;
+}
+.mediase{
+    border: 1px solid #ccc;
+    padding: 15px 40px;
+    border-radius: 10px;	
+}
+.mediase span a,.mediase span button{
+	color: #168BEE;
+}

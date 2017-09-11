@@ -1,7 +1,6 @@
 .blue {
     color: #168BEE;
 }
-
 body {
     font-size: 12px;
     margin: 0;
@@ -14,7 +13,6 @@ body {
 .navbar-header {
     margin-right: 70px;
 }
-
 #header {
     width: 100%;
 }
@@ -63,7 +61,7 @@ body {
 .schoolMain > div {
     width: 100%;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     border: 1px solid #ccc;
     position: absolute;
     top: 50px;
@@ -101,7 +99,7 @@ a {
 
 .head_nav {
     float: right;
-    font-size: 1.2em;
+    font-size: 16px;
     line-height: 45px;
     height: 60px;
     margin-right: 18px;
@@ -116,7 +114,9 @@ a {
     line-height: 60px;
     margin-right: 30px;
 }
-
+.navbar .personCenter>span {
+    font-size: 16px;
+}
 .navbar .personCenter .fa {
     font-size: 16px;
 }
@@ -135,7 +135,7 @@ a {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.20);
     border: 1px solid #ccc;
     border-radius: 4px;
-    z-index: 30;
+    z-index: 102;
 }
 
 .personCenter .p-a > li {
@@ -277,6 +277,7 @@ a {
 .center1 .left-tag {
     font-size: 16px;
     margin-top: 2px;
+<<<<<<< HEAD
 }
 
 .left-tag .fa-angle-left {
@@ -288,13 +289,38 @@ a {
 .center1 .right-tag {
     margin-top: 4px;
     padding: 0 7px 0 0;
-    cursor: default;
+    cursor: pointer;
 }
 
 .center1 .right-tag > img {
     margin-top: -2px;
+    margin-right: 4px;
+}
+.center1 .right-tag > span:hover {
+    color: #FCFAFA;
+}
+=======
 }
 
+.left-tag .fa-angle-left {
+    font-size: 24px;
+    top: -3px;
+    left: 28px;
+}
+
+.center1 .right-tag {
+    margin-top: 4px;
+    padding: 0 7px 0 0;
+    cursor: pointer;
+}
+
+.center1 .right-tag > img {
+    margin-top: -2px;
+    margin-right: 4px;
+}
+.center1 .right-tag > span:hover {
+    color: #FCFAFA;
+}
 .span {
     width: 100%;
     margin: 0px auto;

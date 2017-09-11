@@ -4,7 +4,7 @@ $(function(){
 
 
 
-    // ¼ÓÔØ½ÌÊ¦¶Ë×ó±ßµ¼º½
+    //åŠ è½½å·¦è¾¹å¯¼èˆªæ 
     $.ajax({
         type: "get",
         url: "../template/teacher_left_navbar.html",
@@ -15,4 +15,4 @@ $(function(){
     });
 
     $(".content>.container").load("../template/teacher_center_nav.html");
-})
+});

@@ -5,7 +5,6 @@
 .red {color: #FF5B5B;}
 .gray {color: #c9c9c9;}
 .blue-hover:hover {color: #1681DC;}
-
 /* 背景颜色相关 */
 .gray-bg {background-color: #F1F1F1;}
 .black-bg {background-color: #444547;}
@@ -13,7 +12,6 @@
 .btn-hover-bg:hover {background-color: #1681DC;}
 .lightblue-bg {background-color: #e1f5fa;}
 .fff-bg {background-color: #fff;}
-.purple-bg {background-color: #E0EEFF}
 .gray-hover-bg:hover {background-color: #FCFAFA;}
 
 /* 位置相关 */
@@ -39,8 +37,24 @@
 .ic-container {min-height: 600px; padding: 30px 55px;}
 .school-container {min-height: 487px; padding: 41px 33px;}
 .setLimit-container {min-height: 487px; padding: 30px 73px;}
-.admin-container {min-height: 487px; padding: 30px 17px;}
 .person_hw_box {padding: 33px 26px; min-height: 475px;}
+.admin-container {min-height: 487px; padding: 30px 17px;}
+
+/*模态框容器*/
+.preview-hw-wrap {
+	position: fixed;
+	z-index: 230;
+	width: 700px;
+	height: 630px;
+	padding: 0 20px 20px;
+	top: 50%;
+	left: 50%;
+	margin-top: -315px;
+	margin-left: -350px;
+	overflow-y: auto;
+	border-radius: 4px;
+	background-color: #fff;
+}
 
 /* 鼠标指针相关 */
 .c-p {cursor: pointer;}
@@ -66,9 +80,6 @@
 /*错误红边框输入框*/
 .input-error{border-color: red;}
 
-/*搜索框*/
-.ic-search-box .fa-search {color: #ccc; right: 10px; top: 6px;}
-
 /*提示字*/
 .tip {font-size: 12px; color: #c9c9c9;}
 
@@ -84,7 +95,6 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
-	cursor: pointer;
 }
 .ic-btn:hover {background-color: #1681DC;}
 
@@ -100,9 +110,24 @@
 	border-radius: 4px;
 	color: #333;
 	border: 1px solid #D9D9D9;
-	cursor: pointer;
 }
 .btn-white:hover {background-color: #FCFAFA;}
+
+/*蓝边白底蓝字按钮*/
+.ic-blueB-btn {
+	display: inline-block;
+	font-size: 12px;
+	width: 68px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 4px;
+	color: #168bee;
+	border: 1px solid #168bee;
+	cursor: pointer;
+}
+.ic-blueB-btn:hover {background-color: #E0EEFF;}
 
 /*单个按钮居中*/
 .btn-center {display:block; margin:0 auto;}
@@ -119,7 +144,7 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
-	cursor: pointer;
+	cursor: default;
 }
 .icon-text-btn:hover {color: #fff;}
 
@@ -157,12 +182,46 @@
 	overflow: hidden;
 	background: url(../images/student_icons.png) no-repeat;
 }
+.teacher_icons {
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	overflow: hidden;
+	background: url(../images/teacher_icons.png) no-repeat;
+}
+.student_icons {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	overflow: hidden;
+	background: url(../images/student_icons.png) no-repeat;
+}
 
 
 
 /* *** 组件相关 **** */
 
 /*中间顶部标题左侧的"返回"*/
+
+
+
+
+
+/*提示框*/
+.ic-tip-box {
+	font-size: 17px;
+	width: 200px;
+	position: fixed;
+	left: 50%;
+	margin-top: 70px;
+	margin-left: -100px;
+	z-index: 500;
+	padding: 20px;
+	text-align: center;
+	color: #3F51B5;
+	border-radius: 4px;
+	background-color: lightgreen;
+}
 
 
 /*遮罩层*/
@@ -321,7 +380,7 @@
 }
 
 /*页面引导弹出框*/
-.guide-active {z-index: 300;}
+.guide-active {z-index: 500;}
 .guide-active .part,.part {
 	z-index: 500;
 	width: 211px;
@@ -386,7 +445,6 @@
 .ic-editor .addFileTool>i {background-position: -18px -10px;}
 .ic-editor .blank>i {width: 18px; background-position: -93px -31px;}
 .ic-editor .dotted>i {background-position: -52px -12px;}
-.ic-editor .up-dotted>i {background-position: -6px -69px;}
 .ic-editor .underline>i {background-position: -92px -12px;}
 
 /*编辑器里图片点击出现的大图*/
@@ -433,7 +491,7 @@
 }
 .blank-answer>span {position: absolute; top: 6px; left: 6px; border-right:1px solid #d9d9d9;}
 
-/*文本加上标点*/
+/*文本加点*/
 .ic-editor .totted-active {position: relative;  overflow: hidden;}
 .ic-editor .totted-active:before {
 	content: ".";
@@ -442,14 +500,78 @@
 	left: 4px;
 	font-weight: bold;
 }
+.ic-editor .addFileTool>i {background-position: -18px -10px;}
+.ic-editor .blank>i {width: 18px; background-position: -93px -31px;}
+.ic-editor .dotted>i {background-position: -52px -12px;}
+.ic-editor .up-dotted>i {background-position: -6px -69px;}
+.ic-editor .underline>i {background-position: -92px -12px;}
+
+
+/*编辑器里图片点击出现的大图*/
+.big-img-box {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 350;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+}
+.big-img-box .fa-times-circle-o {
+	font-size: 26px;
+	top: 12px;
+	left: 12px;
+}
+
+/*空格*/
+.blank-item {
+	display:inline-block;
+	min-width:60px;
+	margin-left: 4px;
+	margin-right: 4px;
+	text-align:center;
+	color:#168bee;
+	border-bottom:1px solid #168bee;
+}
+
+/*空格对应的答案输入框*/
+.blank-answer {
+	margin-bottom: 6px;
+}
+.blank-answer>input {
+	width:393px;
+	height: 28px;
+	line-height: 28px;
+	padding-left: 60px;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+}
+.blank-answer>span {position: absolute; top: 6px; left: 6px; border-right:1px solid #d9d9d9;}
+
+/*文本加上标点*/
+.ic-editor .totted-active {position: relative;  overflow: hidden;}
+.ic-editor .totted-active:before {
+	content: ".";
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 5px;
+	/*left: 4px;*/
+	font-weight: bold;
+}
 
 /*文本加下标点*/
 .ic-editor .up-totted-active {position: relative;  overflow: hidden;}
 .ic-editor .up-totted-active:before {
 	content: ".";
+	width: 100%;
+	text-align: center;
 	position: absolute;
 	top: -14px;
-	left: 2px;
+	/*left: 2px;*/
 	font-weight: bold;
 }
 
@@ -536,6 +658,13 @@
 .delete-modal .btn-white {
 	margin-right: 8px;
 }
+.delete-modal .btn-white {
+	margin-right: 8px;
+}
+
+/*小×*/
+.delete-icon {background-position: -32px -3px;}
+.delete-icon:hover {background-position: -51px -3px;}
 
 /*小×*/
 .delete-icon {background-position: -32px -3px;}
@@ -544,8 +673,6 @@
 /*大×*/
 .ic-close-icon {background-position: -114px -4px;}
 .ic-close-icon:hover {background-position: -84px -4px;}
-
-
 /*404居中*/
 .apeak{
 	position: absolute;

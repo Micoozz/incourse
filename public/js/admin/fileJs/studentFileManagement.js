@@ -90,11 +90,13 @@ $(function(){
 	},10)
 	
 	
-	//只能输入数字
+//	只能输入数字
 	$('body').on('blur','.keydow',function(){
 		var text=/[^0-9]$/
 		if(text.test($(this).val())){
-			alert('只能输入数字')
+			$(this).next('.hint').text('只能输入数字')
+		}else{
+			$(this).next('.hint').text('')
 		}
 	});
 	
@@ -102,21 +104,10 @@ $(function(){
 	$('body').on('blur','.keydows',function(){
 		var text=/[\u4e00-\u9fa5]$/
 		if(!text.test($(this).val())){
-			alert('只能输入文字')
+			$(this).next('.hint').text('只能输入文字')
+		}else{
+			$(this).next('.hint').text('')
 		}
 	})
-	
-	//不能为空
-		$('body').on('blur','input',function(){
-		if($(this).val()==''){
-			alert('不能为空')
-		}
-	})
-		//提交数据
-		$('#addAdminBtn').click(function(){
-			if($('input').val()==''){
-				alert('内容不能为空')
-			}
-		})
 })
  

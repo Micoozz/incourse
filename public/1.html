@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>InCourse</title>
+</head>
+<script src="jquery-1.12.4.min.js" charset="utf-8"></script>
+<body>
+	<button>Button</button>
+
+<script>
+	$("button").click(function(){
+		$.post("1.php",{"id":3, "age":22, "job":"engineer"},function(data){
+			console.log(1111)
+		});
+	});
+</script>
+</body>
+<html>

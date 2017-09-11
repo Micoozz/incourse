@@ -1,0 +1,275 @@
+/* 颜色相关 */
+.fff {color: #fff;}
+.ic-blue {color: #168bee;}
+.orange {color: #FFD656;}
+.red {color: red;}
+.gray {color: #c9c9c9;}
+
+/* 背景颜色相关 */
+.gray-bg {background-color: #F1F1F1;}
+.black-bg {background-color: #444547;}
+.ic-blue-bg {background-color: #168bee;}
+.btn-hover-bg {background-color: #1681DC;}
+.lightblue-bg {background-color: #e1f5fa;}
+.fff-bg {background-color: #fff;}
+
+/* 位置相关 */
+.p-r {position: relative;}
+.p-a {position: absolute;}
+.p-f {position: fixed;}
+.ta-c {text-align: center;}
+.ta-r {text-align: right;}
+.f-l {float: left;}
+.f-r {float: right;}
+.clear:after {content: ""; clear: both; display: table;}
+.of-h {overflow: hidden;}
+
+/* 隐藏、显示相关 */
+.d-b {display: block;}
+.d-n {display: none;}
+
+/*大小相关*/
+.fs14 {font-size: 14px;}
+
+/* 容器相关  */
+.ic-container {min-height: 600px; padding: 30px 55px;}
+.school-container {min-height: 487px; padding: 41px 33px;}
+.setLimit-container {min-height: 487px; padding: 30px 73px;}
+.admin-container {min-height: 487px; padding: 30px 17px;}
+
+/* 鼠标指针相关 */
+.c-p {cursor: pointer;}
+.c-d {cursor: default;}
+
+/* **** 标签相关 ***** */
+/*ul,ol*/
+.l-s {list-style: none;}
+/* input输入框 */
+.ic-input {
+	height: 28px;
+	padding-left: 8px;
+	border-radius: 4px;
+	border: 1px solid #D9D9D9;
+	background-color: #fff;
+}
+/*提示字*/
+.tip {font-size: 12px; color: #c9c9c9;}
+/*蓝色按钮*/
+.ic-btn {
+	font-size: 12px;
+	width: 68px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #168bee;
+	border-radius: 4px;
+	color: #fff;
+	border: none;
+}
+/*白色按钮*/
+.btn-white {
+	font-size: 12px;
+	width: 68px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 4px;
+	color: #333;
+	border: none;
+	border: 1px solid #D9D9D9;
+}
+/*灰色边框*/
+.border {border: 1px solid #D9D9D9;}
+
+/*遮罩层*/
+.ic-modal {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 200;
+	background-color: rgba(51,51,51,0.40);
+}
+
+
+/* *** 组件相关 **** */
+/* 流程 */
+.step-change {line-height: 21px; color: rgba(0,0,0,0.43); list-style: none;}
+.step-change>li {float: left;}
+.step-change .line {display: inline-block; width: 135px; margin: 0 10px 4px; border: 1px solid #E9E9E9;}
+.step-change .fa {font-size: 18px;}
+.step-change .fa-check-circle-o {font-size: 20px;}
+
+/*居中一篮一白的按钮群*/
+.btns {margin-top: 30px; text-align: center;}
+.btns .ic-btn {margin-right: 32px;}
+
+/*格式化单选框*/
+.radio-box {line-height: 28px;}
+.radio-box label.p-r {padding-left: 20px;}
+.radio-box .radio-left {margin-right: 10px;}
+.radio-box .radio {
+	position: absolute;
+	left: 0;
+	top: -4px;
+	z-index: 20;
+	width: 14px;
+	height: 14px;
+	line-height: 10px;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid #D9D9D9;
+}
+.radio-box .radio i {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	background-color: #168bee;
+	border-radius: 50%;
+	opacity: 0;
+}
+.radio-box .radio.active {border-color: #168bee;}
+.radio-box .radio.active i {opacity: 1;}
+
+/*三级联动*/
+.select-school-box {margin-top: 40px;}
+.select-wrap {line-height: 28px;}
+.select-form {margin-top: 9px; font-size: 12px;}
+.select-form>div {min-width: 98px; float: left; position: relative; margin-right: 16px;}
+.select-form .ic-text {
+	height: 28px;
+	line-height: 28px;
+	padding-left: 8px;
+	border: 1px solid #D9D9D9;
+	border-radius: 4px;
+	cursor: default;
+}
+.select-form .lists {
+	display: none;
+	position: absolute;
+	top: 32px;
+	z-index: 100;
+	width: 100%;
+	border: 1px solid #D9D9D9;
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.20);
+	border-radius: 4px;
+	padding-bottom: 5px;
+	background-color: #fff;
+}
+.select-form .lists>li {line-height: 32px; padding-left: 8px; cursor: default;}
+.select-form .lists>li:hover {background-color: #E6F3FC;}
+.select-form .active {box-shadow: 0 0 5px 0 #168bee;}
+.select-form .fa {
+	font-size: 16px;
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+/*提交等待*/
+.waitBox {text-align: center; padding-top: 100px; font-size: 12px;}
+.waitBox .logo {width: 209px; margin-bottom: 34px;}
+
+/*背景白色高亮*/
+.highlight1 {position: relative; z-index: 300; background-color: #fff;}
+
+/*字体白色高亮*/
+.highlight2 {position: relative; z-index: 600; color: #fff;}
+
+/*页面引导弹出框*/
+.part {
+	z-index: 500;
+	width: 211px;
+	height: 100px;
+	padding: 18px;
+	border-radius: 4px;
+	font-size: 12px;
+	box-shadow: 0 1px 4px 0 #c9c9c9;
+	background-color: #fff;
+}
+.part:before {
+	content: "";
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	top: -4px;
+	left: 25px;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	background-color: #fff;
+}
+/*.part .fa-angle-up {
+	font-size: 16px;
+	top: -12px;
+	left: 34px;
+	background-color: #fff;
+}*/
+.part .fa-exclamation-circle {top: 2px;}
+.part>p {width: 159px; margin-left: 5px;}
+.part .ic-btn {right: 10px; bottom: 10px; height: 22px; line-height: 22px;}
+
+/*编辑器*/
+.ic-editor {width:554px; border-radius:4px;}
+.ic-editor .tools {padding:6px 22px; border-bottom:1px solid #d9d9d9;}
+.ic-editor .tools>div {margin-right: 12px; cursor:default;}
+.ic-editor .vertical-line {height:20px; margin-right:4px; border-left: 1px solid #E9E9E9;;}
+.ic-editor .addFile {
+	position: absolute;
+	top: 0;
+    left: 0;
+	width: 100%;
+    height: 100%;
+    z-index: 30;
+    opacity: 0;
+}
+.ic-editor .editor-content {height: 220px; padding:10px; letter-spacing: 0.2em;}
+.ic-editor .editor-content:focus {outline: none;}
+.ic-editor .tool {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	position: relative;
+	top: 3px;
+	overflow: hidden;
+	background: url(../images/uploadExerIcons.png) no-repeat;
+}
+.ic-editor .addFileTool>i {background-position: -18px -10px;}
+.ic-editor .blank>i {width: 18px; background-position: -93px -31px;}
+.ic-editor .dotted>i {background-position: -52px -12px;}
+.ic-editor .underline>i {background-position: -92px -12px;}
+
+
+/*空格*/
+.blank-item {
+	display:inline-block; 
+	width:50px; 
+	margin-left: 3px;
+	text-align:center; 
+	color:#168bee; 
+	border-bottom:1px solid #168bee;
+}
+/*空格对应的答案输入框*/
+.blank-answer {
+	position: relative;
+	width:393px;
+	height: 28px;
+	line-height: 28px;
+}
+.blank-answer>input {
+	width: 100%;
+	height: 100%;
+	padding-left: 50px;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+}
+.blank-answer>span {
+	position: absolute;
+	top: 0;
+	left: 6px;
+}

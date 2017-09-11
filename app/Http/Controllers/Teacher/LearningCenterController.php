@@ -18,8 +18,9 @@ use App\Models\Compositive;
 use App\Models\Chapter;
 use App\Models\TeacherExerciseChapterCategroyMap;
 use Input;
+use App\Models\Student;
 
-class LearningCenterController extends Controller
+class LearningCenterController extends TeacherController
 {
     //学习中心controller
     const MOD_HOMEWORK = 'homework';
@@ -32,26 +33,99 @@ class LearningCenterController extends Controller
     const FUNC_ADD_EXERCISE = 'addExercise';
     const FUNC_MY_UPLOAD = 'my-upload';
     const FUNC_MY_COLLECTION = 'my-conllection';
+
+    protected $class_id;
+    protected $course_id;
+
+    public function __construct(){
+        
+    }
+
     /**
      * 学习中心主体页面
      */
-    public function learningCenter($class_id = null,$course_id = null,$mod = 'homework',$func = null){
-    	$teacher = Auth::guard('employee')->user();
-    	$map_list = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->get();//查询出所有老师关联的数据 
-    	$class_course = array();
+    private function getClassCourse($teacher_id){
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据
+        $class_course = array();
+        foreach ($map_list as $map) {
+            $class = Classs::find($map->class_id);
+            $grade = Classs::find($class->parent_id);
+            $course = Course::find($map->course_id);
+            array_push($class_course,array('title' => $grade->title."届".$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
+        }
+        return $class_course;
+    }
+    public function learningCenter($class_id = null,$course_id = null){
+        $port = "learningCenter";
+        return $this->addHomework($class_id,$course_id,$port);
+    }
+    public function homeworkManage($class_id = null,$course_id = null){
+        $port = "homeworkManage";
+        return $this->addHomework($class_id,$course_id,$port);
+    }
+    public function addHomework($class_id = null,$course_id = null,$port = null){
+        $title = "添加作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
+        if(empty($class_id)){
+            $class_id = $map->class_id;
+        }
+        if(empty($course_id)){
+            $course_id = $map->course_id;
+        }
+        if(empty($port)){
+            $port = "addHomework";
+        }
+        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id','port'));
+    }
+    public function addHomeworkPer($class_id,$course_id){
+        $title = "添加作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "addHomework-personal";
+        $unit_list = parent::getUnit();
+        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list','port'));
+    }
+    public function correct($class_id,$course_id){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "correct";
+    }
+    public function uploadExercise($class_id,$course_id){
+        $title = "上传习题";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "uploadExercise";
+        $unit_list = parent::getUnit();
+        $categroy_list = parent::getCategroy($course_id);
+        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port'));
+    }
+    public function exercise($class_id,$course_id){
+        $title = "习题库";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "exercise";
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','port'));
+    }
+    public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
+        $teacher = Auth::guard("employee")->user();
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->get();//查询出所有老师关联的数据
+        $class_course = array();
+        foreach ($map_list as $map) {
+            if(empty($class_id)){
+                $class_id = $map->class_id;
+            }
+            if(empty($course_id)){
+                $course_id = $map->course_id;
+            }
+            $class = Classs::find($map->class_id);
+            $grade = Classs::find($class->parent_id);
+            $course = Course::find($map->course_id);
+            array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
+        }
     	$select_data = array();
-    	foreach ($map_list as $map) {
-    		if(empty($class_id)){
-    			$class_id = $map->class_id;
-    		}
-    		if(empty($course_id)){
-    			$course_id = $map->course_id;
-    		}
-    		$class = Classs::find($map->class_id);
-    		$grade = Classs::find($class->parent_id);
-    		$course = Course::find($map->course_id);
-    		array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
-    	}
     	if($mod == self::MOD_HOMEWORK){
     		$class = Classs::find($class_id);
     		$grade = Classs::find($class->parent_id);
@@ -72,10 +146,8 @@ class LearningCenterController extends Controller
 	                $exercise->score = $exercise->score/100;
 		            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
 		                $subjective = $exercise->hasManySubjective->first();
-		                $exercise->cate_title = $cate_title;
 		                $exercise->subject = $subjective->subject;
 		                $exercise->answer = array('自由发挥');
-		                $exercise->score = $exercise->score/100;
 		            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
 		            	$objective = $exercise->hasManyObjective->first();
 		                $exercise->subject = $objective->subject;
@@ -105,15 +177,6 @@ class LearningCenterController extends Controller
 		                $exercise->subject = $objective->subject;
 		                $exercise->options = json_decode($objective->option,TRUE);
 		                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
-		                // if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-		                //     foreach ($answer_list as $key => $answer) {
-		                //         array_push($answers,array_keys(json_decode($answer)));
-		                //     }
-		                // }else{
-		                // 	foreach ($answer_list as $answer) {
-		                //     	array_push($answers,$answer);
-		                // 	}
-		                // }
 		            }
 		//          else{
 		//              
@@ -128,11 +191,32 @@ class LearningCenterController extends Controller
 		        // $select_data["select_categroy"] = $select_categroy;
 		        // $select_data["select_unit"] = $select_unit;
 		        // $select_data["select_grade"] = $select_grade;
-		        $map = TeacherExerciseChapterCategroyMap::where("teacher_id",$teacher->id)->get();
+		        $map = TeacherExerciseChapterCategroyMap::where("teacher_id",$teacher->id)->get()->toArray();
+		        $select_data["select_categroy"] = Categroy::whereIn("id",array_column($map, "categroy_id"))->pluck("title","id");
+		        $select_data["select_unit"] = Chapter::whereIn("id",array_column($map, "unit_id"))->pluck("title","id");
+		        $select_data["select_grade"] = Chapter::whereIn("id",array_column($map, "grade_id"))->pluck("title","id");
+		        $select_data["select_section"] = Chapter::whereIn("id",array_column($map, "section_id"))->pluck("title","id");
     		}else if($func == self::FUNC_ADD_EXERCISE){
-    			$unit_list = parent::getUnit();
+				$unit_list = parent::getUnit();
     			$categroy_list = parent::getCategroy($course_id);
-    			$data = array('unit_list' => $unit_list,'categroy_list' => $categroy_list);
+    			if(!empty($universal)){
+    				$exercise = Exercises::find($universal);
+    				$map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exercise->id)->first();
+    				$exercise->unit_id = $map->unit_id;
+    				$section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
+    				$exercise->section_id = $map->section_id;
+    				if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+		                $subjective = $exercise->hasManySubjective->first();
+		                $exercise->subject = $subjective->subject;
+		                $exercise->answer = array('自由发挥');
+		            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+		            	$objective = $exercise->hasManyObjective->first();
+		                $exercise->subject = $objective->subject;
+		                $exercise->options = json_decode($objective->option,TRUE);
+		                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+		            }
+    			}
+    			$data = array("unit_list" => $unit_list,"categroy_list" => $categroy_list,"section_list" => !empty($section_list) ? $section_list : null,"exercise" => !empty($exercise) ? $exercise : null);
     		}else if($func == self::FUNC_MY_UPLOAD){
 
     		}else if($func == self::FUNC_MY_COLLECTION){	
@@ -141,7 +225,7 @@ class LearningCenterController extends Controller
     	}
     	return view('teacher.learningCenter',compact("class_course","data","class_id","course_id","mod","func","title","select_data"));
     }
-    public function uploadExercise(){
+    public function uploadExercisefix(){
     	$input = Input::get();
     	// $code = 200;
 	 	// try{
@@ -158,7 +242,7 @@ class LearningCenterController extends Controller
         $user = Auth::guard('employee')->user();
         $time = time();
         $exercise = new Exercises;
-        $exercise->teacher_id = $user->id;
+        $exercise->teacher_id = 1;
         $exercise->school_id = $user->school_id;
         $exercise->chapter_id = $chapter["section"];
         $exercise->categroy_id = intval($item['categroy']);
@@ -205,7 +289,7 @@ class LearningCenterController extends Controller
         	if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
         		$item["answer"] = array();
         		for($i = 0;$i < count($item["option"]);$i++){
-        			array_push($item["answer"],$i);
+        			array_push($item["answer"],$i+1);
         		}
         	}
         	if($exercise->categroy_id == Exercises::CATE_LINE && empty($item['answer'])){
@@ -252,8 +336,5 @@ class LearningCenterController extends Controller
             $exercise->hasManyObjective()->create($item['objective']);
         }
     }
-    public function test(){
-    	$arr = array("0" => "111");
-    	return serialize($arr);
-    }
+    
 }

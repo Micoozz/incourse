@@ -20,6 +20,9 @@ class CreateEmployee extends Migration
             $table->integer('school_id');
             $table->string('username',20);
             $table->string('password',100);
+/*            $table->integer('phone',11);
+            $table->string('IDcard',20);
+            $table->char('sex',1);*/
         });
     }
 

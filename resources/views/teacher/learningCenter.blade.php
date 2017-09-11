@@ -182,6 +182,8 @@
     var class_id = "{{$class_id}}";
     var course_id = "{{$course_id}}";
     var mod = "{{$mod}}";
+    var num = {{!empty($data["exercise"]) ? $data["exercise"]->categroy_id : 1}};
+    // var loaded = {{--$data["exercise"] ? 'true' : 'false'--}};
     $(function(){
         $("body").click(function(event){
             //点击空白关闭联动下拉框
@@ -202,6 +204,42 @@
     });
 
     
+</script>
+<script type="text/javascript">
+$(function () {
+
+    @if(!empty($data["exercise"]))
+        $(".question-box").html(
+            @foreach($data["exercise"]->answer as $answer)
+                '<div class="radio-wrap dan-xuan-option>\
+                    <label class="ic-radio border p-r">\
+                        <i class="ic-blue-bg p-a"></i>\
+                        <input type="radio" name="radio" value="{{$answer}}"/>\
+                    </label>\
+                    <div class="radio-ipt p-r">\
+                        <span class="p-a">A：</span>\
+                        <input class="ic-input" type="text" />\
+                    </div>\
+                    <i class="delete uploadExerIcons"></i>\
+                </div>'
+                @if(!$loop->last)
+                     + 
+                @endif
+            @endforeach
+        )
+        $(".answer-wrap").html(
+            @foreach($data["exercise"]->answer as $answer)
+                '<div class="blank-answer p-r" data-num="1">\
+                    <span>答案1：</span>\
+                    <input type="text" />\
+                </div>'
+                @if(!$loop->last)
+                     + 
+                @endif
+            @endforeach
+        )
+    @endif
+})
 </script>
 </html>
 

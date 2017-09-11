@@ -1,25 +1,24 @@
 
-var typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题"];
+var typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题","综合题"];
 
 /***************** 出题 *******************/
 $(function () {
     /*单选题选中*/
-    $(".exercise-box").on("click", ".dan-xuan-only .ic-radio", function (event) {
+    $("body").on("click", ".dan-xuan-only .ic-radio", function (event) {
         event.preventDefault();
         $(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
         $(this).addClass("active");
 		$(this).children("input").prop("checked",true);
     });
 
-	var b = "";
     /*多选题选中*/
-    $(".exercise-box").on("click", ".duo-xuan-only .ic-radio", function (event) {
+    $("body").on("click", ".duo-xuan-only .ic-radio", function (event) {
         event.preventDefault();
         $(this).toggleClass("active");
     });
 
     /*动态生成的三级联动*/
-    $(".exercise-box").on("click", ".select-form .ic-text-exer", function () {
+    $("body").on("click", ".exercise-box .select-form .ic-text-exer", function () {
         var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
         $(".select-action-box .select-form .ic-text-exer .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
         $(".select-action-box .select-form .lists-exer").hide();
@@ -32,17 +31,17 @@ $(function () {
             $(this).next("ul").hide();
         }
     });
-    $(".exercise-box").on("click", ".select-form .lists-exer>li", function () {
+    $("body").on("click", ".exercise-box .select-form .lists-exer>li", function () {
         var $p = $(this).parent().prev();
         $p.children("span").text($(this).text());
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
 
-    //删除每道题
-$("body").on("click",".admin-container .type .ic-close-icon",function(){
-   $(this).parent(".type").parent(".exercise").remove();
-});
+	//删除每道题
+	$("body").on("click",".admin-container .type .ic-close-icon",function(){
+		$(this).parent(".type").parent(".exercise").remove();
+	});
 });
 
 
@@ -69,16 +68,20 @@ $(function () {
 	<span>下标点</span>\
 	</button>\
 	<button class="f-l up-dotted">\
-   <i class="tool"></i>\
-   <span>上标点</span>\
-</button>\
+<<<<<<< HEAD
+	   <i class="tool"></i>\
+	   <span>上标点</span>\
+=======
+		<i class="tool"></i>\
+	<span>上标点</span>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
+	</button>\
 	<button class="f-l underline">\
 	<i class="tool"></i>\
 	<span>下划线</span>\
 	</button>\
 	</div>\
-	<div class="editor-content" contenteditable="true">\
-	</div>\
+	<div class="editor-content" contenteditable="true"></div>\
 	</div>\
 	</div>';
 
@@ -94,8 +97,7 @@ $(function () {
 	<input class="addFile" type="file" />\
 	</button>\
 	</p>\
-	<div class="mp3-box">\
-	</div>\
+	<div class="mp3-box"></div>\
 	</div>\
 	</div>';
 
@@ -116,7 +118,11 @@ $(function () {
 	</button>\
 	<button class="f-l dotted">\
 	<i class="tool"></i>\
-	<span>标点</span>\
+	<span>下标点</span>\
+	</button>\
+	<button class="f-l up-dotted">\
+		<i class="tool"></i>\
+	<span>上标点</span>\
 	</button>\
 	<button class="f-l underline">\
 	<i class="tool"></i>\
@@ -182,10 +188,6 @@ $(function () {
     var wan_xing_tk = '<span class="f-l fs14">答案：</span>\
 		<div class="answer-box f-l"><div class="wan-xing-tk">\
 							<div class="wan-xing-tk-only" data-num="0"></div>\
-							<div>\
-								<span class="fs14">附件答案：</span>\
-								<input class="ic-input wan-xing-tk-input" type="text" placeholder="附件形式上传的问题，请在此输入答案！"/>\
-							</div>\
 						</div></div>';
 
     var jian_da = '<span class="f-l fs14">答案：</span>\
@@ -218,53 +220,306 @@ $(function () {
 	</button>';
 
 
-    $(".exercise-box").on("click", ".type .lists-exer>li", function () {
+    $("body").on("click", ".exercise-box .type .lists-exer>li", function () {
         var text = $(this).text();
-        console.log(text)
+        console.log(text);
 
-        if (text === "单选题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(dan_xuan);
-        } else if (text === "多选题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(duo_xuan);
-        } else if (text === "填空题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(duo_kong);
-            $(this).parents(".select-action-box").siblings(".question-box").find(".blank").show();
-        } else if (text === "判断题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(pan_duan);
-        } else if (text === "连线题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(lian_xian);
-        } else if (text === "排序题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(pai_xu);
-        } else if (text === "完形填空") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(wan_xing_tk);
-            $(this).parents(".select-action-box").siblings(".question-box").find(".blank").show();
-        } else if (text === "简答题" || text === "画图题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(jian_da);
-        } else if (text === "作文题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(zuo_wen);
-        } else if (text === "听力题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(ting_li_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(ting_li);
-        } else if (text === "阅读题" || text === "解答题" || text === "计算题") {
-            $(this).parents(".select-action-box").siblings(".question-box").html(yue_du_Q);
-            $(this).parents(".select-action-box").siblings(".answer-wrap").html(yue_du);
-        }
+		//问题
+		if(text === "听力题"){
+			$(this).parents(".select-action-box").siblings(".question-box").html(ting_li_Q);
+		}else if(text === "阅读题" || text === "综合题"){
+			$(this).parents(".select-action-box").siblings(".question-box").html(yue_du_Q);
+		}else {
+			$(this).parents(".select-action-box").siblings(".question-box").html(common_Q);
+			if(text === "填空题" || text === "完形填空"){
+				$(this).parents(".select-action-box").siblings(".question-box").find(".blank").show();
+			}
+		}
+
+		//答案
+		if (text === "单选题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(dan_xuan);
+		} else if (text === "多选题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(duo_xuan);
+		} else if (text === "填空题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(duo_kong);
+		} else if (text === "判断题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(pan_duan);
+		} else if (text === "连线题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(lian_xian);
+		} else if (text === "排序题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(pai_xu);
+		} else if (text === "完形填空") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(wan_xing_tk);
+		} else if (text === "简答题" || text === "画图题" || text === "解答题" || text === "计算题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(jian_da);
+		} else if (text === "作文题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(zuo_wen);
+		} else if (text === "听力题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(ting_li);
+		} else if (text === "阅读题" || text === "综合题") {
+			$(this).parents(".select-action-box").siblings(".answer-wrap").html(yue_du);
+		}
     });
+<<<<<<< HEAD
+   /* function editorExer(num, html){
+		var text = typeString[num - 1];
+		console.log(text);
+
+		if (text === "单选题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(dan_xuan);
+		} else if (text === "多选题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(duo_xuan);
+		} else if (text === "填空题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(duo_kong);
+			$(".question-box").find(".blank").show();
+		} else if (text === "判断题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(pan_duan);
+		} else if (text === "连线题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(lian_xian);
+		} else if (text === "排序题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(pai_xu);
+		} else if (text === "完形填空") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(wan_xing_tk);
+			$(".question-box").find(".blank").show();
+		} else if (text === "简答题" || text === "画图题" || text === "解答题" || text === "计算题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(jian_da);
+		} else if (text === "作文题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(zuo_wen);
+		} else if (text === "听力题") {
+			$(".question-box").html(ting_li_Q);
+			$(".answer-wrap").html(ting_li);
+		} else if (text === "阅读题" || text === "综合题" || text === "计算题") {
+			$(".question-box").html(yue_du_Q);
+			$(".answer-wrap").html(yue_du);
+		}
+	}
+	console.log(num);
+	editorExer(num);*/
+=======
+
+
+	
+	
+	
+
+	//编辑题的基本框架
+	var editorHtml = '<div class="exercise">\
+            <div class="type select-action-box p-r fs14">\
+                <span class="f-l">题型：</span>\
+                <span class="ic-text-exer">\
+                	<span class="editor-type">1</span>\
+                </span>\
+                <i class="common-icon ic-close-icon p-a"></i>\
+            </div>\
+            <div class="question-box"></div>\
+            <div class="answer-wrap clear"></div>\
+        </div>';
+
+
+	/*"我上传的"里的“编辑”功能*/
+	$("body").on("click",".myUpload .editor-icon",function(){
+		$(".ic-modal").show();
+		$.ajax({
+			type: "get",
+			url: "template/editorExerPage.html",
+			async: false,
+			cache: false,
+			success: function(data){
+				$(".exer-room").append(data);
+				$(".hw-list").css("z-index","180");
+			}
+		});
+
+		var exerId = $(this).parents(".exer-in-list").attr("data-id");
+		
+		//测试数据
+		var a = {
+		"answer": [{"answer": ["a","b"],"categroy": 3,"option": [],"subject": "1111"}],
+		"categroy": 12,
+		"option": [],
+		"material": [[{"name":"Jim","size":1024}]],
+		"subject": '111<span class="blank-item" contenteditable="false">空1</span>&nbsp;111<span class="blank-item" contenteditable="false">空2</span>&nbsp;'
+		};
+		
+		editorExer(a);
+	});
+
+
+	/*编辑题目调用的函数*/
+	function editorExer(obj) { 
+		//["单选题1","多选题2","填空题3","判断题4","连线题5","排序题6","完形填空7","画图题8","计算题9","简答题10","解答题11","听力题12","阅读题13","作文题14","综合题15"];
+		var typeNum = Number(obj.categroy);
+		
+		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
+		var queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
+		var ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
+		
+		//问题显示
+		if(typeNum===12){
+			queBox.html(ting_li_Q);
+			ansBox.html(ting_li);
+			
+			var files = obj.material[0];
+			var size = (files[0].size / 1024 / 1024).toFixed(2);
+			$(".editorExerModal .listen .mp3-box").addClass("border").append('<div>\
+					<i class="uploadExerIcons p-r"></i>\
+					<input class="p-a audio-child" type="file"/>\
+					<span class="gray">听力  <span class="audio-name">' + files[0].name + '</span> ' + size + 'M </span>\
+					<button class="f-r ic-blue delete">删除</button>\
+				</div>');
+			
+			obj.answer.forEach(function(item,i){
+				$(".editorExerModal .mul-answer-box").append(editorHtml);
+				editorExer(item);
+			});
+		}else if(typeNum===13 || typeNum===15){
+			queBox.html(yue_du_Q);
+			ansBox.html(yue_du);
+			
+			$(".editorExerModal .editor-content").html(obj.subject);
+			obj.answer.forEach(function(item,i){
+				$(".editorExerModal .mul-answer-box").append(editorHtml);
+				editorExer(item);
+			});
+		}else {
+			queBox.html(common_Q);
+			if(typeNum===3 || typeNum===7){
+				$($(".editorExerModal .ic-editor .blank")[$(".editorExerModal .ic-editor .blank").length-1]).show();
+			}
+			$($(".editorExerModal .editor-content")[$(".editorExerModal .editor-content").length-1]).html(obj.subject);
+		}
+
+		//答案显示
+		var html = "", letter;
+		if(typeNum===1){
+			ansBox.html(dan_xuan);
+			
+			obj.option.forEach(function(item,i){
+				letter = String.fromCharCode(65 + i);
+				html += '<div class="radio-wrap dan-xuan-option">\
+																<label class="ic-radio border p-r' + (Number(obj.answer)===i ? ' active' : '') + '">\
+																	<i class="ic-blue-bg p-a"></i>\
+																	<input type="radio" name="radio" value="' + letter + '"/>\
+																</label>\
+																<div class="radio-ipt p-r">\
+																	<span class="p-a">' + letter + '：</span>\
+																	<input class="ic-input" type="text" value="' + item + '"/>\
+																</div>\
+																<i class="delete uploadExerIcons"></i>\
+															</div>';
+			});
+			$($(".editorExerModal .dan-xuan-only")[$(".editorExerModal .dan-xuan-only").length-1]).html(html);
+		}else if(typeNum===2){
+			ansBox.html(duo_xuan);
+			
+			obj.option.forEach(function(item,i){
+				letter = String.fromCharCode(65 + i);
+				html += '<div class="radio-wrap dan-xuan-option">\
+																<label class="ic-radio border p-r' + (obj.answer.indexOf(i+'')!==-1 ? ' active' : '') + '">\
+																	<i class="ic-blue-bg p-a"></i>\
+																	<input type="radio" name="radio" value="' + letter + '"/>\
+																</label>\
+																<div class="radio-ipt p-r">\
+																	<span class="p-a">' + letter + '：</span>\
+																	<input class="ic-input" type="text" value="' + item + '"/>\
+																</div>\
+																<i class="delete uploadExerIcons"></i>\
+															</div>';
+			});
+			$($(".editorExerModal .duo-xuan-only")[$(".editorExerModal .duo-xuan-only").length-1]).html(html);
+		}else if(typeNum===3){
+			ansBox.html(duo_kong);
+
+			obj.answer.forEach(function(item,i){
+				html += '<div class="blank-answer p-r">\
+ 					<span>答案' + (i+1) + '：</span>\
+ 					<input type="text" value="' + item + '"/>\
+ 				</div>';
+			});
+			$($(".editorExerModal .duo-kong")[$(".editorExerModal .duo-kong").length-1]).html(html);
+		}else if(typeNum===4){
+			ansBox.html(pan_duan);
+			if(obj.answer==="正确"){
+				$($(".editorExerModal .pan-duan")[$(".editorExerModal .pan-duan").length-1]).addClass("rightActive");
+			}else {
+				$($(".editorExerModal .pan-duan")[$(".editorExerModal .pan-duan").length-1]).addClass("wrongActive");
+			}
+		}else if(typeNum===5){
+			ansBox.html(lian_xian);
+
+			obj.option[0].forEach(function(item,i){
+				html += '<div class="lian-xian-option">\
+								<input class="ic-input" type="text" value="' + item + '"/>\
+								<input class="ic-input" type="text" value="' + obj.option[1][i] + '"/>\
+								<i class="uploadExerIcons delete p-r"></i>\
+							</div>';
+			});
+			$($(".editorExerModal .lian-xian-options")[$(".editorExerModal .lian-xian-options").length-1]).html(html);
+		}else if(typeNum===6){
+			ansBox.html(pai_xu);
+
+			obj.option.forEach(function(item,i){
+				letter = String.fromCharCode(65 + i);
+				html += '<div class="radio-wrap pai-xu-option">\
+							<div class="radio-ipt p-r">\
+								<span class="p-a">排序' + letter + '：</span>\
+								<input class="ic-input" type="text" value="' + item + '"/>\
+							</div>\
+							<i class="delete uploadExerIcons"></i>\
+						</div>';
+			});
+			$($(".editorExerModal .pai-xu-options")[$(".editorExerModal .pai-xu-options").length-1]).html(html);
+		}else if(typeNum===7){
+			ansBox.html(wan_xing_tk);
+
+			obj.option.forEach(function(item,i){
+				var options = "";
+				item.forEach(function(n,j){
+					letter = String.fromCharCode(65 + j);
+					options += '<div class="radio-wrap">\
+									<label class="ic-radio border p-r' + (Number(obj.answer[i])===j ? ' active' : '') + '">\
+										<i class="ic-blue-bg p-a"></i>\
+										<input type="radio" name="radio' + (i+1) + '" value="' + letter + '"/>\
+									</label>\
+									<div class="radio-ipt p-r">\
+										<span class="p-a">' + letter + '：</span>\
+										<input class="ic-input" type="text" value="' + n + '"/>\
+									</div>\
+								</div>';
+				});
+				html += '<div class="wan-xing-tk-option clear">\
+								<span class="f-l id">' + (i+1) + '.</span>\
+								<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">' + options + '</div>\
+							</div>';
+			});
+			$($(".editorExerModal .wan-xing-tk-only")[$(".editorExerModal .wan-xing-tk-only").length-1]).html(html).attr("data-num",obj.option.length);
+		}else if(typeNum===8 || typeNum===9 || typeNum===10 || typeNum===11){
+			ansBox.html(jian_da);
+			
+			$($(".editorExerModal .jian-da .editor-content")[$(".editorExerModal .jian-da .editor-content").length-1]).html(obj.answer);
+		}else if(typeNum===14){
+			ansBox.html(zuo_wen);
+		}
+	}
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 });
+
+
 
 /*单选题*/
 $(function () {
     //添加选项
-    $(".exercise-box").on("click", ".addXzOptionBtn", function () {
+    $("body").on("click", ".addXzOptionBtn", function () {
         var len = $(this).prev(".dan-xuan-options").children(".dan-xuan-option").length;
         var letter = String.fromCharCode(65 + len);
 
@@ -282,7 +537,7 @@ $(function () {
     });
 
     //删除选项
-    $(".exercise-box").on("click", ".dan-xuan-option .delete", function () {
+    $("body").on("click", ".dan-xuan-option .delete", function () {
         var num = $(this).prev(".radio-ipt").children("span").text().slice(0, 1).charCodeAt();
         $(this).parents(".radio-wrap").nextAll().each(function (i, item) {
             $(item).children(".radio-ipt").children("span").text(String.fromCharCode(num) + "：");
@@ -295,11 +550,10 @@ $(function () {
 /*排序题*/
 $(function () {
     //添加选项
-    $(".exercise-box").on("click", ".pai-xu .addPxOptionBtn", function () {
+    $("body").on("click", ".pai-xu .addPxOptionBtn", function () {
         var len = $(this).prev(".pai-xu-options").children(".pai-xu-option").length;
         var letter = String.fromCharCode(65 + len);
 
-        //var letter = String.fromCharCode(num);
         $(this).prev(".pai-xu-options").append('<div class="radio-wrap pai-xu-option">\
 																<div class="radio-ipt p-r">\
 																	<span class="p-a">排序' + letter + '：</span>\
@@ -310,7 +564,7 @@ $(function () {
     });
 
     //删除选项
-    $(".exercise-box").on("click", ".pai-xu-option .delete", function () {
+    $("body").on("click", ".pai-xu-option .delete", function () {
         var num = $(this).prev(".radio-ipt").children("span").text().slice(2, 3).charCodeAt();
         $(this).parents(".radio-wrap").nextAll().each(function (i, item) {
             $(item).children(".radio-ipt").children("span").text("排序" + String.fromCharCode(num) + "：");
@@ -324,7 +578,7 @@ $(function () {
 /*填空题,多空题,完形填空*/
 $(function () {
     //插入空格
-    $(".exercise-box").on("click", ".blank", function () {
+    $("body").on("click", ".exercise .blank", function () {
         $(this).parents(".ic-editor").children(".editor-content").focus();
         var initNum = $(this).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
         document.execCommand("insertHTML", "false", '<span class="blank-item">空' + initNum + '</span>&nbsp;');
@@ -333,6 +587,8 @@ $(function () {
         //获取题型
         var type = $(this).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
         if (type === "完形填空") {
+			//var options = "";
+
             var html_dom = '<div class="wan-xing-tk-option clear">\
 																<span class="f-l id">' + initNum + '.</span>\
 																<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">\
@@ -378,6 +634,7 @@ $(function () {
 																	</div>\
 																</div>\
 															</div>';
+														
             var wan_xing_tk_dom = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only");
             wan_xing_tk_dom.append(html_dom);
             wan_xing_tk_dom.attr("data-num", Number(wan_xing_tk_dom.attr("data-num")) + 1);
@@ -393,7 +650,7 @@ $(function () {
     });
 
     //删除空格时删除答案
-    $(".exercise-box").on("keyup", ".editor-content", function (event) {
+    $("body").on("keyup", ".exercise .editor-content", function (event) {
         var blank_len = $(this).find(".blank-item").length;
         $(this).find(".blank-item").each(function (i, item) {
             $(item).text("空" + (i + 1));
@@ -474,10 +731,10 @@ $(function () {
 
 /*判断题*/
 $(function () {
-    $(".exercise-box").on("click", ".answer-box .pan-duan .right", function () {
+    $("body").on("click", ".answer-box .pan-duan .right", function () {
         $(this).parents(".pan-duan").removeClass("no-active wrongActive").addClass("rightActive");
     });
-    $(".exercise-box").on("click", ".answer-box .pan-duan .wrong", function () {
+    $("body").on("click", ".answer-box .pan-duan .wrong", function () {
         $(this).parents(".pan-duan").removeClass("no-active rightActive").addClass("wrongActive");
     });
 })
@@ -485,7 +742,7 @@ $(function () {
 /*连线题*/
 $(function () {
     //添加选项
-    $(".exercise-box").on("click", ".lian-xian .addLxOptionBtn", function () {
+    $("body").on("click", ".lian-xian .addLxOptionBtn", function () {
         $(this).prev(".lian-xian-options").append('<div class="lian-xian-option">\
 																<input class="ic-input" type="text" />\
 																<input class="ic-input" type="text" />\
@@ -494,7 +751,7 @@ $(function () {
     });
 
     //删除选项
-    $(".exercise-box").on("click", ".lian-xian-option .delete", function () {
+    $("body").on("click", ".lian-xian-option .delete", function () {
         $(this).parent().remove();
     });
 })
@@ -503,7 +760,7 @@ $(function () {
 /*听力题*/
 $(function () {
     //添加录音
-    $(".exercise-box").on("change", ".listen .addFile", function () {
+    $("body").on("change", ".listen .addFile", function () {
         var input = $(this)[0];
         var files = input.files || [];
         if (files.length === 0) {
@@ -528,14 +785,14 @@ $(function () {
     });
 
     //删除mp3
-    $(".exercise-box").on("click", ".mp3-box .delete", function () {
+    $("body").on("click", ".mp3-box .delete", function () {
         var mp3 = $(this).parents(".mp3-box").children().length;
         if (mp3 === 1) {
             $(this).parents(".mp3-box").removeClass("border");
         }
         $(this).parent().remove();
     });
-})
+});
 
 $(function () {
     //默认添加单选题
@@ -549,7 +806,25 @@ $(function () {
 															<i class="fa fa-angle-down"></i>\
 														</p>\
 														<ul class="lists-exer">\
-															'+categroy_list+'\
+<<<<<<< HEAD
+															\
+=======
+															<li>单选题</li>\
+															<li>多选题</li>\
+															<li>填空题</li>\
+															<li>判断题</li>\
+															<li>连线题</li>\
+															<li>排序题</li>\
+															<li>完形填空</li>\
+															<li>画图题</li>\
+															<li>计算题</li>\
+															<li>简答题</li>\
+															<li>解答题</li>\
+															<li>听力题</li>\
+															<li>阅读题</li>\
+															<li>作文题</li>\
+															<li>综合题</li>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 														</ul>\
 													</div>\
 												</div>\
@@ -571,8 +846,20 @@ $(function () {
 															<span>插入空格</span>\
 														</button>\
 														<button class="f-l dotted">\
+														<i class="tool"></i>\
+														<span>下标点</span>\
+														</button>\
+														<button class="f-l up-dotted">\
 															<i class="tool"></i>\
-															<span>标点</span>\
+<<<<<<< HEAD
+															<span>下标点</span>\
+														</button>\
+														<button class="f-l up-dotted">\
+														   <i class="tool"></i>\
+														   <span>上标点</span>\
+=======
+														<span>上标点</span>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 														</button>\
 														<button class="f-l underline">\
 															<i class="tool"></i>\
@@ -598,226 +885,305 @@ $(function () {
 										</div>';
 
     //添加题目
-    $(".addExerBtn-box .addExerBtn").click(function () {
-        $(".exercise-box").append(html);
-    });
+	$("body").on("click",".addExerBtn-box .addExerBtn",function () {
+		$(".exercise-box").append(html);
+	});
 
     //添加子题目
-    $(".exercise-box").on("click", ".addChildExer", function () {
-        $(this).prev(".mul-answer-box").append(html);
-    });
-
-    var unit;
-    $(".unit-li").click(function(){
-        $(".section-li").remove();
-        unit = $(this).attr("data");
-        $.get("/getSectionAjax/"+$(this).attr("data"),function(result){
-            $.each(result,function(index,value,array){
-                $(".section-ul").append("<li class='section-li' data='"+index+"'>"+value+"</li>");
-            })
-        })
-    });
-    var section;
-    $(".section-ul").on("click",".section-li",function(){
-        section = $(this).attr("data");
-    })
+	$("body").on("click",".exercise .addChildExer",function () {
+		$(this).prev(".mul-answer-box").append(html);
+	});
 
 	//上传
 	$("body").on("click","#upload-btn",function(){
-		//保存所有要保存的数据
-		var obj = {
-			"subject": $(".filter-box-upload .subject-text").text(),
-			"grade": $(".filter-box-upload .grade-text").text(),
-			"chapter": {"unit":unit,"section":section},
-			"exercise": [],
-			"_token" : token
+		var allExer = uploadExer();  //保存需要上传的题目
+		console.log(allExer.exercise);
+
+		//判断题目是否漏填
+		if(isFillFunc(allExer)){
+			//向后台发送题目
+		}else {
+			$(".ic-tip-box").show();
+			setTimeout(function(){
+				$(".ic-tip-box").fadeOut();
+			},1000);
+			alert("客观题没填充完整。");
+		}
+	});
+});
+
+
+
+//判断题目中有没有漏填的
+function isFillFunc(obj){
+	//判断科目，年级是否为空
+	if(obj.subject==="" || !obj.grade===""){ return false; }
+	//判断章节是否为空
+	
+	for(var i=0; i<obj.chapter.length; i++){
+		if(obj.chapter[i]===""){ return false; }
+	}
+
+	return exerIsFill(obj.exercise);
+}
+
+//["单选题1","多选题2","填空题3","判断题4","连线题5","排序题6","完形填空7","画图题8","计算题9","简答题10","解答题11","听力题12","阅读题13","作文题14","综合题15"];
+//判断题目是否为空(主观题可以不上传答案，填空题上传答案是客观题，不上传答案是主观题)
+function exerIsFill(arr){
+	if(arr.length===0){
+		return false;
+	}
+
+	for(var i=0; i<arr.length; i++){
+		var item = arr[i];
+		var categroy = item.categroy;	//保存题型
+
+		if(item.subject===""){ return false; }
+
+		if(categroy===1 || categroy===2 || categroy===6){
+			if(item.option.length===0){ return false; }
+			item.option.forEach(function(n){
+				if(n===""){ return false; }
+			});
+			if(item.answer===""){ return false; }
+		}
+
+		if(categroy===3){
+			item.answer.forEach(function(n){
+				if(n===""){ return false; }
+			});
+		}
+
+		if(categroy===4){
+			if(item.answer===""){ return false; }
+		}
+
+		if(categroy===5){
+			if(item.option[0].length===0){ return false; }
+			item.option.forEach(function(n){
+				n.forEach(function(m){
+					if(m===""){ return false; }
+				})
+			});
+			if(item.answer===""){ return false; }
+		}
+
+		if(categroy===7){
+			if(item.option.length===0){ return false; }
+			item.option.forEach(function(n){
+				n.forEach(function(m){
+					if(m===""){ return false; }
+				})
+			});
+			item.answer.forEach(function(n){
+				if(n===""){ return false; }
+			});
+		}
+
+		if(categroy===12){
+			if(item.material.length===0){ return false; }
+			exerIsFill(item.answer);
+		}
+
+		if(categroy===13 || categroy===15){
+			exerIsFill(item.answer);
+		}
+	}
+
+	return true;
+}
+
+
+//获取所有题目的信息，并赋值给obj.exercise
+function getExercises(obj){
+	var exer,exer_child,type,arr,str; //保存单题的信息
+	$(".exercise-box>.exercise").each(function(i,item){
+		type = $(item).children(".type").find(".ic-text-exer>span").text();
+
+		/*
+		 //连线题
+		 exer = {type": type, "subject": "", "option": [["11","22"],["11","22"]], answer": "" };
+
+		 //听力题
+		 exer = {"type": type, "subject": "", "option": [["11","22"],["11","22"]], "answer": [{},{}], "material": []};
+		 */
+
+		//最外层题型保存信息
+		exer = {
+			"categroy": typeString.indexOf(type) + 1,
+			"subject": "",
+			"option": [],
+			"answer": ""
 		};
 
-		var exer,exer_child,type,arr,str; //保存单题的信息
-		$(".exercise-box>.exercise").each(function(i,item){
-			type = $(item).children(".type").find(".ic-text-exer>span").text();
+		arr = []; //单题借用的数组
+		str = ""; //单题借用的保存答案
 
-			/*
-			//连线题
-			exer = {
-				"type": type,
-				"subject": "",
-				"option": [
-					["11","22"],["11","22"]
-				],
-				"answer": ""
-			};
+		if(type==="单选题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			$(item).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,item){
+				exer.option.push($(item).val());
+			});
+			exer.answer = strToNum($(item).find(".ic-radio.active input").val());
+		}else if(type==="多选题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			$(item).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,item){
+				exer.option.push($(item).val());
+			});
+			$(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
+				arr.push(strToNum($(n).val()));
+			});
+			exer.answer = arr;
+		}else if(type==="填空题" || type==="多空题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			$(item).find(".duo-kong .blank-answer>input").each(function(i,n){
+				arr.push($(n).val());
+			});
+			exer.answer = arr;
+		}else if(type==="判断题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			exer.answer = $(item).find(".pan-duan").hasClass("rightActive") ? "正确" : $(item).find(".pan-duan").hasClass("wrongActive") ? "错误" : "";
+		}else if(type==="连线题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			var right = [];
+			$(item).find(".lian-xian-option").each(function(i,n){
+				arr.push($(n).children("input").first().val());
+				right.push($(n).children("input").last().val());
+			});
+			exer.option.push(arr);
+			exer.option.push(right);
+		}else if(type==="排序题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			$(item).find(".pai-xu-option input").each(function(i,n){
+				exer.option.push($(n).val());
+			});
+		}else if(type==="完形填空"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			$(item).find(".wan-xing-tk-option").each(function(i,n){
+				var child = [];
+				$(n).find(".radio-ipt>input").each(function(j,m){
+					child.push($(m).val());
+				});
+				exer.option.push(child);
+			});
 
-			 //听力题
-			 exer = {
-			 	"type": type,
-			 	"subject": "",
-			 	"option": [
-			 		["11","22"],["11","22"]
-			 	],
-			 	"answer": [{},{}],
-			 	"material": []
-			 };
-			*/
+			$(item).find(".wan-xing-tk-box").each(function(i,n){
+				var answer = $(n).find(".ic-radio.active");
+				str = answer.length===0 ? "" : strToNum(answer.children("input").val());
+				arr.push(str);
+			});
+			exer.answer = arr;
+		}else if(type==="画图题" || type==="简答题" || type==="解答题" || type==="计算题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			exer.answer = $(item).find(".answer-wrap .editor-content").html();
+		}else if(type==="作文题"){
+			exer.subject = $(item).find(".question-box .editor-content").html();
+			exer.answer = $(item).find(".answer-wrap .zuo-wen").text();
+		}else if(type==="听力题" || type==="阅读题" || type==="综合题"){
 
-			//最外层题型保存信息
-			exer = {
-				"categroy": typeString.indexOf(type) + 1,
-				"subject": "",
-				"option": [],
-				"answer": []
-			};
-
-			arr = []; //单题借用的数组
-			str = "";
-			
-			if(type==="单选题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				$(item).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,item){
-					exer.option.push($(item).val());
+			if(type==="听力题"){
+				exer.subject = $(item).find(".question-box .text").text();
+				exer.material = [];
+				$(item).find(".question-box .audio-child").each(function(i,n){
+					exer.material.push(n.files);
 				});
-				exer.answer.push(strToNum($(item).find(".ic-radio.active input").val()));
-			}else if(type==="多选题"){
+			}else {
 				exer.subject = $(item).find(".question-box .editor-content").html();
-				$(item).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,item){
-					exer.option.push($(item).val());
-				});
-				$(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-					arr.push(strToNum($(n).val()));
-				});
-				exer.answer = arr;
-			}else if(type==="填空题" || type==="多空题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				$(item).find(".duo-kong .blank-answer>input").each(function(i,n){
-					arr.push($(n).val());
-				});
-				exer.answer = arr;
-			}else if(type==="判断题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				exer.answer.push($(item).find(".pan-duan").hasClass("rightActive") ? 1 : $(item).find(".pan-duan").hasClass("wrongActive") ? 0 : "");
-			}else if(type==="连线题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				var right = [];
-				$(item).find(".lian-xian-option").each(function(i,n){
-					arr.push($(n).children("input").first().val());
-					right.push($(n).children("input").last().val());
-				});
-				exer.option.push(arr);
-				exer.option.push(right);
-			}else if(type==="排序题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				$(item).find(".pai-xu-option input").each(function(i,n){
-					exer.option.push($(n).val());
-				});
-			}else if(type==="完形填空"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				$(item).find(".wan-xing-tk-option").each(function(i,n){
-					var child = [];
-					$(n).find(".radio-ipt>input").each(function(j,m){
-						child.push($(m).val());
-					});
-					exer.option.push(child);
-				});
-				
-				if($(item).find(".editor-content .img-canBigger").length === 0){
-					$(item).find(".wan-xing-tk-box").each(function(i,n){
-						var answer = $(n).find(".ic-radio.active");
-						str = answer.length===0 ? "" : strToNum(answer.children("input").val());
-						arr.push(str);
-					});
-				}else {
-					exer.answer = $(item).find(".wan-xing-tk-input").val().trim();
-
-					str = $(item).find(".wan-xing-tk-input").val().trim();
-					for(var k=0; k<str.length; k++){
-						arr.push(strToNum(str[k]));
-					}
-				}
-				exer.answer = arr;
-			}else if(type==="画图题" || type==="简答题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				exer.answer = $(item).find(".answer-wrap .editor-content").html();
-			}else if(type==="作文题"){
-				exer.subject = $(item).find(".question-box .editor-content").html();
-				exer.answer = $(item).find(".answer-wrap .zuo-wen").text();
-			}else if(type==="听力题" || type==="阅读题" || type==="解答题" || type==="计算题"){
-				
-				if(type==="听力题"){
-					exer.subject = $(item).find(".question-box .text").text();
-					exer.material = [];
-					$(item).find(".question-box .audio-child").each(function(i,n){
-						exer.material.push(n.files);
-					});
-				}else {
-					exer.subject = $(item).find(".question-box .editor-content").html();
-				}
-				
-				//获取子题
-				$(item).find(".mul-answer-box .exercise").each(function(i,n){
-					//听力题子题只能是单选题，填空题，作文题
-					var type_child = $(n).find(".ic-text-exer>span").text();
-
-					//里面子题保存信息
-					exer_child = {
-						"categroy": typeString.indexOf(type_child) + 1,
-						"subject": "",
-						"option": [],
-						"answer": []
-					};
-					var arr_child = []; //多题借用的数组
-
-					if(type_child === "单选题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
-							exer_child.option.push($(n).val());
-						});
-						exer_child.answer = strToNum($(n).find(".ic-radio.active input").val());
-					}else if(type_child === "多选题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
-							exer_child.option.push($(n).val());
-						});		
-						$(n).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-							arr_child.push(strToNum($(n).val()));
-						});
-						exer_child.answer = arr_child;
-					}else if(type_child === "填空题" || type_child === "多空题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						$(n).find(".duo-kong .blank-answer>input").each(function(i,n){
-							arr_child.push($(n).val());
-						});
-						exer_child.answer = arr_child;
-					}else if(type_child === "判断题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						exer_child.answer = $(n).find(".pan-duan").hasClass("rightActive") ? 1 : $(n).find(".pan-duan").hasClass("wrongActive") ? 0 : "";
-					}else if(type_child === "排序题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						$(n).find(".pai-xu-option input").each(function(i,n){
-							exer_child.option.push($(n).val());
-						});
-					}else if(type_child==="画图题" || type_child==="计算题" || type_child === "简答题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						exer_child.answer = $(n).find(".answer-wrap .editor-content").html();
-					}
-					else if(type_child === "作文题"){
-						exer_child.subject = $(n).find(".question-box .editor-content").html();
-						exer_child.answer = $(n).find(".answer-wrap .zuo-wen").text();
-					}
-					arr.push(exer_child);
-				});
-				exer.answer = arr;
 			}
 
-			obj.exercise.push(exer);
-		});
+			//获取子题
+			$(item).find(".mul-answer-box .exercise").each(function(i,n){
+				//听力题子题只能是单选题，填空题，作文题
+				var type_child = $(n).find(".ic-text-exer>span").text();
 
-		console.log(obj)
-		$.post("/uploadExercise",obj,function(result){
-			window.location.href = "/learningCenter/"+class_id+"/"+course_id+"/"+mod;
-		})
+				//里面子题保存信息
+				exer_child = {
+					"categroy": typeString.indexOf(type_child) + 1,
+					"subject": "",
+					"option": [],
+					"answer": ""
+				};
+				var arr_child = []; //多题借用的数组
+
+				if(type_child === "单选题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
+						exer_child.option.push($(n).val());
+					});
+					exer_child.answer = strToNum($(n).find(".ic-radio.active input").val());
+				}else if(type_child === "多选题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
+						exer_child.option.push($(n).val());
+					});
+					$(n).find(".radio-wrap .ic-radio.active input").each(function(i,n){
+						arr_child.push(strToNum($(n).val()));
+					});
+					exer_child.answer = arr_child;
+				}else if(type_child === "填空题" || type_child === "多空题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					$(n).find(".duo-kong .blank-answer>input").each(function(i,n){
+						arr_child.push($(n).val());
+					});
+					exer_child.answer = arr_child;
+				}else if(type_child === "判断题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					exer_child.answer = $(n).find(".pan-duan").hasClass("rightActive") ? "正确" : $(n).find(".pan-duan").hasClass("wrongActive") ? "错误" : "";
+				}else if(type_child === "排序题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					$(n).find(".pai-xu-option input").each(function(i,n){
+						exer_child.option.push($(n).val());
+					});
+				}else if(type_child==="画图题" || type_child==="计算题" || type_child === "简答题" || type_child === "解答题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					exer_child.answer = $(n).find(".answer-wrap .editor-content").html();
+				}
+				else if(type_child === "作文题"){
+					exer_child.subject = $(n).find(".question-box .editor-content").html();
+					exer_child.answer = $(n).find(".answer-wrap .zuo-wen").text();
+				}
+				arr.push(exer_child);
+			});
+			exer.answer = arr;
+		}
+
+		obj.exercise.push(exer);
 	});
-})
+}
 
+//教师上传习题获取所有添加的题目
+function uploadExer(){
+	//保存所有要保存的数据
+	var obj = {
+		"subject": "",
+		"grade": "",
+		"chapter": [],
+		"exercise": []
+	};
+
+	var subject = $(".filter-box-upload .subject-text").text();
+	obj.subject = subject==="选择科目" ? "" : subject;
+
+	var grade = $(".filter-box-upload .grade-text").text();
+	obj.grade = grade==="选择年级" ? "" : grade;
+
+	var chapter1 = $(".filter-box-upload .chapter-text").text();
+	obj.chapter.push(chapter1==="选择章篇" ? "" : chapter1);
+
+	if($(".filter-box-upload .matter-text")[0]){
+		var chapter2 = $(".filter-box-upload .matter-text").text();
+		obj.chapter.push(chapter2==="选择小节" ? "" : chapter2);
+	}
+
+	getExercises(obj);
+
+	return obj;
+}
+
+
+
+
+//ABC..转换成012..
 function strToNum(str){
 	if(str){
 		var num = str.charCodeAt();
@@ -826,6 +1192,7 @@ function strToNum(str){
 		return "";
 	}
 }
+
 
 
 
@@ -903,31 +1270,35 @@ $(function () {
             COLOR: "orange" //保存画笔的颜色
         }
         var exist = []; //保存已经用过的坐标点以便回退时用
-
         if (ans) {
             //正确答案假数据
-            var answer = [{
-                "left": 1,
-                "right": 2
-            },
-                {
-                    "left": 2,
-                    "right": 1
-                },
-                {
-                    "left": 3,
-                    "right": 3
-                }
-            ];
+            //var answer = [{
+				//"left": 1,
+				//"right": 2
+            //},
+				//{
+				//	"left": 2,
+				//	"right": 1
+				//},
+				//{
+				//	"left": 3,
+				//	"right": 3
+				//}
+            //];
 
+			var answer = ["1:1","2:2","3:3"];
 			//var answer = ans;
 
             /*按照答案画出连线*/
             ctx1.strokeStyle = pos.COLOR;
             answer.forEach(function (item) {
                 ctx1.beginPath();
-                ctx1.moveTo(dist.question[item.left - 1].x, dist.question[item.left - 1].y);
-                ctx1.lineTo(dist.answer[item.right - 1].x, dist.answer[item.right - 1].y);
+                //ctx1.moveTo(dist.question[item.left - 1].x, dist.question[item.left - 1].y);
+                //ctx1.lineTo(dist.answer[item.right - 1].x, dist.answer[item.right - 1].y);
+
+				var lines = item.split(":");
+				ctx1.moveTo(dist.question[lines[0] - 1].x, dist.question[lines[0] - 1].y);
+				ctx1.lineTo(dist.answer[lines[1] - 1].x, dist.answer[lines[1] - 1].y);
                 ctx1.stroke();
                 ctx1.closePath();
             });
@@ -1025,9 +1396,13 @@ $(function () {
             }
         }
     }
-
-    lianXianTiFunc(148,3,3);
+   if (typeof(ligature) != "undefined") {
+   		lianXianTiFunc(matching,ligature);
+	}else{	
+		lianXianTiFunc(exercise_id,exercise_length,answer);   
+	}
 })
+
 
 
 

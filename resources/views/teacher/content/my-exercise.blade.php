@@ -9,7 +9,7 @@
             <span class="isMark doMark active">我上传的</span>
         </div>
     </div>
-    @if(1)
+    @if(empty($data))
     <div>
         <div class="ta-c no-content">
             <img src="/images/LOGO.png" alt="" />
@@ -17,11 +17,9 @@
         </div>
     </div>
     @else
-
-    @endif
-
+    {{--dd($data)--}}
     <!--筛选框-->
-    <div class="filter-box border clear">
+     <div class="filter-box border clear">
         <div>
             <span class="f-l fs14 filter-box-title">年级：</span>
 
@@ -32,44 +30,26 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        
+                        @foreach($select_data["select_grade"] as $id => $title)
+                        <li>{{$title}}</li>
+                        @endforeach
                     </ul>
                 </div>
-                <!-- <div>
-                    <p class="ic-text">
-                        <span>全部班级</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists">
-                        <li>1班</li>
-                        <li>2班</li>
-                        <li>3班</li>
-                    </ul>
-                </div> -->
             </div>
         </div>
         <div>
             <span class="f-l fs14 filter-box-title">章节：</span>
 
             <div class="select-form clear">
-               <!--  <div>
-                    <p class="ic-text">
-                        <span>全部科目</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists">
-                        <li>语文</li>
-                        <li>数学</li>
-                        <li>英语</li>
-                    </ul>
-                </div> -->
                 <div>
                     <p class="ic-text">
                         <span>全部篇章</span>
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        
+                        @foreach($select_data["select_unit"] as $id => $title)
+                        <li>{{$title}}</li>
+                        @endforeach
                     </ul>
                 </div>
                 <div>
@@ -78,9 +58,9 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        <li>第1节</li>
-                        <li>第2节</li>
-                        <li>第3节</li>
+                        @foreach($select_data["select_section"] as $id => $title)
+                        <li>{{$title}}</li>
+                        @endforeach
                     </ul>
                 </div>
                 <div>
@@ -89,28 +69,13 @@
                         <i class="fa fa-angle-down"></i>
                     </p>
                     <ul class="lists">
-                        
+                        @foreach($select_data["select_categroy"] as $id => $title)
+                        <li>{{$title}}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
         </div>
-        <!-- <div>
-            <span class="f-l fs14 filter-box-title">教师：</span>
-
-            <div class="select-form clear">
-                <div>
-                    <p class="ic-text">
-                        <span>全部教师</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists">
-                        <li>张三</li>
-                        <li>李四</li>
-                        <li>王五</li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
         <div>
             <span class="f-l fs14 filter-box-title">关键字：</span>
 
@@ -196,7 +161,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="ic-blue" href="">
+                            <a class="ic-blue" href="/learningCenter/{{$class_id}}/{{$course_id}}/{{$mod}}/addExercise/{{$exercise->id}}">
                                 <i class="fa fa-edit"></i>
                                 <span>编辑</span>
                             </a>
@@ -211,77 +176,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row work">
-            <div class="row mar_tb mar_t" num="{{$exercise->id}}">
-                <div class="homework-content">
-                    <p class="question-head">
-                        <span class="order"></span>
-                        <h4>{{$exercise->cate_title}}</h4>
-                    </p> 
-                    @if($exercise->categroy_id == 1)
-                    {{$exercise->subject}}
-                    @elseif($exercise->categroy_id == 2 || $exercise->categroy_id == 4)  
-                    {{$exercise->subject}}
-                    <form action="" class="selectt{{$exercise->id}}">
-                        @foreach($exercise->options as $option)
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="questionSelect" class="questionSelect" disabled="disabled" value="A"/>
-                                <span class="select-wrapper"></span>{{array_keys($option)[0]}}，
-                                <span class="question-content"> {{$option[array_keys($option)[0]]}}</span>
-                            </label>
-                        </div>
-                        @endforeach
-                    </form>
-                    @elseif($exercise->categroy_id == 3 || $exercise->categroy_id == 9) 
-                    {!!  preg_replace('/&空\d+&/','<span class="question-blank">空</span>',$exercise['subject'])  !!}
-                    @elseif($exercise->categroy_id == 5) 
-                    {{$exercise->subject}}
-                    @elseif($exercise->categroy_id == 6) 
-                    {{$exercise->subject}}
-                    @elseif($exercise->categroy_id == 7) 
-                    {{$exercise->subject}}
-                    @elseif($exercise->categroy_id == 8)  
-                    {{$exercise->subject}}                         
-                    @endif
-                    <div class="line"></div>                                    
-                    <div class="question-foot">                                        
-                        <span class="blue">正确答案：</span>
-                        <span class="answerOrder{{$exercise->id}}">{{-- implode(',',$exercise->answer) --}}</span>
-                        <span class="col-line"></span>                                          
-                        <span title="难度(1)" class="colLine">        
-                            <a><img src="/images/Cj_17mm.png" class="yellow"></a>         
-                            <a><img src="/images/Cj_18mm.png"></a>          
-                            <a><img src="/images/Cj_18mm.png"></a>           
-                            <a><img src="/images/Cj_18mm.png"></a>            
-                            <a><img src="/images/Cj_18mm.png"></a>                              
-                        </span>                                        
-                        <div class="pj">                                            
-                            <div title="难度(1)">                                                
-                                <img src="/images/Cj_17mm.png" class="yellow" num=1>                                                
-                                <img src="/images/Cj_18mm.png" num=2>                                                
-                                <img src="/images/Cj_18mm.png" num=3>                                               
-                                <img src="/images/Cj_18mm.png" num=4>                                                
-                                <img src="/images/Cj_18mm.png" num=5>                                            
-                            </div>                                           
-                            <div>                                               
-                                <span class="mui4" title="差" mui=1></span>                                               
-                                <span class="mui4" title="较差" mui=2></span>                                                
-                                <span class="mui4" title="一般" mui=3></span>                                                
-                                <span class="mui4" title="好" mui=4></span>                                                
-                                <span title="很好" mui=5></span>                                           
-                            </div>     
-                            <b>评分</b>
-                        </div>
-                        <div style="float: right;" class="hidee">
-                            <span class="tj"><input type="checkbox" name="" id=""  value="{{$exercise->id}}"/>添加</span>  
-                            <a href="javascript:;" class="bo">收藏</a>
-                            <span class="collection_num">0</span>                                      
-                        </div>                                    
-                    </div>                               
-                </div>                            
-            </div>
-        </div> -->
         @endforeach
     </div>
     <div class="row">
@@ -290,13 +184,6 @@
             {{$data->links()}}
             </ul>
         </div>
-        <!--<div class="jump">-->
-        <!--<div>-->
-        <!--向第<input type="text">页-->
-        <!--</div>-->
-        <!--<ul class="pagination">-->
-        <!--<li><a href="#">跳转</a></li>-->
-        <!--</ul>-->
-        <!--</div>-->
     </div>
+    @endif
 </div>

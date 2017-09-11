@@ -13,18 +13,20 @@ $(function() {
 	});
 	
 	//左边导航栏标签切换
+	/*$('#nav1>li>a').click(function() {
+=======
+	//左边导航栏标签切换（后端使用时请删掉）
 	$('#nav1>li>a').click(function() {
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 		localStorage.boxs = 1
 		localStorage.clas = $(this).attr('num')
 	})
 	if(localStorage.boxs == '1') {
 		$('#nav1>li>a').removeClass('box');
 		$('[num=' + localStorage.clas + ']').addClass('box')
-	}
+<<<<<<< HEAD
+	}*/
 })
-
-
-
 $(function() {
 	//路径
 	var str = document.URL;
@@ -34,4 +36,4 @@ $(function() {
 	if(str != 'exerciseEditor') {
 		localStorage.pargin = 1
 	}
-})
+});
