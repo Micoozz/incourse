@@ -149,7 +149,7 @@ $(function(){
 			$(this).parents(".imgs").removeClass("border");
 		}
 		$(this).parent().remove();
-	});
+	})
 })
 
 
@@ -177,7 +177,6 @@ $(function(){
 			$(_self).val("");
 		}
 	});
-
 	/*下标点*/
 	$("body").on("click",".ic-editor .dotted",function(){
 		var selObj = window.getSelection().toString();  //获取选中的文本
@@ -247,19 +246,6 @@ $(function(){
 	$(".delete-modal .ic-btn").click(function(){
 		$(".delete-modal .btn-white").trigger("click");
 	});
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 

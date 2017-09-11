@@ -22,7 +22,7 @@
 }
 .admin-container{
 	margin-top: 10%;
-	display: none;
+	/*display: none;*/
 }
 .admin-container .admin-list th,.admin-container .admin-list td{
 	width: 21%;

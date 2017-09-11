@@ -68,8 +68,13 @@ $(function () {
 	<span>下标点</span>\
 	</button>\
 	<button class="f-l up-dotted">\
+<<<<<<< HEAD
+	   <i class="tool"></i>\
+	   <span>上标点</span>\
+=======
 		<i class="tool"></i>\
 	<span>上标点</span>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 	</button>\
 	<button class="f-l underline">\
 	<i class="tool"></i>\
@@ -256,6 +261,51 @@ $(function () {
 			$(this).parents(".select-action-box").siblings(".answer-wrap").html(yue_du);
 		}
     });
+<<<<<<< HEAD
+   /* function editorExer(num, html){
+		var text = typeString[num - 1];
+		console.log(text);
+
+		if (text === "单选题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(dan_xuan);
+		} else if (text === "多选题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(duo_xuan);
+		} else if (text === "填空题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(duo_kong);
+			$(".question-box").find(".blank").show();
+		} else if (text === "判断题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(pan_duan);
+		} else if (text === "连线题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(lian_xian);
+		} else if (text === "排序题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(pai_xu);
+		} else if (text === "完形填空") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(wan_xing_tk);
+			$(".question-box").find(".blank").show();
+		} else if (text === "简答题" || text === "画图题" || text === "解答题" || text === "计算题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(jian_da);
+		} else if (text === "作文题") {
+			$(".question-box").html(common_Q);
+			$(".answer-wrap").html(zuo_wen);
+		} else if (text === "听力题") {
+			$(".question-box").html(ting_li_Q);
+			$(".answer-wrap").html(ting_li);
+		} else if (text === "阅读题" || text === "综合题" || text === "计算题") {
+			$(".question-box").html(yue_du_Q);
+			$(".answer-wrap").html(yue_du);
+		}
+	}
+	console.log(num);
+	editorExer(num);*/
+=======
 
 
 	
@@ -461,6 +511,7 @@ $(function () {
 			ansBox.html(zuo_wen);
 		}
 	}
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 });
 
 
@@ -755,6 +806,9 @@ $(function () {
 															<i class="fa fa-angle-down"></i>\
 														</p>\
 														<ul class="lists-exer">\
+<<<<<<< HEAD
+															\
+=======
 															<li>单选题</li>\
 															<li>多选题</li>\
 															<li>填空题</li>\
@@ -770,6 +824,7 @@ $(function () {
 															<li>阅读题</li>\
 															<li>作文题</li>\
 															<li>综合题</li>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 														</ul>\
 													</div>\
 												</div>\
@@ -796,7 +851,15 @@ $(function () {
 														</button>\
 														<button class="f-l up-dotted">\
 															<i class="tool"></i>\
+<<<<<<< HEAD
+															<span>下标点</span>\
+														</button>\
+														<button class="f-l up-dotted">\
+														   <i class="tool"></i>\
+														   <span>上标点</span>\
+=======
 														<span>上标点</span>\
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 														</button>\
 														<button class="f-l underline">\
 															<i class="tool"></i>\
@@ -1333,9 +1396,13 @@ $(function () {
             }
         }
     }
+   if (typeof(ligature) != "undefined") {
+   		lianXianTiFunc(matching,ligature);
+	}else{	
+		lianXianTiFunc(exercise_id,exercise_length,answer);   
+	}
+})
 
-    lianXianTiFunc(7,3,3);
-});
 
 
 

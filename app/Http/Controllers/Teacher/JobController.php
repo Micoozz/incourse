@@ -12,6 +12,7 @@ use App\Models\Work;
 class JobController extends Controller
 {
 
+
     public function showJoblist($course = 1,$page = 1)
     {
 
@@ -48,7 +49,7 @@ class JobController extends Controller
 	    	$job->course_id = intval($input['course']);
             $job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
-	    	$job->score = 0;//intval($input['score'])*100;
+	    	$job->score = 0; //intval($input['score'])*100;
 	    	$job->exercise_id = $input['exercise_id'];
 	    	$job->status = $status;
 	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
@@ -64,6 +65,7 @@ class JobController extends Controller
     		return $job;
     	}
     }
+    
     public function pubJob(){
     	$input = Input::get();
     	$code = 200;

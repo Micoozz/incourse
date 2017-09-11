@@ -1,4 +1,7 @@
-
+#left ul>li:nth-child(2)>a {
+    color: #fff;
+    background-color: #168bee;
+}
 /************** myExerRoom.html **************/
 
 /*“我上传的”，“我收藏的”*/

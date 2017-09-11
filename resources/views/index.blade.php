@@ -28,8 +28,8 @@
 				<!--	<h4>用户登录</h4>-->
 					<div class="label">
 						<div>
-							<span><img src="/images/Cj_ures.png" alt="" /></span>
-							<input type="text" placeholder="学号/手机号"/>
+							<span><img src="images/Cj_ures.png" alt="" /></span>
+							<input type="text" placeholder="帐号/邮箱"/>
 						</div>
 						<div>
 							<span><img src="/images/Cj_lock.png" alt="" /></span>
@@ -81,8 +81,9 @@
 				</div>
 			</div>
 		</footer>
-		<script type="text/javascript" src="/js/jquery-1.12.4.min.js" ></script>
-		<script type="text/javascript" src="/js/placeholder.js"></script>
+		<script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
+		<!-- <script type="text/javascript" src="js/placeholder.js"></script> -->
+
 		<script>
 			$(function(){
 				$('.label>div:nth-of-type(2)>img').click(function(){
@@ -112,25 +113,23 @@ $(function(){
 			
 			
 		}else{
-				$.ajax({
-			type:"post",
-			url:"/login",
-			data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
-			dataType:'json',
-			success:function(data){
-				// console.log(data);
-				if(data.code==200){
-					// console.log('登录成功');
-					window.location.href = '/learningCenter';///media
-				}else{
-					console.log('登录失败')
+			$.ajax({
+				type:"post",
+				url:"/login",
+				data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
+				dataType:'json',
+				success:function(data){
+					if(data.code==200){
+						// console.log('登录成功');
+						window.location.href = '/adminArchives';
+					}else{
+						console.log('登录失败')
+					}
 				}
-			}
-				});
+			});
 		}	
 	})
 })
-		</script>
+	</script>
 	</body>
-
 </html>

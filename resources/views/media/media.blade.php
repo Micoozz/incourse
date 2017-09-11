@@ -7,7 +7,7 @@
     <title>InCourse</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/mCSS/media.css"/>
-    <link rel="stylesheet" href="css/mCSS/common.css"/>
+    <link rel="stylesheet" href="css/mCSS/common.css"/> 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
@@ -35,7 +35,7 @@
         @elseif(Auth::guard('employee')->check())
         @include('media.include.head_Tea')
         @elseif(Auth::guard('student')->check())
-        @include('student.include.head')
+  
         @endif
     </div>
     <div class="mediaDown">

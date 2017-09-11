@@ -32,6 +32,7 @@
     line-height: 28px;
     margin-bottom: 6px;
 }
+
 .exercise .type .ic-close-icon {
     top: 5px;
     right: 0;
@@ -45,11 +46,11 @@
 }
 .exercise .addChildExer {
     padding-left: 41px;
-    margin-bottom: 20px;
 }
 .exercise .question .text {
     margin-bottom: 16px;
 }
+
 .addExerBtn-box {
     padding-top: 25px;
     border-top: 1px solid #d9d9d9;
@@ -57,7 +58,6 @@
 .addExerBtn {
     font-size: 14px;
     display: inline-block;
-    cursor: pointer;
 }
 .addExerBtn:hover {
     color: #1681DC;
@@ -181,10 +181,6 @@
 .mp3-box .delete {
     margin-top: 3px;
 }
-.mp3-box .audio-child {
-    opacity: 0;
-    z-index: -10;
-}
 
 /*完形填空题*/
 .wan-xing-tk-option .id {
@@ -203,9 +199,6 @@
 }
 .wan-xing-tk-option .radio-wrap .ic-input {
     width: 165px;
-}
-.wan-xing-tk-input {
-	width: 475px;
 }
 
 
@@ -283,6 +276,7 @@
     margin-top: 10px;
     padding-bottom: 10px;
 }
+
 .exer-in-list .child-exer {
     margin-left: -16px;
     margin-right: -16px;

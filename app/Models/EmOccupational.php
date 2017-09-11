@@ -9,7 +9,7 @@ class EmOccupational extends Model
     /*
     员工工作经历Model
      */
-    protected $table = 'em_occupational';
+    protected $table = 'em_emoccupational';
     public $timestamps = false;
 
     //从属于员工账户Model

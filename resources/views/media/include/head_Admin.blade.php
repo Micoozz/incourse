@@ -11,7 +11,7 @@
                         <a href="relateToMeManager">@与我相关</a>
                     </div>
                 </li>
-                <li><a href="/addEmployeeFile">档案管理</a></li>
+                <li><a href="/adminArchives">权限管理</a></li>
                 <li class="affix">
                     <a href="javascript:;"><img src="images/01.png" /></a>
                 </li>

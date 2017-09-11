@@ -6,14 +6,24 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Gregwar\Captcha\CaptchaBuilder; 
+use App\Models\School;
+use App\Models\Employee;
+use App\Models\Student;
 use App\Models\Course;
 use App\Models\Categroy;
+use Illuminate\Support\Facades\Mail;
+use Auth;
+use Input;
+use Session;
+use Cookie;
 use App\Models\Chapter;
 use PDO;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function getCourse(){
     	$course_list = Course::all();
     	return $course_list;
@@ -46,7 +56,6 @@ class Controller extends BaseController
 
 		    // 使用 exec() ，因为没有结果返回 
 		    $conn->exec($sql); 
- 
 		} 
 		catch(PDOException $e) 
 		{ 
@@ -73,6 +82,89 @@ class Controller extends BaseController
     	$content = implode($contentArray, "\n");
 		\File::put($confPath, $content);
 		return $code;
+    }
+     public function captcha($tmp) {  
+        //生成验证码图片的Builder对象，配置相应属性  
+        $builder = new CaptchaBuilder;  
+        //可以设置图片宽高及字体  
+        $builder->build($width = 100, $height = 40, $font = null);  
+        //获取验证码的内容  
+        $phrase = $builder->getPhrase();
+        //把内容存入session 
+        Session::flash('milkcaptcha', $phrase);
+        // $cookie = Cookie::forever('milkcaptcha',$phrase); 
+        //dd($cookie); 
+        //生成图片  
+        header("Cache-Control: no-cache, must-revalidate");  
+        header('Content-Type: image/jpeg'); 
+        // return $cookie;
+        header('Set-Cookie:milkcaptcha='.$phrase.'; expires=Sat, 17-Jul-2017 09:34:35 GMT; Max-Age=157680000; path=/');
+        $builder->output();  
+    } 
+
+    //验证码验证
+    public function emailcode(){
+        $input = Input::get();
+        if($input['data'] == "" || Session::get('milkcaptcha') != $input['data']){
+            $result = 201;
+        }else{
+            $result = 200;
+        }
+        return json_encode($result);
+    }
+
+    //发送邮件
+    public function emailSend(){
+        $input = Input::get();
+        //dd()
+        if ($user = Auth::guard('school')->user()) {
+            $name = $input['data']['schoolName'];//这里填写学校名称
+            $email = 'http://localhost/adminArchives/manager-archives/manager-navigstion/'.$input['data']['email'];
+        if (empty($user->city)) {
+                $user->city = $input['data']['city'];
+                $user->title = $input['data']['schoolName'];
+                $user->save();
+            }
+        }else if($user = Auth::guard('employee')->user()){
+            $name = $user->name;
+            $email = 'http://localhost/fileManager/student-file/student-list/'.$input['data']['email'];
+        }else if ($user = Auth::guard('student')->user()){
+            $name = $user->name;
+            $email = 'http://localhost/todayWork/1/'.$input['data']['email'];
+        }
+        $flag = Mail::send('emails.test',['name' => $name,'email' =>$email],function($message){
+        $input = input::get();          
+        $to = $input['data']['email'];
+        $message ->to($to)->subject('邮件测试');
+        }); 
+        $result = 200;
+        return json_encode($result);
+    }
+    //审核密码
+    public function auditPwd($username){
+        if ($user = Auth::guard('school')->user()) {
+            $school = School::where('username',$username)->get()->toArray();
+            if ($school) {
+                $result = 0;
+            }else{
+                 $result = 1;
+            }
+        }elseif ($user = Auth::guard('student')->user()) {
+            $student = Student::where('username',$username)->get()->toArray();
+            if ($student) {
+                $result = 0;
+            }else{
+                 $result = 1;
+            }
+        }elseif ($user = Auth::guard('employee')->user()) {
+           $employee = Employee::where('username',$username)->get()->toArray();
+            if ($employee) {
+                $result = 0;
+            }else{
+                 $result = 1;
+            }
+        }
+        return json_encode($result);
     }
     protected function send_post($url, $post_data) {    
         header("Content-type:text/html;charset=utf-8");  

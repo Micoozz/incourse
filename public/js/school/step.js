@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+/*$(function(){
+	$("#left").load("template/left_navbar.html");
+=======
 $(function(){
 	$.ajax({
 		type: "GET",
@@ -7,31 +11,31 @@ $(function(){
 			$("#left").html(data);
 		}
 	});
+>>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
 })
-
+*/
 /********* changePwd.html ********/
 $(function(){
 	//加载流程步骤
-	$(".step-change-box").load("../template/stepChange.html");
+/*	$(".step-change-box").load("../template/stepChange.html");*/
 	
 	var msg = ["密码长度不符合规定","不能是9位以下的纯数字","密码由6-16个字母、数字组成，区分大小写（不能是9位以下的纯数字）","密码只能由字母、数字组成，区分大小写","前后密码不一致","请输入一致的密码","用户名格式为4-15位英文、数字的组合，区分大小写","用户名已被占用"];
-	var isRight = true; //判断除新密码外的整个表单的内容是否符合要求
-
 	//还得判断用户名是否
 	var isRightAccount = false; //判断新用户名是否符合要求
 	$("#account-input").blur(function(){
 		var account = $(this).val();
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{4,15}$/; //账号格式为4-15位英文、数字的组合，区分大小写
 		if(reg.test(account)){
-			$.get("",{"account":account},function(data){
+			var _self = this;
+			$.get("/auditPwd/"+account,function(data){
 				//data为0存在，为1不存在
 				if(data === "1"){
 					isRightAccount = true;
-					$(this).next(".isRight").removeClass("wrong").addClass("right");
+					$(_self).next(".isRight").removeClass("wrong").addClass("right");
 					$(".account-tip").removeClass("red").text(msg[6]);
 				}else {
 					isRightAccount = false;
-					$(this).next(".isRight").removeClass("right").addClass("wrong");
+					$(_self).next(".isRight").removeClass("right").addClass("wrong");
 					$(".account-tip").addClass("red").text(msg[7]);
 				}
 			});
@@ -44,7 +48,7 @@ $(function(){
 
 	var isRightPwd = false; //判断新密码是否符合要求
 	//新密码判断
-	$("#newPwd").keyup(function(){
+	$("#newPwd").keyup(function() {
 		var newPwd = $(this).val().trim();
 		var len = newPwd.length;
 		if(len<6 || len>16) {
@@ -57,7 +61,7 @@ $(function(){
 			$(this).next(".isRight").removeClass("right").addClass("wrong");
 			$(".pw-strong").removeClass("low middle high");
 			isRightPwd = false;
-		}else if(/^[0-9a-zA-Z]{6,16}$/.test(newPwd)){
+		}else if(/^[0-9a-zA-Z]{6,16}$/.test(newPwd)) {
 			$(".newPwd-tip").text(msg[2]).removeClass("red");
 			$(this).next(".isRight").removeClass("wrong").addClass("right");
 			var n = 0; //判断密码强度等级,1-low,2-middle,3-high
@@ -91,32 +95,51 @@ $(function(){
 		}
 	});
 	
-	//看不清，换一张
-	$(".another-code").click(function(){
-//		$.get("").success(function(){});
-	})
 	
 	//表单提交
-	$("#submit").click(function(event){
+	function getCookie(cname)
+	{
+	  var name = cname + "=";
+	  var ca = document.cookie.split(';');
+	  for(var i=0; i<ca.length; i++) 
+	  {
+	    var c = ca[i].trim();
+	    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	  }
+	  return "";
+	}
+	$("#submit").click(function(event) {
 		event.preventDefault();
 		var obj = {}; //保存表单信息
 		var form = $("#myForm")[0];
+		obj.username = $(form.username).val();
 		obj.pwd = $(form.pwd).val();
 		obj.newPwd = $(form.newPwd).val();
 		obj.againPwd = $(form.againPwd).val();
 		obj.code = $(form.code).val();
-		console.log(obj)
 		
 		//确认当前密码和验证码是否正确
-		
-		//所有选项都正确了再发送表单信息给后台
+		// 所有选项都正确了再发送表单信息给后台
 		if(isRight && isRightPwd && isRightAccount) {
-			$.post("").success(function(){});
+			if(obj.code != getCookie('milkcaptcha')){
+				alert('前台验证码 验证');
+				return;
+			}
+			$.post('/adminArchives/uptatePwd',{'_token':token,'data':obj},function(data){
+			 	var data = JSON.parse(data);
+					if(data == false) {
+						$("input[name='pwd']").addClass('warning');
+						$("input[name='pwd']").val('');
+						$("input[name='pwd']").attr('placeholder','原密码错误');
+					}else if(data == '201') {
+						alert('后台验证码验证');
+					}else{
+						window.location.href="/adminArchives/manager-archives/manager-address";
+				}
+			});
 		}
 	});
 })
-
-
 
 /**************** addInfo.html *********/
 $(function(){
@@ -144,22 +167,38 @@ $(function(){
 				"schoolName": $(".schoolName-input").val()
 			};
 			$(".addInfo .select-form .ic-text span").each(function(i,item){
+				console.log(item)
 				switch(i) {
 					case 0: info.province = $(this).text(); break;
-					case 1: info.city = $(this).text(); break;
+					case 1: info.city = $(this).attr('ref'); break;
 					case 2: info.school = $(this).text(); break;
 					default: break;
 				}
 			});
-			console.log(info)
-
-			email = $("#email").val();
-			$(".addInfo .myForm").hide();
-			$(".bind-email-box").show();
-			$(".bind-email-box .email").text(email);
+			$.post('/emailcode',{'_token':token,'data':info.code},function(data){
+				if (data == 200) {
+					$.post('/email',{'_token':token,'data':info},function(data){
+					 	email = $("#email").val();
+						$(".addInfo .myForm").hide();
+						$(".bind-email-box").show();
+						$(".bind-email-box .email").text(email);
+					});
+				}else if(data == 201){
+					alert('验证码错误');
+				}
+			})
 		}
+		//重新发送邮件
+		$("#resend").click(function(event){
+			$.post('/email',{'_token':token,'data':info},function(data){
+			 	email = $("#email").val();
+				$(".addInfo .myForm").hide();
+				$(".bind-email-box").show();
+				$(".bind-email-box .email").text(email);
+			});
+		});
 	});
-
+	
 	//立刻查看邮件
 	var email_hash = {
 		'qq.com': 'http://mail.qq.com',
@@ -188,7 +227,7 @@ $(function(){
 	$(".check-email").click(function(){
 		var index = email.lastIndexOf("@");
 		var postfix = email.slice(index+1);
-		console.log(postfix)
+		
 		for(var key in email_hash){
 			if(postfix === key){
 				window.open(email_hash[key]);
@@ -200,52 +239,6 @@ $(function(){
 	$("#rewrite").click(function(){
 		$(".bind-email-box").hide();
 		$(".addInfo .myForm").show();
+
 	});
 })
-
-
-
-
-/*********************** addInfoSuccess.html **********************/
-$(function(){
-	//加载流程步骤
-	$(".step-change-box").load("../template/stepChange.html");
-
-	//加载"管理员档案"引导
-	$(".addInfoSuccess #left").append('<div class="p-a guide-active" style="top:0; left:15px;">\
-				<img src="../../images/manageDA.png" alt=""/>\
-				<div class="p-a">\
-				<div class="p-a part" style="left:130px;">\
-				<i class="fa fa-exclamation-circle f-l ic-blue p-r"></i>\
-				<p class="f-l msg">快去管理员档案进添加员工吧～～</p>\
-				<button class="ic-btn p-a">我知道了</button>\
-				</div>\
-				</div>\
-				</div><div class="ic-modal"></div>');
-
-	//"管理员档案"引导的"我知道了"
-	$("body").on("click","#left .guide-active .part button",function(){
-		$("#nav1>li:first-child>a").css({color: "#333"}).attr("href","manageAdmin.html");
-	});
-
-	//“点击此处”跳转
-	$(".waitMsg").on("click","a.ic-blue",function(){
-		$(".waitBox .waitMsg").html('已成功，如有问题，请联系审核人员或在线客服。');
-		$("#left").append('<div class="p-a guide-active" style="top:0; left:15px;">\
-				<img src="../../images/manageDA.png" alt=""/>\
-				<div class="p-a">\
-				<div class="p-a part" style="left:130px;">\
-				<i class="fa fa-exclamation-circle f-l ic-blue p-r"></i>\
-				<p class="f-l msg">快去管理员档案进添加员工吧～～</p>\
-				<button class="ic-btn p-a">我知道了</button>\
-				</div>\
-				</div>\
-				</div><div class="ic-modal"></div>');
-	});
-})
-
-
-
-
-
-

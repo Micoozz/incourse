@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 /*#left ul>li:first-child>a {
      color: #fff;
      background-color: #168bee;
 }
 */
+=======
 
-/************* hwType.html ************/
+#left ul>li:first-child>a {
+     color: #fff;
+     background-color: #168bee;
+}
+
+/**************** homeworkManage.html ******************/
+>>>>>>> 6305a7bf94aeaa8e88770083f261333b12d7640e
+
 .homework-manage-title {
     font-size: 16px;
     padding-left: 10px;
@@ -73,7 +82,12 @@
 }
 
 
-/**************** personHw.html ******************/
+/*布置作业（个人）*/
+.person_hw_box {
+    padding: 33px 26px;
+    min-height: 475px;
+}
+
 .person_hw_box .one-line {
     margin-bottom: 20px;
 }
@@ -227,6 +241,7 @@ body .lhgcal {
     margin-top: 9px;
 }
 
+
 /*发布弹出框*/
 .dBUploadBox {
     z-index: 300;
@@ -343,8 +358,6 @@ body .lhgcal {
     font-size: 16px;
 }
 .preview-hw-wrap .exer-list {
-    /*height: 500px;*/
-    /*overflow-y: auto;*/
     margin-top: 0;
 }
 .preview-hw-wrap .complete {

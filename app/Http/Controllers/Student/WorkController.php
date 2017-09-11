@@ -16,6 +16,8 @@ use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
 use App\Models\Categroy;
+use App\Models\Course;
+
 class WorkController extends Controller
 {
     //
@@ -56,7 +58,14 @@ class WorkController extends Controller
                 ]]);
         }
     }
-    public function showWorkList($course,$page = 1){
+    public function showWorkList($course = 1,$page = 1){
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            return $e;
+        }
         $limit = ($page-1)*10;
         $user = Auth::guard('student')->user();
         $work_all = Work::where(['student_id' => $user->id,'course_id' => $course])->get();
@@ -77,8 +86,16 @@ class WorkController extends Controller
                 ));
         }
         return json_encode($data);
+        /**
+         * undocumented constant
+         **/
+        $user = Auth::guard('student')->user();
+        $workList = Work::where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
+        return view('student.zuoyenbeneirongliebiao',compact('workList'));
+
     }
     public function showWorkDetail($work_id){
+
         if(empty($work_id)){
             return;
         }
@@ -87,18 +104,25 @@ class WorkController extends Controller
         if(!$work || $work->student_id != $user->id){
             return;
         }
-        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
         $data = array();
+        $exercise_id = explode(',',$work->belongsToJob()->first()->exercise_id);
+        $data['course_all'] = Course::all();
+        $data['course_first'] = Course::where(['id' => isset($course) ? $course : 1])->get()->toArray();
+       
         foreach ($exercise_id as $eid) {
             $exercise = Exercises::find($eid);
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
+                if (Exercises::CATE_FILLS) {
+                    $countFills = preg_match_all('/&空\d+&/',$subjective['subject']);
+                }
                 array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $subjective->subject,
-                    'score' => $exercise->score/100
+                    'score' => $exercise->score/100,
+                    'count' => $countFills
                     ));
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
@@ -112,27 +136,31 @@ class WorkController extends Controller
                     'score' => $exercise->score/100
                     ));
                 }else{
+                    if (Exercises::CATE_FILL) {
+                        $countFill = preg_match_all('/&空\d+&/',$objective['subject']);
+                    }
                     array_push($data,array(
                     'id' => $exercise->id,
                     'cate_title' => $cate_title,
                     'subject' => $objective->subject,
                     'options' => json_decode($objective->option),
-                    'score' => $exercise->score/100
+                    'score' => $exercise->score/100,
+                    'count' => $countFill
                     ));
                 }
-                
-                
+                 
             }
         }
-        return json_encode($data);
+        return view('student.zuoyeben-index', compact('data'));
     }
+
     public function subWork(){
+
         $input = Input::get();
         $user = Auth::guard('student')->user();
         $work = Work::find(intval($input['work_id']));
         $data = $input['data'];
         $code = 200 ;
-        // $work->answer = json_encode($data['data']);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -161,8 +189,8 @@ class WorkController extends Controller
                 $standard = explode(',',$objective->answer);
                 $answer_arr = explode(',',$answer);
                 foreach ($standard as $key => $value) {
-                    if($value != $answer_arr[$key]){
-                        $flag = false;
+                    if(!isset($answer_arr[$key]) || $value != $answer_arr[$key]){
+                        $flagflag = false;
                         break;
                     }
                 }
@@ -188,6 +216,7 @@ class WorkController extends Controller
         }catch(\Exception $e){
             return $e;
         }
+        return ;
         $info_list = $db->table($user->id)->where('work_id',$work_id)->get();
         foreach ($info_list as $info) {
             $data['cate'] = '综合得分';
@@ -205,7 +234,9 @@ class WorkController extends Controller
                 $data['subjective']['total'] = isset($data['subjective']['total']) ? $data['subjective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             }
         }
-        return json_encode($data);
+        return view('student.danrenzuoye-chengji');
+        //dd($data);
+        //return json_encode($data);
     }
     public function showWorkObjectiveDetail($work_id){
         if(empty($work_id)){
@@ -250,16 +281,9 @@ class WorkController extends Controller
                     'options' => json_decode($objective->option),
                     'answer' => $answers,
                     'score' => $exercise->score/100
-                    ));
-                
+                ));
             }
         }
         return json_encode($data);
-    }
-    public function test(){
-        $arr = '';
-        $test = explode(',',$arr);
-        dd($test);
-        dd(session());
     }
 }

@@ -14,11 +14,11 @@ use App\Models\Compositive;
 use App\Models\Categroy;
 class ExerciseController extends Controller
 {
-    public function showExerciseList($course,$page = 1){
+    public function showExerciseList($page = 1){
         $limit = ($page-1)*5;
-        $exercise_all = Exercises::where('course_id',$course);
+        $exercise_all = Exercises::all();
         $pageLength = intval($exercise_all->count()/5)+1;
-        $exercise_list = Exercises::where('course_id',$course)->skip($limit)->take(5)->get();
+        $exercise_list = Exercises::skip($limit)->take(5)->get();
         $data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_list as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
@@ -52,9 +52,6 @@ class ExerciseController extends Controller
                     ));
                 
             }
-//          else{
-//              
-//          }
         }
         return json_encode($data);
     }
@@ -87,7 +84,7 @@ class ExerciseController extends Controller
                         array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
                     }
                 }else{
-                    array_push($answers,explode(',',$objective->answer));
+                     array_push($answers,explode(',',$objective->answer));
                 }
                 array_push($data['exercises'],array(
                     'id' => $exercise->id,
@@ -97,11 +94,11 @@ class ExerciseController extends Controller
                     'answer' => $answers,
                     'score' => $exercise->score/100
                     ));
-                
             }
         }
         return json_encode($data);
     }
+    
     public function createExercise(){
         $input = Input::get();
         $user = Auth::guard('employee')->user();
@@ -115,7 +112,7 @@ class ExerciseController extends Controller
             $exercise->categroy_id = intval($input['categroy']);
             $exercise->updata_time = $time;
             if($exercise->categroy_id == Exercises::CATE_RADIO ||
-                $exercise->categroy_id == Exercises::CATE_CHOOSE || 
+                $exercise->categroy_id == Exercises::CATE_CHOOSE ||
                 $exercise->categroy_id == Exercises::CATE_JUDGE ||
                 $exercise->categroy_id == Exercises::CATE_FILL)
             {

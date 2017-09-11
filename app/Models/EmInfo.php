@@ -14,6 +14,6 @@ class EmInfo extends Model
 
     //从属于员工账户Model
     public function belongsToEmployee(){
-    	return $this->belongsTo('App\Models\Employee');
+    	return $this->belongsTo('App\Models\Employee','employee_id');
     }
 }

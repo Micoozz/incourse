@@ -17,6 +17,7 @@
 	margin-bottom: 16px;
 }
 .info-form .account {
+
 	margin-bottom: 3px;
 }
 .info-form .account-tip {
@@ -26,7 +27,7 @@
 	width: 106px;
 }
 .info-form .ic-input.input-l {
-	width: 195px;
+	width: 160px;
 }
 .info-form .username {
 	margin-right: 90px;
@@ -35,7 +36,8 @@
 	margin-right: 71px;
 }
 .info-form .select-form {
-	width: 300px;
+   width: 300px;
+
 }
 
 
@@ -111,6 +113,10 @@
 }
 .admin-list .ic-blue>i {
 	margin-right: 24px;
+}
+.school-container .search-return {
+	display: block;
+	margin: 20px auto 0;
 }
 .school-container .search-return {
 	display: block;

@@ -1,6 +1,18 @@
 /************* doHomework.html ****************/
 $(function(){
-    //console.log(sessionStorage)
+    //毫秒格式化为00:00
+    function changeTime(millisecond){
+        //计算"分：秒"
+        var m = parseInt(millisecond/1000/60);
+        var s = parseInt(millisecond/1000 - m*60);
+        if(m<10){
+            m = "0" + m;
+        }
+        if(s<10){
+            s = "0" + s;
+        }
+        return m + ":" + s;
+    }
 
     //计算总时间
     var now = new Date().getTime();
@@ -17,7 +29,6 @@ $(function(){
         $(".time-string").text(timeString);
     },1000);
 
-
     //计算单题时间
     var obj_time = {
         "id": "1",
@@ -25,6 +36,19 @@ $(function(){
         "last": 0
     };
 
+    function single_time(){
+        var current = new Date().getTime();
+        obj_time.id = $(".big-num").text();
+        var last = Math.round((current - obj_time.start_time)/1000);
+        var ic_id = sessionStorage.getItem("ic_"+obj_time.id);
+        if(ic_id){
+            obj_time.last = JSON.parse(ic_id).last + last;
+        }else {
+            obj_time.last = last;
+        }
+        obj_time.start_time = current;
+        sessionStorage.setItem("ic_"+obj_time.id,JSON.stringify(obj_time));
+    }
 
     //刷新页面时计算单题时间
     $(window).unload(single_time);
@@ -43,6 +67,18 @@ $(function(){
     var ul_width = li_num * li_width;
     $(".do-hw .exercise-box").css("width",ul_width + "px");
 
+    function isEnd(left){
+        if(left === -ul_width + li_width){
+            $(".fa-angle-right,.hw-order-index,.exer-num").hide();
+            $(".fa-angle-left,.answer-sheet-icon").show();
+        }else if(left === 0){
+            $(".fa-angle-right,.hw-order-index,.exer-num").show();
+            $(".fa-angle-left,.answer-sheet-icon").hide();
+        }else {
+            $(".fa-angle-right,.fa-angle-left,.hw-order-index,.exer-num").show();
+            $(".answer-sheet-icon").hide();
+        }
+    }
 
     //左移
     var left = 0;
@@ -59,6 +95,7 @@ $(function(){
         left = parseInt($(".do-hw .exercise-box").css("left")) - li_width;
         $(".do-hw .exercise-box").css("left",left);
 
+
         $(".big-num").text(parseInt($(".big-num").text()) + 1);
 
         isEnd(left);
@@ -73,7 +110,6 @@ $(function(){
         },300);
 
         single_time();
-
 
         left = left + li_width;
         $(".do-hw .exercise-box").css("left",left);
@@ -115,8 +151,14 @@ $(function(){
         }else {
             getOrderAndBlue();
         }
-    });
+    
 
+    //禁用Tab键和回车键
+    $(window).keydown(function(event){
+        if((event.keyCode===9) || (event.keyCode===13)){
+            event.preventDefault();
+        }
+    });
 
     //排序题
     $(".sortable").sortable();
@@ -128,6 +170,7 @@ $(function(){
 
     //交卷
     $("#handPaper").click(function(){
+        var work_id = $("#work_id").attr("value");
         clearInterval(timer);
 
         //var total = [
@@ -145,7 +188,7 @@ $(function(){
         var total = [];
         total.total_time = parseInt((new Date().getTime() - sessionStorage.getItem("ic_start_time"))/1000);
 
-        $(".do-hw .exercise-box>.exer-in-list").each(function(i,item){
+        $(".do-hw .exercise-box .exer-in-list").each(function(i,item){
             var type = $(item).children(".hw-question").find(".do-hw-type").text();
             //保存单题的答案
             var obj = {
@@ -158,16 +201,16 @@ $(function(){
 			var arr = []; //单题
 			var arr_big = []; //多题
 			var dom = "";
-
             //保存图文并存的答案
             var img_text = {};
 
             if(type === "单选题"){
-                obj.answer = $(item).find(".ic-radio.active input").val();
+                obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : $(item).find(".ic-radio.active input").val();
             }else if(type === "多选题"){
                 $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-                    obj.answer += $(n).val();
+                    obj.answer += $(n).val()+',';
                 });
+                 obj.answer= obj.answer.substring(0,obj.answer.length-1)
             }else if(type === "填空题" || type === "多空题"){
             	$(item).find(".blank-item").each(function(i,n){
                     arr.push($(n).text());
@@ -176,9 +219,9 @@ $(function(){
             }else if(type === "判断题"){
             	dom = $(item).find(".answer-box .pan-duan");
             	if(dom.hasClass("rightActive")){
-            		obj.answer = "正确";
+            		obj.answer = "1";
             	}else if(dom.hasClass("wrongActive")){
-            		obj.answer = "错误";
+            		obj.answer = "0";
             	}else {
             		obj.answer = "";
             	}
@@ -189,9 +232,9 @@ $(function(){
             	obj.answer = arr;
             }else if(type === "排序题"){
             	$(item).find(".exer-list-ul>li>span").each(function(i,n){
-                    arr.push($(n).attr("data-order"));
-            	});
-                obj.answer = arr;
+                    obj.answer += $(n).text().slice(2,3)+',';
+                });
+                obj.answer= obj.answer.substring(0,obj.answer.length-1)
             }else if(type === "画图题" || type === "作文题" || type === "计算题"){
             	$(item).find(".one-img>img").each(function(i,n){
             		arr.push($(n).attr("src"));
@@ -223,8 +266,9 @@ $(function(){
                         obj_child.answer = $(item).find(".ic-radio.active input").val();
                     }else if(type === "多选题"){
                         $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-                            obj_child.answer += $(n).val();
+                            obj_child.answer += $(n).val() + ",";
                         });
+                        obj.answer= obj.answer.substring(0,obj.answer.length-1)
                     }else if(type === "填空题" || type === "多空题"){
                         $(item).find(".blank-item").each(function(i,n){
                             arr.push($(n).text());
@@ -233,9 +277,9 @@ $(function(){
                     }else if(type === "判断题"){
                         dom = $(item).find(".answer-box .pan-duan");
                         if(dom.hasClass("rightActive")){
-                            obj_child.answer = "正确";
+                            obj_child.answer = "1";
                         }else if(dom.hasClass("wrongActive")){
-                            obj_child.answer = "错误";
+                            obj_child.answer = "0";
                         }else {
                             obj_child.answer = "";
                         }
@@ -243,7 +287,7 @@ $(function(){
                         $(item).find(".exer-list-ul>li>span").each(function(i,n){
                             arr.push($(n).attr("data-order"));
                         });
-                        obj_child.answer = arr;
+                        obj_child.answer = arr.join(",");
                     }else if(type === "画图题" || type === "作文题" || type === "计算题"){
                         $(item).find(".one-img>img").each(function(i,n){
                             arr.push($(n).attr("src"));
@@ -270,38 +314,48 @@ $(function(){
             
             total.push(obj);
         });
+        var param = clearUp(total); //传给后台的作业答案参数
+        param._token = token;
+        param.work_id = work_id;
+        $.post("/homeworkScores",param,function(result){
+            var course = $("#course_id").attr('value');
+            if (result == 200 || result == 1) {   
+                window.location.href = "/learningCenter/" + course + "/1/3/" + work_id;
+            }
 
-        //console.log(total);
+            sessionStorage.clear();
+        });
 
         //把单题时间整合到total中,li_num
         var store = window.sessionStorage;
         for(var key in store){
             if(Number(key.slice(3))){
-                //console.log(key);
                 total[Number(key.slice(3))-1].last = JSON.parse(store[key]).last;
             }
         }
-
-        var param = clearUp(total); //传给后台的作业答案参数
-        //console.log(param);
-
-        //$.post("");
-
-        sessionStorage.clear();
-        //console.log(window.sessionStorage);
     });
 
 
-    //禁用Tab键和回车键
-    $(window).keydown(function(event){
-        if((event.keyCode===9) || (event.keyCode===13)){
-            event.preventDefault();
+    //整理arr类型为obj
+    function clearUp(arr){
+        var obj = {
+            "data":[],
+            "total_time": ""
+        };
+
+        for(var key in arr){
+            if(key==="total_time"){
+                obj.total_time = arr[key];
+            }else {
+                obj.data.push(arr[key]);
+            }
         }
-    });
 
+        return obj;
+    }
+});
 
-
-    //毫秒格式化为00:00
+/*    //毫秒格式化为00:00
     function changeTime(millisecond){
         //计算"分：秒"
         var m = parseInt(millisecond/1000/60);
@@ -342,11 +396,11 @@ $(function(){
         }
         obj_time.start_time = current;
         sessionStorage.setItem("ic_"+obj_time.id,JSON.stringify(obj_time));
-    }
+    }*/
 
 
     //整理arr类型为obj
-    function clearUp(arr){
+/*    function clearUp(arr){
         var obj = {
             "data":[],
             "total_time": ""
@@ -359,12 +413,11 @@ $(function(){
                 obj.data.push(arr[key]);
             }
         }
-
         return obj;
     }
 });
 
-
+*/
 
 
 

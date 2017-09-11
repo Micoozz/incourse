@@ -13,7 +13,7 @@ $(function(){
 	const id = sessionStorage.getItem("homeworkId");
 	var lxt_options = 0;  //保存连线题的对数
 
-	$.ajax({
+/*	$.ajax({
 		type: "GET",
 		url: "showWorkObjectiveDetail/" + id,
         async: false,
@@ -187,7 +187,7 @@ $(function(){
 
 		$("#cQuestion").html(html);
 	}
-	});
+	});*/
 
 	
 	lianXianTiFunc(lxt_options);

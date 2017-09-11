@@ -13,6 +13,7 @@ use App\Models\Classs;
 class LoginController extends Controller
 {
     //登录逻辑Controller
+
     public function createSchool($pf_school_id,$school_name,$school_type){
         try{
                 $school = new School;
