@@ -20,7 +20,7 @@ use App\Models\TeacherExerciseChapterCategroyMap;
 use Input;
 use App\Models\Student;
 
-class LearningCenterController extends Controller
+class LearningCenterController extends TeacherController
 {
     //学习中心controller
     const MOD_HOMEWORK = 'homework';
@@ -34,13 +34,84 @@ class LearningCenterController extends Controller
     const FUNC_MY_UPLOAD = 'my-upload';
     const FUNC_MY_COLLECTION = 'my-conllection';
 
-    protected $class_course;
-    protected $teacher;
+    protected $class_id;
+    protected $course_id;
 
-    public function __construct(Request $request){
-        $this->teacher = Auth::guard('employee')->user();
-        dd($this->teacher);
-        $map_list = ClassTeacherCourseMap::where('teacher_id',$this->teacher->id)->get();//查询出所有老师关联的数据
+    public function __construct(){
+        
+    }
+
+    /**
+     * 学习中心主体页面
+     */
+    private function getClassCourse($teacher_id){
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据
+        $class_course = array();
+        foreach ($map_list as $map) {
+            $class = Classs::find($map->class_id);
+            $grade = Classs::find($class->parent_id);
+            $course = Course::find($map->course_id);
+            array_push($class_course,array('title' => $grade->title."届".$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
+        }
+        return $class_course;
+    }
+    public function learningCenter($class_id = null,$course_id = null){
+        $port = "learningCenter";
+        return $this->addHomework($class_id,$course_id,$port);
+    }
+    public function homeworkManage($class_id = null,$course_id = null){
+        $port = "homeworkManage";
+        return $this->addHomework($class_id,$course_id,$port);
+    }
+    public function addHomework($class_id = null,$course_id = null,$port = null){
+        $title = "添加作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
+        if(empty($class_id)){
+            $class_id = $map->class_id;
+        }
+        if(empty($course_id)){
+            $course_id = $map->course_id;
+        }
+        if(empty($port)){
+            $port = "addHomework";
+        }
+        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id','port'));
+    }
+    public function addHomeworkPer($class_id,$course_id){
+        $title = "添加作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "addHomework-personal";
+        $unit_list = parent::getUnit();
+        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list','port'));
+    }
+    public function correct($class_id,$course_id){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "correct";
+    }
+    public function uploadExercise($class_id,$course_id){
+        $title = "上传习题";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "uploadExercise";
+        $unit_list = parent::getUnit();
+        $categroy_list = parent::getCategroy($course_id);
+        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port'));
+    }
+    public function exercise($class_id,$course_id){
+        $title = "习题库";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $port = "exercise";
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','port'));
+    }
+    public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
+        $teacher = Auth::guard("employee")->user();
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->get();//查询出所有老师关联的数据
         $class_course = array();
         foreach ($map_list as $map) {
             if(empty($class_id)){
@@ -54,13 +125,6 @@ class LearningCenterController extends Controller
             $course = Course::find($map->course_id);
             array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
         }
-        $this->class_course = $class_course;
-    }
-
-    /**
-     * 学习中心主体页面
-     */
-    public function learningCenter($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
     	$select_data = array();
     	if($mod == self::MOD_HOMEWORK){
     		$class = Classs::find($class_id);
@@ -161,7 +225,7 @@ class LearningCenterController extends Controller
     	}
     	return view('teacher.learningCenter',compact("class_course","data","class_id","course_id","mod","func","title","select_data"));
     }
-    public function uploadExercise(){
+    public function uploadExercisefix(){
     	$input = Input::get();
     	// $code = 200;
 	 	// try{
@@ -272,8 +336,5 @@ class LearningCenterController extends Controller
             $exercise->hasManyObjective()->create($item['objective']);
         }
     }
-    public function test(){
-    	$title = "添加作业";
-    	return view('teacher.content.addHomework',compact("title"));
-    }
+    
 }

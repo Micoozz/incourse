@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test','Teacher\LearningCenterController@test');
+// Route::get('/test','Teacher\LearningCenterController@test');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
@@ -36,8 +36,13 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/UploadExercises','PageController@uploadExercises');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
-		Route::get('/test','LearningCenterController@test');
-		Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
+		Route::get('/learningCenter/{class_id?}/{course_id?}','LearningCenterController@learningCenter');
+		Route::get('/homeworkManage/{class_id?}/{course_id?}','LearningCenterController@homeworkManage');
+		Route::get('/addHomework/{class_id?}/{course_id?}','LearningCenterController@addHomework');
+		Route::get('/addHomework-personal/{class_id?}/{course_id?}','LearningCenterController@addHomeworkPer');
+		Route::get('/exercise/{class_id?}/{course_id?}','LearningCenterController@exercise');
+		Route::get('/uploadExercise/{class_id?}/{course_id?}','LearningCenterController@uploadExercise');
+		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		Route::post('/uploadExercise','LearningCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
 		Route::get('/correctingHomepage','PageController@correctingHomepage');
