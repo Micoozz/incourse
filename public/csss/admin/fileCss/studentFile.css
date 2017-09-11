@@ -1,0 +1,35 @@
+.nav1>li>a{
+	color: #333;
+}
+
+.files_nav{
+	background-color: #444547;
+	height: 70px;
+	line-height: 70px;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+}
+.files_nav>span>a{
+	color: #fff;
+}
+.part2{
+    top:200px;
+    left: 63%;	
+}
+.admin-container{
+	margin-top: 10%;
+	display: none;
+}
+.admin-container .admin-list th,.admin-container .admin-list td{
+	width: 21%;
+}
+.admin-list .ic-blue>a>i{
+	color: #168BEE;
+}
+.admin-list .ic-blue>a>i{
+	
+}

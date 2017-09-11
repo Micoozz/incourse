@@ -4,274 +4,293 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\School;
+use App\Models\Region;
 use App\Models\Employee;
-use App\Models\Student;
 use App\Models\EmInfo;
-use App\Models\EmFamily;
-use App\Models\EmOccupational;
-use App\Models\StuEvaluate;
-use App\Models\StuFamily;
-use App\Models\StuRewardPunishment;
-use App\Models\StuInfo;
+use App\Models\Group;
 use App\Models\Section;
-use App\Models\school;
-
-use Auth;
+use Validator;
 use Input;
+use Auth;
+use Hash;
+use Searchy;
+use Session;
+use Cookie;
+use DB;
+use Redirect;
+
 
 class ArchivesController extends Controller
 {
-     //获取员工列表 GET请求
-    public function showEmployeeList($page = 1){
-        $limit = ($page-1)*10;
-        $employee_all = Employee::all();
-        $pageLength = intval($employee_all->count()/10)+1;
-        if (Input::get()) {
-             $employee_list = Employee::where('name','like','%'.$input['name'].'%')->skip($limit)->take(10)->get();
+	//管理功能列表
+	const FUNC_MANAGER_PWD = 'manager-pwd';
+	const FUNC_MANAGER_ADDRESS = 'manager-address';
+	const FUNC_MANAGER_LIST = 'manager-list';
+	const FUNC_MANAGER_UPDATEPWD = 'manager-updatepwd'; //返回退到修改密码页面，
+	const FUNC_MANAGER_ADD_EMPLOYEE = 'add-employee';
+	const FUNC_MANAGER_INFO = 'manager-info';
+    const FUNC_MANAGER_NAVIGSTION = 'manager-navigstion';
+    //权限功能页面
+    const FUNC_PERMISSIONS_PAGE = 'permissions-page';
+    const FUNC_PERMISSIONS_ALLOCATION = 'permissions-allocation';
+	//板块列表
+	const MOD_MANAGER_ARCHIVES = 'manager-archives';
+	const MOD_PERMISSIONS = 'permissions';
+    public function adminArchives($mod = 'manager-archives', $func = 'manager-list',$parameter = null)
+    {
+    	$user = Auth::guard('school')->user();
+    	if ($mod == Self::MOD_MANAGER_ARCHIVES) {
+	    	//管理板块
+            if (Hash::check('123456', $user->password)){  
+                $func = Self::FUNC_MANAGER_PWD;
+            }else{
+                if(!empty($user->email)){
+                    if ($func == Self::FUNC_MANAGER_ADDRESS) {
+                        $provinces = Region::where('type',1)->get();
+                    }elseif ($func == Self::FUNC_MANAGER_LIST){
+                        $data['employees'] = Employee::where('school_id',$user->id)->with('hasOneInfo')->whereHas('hasOneInfo')->paginate(5);
+                        $data['count'] = count($data['employees']);
+                        if (!empty($parameter)) {
+                            $Employee = Searchy::driver('ufuzzy')->Employee('name')->query($parameter)->get()->toArray();
+                            $data['employees'] = Employee::where('school_id',$user->id)->whereIn('id',array_column($Employee, 'id'))->paginate(5);
+                        }
+                    }elseif ($func == Self::FUNC_MANAGER_UPDATEPWD) {
+                    //返回退到修改密码页面，或自己想要修改密码
+                    }elseif ($func == Self::FUNC_MANAGER_ADD_EMPLOYEE) {
+                        if (!empty($parameter)) {
+                            $data['employee'] = Employee::with('hasOneInfo')->whereHas('hasOneInfo')->find($parameter);
+                            $data['employee']['hasOneInfo']->province = Region::find($data['employee']['hasOneInfo']->city)->name;
+                            $data['employee']['hasOneInfo']->cityName = Region::find($data['employee']['hasOneInfo']->city)->fullName;
+                            $data['employee']['hasOneInfo']->city = Region::find($data['employee']['hasOneInfo']->city)->id;
+                        }
+                        $provinces = Region::where('type',1)->get();
+                    }elseif ($func == Self::FUNC_MANAGER_INFO) {
+                        $data['employee'] = Employee::with('hasOneInfo')->whereHas('hasOneInfo')->find($parameter);
+                        $data['employee']['hasOneInfo']->province = Region::find($data['employee']['hasOneInfo']->city)->name;
+                        $data['employee']['hasOneInfo']->city = Region::find($data['employee']['hasOneInfo']->city)->fullName;
+                    }elseif($func == Self::FUNC_MANAGER_NAVIGSTION){
+                        $user->email = $parameter;
+                        $user->save();
+                    }/*else{
+                        if (empty($user->email)) {
+                            $func = Self::FUNC_MANAGER_ADDRESS;
+                            $provinces = Region::where('type',1)->get();
+                        }else{
+                            $func = Self::FUNC_MANAGER_LIST;
+                            $data['employees'] = Employee::where('school_id',$user->id)->with('hasOneInfo')->whereHas('hasOneInfo')->paginate(5);
+                            $data['count'] = count($data['employees']);
+                        }
+                    }*/
+                }else{
+                    $func = Self::FUNC_MANAGER_ADDRESS;
+                    $provinces = Region::where('type',1)->get();
+                }    
+            }
+		}elseif ($mod == Self:: MOD_PERMISSIONS) {
+            $data['employees'] = Employee::where('school_id',$user->id)->get()->toArray();
+            $data['count'] = count($data['employees']);
+            if ($parameter) {
+                $data['employees'] = Searchy::driver('ufuzzy')->Employee('name')->query($parameter)->get()->toArray();
+                $data['employees'] = Employee::where('school_id',$user->id)->whereIn('id',array_column($data['employees'], 'id'))->get()->toArray();
+            }
+            $data['groups'] = Group::where('school_id',$user->id)->orwhere('school_id',0)->get()->toArray();
+            if (empty($data['count'])) {
+                $func = Self::FUNC_PERMISSIONS_PAGE;
+            }else{
+                $func = Self::FUNC_PERMISSIONS_ALLOCATION;
+                $data['guidance'] = Employee::where('school_id',$user->id)->select('section_id')->where('section_id','>',0)->get()->toArray();
+                $data['Section'] = Section::get();
+                $data['employeeRole'] = Employee::where('school_id',$user->id)->get();
+            }
+        }
+        return view('school.archives',compact('func','mod','provinces','data','user'));
+    }
+    //判断验证码与原密码是否一致
+    public function updatePwd(){
+    	$user = Auth::guard('school')->user();
+    	$input = Input::get();
+    	if (Session::get('milkcaptcha') != $input['data']['code']) { 
+    		$result = 201 ;
+    	}else {
+			if (Hash::check($input['data']['pwd'], $user->password)) {
+				$newPwd = School::find($user->id);
+                $newPwd->username = $input['data']['username'];
+				$newPwd->password = bcrypt($input['data']['newPwd']);
+				$result = $newPwd->save();
+			}else{
+				$result = false;
+			}	
+    	}
+    	return json_encode($result);
+    }
+    //地址
+    public function province($id)
+    {
+    	$city = Region::where('parent_id',$id)->get();
+    	return json_encode($city);
+    }
+    //验证码
+   
+    //添加职员
+    public function addAdmin(Request $request){
+        $user = Auth::guard('school')->user()->id;
+    	$input = Input::get();
+        $info = [
+            'name.required' => '用户名不能为空',
+            'nation.required' => '民族不能为空',
+            'city.required' => '省市不能为空',
+            'birth_time.required' => '出生年月不能为空',
+            'bigHead.required' => '头像不能为空',
+            'idCode.required' => '身份证不能为空',
+            'idCode.unique' => '身份证已存在',
+        ];
+        $validator = Validator::make($input,[
+            'name' => 'required',
+            'nation' => 'required',
+            'city' => 'required',
+            'birth_time' => 'required',
+            'bigHead' => 'required',
+            'idCode' => 'required|unique:em_info',
+             ],$info);
+        if ($validator->fails()) {
+            return $validator->errors()->first();
         }else{
-             $employee_list = Employee::skip($limit)->take(10)->get();
+            DB::beginTransaction();
+            try {
+                if (empty($input['id'])) {
+                    $Employee = new Employee();
+                }else{
+            	    $Employee = Employee::find($input['id']);
+                }
+                $Employee->username = rand(100000000,999999999);
+            	$Employee->name = $input['name'];
+            	$Employee->school_id = $user;
+            	$Employee->section_id = 0;
+            	$employeeResult = $Employee->save(); 
+                if (empty($input['id'])) {
+                    $EmInfo = new EmInfo();
+                }else{
+                    $EmInfo = EmInfo::where('employee_id',$input['id'])->first();
+                }
+                $EmInfo->employee_id = $Employee->id;
+                $EmInfo->nation = $input['nation'];
+                $EmInfo->gender = $input['gender'];
+                $EmInfo->formation = $input['formation'];
+                $EmInfo->city = $input['city'];//城市
+                $EmInfo->birth_time = strtotime($input['birth_time']);
+                $EmInfo->idcode = $input['idCode'];
+                $EmInfo->bigHead = $input['bigHead'];
+                $EmInfo->add_time = time();
+                $emInfoResult = $EmInfo->save();
+                if ($employeeResult && $emInfoResult) {
+                    DB::commit();
+                   $result = 200;
+                }
+            }catch(\Exception $e){
+                DB::rollBack();
+                $result = 201;
+            }
+            return json_encode($result);
+        }      	
+ 	} 
+    //打开权限与关闭权限
+ 	public function forbid($id,$status){
+ 		$Employee = Employee::find($id);
+        if ($status == 1) {
+            $Employee->status = 0;
+        }else{
+ 		     $Employee->status = 1;
         }
-        $data = array('total' => $employee_all->count(),'pageLength' => $pageLength,'employee' => array());
-        foreach ($employee_list as $employee) {
-            $employee = Employee::find($employee->id);
-            array_push($data['employee'],array(
-                'id' => $employee->id,
-                'name' => $employee->name,
-                'school_id' => $employee->school_id,
-                'duty_id' => $employee->duty_id,
-                'department' => $employee->department));
+ 		$result = $Employee->save();
+ 		if ($result) {
+ 			return json_encode($result);
+ 		}
+ 	}
+    //删除职员
+ 	public function delEmployee($id){
+        DB::beginTransaction();
+        try {
+ 		$eminfo = EmInfo::where('employee_id',$id)->delete();
+ 		$employee = Employee::find($id)->delete();
+     		if ($eminfo && $employee) {
+                DB::commit();
+     			$result = 200;
+     		}
+        }catch(\Exception $e){
+            DB::rollBack();
+            $result = 201;
         }
-        return json_encode($data);
+ 		return json_encode($result);
+ 	}
+    //分配权限
+    public function manageRole($role,$employee_id){
+        $employee =  Employee::find($employee_id);
+        $employee->section_id = $role;
+        $employee->group_id = 0;
+        $result = $employee->save();
+        if ($result) {
+            return json_encode($result);
+        }
     }
-    //获取单个员工信息 GET请求
-    public function showEmployeeDetail($id){
-        $employee_info = Employee::find($id);
-        $data['employee_info'] = EmInfo::where('employee_id',$employee_info->id)->get()->toArray();
-        $data['employee_family'] = EmFamily::where('employee_id',$employee_info->id)->get()->toArray();
-        $data['employee_emoccupational'] = EmOccupational::where('employee_id',$employee_info->id)->get()->toArray();
-        return json_encode($data);  
+    //人员拖动
+    public function manageGroup($gruop,$employee){
+        $employee =  Employee::find($employee);
+        $employee->group_id = $gruop;
+        $employee->section_id = 0;
+        $result = $employee->save();
+        if ($result) {
+            return json_encode($result);
+        }
     }
-    //新增员工接口 POST请求
-    public function createEmployee(){
-        $input = Input::get();
-        $employee = new Employee;
-        $employee->name = $input['name'];
-        $employee->school_id = Auth::guard('school')->user()->school_id;
-        $employee->duty = $input['duty'];
-        $employee->department = $input['department'];
-        $employee->phone = $input['phone'];
+    //重命名分组
+    public function rechristen($id,$title){
+        $rechristen = Group::find($id);
+        $rechristen->title = $title;
+        $result = $rechristen->save();
+        if ($result) {
+            return json_encode($result);
+        }
+    }
+    //添加分组
+    public function addGroup($group_id,$title){
+        $addGroup = new Group();
+        $addGroup->parent_id = $group_id;
+        $addGroup->title = $title;
+        $addGroup->school_id = Auth::guard('school')->user()->id;
+        $result =  $addGroup->save();
+        if ($result) {
+            return json_encode($addGroup->id);
+        }
+    }
+    //删除分组 有子分组一同删除并把里面的人员，转到默认页面
+    public function delGroup($group_id){
+        $delGroup_parent = Group::where("parent_id",$group_id)->get();
+        if ($delGroup_parent) {
+            foreach ($delGroup_parent as $delGroup) {
+                $Group_childs = Employee::where('group_id',$delGroup->id)->get();
+                foreach ($Group_childs as $Group_child) {
+                    $Group_child = Employee::find($Group_child->id);
+                    $Group_child->group_id = 1;
+                    $Group_child->save();
+                }
+            }
+        }
+        $delGroup_parent = Group::where("parent_id",$group_id)->delete();
+        $delGroup = Group::find($group_id)->delete();
+           $employees = Employee::where('group_id',$group_id)->get();
+           if ($employees) {
+               foreach ($employees as $employee) {
+               $employee = Employee::find($employee->id);
+               $employee->group_id = 1;
+               $employee->save();
+           }  
+        }
+    }
+    public function resetPassEmployee($id){
+        $employee = Employee::find($id);
+        $employee->password = '$2y$10$PK.xe3ZqE6A3SlJQANZgPefDshazeWYcttKoe9knkqKZIZNpAYD.u';
         $employee->save();
-
-        $employee_id = $employee->id;
-
-        if ($employee['info']) {
-            $employee_info = new EmInfo;
-            $employee['info']->employee_id = $employee_id;
-            $employee['info']->native_place = $input['native_place'];
-            $employee['info']->nation = $input['nation'];
-            $employee['info']->census = $input['census'];
-            $employee['info']->birth = strtotime($input['birth']);
-            $employee['info']->tch_workingAge = $input['tch_workingAge'];
-            $employee['info']->tch_qualification = $input['tch_qualification'];
-            $employee['info']->tch_duty = $input['tch_duty'];
-            $employee['info']->tch_backbone = $input['tch_backbone'];
-            $employee['info']->arrival_time = strtotime($input['arrival_time']);
-            $employee['info']->positive_time = strtotime($input['positive_time']);
-            $employee['info']->party_time = strtotime($input['party_time']);
-            $employee['info']->graduate_time = strtotime($input['graduate_time']);
-            $employee['info']->politics = $input['politics'];
-            $employee['info']->schoolTag = $input['schoolTag'];
-            $employee['info']->education = $input['education'];
-            $employee['info']->specialty = $input['specialty'];
-            $employee['info']->sex = $input['sex'];
-            $employee['info']->IDcard = $input['IDcard'];
-            $employee['info']->remark = $input['remark'];
-            $employee['info']->save();
-        }
-
-        if ($employee['family']) {
-            $employee['family'] = new EmFamily;
-            $employee['family']->employee_id = $employee_id;
-            $employee['family']->family_address = $input['family_address'];
-            $employee['family']->family_member = $input['family_member'];
-            $employee['family']->family_relation = $input['family_relation'];
-            $employee['family']->work_unit = $input['work_unit'];
-            $employee['family']->family_phone = $input['family_phone'];
-            $employee['family']->save();
-        }
-        if ($employee['emoccupational']) {
-            $employee['emoccupational'] = new EmOccupational;
-            $employee['emoccupational']->employee_id = $employee_id;
-            $employee['emoccupational']->engage_academy = $input['engage_academy'];
-            $employee['emoccupational']->prove_phone = $input['prove_phone'];
-            $employee['emoccupational']->word_start_time = strtotime($input['word_start_time']);
-            $employee['emoccupational']->word_end_time = strtotime($input['word_end_time']);
-            $employee['emoccupational']->remark = $input['remark'];
-            $employee['emoccupational']->save();
-        }
-       
+        return Redirect::to('/adminArchives/manager-archives/manager-list');
     }
-    //删除员工接口 GET请求
-    private function deleteEmployeeInfo($id){
-       if ($this->hasOneInfo()) {
-            $this->hasOneInfo()->destory($id);
-        }
-
-        if ($this->hasManyFamily()) {
-            StuFamily::where('employee_id',$id)->destory($id);
-        }
-
-        if ($this->hasManyOccupational()) {
-            EmOccupational::where('employee_id',$id)->destory();
-        }
-
-        $this->delete();
-    }
-     
-    public function deleteEmployee(){
-        $deleteEmployee = Input::get();
-        foreach ($deleteEmployee as $id) {
-            $employee = Employee::find($id);
-            $employee->deleteEmployeeInfo();
-        }
-    }
-    //Emloyee条件筛选
-    public function filtrateEmloyee(){
-       if ($input = Input::get()){
-           $filtrateEmployee = Employee::where(['section_id' => $input['section_id'],'cource_id' => $input['cource_id'],'class_id' => $input['class_id'],'grade_id' => 
-            $input['grade_id']])->get();
-       }else{
-            $filtrateEmloyee = Employee::select('section_id','cource_id','class_id','grade_id')->get();
-        }
-        return json_encode($filtrateEmployee);
-    }
-    //获取学生列表 GET请求
-    public function showStudentList($page =1 ){
-        $limit = ($page-1)*10;
-        $student_all = student::all();
-        $pageLength = intval($student_all->count()/10)+1;
-        $student_list = student::skip($limit)->take(10)->get();
-        $data = array('total' => $student_all->count(),'pageLength' => $pageLength,'student' => array());
-        foreach ($student_list as $student) {
-            $student = Student::find($student->id);
-            array_push($data['student'],array(
-                'id' => $student->id,
-                'name' => $student->name,
-                'stu_number' => $student->stu_number,
-                'class' => '一班',
-                'grade' => '一年级'));
-        }
-        return json_encode($data);
-    }
-    //获取单个学生信息 GET请求
-    public function showStudent($id){
-        $student_info = Student::find($id);
-        $data['student_info'] = StuInfo::where('student_id',$student_info->id)->get();
-        $data['student_family'] = StuFamily::where('student_id',$student_info->id)->get();
-        $data['student_reward_punishment'] = StuRewardPunishment::where('student_id',$student_info->id)->get();
-        $data['student_evaluate'] = StuEvaluate::where('student_id',$student_info->id)->get();
-        return json_encode($data);
-    }
-    //新增学生接口 POST请求
-    public function createStudent(){
-        $input = Input::get();
-        $student = new Student;
-        $student->name = $input['name'];
-        $student->school_id = Auth::guard('school')->user()->school_id;
-        $student->class_id = $input['class_id'];
-        $student->username = $input['username'];
-        $student->password = crypt($input['password']);
-        $student->stu_number = $input['stu_number'];
-        $student->save();
-
-         $student_id = $student->id;
-
-        if ($student['info']) {
-            $student['info'] = new StuInfo;
-            $student['info']->student_id = $student_id;
-            $student['info']->native_place = $input['native_place'];
-            $student['info']->nastion = $input['nastion'];
-            $student['info']->census = $input['census'];
-            $student['info']->birth = $input['birth'];
-            $student['info']->sex = $input['sex'];
-            $student['info']->IDcard = $input['IDcard'];
-            $student['info']->class_id = $input['class_id'];
-            $student['info']->employee_id = $input['employee_id'];
-            $student['info']->politics = $input['politics'];
-            $student['info']->add_time = $input['add_time'];
-            $student['info']->scholl_roll = $input['school_roll'];
-            $student['info']->remark = $input['remark'];
-            $student['info']->save();
-        }
-
-        if ($student['family']) {
-            $student['family'] = new StuFamily;
-            $student['family']->student_id = $student_id;
-            $student['family']->family_address = $input['family_address'];
-            $student['family']->family_member = $input['StuFamily'];
-            $student['family']->family_relation = $input['family_relation'];
-            $student['family']->work_unit = $input['work_unit'];
-            $student['family']->family_phone = $input['family_phone'];
-            $student['family']->save();
-        }
-
-        if ($student['reward_punishment']) {
-            $student['reward_punishment'] = new StuRewardPunishment;
-            $student['reward_punishment']->student_id = $student_id;
-            $student['reward_punishment']->reward_punishment = $input['reward_punishment'];
-            $student['reward_punishment']->happen_time = $input['happen_time'];
-            $student['reward_punishment']->content = $input['content'];
-            $student['reward_punishment']->save();
-        }
-
-        if ($student['evaluate']) {
-            $student['evaluate'] = new StuEvaluate;
-            $student['evaluate']->student_id = $student_id;
-            $student['evaluate']->semester_time = $input['semester_time'];
-            $student['evaluate']->appraiser = $input['appraiser'];
-            $student['evaluate']->content = $input['content'];
-            $student['evaluate']->save();
-        }
-    }
-    //删除学生接口 GET请求
-    private function deleteStudentInfo() {
-        if ($this->hasOnestu_Info()) {
-            $this->hasOnestu_Info()->destory($id);
-        }
-        if ($this->hasManystu_Family()) {
-            StuFamily::where('student_id',$id)->destory($id);
-        }
-        if ($this->hasManyRewardPunishment()) {
-            StuRewardPunishment::where('student_id',$id)->destory();
-        }
-        if ($this->hasManyEvaluate()) {
-           StuEvaluate::where('student_id',$id)->destory($id);
-        }
-        $this->delete();
-    }
-    public function deleteStudent(){
-        $deleteStudent = Input::get();
-        foreach ($deleteStudent as $id) {
-            $student = Student::find($id);
-            $student->deleteStudentInfo();
-        }
-    }
-    //student学生筛选条件
-    public function filtrateStudent(){
-        if ($input = Input::get()) {
-           $filtrateStudent = Student::where([
-            'class_id' => $input['class_id'],
-            'grade_id' => $input['grade_id']])->get();
-       }else{
-            $filtrateStudent = Student::select('class_id','grade_id')->get();
-        }
-        return json_encode($filtrateStudent);
-    }
-    //获取管理员个人信息
-    public function manageInfo(){
-        $manageInfo = School::where('id',Auth::guard('school')->user()->id)->get();
-        dd($manageInfo);
-        return json_encode($manageInfo);
-    }
-
 }

@@ -1,0 +1,36 @@
+.table_ger{
+	margin-top:20px;
+}
+.table_ger>table tr>td,.table_ger>table tr>th{
+	border: none;
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+}
+.table_ger>table{
+	width: 100%;
+	border: 1px solid #eee;
+	border-bottom: none;
+}
+.table_ger>table tr>td,.table_ger>table tr>th{
+	display: inline-block;
+	width: 25%;
+	text-align: center;
+}
+/*未发布颜色*/
+.table-red{
+	color: red;
+}
+/*已发布颜色*/
+.tabel-color{
+	color: #ccc;
+}
+.tabel-ic>i:first-child{
+	position: relative;
+    top: -3px;
+    left: 3px;
+}
+.tabel-ic>i:last-child{
+	position: relative;
+    top: 4px;
+    left: -4px;
+}

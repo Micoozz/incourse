@@ -1,0 +1,45 @@
+.found_class{
+    height: 4rem;
+    line-height: 4rem;
+    background-color: #fff;
+    margin: 0 auto;
+    width:1139px;
+	font-size: 16px;
+}
+.found_class>ul>li{
+	width: 12%;
+	height: auto;
+	text-align: center;
+	cursor: pointer;
+	float: left;
+	position: relative;
+}
+.found_class>ul>li>input,.class_s>div>input{	
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 80%;
+    height: 30px;
+    text-indent: 10px;
+    
+}
+.class_s{
+	display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px #ccc;
+    z-index: 102;	
+    color: #333;
+}
+/*js引用样式*/
+.bule{
+	background-color: #168BEE;
+	color: #fff;
+}
+#nav1 li>.black{
+	color: #333;
+}
+.part2{
+	top: 250px;
+    left: 29%;	
+}

@@ -1,0 +1,86 @@
+
+.fa-calendar{
+	    right: 8px;
+    top: 7px;
+}
+.information>div{
+	height: 28px;
+float: left;
+width: 50%;
+margin-bottom: 20px;
+}
+.information .select-form{
+	margin: 0;
+	
+}
+.information>div:nth-of-type(1),.information>div:nth-of-type(3){
+	width: 32%;
+}
+.clears{
+	clear: both;
+}
+.family{
+	margin-top: 15px;
+}
+.family input[type="text"]{
+	width: 250px;
+}
+.family_table>tbody>tr>th,.family_table>tbody>tr>td{
+	border: none;
+	text-indent: 10px;
+		
+}
+.family_table>tbody>tr{
+	border: 1px solid #ccc;
+}
+.family_table{
+	margin-top: 20px;
+}
+.family_table>tbody>tr>th{
+    width: 12%;
+    background-color: #eee;	
+}
+.family_table>tbody>tr>td>input{
+    width: 100px;
+    height: 28px;
+    border-radius: 4px;
+    margin: 5px auto;
+    border: 1px solid #eee;
+}
+.family_table>tbody>tr>td>i,.add_table{
+	color: #168BEE;
+}
+.add_table{
+	float: right;
+	margin-right: 12px;
+	cursor: pointer;
+}
+.add_table>i{
+	margin-right: 8px;
+}
+.btns a{
+	color: #fff;
+}
+.btns .btn-white a{
+	color: #333;
+}
+.padd{
+    font-weight: normal;
+    color: #168BEE;
+    position: absolute;
+    width: 45%;
+    margin-left: 5%;
+    cursor: pointer;
+}
+.seeInfoBox span{
+	margin-right: 0;
+}
+.info-form .seeInfoBox{
+	font-size: 12px;
+}
+.fa-calendarse{
+	right: 28px;
+}
+.select-form{
+	height: 30px;
+}

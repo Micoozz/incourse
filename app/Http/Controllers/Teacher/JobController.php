@@ -11,20 +11,29 @@ use App\Models\Job;
 use App\Models\Work;
 class JobController extends Controller
 {
-    public function showJoblist($page = 1)
+
+
+    public function showJoblist($course = 1,$page = 1)
     {
 
-        $job_all = Job::where('teacher_id',Auth::guard('employee')->user()->id)->get();
+        $user = Auth::guard('employee')->user();
+        $job_all = Job::where(['teacher_id' => $user->id,'course_id' => $course])->get();
         $limit = ($page-1)*10;
         $pageLength = intval($job_all->count()/10)+1;
-        $job_list = Job::skip($limit)->take(10)->get(); 
-        $data = array('total' => $job_all->count(),'pageLength' => $pageLength,'jobs' => array());
+        $job_list = Job::skip($limit)->take(10)->get();
+        $data = array('total' => $job_all->count(),'pageLength' => $pageLength,'currentPage' => $page,'jobs' => array());
         foreach ($job_list as $job){
           $job_type = $job->job_type == Job::TYPE_PERSONAL ? '个人' : '小组';
           $job_status = $job->status == Job::STATUS_PUB ? '已发布' : '未发布';
-          array_push($data['jobs'],array('id' => $job->id,'title' => $job->title,
-            'job_type' => $job_type,'pub_time' => $job->pub_time,
-            'job_status' => $job_status,'deadline' => $job->deadline));
+          array_push($data['jobs'],array(
+            'id' => $job->id,
+            'title' => $job->title,
+            'job_type' => $job_type,
+            'pub_time' => $job->pub_time,
+            'job_status' => $job_status,
+            'deadline' => $job->deadline
+            )
+          );
         }
         return json_encode($data);
     }

@@ -5,13 +5,13 @@
     <meta name="viewport"
     content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>InCourse</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/sCSS/homework.css"/>
-    <link rel="stylesheet" href="/css/sCSS/classActivity.css">
-    <link rel="stylesheet" type="text/css" href="/css/sCSS/homework-style.css"/>
-    <link rel="stylesheet" href="/css/incourseReset.css">
-
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework.css"/>
+    <link rel="stylesheet" href="css/sCSS/classActivity.css">
+    <link rel="stylesheet" type="text/css" href="css/sCSS/homework-style.css"/>
+    <link rel="stylesheet" href="css/incourseReset.css">
+    <style>
         /********** 连线题 ***********/
         .box_hpb{
             margin:0;
@@ -31,7 +31,7 @@
             width:472px;
             position:relative;
         }
-        .line_hpb:after{line_hpb
+        .line_hpb:after{
             content:"";
             clear:both;
             display:table;
@@ -107,7 +107,7 @@
             border-radius: 2px;
             color:#168bee;
             float: right;
-            background: url(/images/homework/subject/cancel.png) no-repeat right center;
+            background: url(images/homework/subject/cancel.png) no-repeat right center;
             border:none;
         }
 
@@ -128,7 +128,6 @@
     <![endif]-->
 </head>
 <body>
-
     <div class="navbar">
         @include('student.include.head')
     </div>
@@ -146,207 +145,13 @@
                     <!--内容-->
                     <div class="col-xs-12 col-sm-12" id="centery">
                         <div class="row center1">
-                            <div class="col-md-2 col-xs-4">  
-                                <a class="return-fyg" href="/learningCenter/{{ $data['course_first'][0]['id'] }}/{{ $mod }}"></a>
+                            <div class="col-md-2 col-xs-4">
+                                <a class="return-fyg" href="/zuoyenbenneirongliebiao"></a>
                             </div>
                             <div class="col-md-8 col-xs-4" id="col">语文</div>
                             <div class="col-md-2 col-xs-4"></div>
                         </div>
                         <div class="exercise-box">
-                        @foreach($data['exercise'] as $exercise)
-                            @if($exercise['cate_title'] === "单选题")
-                               <div class="homework-content" data-type="单选题" data-id="{{$exercise['id']}}">
-                                <p class="question-head">
-                                   <!--  <span class="order">{{$exercise['id']}}.</span> -->
-                                    单选题：{{  $exercise['subject']  }}
-                                </p>
-                                <form class="select" id="myForm">
-                                    @foreach($exercise['options'] as $option)
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="questionSelect" class="questionSelect" value="{{ array_keys($option)[0]}}"/>
-                                            <span class="select-wrapper"></span>{{ array_keys($option)[0] }}
-                                            <span class="question-content">{{ $option[array_keys($option)[0]] }}</span>
-                                        </label>  
-                                    </div>
-                                    @endforeach
-                                </form>
-
-                                <div class="line"></div>
-                                <div class="question-foot">
-                                    <span>你的答案：</span>
-                                    <span class="answerOrder"></span>
-                                    <span class="col-line"></span>
-                                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                        <span class="search-wiki-span">查看资料</span></a>
-                                        <span class="question-fault">报错</span>
-                                    </div>
-                                </div>
-                            @elseif($exercise['cate_title'] === "填空题")
-                                <div class="homework-content" data-type="填空题" data-id="{{ $exercise['id'] }}">
-                                    <p class="question-head">
-                                     <!--    <span class="order">' + (i+1) + '.</span> -->
-                                        填空题：{{ $exercise['subject'] }}
-                                    </p>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>你的答案：</span>
-                                            @for($i = 1; $i<= $exercise['count']; $i++)  
-                                                <input type="textarea" class="questionBlankAnswer" placeholder="答案①">
-                                            @endfor
-                                    <span class="col-line"></span>
-                                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                        <span class="search-wiki-span">查看资料</span></a>
-                                        <span class="question-fault">报错</span>
-                                    </div>
-                                </div>
-                            @elseif($exercise['cate_title'] === "多空题")
-                                <div class="homework-content" data-type="多空题" data-id="{{ $exercise['id'] }}">
-                                    <p class="question-head">
-                                     <!--    <span class="order">' + (i+1) + '.</span> -->
-                                        多空题：{{  $exercise['subject']  }}
-                                    </p>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>你的答案：</span>
-                                        <span class="questionBlankAnswerWrap">
-                                            @for($i = 1; $i<= $exercise['count']; $i++)  
-                                             <input type="textarea" class="questionBlankAnswer" placeholder="答案①">
-                                            @endfor
-                                         </span>
-                                        <span class="col-line"></span>
-                                        <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                        <span class="search-wiki-span">查看资料</span></a>
-                                        <span class="question-fault">报错</span>
-                                    </div>
-                                </div>  
-                            @elseif($exercise['cate_title'] === "多选题")
-                                <div class="homework-content" data-type="多选题" data-id="{{ $exercise['id'] }}">
-                                    <p class="question-head">
-                                      <!--   <span class="order">' + (i+1) + '.</span> -->
-                                        多选题：{{ $exercise['subject'] }}
-                                    </p>
-                                    <form class="select" id="myForm">
-                                        @foreach($exercise['options'] as $option)
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="questionSelect" class="questionSelect" value="{{ array_keys($option)[0]}}"/>
-                                                    <span class="select-wrapper"></span>{{ array_keys($option)[0] }}
-                                                    <span class="question-content">{{ $option[array_keys($option)[0]] }}</span>
-                                                </label>  
-                                            </div>
-                                        @endforeach
-                                    </form>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>你的答案：</span>
-                                        <span class="answerOrder"></span>
-                                        <span class="col-line"></span>
-                                        <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                            <span class="search-wiki-span">查看资料</span></a>
-                                            <span class="question-fault">报错</span>
-                                    </div>
-                                </div>
-                            @elseif($exercise['cate_title'] === "判断题")
-                                <div class="homework-content" data-type="判断题" data-id="{{ $exercise['id'] }}">
-                                    <p class="question-head">
-                                        <!-- <span class="order">' + (i+1) + '.</span> -->
-                                        判断题：{{ $exercise['subject'] }}
-                                    </p>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>你的答案：</span>
-                                        <span class="right-or-wrong">
-                                            <label>对
-                                                <input class="choose-input" type="radio" name="chooseTi" value="1">
-                                            </label>
-                                                <label>错
-                                                    <input class="choose-input" type="radio" name="chooseTi" value="0">
-                                                </label>
-                                            </span>
-                                        <span class="col-line"></span>
-                                        <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                            <span class="search-wiki-span">查看资料</span></a>
-                                            <span class="question-fault">报错</span>
-                                    </div>
-                                </div>         
-                            @elseif($exercise['cate_title'] === "排序题")
-                                <div class="homework-content" data-type="排序题" data-id="{{ $exercise['id'] }}">
-                                    <p class="question-head">
-                                       <!--  <span class="order">' + (i+1) + '.</span> -->
-                                        排序题：{{ $exercise['subject'] }}
-                                       @foreach($exercise['options'] as $option)
-                                            <br/>{{array_keys($option)[0]}}{{ array_values($option)[0] }}
-                                       @endforeach
-                                    </p>
-                                    <div class="line"></div>
-                                    <div class="question-foot">
-                                        <span>你的答案：</span>
-                                        <span class="questionOrderAnswerWrap">
-                                            @for($i = 1; $i<= count($exercise['options']); $i++)
-                                            <input type="text" class="questionOrderAnswer" placeholder="答案1" maxlength="1">
-                                            @endfor
-                                        </span>
-                                    <span class="col-line"></span>
-                                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>
-                                        <span class="search-wiki-span">查看资料</span></a>
-                                        <span class="question-fault">报错</span>
-                                    </div>
-                                </div>
-                            @elseif($exercise['cate_title'] === "连线题")
-                            <div class="homework-content" data-type="连线题" data-id="{{ $exercise['id'] }}">
-                                <p class="question-head">
-                                    连线题：
-                                </p>
-                                <div class="box_hpb">
-                                    <div class="line_hpb">   
-                                        <ul class="question_hpb">
-                                         @foreach($exercise['options'] as $option)
-                                            @foreach($option as $value) 
-                                            <li ><span></span><div>{{$value}}</div></li>
-                                            @endforeach
-                                        @endforeach
-                                        </ul>
-                                        <div class="container_hpb">
-                                            <canvas id="canvas1" width="368">您的浏览器暂不支持Canvas！</canvas>
-                                            <canvas id="canvas2" width="368">您的浏览器暂不支持Canvas！</canvas>
-                                        </div>
-                                    
-                                    <ul class="answer_hpb">
-                                        @foreach($exercise['answer'] as $answer)
-                                            <li><span></span><div>{{ $answer }}</div></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="btn_hpb clear">
-                                    <button class="return_hpb">撤销</button>
-                            </div>
-                            <div class="line"></div>
-                            <div class="question-foot lianXianTi-padding">
-                                <span class="col-line"></span>
-                                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>查看资料</a>
-                                    <span class="question-fault">报错</span>
-                                </div>
-                            </div>
-                            @elseif($exercise['cate_title'] === "简答题")
-                            <div class="homework-content" data-type="简答题" data-id="8">
-                               <p class="question-head">
-<!--                                      <span class="order">8.</span> -->
-                                     简答题：{{ $exercise['subject'] }}
-                                </p>
-                            <div class="line"></div>
-                            <div class="question-foot">
-                                <a class="hover-blue jianDaTi" href="javascript:;">点击输入答案</a>
-                                <span class="col-line"></span>
-                                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png"
-                                    alt=""/>查看资料</a>
-                                    <span class="question-fault">报错</span>
-                                </div>
-                            </div>                            
-
-                            @endif
-                        @endforeach
                         <!--
                             <div class="homework-content" data-type="单选题" data-id="1">
                                 <p class="question-head">
@@ -697,22 +502,22 @@
                                 <li class="row">
                                     <div class="chatRoom1 col-md-12">
                                         <a href="#" class="col-md-1" style="width: 4%;padding: 0;color: #fff!important;">小明</a>
-                                        <a href="javascript;" class="col-md-1"><img src="/images/bo.png"/></a>
+                                        <a href="javascript;" class="col-md-1"><img src="images/bo.png"/></a>
                                         <span class="col-md-1" style="text-align: right;cursor: pointer;float: right;">X</span>
                                     </div>
                                     <div class="chatRoom2 col-md-12"></div>
                                     <div class="chatRoom3 col-md-12">
                                         <div class="chatRoom3_a">
-                                            <img src="/images/index1.jpg" title="表情"/>
-                                            <img src="/images/index2.jpg" title="图片"/>
-                                            <img src="/images/index3.jpg" title="剪裁"/>
-                                            <img src="/images/folder.png" title="上传附件"/>
+                                            <img src="images/index1.jpg" title="表情"/>
+                                            <img src="images/index2.jpg" title="图片"/>
+                                            <img src="images/index3.jpg" title="剪裁"/>
+                                            <img src="images/folder.png" title="上传附件"/>
                                             <span>聊天记录</span>
                                         </div>
                                         <div class="chatRoom3_b" contenteditable="true"></div>
                                         <div class="btn-msg-send">
                                             <a title="也可点击发送">Ctrl+Enter发送</a>
-                                            <img src="/images/index5.jpg">
+                                            <img src="images/index5.jpg">
                                         </div>
                                         <div class="chatRoom3_c">
                                             <span>Enter发送</span>
@@ -734,7 +539,7 @@
                     <div>学习预警</div>
                 </div>
                 <div class="f_close">
-                    <img class="pointer" src="/images/homework/subject/close.png"/>
+                    <img class="pointer" src="images/homework/subject/close.png"/>
                 </div>
                 <div class="Bomb_1">
                     <ol>
@@ -784,7 +589,7 @@
             <div class='Bomb1'>
                 <div>
                     <div>学习预警
-                        <img src="/images/Cj_17.jpg">
+                        <img src="images/Cj_17.jpg">
                     </div>
                 </div>
                 <div class="Bomb_1">
@@ -852,13 +657,13 @@
 </div>
 
 
-<script src="/js/jquery-1.12.4.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script src="/js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/sJS/classActivity.js"></script>
-<script src="/js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/sJS/inCourse.js"></script>
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/sJS/homework-content.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/classActivity.js"></script>
+<script src="js/sJS/password.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sJS/inCourse.js"></script>
 <!-- <script src="js/sJS/zuoyeben-index.js" type="text/javascript" charset="utf-8"></script> -->
 <script>
     
@@ -879,6 +684,7 @@ $(function(){
 
 
     var id = sessionStorage.getItem("homeworkId"); //保存是作业几
+    console.log(id);
     var current = 0;  //保存当前题号
     var lxt_options = 0;  //保存连线题的对数
     var comp_photo = {};  //保存作文的照片
@@ -887,7 +693,7 @@ $(function(){
     /********* 显示题目列表 ********/
     $.ajax({
         type: "GET",
-        url: "/showWorkDetail/" + id,
+        url: "showWorkDetail/" + id,
         async: false,
         success: function(data){
         var data = JSON.parse(data);
@@ -924,7 +730,7 @@ $(function(){
                                     <span>你的答案：</span>\
                                     <span class="answerOrder"></span>\
                                     <span class="col-line"></span>\
-                                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>\
+                                    <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                         <span class="search-wiki-span">查看资料</span></a>\
                                         <span class="question-fault">报错</span>\
                                     </div>\
@@ -967,7 +773,7 @@ $(function(){
                                                 <span>你的答案：</span>\
                                                 <span class="questionBlankAnswerWrap">' + dk_answerInput + '</span>\
                                              <span class="col-line"></span>\
-                                             <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>\
+                                             <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                                 <span class="search-wiki-span">查看资料</span></a>\
                                                 <span class="question-fault">报错</span>\
                                             </div>\
@@ -999,7 +805,7 @@ $(function(){
                                             <span>你的答案：</span>\
                                             <span class="answerOrder"></span>\
                                             <span class="col-line"></span>\
-                                            <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>\
+                                            <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                                 <span class="search-wiki-span">查看资料</span></a>\
                                                 <span class="question-fault">报错</span>\
                                             </div>\
@@ -1022,7 +828,7 @@ $(function(){
                                                     </label>\
                                                 </span>\
                                              <span class="col-line"></span>\
-                                             <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>\
+                                             <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                                 <span class="search-wiki-span">查看资料</span></a>\
                                                 <span class="question-fault">报错</span>\
                                             </div>\
@@ -1045,7 +851,7 @@ $(function(){
                                                 <span>你的答案：</span>\
                                                 <span class="questionOrderAnswerWrap">' + px_answerInput + '</span>\
                                              <span class="col-line"></span>\
-                                             <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>\
+                                             <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>\
                                                 <span class="search-wiki-span">查看资料</span></a>\
                                                 <span class="question-fault">报错</span>\
                                             </div>\
@@ -1084,7 +890,7 @@ $(function(){
                                 <div class="line"></div>\
                                 <div class="question-foot lianXianTi-padding">\
                                     <span class="col-line"></span>\
-                                    <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>查看资料</a>\
+                                    <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
                                         <span class="question-fault">报错</span>\
                                     </div>\
                                 </div>';
@@ -1097,7 +903,7 @@ $(function(){
                             <div class="question-foot">\
                                 <a class="hover-blue jianDaTi jianDaTi' + item.id + '" href="javascript:;">点击输入答案</a>\
                                 <span class="col-line"></span>\
-                                <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>查看资料</a>\
+                                <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
                                     <span class="question-fault">报错</span>\
                                 </div>\
                             </div>';
@@ -1119,7 +925,7 @@ $(function(){
                                               </a>\
                                           </span>\
                                           <span class="col-line"></span>\
-                                          <a href="javascript:;" class="search-wiki"><img src="/images/homework/subject/link.png" alt=""/>查看资料</a>\
+                                          <a href="javascript:;" class="search-wiki"><img src="images/homework/subject/link.png" alt=""/>查看资料</a>\
                                             <span class="question-fault">报错</span>\
                                 </div>';
             }
@@ -1184,7 +990,7 @@ $(function(){
             "work_id": id,
             "data": obj
         } 
-        console.log(param)
+        console.log(obj)
         $.post("subWork",param).success(function(data){
            if(data === "200") {
                 window.location.href='/danrenzuoye-chengji';

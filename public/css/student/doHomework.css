@@ -1,0 +1,239 @@
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+label {
+    font-weight: normal;
+}
+
+input[type="radio"],
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+}
+
+button {
+    cursor: default;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+
+html,body,
+.do-homework-wrap {
+    height: 100%;
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+    list-style: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+
+
+
+
+
+/************** doHomework.html ****************/
+.do-homework-wrap .hw-title {
+    height: 78px;
+    line-height: 78px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+}
+.do-homework-wrap .hw-time-box {
+    border-bottom: 1px solid #d9d9d9;
+}
+.do-homework-wrap .hw-time-box>div {
+    width: 1200px;
+    height: 55px;
+    margin: 0 auto;
+    text-align: center;
+}
+.hw-time-box .hw-time-inner {
+    display: inline-block;
+}
+.do-homework-wrap .answer-sheet-icon {
+    margin-right: 30px;
+    top: 20px;
+    left: -81px;
+}
+.do-homework-wrap .hw-time-box .fa-clock-o {
+    margin-right: 3px;
+}
+.do-homework-wrap .hw-time {
+    top: 10px;
+    margin-left: 3px;
+    display: inline-block;
+}
+.do-homework-wrap .hw-time>li {
+    height: 10px;
+}
+.do-homework-wrap .exer-num {
+    font-size: 18px;
+    top: 18px;
+    right: 0;
+}
+.do-homework-wrap .big-num {
+    font-size: 24px;
+}
+
+/*内容主体*/
+.do-hw-wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+.do-hw-wrap .change-exer {
+    width: 100px;
+    padding: 200px 0;
+    font-size: 50px;
+    color: #888;
+}
+.do-hw {
+    padding: 40px;
+}
+.do-hw .view {
+    width: 918px;
+    height: 400px;
+}
+.do-hw .exercise-box {
+    left: 0;
+    top: 0;
+    transition: left 0.3s linear;
+    -webkit-transition: left 0.3s linear;
+    -ms-transition: left 0.3s linear;
+    -o-transition: left 0.3s linear;
+    -moz-transition: left 0.3s linear;
+}
+.do-hw .exercise-box>li {
+    width: 918px;
+    height: 400px;
+    overflow-y: auto;
+}
+.do-hw .hw-question {
+    margin-bottom: 20px;
+}
+.do-hw .exercise-box .exer-in-list {
+    margin: 0;
+}
+.do-hw .query {
+    position: relative;
+    top: 4px;
+    background-position: -74px -29px;
+}
+.do-hw .query.active {
+    background-position: -34px -29px;
+}
+.do-hw .exer-in-list .question {
+    width: 750px;
+}
+.do-hw .exer-in-list .option {
+    width: 850px;
+}
+.do-hw .hw-order {
+    margin-top: 30px;
+}
+.hw-order>span {
+    position: relative;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    margin-right: 22px;
+    border: 1px solid #d9d9d9;
+    border-radius: 50%;
+    color: #168bee;
+    background-color: #fff;
+    cursor: default;
+    overflow: hidden;
+}
+.hw-order>span:last-child {
+    margin-right: 0;
+}
+.hw-order>span:hover {
+    background-color: #FCFAFA;
+}
+.hw-order .active {
+    color: #fff;
+    background-color: #168bee;
+}
+.do-hw .hw-order .active:hover {
+    background-color: #1681DC;
+}
+.query_order:before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #fff;
+    content: "?";
+    font-size: 16px;
+    z-index: 10;
+    background-color: #168bee;
+}
+.do-hw .one-hw {
+    margin-bottom: 30px;
+}
+
+
+/**** 学生做题 ****/
+
+/*单选题*/
+.do-hw .exer-list-ul>li {
+    height: 35px;
+}
+.do-hw .exer-in-list .ic-radio {
+    top: 2px;
+}
+
+/*填空题*/
+.do-hw .blank-item {
+    outline: none;
+}
+
+/*完形填空*/
+.do-hw .wan-xing-tk-only .id {
+	margin-top: -1px;
+	margin-right: 15px;
+}
+.do-hw .wan-xing-tk-only .option{
+	width: 130px;
+}
+
+
+/*排序题*/
+.exer-in-list .sortable>li {
+    cursor: default;
+}
+
+/*听力题*/
+.ting-li audio {
+    margin-top: 10px;
+}
+
+/*答题卡*/
+.answer-sheet {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+.answer-sheet .answer-sheet-submit {
+    width: 114px;
+    margin-top: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+

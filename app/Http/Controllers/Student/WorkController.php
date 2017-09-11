@@ -58,8 +58,15 @@ class WorkController extends Controller
                 ]]);
         }
     }
-    public function showWorkList($course = 1){
-     /*   $limit = ($page-1)*10;
+    public function showWorkList($course = 1,$page = 1){
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            return $e;
+        }
+        $limit = ($page-1)*10;
         $user = Auth::guard('student')->user();
         $work_all = Work::where(['student_id' => $user->id,'course_id' => $course])->get();
         $pageLength = intval($work_all->count()/10)+1;
@@ -78,7 +85,7 @@ class WorkController extends Controller
                 'status' => $work->status == Work::STATUS_OPEN ? '开放' : $work->status == Work::STATUS_UNSUB ? '未提交' : '关闭'
                 ));
         }
-        return json_encode($data);*/
+        return json_encode($data);
         /**
          * undocumented constant
          **/
@@ -146,14 +153,14 @@ class WorkController extends Controller
         }
         return view('student.zuoyeben-index', compact('data'));
     }
+
     public function subWork(){
+
         $input = Input::get();
         $user = Auth::guard('student')->user();
         $work = Work::find(intval($input['work_id']));
         $data = $input['data'];
-        //dd($data);
         $code = 200 ;
-        //$work->answer = json_encode($data['data']);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -167,29 +174,23 @@ class WorkController extends Controller
                 $table->integer('work_id');
                 $table->integer('exe_id');
                 $table->text('answer')->nullable();
-                $table->integer('start_time')->nullable();
-                $table->integer('end_time')->nullable();
+                $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
             });
         }
         foreach ($data as $exe_id => $answer) {
-           
             $exercise = Exercises::find($exe_id);
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $db->table($user->id)->insert(['work_id' => $work->id,'exe_id' => $exe_id,'answer' => $answer]);
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = $exercise->hasManyObjective()->first();
-                //dd($objective);
                 $flag = true;
                 $standard = explode(',',$objective->answer);
                 $answer_arr = explode(',',$answer);
-                dd($answer_arr);
                 foreach ($standard as $key => $value) {
-                   // dump($value); dd($answer_arr[$key]);
-                    if($value != $answer_arr[$key]){
-                        //dd($answer[$key]);
-                        $flag = false;
+                    if(!isset($answer_arr[$key]) || $value != $answer_arr[$key]){
+                        $flagflag = false;
                         break;
                     }
                 }
@@ -215,6 +216,7 @@ class WorkController extends Controller
         }catch(\Exception $e){
             return $e;
         }
+        return ;
         $info_list = $db->table($user->id)->where('work_id',$work_id)->get();
         foreach ($info_list as $info) {
             $data['cate'] = '综合得分';
@@ -232,7 +234,9 @@ class WorkController extends Controller
                 $data['subjective']['total'] = isset($data['subjective']['total']) ? $data['subjective']['total'] + $exercise->score/100 : 0 + $exercise->score/100;
             }
         }
-        return json_encode($data);
+        return view('student.danrenzuoye-chengji');
+        //dd($data);
+        //return json_encode($data);
     }
     public function showWorkObjectiveDetail($work_id){
         if(empty($work_id)){
@@ -277,10 +281,9 @@ class WorkController extends Controller
                     'options' => json_decode($objective->option),
                     'answer' => $answers,
                     'score' => $exercise->score/100
-                    ));
-                }
+                ));
             }
-            return json_encode($data);
         }
-        
+        return json_encode($data);
+    }
 }

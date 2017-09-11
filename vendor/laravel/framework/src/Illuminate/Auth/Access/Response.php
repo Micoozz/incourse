@@ -40,4 +40,9 @@ class Response
     {
         return $this->message();
     }
+
+    public function input()
+    {
+        return $this->input;
+    }
 }

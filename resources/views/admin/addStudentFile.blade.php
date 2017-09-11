@@ -17,11 +17,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/duty_arrange.css" />
-    <!--[if lt IE 9]>
-    <script src="../JS/html5shiv.min.js"></script>
-    <script src="../JS/respond.min.js"></script>
-    <script src="../JS/selectivizr.js"></script>
-    <![endif]-->
 </head>
 
 <body>

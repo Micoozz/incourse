@@ -1,0 +1,672 @@
+.blue {
+    color: #168BEE;
+}
+
+body {
+    font-size: 12px;
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    overflow-y: scroll;
+    background: url("../images/Hpb_background.png") no-repeat fixed;
+    background-size: 100% 100%;
+}
+
+.navbar-header {
+    margin-right: 70px;
+}
+
+#header {
+    width: 100%;
+}
+
+#nav {
+    width: 100%;
+    background-color: gray;
+}
+
+.navbar {
+    /*background:url('../images/LOGO.png') no-repeat rgba(255,255,255,0.6) 22% center;*/
+    background-attachment: fixed;
+    border-bottom: 1px solid #eee;
+}
+
+/*框架导航修改*/
+.navbar > div {
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 1219px ) {
+    .navbar > div {
+        width: 98%;
+    }
+}
+
+/* HPB修改 开始 */
+.navbar > div > .indexLogo {
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    margin-left: 30px;
+}
+
+.navbar > div > .indexLogo > b {
+    font-size: 1.2em;
+}
+
+.indexLogo > .schoolLogo {
+    width: 40px;
+    margin-left: 20px;
+}
+
+.schoolMain > div {
+    width: 100%;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 50px;
+    z-index: 100;
+    display: none;
+}
+
+.schoolMain > div > a {
+    display: block;
+    margin: 10px 10px;
+    line-height: 20px;
+    position: relative;
+}
+
+.schoolMain > div > a:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #f76156;
+}
+
+.head_nav > .schoolMain:hover > div {
+    display: block;
+}
+
+/* HPB修改 结束 */
+
+a {
+    color: #333;
+}
+
+.head_nav {
+    float: right;
+    font-size: 1.2em;
+    line-height: 45px;
+    height: 60px;
+    margin-right: 18px;
+}
+
+.head_nav > li > a {
+    padding: 8px 15px;
+}
+
+.navbar .personCenter {
+    font-size: 1.2em;
+    line-height: 60px;
+    margin-right: 30px;
+}
+
+.navbar .personCenter .fa {
+    font-size: 16px;
+}
+
+.navbar .personCenter:hover .p-a {
+    display: block;
+}
+
+.personCenter .big-head {
+    margin-right: 10px;
+}
+
+.personCenter .p-a {
+    top: 42px;
+    left: 47px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.20);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 30;
+}
+
+.personCenter .p-a > li {
+    width: 110px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(255, 255, 255, 0.90);
+}
+
+.personCenter .p-a > li > a {
+    padding-left: 8px;
+    display: block;
+}
+
+.personCenter .p-a > li > a:hover {
+    color: #168bee;
+}
+
+.head_nav li a:hover, .head_nav li a:focus {
+    background-color: transparent;
+}
+
+#header > .navbar {
+    margin-bottom: 0;
+}
+
+/*中间导航栏*/
+.cent_nav {
+    width: 100%;
+    position: relative;
+    /*z-index: 99;*/
+    height: 55px;
+}
+
+.cent_nav > ul {
+    padding: 0;
+    height: 100%;
+    background: #fff;
+}
+
+.cent_nav ul li {
+    float: left;
+    height: 100%;
+    text-align: center;
+    line-height: 56px;
+    font-size: 16px;
+    width: 133px;
+    cursor: pointer;
+}
+.cent_nav ul li>a {
+    display: block;
+}
+.cent_nav ul li>a>span {
+    z-index: 5;
+}
+.cent_nav .class-teacher>i {
+    position: absolute;
+    top: 9px;
+    right: -5px;
+    width: 38px;
+    height: 38px;
+    background-position: -17px -24px;
+}
+
+
+
+
+
+
+
+#nav1 > li > a:hover {
+    background: #F1F1F1;
+    color: #333;
+    width: 100%;
+    display: block;
+    height: 100%;
+}
+
+.nav > li > a:hover {
+    color: #168bee;
+}
+
+.box {
+    color: rgb(255, 255, 255) !important;
+    background: #168bee !important;
+}
+
+.nave a:hover {
+    background: #fff !important;
+    color: red !important;
+}
+
+.nav1 {
+    margin: 0 auto;
+}
+
+.nav1 li {
+    font-size: 18px;
+    height: 54px;
+    text-align: center;
+    line-height: 54px;
+    cursor: pointer;
+}
+
+.bg {
+    background-color: #168AED;
+    color: #fff;
+}
+
+#nav1 li a {
+    padding: 0;
+}
+
+.net {
+    border-bottom: 2px solid #168BEE;
+    color: #168BEE;
+}
+
+.navg li {
+    font-weight: bold;
+}
+
+#center {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.center1 {
+    background-color: #444547;
+    padding: 26px 0;
+}
+
+.center1 div {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.center1 .left-tag {
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.left-tag .fa-angle-left {
+    font-size: 24px;
+    top: -3px;
+    left: 28px;
+}
+
+.center1 .right-tag {
+    margin-top: 4px;
+    padding: 0 7px 0 0;
+    cursor: default;
+}
+
+.center1 .right-tag > img {
+    margin-top: -2px;
+}
+
+.span {
+    width: 100%;
+    margin: 0px auto;
+}
+
+.span ul {
+    width: 108%;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    margin-left: -28px;
+    padding-left: 35px;
+    overflow: hidden;
+}
+
+.span ul li {
+    width: 16%;
+    text-align: center;
+}
+
+.span ul li span {
+    color: #168AED;
+}
+
+#span1 ul {
+    border: 0;
+}
+
+.row > .left div:first-child {
+    background-color: #444547;
+    line-height: 54px;
+    font-size: 16px;
+}
+
+.row > .left {
+    position: relative;
+    height: 60px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.nave li a {
+    display: block;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    font-size: 16px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.nave li:hover {
+    color: red;
+}
+
+.openNotice {
+    width: 15px;
+    height: 15px;
+    background-color: #f76156;
+    position: absolute;
+    border-radius: 10px;
+    top: 13px;
+    line-height: 15px;
+    margin-left: -5px;
+    font-size: 14px;
+}
+
+.nave li img {
+    float: right;
+    margin-right: -10px;
+    margin-top: 26px;
+}
+
+#col {
+    font-size: 18px;
+}
+
+#my-collapse {
+    height: 104px;
+    overflow: hidden;
+    height: 324px;
+    position: relative;
+    z-index: 300;
+}
+
+#centery, #nav1, .next {
+    background-color: #fff;
+}
+
+#centery {
+    /*min-height: 800px;*/
+}
+
+.next {
+    padding: 0;
+}
+
+.nave ul {
+    width: 100%;
+}
+
+.bj {
+    color: #333;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.head_nav li {
+    float: left;
+    cursor: pointer;
+}
+
+/*
+媒体查询
+
+@media only screen and (min-width:767px ) {
+.head_nav li:last-child:hover .cent{
+    display:block;
+}
+}
+@media only screen and (min-width:1024px ) {
+.row>.left,#left{
+width: 20%;
+}
+#centery{
+width: 60%;
+}
+}
+@media  screen and (max-width:1024px){
+#left,#cent_nav{
+    padding: 0;
+}
+.head_nav{
+    width: 68%;
+}
+.next{
+    margin-top: 10px;
+}
+#my-collapse{
+    float: right;
+    padding: 0;
+}
+.nave{
+    width: 85%;
+    margin: 0 auto;
+}
+#cent_nav ul li{
+    font-size:1.2em;
+    height: 54%;
+        margin-left: -17px;
+}
+#cent_nav ul{
+        width: 100%;
+}
+.nav1 li{
+    float: left;
+    font-size:1.3em;
+    margin-left: 3px;
+    height:54px;
+    line-height: 54px;
+    width: 16%;
+}
+.center1 div{
+    font-size: 1em;
+}
+    #col{
+    font-size: 16px;
+}
+    .center1 div:last-child{
+background:#444547;
+}
+.row>.left{
+background:#444547;
+}
+    #cent_nav ul li{
+        position: relative;
+    top: 17px;
+}
+}
+
+@media  screen and (max-width:767px){
+    .nav1 li{
+        margin-left: 0;
+    }
+        .head_nav li img{
+ position: relative;
+ left:20px;
+ top:43px;
+}
+    .navbar,#cent_nav ul,#nav1,.center1,.row>.left{
+        width: 729px;
+    }
+    .head_nav li:last-child{
+            background: url(../images/001_03.jpg) no-repeat 90px 17px;
+    }
+    .span ul li{
+            width: 12%;
+             text-align:left;
+            margin-right: 10px;
+    }
+    .span ul{
+        width: 124%;
+    }
+        .head_nav{
+    font-size:15px;
+    float:right;
+}
+.span ul li,#span1 ul li{
+    float:left;
+}
+        .cent{
+           width: 119px;
+font-size: 1em;
+margin-left: 15px;
+margin-top: -6px;
+}
+.foot{
+    width:100%;
+    margin-left: -14px;
+}
+.next{
+    margin-top: 10px;
+    font-size: 16px;
+}
+#cent_nav ul li{
+        width: 24%;
+        position: relative;
+        font-size: 16px;
+}
+#cent_nav{
+        margin-left: 0%;
+        padding:0;
+}
+.nav1 li{
+    width: 24%;
+}
+#col{
+font-size: 16px;
+}
+.foot{
+background-color: #fff;
+}
+
+.affix{
+margin-top: -43px;
+}
+}
+@media only screen and (min-width:767px ) {
+#my-collapse{
+width:100%!important;
+}
+
+.content{
+position: relative!important;
+top:0!important;
+}
+}
+@media only screen and (max-width: 1039px) {
+#cent_nav ul li{
+    line-height: 20px;
+}
+}
+
+媒体查询
+*/
+/******* 9.21修改，为了适应在屏幕小于1024px下页面整体格局不乱的情况 *********/
+/***** 媒体查询 开始 *******/
+@media only screen and (min-width: 1024px ) {
+    .row > .left, #left {
+        width: 20%;
+    }
+
+    #centery {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #left, .left {
+        width: 194px;
+    }
+
+    #centery {
+        width: 582px;
+    }
+
+    body {
+        width: 1024px;
+    }
+
+    .content .container > .row {
+        width: 970px;
+    }
+}
+
+@media only screen and (max-width: 992px ) {
+    .container {
+        margin-left: 27px;
+        margin-right: 27px;
+    }
+}
+
+/******* 媒体查询 结束 ********/
+
+/*修改框架右侧的通知的颜色*/
+.row > .left > div > a {
+    color: #fff;
+}
+
+.row > .left > div > a:hover {
+    text-decoration: none;
+}
+
+/*9月2号修改*/
+.left > div > a:focus {
+    text-decoration: none;
+}
+
+/*9.6*/
+.next > .nav {
+    max-height: 210px;
+}
+
+.navbar, .schoolMain > div {
+    background: rgba(255, 255, 255, 0.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff);
+    zoom: 1;
+}
+
+/*9.7*/
+.head_nav > .schoolMain > div > a:hover {
+    color: #168bee;
+}
+
+/******** 9.13 **********/
+.indexLogo {
+    cursor: default;
+}
+
+.topic {
+    border-bottom: 2px solid #168BEE;
+    color: #168BEE;
+    cursor: pointer;
+}
+
+/* CSS Reset */
+ul, ol {
+     list-style: none;
+     padding: 0;
+}
+
+a:hover {
+    color: #168bee;
+}
+
+label {
+    font-weight: normal;
+}
+
+input[type="radio"],
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+}
+
+button {
+    cursor: default;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}

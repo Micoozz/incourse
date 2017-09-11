@@ -1,0 +1,22 @@
+.waitBoxs .activity input{
+	width: 35%;
+}
+.waitBoxs .activity input:nth-of-type(1){
+	margin-right: 51px;
+}
+.waitBoxs .activity i{
+	margin-top: 7px;
+    margin-left: -22px;
+}
+.lhgcal{
+	    top: 250px;
+    left: 55%;
+}
+.info-form .upload{
+	display: inline-block;
+	margin-left: 60px;
+	position: relative;
+	}
+.end{
+	    position: absolute;
+}

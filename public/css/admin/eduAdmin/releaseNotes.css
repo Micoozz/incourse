@@ -1,0 +1,50 @@
+.waitBoxs{
+	padding-top: 100px;
+}
+.waitBoxs label,.waitBoxs div{
+	display: block;
+	margin-bottom: 20px;
+	
+}
+.waitBoxs label input,.waitBoxs div input,.waitBoxs label textarea{
+    padding: 5px;
+    width: 90%;
+    border: 1px solid #eee;
+    border-radius: 4px;	
+}
+.waitBoxs label input,.waitBoxs div input{
+	height: 28px;
+}
+.waitBoxs label textarea{
+	min-height: 100px;
+	margin-left: 51px;
+}
+.waitBoxs label #file{
+    border: none;
+    position: absolute;
+    z-index: 102;
+    margin-top: -29px;
+    margin-left: 55px;
+    overflow: hidden;
+    width: 70px;
+    opacity: 0;
+}
+.waitBoxs label span{
+    z-index: 101;
+    position: relative;
+    background-color: #fff;
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    line-height: 25px;
+    padding: 0 7px;
+}
+.submit{
+    text-align: center;
+}
+.submit>button{
+	margin-left: 20px;
+}
+

@@ -61,9 +61,7 @@ class Kernel implements KernelContract
      *
      * @var array
      */
-    protected $routeMiddleware = [
-        
-    ];
+    protected $routeMiddleware = [];
 
     /**
      * The priority-sorted list of middleware.
@@ -126,7 +124,9 @@ class Kernel implements KernelContract
             $response = $this->renderException($request, $e);
         }
 
-        event(new Events\RequestHandled($request, $response));
+        $this->app['events']->dispatch(
+            new Events\RequestHandled($request, $response)
+        );
 
         return $response;
     }

@@ -1,0 +1,235 @@
+/******** syllabus.html ********/
+/*筛选框*/
+.syllabus .search-box {
+	padding: 15px;
+	border-radius: 4px;
+}
+.syllabus .search-box .title {
+	width: 55px;
+	height: 25px;
+	line-height: 25px;
+}
+.syllabus .search-box .options {
+	width: 400px;
+}
+.syllabus .search-box .options li{
+	float: left;
+	padding: 0 8px;
+	height: 25px;
+	line-height: 25px;
+	margin-left: 10px;
+	text-align: center;
+	cursor: default;
+}
+.syllabus .active {
+	color: #168bee;
+	border-radius: 2px;
+	background-color: #E0EEFF;
+}
+.syllabus .btns {
+	margin-top: 0;
+}
+.syllabus .btns .ic-btn {
+    margin-right: 8px;
+}
+
+/*课程表列表*/
+.admin-list {
+	width: 100%;
+	text-align: center;
+	margin-top: 21px;
+	margin-bottom: 10px;
+}
+.admin-list th {
+	text-align: center;
+	background-color: #F1F1F1;
+}
+.admin-list th, .admin-list td {
+	height: 36px;
+}
+.admin-list td {
+	border-top: 1px solid #D9D9D9;
+}
+.admin-list tr th:last-child, .admin-list tr td:last-child {
+	width: 140px;
+	text-align: left;
+}
+.admin-list .ic-blue {
+	color: #168bee;
+}
+.admin-list .ic-blue>i {
+	margin-right: 15px;
+}
+
+
+
+/********* classStuManage.html ********/
+.classStuManage-only .search-box .options {
+	margin-bottom: 0;
+}
+.classStuManage-only .ic-icon {
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	overflow: hidden;
+	background: url(../../../images/eduAdmin.png) no-repeat;
+}
+.classStuManage-only .redflag-l {
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	background-position: -29px -25px;
+}
+.classStuManage-only .redflag-s {
+	top: 4px;
+	background-position: -28px -42px;
+}
+.classStuManage-only .admin-list tr th:last-child,.classStuManage-only .admin-list tr td:last-child {
+	width: 72px;
+}
+.classStuManage-only .tip {
+	padding-left: 20px;
+}
+.classStuManage-only .redflag-class {
+	margin-right: 15px;
+}
+
+
+/********* appearDiscipline.html *******/
+.appDis-nav {
+	margin-top: -10px;
+}
+.appDis-nav>span {
+	padding-bottom: 10px;
+	margin-right: 25px;
+	font-size: 14px;
+	cursor: default;
+	border-bottom: 2px solid transparent;
+}
+.appDis-nav .current {
+	color: #168bee;
+	border-bottom-color: #168bee;
+}
+.appearDiscipline-only .record-box {
+	margin-top: 40px;
+}
+.table {
+	margin-top: 20px;
+	border-radius: 4px;
+}
+.table ul{
+	width: 100%;
+	margin-bottom: 0;
+	border-top: 1px solid #d9d9d9;
+}
+.table ul>li {
+	float: left;
+	width: 16.6%;
+	line-height: 30px;
+	text-align: center;
+}
+.table .th {
+	font-weight: bold;
+	border-top: none;
+}
+.table .fa {
+	margin-right: 3px;
+}
+.appearDiscipline-only .record-detail {
+	width: 100%;
+	background-color: #F7F7F7;
+}
+.appearDiscipline-only .record-detail td {
+	padding: 6px;
+	border: 1px solid #E7E7E7;
+}
+.appearDiscipline-only .record-detail tr:last-child td {
+	border-bottom: none;
+	border-right: none;
+}
+.appearDiscipline-only .record-detail tr td:first-child {
+	width: 17%;
+	font-weight: bold;
+	text-align: center;
+	border-left: none;
+}
+.appearDiscipline-only .record-detail span {
+	margin-left: 15px;
+}
+.addRecord {
+	width: 84px;
+	height: 28px;
+	border-radius: 4px;
+	color: #fff;
+}
+.addRecord img {
+	width: 15px;
+	position: relative;
+	top: -1px;
+}
+.discipline-table>ul>li:last-child {
+	width: 66.8%;
+	text-align: left;
+	padding-left: 40px;
+}
+
+/*"新增纪律记录"弹出框*/
+.addDisciplineRecord {
+	width: 702px;
+	height: 358px;
+	padding: 28px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 500;
+	margin-top: -179px;
+	margin-left: -351px;
+	background-color: #fff;
+	border-radius: 4px;
+}
+.addDisciplineRecord .title {
+	font-size: 16px;
+	margin-bottom: 46px;
+}
+.addDisciplineRecord .ic-close {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	background-position: -11px -8px;
+}
+.addDisciplineRecord .content {
+	margin-top: 90px;
+	border-radius: 4px;
+}
+.addDisciplineRecord .content>li {
+	padding: 7px;
+	border-bottom: 1px solid #d9d9d9;
+}
+.addDisciplineRecord .content>li:last-child {
+	border-bottom: none;
+}
+.addDisciplineRecord .content span {
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+}
+.addDisciplineRecord .content .ic-input {
+	width: 520px;
+}
+.addDisciplineRecord>.ic-btn {
+	margin: 30px auto 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,194 +1,269 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport"  content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>InCourse</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/sCSS/homework.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/sCSS/homework-2.css"/>
-    <link rel="stylesheet" href="/css/sCSS/classActivity.css">
-    <link rel="stylesheet" type="text/css" href="/css/sCSS/homework-style.css"/>
-    <link rel="stylesheet" href="/css/incourseReset.css">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <script src="js/selectivizr.js"></script>
-    <![endif]-->
-
-
-</head>
-<body>
-<div class="navbar">
-    @include('student.include.head')
-</div>
-<div class="content">
-    <div class="container">
-        @include('student.include.top_navbar')
-    </div>
-    <div id="center">
-        <div class="container">
-            <div class="row">
-                <!--左侧栏-->
-                <div class="col-xs-12" id="left">
-                    @include('student.include.left_navbar')
-                </div>
-                <!--内容-->
-               @if($mod == 1)
-                    @if($func == 1)
-                        @include('student.content.exercisebook')
-                    @elseif($func == null)
-                        @include('student.content.homework')
-                    @endif
-
-               @elseif($mod == 2)
-               @endif
-                <!--右侧栏-->
-                <div class="col-xs-12 left">
-                    @include('student.include.right_notice')
-                </div>
-                <div class="chatRoom">
-                    <ul class="nav">
-                        <li class="row">
-                            <div class="chatRoom1 col-md-12">
-                                <a href="#" class="col-md-1" style="width: 4%;padding: 0;color: #fff!important;">小明</a>
-                                <a href="javascript;" class="col-md-1"><img src="/images/bo.png"/></a>
-                                <span class="col-md-1" style="text-align: right;cursor: pointer;float: right;">X</span>
-                            </div>
-                            <div class="chatRoom2 col-md-12"></div>
-                            <div class="chatRoom3 col-md-12">
-                                <div class="chatRoom3_a">
-                                    <img src="/images/index1.jpg" title="表情"/>
-                                    <img src="/images/index2.jpg" title="图片"/>
-                                    <img src="/images/index3.jpg" title="剪裁"/>
-                                    <img src="/images/folder.png" title="上传附件"/>
-                                    <span>聊天记录</span>
-                                </div>
-                                <div class="chatRoom3_b" contenteditable="true"></div>
-                                <div class="btn-msg-send">
-                                    <a title="也可点击发送">Ctrl+Enter发送</a>
-                                    <img src="/images/index5.jpg">
-                                </div>
-                                <div class="chatRoom3_c">
-                                    <span>Enter发送</span>
-                                    <span class="spann">Ctrl+Enter发送</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="Bomb">
-    <div>
-        <div>学习预警</div>
-    </div>
-    <div class="f_close">
-        <img class="pointer" src="/images/homework/subject/close.png"/>
-    </div>
-    <div class="Bomb_1">
-        <ol>
-            <li>
-                <a href="#">5月27日的语文课后作业中，古诗文填空部分正确率较低。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">5月30日的英语课后作业中，有较多的语法单选题出现较大问题，请细心一点。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">6月1日的语文课后作业中，作文题目分数较低，请加强日常积累。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">6月2日的数学课后作业中，有较多的选择题正确率较低，请注意巩固基本知识点。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">6月3日的物理课后作业中，有较多的题目花费时间较长，请加强计算能力。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">6月6日的政治课后作业中，有较多的题目得分较低，请注意培养答题思路。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">6月9日的数学课后作业中，有较多的题目花费时间较长，可能基础知识掌握不牢固。</a>
-                <span>查看</span>
-            </li>
-            <li>
-                <a href="#">7月4日的语文课后作业中，有较多的题目出现较大问题，需要巩固相关内容知识点。</a>
-                <span>查看</span>
-            </li>
-        </ol>
-    </div>
-    <ul>
-        <li class="fi"></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div>
-<!--学习警示内容只有在当日作业错误过多时候会出现 进行提示-->
-<div class="opca"></div>
-<div class='Bomb1'>
-    <div>
-        <div>
-            学习预警
-            <img src="/images/Cj_17.jpg">
-        </div>
-    </div>
-    <div class="Bomb_1">
-        <h4>报告内容</h4>
-        <ul>
-            <li>耗时约3h(全班约2h)</li>
-            <li>本次分数为70分(全班约90分)</li>
-            <li>错误率竟达到50%</li>
-            <li>对比上次作业情况</li>
-        </ul>
-    </div>
-    <div class="Bomb_1 Bomb_2">
-        <h4>解决方案</h4>
-        <ul>
-            <li>本次作业所涉及的知识点掌握的不够牢固，请尽快查明原因</li>
-            <li>根据历史分数情况判断，作业完成质量正在下滑，请及时与老师沟通</li>
-        </ul>
-    </div>
-    <div>
-        <a href="/today_homework">查看当前作业</a>
-        <a href="/system-push" target="_blank">查看系统推送题</a>
-    </div>
-</div>
-<div id="footf"></div>
-<div id="footer"></div>
-<div id="f-modal"></div>
-<div class="not-open-tips">
-    <div class="engage-status-icon good-circle text-center">
-        <img src="/images/homework/homework-group/!.png" alt=""/>
-    </div>
-    <span class="engage-success-text">暂未开放！</span>
-</div>
-<!--<script type="text/javascript">
-	$(function(){
-		$(".circle-value5").each(function(i){
-			var tex;
-			tex =  $(".circle-value5").eq(i).text();
-			if( tex == "关闭"){
-				$(".homework-type-link").eq(i).css("cursor","not-allowed").attr("href","javascript:0;");
+	<head>
+		<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/incourseReset.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/index.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/fileCss/foundClass.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/fileCss/studentFile.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/student/questionTypes.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/fileCss/communal.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/student/errorReports.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/exercise.css') }}" />
+		<!--圆形进度条-->
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/progressBar.css') }}" />
+		<title>InCourse</title>
+		<style>
+			.accout {
+				padding-top: 100px;
 			}
-		})
-	})
-</script>-->
+			.atitle>p{
+				font-size: 16px;
+				margin-bottom: 35px;
+			}
+			.atitle>button{
+				margin-left: 45%;
+			}
 
-<script src="/js/jquery-1.12.4.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script src="/js/sJS/classActivity.js"></script>
-<script src="/js/sJS/hover.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script type="text/javascript" src="js/sJS/zuoyenbenneirongliebiao.js"></script> -->
-</body>
+			.consuming {
+				text-align: center;
+			}
+			
+			.consuming>div {
+				margin-top: 20px;
+			}
+			
+			.consuming>div>span:last-child {
+				margin-left: 30px;
+			}
+			
+			.error-answer {
+				margin-top: 40px;
+			}
+			
+			.error-answer>ul>li {
+				float: left;
+				background: #3DBD7D;
+				font-family: PingFangSC-Regular;
+				font-size: 14px;
+				color: #FFFFFF;
+				letter-spacing: 0;
+				width: 32px;
+				height: 32px;
+				margin-right: 32px;
+				text-align: center;
+				line-height: 32px;
+				border-radius: 16px;
+			}
+
+			.error-answer>ul>.bj-img1{
+				background: url('{{ asset('images/wei.png')  }}') no-repeat #168bee;
+				background-size: 100% 100%;
+			}
+
+			.error-answer>ul>.bj-img2{
+				background: url('{{ asset('images/pi.png')  }}') no-repeat #3DBD7D;
+				background-size: 100% 100%;
+			}
+
+			.error-answer>ul>.bj-ff5 {
+				background-color: #FF5B5B;
+			}
+			
+			.submits {
+				margin-top: 40px;
+				text-align: center;
+			}
+			
+			.submits button {
+				margin-right: 10px;
+			}
+			
+			.atitle {
+				border-bottom: 1px solid #eee;
+			}
+			
+			.option .box_hpb {
+				height: 144px;
+			}
+			
+			.appear {
+				margin-top: 20px;
+				display: none;
+			}
+			.answer-ka{
+				color: #168BEE;
+				border-bottom: 1px solid #eee;
+				padding: 20px 0 10px 0;
+				margin-bottom: 20px;
+				text-indent: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 顶部导航 -->
+		<div class="question navbar">@include('student.template.pupilHead')</div>
+
+		<!--创建班级-->
+		<div class="found_class question-found_class">@include('student.template.workChoice')</div>
+
+		<div class="content">
+			<div id="center">
+				<div class="container">
+					<div class="row">
+						<!--左侧栏-->
+						<div class="col-xs-12 pupilleft" id="left">@include('student.template.pupilLeft')</div>
+						<!--内容-->
+						@if($mod == 1)
+							@if($func == 1)
+								@include('student.content.workList')
+							@elseif($func == 2)
+								@include('student.content.routineWork')	
+							@elseif($func == 3)
+								@include('student.content.workScore')
+							@elseif($func == 4)
+								@include('student.content.errorReports')
+							@elseif($func == 5)
+								@include('student.content.errorParsing')			
+							@endif
+						@endif	
+						<!--右侧栏-->
+						<div class="col-xs-12 left">@include('student.template.right_notice')</div>
+						<!-- 聊天窗口 -->
+						<div class="chatRoom"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="{{ asset('js/jquery-1.12.4.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/student/fileSelectionone.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
+		<script>
+			var token = "{{csrf_token()}}";
+			//console.log(token)
+			$(function() {
+				setTimeout(function() {
+					/*$('.question-found_class li').removeClass('first');
+					$('.question-found_class li:nth-of-type(1) sup').hide();
+					$('.question-found_class li:nth-of-type(2)').addClass('first');*/
+
+					//圆形进度条
+					var accuracy = "{{ isset($data['accuracy']) ? $data['accuracy'] * 100 : '' }}"
+					var percentum = accuracy; //正确率百分比
+					var percentums = percentum * 6.29 //进度条百分比
+					if(accuracy.length>3){
+						$('.progressbar>li:nth-of-type(2)').css('left','80px')
+					}else{
+						$('.progressbar>li:nth-of-type(2)').css('left','127px')
+					}
+					$(function() {
+						$('.progressbar>li').find('svg:last-child').find('path').attr('stroke-dashoffset', percentums)
+						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
+					})
+				}, 10)
+
+				//举报
+				$('body').click(function() {
+					$('.report').removeClass('red')
+					$('.reprot-a').hide()
+				})
+				$('body').on('click', '.report', function() {
+					$(this).addClass('red')
+					$('.reprot-a').show()
+					return false
+				});
+				$('.bad-information li').click(function() {
+					if($(this).find('i').attr('class') != 'fa fa-dot-circle-o blue') {
+						$(this).find('i').attr('class', 'fa fa-dot-circle-o blue')
+					} else {
+						$(this).find('i').attr('class', 'fa fa-circle-o')
+					}
+
+				})
+				$('.bad-information li:last-child').prev().click(function() {
+					if($(this).find('i').attr('class') == 'fa fa-circle-o') {
+						$(this).next().hide()
+					} else {
+						$(this).next().show()
+					}
+				});
+				$('.reprot-a>span:last-child').click(function() {
+					$('.bad-information').show()
+					$('.shad').height(window.innerHeight).show()
+				});
+				$('.shad,.bad-information button').click(function() {
+					$('.bad-information,.shad').hide();
+				});
+
+				//举报提交
+				$('.bad-information button').click(function() {
+
+				})
+
+				//上传文件
+				$('#file').change(function() {
+					input = $(this)[0];
+					if(!input['value'].match(/.jpg|.gif|.png|.bmp/i)) { //判断上传文件格式
+						return alert("上传的图片格式不正确，请重新选择");
+					}
+					var reader = new FileReader();
+					reader.readAsDataURL(this.files[0]);
+					reader.onload = function(e) {
+						$('.imgse').append('<img src="' + this.result + '" style="width:70px";height:70px/>')
+					};
+				});
+
+				//评论
+				$('.comment>input').focus(function() {
+					$('.appear').show();
+				});
+
+				$('.comment>input').blur(function() {
+					$('.appear').hide();
+				});
+
+				//提交评论
+				$('.appear').click(function() {
+
+				})
+			})
+			var user_answer = "{{ isset($data['exercises'][0]['answer'][0]['user_answer']['answer']) ? implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) : '' }}";
+			var exercise_id = "{{ isset($data['exercises'][0]['id']) ? $data['exercises'][0]['id'] : '' }}";
+	        var exercise_length = $('.question_hpb').children('li').length;
+	        var answer = [{
+            "left": 1,
+            "right": 2
+        	},
+            {
+                "left": 2,
+                "right": 1
+            },
+            {
+                "left": 3,
+                "right": 4
+            },
+            {
+                "left": 4,
+                "right": 3
+            },
+        ];
+
+        //同类行 题型
+        /*$('#tutorship').on('click',function(){
+        	var data;
+        	var tutorship = $(this).attr('data-id');
+        	data = {"data":tutorship,"_token":token};
+        	console.log(data);
+        	$.post("/doHomework",data,function(data){
+        			$("html").html(data);
+        	});
+        });*/
+
+		</script>
+	</body>
+
 </html>

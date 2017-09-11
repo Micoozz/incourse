@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>InCourse</title>
-		<link rel="stylesheet" href="css/index_one.css" />
+		<link rel="stylesheet" href="/css/index_one.css" />
 
 		<!--[if lt IE 9]>
 		<script src="js/html5shiv.min.js"></script>
@@ -17,8 +17,8 @@
 		<header>
 			<div class="header">
 				<div>
-					<img src="images/Cj_iconfont-jiaoyu.png" />
-					<img src="images/Cj_InCourse1.png" />
+					<img src="/images/Cj_iconfont-jiaoyu.png" />
+					<img src="/images/Cj_InCourse1.png" />
 				</div>
 			</div>
 		</header>
@@ -29,12 +29,12 @@
 					<div class="label">
 						<div>
 							<span><img src="images/Cj_ures.png" alt="" /></span>
-							<input type="text" placeholder="学号/手机号"/>
+							<input type="text" placeholder="帐号/邮箱"/>
 						</div>
 						<div>
-							<span><img src="images/Cj_lock.png" alt="" /></span>
+							<span><img src="/images/Cj_lock.png" alt="" /></span>
 							<input type="password" placeholder="请输入密码" class="login-password"/>
-							<img src="images/Cj_password.png" alt="" title="显示密码" onclick="return false"/>
+							<img src="/images/Cj_password.png" alt="" title="显示密码" onclick="return false"/>
 						</div>
 						<div>验证码：<input type="text" name="" id="yzm" value="" /></div>
 						<div  class="clear"></div>
@@ -61,8 +61,8 @@
 			<div class="footer">
 				<div class="foot">
 					<div class="foot_left">
-						<img src="images/Cj_iconfont-jiaoyu2.png" alt="" />
-						<img src="images/Cj_InCourse.png" alt="" />
+						<img src="/images/Cj_iconfont-jiaoyu2.png" alt="" />
+						<img src="/images/Cj_InCourse.png" alt="" />
 						<div>
 							InCourse是我国唯一一家，教学营销功能最全，用户体验最好，性价比最高的互联网教育产品，是你实现    "互联网+教育" 转型，进军在线教育市场的最佳选择。
 						</div>
@@ -82,7 +82,8 @@
 			</div>
 		</footer>
 		<script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
-		<script type="text/javascript" src="js/placeholder.js"></script>
+		<!-- <script type="text/javascript" src="js/placeholder.js"></script> -->
+
 		<script>
 			$(function(){
 				$('.label>div:nth-of-type(2)>img').click(function(){
@@ -94,8 +95,6 @@
 				});
 		localStorage.clear()
 			})
-
-
 //	ajax请求
 $(function(){
 	var numbers=null;
@@ -114,25 +113,23 @@ $(function(){
 			
 			
 		}else{
-				$.ajax({
-			type:"post",
-			url:"/login",
-			data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
-			dataType:'json',
-			success:function(data){
-				// console.log(data);
-				if(data.code==200){
-					// console.log('登录成功');
-					window.location.href = '/media';
-				}else{
-					console.log('登录失败')
+			$.ajax({
+				type:"post",
+				url:"/login",
+				data:{'name':name,'passwords':passwords,"number":numbers,'_token':'{{csrf_token()}}'},
+				dataType:'json',
+				success:function(data){
+					if(data.code==200){
+						// console.log('登录成功');
+						window.location.href = '/adminArchives';
+					}else{
+						console.log('登录失败')
+					}
 				}
-			}
-				});
+			});
 		}	
 	})
 })
-		</script>
+	</script>
 	</body>
-
 </html>
