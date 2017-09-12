@@ -82,8 +82,9 @@ class LearningCenterController extends Controller
         $courseFirst = Course::where(['id' => isset($course) ? $course : 1])->get()->toArray();
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
         $date = strtotime(date('Ymd'));
-        $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<',$date)->get(['id'])->toArray(),'id');
-	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);
+        $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<',$date)->get(['id'])->toArray(),'id');//大于当前时间且小于截至时间的id
+	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
+	    //dd($data);
 	    $count = count($data);
 		$baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -92,11 +93,9 @@ class LearningCenterController extends Controller
         }catch(\Exception $e){
             return $e;
         }
-        //dd($data->toarray()['data']);
-        //判断这个学生有没有做过作业
-        $work_id = array_column($data->toarray()['data'], 'id');
+        //判断这个学生有没有做过作业 //有做过作业显示引导页
+        $work_id = array_column($data->toarray()['data'], 'id');//这里要是没有学生写作业怎么办就会报错
         $workCount = $db->table($user->id)->select('work_id')->whereIn('work_id',$work_id)->get()->toArray();
-        //dd($workCount);
          
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type',1)->get();
