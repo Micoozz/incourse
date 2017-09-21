@@ -20,6 +20,7 @@ class LoginController extends Controller
                 $school->title = $school_name;
                 $school->type = $school_type;
                 $school->username = rand(100000000,999999999);
+                $school->password = bcrypt(123456);
                 $school->save();
             }catch(\Illuminate\Database\QueryException $e){
                 if($e->errorInfo[0] != 23000 || $e->errorInfo[1] != 1062){
@@ -92,6 +93,7 @@ class LoginController extends Controller
                     $user = new Student;
                     $user->name = $user_info->realname;
                     $user->username = json_decode($input["json"])->userName;
+                    $user->password = bcrypt(123456);
                     $user->school_id = $school->id;
                     $user->class_id = $class->id;
                     $user->save();

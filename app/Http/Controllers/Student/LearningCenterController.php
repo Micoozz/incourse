@@ -139,6 +139,7 @@ class LearningCenterController extends Controller
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
 		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
+		    	// dd($data);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
 					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
