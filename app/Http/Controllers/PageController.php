@@ -11,7 +11,7 @@ class PageController extends Controller
     //页面跳转控制器
     public function index(){
         if(Auth::guard("student")->user()){
-            return Redirect::to("/media");
+            return Redirect::to("/learningCenter");
         }
     	return view('index');
     }
