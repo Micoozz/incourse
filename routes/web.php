@@ -11,6 +11,7 @@
 |
 */
 // Route::get('/test','Teacher\LearningCenterController@test');
+Route::post('/getScantronIdList','Controller@getScantronIdList');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
@@ -44,12 +45,12 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPassEmployee/{id}','Admin\ArchivesController@resetPassEmployee');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
-		Route::get('/learningCenters/{class_id?}/{course_id?}','LearningCenterController@learningCenter');
-		Route::get('/homeworkManage/{class_id?}/{course_id?}','LearningCenterController@homeworkManage');
-		Route::get('/addHomework/{class_id?}/{course_id?}','LearningCenterController@addHomework');
-		Route::get('/addHomework-personal/{class_id?}/{course_id?}','LearningCenterController@addHomeworkPer');
-		Route::get('/exercise/{class_id?}/{course_id?}','LearningCenterController@exercise');
-		Route::get('/uploadExercise/{class_id?}/{course_id?}','LearningCenterController@uploadExercise');
+		Route::get('/teachingCenter/{class_id?}/{course_id?}','TeachingCenterController@teachingCenter');
+		Route::get('/homeworkManage/{class_id?}/{course_id?}','TeachingCenterController@homeworkManage');
+		Route::get('/addHomework/{class_id?}/{course_id?}','TeachingCenterController@addHomework');
+		Route::get('/addHomework-personal/{class_id?}/{course_id?}','TeachingCenterController@addHomeworkPer');
+		Route::get('/exercise/{class_id?}/{course_id?}','TeachingCenterController@exercise');
+		Route::get('/uploadExercise/{class_id?}/{course_id?}','TeachingCenterController@uploadExercise');
 		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		//档案管理员
 		Route::get('/fileManager/{mod?}/{func?}/{parameter?}/{student?}','FileManagerController@fileManager');

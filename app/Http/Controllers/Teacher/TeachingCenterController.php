@@ -20,7 +20,7 @@ use App\Models\TeacherExerciseChapterCategroyMap;
 use Input;
 use App\Models\Student;
 
-class LearningCenterController extends TeacherController
+class TeachingCenterController extends TeacherController
 {
     //学习中心controller
     const MOD_HOMEWORK = 'homework';
@@ -45,7 +45,7 @@ class LearningCenterController extends TeacherController
      * 学习中心主体页面
      */
     private function getClassCourse($teacher_id){
-        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据 
         $class_course = array();
         foreach ($map_list as $map) {
             $class = Classs::find($map->class_id);
@@ -55,8 +55,8 @@ class LearningCenterController extends TeacherController
         }
         return $class_course;
     }
-    public function learningCenter($class_id = null,$course_id = null){
-        $port = "learningCenter";
+    public function teachingCenter($class_id = null,$course_id = null){
+        $port = "teachingCenter";
         return $this->addHomework($class_id,$course_id,$port);
     }
     public function homeworkManage($class_id = null,$course_id = null){
@@ -66,7 +66,7 @@ class LearningCenterController extends TeacherController
     public function addHomework($class_id = null,$course_id = null,$port = null){
         $title = "添加作业";
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
+        $class_course = $this->getClassCourse($teacher->id); 
         $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
         if(empty($class_id)){
             $class_id = $map->class_id;
@@ -102,6 +102,7 @@ class LearningCenterController extends TeacherController
         $categroy_list = parent::getCategroy($course_id);
         return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port'));
     }
+
     public function exercise($class_id,$course_id){
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();

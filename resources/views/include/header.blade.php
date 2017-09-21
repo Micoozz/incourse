@@ -20,7 +20,7 @@
                     <a href="javascript:;">@与我相关</a>
                 </div>
             </li>
-            <li><a href="/learningCenter/{{$class_id}}/{{$course_id}}" class="blue">学习中心</a></li>
+            <li><a href="/teachingCenter/{{$class_id}}/{{$course_id}}" class="blue">学习中心</a></li>
             <li><a href="javascript:;">班级中心</a></li>
         </ul>
     </div>

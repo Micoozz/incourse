@@ -19,10 +19,17 @@ use Session;
 use Cookie;
 use App\Models\Chapter;
 use PDO;
+use App\Models\Classes;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function getScantronIdList(){
+        $input = Input::get();
+        $class = Classes::where("receiver_id",$input["receiver_id"])->first();
+        $scantron_id_list = Student::where("class_id",$class->id)->pluck("scantron_id");
+        return json_encode($scantron_id_list);
+    }
 
     public function getCourse(){
     	$course_list = Course::all();
@@ -116,7 +123,6 @@ class Controller extends BaseController
     //发送邮件
     public function emailSend(){
         $input = Input::get();
-        //dd()
         if ($user = Auth::guard('school')->user()) {
             $name = $input['data']['schoolName'];//这里填写学校名称
             $email = 'http://localhost/adminArchives/manager-archives/manager-navigstion/'.$input['data']['email'];

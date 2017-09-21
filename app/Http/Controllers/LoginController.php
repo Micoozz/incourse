@@ -13,7 +13,6 @@ use App\Models\Classs;
 class LoginController extends Controller
 {
     //登录逻辑Controller
-
     public function createSchool($pf_school_id,$school_name,$school_type){
         try{
                 $school = new School;
@@ -52,35 +51,42 @@ class LoginController extends Controller
             $preg = "/\=(\{.+?\})\&/";
             preg_match_all($preg,$user_info,$user_info);
             $user_info = json_decode($user_info[1][0]);
+            $school = School::where("pf_school_id",$user_info->schoolId)->first();
+            if(empty($school)){
+                $school = self::createSchool($user_info->schoolId,$user_info->schoolName,$user_info->schoolType);
+            }
+            $class = Classs::where("pf_class_id",$user_info->classId)->first();
+            if(empty($class)){
+                $grade = Classs::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
+                if(empty($grade)){
+                    $grade = new Classs;
+                    $grade->title = $user_info->classYear;
+                    $grade->school_id = $school->id;
+                    $grade->save();
+                }
+                $flag = strpos($user_info->className,"级");
+                if($flag){
+                    $class_title = explode("级", $user_info->className);
+                }else{
+                    $class_title = explode("年", $user_info->className);
+                }
+                $class = new Classs;
+                $class->parent_id = $grade->id;
+                $class->school_id = $school->id;
+                $class->title = $class_title[1];
+                $class->pf_class_id = $user_info->classId;
+                $class->save();
+            }
             if($user_info->userType == 1){
-                dd(11);
+                $user = Employee::where("pf_teacher_id",$user_info->userID)->first();
+                if(empty($user)){
+                    $user = new Employee;
+                    $user->name = $user_info->realname;
+                    $user->username = json_decode($input["json"])->userName;
+                    $user->school_id = $school->id;
+                    $user->save();
+                }
             }elseif($user_info->userType == 2){
-                $school = School::where("pf_school_id",$user_info->schoolId)->first();
-                if(empty($school)){
-                    $school = self::createSchool($user_info->schoolId,$user_info->schoolName,$user_info->schoolType);
-                }
-                $class = Classs::where("pf_class_id",$user_info->classId)->first();
-                if(empty($class)){
-                    $grade = Classs::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
-                    if(empty($grade)){
-                        $grade = new Classs;
-                        $grade->title = $user_info->classYear;
-                        $grade->school_id = $school->id;
-                        $grade->save();
-                    }
-                    $flag = strpos($user_info->className,"级");
-                    if($flag){
-                        $class_title = explode("级", $user_info->className);
-                    }else{
-                        $class_title = explode("年", $user_info->className);
-                    }
-                    $class = new Classs;
-                    $class->parent_id = $grade->id;
-                    $class->school_id = $school->id;
-                    $class->title = $class_title[1];
-                    $class->pf_class_id = $user_info->classId;
-                    $class->save();
-                }
                 $user = Student::where("pf_student_id",$user_info->userID)->first();
                 if(empty($user)){
                     $user = new Student;
