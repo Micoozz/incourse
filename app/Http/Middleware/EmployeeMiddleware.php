@@ -19,6 +19,6 @@ class EmployeeMiddleware
         if(Auth::guard('employee')->check()){
             return $next($request);
         }
-        return redirect('/learningCenter');///media
+        return redirect('/teachingCenter');///media
     }
 }

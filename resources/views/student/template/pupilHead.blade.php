@@ -1,8 +1,8 @@
 <div>
 	<div class="indexLogo">
 		<img src="{{ asset('images/LOGO.png') }}"/>
-		<img src="{{ asset('images/Hpb_schoolLogo.png') }}" class="schoolLogo"/>
-		<b>湖南工程学院</b>
+		<!-- <img src="{{ asset('images/Hpb_schoolLogo.png') }}" class="schoolLogo"/>
+		<b>湖南工程学院</b> -->
 	</div>
 	<div class="f-r p-r personCenter">
 		<img class="big-head" src="{{ asset('images/01.png') }}" alt="头像" />
@@ -17,7 +17,7 @@
 	</div>
 	<ul class="nav head_nav">
 		<li class="schoolMain">
-			<a href="/media">学校首页</a>
+			<a href="javascript:;">学校首页</a>
 			<div>
 				<a href="javascript:;">@与我相关</a>
 			</div>

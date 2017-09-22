@@ -83,6 +83,7 @@ class LearningCenterController extends Controller
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
         $date = strtotime(date('Ymd'));//大于当前时间且小于截至时间的id
         $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<',$date)->get(['id'])->toArray(),'id');
+<<<<<<< HEAD
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
 		$baseNum = (int)($user->id/1000-0.0001)+1;
@@ -95,6 +96,23 @@ class LearningCenterController extends Controller
         //判断这个学生有没有做过作业,有做过作业显示引导页
         $work_id = array_column(Work::where(['student_id' => $user->id,])->get()->toarray(), 'id');//这里要是没有学生写作业怎么办就会报错
         $workCount = $db->table($user->id)->select('work_id')->whereIn('work_id',$work_id)->get()->toArray();
+=======
+	    $data = Work::where(['student_id' => $user->id,'status' => 0])->whereIn('job_id',$job_list)->paginate(5);
+	    $count = count($data);
+		// $baseNum = (int)($user->id/1000-0.0001)+1;
+  //       $db_name = 'mysql_stu_work_info_'.$baseNum;
+  //       try{
+  //           $db = DB::connection($db_name);
+  //       }catch(\Exception $e){
+  //           return $e;
+  //       }
+        //dd($data->toarray()['data']);
+        //判断这个学生有没有做过作业
+        // $work_id = array_column($data->toarray()['data'], 'id');
+        // $workCount = $db->table($user->id)->select('work_id')->whereIn('work_id',$work_id)->get()->toArray();
+        //dd($workCount);
+         
+>>>>>>> de0ab0be5b4a881077318d01b86e28ba04eadd5d
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type',1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
@@ -135,6 +153,7 @@ class LearningCenterController extends Controller
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
 		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
+		    	// dd($data);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
 					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
