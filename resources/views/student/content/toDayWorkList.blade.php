@@ -35,14 +35,14 @@
             <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
             <td>{{ date('m月d日 h:i',$work->belongsToJob->deadline) }}</td>
             <td>
-            @if(empty($work->start_time))
+            @if(empty($work->sub_time))
                 未答题
             @else
                 {{ $work->score }}
             @endif
             </td>
             <td>未答题</td>
-            <td><i @if(empty($work->start_time)) onclick='window.location.href= "/todayWork/2/{{ $work->id }}" ' 
+            <td><i @if(empty($work->sub_time)) onclick='window.location.href= "/todayWork/2/{{ $work->id }}" ' 
                 @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/1/3/{{ $work->id }}" ' @endif class="fa fa-edit"></i>
             </td>
         </tr>

@@ -26,7 +26,6 @@
 				<span>未批改：{{ $data['modifyCount'] }}题</span>
 			</div>
 		</div>
-
 		<div class="error-answer">
 			<p>答题卡：</p>
 			<ul>
@@ -36,11 +35,26 @@
 			</ul>
 		</div>
 		<div class="clear"></div>
-		<div class="submits">
-			<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'" >错题解析</button>
-			<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}'">继续辅导</button>
+		@if(!empty($data['sameExercise']))
+		<div class="error-answer">
+			<p>同类型习题：</p>
+			<ul>
+				@foreach($data['sameExercise'] as $key => $status)
+					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+				@endforeach
+			</ul>
 		</div>
-
+		@endif
+		<div class="clear"></div>
+		<div class="submits">
+			@if(empty($data['sameExercise'])))
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'" >错题解析</button>
+				<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}/{{ $parameter }}/{{ $accuracy }}'">继续辅导</button>
+			@else
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/1/{{ $parameter }}'" >返回</button>
+				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'">错题解析</button>
+			@endif
+		</div>
 	</div>
 </div>
 

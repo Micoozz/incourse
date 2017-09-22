@@ -16,8 +16,18 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/progressBar.css') }}" />
 		<title>InCourse</title>
 		<style>
+		.error-answer ul{
+			margin-left: 45px;
+		}
 			.accout {
 				padding-top: 100px;
+			}
+			.accouts{
+				padding-top: 45px;
+			}
+			.questions .options span{
+				display: block;
+				margin-top: 10px
 			}
 			.atitle>p{
 				font-size: 16px;
@@ -81,9 +91,9 @@
 				margin-right: 10px;
 			}
 			
-			.atitle {
+/*			.atitle {
 				border-bottom: 1px solid #eee;
-			}
+			}*/
 			
 			.option .box_hpb {
 				height: 144px;
@@ -126,8 +136,10 @@
 								@include('student.content.workScore')
 							@elseif($func == 4)
 								@include('student.content.errorReports')
-							@elseif($func == 5)
-								@include('student.content.errorParsing')			
+							@elseif($func == 5 || $func == 7)
+								@include('student.content.errorParsing')	
+							@elseif($func == 6)
+								@include('student.content.workTutorship')			
 							@endif
 						@endif	
 						<!--右侧栏-->
@@ -144,7 +156,9 @@
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
 		<script>
 			var token = "{{csrf_token()}}";
-			//console.log(token)
+			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+			var deviationScore = "{{ isset($deviationScore) ? $deviationScore * 100 : '' }}";
+			//console.log(accuracy)
 			$(function() {
 				setTimeout(function() {
 					/*$('.question-found_class li').removeClass('first');
@@ -152,7 +166,6 @@
 					$('.question-found_class li:nth-of-type(2)').addClass('first');*/
 
 					//圆形进度条
-					var accuracy = "{{ isset($data['accuracy']) ? $data['accuracy'] * 100 : '' }}"
 					var percentum = accuracy; //正确率百分比
 					var percentums = percentum * 6.29 //进度条百分比
 					if(accuracy.length>3){
@@ -262,7 +275,16 @@
         			$("html").html(data);
         	});
         });*/
+       /* $("#tutorship").on('click',function(){
+        	var data = []
+        	var tutorship = $(this).attr('data-id');
+        	data.push({'name':'tutorship','value':tutorship});
+        	data.push({'name':'_token','value':token});
+        	data.push({'name':'work_id','value':parameter});
+        	$.post('/homotypology',data,function(result){
 
+        	})
+        });*/
 		</script>
 	</body>
 

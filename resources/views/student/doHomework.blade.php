@@ -56,7 +56,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                             <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -82,7 +82,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                             <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -104,12 +104,12 @@
                     </li>
                     @endif
                     <!--填空题，多空题-->
-                    @if($exercise['categroy_id'] == 3 || $exercise['categroy_id'] == 9)
+                    @if($exercise['categroy_id'] == 3)
                     <li data-id="{{ $exercise['id'] }}"  class="exer-in-list">
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                         <span>
                             {!! $exercise['subject'] !!}
@@ -123,7 +123,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                             <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -147,7 +147,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                             <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -155,7 +155,7 @@
                             <ul class="exer-list-ul sortable">
                             @foreach($exercise['options'] as $option)
                                 <li class="ui-state-default">
-                                    <span class="f-l" data-id="{{ array_keys($option)[0] }}">排序{{ $loop->iteration }}：</span>
+                                    <span class="f-l" data-id="{{ array_keys($option)[0] }}" exercise-id="{{ array_keys($option)[0] }}">排序{{ $loop->iteration }}：</span>
                                     <p class="f-l option">{{ array_values($option)[0] }}</p>
                                 </li>
                             @endforeach    
@@ -189,7 +189,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                             <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -222,7 +222,7 @@
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">{{ $exercise['categroy_title'] }}</span>
+                                <span class="do-hw-type" >{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
                         <span>{{ $exercise['subject'] }}</span>
                         </div>
@@ -240,7 +240,6 @@
                             </div>
                         </div>
                     </li>
-
                     @endif
                     <!--听力题-->
 <!--                     <li data-id="9" class="exer-in-list ting-li dan-xuan-only">
@@ -482,8 +481,29 @@
 <script src="{{ asset('js/student/doHomework.js') }}" charset="utf-8"></script>
 <script type="text/javascript">
     var token = "{{csrf_token()}}";
-        var matching =  $('#matching').attr('data-id');
-        var ligature = $('.question_hpb').children('li').length;
+    var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+    var matching =  $('#matching').attr('data-id');
+    var ligature = $('.question_hpb').children('li').length;
+    $(function(){
+        var a = ''
+        var c = ''
+        $('.blank-item').focus(function() {
+            if($(this).attr('num')!='1'){
+                a = $(this).text()
+                $(this).text(' ')
+            }
+        })
+        $('.blank-item').blur(function() {
+            c = $(this).text()
+            if(c !== ' ') {
+                $(this).text(c)
+                $(this).attr('num',1)
+            } else {
+                $(this).text(a)
+            }
+
+        })
+    })
 </script>
 </body>
 </html>
