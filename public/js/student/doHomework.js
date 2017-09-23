@@ -324,6 +324,26 @@ $(function(){
             // obj.last = ;
             total.push(obj);
         });
+        var param = clearUp(total); //传给后台的作业答案参数
+        param._token = token;
+        param.work_id = work_id;
+        console.log(param['data'][0]['parent_id']);
+        console.log(param)
+        if (param['data'][0]['parent_id'] != ""){
+            $.post("/sameScore",param,function(result){
+                var course = $("#course_id").attr('value');
+                window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id +"/"+ accuracy;
+            });
+        }else{
+            $.post("/homeworkScores",param,function(result){
+                var course = $("#course_id").attr('value');
+                if (result == 200 || result == 1) {
+                  window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
+                }
+                sessionStorage.clear();
+            });
+        }
+        //
         //把单题时间整合到total中,li_num
         var store = window.sessionStorage;
         for (var key in store) {
