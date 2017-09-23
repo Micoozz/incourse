@@ -4,10 +4,10 @@
 		<span class="col-xs-6 col-sm-6">错题解析</span>
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
-	<div class="ic-container accouts">
+	<div class="ic-container accout">
 		<div class="error-answer">
 			<div class="error-answer-title">
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
+				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/5/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
 				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span>
 				<span class="bj-gray"><span class="blue">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
@@ -29,7 +29,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><i class="fa fa-dot-circle-o " data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}:{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -51,7 +51,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><i class="fa fa-dot-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}：{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -74,7 +74,7 @@
 						</span>
 						<div class="clear"></div>
 					</p>
-					<div class="option options">
+					<div class="option">
 						<span><img src="{{ asset('images/school/right.png') }}"/>&nbsp;&nbsp;正确</span>
 						<span><img src="{{ asset('images/school/wrong.png') }}"/>&nbsp;&nbsp;错误</span>
 					</div>
@@ -179,7 +179,7 @@
 						<div class="clear"></div>
 						一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
 					</p>
-					<div class="option options">
+					<div class="option">
 						<span>
 							<img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;"/>
 						</span>
@@ -203,7 +203,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><span class="blue">排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
 						@endforeach
@@ -249,7 +249,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						{!! $data['exercises'][0]['subject'] !!}
 					</div>
 				</div>
@@ -312,7 +312,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						<div class="box_hpb">
 							<div class="line_hpb">
 								<ul class="question_hpb">
@@ -363,7 +363,7 @@
 
 					<!--单选题-->
 					@if($data['exercises'][0]['categroy_id'] == 1)
-					<div>
+					<div>{{-- dd($abcList[1]) --}}
 						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，
 						你的答案是{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
@@ -373,6 +373,7 @@
 					<!--多选题-->
 					@if($data['exercises'][0]['categroy_id'] == 2)
 					<div>
+					{{-- dd( implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer'])) --}}
 						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，你的答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
