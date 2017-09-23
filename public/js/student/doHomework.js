@@ -204,7 +204,6 @@ $(function(){
                 $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
                    obj.answer.push(Number($(n).val()));
                 });
-                console.log(obj.answer)
                 if (obj.answer[0] == null) {
                     obj.answer = "";
                 }
@@ -260,9 +259,7 @@ $(function(){
                         "answer": ""
                     };
                     var arr = [];
-
                     type = $(item).find(".do-hw-type").text();
-
                     if(type === "单选题"){
                         obj_child.answer = $(item).find(".ic-radio.active input").val();
                     }else if(type === "多选题"){
@@ -318,17 +315,16 @@ $(function(){
         param.work_id = work_id;
         console.log(param['data'][0]['parent_id']);
         console.log(param)
-        //console.log(accuracy)
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
-                 window.location.href = "/learningCenter/" + course + "/1/6/" + work_id +"/"+ accuracy;
+                window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id +"/"+ accuracy;
             });
         }else{
             $.post("/homeworkScores",param,function(result){
                 var course = $("#course_id").attr('value');
                 if (result == 200 || result == 1) {
-                   window.location.href = "/learningCenter/" + course + "/1/3/" + work_id;
+                  window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
                 }
                 sessionStorage.clear();
             });

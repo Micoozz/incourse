@@ -7,7 +7,7 @@
 	</div>
 	<div class="ic-container accout">
 		<div class="atitle" style='{{ isset($mod) ? "" : "position:relative; left:150px;" }}'>
-			<p><span>作业标题：</span><span>{{ date('m月d日',$data['work']->pub_time) }}作业</span></p>
+			<p><span>作业标题：</span><span>{{ $data['work']->title }}作业</span></p>
 			<p><span>所属章节：</span><span>{{ $chapter[0]->title }}  {{ $minutia->title }}</span></p>
 			<p><span>截止时间：</span><span>{{ date('m月d日 h:i',$data['work']->deadline) }}</span></p>
 			<p><span>常规作业：</span><span id="total">{{ $data['work']->content }}</span></p>
@@ -30,7 +30,7 @@
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data['status'] as $key => $status)
-					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach	
 			</ul>
 		</div>
@@ -40,19 +40,20 @@
 			<p>同类型习题：</p>
 			<ul>
 				@foreach($data['sameExercise'] as $key => $status)
-					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach
 			</ul>
 		</div>
 		@endif
 		<div class="clear"></div>
 		<div class="submits">
-			@if(empty($data['sameExercise'])))
-				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'" >错题解析</button>
-				<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}/{{ $parameter }}/{{ $accuracy }}'">继续辅导</button>
+			@if(empty($data['sameExercise']))
+				<button class=".btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}'" >返回</button>
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}'" >错题解析</button>
+				<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}/{{ $parameter }}/{{ $accuracy }}'">分数提升</button>
 			@else
-				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/1/{{ $parameter }}'" >返回</button>
-				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'">错题解析</button>
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/exercise_book/{{ $parameter }}'" >返回</button>
+				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}'">错题解析</button>
 			@endif
 		</div>
 	</div>

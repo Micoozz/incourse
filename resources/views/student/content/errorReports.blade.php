@@ -7,11 +7,7 @@
 	<div class="ic-container accouts">
 		<div class="error-answer">
 			<div class="error-answer-title">
-				@if(empty($errorExercise))
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/5/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
-				@else
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/7/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>					
-				@endif
+				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
 				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span>
 				<span class="bj-gray"><span class="blue">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
@@ -33,7 +29,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><i class="fa fa-dot-circle-o " data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}:{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -78,7 +74,7 @@
 						</span>
 						<div class="clear"></div>
 					</p>
-					<div class="option">
+					<div class="option options">
 						<span><img src="{{ asset('images/school/right.png') }}"/>&nbsp;&nbsp;正确</span>
 						<span><img src="{{ asset('images/school/wrong.png') }}"/>&nbsp;&nbsp;错误</span>
 					</div>
@@ -183,7 +179,7 @@
 						<div class="clear"></div>
 						一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
 					</p>
-					<div class="option">
+					<div class="option options">
 						<span>
 							<img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;"/>
 						</span>
@@ -207,7 +203,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><span class="blue">排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
 						@endforeach
@@ -253,7 +249,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option options">
 						{!! $data['exercises'][0]['subject'] !!}
 					</div>
 				</div>
@@ -316,7 +312,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option options">
 						<div class="box_hpb">
 							<div class="line_hpb">
 								<ul class="question_hpb">

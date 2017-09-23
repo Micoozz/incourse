@@ -25,7 +25,7 @@
 			.accouts{
 				padding-top: 45px;
 			}
-			.questions .options span{
+			.questions .options>span{
 				display: block;
 				margin-top: 10px
 			}
@@ -66,6 +66,7 @@
 				text-align: center;
 				line-height: 32px;
 				border-radius: 16px;
+				cursor: pointer;
 			}
 
 			.error-answer>ul>.bj-img1{
@@ -89,6 +90,7 @@
 			
 			.submits button {
 				margin-right: 10px;
+				cursor: pointer;
 			}
 			
 /*			.atitle {
@@ -127,18 +129,18 @@
 						<!--左侧栏-->
 						<div class="col-xs-12 pupilleft" id="left">@include('student.template.pupilLeft')</div>
 						<!--内容-->
-						@if($mod == 1)
-							@if($func == 1)
+						@if($mod == 'homework')
+							@if($func == 'exercise_book')
 								@include('student.content.workList')
-							@elseif($func == 2)
+							@elseif($func == 'routine_work')
 								@include('student.content.routineWork')	
-							@elseif($func == 3)
+							@elseif($func == 'work_score')
 								@include('student.content.workScore')
-							@elseif($func == 4)
+							@elseif($func == 'error_reports')
 								@include('student.content.errorReports')
-							@elseif($func == 5 || $func == 7)
+							@elseif($func == 'answer_sheet' || $func == 7)
 								@include('student.content.errorParsing')	
-							@elseif($func == 6)
+							@elseif($func == 'work_tutorship')
 								@include('student.content.workTutorship')			
 							@endif
 						@endif	
