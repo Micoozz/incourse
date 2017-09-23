@@ -329,6 +329,7 @@ $(function(){
                 sessionStorage.clear();
             });
         }
+        //
         //把单题时间整合到total中,li_num
         var store = window.sessionStorage;
         for(var key in store){
