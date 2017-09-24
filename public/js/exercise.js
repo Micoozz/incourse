@@ -239,6 +239,9 @@ $(function () {
     //我的上传--编辑
     let operationID = $("#operation_this_job").attr("data-id");
     if(operationID=="" || !operationID){}
+    else if(operationID == 0){
+    	console.log(111)
+    }
     else{
         $.ajax({
             url:"/getEditExecrise/" + operationID,
@@ -751,16 +754,19 @@ $(function () {
 
 	//上传
 	$("body").on("click","#upload-btn",function(){
+        upLoadJob();
+	});
+	function upLoadJob(){
         let id=$("#operation_this_job").attr("data-id");
-		let allExer = uploadExer();  //保存需要上传的题目
+        let allExer = uploadExer();  //保存需要上传的题目
         allExer._token = token;
         if(id != ""){
             allExer.exercise.exe_id=id;
         }
 
-		//判断题目是否漏填
-		if(exerIsFill(allExer.exercise)){
-			//向后台发送题目
+        //判断题目是否漏填
+        if(exerIsFill(allExer.exercise)){
+            //向后台发送题目
             $.ajax({
                 url:"/addExercise",
                 data:allExer,
@@ -769,14 +775,14 @@ $(function () {
                     alert("上传成功");
                 }
             })
-		}else {
-			$(".ic-tip-box").show();
-			setTimeout(function(){
-				$(".ic-tip-box").fadeOut();
-			},1000);
-			alert("客观题没填充完整。");
-		}
-	});
+        }else {
+            $(".ic-tip-box").show();
+            setTimeout(function(){
+                $(".ic-tip-box").fadeOut();
+            },1000);
+            alert("客观题没填充完整。");
+        }
+    }
 });
 
 //判断题目中有没有漏填的

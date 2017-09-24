@@ -666,7 +666,7 @@ $(function () {
     });
     var section;
     $(".section-ul").on("click",".section-li",function(){
-        section = $(this).attr("data");
+        section = $(this).attr("data").attr("data-s",$(this).attr("data"));
     })
 
 	//上传

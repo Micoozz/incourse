@@ -5,6 +5,21 @@
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" href="/css/teacher/homeworkManage.css" />
 <link rel="stylesheet" type="text/css" href="/css/exercise.css">
+<link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css">
+<link rel="stylesheet" href="/js/layui/css/modules/laydate/default/laydate.css">
+<style>
+    p{
+        margin: 0 0 10px;
+    }
+    .disSelsect{
+        padding-top: 10px;
+        overflow: hidden;
+        transition: height 1s;
+    }
+    .disSelsect.active{
+        height: 0!important;
+    }
+</style>
 @endsection
 
 @section('CONTENT')
@@ -75,124 +90,71 @@
                     <span>添加习题：</span>
 
                     <!--有习题的模板-->
-                    <!-- <div class="has-exer">
+                    <div class="has-exer">
                         <table class="d-b of-h border person-exer-list">
                             <thead class="d-b">
-                            <tr>
-                                <th>
-                                    <input id="all-checked" type="checkbox"/>
-                                    <span>序号</span>
-                                </th>
-                                <th>题型</th>
-                                <th>题目</th>
-                                <th>2/15 题</th>
-                            </tr>
+                                <tr>
+                                    <th>
+                                        <input id="all-checked" type="checkbox"/>
+                                        <span>序号</span>
+                                    </th>
+                                    <th>题型</th>
+                                    <th>题目</th>
+                                    <th>2/15 题</th>
+                                </tr>
                             </thead>
                             <tbody class="d-b">
-                            <tr data-id="1" class="spread">
-                                <td>
-                                    <input type="checkbox" checked/>
+                            <tr data-id="1" class="spread tdBtn">
+                                <td valign="top">
+                                    <input class="checkJob" type="checkbox"/>
                                     <span>1</span>
                                 </td>
-                                <td class="personHw-type">填空题</td>
-                                <td>有三只鸟，打死一只，还剩几只？</td>
-                                <td>
-                                    <i class=" fa is-spread fa-angle-up"></i>
+                                <td class="personHw-type" valign="top">填空题</td>
+                                <td valign="top">
+                                    <span>有三只鸟，打死一只，还剩几只？</span>
+                                    <div class="disSelsect active">
+                                        <ul class="radio-wrap exer-list-ul">
+                                            <li>
+                                                <label class="ic-radio border p-r f-l">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="radio" name="radio" value="A"/>
+                                                </label>
+                                                <span class="f-l">A：</span>
+                                
+                                                <p class="f-l option">8只</p>
+                                            </li>
+                                            <li>
+                                                <label class="ic-radio active border p-r  f-l">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="radio" name="radio" value="B" checked/>
+                                                </label>
+                                                <span class="f-l">B：</span>
+                                
+                                                <p class="f-l option">16只</p>
+                                            </li>
+                                            <li>
+                                                <label class="ic-radio border p-r  f-l">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="radio" name="radio" value="C"/>
+                                                </label>
+                                                <span class="f-l">C：</span>
+                                
+                                                <p class="f-l option">1只</p>
+                                            </li>
+                                            <li>
+                                                <label class="ic-radio border p-r  f-l">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="radio" name="radio" value="D"/>
+                                                </label>
+                                                <span class="f-l">D：</span>
+                                
+                                                <p class="f-l option">2只</p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="slide-down-exer" colspan="4">
-                                    <ul class="radio-wrap exer-list-ul">
-                                        <li>
-                                            <label class="ic-radio border p-r f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="A"/>
-                                            </label>
-                                            <span class="f-l">A：</span>
-
-                                            <p class="f-l option">8只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio active border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="B" checked/>
-                                            </label>
-                                            <span class="f-l">B：</span>
-
-                                            <p class="f-l option">16只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="C"/>
-                                            </label>
-                                            <span class="f-l">C：</span>
-
-                                            <p class="f-l option">1只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="D"/>
-                                            </label>
-                                            <span class="f-l">D：</span>
-
-                                            <p class="f-l option">2只</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr data-id="2">
-                                <td>
-                                    <input type="checkbox"/>
-                                    <span>2</span>
-                                </td>
-                                <td class="personHw-type">填空题</td>
-                                <td>有三只鸟，打死一只，还剩几只？</td>
-                                <td>
-                                    <i class="fa is-spread fa-angle-down"></i>
-                                </td>
-                            </tr>
-                            <tr class="d-n">
-                                <td class="slide-down-exer" colspan="4">
-                                    <ul class="radio-wrap exer-list-ul">
-                                        <li>
-                                            <label class="ic-radio border p-r f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="A"/>
-                                            </label>
-                                            <span class="f-l">A：</span>
-
-                                            <p class="f-l option">8只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio active border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="B" checked/>
-                                            </label>
-                                            <span class="f-l">B：</span>
-
-                                            <p class="f-l option">16只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="C"/>
-                                            </label>
-                                            <span class="f-l">C：</span>
-
-                                            <p class="f-l option">1只</p>
-                                        </li>
-                                        <li>
-                                            <label class="ic-radio border p-r  f-l">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="D"/>
-                                            </label>
-                                            <span class="f-l">D：</span>
-
-                                            <p class="f-l option">2只</p>
-                                        </li>
-                                    </ul>
+                                <td valign="top">
+                                    <i class=" fa is-spread fa-angle-down"></i>
                                 </td>
                             </tr>
                             </tbody>
@@ -202,14 +164,13 @@
                                 <i class="p-r fa fa-trash-o"></i>
                                 <span id="delete-personHw">删除</span>
                             </button>
-                            <div class="f-r">分页</div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <!--没习题的模板-->
                     <div class="f-l p-r no-exer">
-                        <a id="personHw-uploadExer" class="ic-blueB-btn">上传习题</a>
-                        <a class="ic-blueB-btn personHw-addExer">题库选题</a>
+                        <a id="personHw-uploadExer" class="ic-blueB-btn" data-href="/uploadExercise/{{$class_id}}/{{$course_id}}/0">上传习题</a>
+                        <a class="ic-blueB-btn personHw-addExer" href="/exercise/{{$class_id}}/{{$course_id}}">题库选题</a>
 
                         <!--"添加习题" 页面引导-->
                         <!-- <div class="p-a guide">
@@ -254,7 +215,98 @@
 
 </div>
 @endsection
-
 @section('JS:OPTIONAL')
+<script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
+<script>
+    $(".disSelsect").each(function(){
+        $(this).css({height:($(this).find("ul").height()+10)});
+    });
+    $(".tdBtn").click(function(e){
+        e.stopPropagation();
+        $(".disSelsect").click(function(){
+            return false;
+        });
+        $(this).find(".disSelsect").toggleClass("active");
+        if($(this).find(".disSelsect").hasClass("active")){
+            $(this).find(".fa.is-spread").removeClass("fa-angle-up").addClass("fa-angle-down");
+        }else{
+            $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
+        }
+    });
+    $("#delete-personHw").click(function(){
+        $(".spread.tdBtn").each(function(i,trList){
+            if($(trList).find(".checkJob").is(":checked")){
+                $(trList).remove();
+            }
+        })
+    })
+    $("#all-checked").click(function(){
+        $(".spread.tdBtn").each(function(j,trList){
+            $(this).find(".checkJob").attr("checked",true);
+        })
+    })
+    function CurentTime(){
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var hh = now.getHours();
+        var mm = now.getMinutes();
+        var clock = year + "-";
+        if(month < 10){clock += "0";}
+        clock += month + "-";
+        if(day < 10){clock += "0";}
+        clock += day + " ";
+        if(hh < 10){clock += "0";}
+        clock += hh + ":";
+        if (mm < 10) clock += '0';
+        clock += mm;
+        return(clock);
+    }
 
+    $("#expiration-time").val(CurentTime());
+
+
+    //时间戳
+    function stringToTimeStamp(time){
+        var timeStamp = Date.parse(new Date(time));
+        newTimeStamp = timeStamp / 1000;
+        return newTimeStamp
+    }
+
+
+    laydate.render({
+        elem: '#expiration-time',
+        min: CurentTime(),
+        type: 'datetime',
+        format: 'yyyy-MM-dd H:m'
+    });
+
+    $(".select-form.clear .unit-ul .unit-li").click(function(){
+        let child_span = $(".chapter");
+        let parent_ul = $(this).parents(".select-form.clear").find(".ic-text").next(".lists.section-ul");
+        child_span.attr("data-u",$(this).attr("data"));
+        parent_ul.html("");
+        $.get("/getSectionAjax/"+$(this).attr("data"),function(result){
+            $.each(result,function(index,value,array){
+                parent_ul.append("<li class='section-li' data='"+index+"'>"+value+"</li>");
+            })
+        });
+    });
+    $("#personHw-uploadExer").click(function(){
+        var objJson={
+            'title':$(".ic-input.hw-title-input").val(),
+            'chapter':{
+                'unit':$(".chapter").attr("data-u")?$(".chapter").attr("data-u"):"",
+                'section':$(".trifle").attr("data-s")?$(".trifle").attr("data-s"):"",
+            },
+            "deadline":stringToTimeStamp($("#expiration-time").val()),
+            "rulejob":$(".hw-content.border").val(),
+            'exercise':[]
+        }
+        window.sessionStorage.setItem("addJob", JSON.stringify(objJson));
+        let href = $(this).attr("data-href");
+        window.location.href = href;
+    })
+</script>
 @endsection
