@@ -272,18 +272,19 @@ class TeachingCenterController extends TeacherController
     public function addExercise(){
     	$input = Input::get();
     	$code = 200;
+        $exercise_id_list = array();
         try{
             if(empty($input["exercise"][0]["exe_id"])){
                 foreach($input["exercise"] as $item){
-                    $this->createExercise($input["chapter"],$item);
+                    array_push($exercise_id_list,$this->createExercise($input["chapter"],$item));
                 }
             }else{
-                $this->editExecrise($input["exercise"][0]["exe_id"],$input["chapter"],$input["exercise"][0]);
+                array_push($exercise_id_list,$this->editExecrise($input["exercise"][0]["exe_id"],$input["chapter"],$input["exercise"][0]));
             }
         }catch(\Exception $e){
             $code = 201;
         }
-     	$data = array('code' => $code);
+     	$data = array('code' => $code,'id_list' => $exercise_id_list);
         return json_encode($data);
     }
     private function createExercise($chapter,$item){
@@ -383,6 +384,7 @@ class TeachingCenterController extends TeacherController
             $exercise->hasManySubjective()->create($item['subjective']);
             $exercise->hasManyObjective()->create($item['objective']);
         }
+        return $exercise->id;
     }
     private function editExecrise($exe_id,$chapter,$item){
         $exercise = Exercises::find($exe_id);
@@ -470,5 +472,6 @@ class TeachingCenterController extends TeacherController
             $exercise->hasManySubjective()->create($item['subjective']);
             $exercise->hasManyObjective()->create($item['objective']);
         }
+        return $exercise->id;
     }
 }

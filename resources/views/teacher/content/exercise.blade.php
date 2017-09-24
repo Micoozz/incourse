@@ -296,20 +296,6 @@
     $(".sort_list").each(function(i){
         $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
     })
-    function edit_job(){
-        $("body").on("click", ".dan-xuan-only .ic-radio", function (event) {
-            event.preventDefault();
-            $(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
-            $(this).addClass("active");
-            $(this).children("input").prop("checked",true);
-        });
-
-        /*多选题选中*/
-        $("body").on("click", ".duo-xuan-only .ic-radio", function (event) {
-            event.preventDefault();
-            $(this).toggleClass("active");
-        });
-    }
     $("body").on("click", ".screen_job .ic-text-exer", function (e) {
         e.stopPropagation();
         let is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
@@ -334,5 +320,32 @@
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
+
+    //生成作业
+    $("#create-hw").on("click",function(){
+        let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+        if(sessionStorageData){
+            $(".exer-in-list").each(function(i,item){
+                if($(item).find(".checkbox-add").is(":checked")){
+                    sessionStorageData.exercise.push(parseInt($(item).attr("data-id")));
+                }
+            });
+            window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
+            window.history.back();
+        }
+
+    })
+
+    //显示选中的习题
+    let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+    if(sessionStorageData){
+        $(".exer-in-list.border").each(function(i,list){
+            for(let j=0;j<sessionStorageData.exercise.length;j++){
+                if(parseInt($(list).attr("data-id")) == sessionStorageData.exercise[j]){
+                    $(list).find(".checkbox-add").attr("checked",true);
+                }
+            }
+        })
+    }
 </script>
 @endsection
