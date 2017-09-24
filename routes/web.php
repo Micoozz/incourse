@@ -51,6 +51,9 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/addHomework-personal/{class_id?}/{course_id?}','TeachingCenterController@addHomeworkPer');
 		Route::get('/exercise/{class_id?}/{course_id?}','TeachingCenterController@exercise');
 		Route::get('/uploadExercise/{class_id?}/{course_id?}','TeachingCenterController@uploadExercise');
+		Route::get('/showJobList{class_id?}/{course_id?}','TeachingCenterController@showJobList');
+		Route::post('/createJob','TeachingCenterController@createJob');
+		Route::post('/pubJob','TeachingCenterController@pubJob');
 		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		//档案管理员
 		Route::get('/fileManager/{mod?}/{func?}/{parameter?}/{student?}','FileManagerController@fileManager');
@@ -85,9 +88,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{course}/{page?}','ExerciseController@showExerciseList');
 		Route::post('/getExerciseList/{page?}','ExerciseController@getExerciseList');
-		Route::post('/createJob','JobController@createJob');
-		Route::post('/pubJob','JobController@pubJob');
-		Route::get('/showJobList/{page?}','JobController@showJobList');
+		
 	});
 	Route::group(['middleware' => 'student'],function(){		
 		//学生平台

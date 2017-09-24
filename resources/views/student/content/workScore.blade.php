@@ -47,7 +47,7 @@
 		@endif
 		<div class="clear"></div>
 		<div class="submits">
-			@if(empty($data['sameExercise'])))
+			@if(empty($data['sameExercise']))
 				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/4/{{ $parameter }}'" >错题解析</button>
 				<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}/{{ $parameter }}/{{ $accuracy }}'">继续辅导</button>
 			@else
