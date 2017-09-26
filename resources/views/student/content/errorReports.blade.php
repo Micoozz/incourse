@@ -4,14 +4,10 @@
 		<span class="col-xs-6 col-sm-6">错题解析</span>
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
-	<div class="ic-container accouts">
+	<div class="ic-container accout">
 		<div class="error-answer">
 			<div class="error-answer-title">
-				@if(empty($errorExercise))
 				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/5/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
-				@else
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/7/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>					
-				@endif
 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
 				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span>
 				<span class="bj-gray"><span class="blue">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
@@ -55,7 +51,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><i class="fa fa-dot-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}：{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -367,7 +363,7 @@
 
 					<!--单选题-->
 					@if($data['exercises'][0]['categroy_id'] == 1)
-					<div>
+					<div>{{-- dd($abcList[1]) --}}
 						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，
 						你的答案是{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
@@ -377,6 +373,7 @@
 					<!--多选题-->
 					@if($data['exercises'][0]['categroy_id'] == 2)
 					<div>
+					{{-- dd( implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer'])) --}}
 						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，你的答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>

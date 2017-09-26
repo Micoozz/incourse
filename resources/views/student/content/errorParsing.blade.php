@@ -4,7 +4,7 @@
 		<span class="col-xs-6 col-sm-6">错题解析</span>
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
-	<div class="ic-container accouts">
+	<div class="ic-container accout">
 		<div class="error-answer">
 			<p class="answer-ka"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</p>
 			<ul>
