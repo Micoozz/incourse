@@ -28,7 +28,7 @@
                 @endif
                 </td>
                 <td>
-                @if(empty($work->sub_time))
+                @if(empty($work->sub_time) )
                 	未答题
                 @else
                 	{{ $work->second }}

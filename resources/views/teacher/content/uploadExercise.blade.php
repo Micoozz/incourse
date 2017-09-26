@@ -10,15 +10,15 @@
 @section('CONTENT')
 @include('teacher.template.title')
 <div>
-	<div class="admin-container">
-		<div class="filter-box-upload select-action-box">
+	<div class="admin-container" id="operation_this_job" data-id="{{$exe_id}}">
+		<div class="filter-box-upload select-action-box" style="{{($exe_id == 'workUpLoad') ? 'display:none' : ''}}">
 			<div>
 				<div class="chapter">
 					<span class="f-l fs14">章节：</span>
 					<div class="select-form clear">
 						<div class="ic-text-lg">
 							<p class="ic-text">
-								<span>选择章篇</span>
+								<span class="select_unit">选择章篇</span>
 								<i class="fa fa-angle-down"></i>
 							</p>
 							<ul class="lists unit-ul">
@@ -29,7 +29,7 @@
 						</div>
 						<div class="ic-text-lg">
 							<p class="ic-text">
-								<span>选择小节</span>
+								<span class="select_section">选择小节</span>
 								<i class="fa fa-angle-down"></i>
 							</p>
 							<ul class="lists section-ul">
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="big-box">
-			<div class="exercise-box">
+			<div class="exercise-box" id="exercise_html_box">
 				<div class="exercise">
 					<div class="type select-action-box p-r">
 						<span class="f-l fs14">题型：</span>
@@ -89,8 +89,7 @@
 										<span>下划线</span>
 									</button>
 								</div>
-								<div class="editor-content" contenteditable="true">
-								</div>
+								<div class="editor-content" contenteditable="true"></div>
 							</div>
 						</div>
 					</div>

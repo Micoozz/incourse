@@ -21,7 +21,7 @@
 		</div>
 		<div class="clear"></div>
 		<div class="submits">
-			<button class=".btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >提交</button>
+			<button class="btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >提交</button>
 			<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/errorExercise'">错题解析</button>
 		</div>
 
