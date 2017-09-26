@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -12,6 +13,7 @@
 */
 // Route::get('/test','Teacher\LearningCenterController@test');
 Route::post('/getScantronIdList','Controller@getScantronIdList');
+
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
@@ -49,8 +51,11 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/homeworkManage/{class_id?}/{course_id?}','TeachingCenterController@homeworkManage');
 		Route::get('/addHomework/{class_id?}/{course_id?}','TeachingCenterController@addHomework');
 		Route::get('/addHomework-personal/{class_id?}/{course_id?}','TeachingCenterController@addHomeworkPer');
-		Route::get('/exercise/{class_id?}/{course_id?}','TeachingCenterController@exercise');
-		Route::get('/uploadExercise/{class_id?}/{course_id?}','TeachingCenterController@uploadExercise');
+
+		Route::get('/exercise/{class_id?}/{course_id?}/{action?}','TeachingCenterController@exercise');
+		Route::get('/uploadExercise/{class_id?}/{course_id?}/{exe_id?}','TeachingCenterController@uploadExercise');
+		Route::post('/addExercise','TeachingCenterController@addExercise');
+		Route::get('/getEditExecrise/{exe_id}','TeachingCenterController@getEditExecrise');
 		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		//档案管理员
 		Route::get('/fileManager/{mod?}/{func?}/{parameter?}/{student?}','FileManagerController@fileManager');
@@ -63,9 +68,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPasswork/{id}','FileManagerController@resetPasswork');
 		Route::get('/employeeStatus/{id}','FileManagerController@employeeStatus');
 		Route::post('/addTeacher','FileManagerController@addTeacher');
-		
 		Route::get('/learningCenters/{class_id?}/{course_id?}/{mod?}/{func?}','LearningCenterController@learningCenter');
-		Route::post('/uploadExercise','LearningCenterController@uploadExercise');
+		Route::post('/uploadExercise','TeachingCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
 		Route::get('/correctingHomepage','PageController@correctingHomepage');
 		Route::get('/correctingMainContents','PageController@correctingMainContents');

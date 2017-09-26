@@ -9,6 +9,7 @@ use Input;
 use Auth;
 use App\Models\Job;
 use App\Models\Work;
+use App\Models\Student;
 class JobController extends Controller
 {
 
@@ -46,14 +47,15 @@ class JobController extends Controller
     	try{
     		$job = new Job;
 	    	$job->teacher_id = $user->id;
+            $job->chapter_id = $input['chapter']['section'];
 	    	$job->course_id = intval($input['course']);
             $job->title = $input['title'];
 	    	$job->job_type = intval($input['type']);
 	    	$job->score = 0; //intval($input['score'])*100;
-	    	$job->exercise_id = $input['exercise_id'];
+	    	$job->exercise_id = json_encode($input['exercise_id']);
 	    	$job->status = $status;
 	    	$job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
-	    	$job->deadline = strtotime($input['deadline']);
+	    	$job->deadline = intval($input['deadline'])
 	    	$job->save();
     	}catch(\Exception $e){
     		$code = 201;
@@ -69,7 +71,7 @@ class JobController extends Controller
     public function pubJob(){
     	$input = Input::get();
     	$code = 200;
-    	$job_id = intval($input['job_id']);
+    	$job_id = isset($input['job_id']) ? intval($input['job_id']) : 0;
     	if(empty($job_id)){
     		$job = $this->createJob(Job::STATUS_PUB);
     	}else{
@@ -83,15 +85,19 @@ class JobController extends Controller
         }
 		$job->save();
         if($job->teacher_id == Auth::guard('employee')->user()->id){
-            $work = new work;
-            $work->student_id = 1;
-            $work->job_id = $job->id;
-            $work->course_id = $job->course_id;
-            $work->score = 0;
-            $work->status = 1;
-            $work->start_time = 0;
-            $work->sub_time = 0;
-            $work->save();
+            $student_id_list = Student::where('class_id',$input['classId'])->pluck('id');
+            foreach($student_id_list as $stu_id){
+                $work = new work;
+                $work->student_id = $stu_id;
+                $work->chapter_id = $job->chapter_id;
+                $work->job_id = $job->id;
+                $work->course_id = $job->course_id;
+                $work->scores = 0;
+                $work->status = 1;
+                $work->start_time = 0;
+                $work->sub_time = 0;
+                $work->save();
+            }
         }
     	$data = array('code' => $code);
 		return json_encode($data);
