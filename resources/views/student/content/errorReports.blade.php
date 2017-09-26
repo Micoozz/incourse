@@ -10,7 +10,7 @@
 				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 <!-- 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
 				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span> -->
-				<span class="bj-gray"><span class="blue">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
+				<span class="bj-gray"><span class="blue" style="margin-right: 6px;">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
 			</div>
 			<div class="question-types">
 				<!--题目类型-->
@@ -31,7 +31,7 @@
 					</p>
 					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
-						<span class="optionSpan"><i class="fa fa-dot-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
+						<span class="optionSpan"><i class="fa fa-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 					</p>
 					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
-						<span class="optionSpan"><i class="fa fa-dot-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
+						<span class="optionSpan"><i class="fa fa-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
 				</div>

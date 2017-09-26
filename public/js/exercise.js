@@ -6,9 +6,17 @@ $(function () {
     /*单选题选中*/
     $("body").on("click", ".dan-xuan-only .ic-radio", function (event) {
         event.preventDefault();
-        $(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
-        $(this).addClass("active");
-		$(this).children("input").prop("checked",true);
+       
+        if($(this).attr('class')!='ic-radio border p-r f-l active'){
+        	$(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
+			$(this).addClass("active");
+			$(this).children("input").prop("checked",true);
+        }else{
+        	$(this).removeClass("active");
+        	$(this).children("input").prop("checked",false);
+        }
+        
+		
     });
 
     /*多选题选中*/

@@ -173,7 +173,19 @@ $(function(){
     //交卷并查看结果
     $(".answer-sheet .answer-sheet-submit").click(function(){
         $(".ic-modal, .delete-modal").fadeIn();
+    //查看是否做完题目
+    var trues=[];
+    $('.answer-sheet p span').each(function(){
+        if($(this).attr('class')!='active'){
+                trues.push($(this).text())
+        }
     });
+    console.log(trues)
+
+            $('.ic-text p:last-child').text('本套练习还有 '+(trues.length)+' 道题未做答')       
+    });
+
+
 
     //交卷
     $("#handPaper").click(function(){

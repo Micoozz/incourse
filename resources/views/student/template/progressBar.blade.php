@@ -18,7 +18,7 @@
 
 			</li>
 			<li>
-				<span>作业分数率</span>
+				<span>作业得分率</span>
 				<br /> 
 				<b>80%</b>
 			</li>
