@@ -175,6 +175,7 @@ $(function () {
                         "<i class='uploadExerIcons wrong'></i>" +
                     "</div>" +
                 "</div>";
+
         } else if (text === "连线题") {
             tID = "lian-xian",tClass = "addLxOptionBtn",tOptions = "lian-xian-options";
             Answer = A.answerFun();
@@ -238,10 +239,8 @@ $(function () {
 
     //我的上传--编辑
     let operationID = $("#operation_this_job").attr("data-id");
-    if(operationID=="" || !operationID){}
-    else if(operationID == 0){
-    	console.log(111)
-    }
+    if(operationID == "" || !operationID){}
+    else if(operationID == "workUpLoad"){}
     else{
         $.ajax({
             url:"/getEditExecrise/" + operationID,
@@ -771,8 +770,23 @@ $(function () {
                 url:"/addExercise",
                 data:allExer,
                 type:"POST",
-                success:function(){
-                    alert("上传成功");
+                success:function(data){
+                	// console.log(data)
+                	var data=JSON.parse(data)
+                    if(data.code==200){
+                        if(id == "workUpLoad"){
+                            let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+                            sessionStorage.removeItem("addJob");
+                            for(let i=0;i<data.id_list.length;i++){
+                                sessionStorageData.exercise.push(data.id_list[i])
+                            }
+                            window.sessionStorage.setItem("addJob", JSON.stringify(sessionStorageData));
+                            console.log(sessionStorageData);
+                        }
+                        alert("上传成功");
+                    }else{
+                        alert("1111")
+                    }
                 }
             })
         }else {
@@ -871,14 +885,24 @@ function getExercises(obj){
 		 exer = {"type": type, "subject": "", "option": [["11","22"],["11","22"]], "answer": [{},{}], "material": []};
 		 */
 		//最外层题型保存信息
-        obj.chapter={
-            "unit":$(".select_unit").attr("data-u"),
-            "section":$(".select_section").attr("data-s")
-        };
-        if($(".select_unit").text()==="选择章篇"){
-            return false;
-        }else if($(".select_section").text() === "选择小节"){
-            return false;
+
+        let id=$("#operation_this_job").attr("data-id");
+        if(id=="workUpLoad"){
+            let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+            obj.chapter={
+                "unit":sessionStorageData.chapter.unit,
+                "section":sessionStorageData.chapter.section
+            };
+        }else{
+            obj.chapter={
+                "unit":$(".select_unit").attr("data-u"),
+                "section":$(".select_section").attr("data-s")
+            };
+            if($(".select_unit").text()==="选择章篇"){
+                return false;
+            }else if($(".select_section").text() === "选择小节"){
+                return false;
+            }
         }
 		exer = {
 			"categroy": typeString.indexOf(type) + 1,
@@ -1236,6 +1260,19 @@ $(function () {
             }
         }
     }
+    /*$.ajax({
+        url:"/getExerciseList",
+        data:grtWork,
+        type:"POST",
+        success:function(data){
+            console.log(data);
+            let data = JSON.parse(data);
+            for(let i=0;i<data.length;i++){
+                $(".work_tbody").append(htmlModule(data[i],i));
+            }
+
+        }
+    })*/
     /*if (typeof(ligature) != "undefined") {
    		lianXianTiFunc(matching,ligature);
 	}else{	

@@ -126,8 +126,11 @@
 								@include('student.content.workScore')
 							@elseif($func == 4)
 								@include('student.content.errorReports')
-							@elseif($func == 5)
-								@include('student.content.errorParsing')			
+							@elseif($func == 'answer_sheet')
+								@include('student.content.errorParsing')	
+							@elseif($func == 'work_tutorship')
+								@include('student.content.workTutorship')			
+
 							@endif
 						@endif	
 						<!--右侧栏-->
@@ -144,13 +147,13 @@
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
 		<script>
 			var token = "{{csrf_token()}}";
-			//console.log(token)
+			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+			var parameter = "{{ isset($parameter) ? $parameter : '' }}"
+			//var deviationScore = "{{ isset($deviationScore) ? $deviationScore * 100 : '' }}";
+			//console.log(accuracy)
+
 			$(function() {
 				setTimeout(function() {
-					/*$('.question-found_class li').removeClass('first');
-					$('.question-found_class li:nth-of-type(1) sup').hide();
-					$('.question-found_class li:nth-of-type(2)').addClass('first');*/
-
 					//圆形进度条
 					var accuracy = "{{ isset($data['accuracy']) ? $data['accuracy'] * 100 : '' }}"
 					var percentum = accuracy; //正确率百分比
@@ -251,18 +254,65 @@
                 "right": 3
             },
         ];
+        //错题解析key转ABC
+        var standardAnswerArr = [],errorAnswerArr = [];
+        var standardArr=eval("("+$(".standardAnswer").find(".standardAnswerSpan").attr("data-standardAnswer")+")");
+        var errorArr = eval("("+$(".standardAnswer").find(".errordAnswerSpan").attr("data-errorAnswer")+")")
+        $(".optionSpan").each(function(i,id){
+        	for(var j=0;j<standardArr.length;j++){
+        		if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == standardArr[j]){
+	        		standardAnswerArr.push($(id).find("answer").text())
+	        	}
+        	}
+	        $(".standardAnswer").find(".standardAnswerSpan").text(standardAnswerArr);
+	        for(var k = 0;k<errorArr.length;k++){
+	        	if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == errorArr[k]){
+	        		errorAnswerArr.push($(id).find("answer").text())
+	        	}
+	        }
+	        $(".standardAnswer").find(".errordAnswerSpan").text(errorAnswerArr);
+        })
 
-        //同类行 题型
-        /*$('#tutorship').on('click',function(){
-        	var data;
-        	var tutorship = $(this).attr('data-id');
-        	data = {"data":tutorship,"_token":token};
-        	console.log(data);
-        	$.post("/doHomework",data,function(data){
-        			$("html").html(data);
-        	});
-        });*/
+        //分数提升
+    	var redSpan='';
+		$(".answerCard ul .bj-ff5").each(function(i){
+			redSpan += "&" + $(this).text();
+		})
+		var newSpan = redSpan.substr(1,redSpan.length-1);
+        $(".error-exercise").on("click",function(){
+        	var tutorship = $(this).attr('error-exercise');
+        	window.location.href = "/homotypology/" + tutorship + "/" + parameter + "/" +  accuracy + "/" + newSpan;
+        })
+        function sameSort(a,b,c,d){
+        	$(a).each(function(i,answer){
+				$(b).each(function(j,sameType){
+					if($(answer).attr(c)==$(sameType).attr(d)){
+						$(sameType).text($(answer).text());
+					} 
+				})
+			})
+        }
+		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5","exe-id","parent-id");
+		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5","exe-id","parent-id");
 
+		$('.answerCard ul li,.error-answer ul li').click(function(){
+			if($(this).attr('class')=='bj-ff5'){
+					localStorage.arry=$(this).text()
+			}
+		});
+
+		$('.submits button:nth-of-type(2)').click(function(){
+				var array=[];
+		$('.answerCard ul li,.error-answer ul li').each(function(){
+			if($(this).attr('class')=='bj-ff5'){
+					array.push($(this).text())
+			}
+		})
+	localStorage.arry=array[0]				
+		})
+			if(localStorage.arry!=undefined){
+		$('.bj-gray .blue').text(localStorage.arry)	
+	}	
 		</script>
 	</body>
 

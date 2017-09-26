@@ -2,11 +2,29 @@
 	padding: 10px 0;
 	border-bottom: 1px solid #eee;
 	margin-bottom: 20px;
+	display: flex;
 }
 .error-answer-title>span{
 	display: inline-block;
 	width: 135px;
+<<<<<<< HEAD
+    font-size: 14px;
+    flex: 1;
+    line-height: 10px;
+}
+.error-answer-title .bj-gray{
+	font-size: 24px;
+	text-align: right;
+}
+.error-answer-title .bj-gray>span:last-child{
+	font-size: 14px;
+}
+
+.question-types{
+	font-size: 16px
+=======
     text-align: center;
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 }
 
 /*收藏*/

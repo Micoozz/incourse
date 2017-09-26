@@ -41,9 +41,21 @@
                 {{ $work->score }}
             @endif
             </td>
+<<<<<<< HEAD
+            <td>
+                @if(empty($work->sub_time))
+                    未答题
+                @else
+                    {{ $work->second }}
+                @endif
+            </td>
+            <td><i @if(empty($work->sub_time)) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' 
+                @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/homework/work_score/{{ $work->id }}" ' @endif class="fa fa-edit"></i>
+=======
             <td>未答题</td>
             <td><i @if(empty($work->start_time)) onclick='window.location.href= "/todayWork/2/{{ $work->id }}" ' 
                 @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/1/3/{{ $work->id }}" ' @endif class="fa fa-edit"></i>
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
             </td>
         </tr>
         @endforeach

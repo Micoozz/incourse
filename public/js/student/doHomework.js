@@ -114,11 +114,18 @@ $(function(){
             $("#fa-angle-left").prop("disabled",false);
         },300);
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
         left = left + li_width;
         $(".do-hw .exercise-box").css("left",left);
 
         isEnd(left);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
         if(parseInt($(".big-num").text())>$(".do-hw .exercise-box .exer-in-list").length){
             $(".big-num").text(parseInt($(".big-num").text()) - 1);
         }else{
@@ -206,19 +213,37 @@ $(function(){
                 "answer": "",
                 "last": ""
             };
+<<<<<<< HEAD
+            if($(item).find(".exer-list-ul li").length != 0){
+                obj.option=[];
+                $(item).find(".exer-list-ul li").each(function(j,list){
+                    obj.option.push($(list).attr("data-option"))
+                })
+            }
+=======
 
 
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
             var arr = []; //单题
             var arr_big = []; //多题
             var dom = "";
             //保存图文并存的答案
             var img_text = {};
 
+<<<<<<< HEAD
+            if(type === "单选题"){
+                obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : parseInt($(item).find(".ic-radio.active input").val());
+                obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id');
+            }else if(type === "多选题"){
+                $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
+                   obj.answer.push(parseInt($(n).val()));
+=======
             if (type === "单选题") {
                 obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : $(item).find(".ic-radio.active input").val();
             } else if (type === "多选题") {
                 $(item).find(".radio-wrap .ic-radio.active input").each(function (i, n) {
                     obj.answer += $(n).val() + ',';
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
                 });
                 obj.answer = obj.answer.substring(0, obj.answer.length - 1)
             } else if (type === "填空题" || type === "多空题") {
@@ -240,9 +265,15 @@ $(function(){
                     arr.push($(n).find(".ic-radio.active input").val());
                 });
                 obj.answer = arr;
+<<<<<<< HEAD
+            }else if(type === "排序题"){
+                $(item).find(".exer-list-ul>li>span").each(function(i,n){
+                    obj.answer.push(parseInt($(n).attr('exercise-id')));
+=======
             } else if (type === "排序题") {
                 $(item).find(".exer-list-ul>li>span").each(function (i, n) {
                     obj.answer += $(n).text().slice(2, 3) + ',';
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
                 });
                 obj.answer = obj.answer.substring(0, obj.answer.length - 1)
             } else if (type === "画图题" || type === "作文题" || type === "计算题") {
@@ -324,12 +355,21 @@ $(function(){
             // obj.last = ;
             total.push(obj);
         });
+<<<<<<< HEAD
+        //把单题时间整合到total中,li_num
+        var store = window.sessionStorage;
+        for(var key in store){
+            if(Number(key.slice(3))){
+                console.log(key);
+                total[Number(key.slice(3))-1].last = JSON.parse(store[key]).last;
+=======
         //
         //把单题时间整合到total中,li_num
         var store = window.sessionStorage;
         for (var key in store) {
             if (Number(key.slice(3))) {
                 total[Number(key.slice(3)) - 1].last = JSON.parse(store[key]).last;
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
             }
         }
         var param = clearUp(total); //传给后台的作业答案参数
@@ -339,11 +379,28 @@ $(function(){
         if (param['data'][0]['parent_id'] == ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
+<<<<<<< HEAD
+                console.log(course)
+                var increase = $("#course_id").attr('error-increase');
+                if (result == 200 || result == 1) {
+                    window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id + "/" + accuracy + "/" + increase;
+                }
+                sessionStorage.clear();
+=======
                 // window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id +"/"+ accuracy;
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
             });
         }else{
             $.post("/homeworkScores",param,function(result){
                 var course = $("#course_id").attr('value');
+<<<<<<< HEAD
+                if (result == 200 || result == 1) {
+                    window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
+                }
+                sessionStorage.clear();
+            });
+        }
+=======
                 /*if (result == 200 || result == 1) {
                   window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
                 }*/
@@ -363,6 +420,7 @@ $(function(){
             sessionStorage.clear();
         });*/
 
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
     });
 
 
