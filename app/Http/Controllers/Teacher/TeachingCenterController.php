@@ -31,8 +31,8 @@ class TeachingCenterController extends TeacherController
     const FUNC_ADD_HOMEWORK_EXERCISE = 'exercise';
 
     const FUNC_ADD_EXERCISE = 'addExercise';
-    const FUNC_MY_UPLOAD = 'my-upload';
-    const FUNC_MY_COLLECTION = 'my-conllection';
+    const ACT_MY_UPLOAD = 'my-upload';
+    const ACT_MY_COLLECTION = 'my-conllection';
 
     protected $class_id;
     protected $course_id;
@@ -93,22 +93,64 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         $port = "correct";
     }
-    public function uploadExercise($class_id,$course_id){
+    public function uploadExercise($class_id,$course_id,$exe_id = null){
         $title = "上传习题";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $port = "uploadExercise";
         $unit_list = parent::getUnit();
         $categroy_list = parent::getCategroy($course_id);
-        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port'));
+        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port','exe_id'));
+    }
+    public function getEditExecrise($exe_id){
+        $exercise = Exercises::find($exe_id);
+        $map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exercise->id)->first();
+        $exercise->unit_id = $map->unit_id;
+        $section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
+        $exercise->section_id = $map->section_id;
+        if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+            $subjective = $exercise->hasManySubjective->first();
+            $exercise->subject = $subjective->subject;
+            $exercise->answer = array('自由发挥');
+        }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+            $objective = $exercise->hasManyObjective->first();
+            $exercise->subject = $objective->subject;
+            $exercise->options = json_decode($objective->option,TRUE);
+            $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+        }
+        return json_encode($exercise,JSON_UNESCAPED_UNICODE);
     }
 
-    public function exercise($class_id,$course_id){
+    public function exercise($class_id,$course_id,$action = null){
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $port = "exercise";
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','port'));
+        $port = "exercise";        
+        $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+        if(empty($action)){
+            $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+        }elseif($action == self::ACT_MY_UPLOAD){
+            $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+        }
+        foreach ($data as $exercise) {
+            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
+            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
+            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+            }
+//          else{
+//              
+//          }
+        }
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','port','data','action'));
     }
     public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
         $teacher = Auth::guard("employee")->user();
@@ -226,20 +268,25 @@ class TeachingCenterController extends TeacherController
     	}
     	return view('teacher.learningCenter',compact("class_course","data","class_id","course_id","mod","func","title","select_data"));
     }
-    public function uploadExercisefix(){
+    public function addExercise(){
     	$input = Input::get();
-    	// $code = 200;
-	 	// try{
-	 		foreach($input["exercise"] as $item){
-	 			$this->createExercise($input["chapter"],$item);
-	 		}
- 	 // 	}catch(\Exception $e){
-   //  		$code = 201;
-	 	// }
-     	// $data = array('code' => $code);
-        // return json_encode($data);
+    	$code = 200;
+        $exercise_id_list = array();
+        try{
+            if(empty($input["exercise"][0]["exe_id"])){
+                foreach($input["exercise"] as $item){
+                    array_push($exercise_id_list,$this->createExercise($input["chapter"],$item));
+                }
+            }else{
+                array_push($exercise_id_list,$this->editExecrise($input["exercise"][0]["exe_id"],$input["chapter"],$input["exercise"][0]));
+            }
+        }catch(\Exception $e){
+            $code = 201;
+        }
+     	$data = array('code' => $code,'id_list' => $exercise_id_list);
+        return json_encode($data);
     }
-    public function createExercise($chapter,$item){
+    private function createExercise($chapter,$item){
         $user = Auth::guard('employee')->user();
         $time = time();
         $exercise = new Exercises;
@@ -336,6 +383,94 @@ class TeachingCenterController extends TeacherController
             $exercise->hasManySubjective()->create($item['subjective']);
             $exercise->hasManyObjective()->create($item['objective']);
         }
+        return $exercise->id;
     }
-    
+    private function editExecrise($exe_id,$chapter,$item){
+        $exercise = Exercises::find($exe_id);
+        $exercise->chapter_id = $chapter["section"];
+        $exercise->categroy_id = intval($item['categroy']);
+        $exercise->updata_time = time();
+        if($exercise->categroy_id == Exercises::CATE_RADIO ||
+            $exercise->categroy_id == Exercises::CATE_CHOOSE || 
+            $exercise->categroy_id == Exercises::CATE_JUDGE ||
+            $exercise->categroy_id == Exercises::CATE_FILL)
+        {
+            $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+            $exercise->score = 2 * count($item['answer']) * 100;
+        }
+        else if($exercise->categroy_id == Exercises::CATE_LINE || 
+                $exercise->categroy_id == Exercises::CATE_SORT)
+        {
+            $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+            $exercise->score = 1 * count($item['option'][0]) * 100;
+        }
+        else if($exercise->categroy_id == Exercises::CATE_SHORT)
+        {
+            $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+            $exercise->score = 10 * 100;
+        }
+        else
+        {
+            $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
+        }
+        $exercise->save();
+        $map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exe_id)->first();
+        $input_unit = Chapter::find($chapter["unit"]);
+        $map->grade_id = Chapter::find($input_unit->parent_id)->id;
+        $map->unit_id = $chapter["unit"];
+        $map->section_id = $chapter["section"];
+        $map->categroy_id = intval($item['categroy']);
+        $map->save();
+        if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+            if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
+                $item["answer"] = array();
+                for($i = 0;$i < count($item["option"]);$i++){
+                    array_push($item["answer"],$i+1);
+                }
+            }
+            if($exercise->categroy_id == Exercises::CATE_LINE && empty($item['answer'])){
+                $item["answer"] = array();
+                for($i = 0;$i < count($item["option"][0]);$i++){
+                    array_push($item["answer"],($i+1).":".($i+1));
+                }
+            }
+            $option = array();
+            if(isset($item["option"])){
+                if($exercise->categroy_id == Exercises::CATE_LINE){
+                    foreach($item["option"] as $i => $options){
+                        $option[$i] = array();
+                        foreach($options as $key => $value){
+                            array_push($option[$i],array(($key+1) => $value));
+                        }
+                    }
+                }else{
+                    foreach ($item["option"] as $key => $value) {
+                        array_push($option,array($key+1 => $value));
+                    }
+                }
+            }
+            if($exercise->categroy_id == Exercises::CATE_RADIO ||
+                $exercise->categroy_id == Exercises::CATE_CHOOSE){
+                foreach ($item["answer"] as $key => &$value) {
+                    $value += 1;
+                }
+            }
+            $answer = array("answer" => $item["answer"]);
+            $objective = Objective::where("exe_id",$exe_id)->first();
+            $objective->subject = $item['subject'];
+            $objective->option = json_encode($option,JSON_UNESCAPED_UNICODE);
+            $objective->answer = json_encode($answer,JSON_UNESCAPED_UNICODE);
+            $objective->save();
+        }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+            $subjective = Subjective::where("exe_id",$exe_id)->first();
+            $subjective->subject = $item['subject'];
+            $subjective->save();
+        }else{
+            $compositive = new Compositive(['content' => $item['subject']]);
+            $exercise->hasOneCompositive()->save($compositive);
+            $exercise->hasManySubjective()->create($item['subjective']);
+            $exercise->hasManyObjective()->create($item['objective']);
+        }
+        return $exercise->id;
+    }
 }
