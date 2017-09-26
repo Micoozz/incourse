@@ -3,8 +3,103 @@
 @section('KEYWORDS','这是关键词关键词')
 
 @section('CSS:OPTIONAL')
+<link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css">
+<link rel="stylesheet" href="/js/layui/css/modules/laydate/default/laydate.css">
 <link rel="stylesheet" href="/css/teacher/homeworkManage.css" />
 <link rel="stylesheet" type="text/css" href="/css/exercise.css">
+<style>
+    .addBtnBox{
+        cursor: pointer;
+    }
+    label.btnLabel {
+        cursor: pointer;
+    }
+    .seeBox{
+        width: 100%;
+        height: 100%;
+        padding: 40px 0;
+        position: relative;
+    }
+    .jobLists{
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding:46px 32px 40px;
+    }
+    .seeHead{
+        position: absolute;
+        width: 100%;
+        height: 40px;
+        padding: 11px 20px 0;
+        top: 0;
+        left: 0;
+    }
+    .seeTitle{
+        line-height: 18px;
+        font-size: 14px;
+        color: #419bf9;
+    }
+    .seeHead > div{
+        width: 100%;
+        height: 100%;
+        border-bottom: 1px solid #d9d9d9;
+        padding-bottom: 11px;
+        position: relative;
+    }
+    .seeHead > div .deleteJobs{
+        top: 0;
+        right: 0;
+        display: block;
+    }
+    .seeBottom{
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .seeBottom button{
+        width: 60px;
+        height: 28px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -30px;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 28px;
+        color: #fff;
+        background-color: #108EE9;
+    }
+    .exer-list-ul li{
+        padding: 5px 0;
+    }
+    .deleteJobs{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        display: none;
+        cursor: pointer;
+    }
+    .deleteJobs s{
+        width: 100%;
+        height: 2px;
+        background-color: #d9d9d9;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -1px;
+    }
+    .deleteJobs s:nth-child(1){
+        transform: rotate(45deg);
+    }
+    .deleteJobs s:nth-child(2){
+        transform: rotate(-45deg);
+    }
+</style>
 @endsection
 
 @section('CONTENT')
@@ -35,6 +130,7 @@
                 <p>请先上传习题噢～</p>
             </div>
         </div>
+
         <!--题目列表-->
         @else
         <!----------- 我收藏的  ---------->
@@ -43,7 +139,7 @@
                 @if($action == "my-upload")
                 <div class="screen_job border">
                     <form action="" class="clear">
-                        <label class="d-b clear" for="">
+                        <label class="d-b clear">
                             <span class="f-l label_span">条件：</span>
                             <div class="f-l">
                                 <div>
@@ -113,123 +209,126 @@
                 <div class="exer-list">
                     <!-- 单选题 -->
                     @foreach($data as $exercise)
-                    <div data-id="{{$exercise->id}}" class="exer-in-list border">
-                        <div class="exer-head">
-                            <span class="exer-type-list">{{$exercise->cate_title}}</span>
-                            @if(empty($action))
-                            <div class="f-r ic-blue">
-                                <input class="checkbox-add" type="checkbox" />
-                                <span>添加</span>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="exer-wrap">
-                            <div class="clear">
-                                <span class="f-l">题目：</span>
-
-                                <div class="f-l question">{!!$exercise->subject!!}</div>
-                            </div>
-                            <!--答案-->
-                            <div class="clear answer-box">
-                                <span class="f-l">答案：</span>
-                                @if($exercise->categroy_id == 1)
-                                <div class="f-l">
-                                    <ul class="radio-wrap exer-list-ul">
-                                        @foreach($exercise->options as $option)
-                                        <li>
-                                            <label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? "active" : ""}}">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="radio" name="radio" value="{{key($option)}}" {{in_array(key($option),$exercise->answer) ? "checked" : ""}}/>
-                                            </label>
-                                            <span class="f-l"></span>
-                                            <p class="f-l option">{{$option[key($option)]}}</p>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @elseif($exercise->categroy_id == 2)
-                                <div class="f-l">
-                                    <ul class="radio-wrap exer-list-ul">
-                                        @foreach($exercise->options as $option)
-                                        <li>
-                                            <label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? "active" : ""}}">
-                                                <i class="ic-blue-bg p-a"></i>
-                                                <input type="checkbox" name="checkbox" value="{{key($option)}}" {{in_array(key($option),$exercise->answer) ? "checked" : ""}}/>
-                                            </label>
-                                            <span class="f-l"></span>
-                                            <p class="f-l option">{{$option[key($option)]}}</p>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @elseif($exercise->categroy_id == 3)
-                                <div class="f-l">
-                                    <ul class="exer-list-ul">
-                                        @foreach($exercise->answer as $answers)
-                                        <li>
-                                            <span class="f-l exer-ans-order">{{$loop->index + 1}}.</span>
-                                            <p class="f-l option">{{$answers}}</p>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @elseif($exercise->categroy_id == 4)
-                                <div class="f-l">
-                                    <ul class="exer-list-ul">
-                                        @foreach($exercise->answer as $answers)
-                                        <li>
-                                            <span class="f-l exer-ans-order TOrF_img" style="{{$answers == 0 ? 'background-position:-22px -86px' : 'background-position:-70px -86px'}}">
-                                            </span>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @elseif($exercise->categroy_id == 5)
-                                @elseif($exercise->categroy_id == 6)
-                                <div class="f-l">
-                                    <ul class="exer-list-ul">
-                                        @foreach($exercise->options as $key => $option)
-                                        <li class="sort_list">
-                                            @foreach($option as $optionList)
-                                            <span class="f-l exer-ans-order"></span>
-                                            <p class="f-l option">{{$optionList}}</p>
-                                            @endforeach
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-                            </div>
-                            <div class="exer-foot clear">
-                                <div class="f-l">
-                                    <span>难易程度：</span>
-                                    <span>
-                                        <i class="fa fa-star active"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                </div>
+                    <div class="jobList">
+                        <div data-id="{{$exercise->id}}" data-see="" class="exer-in-list border">
+                            <div class="exer-head">
+                                <span class="exer-type-list">{{$exercise->cate_title}}</span>
                                 @if(empty($action))
-                                <ul class="f-r ic-inline collect">
-                                    <li>
-                                        <a class="red collect">
-                                            <i class="fa fa-heart"></i>
-                                            <span>665</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                @elseif($action == "my-upload")
-                                <ul class="f-r ic-inline collect">
-                                    <li>
-                                        <a href="1" class="ic-blue collect operation_job"><i class="fa fa-copy"></i><span>同类型习题</span></a>
-                                        <a href="2" class="ic-blue collect operation_job"><i class="fa fa-eye"></i><span>查看解析</span></a>
-                                        <a href="/uploadExercise/{{$class_id}}/{{$course_id}}/{{$exercise->id}}" class="ic-blue collect operation_job"><i class="fa fa-pencil"></i><span>编辑</span></a>
-                                        <a href="4" class="ic-blue collect operation_job"><i class="fa fa-trash"></i><span>删除</span></a>
-                                    </li>
-                                </ul>
+                                <div class="f-r ic-blue addBtnBox">
+                                    <input class="checkbox-add" type="checkbox" id="addCheckedBox{{ $exercise->id }}"/>
+                                    <label class="btnLabel" for="addCheckedBox{{ $exercise->id }}">添加</label>
+                                </div>
+                                <span class="deleteJobs"><s></s><s></s></span>
                                 @endif
+                            </div>
+                            <div class="exer-wrap">
+                                <div class="clear">
+                                    <span class="f-l">题目：</span>
+
+                                    <div class="f-l question">{!!$exercise->subject!!}</div>
+                                </div>
+                                <!--答案-->
+                                <div class="clear answer-box">
+                                    <span class="f-l">答案：</span>
+                                    @if($exercise->categroy_id == 1)
+                                    <div class="f-l">
+                                        <ul class="radio-wrap exer-list-ul">
+                                            @foreach($exercise->options as $option)
+                                            <li>
+                                                <label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? "active" : ""}}">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="radio" name="radio" value="{{key($option)}}" {{in_array(key($option),$exercise->answer) ? "checked" : ""}}/>
+                                                </label>
+                                                <span class="f-l"></span>
+                                                <p class="f-l option">{{$option[key($option)]}}</p>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @elseif($exercise->categroy_id == 2)
+                                    <div class="f-l">
+                                        <ul class="radio-wrap exer-list-ul">
+                                            @foreach($exercise->options as $option)
+                                            <li>
+                                                <label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? "active" : ""}}">
+                                                    <i class="ic-blue-bg p-a"></i>
+                                                    <input type="checkbox" name="checkbox" value="{{key($option)}}" {{in_array(key($option),$exercise->answer) ? "checked" : ""}}/>
+                                                </label>
+                                                <span class="f-l"></span>
+                                                <p class="f-l option">{{$option[key($option)]}}</p>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @elseif($exercise->categroy_id == 3)
+                                    <div class="f-l">
+                                        <ul class="exer-list-ul">
+                                            @foreach($exercise->answer as $answers)
+                                            <li>
+                                                <span class="f-l exer-ans-order">{{$loop->index + 1}}.</span>
+                                                <p class="f-l option">{{$answers}}</p>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @elseif($exercise->categroy_id == 4)
+                                    <div class="f-l">
+                                        <ul class="exer-list-ul">
+                                            @foreach($exercise->answer as $answers)
+                                            <li>
+                                                <span data-answer="{{$answers == 1 ?'1':'0'}}" class="f-l exer-ans-order TOrF_img" style="{{$answers == 1 ? 'background-position:-22px -86px' : 'background-position:-70px -86px'}}">
+                                                </span>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @elseif($exercise->categroy_id == 5)
+                                    @elseif($exercise->categroy_id == 6)
+                                    <div class="f-l">
+                                        <ul class="exer-list-ul">
+                                            @foreach($exercise->options as $key => $option)
+                                            <li class="sort_list">
+                                                @foreach($option as $optionList)
+                                                <span class="f-l exer-ans-order"></span>
+                                                <p class="f-l option">{{$optionList}}</p>
+                                                @endforeach
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="exer-foot clear">
+                                    <div class="f-l">
+                                        <span>难易程度：</span>
+                                        <span>
+                                            <i class="fa fa-star active"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                    </div>
+                                    @if(empty($action))
+                                    <ul class="f-r ic-inline collect">
+                                        <li>
+                                            <a class="red collect">
+                                                <i class="fa fa-heart"></i>
+                                                <span>665</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    @elseif($action == "my-upload")
+                                    <ul class="f-r ic-inline collect">
+                                        <li>
+                                            <a href="1" class="ic-blue collect operation_job"><i class="fa fa-copy"></i><span>同类型习题</span></a>
+                                            <a href="2" class="ic-blue collect operation_job"><i class="fa fa-eye"></i><span>查看解析</span></a>
+                                            <a href="/uploadExercise/{{$class_id}}/{{$course_id}}/{{$exercise->id}}" class="ic-blue collect operation_job"><i class="fa fa-pencil"></i><span>编辑</span></a>
+                                            <a href="4" class="ic-blue collect operation_job"><i class="fa fa-trash"></i><span>删除</span></a>
+                                        </li>
+                                    </ul>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,16 +359,11 @@
                 <span class="fs14 orange exer-num">(<span>0</span>/15)</span>
             </p>
             <ul data-all="" class="hw-type-list">
-                <!--
-        <li>
-            <span class="type">选择题</span>
-            <span class="number">（1）</span>
-        </li>
-        <li>
-            <span class="type">填空题</span>
-            <span class="number">（2）</span>
-        </li>
-        -->
+                <li style="display:none;"><span class='type'>单选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>多选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>填空题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>判断题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>排序题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
             </ul>
             <div class="ta-c">
                 <a id="create-hw" class="ic-btn">生成作业</a>
@@ -285,31 +379,19 @@
 <script src="/js/exercise.js" charset="utf-8"></script>
 <script src="/js/blankClick.js" charset="utf-8"></script>
 <script src="/js/teacher/exerRoom.js" charset="utf-8"></script>
+<script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
+<script src="/js/layui/layui.js" charset="utf-8"></script>
 <script>
     var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     $(".exer-in-list").each(function(i){
         let li = $(".exer-in-list").eq(i).find(".radio-wrap.exer-list-ul li");
-        li.each(function(j){
-            li.eq(j).find("span.f-l").text(num[j]+"：")
+        li.each(function(k){
+            li.eq(k).find("span.f-l").text(num[k]+"：");
         })
     })
     $(".sort_list").each(function(i){
         $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
     })
-    function edit_job(){
-        $("body").on("click", ".dan-xuan-only .ic-radio", function (event) {
-            event.preventDefault();
-            $(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
-            $(this).addClass("active");
-            $(this).children("input").prop("checked",true);
-        });
-
-        /*多选题选中*/
-        $("body").on("click", ".duo-xuan-only .ic-radio", function (event) {
-            event.preventDefault();
-            $(this).toggleClass("active");
-        });
-    }
     $("body").on("click", ".screen_job .ic-text-exer", function (e) {
         e.stopPropagation();
         let is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
@@ -334,5 +416,125 @@
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
+    //生成作业
+    $("#create-hw").on("click",function(){
+        let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+        if(sessionStorageData){
+            $(".exer-in-list").each(function(i,item){
+                if($(item).find(".checkbox-add").is(":checked")){
+                    let arr = sessionStorageData.exercise;
+                    let key = parseInt($(item).attr("data-id"))
+                    if(jQuery.inArray(key,arr) == -1){
+                        sessionStorageData.exercise.push(parseInt($(item).attr("data-id")));
+                    }
+                }
+            });
+            window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
+            window.history.back();
+        }
+    })
+    //显示选中的习题
+    let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+    if(sessionStorageData){
+        $(".exer-in-list.border").each(function(i,list){
+            for(let j=0;j<sessionStorageData.exercise.length;j++){
+                if(parseInt($(list).attr("data-id")) == sessionStorageData.exercise[j]){
+                    $(list).find(".checkbox-add").attr("checked",true);
+                }
+            }
+        })
+        let exercises = sessionStorageData.exercise;
+        for(var i = 0;i<exercises.length;i++){
+            $(".exer-in-list.border").each(function(){
+                var id=$(this).attr("data-id");
+                if(exercises[i] == parseInt(id)){
+                    var inputCkechbox = $(this).find(".checkbox-add")
+                    showCheckedJob(inputCkechbox)
+                }
+            })
+        }
+    }
+    
+    $(".exer-in-list").find(".checkbox-add").on("click",function(){
+            showCheckedJob(this)
+    })
+    function showCheckedJob(obj){
+        $(".hw-type-list").find("li").each(function(k,li){
+            if($(obj).parents(".exer-in-list").find(".exer-type-list").text() == $(li).find(".type").text()){
+                if(!$(obj).is(":checked")){
+                    $(li).css({display:'block'});
+                    $(li).find(".number code").text(parseInt($(li).find(".number code").text())-1);
+                    if(parseInt($(li).find(".number code").text())<=0){
+                        $(li).find(".number code").text("0");
+                        $(li).css({display:"none"});
+                    }
+                }else{
+                    $(li).css({display:'block'});
+                    $(li).find(".number code").text(parseInt($(li).find(".number code").text())+1);
+                }
+            };
+        })
+    }
+    
+    $(".preview").on("click",function(){
+        let seeHtml = "<div class='seeBox'><div class='seeHead'><div><span class='seeTitle'>7月20日作业</span><span class='deleteJobs'><s></s><s></s></span></div></div><div class='jobLists'>";
+        $(".addBtnBox").css({display:'none'});
+        $(".deleteJobs").css({display:"block"});
+        $(".jobList").each(function(i){
+            if($(this).find(".checkbox-add").is(":checked")){
+                seeHtml += $(this).html();
+            }
+        })
+        seeHtml += "</div><div class='seeBottom'><button>完成</button></div></div>"
+        layui.use("layer",function(){
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                area: ['700px', '730px'],
+                content: seeHtml,
+                end: function () {
+                    $(".addBtnBox").css({display:'block'});
+                    $(".deleteJobs").css({display:"none"});
+                }
+            });
+            $(".seeHead > div .deleteJobs,.seeBottom button").on("click",function(){
+                layui.use('layer', function(){
+                    layer.closeAll();
+                })
+            });
+            $(".jobLists .exer-in-list.border").on("click",".deleteJobs",function(){
+                let parentList = $(this).parents(".exer-in-list.border")
+                parentList.remove();
+                let id = $(this).parents(".exer-in-list.border").attr("data-id");
+                let exerArr = sessionStorageData.exercise;
+                let newExerArr = exerArr;
+                for(let i = 0;i<exerArr.length;i++){
+                    if(exerArr[i] == parseInt(id)){
+                        newExerArr.splice(i,1);
+                    }
+                }
+                $(".exer-list .jobList").each(function(k){
+                    if(id == $(this).find(".exer-in-list.border").attr("data-id")){
+                        $(this).find(".checkbox-add").attr("checked",false);
+                    }
+                })
+                let newArr = {
+                    "title":sessionStorageData.title,
+                    "chapter":{
+                        "unit":sessionStorageData.chapter.unit,
+                        "section":sessionStorageData.chapter.unit
+                    },
+                    "deadline":sessionStorageData.deadline,
+                    "dateTime":sessionStorageData.dateTime,
+                    "rulejob":sessionStorageData.rulejob,
+                    "exercise":newExerArr
+                }
+                sessionStorage.removeItem('addJob');
+                sessionStorage.setItem('addJob',JSON.stringify(newArr));
+            })
+        });
+    })
 </script>
 @endsection

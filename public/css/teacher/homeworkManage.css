@@ -20,7 +20,7 @@
     text-align: center;
 }
 .homework-manage-title>li>a {
-    cursor: default;
+    cursor: pointer;
     display: block;
 }
 .homework-manage-title .active {
@@ -297,9 +297,10 @@ body .lhgcal {
 /**************** exerRoom.html **************/
 /*已添加的作业*/
 .hw-list {
-    position: absolute;
-    right: -251px;
-    top: 100px;
+    position: fixed;
+    right: 50%;
+    top: 500px;
+    transform: translateX(570px);
     z-index: 300;
     width: 204px;
     padding-bottom: 10px;
@@ -476,7 +477,7 @@ body .lhgcal {
     text-align: center;
     height: 28px;
     line-height: 28px;
-    cursor: default;
+    cursor: pointer;
     color: #666;
     border: 1px solid #d9d9d9;
 }

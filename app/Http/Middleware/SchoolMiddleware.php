@@ -23,6 +23,5 @@ class SchoolMiddleware
         }elseif(Auth::guard('student')->check()){
             return redirect('/learningCenter');
         }
-        
     }
 }

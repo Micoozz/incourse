@@ -409,6 +409,7 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
+    	//dd($input);
     	$user = Auth::guard('student')->user();
     	$work = Work::find(intval($input['work_id']));
     	if (!empty($work->sub_time )) {

@@ -44,7 +44,7 @@
 
 /* 鼠标指针相关 */
 .c-p {cursor: pointer;}
-.c-d {cursor: default;}
+.c-d {cursor: pointer;}
 
 
 

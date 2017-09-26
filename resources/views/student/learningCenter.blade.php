@@ -263,13 +263,13 @@
         var errorArr = eval("("+$(".standardAnswer").find(".errordAnswerSpan").attr("data-errorAnswer")+")")
         $(".optionSpan").each(function(i,id){
         	for(var j=0;j<standardArr.length;j++){
-        		if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == standardArr[j]){
+        		if($(id).find("i.fa.fa-circle-o").attr("data-id") == standardArr[j]){
 	        		standardAnswerArr.push($(id).find("answer").text())
 	        	}
         	}
 	        $(".standardAnswer").find(".standardAnswerSpan").text(standardAnswerArr);
 	        for(var k = 0;k<errorArr.length;k++){
-	        	if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == errorArr[k]){
+	        	if($(id).find("i.fa.fa-circle-o").attr("data-id") == errorArr[k]){
 	        		errorAnswerArr.push($(id).find("answer").text())
 	        	}
 	        }
