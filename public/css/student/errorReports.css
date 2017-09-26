@@ -2,15 +2,21 @@
 	padding: 10px 0;
 	border-bottom: 1px solid #eee;
 	margin-bottom: 20px;
+	display: flex;
 }
 .error-answer-title>span{
 	display: inline-block;
 	width: 135px;
-    text-align: center;
-    font-size: 14px
+    font-size: 14px;
+    flex: 1;
+    line-height: 10px;
 }
 .error-answer-title .bj-gray{
-	font-size: 24px
+	font-size: 24px;
+	text-align: right;
+}
+.error-answer-title .bj-gray>span:last-child{
+	font-size: 14px;
 }
 
 .question-types{

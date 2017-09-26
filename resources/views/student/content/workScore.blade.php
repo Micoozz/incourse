@@ -17,30 +17,29 @@
 
 		<div class="progresse">@include("student.template.progressBar")</div>
 		<div class="consuming">
-			总耗时：33分20秒
+			总耗时：{{ date('i分s秒',$data['exeSecond']) }}<!-- //33分20秒 -->
 			<div>
 				<span>正确：{{ $data['objectiveCount'] }}题</span>	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>错误：{{ $data['objectiveErrorCount'] }}题</span>
-
 				<span>未批改：{{ $data['modifyCount'] }}题</span>
 			</div>
 		</div>
-		<div class="error-answer">
+		<div class="error-answer answerCard">
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data['status'] as $key => $status)
-					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach	
 			</ul>
 		</div>
 		<div class="clear"></div>
 		@if(!empty($data['sameExercise']))
-		<div class="error-answer">
+		<div class="error-answer sameTypeJob">
 			<p>同类型习题：</p>
 			<ul>
 				@foreach($data['sameExercise'] as $key => $status)
-					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li parent-id="{{ $status['parent_id'] }}" @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach
 			</ul>
 		</div>
@@ -48,12 +47,12 @@
 		<div class="clear"></div>
 		<div class="submits">
 			@if(empty($data['sameExercise']))
-				<button class=".btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}'" >返回</button>
-				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}'" >错题解析</button>
-				<button class="ic-btn" onclick="window.location.href='/homotypology/{{ $tutorship }}/{{ $parameter }}/{{ $accuracy }}'">分数提升</button>
+				<button class="btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}'" >返回</button>
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}'" >错题解析</button>
+				<button class="ic-btn error-exercise" error-exercise="{{ $tutorship }}">分数提升</button>		
 			@else
-				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/exercise_book/{{ $parameter }}'" >返回</button>
-				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $data['work']->course_id }}/{{ $mod }}/error_reports/{{ $parameter }}'">错题解析</button>
+				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/exercise_book/{{ $parameter }}'" >返回</button>
+				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}'">错题解析</button>
 			@endif
 		</div>
 	</div>

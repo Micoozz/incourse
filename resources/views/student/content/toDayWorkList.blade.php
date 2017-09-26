@@ -41,7 +41,13 @@
                 {{ $work->score }}
             @endif
             </td>
-            <td>未答题</td>
+            <td>
+                @if(empty($work->sub_time))
+                    未答题
+                @else
+                    {{ $work->second }}
+                @endif
+            </td>
             <td><i @if(empty($work->sub_time)) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' 
                 @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/homework/work_score/{{ $work->id }}" ' @endif class="fa fa-edit"></i>
             </td>

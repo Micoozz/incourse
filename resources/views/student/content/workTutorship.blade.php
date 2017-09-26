@@ -8,13 +8,13 @@
 	<div class="ic-container accout">
 		<div class="progresse">@include("student.template.progressBar")</div>
 		<div class="consuming">
-			总耗时：33分20秒
+			总耗时：{{ date('i分s秒',$entire) }}
 		</div>
 		<div class="error-answer">
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data as $key => $status)
-					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $several[$key] }}</li>
 				@endforeach
 
 			</ul>

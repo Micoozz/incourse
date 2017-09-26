@@ -36,11 +36,18 @@ $(function(){
         "last": 0
     };
 
-    function single_time(){
+    function single_time(idT){
         var current = new Date().getTime();
-        obj_time.id = $(".big-num").text();
+        obj_time.id = idT;
         var last = Math.round((current - obj_time.start_time)/1000);
-        var ic_id = sessionStorage.getItem("ic_"+obj_time.id);
+        var ic_id;
+        for( var k in window.sessionStorage){
+            if(k==("ic_"+obj_time.id)){
+                ic_id=k;
+            }else{
+                ic_id = sessionStorage.getItem("ic_"+obj_time.id);
+            }
+        }
         if(ic_id){
             obj_time.last = JSON.parse(ic_id).last + last;
         }else {
@@ -87,17 +94,12 @@ $(function(){
         setTimeout(function(){
             $("#fa-angle-right").prop("disabled",false);
         },300);
-
-        single_time();
+        single_time($(".big-num").text());
 
         //位移
         left = parseInt($(".do-hw .exercise-box").css("left")) - li_width;
         $(".do-hw .exercise-box").css("left",left);
 
-        //右上角题号更换
-        //if(left !== -ul_width+li_width) {
-        //    $(".big-num").text(parseInt($(".big-num").text()) + 1);
-        //}
         $(".big-num").text(parseInt($(".big-num").text()) + 1);
 
         isEnd(left);
@@ -110,23 +112,22 @@ $(function(){
             $("#fa-angle-left").prop("disabled",false);
         },300);
 
-        single_time();
-
-        //if(left !== -ul_width+li_width) {
-        //    $(".big-num").text(parseInt($(".big-num").text()) - 1);
-        //}
-
         left = left + li_width;
         $(".do-hw .exercise-box").css("left",left);
 
         isEnd(left);
 
-        $(".big-num").text(parseInt($(".big-num").text()) - 1);
+        if(parseInt($(".big-num").text())>$(".do-hw .exercise-box .exer-in-list").length){
+            $(".big-num").text(parseInt($(".big-num").text()) - 1);
+        }else{
+            $(".big-num").text(parseInt($(".big-num").text()) - 1);
+            single_time(parseInt($(".big-num").text())+1);
+        }
     });
 
     //点击底部的序号调到对应的题目
     $("body").on("click",".hw-order>span",function(){
-        single_time();
+        single_time($(".big-num").text());
 
         var order = parseInt($(this).text());
         $(".big-num").text(order);
@@ -190,7 +191,12 @@ $(function(){
                 "parent_id":"",
                 "last": 0,
             };
-
+            if($(item).find(".exer-list-ul li").length != 0){
+                obj.option=[];
+                $(item).find(".exer-list-ul li").each(function(j,list){
+                    obj.option.push($(list).attr("data-option"))
+                })
+            }
             var arr = []; //单题
             var arr_big = []; //多题
             var dom = "";
@@ -198,11 +204,11 @@ $(function(){
             var img_text = {};
 
             if(type === "单选题"){
-                obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : $(item).find(".ic-radio.active input").val();
+                obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : parseInt($(item).find(".ic-radio.active input").val());
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id');
             }else if(type === "多选题"){
                 $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-                   obj.answer.push(Number($(n).val()));
+                   obj.answer.push(parseInt($(n).val()));
                 });
                 if (obj.answer[0] == null) {
                     obj.answer = "";
@@ -231,7 +237,7 @@ $(function(){
                 obj.answer = arr;
             }else if(type === "排序题"){
                 $(item).find(".exer-list-ul>li>span").each(function(i,n){
-                    obj.answer.push($(n).attr('exercise-id'));
+                    obj.answer.push(parseInt($(n).attr('exercise-id')));
                 });
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id')
             }else if(type === "画图题" || type === "作文题" || type === "计算题"){
@@ -310,6 +316,14 @@ $(function(){
             }
             total.push(obj);
         });
+        //把单题时间整合到total中,li_num
+        var store = window.sessionStorage;
+        for(var key in store){
+            if(Number(key.slice(3))){
+                console.log(key);
+                total[Number(key.slice(3))-1].last = JSON.parse(store[key]).last;
+            }
+        }
         var param = clearUp(total); //传给后台的作业答案参数
         param._token = token;
         param.work_id = work_id;
@@ -318,24 +332,21 @@ $(function(){
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
-                window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id +"/"+ accuracy;
+                console.log(course)
+                var increase = $("#course_id").attr('error-increase');
+                if (result == 200 || result == 1) {
+                    window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id + "/" + accuracy + "/" + increase;
+                }
+                sessionStorage.clear();
             });
         }else{
             $.post("/homeworkScores",param,function(result){
                 var course = $("#course_id").attr('value');
                 if (result == 200 || result == 1) {
-                  window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
+                    window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
                 }
                 sessionStorage.clear();
             });
-        }
-        //把单题时间整合到total中,li_num
-        var store = window.sessionStorage;
-        for(var key in store){
-            if(Number(key.slice(3))){
-                console.log(key);
-                total[Number(key.slice(3))-1].last = JSON.parse(store[key]).last;
-            }
         }
     });
 

@@ -93,6 +93,9 @@ html,body,
     font-size: 50px;
     color: #888;
 }
+.do-hw-wrap .change-exer button{
+    cursor: pointer;
+}
 .do-hw {
     padding: 40px;
 }
@@ -151,6 +154,7 @@ html,body,
     background-color: #fff;
     cursor: default;
     overflow: hidden;
+    cursor: pointer;
 }
 .hw-order>span:last-child {
     margin-right: 0;
@@ -187,9 +191,11 @@ html,body,
 /*单选题*/
 .do-hw .exer-list-ul>li {
     height: 35px;
+    cursor: pointer;
 }
 .do-hw .exer-in-list .ic-radio {
     top: 2px;
+    cursor: pointer;
 }
 
 /*填空题*/

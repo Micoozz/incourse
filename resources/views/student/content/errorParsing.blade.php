@@ -9,19 +9,19 @@
 			<p class="answer-ka"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</p>
 			@if(!empty($data['error_work']))
 			<p>答题卡</p>
-			<ul>
+			<ul class="answerSheets">
 				@foreach($data['error_work'] as $errorWork)
-				<li class="bj-ff5" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $errorWork->exe_id }}/{{ $loop->index +1 }}'" >{{ $loop->index +1 }}</li>
+				<li exe-id="{{  $errorWork->exe_id }}" class="bj-ff5" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $errorWork->exe_id }}/{{ $loop->index +1 }}'" >{{ $loop->index +1 }}</li>
 				@endforeach
 			</ul>
 			@endif
-			{{-- dd($data['error_same']) --}}
+
 			@if(!empty($data['error_same']))
-			<div class="clear"></div>
-			<p>同类型习题</p>
-			<ul>
+			<div class="clear" ></div>
+			<p style="margin-top: 20px">同类型习题</p>
+			<ul class="homotypology">
 				@foreach($data['error_same'] as $errorWork)
-				<li class="bj-ff5" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $errorWork->exe_id }}/{{ $loop->index +1 }}'" >{{ $loop->index +1 }}</li>
+				<li parent-id="{{ $errorWork->parent_id }}" class="bj-ff5" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $errorWork->exe_id }}/{{ $loop->index +1 }}'" >{{ $loop->index +1 }}</li>
 				@endforeach
 			</ul>
 			@endif

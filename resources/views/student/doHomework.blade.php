@@ -47,7 +47,7 @@
         <div class="f-l do-hw">
             <div class="of-h p-r view">
                 <input type="hidden" id="work_id" value="{{ isset($work_id)? $work_id : '' }}">
-                <input type="hidden" id="course_id" value="{{ isset($course)? $course : '' }}">
+                <input type="hidden" id="course_id" error-increase="{{ isset($increase) ? $increase : '' }}" value="{{ isset($course)? $course : '' }}">
                 <ul class="ic-inline p-a exercise-box">
                  @foreach($data as $key => $exercise)
                     <!--单选题-->
@@ -63,7 +63,7 @@
                         <div>
                             <ul class="radio-wrap exer-list-ul dan-xuan-options">
                                 @foreach($exercise['options'] as $option)
-                                <li>
+                                <li data-option="{{ array_keys($option)[0] }}">
                                     <label class="ic-radio border p-r f-l">
                                         <i class="ic-blue-bg p-a"></i>
                                         <input type="radio" name="radio" value="{{ array_keys($option)[0] }}"/>
@@ -89,7 +89,7 @@
                         <div>
                             <ul class="radio-wrap exer-list-ul">
                                 @foreach($exercise['options'] as $option)
-                                <li>
+                                <li data-option="{{ array_keys($option)[0] }}">
                                     <label class="ic-radio border p-r f-l">
                                         <i class="ic-blue-bg p-a"></i>
                                         <input type="checkbox" name="checkbox" value="{{ array_keys($option)[0] }}"/>
@@ -154,7 +154,7 @@
                         <div class="answer-box">
                             <ul class="exer-list-ul sortable">
                             @foreach($exercise['options'] as $option)
-                                <li class="ui-state-default">
+                                <li class="ui-state-default" data-option="{{ array_keys($option)[0] }}">
                                     <span class="f-l" data-id="{{ array_keys($option)[0] }}" exercise-id="{{ array_keys($option)[0] }}">排序{{ $loop->iteration }}：</span>
                                     <p class="f-l option">{{ array_values($option)[0] }}</p>
                                 </li>
