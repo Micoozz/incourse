@@ -76,6 +76,9 @@
 	border: 1px solid #D9D9D9;
 	background-color: #fff;
 }
+.input_focus{
+	outline:none;
+}
 
 /*错误红边框输入框*/
 .input-error{border-color: red;}
@@ -685,3 +688,4 @@
 .hint{
 	color: red;
 }
+

@@ -583,66 +583,66 @@ $(function () {
 $(function () {
     //默认添加单选题
     var html = '<div class="exercise">\
-											<div class="type select-action-box p-r">\
-												<span class="f-l fs14">题型：</span>\
-												<div class="select-form clear">\
-													<div>\
-														<p class="ic-text-exer">\
-															<span>单选题</span>\
-															<i class="fa fa-angle-down"></i>\
-														</p>\
-														<ul class="lists-exer">\
-															'+categroy_list+'\
-														</ul>\
-													</div>\
-												</div>\
-												<i class="common-icon ic-close-icon p-a"></i>\
-											</div>\
-											<div class="question-box">\
-											<div class="question clear">\
-												<span class="f-l fs14">问题：</span>\
-												<div class="ic-editor border f-l">\
-													<div class="tools clear">\
-														<button class="f-l p-r of-h addFileTool">\
-															<i class="tool"></i>\
-															<span>添加附件</span>\
-															<input class="addFile" type="file" />\
-														</button>\
-														<b class="vertical-line f-l"></b>\
-														<button class="f-l blank d-n">\
-															<i class="tool"></i>\
-															<span>插入空格</span>\
-														</button>\
-														<button class="f-l dotted">\
-															<i class="tool"></i>\
-															<span>下标点</span>\
-														</button>\
-														<button class="f-l up-dotted">\
-														   <i class="tool"></i>\
-														   <span>上标点</span>\
-														</button>\
-														<button class="f-l underline">\
-															<i class="tool"></i>\
-															<span>下划线</span>\
-														</button>\
-													</div>\
-													<div class="editor-content" contenteditable="true"></div>\
-												</div>\
-											</div>\
-											</div>\
-											<div class="answer-wrap clear">\
-												<span class="f-l fs14">答案：</span>\
-												<div class="answer-box f-l">\
-													<div class="dan-xuan">\
-														<div class="dan-xuan-options dan-xuan-only"></div>\
-														<span class="addOptionBtn addXzOptionBtn c-d ic-blue">\
-															<i class="uploadExerIcons"></i>\
-															<span>添加选项</span>\
-														</span>\
-													</div>\
-												</div>\
-											</div>\
-										</div>';
+        <div class="type select-action-box p-r">\
+            <span class="f-l fs14">题型：</span>\
+            <div class="select-form clear">\
+                <div>\
+                    <p class="ic-text-exer">\
+                        <span>单选题</span>\
+                        <i class="fa fa-angle-down"></i>\
+                    </p>\
+                    <ul class="lists-exer">\
+                        '+categroy_list+'\
+                    </ul>\
+                </div>\
+            </div>\
+            <i class="common-icon ic-close-icon p-a"></i>\
+        </div>\
+        <div class="question-box">\
+        <div class="question clear">\
+            <span class="f-l fs14">问题：</span>\
+            <div class="ic-editor border f-l">\
+                <div class="tools clear">\
+                    <button class="f-l p-r of-h addFileTool">\
+                        <i class="tool"></i>\
+                        <span>添加附件</span>\
+                        <input class="addFile" type="file" />\
+                    </button>\
+                    <b class="vertical-line f-l"></b>\
+                    <button class="f-l blank d-n">\
+                        <i class="tool"></i>\
+                        <span>插入空格</span>\
+                    </button>\
+                    <button class="f-l dotted">\
+                        <i class="tool"></i>\
+                        <span>下标点</span>\
+                    </button>\
+                    <button class="f-l up-dotted">\
+                       <i class="tool"></i>\
+                       <span>上标点</span>\
+                    </button>\
+                    <button class="f-l underline">\
+                        <i class="tool"></i>\
+                        <span>下划线</span>\
+                    </button>\
+                </div>\
+                <div class="editor-content" contenteditable="true"></div>\
+            </div>\
+        </div>\
+        </div>\
+        <div class="answer-wrap clear">\
+            <span class="f-l fs14">答案：</span>\
+            <div class="answer-box f-l">\
+                <div class="dan-xuan">\
+                    <div class="dan-xuan-options dan-xuan-only"></div>\
+                    <span class="addOptionBtn addXzOptionBtn c-d ic-blue">\
+                        <i class="uploadExerIcons"></i>\
+                        <span>添加选项</span>\
+                    </span>\
+                </div>\
+            </div>\
+        </div>\
+    </div>';
 
     //添加题目
     $(".addExerBtn-box .addExerBtn").click(function () {
@@ -666,7 +666,7 @@ $(function () {
     });
     var section;
     $(".section-ul").on("click",".section-li",function(){
-        section = $(this).attr("data");
+        section = $(this).attr("data").attr("data-s",$(this).attr("data"));
     })
 
 	//上传

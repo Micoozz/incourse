@@ -16,18 +16,8 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/progressBar.css') }}" />
 		<title>InCourse</title>
 		<style>
-		.error-answer ul{
-			margin-left: 45px;
-		}
 			.accout {
 				padding-top: 100px;
-			}
-			.accouts{
-				padding-top: 45px;
-			}
-			.questions .options>span{
-				display: block;
-				margin-top: 10px
 			}
 			.atitle>p{
 				font-size: 16px;
@@ -66,7 +56,6 @@
 				text-align: center;
 				line-height: 32px;
 				border-radius: 16px;
-				cursor: pointer;
 			}
 
 			.error-answer>ul>.bj-img1{
@@ -90,12 +79,11 @@
 			
 			.submits button {
 				margin-right: 10px;
-				cursor: pointer;
 			}
 			
-/*			.atitle {
+			.atitle {
 				border-bottom: 1px solid #eee;
-			}*/
+			}
 			
 			.option .box_hpb {
 				height: 144px;
@@ -129,19 +117,24 @@
 						<!--左侧栏-->
 						<div class="col-xs-12 pupilleft" id="left">@include('student.template.pupilLeft')</div>
 						<!--内容-->
-						@if($mod == 'homework')
-							@if($func == 'exercise_book')
+						@if($mod == 1)
+							@if($func == 1)
 								@include('student.content.workList')
-							@elseif($func == 'routine_work')
+							@elseif($func == 2)
 								@include('student.content.routineWork')	
-							@elseif($func == 'work_score')
+							@elseif($func == 3)
 								@include('student.content.workScore')
-							@elseif($func == 'error_reports')
+							@elseif($func == 4)
 								@include('student.content.errorReports')
+<<<<<<< HEAD
 							@elseif($func == 'answer_sheet')
 								@include('student.content.errorParsing')	
 							@elseif($func == 'work_tutorship')
 								@include('student.content.workTutorship')			
+=======
+							@elseif($func == 5)
+								@include('student.content.errorParsing')			
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 							@endif
 						@endif	
 						<!--右侧栏-->
@@ -158,13 +151,18 @@
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
 		<script>
 			var token = "{{csrf_token()}}";
+<<<<<<< HEAD
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}"
 			//var deviationScore = "{{ isset($deviationScore) ? $deviationScore * 100 : '' }}";
 			//console.log(accuracy)
+=======
+			//console.log(token)
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 			$(function() {
 				setTimeout(function() {
 					//圆形进度条
+					var accuracy = "{{ isset($data['accuracy']) ? $data['accuracy'] * 100 : '' }}"
 					var percentum = accuracy; //正确率百分比
 					var percentums = percentum * 6.29 //进度条百分比
 					if(accuracy.length>3){
@@ -326,6 +324,19 @@
 	}	
 
 
+<<<<<<< HEAD
+=======
+        //同类行 题型
+        /*$('#tutorship').on('click',function(){
+        	var data;
+        	var tutorship = $(this).attr('data-id');
+        	data = {"data":tutorship,"_token":token};
+        	console.log(data);
+        	$.post("/doHomework",data,function(data){
+        			$("html").html(data);
+        	});
+        });*/
+>>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 
 		</script>
 	</body>

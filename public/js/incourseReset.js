@@ -75,7 +75,7 @@ $(function(){
 
 	$("body").on("click",".select-form .lists>li",function() {
 		var $p = $(this).parent().prev();
-		$p.children("span").text($(this).text());
+		$p.children("span").text($(this).text()).attr("data-s",$(this).attr("data"));
 		$p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
 		$p.next("ul").toggle();
 	});
