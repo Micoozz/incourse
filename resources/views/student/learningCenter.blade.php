@@ -303,6 +303,30 @@
         }
 		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5","exe-id","parent-id");
 		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5","exe-id","parent-id");
+
+
+
+		$('.answerCard ul li,.error-answer ul li').click(function(){
+			if($(this).attr('class')=='bj-ff5'){
+					localStorage.arry=$(this).text()
+			}
+		});
+
+		$('.submits button:nth-of-type(2)').click(function(){
+				var array=[];
+		$('.answerCard ul li,.error-answer ul li').each(function(){
+			if($(this).attr('class')=='bj-ff5'){
+					array.push($(this).text())
+			}
+		})
+	localStorage.arry=array[0]				
+		})
+			if(localStorage.arry!=undefined){
+		$('.bj-gray .blue').text(localStorage.arry)	
+	}	
+
+
+
 		</script>
 	</body>
 
