@@ -100,7 +100,6 @@
         transform: rotate(-45deg);
     }
 </style>
->>>>>>> merge
 @endsection
 
 @section('CONTENT')
