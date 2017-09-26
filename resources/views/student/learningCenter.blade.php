@@ -16,8 +16,18 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/progressBar.css') }}" />
 		<title>InCourse</title>
 		<style>
+		.error-answer ul{
+			margin-left: 45px;
+		}
 			.accout {
 				padding-top: 100px;
+			}
+			.accouts{
+				padding-top: 45px;
+			}
+			.questions .options>span{
+				display: block;
+				margin-top: 10px
 			}
 			.atitle>p{
 				font-size: 16px;
@@ -56,6 +66,7 @@
 				text-align: center;
 				line-height: 32px;
 				border-radius: 16px;
+				cursor: pointer;
 			}
 
 			.error-answer>ul>.bj-img1{
@@ -79,11 +90,12 @@
 			
 			.submits button {
 				margin-right: 10px;
+				cursor: pointer;
 			}
 			
-			.atitle {
+/*			.atitle {
 				border-bottom: 1px solid #eee;
-			}
+			}*/
 			
 			.option .box_hpb {
 				height: 144px;
@@ -117,20 +129,19 @@
 						<!--左侧栏-->
 						<div class="col-xs-12 pupilleft" id="left">@include('student.template.pupilLeft')</div>
 						<!--内容-->
-						@if($mod == 1)
-							@if($func == 1)
+						@if($mod == 'homework')
+							@if($func == 'exercise_book')
 								@include('student.content.workList')
-							@elseif($func == 2)
+							@elseif($func == 'routine_work')
 								@include('student.content.routineWork')	
-							@elseif($func == 3)
+							@elseif($func == 'work_score')
 								@include('student.content.workScore')
-							@elseif($func == 4)
+							@elseif($func == 'error_reports')
 								@include('student.content.errorReports')
 							@elseif($func == 'answer_sheet')
 								@include('student.content.errorParsing')	
 							@elseif($func == 'work_tutorship')
 								@include('student.content.workTutorship')			
-
 							@endif
 						@endif	
 						<!--右侧栏-->
@@ -151,11 +162,9 @@
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}"
 			//var deviationScore = "{{ isset($deviationScore) ? $deviationScore * 100 : '' }}";
 			//console.log(accuracy)
-
 			$(function() {
 				setTimeout(function() {
 					//圆形进度条
-					var accuracy = "{{ isset($data['accuracy']) ? $data['accuracy'] * 100 : '' }}"
 					var percentum = accuracy; //正确率百分比
 					var percentums = percentum * 6.29 //进度条百分比
 					if(accuracy.length>3){
