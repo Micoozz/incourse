@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/student/questionTypes.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/school/step.css') }}" />
         <title>InCourse</title>
-    </head>{{-- dd($workCount) --}}
+    </head>
         <style>
             .step-change>li:first-child span {
                 color: #333;
@@ -76,9 +76,9 @@
                         <div class="col-xs-12 left"></div>
                         @else
                          <div class="col-xs-12 col-sm-12 question-center" id="centery">
-                            @if($func == 'exercise_book')
+                            @if($func == 1)
                                 @include('student.content.toDayWorkList')
-                            @elseif($func == 'routine_work')
+                            @elseif($func == 2)
                                 @include('student.content.routineWork')
                             @elseif($func == 'student-pwd')  
                                 @include('student.content.changePwd')  
@@ -108,9 +108,9 @@
         <script src="{{ asset('/js/student/step.js') }}" charset="utf-8"></script>
         <script>
         var token = "{{csrf_token()}}";
-       // var workCount = "{{ isset($workCount[0]->work_id)? $workCount[0]->work_id : NULL }}";
-        //console.log(workCount)
-/*            if (!workCount) {
+        var workCount = "{{ isset($workCount[0]->work_id)? $workCount[0]->work_id : NULL }}";
+        console.log(workCount)
+            if (!workCount) {
                 $(function() {
                     setTimeout(function() {
                         $('.part2').show().addClass('position').css({
@@ -146,7 +146,7 @@
                         })
                     }, 10)
                 })
-            }*/
+            }
         $("#change").click(function() { 
            $url = "{{ URL('/kit/captcha/') }}";  
            $url = $url + "/" + Math.random();

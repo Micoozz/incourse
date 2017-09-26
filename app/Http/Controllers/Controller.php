@@ -19,17 +19,10 @@ use Session;
 use Cookie;
 use App\Models\Chapter;
 use PDO;
-use App\Models\Classes;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public function getScantronIdList(){
-        $input = Input::get();
-        $class = Classes::where("receiver_id",$input["receiver_id"])->first();
-        $scantron_id_list = Student::where("class_id",$class->id)->pluck("scantron_id");
-        return json_encode($scantron_id_list);
-    }
 
     public function getCourse(){
     	$course_list = Course::all();
@@ -171,7 +164,7 @@ class Controller extends BaseController
             }
         }
         return json_encode($result);
-    }    
+    }
     protected function send_post($url, $post_data) {    
         header("Content-type:text/html;charset=utf-8");  
           

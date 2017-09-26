@@ -56,47 +56,29 @@ class ExerciseController extends Controller
         return json_encode($data);
     }
 
-    public function getExerciseList($page = 1){
+    public function getExerciseList(){
         $input = Input::get();
-        $limit = ($page-1)*5;
-        $exercise_id_arr = explode(',',$input['exercise_id']);
-        $exercise_id = array_slice($exercise_id_arr,$limit,5);
-        $pageLength = intval(count($exercise_id_arr)/5)+1;
-        $data = array('total' => count($exercise_id_arr),'pageLength' => $pageLength,'exercises' => array());
-        foreach ($exercise_id as $eid) {
-            $exercise = Exercises::find($eid);
+        $exercise_id_arr = $input['id_list'];
+        $data = Exercises::whereIn("id",$exercise_id_arr)->get();
+        foreach ($data as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-                $subjective = Subjective::where('exe_id',$exercise->id)->first();
-                array_push($data['exercises'],array(
-                    'id' => $exercise->id,
-                    'cate_title' => $cate_title,
-                    'subject' => $subjective->subject,
-                    'answer' => '自由发挥',
-                    'score' => $exercise->score/100
-                    ));
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-                $objective = Objective::where('exe_id',$exercise->id)->first();
-                $answers = array();
-                if($exercise->categroy_id == Exercises::CATE_CHOOSE || $exercise->categroy_id == Exercises::CATE_RADIO){
-                    $answer_list = explode(',',$objective->answer);
-                    foreach ($answer_list as $key => $answer) {
-                        array_push($answers,array_keys(json_decode($objective->option,true)[(int)$answer-1])[0]);
-                    }
-                }else{
-                     array_push($answers,explode(',',$objective->answer));
-                }
-                array_push($data['exercises'],array(
-                    'id' => $exercise->id,
-                    'cate_title' => $cate_title,
-                    'subject' => $objective->subject,
-                    'options' => json_decode($objective->option),
-                    'answer' => $answers,
-                    'score' => $exercise->score/100
-                    ));
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
             }
+//          else{
+//              
+//          }
         }
-        return json_encode($data);
+        return json_encode($data,JSON_UNESCAPED_UNICODE);
     }
     
     public function createExercise(){
