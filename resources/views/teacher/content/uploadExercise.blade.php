@@ -5,6 +5,14 @@
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" href="/css/teacher/homeworkManage.css" />
 <link rel="stylesheet" type="text/css" href="/css/exercise.css">
+<style>
+    .icon_margin_r{
+        margin-right:24px;
+    }
+    .tool{
+        margin-right:8px;
+    }
+</style>
 @endsection
 
 @section('CONTENT')
@@ -66,25 +74,25 @@
 							<span class="f-l fs14">问题：</span>
 							<div class="ic-editor border f-l">
 								<div class="tools clear">
-									<button class="f-l p-r of-h addFileTool">
+									<button class="f-l p-r of-h addFileTool icon_margin_r">
 										<i class="tool"></i>
 										<span>添加附件</span>
 										<input class="addFile" type="file" />
 									</button>
 									<b class="vertical-line f-l"></b>
-									<button class="f-l blank d-n">
+									<button class="f-l blank d-n icon_margin_r">
 										<i class="tool"></i>
 										<span>插入空格</span>
 									</button>
-									<button class="f-l dotted">
+									<button class="f-l dotted icon_margin_r">
 										<i class="tool"></i>
 										<span>下标点</span>
 									</button>
-									<button class="f-l up-dotted">
+									<button class="f-l up-dotted icon_margin_r">
 									   <i class="tool"></i>
 									   <span>上标点</span>
 									</button>
-									<button class="f-l underline">
+									<button class="f-l underline icon_margin_r">
 										<i class="tool"></i>
 										<span>下划线</span>
 									</button>

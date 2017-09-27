@@ -98,6 +98,7 @@
 }
 .person_hw_box .calendar,.person_hw_box .calendar>input {
     width: 170px;
+    cursor: pointer;
 }
 .person_hw_box .hw-content {
     width: 530px;
@@ -135,7 +136,7 @@ body .lhgcal {
 .person-exer-list th,
 .person-exer-list td {
     height: 42px;
-    padding: 5px 0;
+    padding: 15px 0 5px;
 }
 .person-exer-list th,
 .person-exer-list td {
@@ -156,6 +157,10 @@ body .lhgcal {
 .person-exer-list th:nth-child(3),
 .person-exer-list tr>td:nth-child(3) {
     width: 360px;
+}
+.person-exer-list th:nth-child(4),
+.person-exer-list tr>td:nth-child(4) {
+    width: 70px;
 }
 .person-exer-list .table-last {
     width: 70px;
@@ -179,7 +184,6 @@ body .lhgcal {
     top: 6px;
 }
 .tfoot {
-    margin-top: 10px;
     height: 42px;
     line-height: 39px;
     padding-left: 15px;
@@ -435,12 +439,6 @@ body .lhgcal {
     color: #666;
     border: 1px solid #d9d9d9;
 }
-.person-hw-mark-head .notMark {
-    /*border-right: none;*/
-}
-.person-hw-mark-head .doMark {
-    /*border-left: none;*/
-}
 .person-hw-mark-head .isMark.active {
     color: #168bee;
     border: 1px solid #168bee;
@@ -472,7 +470,7 @@ body .lhgcal {
 
 /*“我上传的”，“我收藏的”*/
 .my-exer-room-head .isMark {
-    float: right;
+    float: left;
     width: 67px;
     text-align: center;
     height: 28px;
@@ -483,10 +481,44 @@ body .lhgcal {
 }
 .my-exer-room-head .isMark.active {
     color: #168bee;
+    z-index:999;
     border: 1px solid #168bee;
     background-color: #e1f5fa;
 }
-
+.my-exer-room-head .isMark.active a{
+    color: #168bee;
+}
+.isMark:hover a{
+    color:#168bee;
+}
+.ls_hr{
+    width: 0;
+    height: 28px;
+    border-left: 1px solid #d9d9d9;
+    float: left;
+    display: block;
+}
+.ls_hr.active{
+    border-color: #168bee;
+}
+.my-exer-room-head .notMark,.my-exer-room-head .notMark.active {
+    border-left: none;
+}
+.my-exer-room-head .doMark,.my-exer-room-head .doMark.active {
+    border-right: none;
+}
+.subject_box.subject_box_noActive{
+    width: 360px;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.subject_box.subject_box_active{
+    width: 360px;
+    display: block;
+    word-break:break-all;
+}
 
 
 /******************* editorExerPage.html *********************/

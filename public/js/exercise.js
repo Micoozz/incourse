@@ -62,25 +62,25 @@ $(function () {
         "<span class='f-l fs14'>问题：</span>" +
         "<div class='ic-editor border f-l'>" +
             "<div class='tools clear'>" +
-                "<button class='f-l p-r of-h addFileTool'>" +
+                "<button class='f-l p-r of-h addFileTool icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                     "<input class='addFile' type='file' />" +
                 "</button>" +
                 "<b class='vertical-line f-l'></b>" +
-                "<button class='f-l blank d-n'>" +
+                "<button class='f-l blank d-n icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>插入空格</span>" +
                 "</button>" +
-                "<button class='f-l dotted'>" +
+                "<button class='f-l dotted icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>下标点</span>" +
                 "</button>" +
-                "<button class='f-l up-dotted'>" +
+                "<button class='f-l up-dotted icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>上标点</span>" +
                 "</button>" +
-                "<button class='f-l underline'>" +
+                "<button class='f-l underline icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>下划线</span>" +
                 "</button>" +
@@ -115,11 +115,11 @@ $(function () {
                     "<input class='addFile' type='file' />" +
                 "</button>" +
                 "<b class='vertical-line f-l'></b>" +
-                "<button class='f-l blank'>" +
+                "<button class='f-l blank icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>插入空格</span>" +
                 "</button>" +
-                "<button class='f-l dotted'>" +
+                "<button class='f-l dotted icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>下标点</span>" +
                 "</button>" +
@@ -127,7 +127,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>上标点</span>" +
                 "</button>" +
-                "<button class='f-l underline'>" +
+                "<button class='f-l underline icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>下划线</span>" +
                 "</button>" +
@@ -423,28 +423,14 @@ $(function () {
 	/*function editorExer(obj) {
 		//["单选题1","多选题2","填空题3","判断题4","连线题5","排序题6","完形填空7","画图题8","计算题9","简答题10","解答题11","听力题12","阅读题13","作文题14","综合题15"];
 		let typeNum = Number(obj.categroy), t;
-<<<<<<< HEAD
 
 		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
 		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
 		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
-
-=======
-		
-		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
-		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
-		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
-		
->>>>>>> dev
 		//问题显示
 		if(typeNum===12){
 			queBox.html(ting_li_Q);
             t = "听力题";
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> dev
 			let files = obj.material[0];
 			let size = (files[0].size / 1024 / 1024).toFixed(2);
 			$(".editorExerModal .listen .mp3-box").addClass("border").append("<div>" +
@@ -453,11 +439,6 @@ $(function () {
                     "<span class='gray'>听力  <span class='audio-name'>' + files[0].name + '</span> ' + size + 'M </span>" +
                     "<button class='f-r ic-blue delete'>删除</button>" +
                 "</div>");
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> dev
 			obj.answer.forEach(function(item,i){
 				$(".editorExerModal .mul-answer-box").append(editorHtml);
 				editorExer(item);
@@ -465,11 +446,6 @@ $(function () {
 		}else if(typeNum===13 || typeNum===15){
 			queBox.html(yue_du_Q);
             t = "阅读题";
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> dev
 			$(".editorExerModal .editor-content").html(obj.subject);
 			obj.answer.forEach(function(item,i){
 				$(".editorExerModal .mul-answer-box").append(editorHtml);

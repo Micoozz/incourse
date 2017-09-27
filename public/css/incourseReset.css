@@ -18,7 +18,7 @@
 .p-r {position: relative;}
 .p-a {position: absolute;}
 .p-f {position: fixed;}
-.ta-c {text-align: center;}
+.ta-c {text-align: center;padding-top: 10px;}
 .ta-r {text-align: right;}
 .f-l {float: left;}
 .f-r {float: right;}
@@ -131,9 +131,8 @@
 	color: #168bee;
 	border: 1px solid #168bee;
 	cursor: pointer;
-	cursor: pointer;
 }
-.ic-blueB-btn:hover {background-color: #E0EEFF;}
+.ic-blueB-btn:hover {background-color: #E0EEFF;color: #168bee;}
 
 /*单个按钮居中*/
 .btn-center {display:block; margin:0 auto;}
@@ -173,6 +172,15 @@
 	height: 17px;
 	overflow: hidden;
 	background: url(../images/uploadExerIcons.png) no-repeat;
+}
+.uploadExer-btnIcons {
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	overflow: hidden;
+	background-image: url("/images/icons.png");
+	background-repeat: no-repeat;
+	background-position: -264px -42px;
 }
 .teacher_icons {
 	display: inline-block;
@@ -383,6 +391,7 @@
     font-size: 14px;
     right: 8px;
     top: 6px;
+	pointer-events: none;
 }
 
 /*页面引导弹出框*/
@@ -446,7 +455,7 @@
 	position: relative;
 	top: 3px;
 	overflow: hidden;
-	background: url(../images/uploadExerIcons.png) no-repeat;
+	background: url("/images/uploadExerIconsNext.png") no-repeat;
 }
 .ic-editor .addFileTool>i {background-position: -18px -10px;}
 .ic-editor .blank>i {width: 18px; background-position: -93px -31px;}

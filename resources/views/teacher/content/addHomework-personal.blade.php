@@ -41,6 +41,19 @@
     .ic-blueB-btn.personHw:hover {
         background-color: #E0EEFF;
     }
+    .titleIcon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 8px;
+        margin-right: 10px;
+    }
+    .titleIcon i{
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
     .tdBtn{
         cursor: pointer;
     }
@@ -74,7 +87,7 @@
         width:70px;
         height:19px;
         line-height: 19px;
-        color: #3dbd7d;
+        color: #168bee;
         display: inline-block;
     }
     .tipClassBox{
@@ -170,7 +183,7 @@
 
                     <div class="f-l">
                         <input class="ic-input hw-title-input" type="text"
-                               placeholder="作业标题"/>
+                               placeholder=""/>
                     </div>
                 </div>
                 <div class="clear one-line select-action-box">
@@ -207,9 +220,9 @@
                     <span>截止时间：</span>
 
                     <div class="f-l">
-                        <div class="calendar p-r">
-                            <input id="expiration-time" class="ic-input" name="expiration-time"
-                                   type="text" placeholder="截止时间"/>
+                        <div id="expiration-time" class="calendar p-r">
+                            <input class="ic-input expiration-time-input" name="expiration-time"
+                                   type="text" placeholder="截止时间" readonly />
                             <i class="fa fa-calendar p-a gray"></i>
                         </div>
                     </div>
@@ -235,7 +248,7 @@
                                     </th>
                                     <th>题型</th>
                                     <th>题目</th>
-                                    <th>2/15 题</th>
+                                    <th class="jobNum"></th>
                                 </tr>
                             </thead>
                             <tbody class="d-b work_tbody">
@@ -326,7 +339,8 @@
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-
+    let textareaPrompt = "例如：1、背诵课文《陋室铭》\n           2、抄写成语100遍\n           3、给妈妈洗脚";
+    $(".hw-content.border").attr("placeholder",textareaPrompt)
     //获取当前时间
     function CurentTime(){
         var now = new Date();
@@ -346,8 +360,19 @@
         clock += mm;
         return(clock);
     }
+    function titlePrompt(){
+        var mAd="";
+        var now = new Date();
+        var month = (now.getMonth() + 1) +"月";
+        var day = now.getDate() + "日";
+        mAd = month + day
+        return mAd
+    }
+    $(".hw-title-input").attr("placeholder",(titlePrompt()+"作业"))
+
+    let ht="1、2、"
     //截止时间默认显示
-    $("#expiration-time").val(CurentTime());
+    $("#expiration-time .expiration-time-input").val(CurentTime());
 
     //时间戳
     function stringToTimeStamp(time){
@@ -358,7 +383,7 @@
 
     //时间插件
     laydate.render({
-        elem: '#expiration-time',
+        elem: '#expiration-time .expiration-time-input',
         min: CurentTime(),
         type: 'datetime',
         format: 'yyyy-MM-dd H:m'
@@ -395,8 +420,8 @@
                     'unit':$(".chapter").attr("data-u")?$(".chapter").attr("data-u"):"",
                     'section':$(".trifle").attr("data-s")?$(".trifle").attr("data-s"):"",
                 },
-                "deadline":stringToTimeStamp($("#expiration-time").val()),
-                "dateTime":$("#expiration-time").val(),
+                "deadline":stringToTimeStamp($("#expiration-time .expiration-time-input").val()),
+                "dateTime":$("#expiration-time .expiration-time-input").val(),
                 "rulejob":$(".hw-content.border").val(),
                 'exercise':[]
             }
@@ -423,35 +448,38 @@
     let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
 
     //删除习题
-    let exerciseArr = sessionStorageData.exercise
-
-    //删除习题
-    $("#delete-personHw").click(function(){
-        let newArr = exerciseArr;
-        $(".spread.tdBtn").each(function(i,trList){
-            if($(trList).find(".checkJob").is(":checked")){
-                for(let j = 0;j<exerciseArr.length;j++){
-                    if(exerciseArr[j] == $(trList).attr("data-id")){
-                        newArr.splice(j,1)
+    if(sessionStorageData){
+        let exerciseArr = sessionStorageData.exercise;
+        $(".jobNum").text(exerciseArr.length+"/15题")
+        //删除习题
+        $("#delete-personHw").click(function(){
+            let newArr = exerciseArr;
+            $(".spread.tdBtn").each(function(i,trList){
+                if($(trList).find(".checkJob").is(":checked")){
+                    for(let j = 0;j<exerciseArr.length;j++){
+                        if(exerciseArr[j] == $(trList).attr("data-id")){
+                            newArr.splice(j,1)
+                        }
                     }
+                    $(trList).remove();
                 }
-                $(trList).remove();
+            })
+            sessionStorage.removeItem("addJob");
+            let sessionStorageJson={
+                'title':sessionStorageData.title,
+                'chapter':{
+                    'unit':sessionStorageData.chapter.unit,
+                    'section':sessionStorageData.chapter.section,
+                },
+                "deadline":sessionStorageData.deadline,
+                "dateTime":sessionStorageData.dateTime,
+                "rulejob":sessionStorageData.rulejob,
+                'exercise':newArr
             }
+            sessionStorage.setItem("addJob",JSON.stringify(sessionStorageJson))
         })
-        sessionStorage.removeItem("addJob");
-        let sessionStorageJson={
-            'title':sessionStorageData.title,
-            'chapter':{
-                'unit':sessionStorageData.chapter.unit,
-                'section':sessionStorageData.chapter.section,
-            },
-            "deadline":sessionStorageData.deadline,
-            "dateTime":sessionStorageData.dateTime,
-            "rulejob":sessionStorageData.rulejob,
-            'exercise':newArr
-        }
-        sessionStorage.setItem("addJob",JSON.stringify(sessionStorageJson))
-    })
+    }
+
 
     //页面加载数据 id
     let getWork={
@@ -469,7 +497,7 @@
                "</td>";
         html += "<td class='personHw-type'>"+data.cate_title+"</td>";
         html += "<td>" +
-            "<span>"+data.subject+"</span>" +
+            "<span class='subject_box subject_box_noActive'>"+data.subject+"</span>" +
             "<div class='disSelsect active'>" +
             "<ul class='radio-wrap exer-list-ul'>";
             if(data.cate_title == "单选题" || data.cate_title == "多选题"){
@@ -518,7 +546,7 @@
                     }else{
                         html += "<div class='pan-duan wrongActive'>";
                     }
-                    html += "<i class='uploadExerIcons right' style='top:0;'></i><i class='uploadExerIcons wrong' style='top:0;'></i></div>";
+                    html += "<i class='uploadExerIcons right' style='top:0;'></i><i class='uploadSuccessIcon wrong' style='top:0;'></i></div>";
                 }
                 html += "</li>";
             }else if(data.cate_title == "排序题"){
@@ -560,14 +588,19 @@
                     $(this).find(".disSelsect").toggleClass("active");
                     if($(this).find(".disSelsect").hasClass("active")){
                         $(this).find(".fa.is-spread").removeClass("fa-angle-up").addClass("fa-angle-down");
+                        $(".subject_box").removeClass("subject_box_active").addClass("subject_box_noActive");
                     }else{
                         $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
+                        $(".subject_box").removeClass("subject_box_noActive").addClass("subject_box_active");
                     }
                 });
                 $("#all-checked").click(function(){
                     $(".spread.tdBtn").each(function(j,trList){
                         $(this).find(".checkJob").attr("checked",true);
                     })
+                })
+                $(".checkJob").click(function(e){
+                    e.stopPropagation();
                 })
             }
         })
@@ -589,7 +622,7 @@
                 });
             }
         })
-        $("#expiration-time").val(sessionStorageData.dateTime);
+        $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime);
         $(".hw-content.border").val(sessionStorageData.rulejob)
     }
 
@@ -603,71 +636,90 @@
 
     //保存
     $("#save-person-hw").click(function(){
-        publicClick("");
+        var j = publicClick();
         $.ajax({
             url:"/createJob",
             type:"POST",
-            data:lastJob,
+            data:j,
             success:function(data){
-                window.sessionStorage.removeItem("addJob");
+                if(JSON.parse(data).code == 200){
+                    layui.use('layer', function(){
+                        layer.msg('保存成功！', {
+                            offset: 't'
+                        });
+                        window.sessionStorage.removeItem("addJob");
+                    })
+                }else{
+                    layui.use('layer', function(){
+                        layer.msg('保存失败！', {
+                            offset: 't'
+                        });
+                    })
+                }
             }
         })
     });
 
-
-
     //发布
     $("#public").click(function(){
-        let classId = "{{$class_id}}"
-        publicClick(classId);
-        layui.use('layer', function(){
-            layer.open({
-                type: 1,
-                title: "<span class='pan-duan rightActive tipIcon'><i class='uploadExerIcons right' style='top:0;'></i></span><span style='color:#3dbd7d;'>发布成功</span>",
-                closeBtn: 0,
-                shadeClose: true,
-                area: ['600px', '300px'],
-                content: $("#tips").html()
-            });
-            $(".TheClassCheck").on("click",'.classList',function(){
-                $(this).toggleClass("active");
-            });
-            $(".unpublishing").on("click",function(){
-                layui.use('layer', function(){
-                    layer.closeAll();
-                })
-            })
+        var j = publicClick();
+        $.ajax({
+            url:"/pubJob",
+            type:"POST",
+            data:j,
+            success:function(data){
+                if(JSON.parse(data).code == 200){
+                    layui.use('layer', function(){
+                        layer.msg('发布成功！', {
+                            offset: 't'
+                        });
+                        layer.open({
+                            type: 1,
+                            title: "<span class='titleIcon'><i class='uploadExer-btnIcons' style='top:0;'></i></span><span style='color:#168bee;'>发布成功</span>",
+                            closeBtn: 0,
+                            shadeClose: true,
+                            area: ['600px', '300px'],
+                            content: $("#tips").html()
+                        });
+                        $(".TheClassCheck").on("click",'.classList',function(){
+                            $(this).toggleClass("active");
+                        });
+                        $(".unpublishing").on("click",function(){
+                            layui.use('layer', function(){
+                                layer.closeAll();
+                            })
+                        });
+                    })
+                    window.sessionStorage.removeItem("addJob");
+                }else{
+                    layui.use('layer', function(){
+                        layer.msg('发布失败！', {
+                            offset: 't'
+                        });
+                    })
+                }
+            }
         })
-        //$.ajax({
-        //    url:"/pubJob",
-        //    type:"POST",
-        //    data:lastJob,
-        //    success:function(data){
-        //        window.sessionStorage.removeItem("addJob");
-        //    }
-        //})
     });
 
     //保存发布函数
-    function publicClick(classId){
+    function publicClick(){
         mustWrist();
         let upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
-        let courseId = "{{$course_id}}"
+        let classId = "{{$class_id}}";
         let lastJob = {
             'chapter':{
                 'unit':upLoadJob.chapter.unit,
                 'section':upLoadJob.chapter.section,
             },
-            "course":courseId,
+            "class":classId,
             "type":1,
             "title":upLoadJob.title,
             "exercise_id":upLoadJob.exercise,
             "deadline":upLoadJob.deadline,
             "_token":token
         }
-        if(classId!=""){
-            lastJob.classId=classId;
-        }
+        return lastJob;
     }
 
     //取消

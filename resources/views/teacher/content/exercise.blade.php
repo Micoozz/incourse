@@ -99,6 +99,9 @@
     .deleteJobs s:nth-child(2){
         transform: rotate(-45deg);
     }
+    code{
+        background:none;
+    }
 </style>
 @endsection
 
@@ -113,10 +116,9 @@
             <span>上传习题</span>
         </a>
         <div class="f-r">
-            <span class="isMark notMark" style="border-radius: 0 5px 5px 0;">我收藏的</span>
             <span class="isMark doMark {{empty($action) ? "" : "active"}}" style="border-radius: 5px 0 0 5px;">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-upload">我上传的</a>
-            </span>
+            </span><span class="ls_hr"></span><span class="isMark notMark" style="border-radius: 0 5px 5px 0;">我收藏的</span>
         </div>
     </div>
 
@@ -366,7 +368,7 @@
                 <li style="display:none;"><span class='type'>排序题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
             </ul>
             <div class="ta-c">
-                <a id="create-hw" class="ic-btn">生成作业</a>
+                <a id="create-hw" class="ic-btn" data-href="/addHomework-personal/{{$class_id}}/{{$course_id}}">生成作业</a>
                 <span id="preview" class="ic-blue c-d preview">预览</span>
             </div>
         </div>
@@ -382,6 +384,12 @@
 <script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 <script>
+    for(var i = 0;i<$(".my-exer-room-head .isMark").length;i++){
+        if($(".my-exer-room-head .isMark").eq(i).hasClass("active")){
+            $(".ls_hr").addClass("active");
+            break;
+        }
+    }
     var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     $(".exer-in-list").each(function(i){
         let li = $(".exer-in-list").eq(i).find(".radio-wrap.exer-list-ul li");
@@ -430,7 +438,7 @@
                 }
             });
             window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
-            window.history.back();
+            window.location.href = $(this).attr("data-href");
         }
     })
     //显示选中的习题
