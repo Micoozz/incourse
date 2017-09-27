@@ -15,11 +15,8 @@
     color: #666;
     border: 1px solid #d9d9d9;
 }
-.my-exer-room-head .notMark {
-    /*border-right: none;*/
-}
 .my-exer-room-head .doMark {
-    /*border-left: none;*/
+    margin-right: -1px;
 }
 .my-exer-room-head .isMark.active {
     color: #168bee;

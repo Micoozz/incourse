@@ -58,6 +58,9 @@
 .addExerBtn {
     font-size: 14px;
     display: inline-block;
+    height: 20px;
+    position: relative;
+    top: -8px;
 }
 .addExerBtn:hover {
     color: #1681DC;
@@ -107,7 +110,6 @@
 }
 .radio-wrap .radio-ipt {display: inline-block; margin-right:15px;}
 .radio-wrap .radio-ipt span.p-a {
-    border-right: 1px solid #d9d9d9;
     left: 0;
     top:6px;
     padding-left: 9px;
@@ -442,10 +444,7 @@
 .question-img img {
     max-width: 100%;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 .TOrF_img{
     margin-top: -2px;
     width:24px;
@@ -557,7 +556,9 @@
     border:1px solid #D9D9D9;
     font-size: 12px;
 }
-
+.ic-close-icon,i.delete{
+    cursor: pointer;
+}
 
 
 

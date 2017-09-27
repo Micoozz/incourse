@@ -9,7 +9,7 @@
 					<div id="{{ $grade['id'] }}" class="class_s" style="display: none;">
 						<div>
 						@foreach($grade["class"] as $class)
-								<div onclick="window.location.href='/fileManager/{{ $mod }}/{{ $func }}/{{ $class['id'] }}'">{{ $class["title"] }}</div>
+								<div onclick="window.location.href='/fileManager/{{ $mod }}/{{ $func }}/{{ $class['id'] }}'" class="{{ $loop->index == 0 ? '.box' ：''}}">{{ $class["title"] }}</div>
 						@endforeach	
 						</div>
 						<i class="fa fa-plus-circle"></i>
