@@ -58,7 +58,7 @@
 
 /* 鼠标指针相关 */
 .c-p {cursor: pointer;}
-.c-d {cursor: default;}
+.c-d {cursor: pointer;}
 
 
 
@@ -98,6 +98,7 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
+	cursor: pointer;
 }
 .ic-btn:hover {background-color: #1681DC;}
 
@@ -113,6 +114,7 @@
 	border-radius: 4px;
 	color: #333;
 	border: 1px solid #D9D9D9;
+	cursor: pointer;
 }
 .btn-white:hover {background-color: #FCFAFA;}
 
@@ -128,6 +130,7 @@
 	border-radius: 4px;
 	color: #168bee;
 	border: 1px solid #168bee;
+	cursor: pointer;
 	cursor: pointer;
 }
 .ic-blueB-btn:hover {background-color: #E0EEFF;}
@@ -147,7 +150,7 @@
 	border-radius: 4px;
 	color: #fff;
 	border: none;
-	cursor: default;
+	cursor: pointer;
 }
 .icon-text-btn:hover {color: #fff;}
 

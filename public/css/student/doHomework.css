@@ -191,7 +191,6 @@ html,body,
 /*单选题*/
 .do-hw .exer-list-ul>li {
     height: 35px;
-    cursor: pointer;
 }
 .do-hw .exer-in-list .ic-radio {
     top: 2px;

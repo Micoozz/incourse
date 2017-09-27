@@ -89,7 +89,7 @@
 			}
 			
 			.submits button {
-				margin-right: 10px;
+				margin-right: 30px;
 				cursor: pointer;
 			}
 			
@@ -110,7 +110,6 @@
 				border-bottom: 1px solid #eee;
 				padding: 20px 0 10px 0;
 				margin-bottom: 20px;
-				text-indent: 20px;
 			}
 		</style>
 	</head>
@@ -167,11 +166,6 @@
 					//圆形进度条
 					var percentum = accuracy; //正确率百分比
 					var percentums = percentum * 6.29 //进度条百分比
-					if(accuracy.length>3){
-						$('.progressbar>li:nth-of-type(2)').css('left','80px')
-					}else{
-						$('.progressbar>li:nth-of-type(2)').css('left','127px')
-					}
 					$(function() {
 						$('.progressbar>li').find('svg:last-child').find('path').attr('stroke-dashoffset', percentums)
 						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
@@ -269,13 +263,13 @@
         var errorArr = eval("("+$(".standardAnswer").find(".errordAnswerSpan").attr("data-errorAnswer")+")")
         $(".optionSpan").each(function(i,id){
         	for(var j=0;j<standardArr.length;j++){
-        		if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == standardArr[j]){
+        		if($(id).find("i.fa.fa-circle-o").attr("data-id") == standardArr[j]){
 	        		standardAnswerArr.push($(id).find("answer").text())
 	        	}
         	}
 	        $(".standardAnswer").find(".standardAnswerSpan").text(standardAnswerArr);
 	        for(var k = 0;k<errorArr.length;k++){
-	        	if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == errorArr[k]){
+	        	if($(id).find("i.fa.fa-circle-o").attr("data-id") == errorArr[k]){
 	        		errorAnswerArr.push($(id).find("answer").text())
 	        	}
 	        }
@@ -315,13 +309,20 @@
 		$('.answerCard ul li,.error-answer ul li').each(function(){
 			if($(this).attr('class')=='bj-ff5'){
 					array.push($(this).text())
+			}else{
+				$(this).css('cursor','auto')
 			}
 		})
-	localStorage.arry=array[0]				
+			localStorage.arry=array[0]				
 		})
-			if(localStorage.arry!=undefined){
-		$('.bj-gray .blue').text(localStorage.arry)	
-	}	
+		if(localStorage.arry!=undefined){
+			$('.bj-gray .blue').text(localStorage.arry)	
+		}
+				$('.answerCard ul li,.error-answer ul li').each(function(){
+					if($(this).attr('class')!='bj-ff5'){
+						$(this).css('cursor','auto')
+					}
+		})
 		</script>
 	</body>
 

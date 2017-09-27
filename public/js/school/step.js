@@ -1,19 +1,4 @@
-<<<<<<< HEAD
-/*$(function(){
-	$("#left").load("template/left_navbar.html");
-=======
-$(function(){
-	$.ajax({
-		type: "GET",
-		url: "template/left_navbar.html",
-		async: false,
-		success: function(data){
-			$("#left").html(data);
-		}
-	});
->>>>>>> ccd26f3711ebab656a51e003b526b11465e27807
-})
-*/
+
 /********* changePwd.html ********/
 $(function(){
 	//加载流程步骤

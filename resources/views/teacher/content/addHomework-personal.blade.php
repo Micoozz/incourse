@@ -14,7 +14,12 @@
     .disSelsect{
         padding-top: 10px;
         overflow: hidden;
+<<<<<<< HEAD
         transition: height 1s;
+=======
+        transition: height 0.5s;
+        cursor: default;
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
     }
     .disSelsect.active{
         height: 0!important;
@@ -37,6 +42,125 @@
     .wrongActive .wrong {
         background-position: -70px -86px;
     }
+<<<<<<< HEAD
+=======
+    .ic-blueB-btn.personHw:hover {
+        background-color: #E0EEFF;
+    }
+    .tdBtn{
+        cursor: pointer;
+    }
+    .deleteText{
+        width:24px;
+        cursor: pointer;
+        text-align: center;
+    }
+    .tipIcon{
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 8px;
+        margin-right: 10px;
+    }
+    #tips{
+        display:none;
+    }
+    .tips{
+        width:100%;
+        height:246px;
+        position: relative;
+    }
+    .tipTitleBox{
+        width: 100%;
+        text-align: center;
+        padding: 16px 0;
+    }
+    .tipsTitle{
+        width:70px;
+        height:19px;
+        line-height: 19px;
+        color: #3dbd7d;
+        display: inline-block;
+    }
+    .tipClassBox{
+        width: 100%;
+        padding: 0 32px;
+        height: auto;
+        overflow: hidden;
+    }
+    .TheClass{
+        float: left;
+    }
+    .TheClassTitle{
+        width: 60px;
+        height: auto;
+        line-height: 24px;
+        margin-right: 20px;
+        font-size: 12px;
+    }
+    .TheClassCheck{
+        width: 456px;
+        height: auto;
+        max-height: 128px;
+        overflow: hidden;
+        font-size: 12px;
+    }
+    .TheClassCheck ul{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+    .TheClassCheck ul li{
+        display: inline-block;
+        width: 62px;
+        height: 24px;
+        margin-right: 20px;
+        text-align: center;
+        line-height: 24px;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+    .TheClassCheck ul li.active,.TheClassCheck ul li:hover{
+        background:#e0eeff;
+    }
+    .classFooterBtn{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 67px;
+        padding-bottom: 40px;
+        text-align: center;
+    }
+    .classBtnBox{
+        width: 160px;
+        height: 27px;
+        line-height: 27px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -80px;
+    }
+    .classBtnBox button{
+        width: 68px;
+        height: 27px;
+        border: 1px solid #d9d9d9;
+        text-align: center;
+        line-height: 27px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+    .relayClass{
+        border: none;
+        background-color: #419bf9;
+        float: left;
+        color: #fff;
+    }
+    .unpublishing{
+        float: right;
+    }
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 </style>
 @endsection
 
@@ -122,7 +246,10 @@
                                 </tr>
                             </thead>
                             <tbody class="d-b work_tbody">
+<<<<<<< HEAD
 
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
                             </tbody>
                         </table>
                         <div class="ta-c border tfoot">
@@ -135,8 +262,13 @@
 
                     <!--没习题的模板-->
                     <div class="f-l p-r no-exer">
+<<<<<<< HEAD
                         <a id="personHw-uploadExer" class="ic-blueB-btn" data-href="/uploadExercise/{{$class_id}}/{{$course_id}}/workUpLoad">上传习题</a>
                         <a id="personHw-checkExercise" class="ic-blueB-btn personHw-addExer" data-href="/exercise/{{$class_id}}/{{$course_id}}">题库选题</a>
+=======
+                        <a id="personHw-uploadExer" class="ic-blueB-btn personHw" data-href="/uploadExercise/{{$class_id}}/{{$course_id}}/workUpLoad">上传习题</a>
+                        <a id="personHw-checkExercise" class="ic-blueB-btn personHw" data-href="/exercise/{{$class_id}}/{{$course_id}}">题库选题</a>
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 
                         <!--"添加习题" 页面引导-->
                         <!-- <div class="p-a guide">
@@ -178,11 +310,40 @@
             </div>
         </div>
     </div>
-
+    <div id="tips">
+        <div class="tips">
+            <div class="tipTitleBox">
+                <span class="tipsTitle">转发给班级</span>
+            </div>
+            <div class="tipClassBox">
+                <div class="TheClass TheClassTitle"><span>任课班级</span></div>
+                <div class="TheClass TheClassCheck">
+                    <ul>
+                        <li class="classList active">一年一班</li>
+                        <li class="classList">一年一班</li>
+                        <li class="classList">一年一班</li>
+                        <li class="classList">一年一班</li>
+                        <li class="classList">一年一班</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="classFooterBtn">
+                <div class="classBtnBox">
+                    <button class="relayClass">转发</button>
+                    <button class="unpublishing">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('JS:OPTIONAL')
 <script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
+<<<<<<< HEAD
+=======
+<script src="/js/layui/layui.js" charset="utf-8"></script>
+
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 <script>
 
     //获取当前时间
@@ -322,8 +483,13 @@
         let html,ENNum = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
         html = "<tr data-id='"+data.id+"' class='spread tdBtn'>" +
                "<td>" +
+<<<<<<< HEAD
                    "<input class='checkJob' type='checkbox'/>" +
                    "<span>"+(i+1)+"</span>" +
+=======
+                   "<input class='checkJob' type='checkbox' id='deleteJob"+i+"'/>" +
+                   "<label class='deleteText' for='deleteJob"+i+"'>"+(i+1)+"</label>" +
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
                "</td>";
         html += "<td class='personHw-type'>"+data.cate_title+"</td>";
         html += "<td>" +
@@ -403,7 +569,10 @@
             data:getWork,
             type:"POST",
             success:function(data){
+<<<<<<< HEAD
                 console.log(data)
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
                 data = JSON.parse(data);
                 for(let i=0;i<data.length;i++){
                     $(".work_tbody").append(htmlModule(data[i],i));
@@ -440,7 +609,10 @@
                     $.each(result,function(index,value,array){
                         parent_ul.append("<li class='section-li' data='"+index+"'>"+value+"</li>");
                     })
+<<<<<<< HEAD
                     console.log($(".trifle").parent().next(".lists.section-ul").find(".section-li").length)
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
                     $(".lists.section-ul .section-li").each(function(j,list){
                         if($(list).attr("data") == sessionStorageData.chapter.section){
                             $(".trifle").text($(list).text()).attr("data-s",sessionStorageData.chapter.section);
@@ -463,6 +635,7 @@
 
     //保存
     $("#save-person-hw").click(function(){
+<<<<<<< HEAD
         publicClick("/createJob","");
     });
 
@@ -474,6 +647,55 @@
 
     //保存发布函数
     function publicClick(url,classId){
+=======
+        publicClick("");
+        $.ajax({
+            url:"/createJob",
+            type:"POST",
+            data:lastJob,
+            success:function(data){
+                window.sessionStorage.removeItem("addJob");
+            }
+        })
+    });
+
+
+
+    //发布
+    $("#public").click(function(){
+        let classId = "{{$class_id}}"
+        publicClick(classId);
+        layui.use('layer', function(){
+            layer.open({
+                type: 1,
+                title: "<span class='pan-duan rightActive tipIcon'><i class='uploadExerIcons right' style='top:0;'></i></span><span style='color:#3dbd7d;'>发布成功</span>",
+                closeBtn: 0,
+                shadeClose: true,
+                area: ['600px', '300px'],
+                content: $("#tips").html()
+            });
+            $(".TheClassCheck").on("click",'.classList',function(){
+                $(this).toggleClass("active");
+            });
+            $(".unpublishing").on("click",function(){
+                layui.use('layer', function(){
+                    layer.closeAll();
+                })
+            })
+        })
+        //$.ajax({
+        //    url:"/pubJob",
+        //    type:"POST",
+        //    data:lastJob,
+        //    success:function(data){
+        //        window.sessionStorage.removeItem("addJob");
+        //    }
+        //})
+    });
+
+    //保存发布函数
+    function publicClick(classId){
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
         mustWrist();
         let upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
         let courseId = "{{$course_id}}"
@@ -492,6 +714,7 @@
         if(classId!=""){
             lastJob.classId=classId;
         }
+<<<<<<< HEAD
         $.ajax({
             url:url,
             type:"POST",
@@ -500,6 +723,8 @@
                 window.sessionStorage.removeItem("addJob");
             }
         })
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
     }
 
     //取消

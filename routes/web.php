@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+
 
 /*
 |--------------------------------------------------------------------------
@@ -10,7 +11,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test','Teacher\LearningCenterController@test');
+Route::get('/test',function(){
+	return view('test');
+});
+Route::post('/getScantronIdList','Controller@getScantronIdList');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
@@ -70,7 +74,6 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPasswork/{id}','FileManagerController@resetPasswork');
 		Route::get('/employeeStatus/{id}','FileManagerController@employeeStatus');
 		Route::post('/addTeacher','FileManagerController@addTeacher');
-		
 		Route::get('/learningCenters/{class_id?}/{course_id?}/{mod?}/{func?}','LearningCenterController@learningCenter');
 		Route::post('/uploadExercise','TeachingCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');

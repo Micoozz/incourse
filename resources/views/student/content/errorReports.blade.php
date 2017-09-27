@@ -7,16 +7,10 @@
 	<div class="ic-container accout">
 		<div class="error-answer">
 			<div class="error-answer-title">
-<<<<<<< HEAD
 				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 <!-- 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
 				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span> -->
-=======
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/5/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
-				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
-				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span>
->>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
-				<span class="bj-gray"><span class="blue">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
+				<span class="bj-gray"><span class="blue" style="margin-right: 6px;">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
 			</div>
 			<div class="question-types">
 				<!--题目类型-->
@@ -37,7 +31,7 @@
 					</p>
 					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
-						<span class="optionSpan"><i class="fa fa-dot-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
+						<span class="optionSpan"><i class="fa fa-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
 				</div>
@@ -59,7 +53,7 @@
 					</p>
 					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
-						<span class="optionSpan"><i class="fa fa-dot-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
+						<span class="optionSpan"><i class="fa fa-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
 				</div>
@@ -369,15 +363,9 @@
 
 					<!--单选题-->
 					@if($data['exercises'][0]['categroy_id'] == 1)
-<<<<<<< HEAD
 					<div>
 						<p class="standardAnswer">正确答案是 <span class="standardAnswerSpan" data-standardAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['standard'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>，
 						你的答案是<span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
-=======
-					<div>{{-- dd($abcList[1]) --}}
-						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，
-						你的答案是{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
->>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
@@ -385,12 +373,7 @@
 					<!--多选题-->
 					@if($data['exercises'][0]['categroy_id'] == 2)
 					<div>
-<<<<<<< HEAD
 						<p class="standardAnswer">正确答案是 <span class="standardAnswerSpan" data-standardAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['standard'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>，你的答案是 <span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
-=======
-					{{-- dd( implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer'])) --}}
-						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard'][0]['answer']) }}，你的答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['user_answer'][0]['answer']) }}。回答错误，作答用时1秒。</p>
->>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif

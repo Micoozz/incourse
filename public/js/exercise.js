@@ -6,9 +6,17 @@ $(function () {
     /*单选题选中*/
     $("body").on("click", ".dan-xuan-only .ic-radio", function (event) {
         event.preventDefault();
-        $(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
-        $(this).addClass("active");
-		$(this).children("input").prop("checked",true);
+
+        if($(this).attr('class')!='ic-radio border p-r f-l active'){
+        	$(this).parents(".dan-xuan-options").find(".ic-radio").removeClass("active");
+			$(this).addClass("active");
+			$(this).children("input").prop("checked",true);
+        }else{
+        	$(this).removeClass("active");
+        	$(this).children("input").prop("checked",false);
+        }
+
+
     });
 
     /*多选题选中*/
@@ -415,16 +423,35 @@ $(function () {
 	/*function editorExer(obj) {
 		//["单选题1","多选题2","填空题3","判断题4","连线题5","排序题6","完形填空7","画图题8","计算题9","简答题10","解答题11","听力题12","阅读题13","作文题14","综合题15"];
 		let typeNum = Number(obj.categroy), t;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
+		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
+		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
+
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 		
 		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
 		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
 		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
 		
+>>>>>>> dev
 		//问题显示
 		if(typeNum===12){
 			queBox.html(ting_li_Q);
             t = "听力题";
+<<<<<<< HEAD
 			
+=======
+<<<<<<< HEAD
+
+=======
+			
+>>>>>>> dev
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 			let files = obj.material[0];
 			let size = (files[0].size / 1024 / 1024).toFixed(2);
 			$(".editorExerModal .listen .mp3-box").addClass("border").append("<div>" +
@@ -433,7 +460,14 @@ $(function () {
                     "<span class='gray'>听力  <span class='audio-name'>' + files[0].name + '</span> ' + size + 'M </span>" +
                     "<button class='f-r ic-blue delete'>删除</button>" +
                 "</div>");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 			
+>>>>>>> dev
 			obj.answer.forEach(function(item,i){
 				$(".editorExerModal .mul-answer-box").append(editorHtml);
 				editorExer(item);
@@ -441,7 +475,14 @@ $(function () {
 		}else if(typeNum===13 || typeNum===15){
 			queBox.html(yue_du_Q);
             t = "阅读题";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 			
+>>>>>>> dev
 			$(".editorExerModal .editor-content").html(obj.subject);
 			obj.answer.forEach(function(item,i){
 				$(".editorExerModal .mul-answer-box").append(editorHtml);
@@ -541,8 +582,11 @@ $(function () {
 		}
         ansBox.html(AnswerFun(tID,tClass,tOptions,tIDOnly,t));
 	}*/
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
     /*单选题*/
     //添加选项
     $("body").on("click", ".addXzOptionBtn", function () {
@@ -706,8 +750,14 @@ $(function () {
                 "<span class='gray'>听力  <span class='audio-name'>" + files[0].name + "</span>" + size + "M </span>" +
                 "<button class='f-r ic-blue delete'>删除</button>" +
             "</div>");
+<<<<<<< HEAD
 		$(this).parents(".listen").find(".audio-child").last().get(0).files = files;												   
 														   
+=======
+		$(this).parents(".listen").find(".audio-child").last().get(0).files = files;
+
+
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
         $(this).parents(".listen").find(".mp3-box").addClass("border");
 //      $(this).val("");
     });
@@ -1260,6 +1310,7 @@ $(function () {
             }
         }
     }
+<<<<<<< HEAD
     /*$.ajax({
         url:"/getExerciseList",
         data:grtWork,
@@ -1280,3 +1331,12 @@ $(function () {
 	}*/
 
 });
+=======
+
+ //   if (typeof(ligature) != "undefined") {
+ //   		lianXianTiFunc(matching,ligature);
+	// }else{	
+	// 	lianXianTiFunc(exercise_id,exercise_length,answer);   
+	// }
+})
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9

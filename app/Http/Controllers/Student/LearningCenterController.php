@@ -410,6 +410,7 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
+    	//dd($input);
     	$user = Auth::guard('student')->user();
     	$work = Work::find(intval($input['work_id']));
     	if (!empty($work->sub_time )) {
@@ -674,7 +675,7 @@ class LearningCenterController extends Controller
 	    }
 	    return $time;
 	}
-    //学生选择班级页面    小胡歌
+    //学生选择班级页面    小胡歌是赛
     public function selectClass($grade_id){
     	$title = "选择班级";
         $class_list = Classs::where('parent_id',$grade_id)->pluck('title','id');

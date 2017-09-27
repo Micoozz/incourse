@@ -7,7 +7,6 @@
 .error-answer-title>span{
 	display: inline-block;
 	width: 135px;
-<<<<<<< HEAD
     font-size: 14px;
     flex: 1;
     line-height: 10px;
@@ -21,10 +20,7 @@
 }
 
 .question-types{
-	font-size: 16px
-=======
-    text-align: center;
->>>>>>> 85a78bb085a00fd69f84922f2c2f439b6ce62b44
+	font-size: 16px;
 }
 
 /*收藏*/

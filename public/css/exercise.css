@@ -251,6 +251,7 @@
 }
 .exer-in-list .exer-head {
     padding-right: 10px;
+    position: relative;
 }
 .exer-type-list {
     display: inline-block;
@@ -265,12 +266,13 @@
     margin-right: 3px;
     position: relative;
     top: 2px;
+    cursor: pointer;
 }
 .exer-in-list .exer-wrap {
     padding: 16px 16px 0;
 }
 .exer-in-list .question {
-    width: 560px;
+    width: auto;
 }
 .exer-in-list .answer-box {
     margin-top: 10px;
@@ -320,9 +322,10 @@
 .exer-in-list .ic-radio {
     position: relative;
     top: 1px;
+    cursor: pointer;
 }
 .exer-in-list .option {
-    width: 510px;
+    width: auto;
 }
 .radio-wrap .ic-radio.radio-right {border-color: #3DBD7D;}
 .radio-wrap .ic-radio.radio-right i {opacity: 1; background-color:#3DBD7D;}
@@ -439,7 +442,10 @@
 .question-img img {
     max-width: 100%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
 .TOrF_img{
     margin-top: -2px;
     width:24px;
