@@ -99,6 +99,7 @@ class LearningCenterController extends Controller
         	$provinces = Region::where('type',1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
         	$sameSecond = 0;
+
 			foreach ($data as $work) {
 				$minutia = Chapter::find($work->chapter_id);
 				$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
@@ -106,15 +107,17 @@ class LearningCenterController extends Controller
 		        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 		        $work->deadline = $work->belongsToJob()->first()->deadline;
 		        $work->job_type = $work->belongsToJob()->first()->job_type;
-		        $info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
-		       	foreach($info_list as $info){
-		       		if (!empty($info->parent_id)) {
-		       			$sameSecond += $info->second;
-		       		}
-			        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
-		    	}
-		    	$second = $work->sub_time - $work->start_time + $sameSecond;
-		    	$work->second = $this->changeTimeType($second);
+		        if ($work->status == 1) {
+		        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
+			        foreach($info_list as $info){
+			       		if (!empty($info->parent_id)) {
+			       			$sameSecond += $info->second;
+			       		}
+				        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
+			    	}
+			    	$second = $work->sub_time - $work->start_time + $sameSecond;
+		    		$work->second = $this->changeTimeType($second);
+		        }	
 			}
 		}elseif ($func == Self::FUNC_ROUTINE_WORK){
 			$chapter_id = Work::find($parameter)->chapter_id;
@@ -142,6 +145,7 @@ class LearningCenterController extends Controller
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
 		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
+		    	//dd($data);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
 					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
@@ -149,15 +153,17 @@ class LearningCenterController extends Controller
 			        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
 			        $work->job_type = $work->belongsToJob()->first()->job_type;
-			        $info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
-			       	foreach($info_list as $info){
-			       		if (!empty($info->parent_id)) {
-		       				$sameSecond += $info->second;
-		       			}
-				        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
-			    	}
-			    	$second = $work->sub_time - $work->start_time + $sameSecond;
-			    	$work->second = $this->changeTimeType($second);
+					if ($work->status == 1) {
+			        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
+				        foreach($info_list as $info){
+				       		if (!empty($info->parent_id)) {
+				       			$sameSecond += $info->second;
+				       		}
+					        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
+				    	}
+				    	$second = $work->sub_time - $work->start_time + $sameSecond;
+			    		$work->second = $this->changeTimeType($second);
+			        }	
 				}
 		 	}else if ($func == Self::FUNC_ROUTINE_WORK ||  $func == Self::FUNC_WORK_SCORE) {
 		 		$work = Work::select('chapter_id','sub_time','start_time','course_id')->find($parameter);
@@ -255,7 +261,6 @@ class LearningCenterController extends Controller
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
-		 		//dd($course);
 		 		$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];	 		
 		 		if (empty($exercise_id)) {
 		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter,'score' => 0 ])->first();
@@ -266,6 +271,7 @@ class LearningCenterController extends Controller
 		 			$exercise_id = $work_answer->exe_id;
 		 		}
 		 		$workFirst = $db->table($user->id)->where(['work_id' => $parameter,'exe_id' => $exercise_id])->first();
+		 		//dump($workFirst);
 		 		$errorReports = Exercises::find($exercise_id);
 		 		$data = array('exercises' => array());
 		 		if($workFirst->parent_id == NULL){
@@ -285,7 +291,9 @@ class LearningCenterController extends Controller
 			 			}
 			 		}
 		 			$answer_list = json_decode($objective->answer,true);	 //标准答案的记录
+		 			//dd(json_decode($workFirst->answer,true));
 		            $work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
+		           // dd($work_answer);
 		 			$answers = array();
 		 			if ($errorReports->categroy_id == Exercises::CATE_CHOOSE || $errorReports->categroy_id == Exercises::CATE_RADIO) {
 		 				$standard_answer = array();
@@ -309,15 +317,19 @@ class LearningCenterController extends Controller
                     'answer' => $answers,
                     'score' => $errorReports->score/100,
                     'second' => $workFirst->second,
+                    'sameScore' => $workFirst->score,
                     ));
 		 		}else{
 		 			dd("此处是主观题");
 		 		}
+		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
+		 		$sameSkip = $exercise_id;
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id',null)->get();
 		 		$error_same = $db->table($user->id)->select('exe_id','parent_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id','<>',null)->get();
 		 		$data = array('error_work' => $error_work->toArray(),'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
+		 		$sameSkip = $several;
 		 		$work = Work::select('start_time','sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$several = explode('&',$several);
@@ -336,6 +348,7 @@ class LearningCenterController extends Controller
 		 			$grossScore += $exercise->score;
 		 		}
 		 		$accuracy = $grossScore / $exeScore;//总分数率
+		 		
 		 		if(is_int($accuracy)){
 					$accuracy = $accuracy;
 				}else{
@@ -359,8 +372,9 @@ class LearningCenterController extends Controller
 				$SecondAdding = $second + $exeSecond;
 				$entire = strtotime($this->changeTimeType($SecondAdding));
 		 	}
+
         }
-    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire'));
+    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip'));
     }
     //做作业
     public function doHomework($work_id = NULL){
@@ -472,6 +486,7 @@ class LearningCenterController extends Controller
         }
        	if ($result) {
         	$work = Work::find($work->id);
+        	$work->status = 1;
 	        $work->sub_time = time();
 	        $work->save();
         }

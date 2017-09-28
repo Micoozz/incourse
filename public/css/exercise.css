@@ -124,6 +124,7 @@
     width: 24px;
     height: 24px;
     margin-right: 5px;
+    cursor: pointer;
 }
 .answer-box .pan-duan>li:first-child {margin-bottom: 5px;}
 .answer-box .no-active .right,

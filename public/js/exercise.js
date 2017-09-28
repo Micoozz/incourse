@@ -19,11 +19,16 @@ $(function () {
 
     });
 
+    $(".radio-cen").on("click",function(){
+    	$(this).prev("label").click();
+    })
+
     /*多选题选中*/
     $("body").on("click", ".duo-xuan-only .ic-radio", function (event) {
         event.preventDefault();
         $(this).toggleClass("active");
     });
+    
 
     /*动态生成的三级联动*/
     $("body").on("click", ".exercise-box .select-form .ic-text-exer", function () {
@@ -715,10 +720,18 @@ $(function () {
 /*判断题*/
 $(function () {
     $("body").on("click", ".answer-box .pan-duan .right", function () {
-        $(this).parents(".pan-duan").removeClass("no-active wrongActive").addClass("rightActive");
+    	if($(this).parents(".pan-duan").hasClass('rightActive')){
+    		$(this).parents(".pan-duan").removeClass("rightActive").addClass("no-active");
+    	}else{
+    		 $(this).parents(".pan-duan").removeClass("no-active wrongActive").addClass("rightActive");
+    	}
     });
     $("body").on("click", ".answer-box .pan-duan .wrong", function () {
-        $(this).parents(".pan-duan").removeClass("no-active rightActive").addClass("wrongActive");
+    	if($(this).parents(".pan-duan").hasClass('wrongActive')){
+    		$(this).parents(".pan-duan").removeClass("wrongActive").addClass("no-active");
+    	}else{
+    		 $(this).parents(".pan-duan").removeClass("no-active rightActive").addClass("wrongActive");
+    	}    	
     });
 })
 

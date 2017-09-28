@@ -166,3 +166,10 @@ padding: 20px 0;
 .optionse>span:first-child{
 	border: none;
 }
+
+.optionSpan .fa.color_error{
+	color:#FF5B5B;
+}
+.optionSpan .fa.color_right{
+	color:#3DBD7D;
+}
