@@ -8,8 +8,8 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
@@ -105,9 +105,9 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
     public static $prefixDirsPsr4 = array (
         'phpDocumentor\\Reflection\\' => 
         array (
-            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            0 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -322,14 +322,14 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
-        'App\\Http\\Controllers\\Student\\LearningCenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/LearningCenterController.php',
+        'App\\Http\\Controllers\\Student\\LearningCenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/LearningCenter1Controller.php',
         'App\\Http\\Controllers\\Student\\WorkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/WorkController.php',
         'App\\Http\\Controllers\\Teacher\\ExerciseController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/ExerciseController.php',
         'App\\Http\\Controllers\\Teacher\\FileManagerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/FileManagerController.php',
         'App\\Http\\Controllers\\Teacher\\JobController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/JobController.php',
-        'App\\Http\\Controllers\\Teacher\\LearningCenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/LearningCenterController.php',
         'App\\Http\\Controllers\\Teacher\\PlatformController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/PlatformController.php',
         'App\\Http\\Controllers\\Teacher\\TeacherController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/TeacherController.php',
+        'App\\Http\\Controllers\\Teacher\\TeachingCenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/TeachingCenterController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EmployeeMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/EmployeeMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -1881,9 +1881,12 @@ class ComposerStaticInit8bcd75adb0dd59c57f2a94c3174388be
         'Monolog\\Processor\\WebProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
         'Monolog\\Registry' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Registry.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
+        'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
+        'PHPUnit\\Framework\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Test.php',
         'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
         'PHPUnit\\Framework\\TestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestListener.php',
+        'PHPUnit\\Framework\\TestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestSuite.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
