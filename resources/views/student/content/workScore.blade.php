@@ -29,7 +29,7 @@
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data['status'] as $key => $status)
-					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li exe-id="{{ $status['exe_id'] }}" onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach	
 			</ul>
 		</div>
@@ -39,7 +39,7 @@
 			<p>同类型习题：</p>
 			<ul>
 				@foreach($data['sameExercise'] as $key => $status)
-					<li parent-id="{{ $status['parent_id'] }}" @if($status['id'] == 1) @elseif($status['id'] == 2) onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
+					<li parent-id="{{ $status['parent_id'] }}" onclick="window.location.href = '/learningCenter/{{ $data['course_id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'"   @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
 				@endforeach
 			</ul>
 		</div>

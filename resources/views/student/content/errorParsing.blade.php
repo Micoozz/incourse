@@ -28,7 +28,11 @@
 		</div>
 		<div class="clear"></div>
 		<div class="submits">
-			<button class="btn-white" onclick="window.history.go(-1);" >返回</button>
+		@if(empty($sameSkip))
+			<button class="btn-white" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >返回</button>
+		@else
+			<button class="btn-white" id="sameSkip">返回</button>
+		@endif	
 		</div>
 	</div>
 </div>

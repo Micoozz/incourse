@@ -33,22 +33,27 @@
                 {{ $work->title }}作业
             </td>
             <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
-            <td>{{ date('m月d日 h:i',$work->belongsToJob->deadline) }}</td>
+             <td style="color: red">
+                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                @if(time() > $work->sub_time)
+                    <span>(超时)</span>
+                @endif
+                </td>
             <td>
-            @if(empty($work->sub_time))
+            @if($work->status == 0)
                 未答题
             @else
                 {{ $work->score }}
             @endif
             </td>
             <td>
-                @if(empty($work->sub_time))
+                @if($work->sub_time == 0)
                     未答题
                 @else
                     {{ $work->second }}
                 @endif
             </td>
-            <td><i @if(empty($work->sub_time)) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' 
+            <td><i @if($work->sub_time == 0) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' 
                 @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/homework/work_score/{{ $work->id }}" ' @endif class="fa fa-edit"></i>
             </td>
         </tr>

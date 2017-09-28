@@ -106,10 +106,11 @@
 				display: none;
 			}
 			.answer-ka{
-				color: #168BEE;
-				border-bottom: 1px solid #eee;
-				padding: 20px 0 10px 0;
-				margin-bottom: 20px;
+    color: #168BEE;
+    border-bottom: 1px solid #eee;
+    padding: 7px 0;
+    margin-bottom: 20px;
+    font-size: 14px;
 			}
 		</style>
 	</head>
@@ -157,10 +158,11 @@
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
 		<script>
 			var token = "{{csrf_token()}}";
+			var func = "{{ isset($func) ? $func : ''}}";
+			console.log(func)
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
-			var parameter = "{{ isset($parameter) ? $parameter : '' }}"
-			//var deviationScore = "{{ isset($deviationScore) ? $deviationScore * 100 : '' }}";
-			//console.log(accuracy)
+			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
+			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			$(function() {
 				setTimeout(function() {
 					//圆形进度条
@@ -262,18 +264,20 @@
         var standardArr=eval("("+$(".standardAnswer").find(".standardAnswerSpan").attr("data-standardAnswer")+")");
         var errorArr = eval("("+$(".standardAnswer").find(".errordAnswerSpan").attr("data-errorAnswer")+")")
         $(".optionSpan").each(function(i,id){
-        	for(var j=0;j<standardArr.length;j++){
-        		if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == standardArr[j]){
-	        		standardAnswerArr.push($(id).find("answer").text())
-	        	}
-        	}
-	        $(".standardAnswer").find(".standardAnswerSpan").text(standardAnswerArr);
 	        for(var k = 0;k<errorArr.length;k++){
-	        	if($(id).find("i.fa.fa-dot-circle-o").attr("data-id") == errorArr[k]){
+	        	if($(id).find("i.fa").attr("data-id") == errorArr[k]){
+	        		$(id).find("i.fa").addClass("color_error").removeClass("fa-circle-o").addClass("fa-dot-circle-o");
 	        		errorAnswerArr.push($(id).find("answer").text())
 	        	}
 	        }
 	        $(".standardAnswer").find(".errordAnswerSpan").text(errorAnswerArr);
+        	for(var j=0;j<standardArr.length;j++){
+        		if(parseInt($(id).find("i.fa").attr("data-id")) == standardArr[j]){
+        			$(id).find("i.fa").removeClass("color_error fa-circle-o").addClass("color_right fa-dot-circle-o");
+	        		standardAnswerArr.push($(id).find("answer").text())
+	        	}
+        	}
+	        $(".standardAnswer").find(".standardAnswerSpan").text(standardAnswerArr);
         })
 
         //分数提升
@@ -297,7 +301,6 @@
         }
 		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5","exe-id","parent-id");
 		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5","exe-id","parent-id");
-
 		$('.answerCard ul li,.error-answer ul li').click(function(){
 			if($(this).attr('class')=='bj-ff5'){
 					localStorage.arry=$(this).text()
@@ -323,6 +326,48 @@
 						$(this).css('cursor','auto')
 					}
 		})
+
+				if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
+
+			for(var i=0;i<$('.proper>div:nth-of-type(3) .red b').text().split(',').length;i++){
+				$('.proper>div:nth-of-type(3) .red').append('<span>'+$('.proper>div:nth-of-type(3) .red b').text().split(',')[i]+',</span>');	
+			}
+			$('.proper>div:nth-of-type(3) .red b').remove();
+
+			for(var i=0;i<$('.proper>div:nth-of-type(3) .red span').length;i++){
+					if($('.proper>div:nth-of-type(3) .red span').eq(i).text().match(/[\u4e00-\u9fa5]+/g)==$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].match(/[\u4e00-\u9fa5]+/g)){
+						$('.proper>div:nth-of-type(3) .red span').eq(i).css('color','#168bee')
+					}
+			}
+			
+			$('.questions .question-option span').each(function(i){
+				$(this).text($('.proper>div:nth-of-type(3) .red').text().split(',')[i])
+				if($(this).text().match(/[\u4e00-\u9fa5]+/g)!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].match(/[\u4e00-\u9fa5]+/g)){
+					console.log($(this).text())
+					console.log($('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i])
+					$(this).css('color','red')
+				}
+			});
+
+			$('.proper>div:nth-of-type(3) .red span:last-child').text($('.proper>div:nth-of-type(3) .red span:last-child').text().substr(0,$('.proper>div:nth-of-type(3) .red span:last-child').text().length-1));
+		}
+
+		//显示所有的	
+		//跳转到同类型习题页面
+		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
+		if (func == "work_tutorship") {
+			var sameSkip = $(".submits").attr("error-exercise");
+			if(!sessionStorageJson){
+				var json = {
+					'score':accuracy,
+					'sameSkip':sameSkip
+				}
+				sessionStorage.setItem("skip",JSON.stringify(json))
+			}
+		}
+		$("#sameSkip").on("click",function(){
+			window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
+		});
 		</script>
 	</body>
 

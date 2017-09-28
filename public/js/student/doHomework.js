@@ -138,18 +138,58 @@ $(function(){
     });
 
     //获取当前题号并使底部序号变蓝的函数
-    function getOrderAndBlue() {
+    function getOrderAndBlue(obj) {
+        var a = false;
+        for(var i = 0;i<$(obj).parents(".exer-list-ul").find("li").length;i++){
+            var li = $(obj).parents(".exer-list-ul").find("li").eq(i)
+            if($(li).find("label").hasClass("active")){
+                a = true;
+                break;
+            }
+        }
         var order = parseInt($(".big-num").text());
-        $(".hw-order span:nth-child("+order+")").addClass("active");
+         $(".hw-order span:nth-child("+order+")").addClass("active");
+        if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
+                if(a){        
+                    $(".hw-order span:nth-child("+order+")").addClass("active");
+                }else{
+                    $(".hw-order span:nth-child("+order+")").removeClass("active");
+                }     
+        }else{
+            if($(obj).parents(".pan-duan").hasClass('pan-duan')){
+                 if($(obj).parents(".pan-duan").hasClass('no-active')){
+                     $(".hw-order span:nth-child("+order+")").removeClass("active");
+                 }else{
+                     $(".hw-order span:nth-child("+order+")").addClass("active");
+                    }
+            }else{
+                if($(obj).parent().find('span').text()!=''){
+                    $(".hw-order span:nth-child("+order+")").addClass("active");
+                }else{
+                    $(".hw-order span:nth-child("+order+")").removeClass("active");
+                };
+            }
+        }
+           if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
+                if($(obj).text().length > 10) {
+                    $(obj).text($(obj).text().substring(0, 10));
+                    alert('最多不可超过10个字')
+                }
+            } else {
+                if($(obj).text().length > 20) {
+                    $(obj).text($(obj).text().substring(0, 20));
+                    alert('最多不可超过20个字')
+                }
+        }
     }
 
     //底部答过的题标蓝
-    $("body").on("click",".exercise-box .ic-radio",getOrderAndBlue);
-    $("body").on("keydown",".exercise-box .blank-item",getOrderAndBlue);
-    $("body").on("click",".exercise-box .pan-duan .uploadExerIcons",getOrderAndBlue);
-    $("body").on("change",".exercise-box .addFile",getOrderAndBlue);
-    $("body").on("click",".exercise-box .question_hpb>li",getOrderAndBlue);
-    $("body").on("mouseup",".exercise-box .sortable>li",getOrderAndBlue);
+    $("body").on("click",".exercise-box .ic-radio",function(){getOrderAndBlue(this)});
+    $("body").on("keydown",".exercise-box .blank-item",function(){getOrderAndBlue(this)});
+    $("body").on("click",".exercise-box .pan-duan .uploadExerIcons",function(){getOrderAndBlue(this)});
+    $("body").on("change",".exercise-box .addFile",function(){getOrderAndBlue(this)});
+    $("body").on("click",".exercise-box .question_hpb>li",function(){getOrderAndBlue(this)});
+    $("body").on("mouseup",".exercise-box .sortable>li",function(){getOrderAndBlue(this)});
     $("body").on("keyup",".exercise-box .editor-content",function(){
         if($(this).text().length === 0){
             var order = parseInt($(".big-num").text());
@@ -189,6 +229,7 @@ $(function(){
 
     //交卷
     $("#handPaper").click(function(){
+        $("body").removeAttr("onbeforeunload");
         var work_id = $("#work_id").attr("value");
         clearInterval(timer);
         var total = [];

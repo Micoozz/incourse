@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/student/questionTypes.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/school/step.css') }}" />
         <title>InCourse</title>
-    </head>{{-- dd($workCount) --}}
+    </head>
         <style>
             .step-change>li:first-child span {
                 color: #333;

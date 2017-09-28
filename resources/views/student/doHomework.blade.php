@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/exercise.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/student/doHomework.css') }}"/>
 </head>
-<body>
+<body onbeforeunload="return  checkLeave()">
 <div class="fff-bg do-homework-wrap">
     <div class="black-bg hw-title">第一章：字音的解析</div>
     <div class="hw-time-box">
@@ -68,8 +68,10 @@
                                         <i class="ic-blue-bg p-a"></i>
                                         <input type="radio" name="radio" value="{{ array_keys($option)[0] }}"/>
                                     </label>
-                                    <span class="f-l">{{ $abcList[$loop->index] }}：</span>
-                                    <p class="f-l option">{{ $option[array_keys($option)[0]] }}</p>
+                                    <div class="radio-cen" display="inline-block">
+                                        <span class="f-l">{{ $abcList[$loop->index] }}：</span>
+                                        <p class="f-l option">{{ $option[array_keys($option)[0]] }}</p>
+                                    </div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -94,9 +96,11 @@
                                         <i class="ic-blue-bg p-a"></i>
                                         <input type="checkbox" name="checkbox" value="{{ array_keys($option)[0] }}"/>
                                     </label>
-                                    <span class="f-l">{{ $abcList[$loop->index] }}：</span>
-
-                                    <p class="f-l option">{{ $option[array_keys($option)[0]] }}</p>
+                                    <div class="radio-cen" display="inline-block">
+                                        <span class="f-l">{{ $abcList[$loop->index] }}：</span>
+                                        <p class="f-l option">{{ $option[array_keys($option)[0]] }}</p>
+                                    </div>
+                                    
                                 </li>
                                 @endforeach
                             </ul>
@@ -390,36 +394,38 @@
                         </div>
                     </li> -->
                     <!--计算题-->
-                  <!--   <li data-id="11" class="exer-in-list">
-                        <div class="clear hw-question">
-                            <i class="student_icons query"></i>
-                            <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">计算题</span>
-                                ）</span>
-                            <span>计算下面各小题</span>
-                            <div class="of-h border question-img">
-                                <img src="{{ asset('images/Cj_bg.png') }}" alt=""/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="answer-box">
-                            <简答题>
-                            <div class="one-hw">
-                                <div class="clear hw-question">
-                                    <span>1.请写一下你对主人公的理解</span>
-                                </div>
-                                <div class="answer-box addFileBox">
-                                    <p>请在纸上作答，拍照上传，以便老师查看</p>
-                                    <button class="p-r of-h ic-blue addFileTool">
-                                        <i class="tool"></i>
-                                        <span>添加附件</span>
-                                        <input class="addFile addFileCommon" type="file" />
-                                    </button>
-                                    <div class="imgs clear"></div>
+                    @if($exercise['categroy_id'] == 9)
+                        <li data-id="{{ $exercise['id'] }}" class="exer-in-list">
+                            <div class="clear hw-question">
+                                <i class="student_icons query"></i>
+                                <span class="ic-blue">（2016 华东师大）（
+                                    <span class="do-hw-type">计算题</span>
+                                    ）</span>
+                                <span>计算下面各小题</span>
+                                <div class="of-h border question-img">
+                                    <img src="{{ asset('images/Cj_bg.png') }}" alt=""/>
                                 </div>
                             </div>
-                        </div>
-                    </li> -->
+                            <hr/>
+                            <div class="answer-box">
+                                <简答题>
+                                <div class="one-hw">
+                                    <div class="clear hw-question">
+                                        <span>1.请写一下你对主人公的理解</span>
+                                    </div>
+                                    <div class="answer-box addFileBox">
+                                        <p>请在纸上作答，拍照上传，以便老师查看</p>
+                                        <button class="p-r of-h ic-blue addFileTool">
+                                            <i class="tool"></i>
+                                            <span>添加附件</span>
+                                            <input class="addFile addFileCommon" type="file" />
+                                        </button>
+                                        <div class="imgs clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endif
                     <!--答题卡-->
                     @endforeach
                     <li class="answer-sheet ta-c">
@@ -504,6 +510,10 @@
 
         })
     })
+
+    function checkLeave(){
+        return "11";
+    }
 </script>
 </body>
 </html>
