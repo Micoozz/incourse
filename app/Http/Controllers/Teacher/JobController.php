@@ -95,7 +95,7 @@ class JobController extends Controller
                 $work->job_id = $job->id;
                 $work->course_id = Chapter::find($job->chapter_id)->id;
                 $work->scores = 0;
-                $work->status = 1;
+                $work->status = 0;
                 $work->start_time = 0;
                 $work->sub_time = 0;
                 $work->save();

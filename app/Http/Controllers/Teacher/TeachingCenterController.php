@@ -345,7 +345,7 @@ class TeachingCenterController extends TeacherController
         $user = Auth::guard('employee')->user();
         $time = time();
         $exercise = new Exercises;
-        $exercise->teacher_id = 1;
+        $exercise->teacher_id = $user->id;
         $exercise->school_id = $user->school_id;
         $exercise->chapter_id = $chapter["section"];
         $exercise->categroy_id = intval($item['categroy']);
@@ -461,7 +461,9 @@ class TeachingCenterController extends TeacherController
             $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
             $exercise->score = 1 * count($item['option'][0]) * 100;
         }
-        else if($exercise->categroy_id == Exercises::CATE_SHORT)
+        else if($exercise->categroy_id == Exercises::CATE_SHORT || 
+            $exercise->categroy_id == Exercises::CATE_COMPUTE || 
+            $exercise->categroy_id == Exercises::CATE_ANSWER)
         {
             $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
             $exercise->score = 10 * 100;
