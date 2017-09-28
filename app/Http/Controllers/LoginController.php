@@ -9,6 +9,7 @@ use Redirect;
 use App\Models\Student;
 use App\Models\School;
 use App\Models\Classs;
+use App\Models\ClassTeacherCourseMap;
 
 class LoginController extends Controller
 {
@@ -20,7 +21,6 @@ class LoginController extends Controller
                 $school->title = $school_name;
                 $school->type = $school_type;
                 $school->username = rand(100000000,999999999);
-                $school->password = bcrypt(123456);
                 $school->save();
             }catch(\Illuminate\Database\QueryException $e){
                 if($e->errorInfo[0] != 23000 || $e->errorInfo[1] != 1062){
@@ -56,28 +56,28 @@ class LoginController extends Controller
             if(empty($school)){
                 $school = self::createSchool($user_info->schoolId,$user_info->schoolName,$user_info->schoolType);
             }
-            $class = Classs::where("pf_class_id",$user_info->classId)->first();
-            if(empty($class)){
-                $grade = Classs::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
-                if(empty($grade)){
-                    $grade = new Classs;
-                    $grade->title = $user_info->classYear;
-                    $grade->school_id = $school->id;
-                    $grade->save();
-                }
-                $flag = strpos($user_info->className,"级");
-                if($flag){
-                    $class_title = explode("级", $user_info->className);
-                }else{
-                    $class_title = explode("年", $user_info->className);
-                }
-                $class = new Classs;
-                $class->parent_id = $grade->id;
-                $class->school_id = $school->id;
-                $class->title = $class_title[1];
-                $class->pf_class_id = $user_info->classId;
-                $class->save();
+            $grade = Classs::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
+            if(empty($grade)){
+                $grade = new Classs;
+                $grade->title = $user_info->classYear;
+                $grade->school_id = $school->id;
+                $grade->save();
             }
+            // $class = Classs::where("pf_class_id",$user_info->classId)->first();
+            // if(empty($class)){
+            //     $flag = strpos($user_info->className,"级");
+            //     if($flag){
+            //         $class_title = explode("级", $user_info->className);
+            //     }else{
+            //         $class_title = explode("年", $user_info->className);
+            //     }
+            //     $class = new Classs;
+            //     $class->parent_id = $grade->id;
+            //     $class->school_id = $school->id;
+            //     $class->title = $class_title[1];
+            //     $class->pf_class_id = $user_info->classId;
+            //     $class->save();
+            // }
             if($user_info->userType == 1){
                 $user = Employee::where("pf_teacher_id",$user_info->userID)->first();
                 if(empty($user)){
@@ -85,7 +85,19 @@ class LoginController extends Controller
                     $user->name = $user_info->realname;
                     $user->username = json_decode($input["json"])->userName;
                     $user->school_id = $school->id;
+                    $user->password = bcrypt(123456);
+                    $user->section_id = 0;
+                    $user->status = 1;
+                    $user->group_id = 0;
+                    $user->pf_teacher_id = $user_info->userID;
                     $user->save();
+                }
+                Auth::guard('employee')->login($user);
+                $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();
+                if(empty($map_list)){
+                    return Redirect::to('/bindClass/{$grade->id}');
+                }else{
+                    return Redirect::to('/teachingCenter');
                 }
             }elseif($user_info->userType == 2){
                 $user = Student::where("pf_student_id",$user_info->userID)->first();
@@ -95,11 +107,16 @@ class LoginController extends Controller
                     $user->username = json_decode($input["json"])->userName;
                     $user->password = bcrypt(123456);
                     $user->school_id = $school->id;
-                    $user->class_id = $class->id;
+                    $user->class_id = 0;
+                    $user->pf_student_id = $user_info->userID;
                     $user->save();
                 }
                 Auth::guard("student")->login($user);
-                return Redirect::to("/");
+                if(empty($user->class_id)){
+                    return Redirect::to('/selectClass/{$grade->id}');
+                }else{
+                    return Redirect::to('/learningCenter');
+                }
             }
         }
     	$data = array('code' => $code);

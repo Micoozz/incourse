@@ -13,6 +13,7 @@
                 <li><a href="/logout">退出</a></li>
             </ul>
         </div>
+        @if(empty($grade_id))
         <ul class="nav head_nav">
             <li class="schoolMain">
                 <a href="/media">学校首页</a>
@@ -20,8 +21,9 @@
                     <a href="javascript:;">@与我相关</a>
                 </div>
             </li>
-            <li><a href="/teachingCenter/{{$class_id}}/{{$course_id}}" class="blue">学习中心</a></li>
+            <li><a href="/teachingCenter" class="blue">学习中心</a></li>
             <li><a href="javascript:;">班级中心</a></li>
         </ul>
+        @endif
     </div>
 </div>

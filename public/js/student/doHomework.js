@@ -150,11 +150,11 @@ $(function(){
         var order = parseInt($(".big-num").text());
          $(".hw-order span:nth-child("+order+")").addClass("active");
         if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
-                if(a){        
-                    $(".hw-order span:nth-child("+order+")").addClass("active");
-                }else{
-                    $(".hw-order span:nth-child("+order+")").removeClass("active");
-                }     
+            if(a){        
+                $(".hw-order span:nth-child("+order+")").addClass("active");
+            }else{
+                $(".hw-order span:nth-child("+order+")").removeClass("active");
+            }     
         }else{
             if($(obj).parents(".pan-duan").hasClass('pan-duan')){
                  if($(obj).parents(".pan-duan").hasClass('no-active')){
@@ -170,16 +170,16 @@ $(function(){
                 };
             }
         }
-           if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
-                if($(obj).text().length > 10) {
-                    $(obj).text($(obj).text().substring(0, 10));
-                    alert('最多不可超过10个字')
-                }
-            } else {
-                if($(obj).text().length > 20) {
-                    $(obj).text($(obj).text().substring(0, 20));
-                    alert('最多不可超过20个字')
-                }
+        if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
+            if($(obj).text().length > 10) {
+                $(obj).text($(obj).text().substring(0, 10));
+                alert('最多不可超过10个字')
+            }
+        } else {
+            if($(obj).text().length > 20) {
+                $(obj).text($(obj).text().substring(0, 20));
+                alert('最多不可超过20个字')
+            }
         }
     }
 
@@ -191,6 +191,7 @@ $(function(){
     $("body").on("click",".exercise-box .question_hpb>li",function(){getOrderAndBlue(this)});
     $("body").on("mouseup",".exercise-box .sortable>li",function(){getOrderAndBlue(this)});
     $("body").on("keyup",".exercise-box .editor-content",function(){
+        console.log('a')
         if($(this).text().length === 0){
             var order = parseInt($(".big-num").text());
             $(".hw-order span:nth-child("+order+")").removeClass("active");
