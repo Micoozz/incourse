@@ -338,7 +338,7 @@
                 </div>
             </div>
         </div>
-
+        {{$data->links()}}
         <!--底部 + 分页-->
         <!-- <div class="exer-list-foot clear">
             <span class="ic-blue">共搜索出187道题</span>
