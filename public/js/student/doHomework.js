@@ -185,7 +185,7 @@ $(function(){
 
     //底部答过的题标蓝
     $("body").on("click",".exercise-box .ic-radio",function(){getOrderAndBlue(this)});
-    $("body").on("keydown",".exercise-box .blank-item",function(){getOrderAndBlue(this)});
+    $("body").on("keyup",".exercise-box .blank-item",function(){getOrderAndBlue(this)});
     $("body").on("click",".exercise-box .pan-duan .uploadExerIcons",function(){getOrderAndBlue(this)});
     $("body").on("change",".exercise-box .addFile",function(){getOrderAndBlue(this)});
     $("body").on("click",".exercise-box .question_hpb>li",function(){getOrderAndBlue(this)});
