@@ -177,34 +177,62 @@ $(function(){
 		}
 	});
 	/*下标点*/
+	var dotted = true;
 	$("body").on("click",".ic-editor .dotted",function(){
-		var selObj = window.getSelection().toString();  //获取选中的文本
-		var html = "";
-		for(var i=0; i<selObj.length; i++){
-			html += '<span class="totted-active">' + selObj[i] + '</span>';
-		}
+		if(dotted){
+			var selObj = window.getSelection().toString();  //获取选中的文本
+			var html = "";
+			for(var i=0; i<selObj.length; i++){
+				html += '<span class="totted-active">' + selObj[i] + '</span>';
+			}
 
-		document.execCommand("insertHTML","false",html);  //在光标处插入html代码
-		$(this).parents(".ic-editor").find(".totted-active").attr("contenteditable", false); //禁止加点的元素编辑
+			document.execCommand("insertHTML","false",html);  //在光标处插入html代码
+			$(this).parents(".ic-editor").find(".totted-active").attr("contenteditable", false); //禁止加点的元素编辑
+			dotted = false;
+		}else{
+			var selObj = window.getSelection().toString(); 
+			document.execCommand("insertHTML","false",selObj);  //在光标处插入html代码
+			$(this).parents(".ic-editor").find(".totted-active").attr("contenteditable", false); //禁止加点的元素编辑
+			dotted = true;
+		}
 	});
 
 	/*上标点*/
+	var upDotted = true;
 	$("body").on("click",".ic-editor .up-dotted",function(){
-		var selObj = window.getSelection().toString();
-		var html = "";
-		for(var i=0; i<selObj.length; i++){
-			html += '<span class="up-totted-active">' + selObj[i] + '</span>';
-		}
+		if(upDotted){
+			var selObj = window.getSelection().toString();
+			var html = "";
+			for(var i=0; i<selObj.length; i++){
+				html += '<span class="up-totted-active">' + selObj[i] + '</span>';
+			}
 
-		document.execCommand("insertHTML","false",html);
-		$(this).parents(".ic-editor").find(".up-totted-active").attr("contenteditable", false);
+			document.execCommand("insertHTML","false",html);
+			$(this).parents(".ic-editor").find(".up-totted-active").attr("contenteditable", false);
+			upDotted = false;
+		}else{
+			var selObj = window.getSelection().toString();
+
+			document.execCommand("insertHTML","false",selObj);
+			$(this).parents(".ic-editor").find(".up-totted-active").attr("contenteditable", false);
+			upDotted = true;
+		}
 	});
 
 	/*下划线*/
+	var Underline = true;
 	$("body").on("click",".ic-editor .underline",function(){
-		var selObj = window.getSelection().toString();  //获取选中的文本
-		document.execCommand("insertHTML","false",'<span class="underline-active">' + selObj + '<span>');  //在光标处插入html代码
-		$(this).parents(".ic-editor").find(".underline-active").attr("contenteditable", false); //禁止下划线的元素编辑
+		if(Underline){
+			var selObj = window.getSelection().toString();  //获取选中的文本
+			document.execCommand("insertHTML","false",'<span class="underline-active">' + selObj + '<span>');  //在光标处插入html代码
+			$(this).parents(".ic-editor").find(".underline-active").attr("contenteditable", false); //禁止下划线的元素编辑
+			Underline = false;
+		}else{
+			var selObj = window.getSelection().toString();  //获取选中的文本
+			document.execCommand("insertHTML","false",selObj);  //在光标处插入html代码
+			Underline = true;
+		}
+		
 	});
 
 	//编辑器里面的图片点击放大效果
