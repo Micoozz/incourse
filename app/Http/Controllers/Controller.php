@@ -19,6 +19,7 @@ use Session;
 use Cookie;
 use App\Models\Chapter;
 use PDO;
+use Redirect;
 
 class Controller extends BaseController
 {
