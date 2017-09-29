@@ -170,15 +170,18 @@ $(function(){
                 };
             }
         }
-        if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
-            if($(obj).text().length > 10) {
-                $(obj).text($(obj).text().substring(0, 10));
-                alert('最多不可超过10个字')
-            }
-        } else {
-            if($(obj).text().length > 20) {
-                $(obj).text($(obj).text().substring(0, 20));
-                alert('最多不可超过20个字')
+        if($(obj).attr('contenteditable')==='true'){
+        
+           if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
+                if($(obj).text().length > 10) {
+                    $(obj).text($(obj).text().substring(0, 10));
+                    alert('最多不可超过10个字')
+                }
+            } else {
+                if($(obj).text().length > 20) {
+                    $(obj).text($(obj).text().substring(0, 20));
+                    alert('最多不可超过20个字')
+                }
             }
         }
     }

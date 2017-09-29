@@ -35,7 +35,7 @@
             <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
              <td style="color: red">
                 {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
-                @if(time() > $work->sub_time)
+                @if(time() > $work->belongsToJob->deadline)
                     <span>(超时)</span>
                 @endif
                 </td>
