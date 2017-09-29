@@ -211,7 +211,7 @@ class LearningCenterController extends Controller
 								'id' => 3,
 								'exe_id' =>$exe_id,
 							));					
-						}	
+						}
 					}
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id','<>',null)->get();
