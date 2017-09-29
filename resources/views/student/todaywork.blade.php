@@ -108,45 +108,41 @@
         <script src="{{ asset('/js/student/step.js') }}" charset="utf-8"></script>
         <script>
         var token = "{{csrf_token()}}";
-        var workCount = "{{ isset($workCount[0]->work_id)? $workCount[0]->work_id : NULL }}";
-        console.log(workCount)
-            if (!workCount) {
-                $(function() {
-                    setTimeout(function() {
-                        $('.part2').show().addClass('position').css({
-                            'top': '130px',
-                            'left': '22%'
-                        });
+            // $(function() {
+            //     setTimeout(function() {
+            //         $('.part2').show().addClass('position').css({
+            //             'top': '130px',
+            //             'left': '22%'
+            //         });
 
-                        //遮罩层
-                        $('.shad').show().height(window.innerHeight)
+            //         //遮罩层
+            //         $('.shad').show().height(window.innerHeight)
 
-                        $('.question-found_class').css({
-                            'z-index': '101',
-                            'color': '#fff',
-                            'position': 'relative'
-                        });
+            //         $('.question-found_class').css({
+            //             'z-index': '101',
+            //             'color': '#fff',
+            //             'position': 'relative'
+            //         });
 
-                        $('.position').find('p').text('快去今日作业做题吧')
+            //         $('.position').find('p').text('快去今日作业做题吧')
 
-                        var nav; //引导
-                        $('.ic-btn').on('click', function() {
-                            if(nav == 1) {
-                                $('.part2,.shad').hide();
-                                nav=null;
-                                
-                            }else{
-                                $('.position').find('p').text('点击科目进入科目栏')
-                            $('.part2').show().addClass('position').css({
-                                'top': '130px',
-                                'left': '30%'
-                            });
-                            nav = 1
-                            }
-                        })
-                    }, 10)
-                })
-            }
+            //         var nav; //引导
+            //         $('.ic-btn').on('click', function() {
+            //             if(nav == 1) {
+            //                 $('.part2,.shad').hide();
+            //                 nav=null;
+                            
+            //             }else{
+            //                 $('.position').find('p').text('点击科目进入科目栏')
+            //             $('.part2').show().addClass('position').css({
+            //                 'top': '130px',
+            //                 'left': '30%'
+            //             });
+            //             nav = 1
+            //             }
+            //         })
+            //     }, 10)
+            // })
         $("#change").click(function() { 
            $url = "{{ URL('/kit/captcha/') }}";  
            $url = $url + "/" + Math.random();

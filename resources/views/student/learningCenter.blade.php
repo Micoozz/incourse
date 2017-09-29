@@ -159,7 +159,6 @@
 		<script>
 			var token = "{{csrf_token()}}";
 			var func = "{{ isset($func) ? $func : ''}}";
-			console.log(func)
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
