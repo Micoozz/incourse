@@ -25,7 +25,5 @@
 				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/errorExercise'">错题解析</button>
 			@endif
 		</div>
-
 	</div>
 </div>
-

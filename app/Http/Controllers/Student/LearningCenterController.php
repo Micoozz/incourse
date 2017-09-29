@@ -79,14 +79,13 @@ class LearningCenterController extends Controller
     	$user = Auth::guard('student')->user();
     	$courseAll = Course::all();//这里以后要区分年级的科目
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
-        // dump($date);
         // dd(Job::where("id",32)->first()->pub_time);
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
-        $date = strtotime(date('Ymd H:i'));//大于当前时间且小于截至时间的id
+        $date = strtotime(date('Ymd'));//大于当前时间且小于截至时间的id
     /*    dump("Y-m-d H:i:s",$date);
         dump("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time);
         dd("Y-m-d H:i:s",Job::where("id",32)->first()->deadline);*/
-        $job_list = array_column(Job::where('pub_time','>',$date)/*->where('deadline','<=',$date)*/->get(['id'])->toArray(),'id');
+        $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<=',$date)->get(['id'])->toArray(),'id');
         //dd($job_list);
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
@@ -147,6 +146,7 @@ class LearningCenterController extends Controller
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
 		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
+		    	//dd($data);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
 					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
@@ -329,6 +329,7 @@ class LearningCenterController extends Controller
 		 		$data = array('error_work' => $error_work->toArray(),'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
+		 		$several = explode('&',$several);
 		 		$work = Work::select('start_time','sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
