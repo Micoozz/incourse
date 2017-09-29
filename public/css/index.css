@@ -213,6 +213,8 @@ a {
     width: 100%;
     display: block;
     height: 100%;
+    background-color: #fcfcfc;
+    color: #bcbcbc;
 }
 
 .nav > li > a:hover {
@@ -238,7 +240,8 @@ a {
     height: 54px;
     text-align: center;
     line-height: 54px;
-    cursor: pointer;
+
+    background-color: #fcfcfc;
 }
 
 .bg {
@@ -248,6 +251,12 @@ a {
 
 #nav1 li a {
     padding: 0;
+    color: #bfbfbf;
+        cursor: no-drop;
+}
+#nav1 .left_nac a{
+    color: #fff;
+        cursor: pointer;
 }
 
 .net {
