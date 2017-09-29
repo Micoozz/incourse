@@ -242,7 +242,6 @@ class LearningCenterController extends Controller
 						$sameSecond = 0;
 						$grossScore = 0;
 						$exeScore = 0;
-						$tutorship = implode('&',$tutorship); //所有的错题ID
 						$grossExercise = $db->table($user->id)->select('score','second','parent_id')->where('work_id',$parameter)->get();//查询所有的作业以及同类型练习的信息
 						foreach ($grossExercise as $exercise) {
 							if (!empty($exercise->parent_id)) {
@@ -333,7 +332,6 @@ class LearningCenterController extends Controller
 		 		$sameSkip = $several;
 		 		$work = Work::select('start_time','sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
-		 		$several = explode('&',$several);
 		 		$grossScore = 0;
 		 		$exeScore = 0;
 		 		$exeSecond = 0;
@@ -356,8 +354,10 @@ class LearningCenterController extends Controller
 					$accuracy = round($accuracy,4);
 				}
 		 		$data = array();
+		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
 					if ($exercise->score == 0) {
+						$sameErrorScore = $sameErrorScore + 1;
 						array_push($data, array(
 							"id" => 2,
 							"exe_id" => $exercise->exe_id
@@ -375,7 +375,7 @@ class LearningCenterController extends Controller
 		 	}
 
         }
-    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip'));
+    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip','errorScore','sameErrorScore'));
     }
     //做作业
     public function doHomework($work_id = NULL){
