@@ -158,7 +158,6 @@ $(function(){
 $(function(){
 	/*添加附件*/
 	$("body").on("change",".ic-editor .addFile",function(){
-		alert("111")
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {

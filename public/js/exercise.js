@@ -1,5 +1,5 @@
 
-let typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题","综合题"];
+var typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题","综合题"];
 
 /***************** 出题 *******************/
 $(function () {
@@ -27,7 +27,7 @@ $(function () {
 
     /*动态生成的三级联动*/
     $("body").on("click", ".exercise-box .select-form .ic-text-exer", function () {
-        let is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
+        var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
         $(".select-action-box .select-form .ic-text-exer .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
         $(".select-action-box .select-form .lists-exer").hide();
 
@@ -41,7 +41,7 @@ $(function () {
     });
     /*选择题型*/
     $("body").on("click", ".exercise-box .select-form .lists-exer>li", function () {
-        let $p = $(this).parent().prev();
+        var $p = $(this).parent().prev();
         $p.children("span").text($(this).text());
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
@@ -58,14 +58,14 @@ $(function () {
 $(function () {
     /****问题****/
     //一般问题
-    let common_Q = "<div class='question clear'>" +
+    var common_Q = "<div class='question clear'>" +
         "<span class='f-l fs14'>问题：</span>" +
         "<div class='ic-editor border f-l'>" +
             "<div class='tools clear'>" +
                 "<button class='f-l p-r of-h addFileTool icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input class='addFile' type='file' />" +
+                    "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'/>" +
                 "</button>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank d-n icon_margin_r'>" +
@@ -89,7 +89,7 @@ $(function () {
         "</div>" +
     "</div>";
     //听力题问题
-    let ting_li_Q = "<div class='question clear'>" +
+    var ting_li_Q = "<div class='question clear'>" +
         "<p class='fs14 text'>根据听力，回答问题</p>" +
         "<div class='listen'>" +
             "<p>" +
@@ -97,7 +97,7 @@ $(function () {
                 "<button class='p-r of-h ic-blue addFileTool'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input class='addFile' type='file'>" +
+                    "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'>" +
                 "</button>" +
             "</p>" +
             "<div class='mp3-box'></div>" +
@@ -105,14 +105,14 @@ $(function () {
     "</div>";
 
     //阅读题问题
-    let yue_du_Q = "<div class='question clear'>" +
+    var yue_du_Q = "<div class='question clear'>" +
         "<span class='f-l fs14'>正文：</span>" +
         "<div class='ic-editor border f-l'>" +
             "<div class='tools clear'>" +
                 "<button class='f-l p-r of-h addFileTool'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input class='addFile' type='file' />" +
+                    "<input id='image-upload' class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'/>" +
                 "</button>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank icon_margin_r'>" +
@@ -136,20 +136,35 @@ $(function () {
         "</div>" +
     "</div>";
 
-
+    $("#image-upload").on("change",function(){
+        // console.log($.ajaxFileUpload())
+        $.ajaxFileUpload({
+            url : '/test',
+            secureuri : false,
+            fileElementId : 'image-upload',
+            dataType : 'json',
+            data : {"_token":token},
+            success : function(data) {
+                console.log(data)
+            },
+            error : function(data, e) {
+                alert('上传出错');
+            }
+        })
+    })
     /****答案****/
     /*答案html框架组件*/
-    let tID,tClass,tOptions,tIDOnly;
+    var tID,tClass,tOptions,tIDOnly;
     function MyAnswer(){};
     MyAnswer.prototype = {
         answerFun:function(){
-            let answers;
+            var answers;
             answers = "<span class='f-l fs14'>答案：</span>" +
                 "<div class='answer-box f-l'>";
             return answers;
         },
         answerCheckedFun:function(tID,tClass,tOptions,tIDOnly){
-            let answer_checked;
+            var answer_checked;
             answer_checked= "<div class='" + tID + "'>" +
                     "<div class='" + tOptions + " " + tIDOnly + "'></div>" +
                         "<span class='addOptionBtn " + tClass + " c-d ic-blue'>" +
@@ -163,8 +178,8 @@ $(function () {
     };
     /*答案判断*/
     function AnswerFun(tID,tClass,tOptions,tIDOnly,text){
-        let A = new MyAnswer();
-        let Answer;
+        var A = new MyAnswer();
+        var Answer;
         if (text === "单选题") {
             tID = "dan-xuan",tClass = "addXzOptionBtn",tIDOnly = tID + "-only",tOptions = "dan-xuan-options";
             Answer = A.answerFun();
@@ -206,7 +221,7 @@ $(function () {
                                 "<div class='f-l p-r of-h addFileTool'>" +
                                     "<i class='tool'></i>" +
                                     "<span>添加附件</span>" +
-                                    "<input class='addFile' type='file'>" +
+                                    "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'>" +
                                 "</div>" +
                             "</div>" +
                             "<div class='editor-content' contenteditable='true'></div>" +
@@ -228,7 +243,7 @@ $(function () {
     /*选择题型*/
     $("body").on("click", ".exercise-box .type .lists-exer>li", function () {selectQuestionType(this)});
     function selectQuestionType(obj){
-        let text = $(obj).text(), parent_html_el = $(obj).parents(".select-action-box").siblings(".answer-wrap");
+        var text = $(obj).text(), parent_html_el = $(obj).parents(".select-action-box").siblings(".answer-wrap");
         //问题
         if (text === "听力题") {
             $(obj).parents(".select-action-box").siblings(".question-box").html(ting_li_Q);
@@ -246,7 +261,7 @@ $(function () {
     }
 
     //我的上传--编辑
-    let operationID = $("#operation_this_job").attr("data-id");
+    var operationID = $("#operation_this_job").attr("data-id");
     if(operationID == "" || !operationID){}
     else if(operationID == "workUpLoad"){}
     else{
@@ -254,8 +269,8 @@ $(function () {
             url:"/getEditExecrise/" + operationID,
             type:'GET',
             success:function(data){
-                let newData=eval('(' + data + ')');
-                let newText;
+                var newData=eval('(' + data + ')');
+                var newText;
                 //题型是什么
                 $(".select-form .lists-exer > li").each(function(){
                     if($(this).attr("data") == newData.categroy_id){
@@ -303,8 +318,8 @@ $(function () {
             url:"/getSectionAjax/"+nD.unit_id,
             type:"GET",
             success:function(data){
-                let parent_ul=$(".select_section").parent().next(".lists.section-ul");
-                for (let key in data){
+                var parent_ul=$(".select_section").parent().next(".lists.section-ul");
+                for (var key in data){
                     parent_ul.append("<li class='section-li' data='"+key+"'>"+data[key]+"</li>");
                 }
                 //小节显示
@@ -320,13 +335,13 @@ $(function () {
     //答案显示
     function answerShow(nT,nD){
         $(".answer-box.f-l > div").attr("data-num",nD.options.length);
-        let html;
+        var html;
         if(nT == "单选题" || nT == "多选题"){
-            for(let i = 0;i< nD.options.length;i++){
+            for(var i = 0;i< nD.options.length;i++){
                 addchoose(".addXzOptionBtn");
-                for(let k in nD.options[i]){
+                for(var k in nD.options[i]){
                     $(".dan-xuan-options > div").eq(i).find(".radio-ipt input").val(nD.options[i][k]);
-                    for(let j = 0;j<nD.answer.length;j++){
+                    for(var j = 0;j<nD.answer.length;j++){
                         if(k == nD.answer[j]){
                             $(".radio-wrap").eq(i).children("label").addClass("active");
                         }
@@ -337,7 +352,7 @@ $(function () {
 */
             }
         }else if(nT == "填空题"){
-            for(let i = 0;i< nD.answer.length;i++) {
+            for(var i = 0;i< nD.answer.length;i++) {
                 html = "<div class='blank-answer p-r'>" +
                     "<span>答案" + (i+1) + "：</span>" +
                     "<input type='text' value='"+nD.answer[i]+"'>" +
@@ -345,7 +360,7 @@ $(function () {
                 $(".duo-kong").append(html)
             }
         }else if(nT == "判断题"){
-            let num = nD.answer;
+            var num = nD.answer;
             if(num == 0){
                 $(".answer-box .pan-duan .right").parents(".pan-duan").removeClass("wrongActive").addClass("rightActive");
             }else{
@@ -356,23 +371,23 @@ $(function () {
 
     //删除空格时删除答案
     $("body").on("keyup", ".exercise .editor-content", function (event) {
-        let blank_len = $(this).find(".blank-item").length;
+        var blank_len = $(this).find(".blank-item").length;
         $(this).find(".blank-item").each(function (i, item) {
             $(item).text("空" + (i + 1));
         });
-        let html = "";
+        var html = "";
 
         //获取题型
-        let type = $(this).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
+        var type = $(this).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
         if (type === "完形填空") {
-            let wan_xing_tk_dom = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only"),b=["A","B","C","D"];
+            var wan_xing_tk_dom = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only"),b=["A","B","C","D"];
             if ((event.keyCode === 8) && (blank_len < Number(wan_xing_tk_dom.attr("data-num")))) {
                 wan_xing_tk_dom.attr("data-num", blank_len);
-                for (let i = 0; i < blank_len; i++) {
+                for (var i = 0; i < blank_len; i++) {
                     html="<div class='wan-xing-tk-option clear'>" +
                         "<span class='f-l id'>" + (i + 1) + ".</span>" +
                         "<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only'>";
-                    for(let j=0;j < 4;j++){
+                    for(var j=0;j < 4;j++){
                         html += "<div class='radio-wrap'>" +
                             "<label class='ic-radio border p-r'>" +
                             "<i class='ic-blue-bg p-a'></i>" +
@@ -389,10 +404,10 @@ $(function () {
                 wan_xing_tk_dom.html(html);
             }
         } else {
-            let duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
+            var duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
             if ((event.keyCode === 8) && (blank_len < Number(duo_kong_dom.attr("data-num")))) {
                 duo_kong_dom.attr("data-num", blank_len);
-                for (let i = 0; i < blank_len; i++) {
+                for (var i = 0; i < blank_len; i++) {
                     html += "<div class='blank-answer p-r'>" +
                         "<span>答案" + (i + 1) + "：</span>" +
                         "<input type='text'/>" +
@@ -403,209 +418,15 @@ $(function () {
         }
     });
 
-	/*//编辑题的基本框架
-	let editorHtml = "<div class='exercise'>" +
-        "<div class='type select-action-box p-r fs14'>" +
-            "<span class='f-l'>题型：</span>" +
-            "<span class='ic-text-exer'>" +
-                "<span class='editor-type'>1</span>" +
-            "</span>" +
-            "<i class='common-icon ic-close-icon p-a'></i>" +
-        "</div>" +
-        "<div class='question-box'></div>" +
-        "<div class='answer-wrap clear'></div>" +
-    "</div>";*/
-
-
-
-
-	/*编辑题目调用的函数*/
-	/*function editorExer(obj) {
-		//["单选题1","多选题2","填空题3","判断题4","连线题5","排序题6","完形填空7","画图题8","计算题9","简答题10","解答题11","听力题12","阅读题13","作文题14","综合题15"];
-		let typeNum = Number(obj.categroy), t;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 1ca396cada3c0910a1b1cde6bd041be56c2c7d9b
-
-		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
-		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
-		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
-<<<<<<< HEAD
-
-=======
->>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
-		
-		$($(".editor-type")[$(".editor-type").length-1]).text(typeString[typeNum-1]);
-		let queBox = $($(".editorExerModal .question-box")[$(".editorExerModal .question-box").length-1]);
-		let ansBox = $($(".editorExerModal .answer-wrap")[$(".editorExerModal .answer-wrap").length-1]);
-		
->>>>>>> dev
-=======
->>>>>>> 1ca396cada3c0910a1b1cde6bd041be56c2c7d9b
-		//问题显示
-		if(typeNum===12){
-			queBox.html(ting_li_Q);
-            t = "听力题";
-<<<<<<< HEAD
-<<<<<<< HEAD
-			
-=======
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> dev
->>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
-=======
->>>>>>> 1ca396cada3c0910a1b1cde6bd041be56c2c7d9b
-			let files = obj.material[0];
-			let size = (files[0].size / 1024 / 1024).toFixed(2);
-			$(".editorExerModal .listen .mp3-box").addClass("border").append("<div>" +
-                    "<i class='uploadExerIcons p-r'></i>" +
-                    "<input class='p-a audio-child' type='file'/>" +
-                    "<span class='gray'>听力  <span class='audio-name'>' + files[0].name + '</span> ' + size + 'M </span>" +
-                    "<button class='f-r ic-blue delete'>删除</button>" +
-                "</div>");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
-			
->>>>>>> dev
-=======
->>>>>>> 1ca396cada3c0910a1b1cde6bd041be56c2c7d9b
-			obj.answer.forEach(function(item,i){
-				$(".editorExerModal .mul-answer-box").append(editorHtml);
-				editorExer(item);
-			});
-		}else if(typeNum===13 || typeNum===15){
-			queBox.html(yue_du_Q);
-            t = "阅读题";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> f28ac37dfe7a2bf710e1f8283064fc0a6099bfc9
-			
->>>>>>> dev
-=======
->>>>>>> 1ca396cada3c0910a1b1cde6bd041be56c2c7d9b
-			$(".editorExerModal .editor-content").html(obj.subject);
-			obj.answer.forEach(function(item,i){
-				$(".editorExerModal .mul-answer-box").append(editorHtml);
-				editorExer(item);
-			});
-		}else {
-			queBox.html(common_Q);
-			if(typeNum===3 || typeNum===7){
-				$($(".editorExerModal .ic-editor .blank")[$(".editorExerModal .ic-editor .blank").length-1]).show();
-			}
-			$($(".editorExerModal .editor-content")[$(".editorExerModal .editor-content").length-1]).html(obj.subject);
-		}
-
-		//答案显示
-		let letter, PRNum;
-		if(typeNum===1){
-            t = "单选题";
-            PRNum = Number(obj.answer)===i ? ' active' : '';
-            obj.option.forEach(function(item,i){
-				letter = String.fromCharCode(65 + i);
-                checkedHtml(PRNum,letter,item,"");
-			});
-			$($(".editorExerModal .dan-xuan-only")[$(".editorExerModal .dan-xuan-only").length-1]).html(html);
-		}else if(typeNum===2){
-            t = "多选题";
-            PRNum = obj.answer.indexOf(i+'')!==-1 ? ' active' : '';
-            obj.option.forEach(function(item,i){
-				letter = String.fromCharCode(65 + i);
-                checkedHtml(PRNum,letter,item,"")
-			});
-			$($(".editorExerModal .duo-xuan-only")[$(".editorExerModal .duo-xuan-only").length-1]).html(html);
-		}else if(typeNum===3){
-            t = "填空题";
-
-			obj.answer.forEach(function(item,i){
-				html += "<div class='blank-answer p-r'>" +
-                            "<span>答案" + (i+1) + "：</span>" +
-                            "<input type='text' value='" + item + "'>" +
-                        "</div>";
-			});
-			$($(".editorExerModal .duo-kong")[$(".editorExerModal .duo-kong").length-1]).html(html);
-		}else if(typeNum===4){
-            t = "判断题";
-			if(obj.answer==="正确"){
-				$($(".editorExerModal .pan-duan")[$(".editorExerModal .pan-duan").length-1]).addClass("rightActive");
-			}else {
-				$($(".editorExerModal .pan-duan")[$(".editorExerModal .pan-duan").length-1]).addClass("wrongActive");
-			}
-		}else if(typeNum===5){
-            t = "连线题";
-
-			obj.option[0].forEach(function(item,i){
-				html += "<div class='lian-xian-option'>" +
-                            "<input class='ic-input' type='text' value='" + item + "'>" +
-                            "<input class='ic-input' type='text' value='" + obj.option[1][i] + "'>" +
-                            "<i class='uploadExerIcons delete p-r'></i>" +
-                        "</div>";
-			});
-			$($(".editorExerModal .lian-xian-options")[$(".editorExerModal .lian-xian-options").length-1]).html(html);
-		}else if(typeNum===6){
-            t = "排序题";
-
-			obj.option.forEach(function(item,i){
-				letter = String.fromCharCode(65 + i);
-				html += "<div class='radio-wrap pai-xu-option'>" +
-                            "<div class='radio-ipt p-r'>" +
-                                "<span class='p-a'>排序" + letter + "：</span>" +
-                                "<input class='ic-input' type='text' value='" + item + "'>" +
-                            "</div>" +
-                            "<i class='delete uploadExerIcons'></i>" +
-                        "</div>";
-			});
-			$($(".editorExerModal .pai-xu-options")[$(".editorExerModal .pai-xu-options").length-1]).html(html);
-		}else if(typeNum===7){
-            t = "完形填空";
-            PRNum = Number(obj.answer[i])===j ? ' active' : '';
-			obj.option.forEach(function(item,i){
-				let options = "";
-				item.forEach(function(n,j){
-					letter = String.fromCharCode(65 + j);
-					options += checkedHtml(PRNum,letter,n,i);
-					$(".radio-wrap").removeClass("dan-xuan-option");
-					$(".delete.uploadExerIcons").remove();
-				});
-				html += "<div class='wan-xing-tk-option clear'>" +
-                            "<span class='f-l id'>" + (i+1) + ".</span>" +
-                            "<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only'>" + options + "</div>" +
-                        "</div>";
-			});
-			$($(".editorExerModal .wan-xing-tk-only")[$(".editorExerModal .wan-xing-tk-only").length-1]).html(html).attr("data-num",obj.option.length);
-		}else if(typeNum===8 || typeNum===9 || typeNum===10 || typeNum===11){
-			t = "简答题";
-
-			$($(".editorExerModal .jian-da .editor-content")[$(".editorExerModal .jian-da .editor-content").length-1]).html(obj.answer);
-		}else if(typeNum===14){
-			t = "作文题";
-		}
-        ansBox.html(AnswerFun(tID,tClass,tOptions,tIDOnly,t));
-	}*/
-
+	
     /*单选题*/
     //添加选项
     $("body").on("click", ".addXzOptionBtn", function () {
         addchoose(this)
     });
     function addchoose(obj){
-        let len = $(obj).prev(".dan-xuan-options").children(".dan-xuan-option").length;
-        let letter = String.fromCharCode(65 + len);
+        var len = $(obj).prev(".dan-xuan-options").children(".dan-xuan-option").length;
+        var letter = String.fromCharCode(65 + len);
 
         $(obj).prev(".dan-xuan-options").append("<div class='radio-wrap dan-xuan-option'>" +
             "<label class='ic-radio border p-r'>" +
@@ -622,7 +443,7 @@ $(function () {
 
     //删除选项
     $("body").on("click", ".dan-xuan-option .delete", function () {
-        let num = $(this).prev(".radio-ipt").children("span").text().slice(0, 1).charCodeAt();
+        var num = $(this).prev(".radio-ipt").children("span").text().slice(0, 1).charCodeAt();
         $(this).parents(".radio-wrap").nextAll().each(function (i, item) {
             $(item).children(".radio-ipt").children("span").text(String.fromCharCode(num) + "：");
             num++;
@@ -637,8 +458,8 @@ $(function () {
         addSort(this)
     });
     function addSort(obj){
-        let len = $(obj).prev(".pai-xu-options").children(".pai-xu-option").length;
-        let letter = String.fromCharCode(65 + len);
+        var len = $(obj).prev(".pai-xu-options").children(".pai-xu-option").length;
+        var letter = String.fromCharCode(65 + len);
 
         $(obj).prev(".pai-xu-options").append("<div class='radio-wrap pai-xu-option'>"+
             "<div class='radio-ipt p-r'>"+
@@ -651,7 +472,7 @@ $(function () {
 
     //删除选项
     $("body").on("click", ".pai-xu-option .delete", function () {
-        let num = $(this).prev(".radio-ipt").children("span").text().slice(2, 3).charCodeAt();
+        var num = $(this).prev(".radio-ipt").children("span").text().slice(2, 3).charCodeAt();
         $(this).parents(".radio-wrap").nextAll().each(function (i, item) {
             $(item).children(".radio-ipt").children("span").text("排序" + String.fromCharCode(num) + "：");
             num++;
@@ -671,18 +492,18 @@ $(function () {
     //空格格式
     function blank_span(obj){
         $(obj).parents(".ic-editor").children(".editor-content").focus();
-        let initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
+        var initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
         document.execCommand("insertHTML", "false", '<span class="blank-item">空' + initNum + '</span>&nbsp;');
         $(obj).parents(".ic-editor").find(".blank-item").attr("contenteditable", false);
 
         //获取题型
-        let type = $(obj).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
+        var type = $(obj).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
         if (type === "完形填空") {
-            //let options = "";
+            //var options = "";
 
-            let html_dom,html_dom_arr=["A","B","C","D"];
+            var html_dom,html_dom_arr=["A","B","C","D"];
             html_dom="<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only'>";
-            for(let i=0;i < 4;i++){
+            for(var i=0;i < 4;i++){
                 html_dom += "<div class='radio-wrap'>" +
                     "<label class='ic-radio border p-r'>" +
                     "<i class='ic-blue-bg p-a'></i>" +
@@ -696,11 +517,11 @@ $(function () {
             }
             html_dom += "</div>";
 
-            let wan_xing_tk_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only");
+            var wan_xing_tk_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only");
             wan_xing_tk_dom.append(html_dom);
             wan_xing_tk_dom.attr("data-num", Number(wan_xing_tk_dom.attr("data-num")) + 1);
         } else {
-            let duo_kong_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".duo-kong");
+            var duo_kong_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".duo-kong");
             duo_kong_dom.append("<div class='blank-answer p-r'>" +
                 "<span>答案" + initNum + "：</span>" +
                 "<input type='text'>" +
@@ -744,8 +565,8 @@ $(function () {
 $(function () {
     //添加录音
     $("body").on("change", ".listen .addFile", function () {
-        let input = $(this)[0];
-        let files = input.files || [];
+        var input = $(this)[0];
+        var files = input.files || [];
         if (files.length === 0) {
             return;
         }
@@ -754,7 +575,7 @@ $(function () {
         }
         console.log(files);
 //      console.log(files[0].name);
-        let size = (files[0].size / 1024 / 1024).toFixed(2);
+        var size = (files[0].size / 1024 / 1024).toFixed(2);
         $(this).parents(".listen").find(".mp3-box").append("<div>" +
                 "<i class='uploadExerIcons p-r'></i>" +
                 "<input class='p-a audio-child' type='file'/>" +
@@ -768,7 +589,7 @@ $(function () {
 
     //删除mp3
     $("body").on("click", ".mp3-box .delete", function () {
-        let mp3 = $(this).parents(".mp3-box").children().length;
+        var mp3 = $(this).parents(".mp3-box").children().length;
         if (mp3 === 1) {
             $(this).parents(".mp3-box").removeClass("border");
         }
@@ -780,8 +601,8 @@ $(function () {
     // var unit;
     //章节  小节联动
     $(".select-form.clear .unit-ul .unit-li").click(function(){
-    	let child_span = $(".select_unit");
-        let parent_ul = $(this).parents(".select-form.clear").find(".ic-text").next(".lists.section-ul");
+    	var child_span = $(".select_unit");
+        var parent_ul = $(this).parents(".select-form.clear").find(".ic-text").next(".lists.section-ul");
         child_span.attr("data-u",$(this).attr("data"));
         parent_ul.html("");
         $.get("/getSectionAjax/"+$(this).attr("data"),function(result){
@@ -794,7 +615,7 @@ $(function () {
         $(".select_section").attr("data-s",$(this).attr("data"));
     })
     //默认添加单选题
-    let html = $("#exercise_html_box").html();
+    var html = $("#exercise_html_box").html();
     //添加题目
 	$("body").on("click",".addExerBtn-box .addExerBtn",function () {
 		$(".exercise-box").append(html);
@@ -810,8 +631,8 @@ $(function () {
         upLoadJob();
 	});
 	function upLoadJob(){
-        let id=$("#operation_this_job").attr("data-id");
-        let allExer = uploadExer();  //保存需要上传的题目
+        var id=$("#operation_this_job").attr("data-id");
+        var allExer = uploadExer();  //保存需要上传的题目
         allExer._token = token;
         if(id != ""){
             allExer.exercise.exe_id=id;
@@ -829,13 +650,19 @@ $(function () {
                 	var data=JSON.parse(data)
                     if(data.code==200){
                         if(id == "workUpLoad"){
-                            let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+                            var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
                             sessionStorage.removeItem("addJob");
-                            for(let i=0;i<data.id_list.length;i++){
+                            for(var i=0;i<data.id_list.length;i++){
                                 sessionStorageData.exercise.push(data.id_list[i])
                             }
                             window.sessionStorage.setItem("addJob", JSON.stringify(sessionStorageData));
-                            console.log(sessionStorageData);
+                        }
+                        var operationID = $("#operation_this_job").attr("data-id");
+                        if(operationID == "" || !operationID){
+                        }else if(operationID == "workUpLoad"){
+                           window.location.href = "/addHomework-personal/"+classId+"/"+courseId
+                        }else{
+                            window.location.href = "/exercise/"+classId+"/"+courseId+"/my-upload";
                         }
                         alert("上传成功");
                     }else{
@@ -866,9 +693,9 @@ function exerIsFill(arr){
 		return false;
 	}
 
-	for(let i=0; i<arr.length; i++){
-		let item = arr[i];
-		let categroy = item.categroy;	//保存题型
+	for(var i=0; i<arr.length; i++){
+		var item = arr[i];
+		var categroy = item.categroy;	//保存题型
 
 		if(item.subject===""){ return false; }
 
@@ -927,7 +754,7 @@ function exerIsFill(arr){
 
 //获取所有题目的信息，并赋值给obj.exercise
 function getExercises(obj){
-	let exer,exer_child,type,arr,str; //保存单题的信息
+	var exer,exer_child,type,arr,str; //保存单题的信息
 	$(".exercise-box>.exercise").each(function(i,item){
 		type = $(item).children(".type").find(".ic-text-exer>span").text();
 
@@ -940,9 +767,9 @@ function getExercises(obj){
 		 */
 		//最外层题型保存信息
 
-        let id=$("#operation_this_job").attr("data-id");
+        var id=$("#operation_this_job").attr("data-id");
         if(id=="workUpLoad"){
-            let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+            var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
             obj.chapter={
                 "unit":sessionStorageData.chapter.unit,
                 "section":sessionStorageData.chapter.section
@@ -995,7 +822,7 @@ function getExercises(obj){
 			exer.answer = $(item).find(".pan-duan").hasClass("rightActive") ? "1" : $(item).find(".pan-duan").hasClass("wrongActive") ? "0" : "";
 		}else if(type==="连线题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
-			let right = [];
+			var right = [];
 			$(item).find(".lian-xian-option").each(function(i,n){
 				arr.push($(n).children("input").first().val());
 				right.push($(n).children("input").last().val());
@@ -1010,7 +837,7 @@ function getExercises(obj){
 		}else if(type==="完形填空"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			$(item).find(".wan-xing-tk-option").each(function(i,n){
-				let child = [];
+				var child = [];
 				$(n).find(".radio-ipt>input").each(function(j,m){
 					child.push($(m).val());
 				});
@@ -1018,7 +845,7 @@ function getExercises(obj){
 			});
 
 			$(item).find(".wan-xing-tk-box").each(function(i,n){
-				let answer = $(n).find(".ic-radio.active");
+				var answer = $(n).find(".ic-radio.active");
 				str = answer.length===0 ? "" : strToNum(answer.children("input").val());
 				arr.push(str);
 			});
@@ -1044,7 +871,7 @@ function getExercises(obj){
 			//获取子题
 			$(item).find(".mul-answer-box .exercise").each(function(i,n){
 				//听力题子题只能是单选题，填空题，作文题
-				let type_child = $(n).find(".ic-text-exer>span").text();
+				var type_child = $(n).find(".ic-text-exer>span").text();
 
 				//里面子题保存信息
 				exer_child = {
@@ -1053,7 +880,7 @@ function getExercises(obj){
 					"option": [],
 					"answer": ""
 				};
-				let arr_child = []; //多题借用的数组
+				var arr_child = []; //多题借用的数组
 
 				if(type_child === "单选题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
@@ -1103,7 +930,7 @@ function getExercises(obj){
 //教师上传习题获取所有添加的题目
 function uploadExer(){
 	//保存所有要保存的数据
-	let obj = {
+	var obj = {
 		"chapter": {},
 		"exercise": []
 	};
@@ -1116,7 +943,7 @@ function uploadExer(){
 //ABC..转换成012..
 function strToNum(str){
 	if(str){
-		let num = str.charCodeAt();
+		var num = str.charCodeAt();
 		return num - 65 + "";
 	}else {
 		return "";
@@ -1139,7 +966,7 @@ $(function () {
 	//参数依次为序号、对数和正确答案
     function lianXianTiFunc(order,n,ans) {
         //动态生成对应LI的数据
-        let dist = {
+        var dist = {
             liHeight: 38, //保存每个LI的高度
             borderWidth: 1, //保存每个LI的边框宽度
             marginBottom: 14, //保存每个LI的下外边距
@@ -1161,7 +988,7 @@ $(function () {
             $(".lian-xian-" + order + " .container_hpb>canvas").attr("height", dist.canvasH);
             dist.question = [];
             dist.answer = [];
-            for (let i = 0; i < $(".lian-xian-" + order + " .question_hpb>li").length; i++) {
+            for (var i = 0; i < $(".lian-xian-" + order + " .question_hpb>li").length; i++) {
                 dist.question.push({
                     "x": 0,
                     "y": dist.y1 + i * dist.D,
@@ -1178,9 +1005,9 @@ $(function () {
         if (!$(".lian-xian-" + order + " .canvas1")[0]) {
             return;
         }
-        let ctx1 = $(".lian-xian-" + order + " .canvas1")[0].getContext("2d");
-        let ctx2 = $(".lian-xian-" + order + " .canvas2")[0].getContext("2d");
-        let pos = {
+        var ctx1 = $(".lian-xian-" + order + " .canvas1")[0].getContext("2d");
+        var ctx2 = $(".lian-xian-" + order + " .canvas2")[0].getContext("2d");
+        var pos = {
             x1: 0, //保存起始的X坐标
             y1: 0, //保存起始的Y坐标
             x2: 0, //保存结束的X坐标
@@ -1189,10 +1016,10 @@ $(function () {
             canDraw: false, //保存画布上能不能画出线条
             COLOR: "orange" //保存画笔的颜色
         };
-        let exist = []; //保存已经用过的坐标点以便回退时用
+        var exist = []; //保存已经用过的坐标点以便回退时用
         if (ans) {
             //正确答案假数据
-            //let answer = [{
+            //var answer = [{
 				//"left": 1,
 				//"right": 2
             //},
@@ -1206,8 +1033,8 @@ $(function () {
 				//}
             //];
 
-			let answer = ["1:1","2:2","3:3"];
-			//let answer = ans;
+			var answer = ["1:1","2:2","3:3"];
+			//var answer = ans;
 
             /*按照答案画出连线*/
             ctx1.strokeStyle = pos.COLOR;
@@ -1216,7 +1043,7 @@ $(function () {
                 //ctx1.moveTo(dist.question[item.left - 1].x, dist.question[item.left - 1].y);
                 //ctx1.lineTo(dist.answer[item.right - 1].x, dist.answer[item.right - 1].y);
 
-				let lines = item.split(":");
+				var lines = item.split(":");
 				ctx1.moveTo(dist.question[lines[0] - 1].x, dist.question[lines[0] - 1].y);
 				ctx1.lineTo(dist.answer[lines[1] - 1].x, dist.answer[lines[1] - 1].y);
                 ctx1.stroke();
@@ -1225,7 +1052,7 @@ $(function () {
         } else {
             //鼠标开始点击的时候获取起始坐标
 			$("body").on("click",".lian-xian-"+order+" .question_hpb li",function () {
-				let n = $(this).parent(".question_hpb").children("li").index(this);
+				var n = $(this).parent(".question_hpb").children("li").index(this);
 				if (dist.question[n].can === "yes") {
 					pos.start = n;
 					pos.canDraw = true;
@@ -1239,8 +1066,8 @@ $(function () {
 				if (pos.canDraw) {
 					ctx2.strokeStyle = pos.COLOR;
 					ctx2.clearRect(0, 0, dist.canvasW, dist.canvasH);
-					let mouseX = event.offsetX;
-					let mouseY = event.offsetY;
+					var mouseX = event.offsetX;
+					var mouseY = event.offsetY;
 					ctx2.beginPath();
 					ctx2.moveTo(pos.x1, pos.y1);
 					ctx2.lineTo(mouseX, mouseY);
@@ -1253,8 +1080,8 @@ $(function () {
 				if (pos.canDraw) {
 					ctx2.strokeStyle = pos.COLOR;
 					ctx2.clearRect(0, 0, dist.canvasW, dist.canvasH);
-					let mouseX = event.pageX - $(".lian-xian-"+order+" .canvas2").offset().left;
-					let mouseY = event.pageY - $(".lian-xian-"+order+" .canvas2").offset().top;
+					var mouseX = event.pageX - $(".lian-xian-"+order+" .canvas2").offset().left;
+					var mouseY = event.pageY - $(".lian-xian-"+order+" .canvas2").offset().top;
 					ctx2.beginPath();
 					ctx2.moveTo(pos.x1, pos.y1);
 					ctx2.lineTo(mouseX, mouseY);
@@ -1264,7 +1091,7 @@ $(function () {
 			});
             //用户点击答案触发的事件
 			$("body").on("click",".lian-xian-"+order+" .answer_hpb li",function () {
-				let n = $(this).parent(".answer_hpb").children("li").index(this);
+				var n = $(this).parent(".answer_hpb").children("li").index(this);
                 if ((pos.canDraw === true) && (dist.answer[n].can === "yes")) {
                     ctx1.strokeStyle = pos.COLOR;
                     pos.x2 = dist.answer[n].x;
@@ -1288,13 +1115,13 @@ $(function () {
 				event.preventDefault();
 				if(exist.length !== 0){
 					ctx1.clearRect(0,0,dist.canvasW,dist.canvasH);
-					let del=exist.pop();
+					var del=exist.pop();
 					dist.question[del.start].can="yes";
 					dist.answer[del.end].can="yes";
 					ctx1.beginPath();
-					for(let i=0; i<exist.length; i++){
-						let start=exist[i].start;
-						let end=exist[i].end;
+					for(var i=0; i<exist.length; i++){
+						var start=exist[i].start;
+						var end=exist[i].end;
 						ctx1.moveTo(dist.question[start].x,dist.question[start].y);
 						ctx1.lineTo(dist.answer[end].x,dist.answer[end].y);
 					}
@@ -1305,7 +1132,7 @@ $(function () {
 
             //连线题答案格式化并输出
             function changeToAnswer(exist) {
-                let answer = [];      //保存连线题的答案
+                var answer = [];      //保存连线题的答案
                 exist.forEach(function (item) {
                     answer.push((item.start + 1) + "连" + (item.end + 1));
                 });
@@ -1320,8 +1147,8 @@ $(function () {
         type:"POST",
         success:function(data){
             console.log(data);
-            let data = JSON.parse(data);
-            for(let i=0;i<data.length;i++){
+            var data = JSON.parse(data);
+            for(var i=0;i<data.length;i++){
                 $(".work_tbody").append(htmlModule(data[i],i));
             }
 

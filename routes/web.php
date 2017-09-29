@@ -11,9 +11,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test',function(){
-	return view('test');
-});
+Route::post('/test','PageController@test');
 Route::post('/getScantronIdList','Controller@getScantronIdList');
 Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');

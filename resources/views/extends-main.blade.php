@@ -31,6 +31,7 @@
 <script src="/js/jquery-1.12.4.min.js" charset="utf-8"></script>
 <script src="/js/index.js" charset="utf-8"></script>
 <script src="/js/incourseReset.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
 <script>
 var token = "{{csrf_token()}}";
 </script>

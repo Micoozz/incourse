@@ -304,7 +304,7 @@ body .lhgcal {
     position: fixed;
     right: 50%;
     top: 500px;
-    transform: translateX(570px);
+    margin-right:-570px;
     z-index: 300;
     width: 204px;
     padding-bottom: 10px;

@@ -80,7 +80,7 @@
         right: 5px;
         width: 20px;
         height: 20px;
-        display: none;
+        display: block;
         cursor: pointer;
     }
     .deleteJobs s{
@@ -220,7 +220,6 @@
                                     <input class="checkbox-add" type="checkbox" id="addCheckedBox{{ $exercise->id }}"/>
                                     <label class="btnLabel" for="addCheckedBox{{ $exercise->id }}">添加</label>
                                 </div>
-                                <span class="deleteJobs"><s></s><s></s></span>
                                 @endif
                             </div>
                             <div class="exer-wrap">
@@ -338,7 +337,7 @@
                 </div>
             </div>
         </div>
-
+        {{ $data->links() }}
         <!--底部 + 分页-->
         <!-- <div class="exer-list-foot clear">
             <span class="ic-blue">共搜索出187道题</span>
@@ -358,7 +357,7 @@
         <div class="hw-list">
             <p class="title">
                 <span>7月20日作业</span>
-                <span class="fs14 orange exer-num">(<span>0</span>/15)</span>
+                <span class="fs14 orange exer-num">(<span class="AllCheckedJob">0</span>/15)</span>
             </p>
             <ul data-all="" class="hw-type-list">
                 <li style="display:none;"><span class='type'>单选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
@@ -384,15 +383,38 @@
 <script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 <script>
+    var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+    var exercises = sessionStorageData.exercise;
+    var arrs = sessionStorageData.exercise;
+    var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    function myBrowser(){
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1;
+        if (isOpera) {return "Opera";}; //判断是否Opera浏览器
+        if (userAgent.indexOf("Firefox") > -1) {return "FF";} //判断是否Firefox浏览器
+        if (userAgent.indexOf("Chrome") > -1){return "Chrome";}
+        if (userAgent.indexOf("Safari") > -1) {return "Safari";} //判断是否Safari浏览器
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {return "IE";}; //判断是否IE浏览器
+    }
+    var mb = myBrowser();
+    if ("IE" == mb) {}
+    if ("FF" == mb) {}
+    if ("Chrome" == mb) {}
+    if ("Opera" == mb) {}
+    if ("Safari" == mb) {
+        $(".exer-in-list .checkbox-add").css("top",0);
+    }
+
+
+
     for(var i = 0;i<$(".my-exer-room-head .isMark").length;i++){
         if($(".my-exer-room-head .isMark").eq(i).hasClass("active")){
             $(".ls_hr").addClass("active");
             break;
         }
     }
-    var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     $(".exer-in-list").each(function(i){
-        let li = $(".exer-in-list").eq(i).find(".radio-wrap.exer-list-ul li");
+        var li = $(".exer-in-list").eq(i).find(".radio-wrap.exer-list-ul li");
         li.each(function(k){
             li.eq(k).find("span.f-l").text(num[k]+"：");
         })
@@ -402,7 +424,7 @@
     })
     $("body").on("click", ".screen_job .ic-text-exer", function (e) {
         e.stopPropagation();
-        let is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
+        var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
         $(".screen_job .ic-text-exer .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
         $(".screen_job .lists-exer").hide();
 
@@ -419,81 +441,281 @@
         })
     });
     $("body").on("click", ".screen_job .lists-exer>li", function () {
-        let $p = $(this).parent().prev();
+        var $p = $(this).parent().prev();
         $p.children("span").text($(this).text());
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
+
+
+
     //生成作业
     $("#create-hw").on("click",function(){
-        let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+        var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
         if(sessionStorageData){
-            $(".exer-in-list").each(function(i,item){
-                if($(item).find(".checkbox-add").is(":checked")){
-                    let arr = sessionStorageData.exercise;
-                    let key = parseInt($(item).attr("data-id"))
-                    if(jQuery.inArray(key,arr) == -1){
-                        sessionStorageData.exercise.push(parseInt($(item).attr("data-id")));
-                    }
-                }
-            });
+            sessionStorage.removeItem("addJob");
             window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
             window.location.href = $(this).attr("data-href");
         }
     })
-    //显示选中的习题
-    let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
-    if(sessionStorageData){
-        $(".exer-in-list.border").each(function(i,list){
-            for(let j=0;j<sessionStorageData.exercise.length;j++){
-                if(parseInt($(list).attr("data-id")) == sessionStorageData.exercise[j]){
-                    $(list).find(".checkbox-add").attr("checked",true);
+
+
+    function viewHtml(data){
+        var t = data.cate_title
+        var html = "<div class='jobList'>"+
+                        "<div data-id='"+data.id+"' data-see='' class='exer-in-list border'>"+
+                            "<div class='exer-head'>"+
+                                "<span class='exer-type-list'>"+t+"</span>";
+        html += "<span class='deleteJobs'><s></s><s></s></span>";
+        html += "</div>"+
+                "<div class='exer-wrap'>"+
+                    "<div class='clear'>"+
+                        "<span class='f-l'>题目：</span>"+
+                        "<div class='f-l question'>"+data.subject+"</div>"+
+                    "</div>"+
+                    "<!--答案-->"+
+                    "<div class='clear answer-box'>"+
+                        "<span class='f-l'>答案：</span>";
+        if(t == "单选题"){
+            html += "<div class='f-l'>"+
+                    "<ul class='radio-wrap exer-list-ul'>";
+            for(var j = 0; j < data.options.length; j++){
+                for(var key in data.options[j]){
+                    html +="<li>";
+                    if($.inArray(JSON.parse(key),data.answer) >= 0){
+                        html +="<label class='ic-radio border p-r f-l active'>"+
+                                    "<i class='ic-blue-bg p-a'></i>"+
+                                    "<input type='radio' name='radio' value='"+data.options[j][key]+"' checked />";
+                    }else{
+                        html +="<label class='ic-radio border p-r f-l'>"+
+                                    "<i class='ic-blue-bg p-a'></i>"+
+                                    "<input type='radio' name='radio' value='"+data.options[j][key]+"'/>";
+                    }
+                    html +="</label>"+
+                        "<span class='f-l'></span>"+
+                        "<p class='f-l option'>"+data.options[j][key]+"</p>"+
+                    "</li>";
                 }
             }
-        })
-        let exercises = sessionStorageData.exercise;
-        for(var i = 0;i<exercises.length;i++){
-            $(".exer-in-list.border").each(function(){
-                var id=$(this).attr("data-id");
-                if(exercises[i] == parseInt(id)){
-                    var inputCkechbox = $(this).find(".checkbox-add")
-                    showCheckedJob(inputCkechbox)
+            html +="</ul></div>";
+        }else if(t == "多选题"){
+            html += "<div class='f-l'>"+
+                    "<ul class='radio-wrap exer-list-ul'>"
+            for(var j = 0; j < data.options.length; j++){
+                for(var key in data.options[j]){
+                    html +="<li>";
+                    if($.inArray(JSON.parse(key),data.answer) >= 0){
+                        html +="<label class='ic-radio border p-r f-l active'>"+
+                                    "<i class='ic-blue-bg p-a'></i>"+
+                                    "<input type='checkbox' name='checkbox' value='"+data.options[j][key]+"' checked />";
+                    }else{
+                        html +="<label class='ic-radio border p-r f-l'>"+
+                                    "<i class='ic-blue-bg p-a'></i>"+
+                                    "<input type='checkbox' name='checkbox' value='"+data.options[j][key]+"'/>";
+                    }
+                    html +="</label>"+
+                            "<span class='f-l'></span>"+
+                            "<p class='f-l option'>"+data.options[j][key]+"</p>"+
+                        "</li>";
+                }
+            }
+            html +="</ul></div>";
+        }else if(t == "填空题"){
+            html += "<div class='f-l'>"+
+                        "<ul class='exer-list-ul'>";
+            for(var j = 0; j<data.answer.length;j++){
+                html += "<li>"+
+                            "<span class='f-l exer-ans-order'>"+(j+1)+".</span>"+
+                            "<p class='f-l option'>"+data.answer[j]+"</p>"+
+                        "</li>";
+            }
+            html += "</ul></div>";
+        }else if(t == "判断题"){
+            html += "<div class='f-l'>"+
+                        "<ul class='exer-list-ul'>";
+            for(var j = 0; j<data.answer.length;j++){
+                html += "<li>";
+                if(data.answer[j] == 1){
+                    html += "<span data-answer='1' class='f-l exer-ans-order TOrF_img' style='background-position:-22px -86px;'></span>";
+                }else{
+                    html += "<span data-answer='0' class='f-l exer-ans-order TOrF_img' style='background-position:-70px -86px'></span>";
+                }
+                html += "</li>";
+            }
+            html += "</ul></div>";
+        }else if(t == "连线题"){
+
+        }else if(t == "排序题"){
+            html += "<div class='f-l'>"+
+                        "<ul class='exer-list-ul'>";
+            for(var j = 0;j < data.options.length;j++){
+                html += "<li class='sort_list'>";
+                for(var k in data.options[j]){
+                    html += "<span class='f-l exer-ans-order'></span>"+
+                                "<p class='f-l option'>"+data.options[j][k]+"</p>";
+                }
+                html += "</li>";
+            }
+            html += "</ul></div>";
+        }
+        html += "</div>"+
+                    "<div class='exer-foot clear'>"+
+                        "<div class='f-l'>"+
+                            "<span>难易程度：</span>"+
+                            "<span>"+
+                                "<i class='fa fa-star active'></i>"+
+                                "<i class='fa fa-star'></i>"+
+                                "<i class='fa fa-star'></i>"+
+                                "<i class='fa fa-star'></i>"+
+                                "<i class='fa fa-star'></i>"+
+                            "</span>"+
+                        "</div>"
+        html += "<ul class='f-r ic-inline collect'>"+
+                        "<li>"+
+                            "<a class='red collect'>"+
+                                "<i class='fa fa-heart'></i>"+
+                                "<span>665</span>"+
+                            "</a>"+
+                        "</li>"+
+                    "</ul>"+
+                    "</div></div></div></div>";
+        return html;
+    }
+
+    //页面数据加载
+    function sessionS(){
+        if(sessionStorageData){
+            $.ajax({
+                url:"/getExerciseList",
+                type:"POST",
+                data:{'id_list':sessionStorageData.exercise,'_token':token},
+                success:function(data){
+                    var data = JSON.parse(data)
+                    for(var i = 0; i < data.length;i++){
+                        var cate_title = data[i].cate_title
+                        $(".hw-type-list li").each(function(j,num){
+                            if(cate_title == $(num).find(".type").text()){
+                                $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
+                                $(num).css({display:'block'});
+                            }
+                        })
+
+                    }
+                },
+                error:function(){}
+            })
+            $(".exer-in-list.border").each(function(i,list){
+                for(var j=0;j<exercises.length;j++){
+                    if(parseInt($(list).attr("data-id")) == exercises[j]){
+                        $(list).find(".checkbox-add").attr("checked",true);
+                    }
                 }
             })
+            $(".AllCheckedJob").text(exercises.length);
+
         }
     }
-    
+    sessionS()
+
+    //选择联动
     $(".exer-in-list").find(".checkbox-add").on("click",function(){
-            showCheckedJob(this)
+        var that = this;
+        if($(that).is(":checked")){
+            $(".hw-type-list li").each(function(j,num){
+                if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
+                    $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
+                    $(num).css({display:'block'});
+                    arrs.push(parseInt($(that).parents(".exer-in-list").attr("data-id")));
+                }
+            })  
+        }else{
+            $(".hw-type-list li").each(function(j,num){
+                if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
+                    $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())-1);
+                    for(var k = 0;k<arrs.length;k++){
+                        if(parseInt($(that).parents(".exer-in-list").attr("data-id")) == arrs[k]){
+                            arrs.splice(k,1);
+                        }
+                    }
+                    if(parseInt($(num).find(".number code").text())<=0){
+                        $(num).css({display:'none'});
+                    }
+                }
+            })  
+        }
+        sessionStorage.removeItem("addJob");
+        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(sessionStorageData,arrs)));
+            
+        $(".AllCheckedJob").text(exercises.length);
     })
-    function showCheckedJob(obj){
+    function showCheckedList(that){
         $(".hw-type-list").find("li").each(function(k,li){
-            if($(obj).parents(".exer-in-list").find(".exer-type-list").text() == $(li).find(".type").text()){
-                if(!$(obj).is(":checked")){
+            if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(li).find(".type").text()){
+                if(!$(that).is(":checked")){
                     $(li).css({display:'block'});
                     $(li).find(".number code").text(parseInt($(li).find(".number code").text())-1);
                     if(parseInt($(li).find(".number code").text())<=0){
                         $(li).find(".number code").text("0");
                         $(li).css({display:"none"});
                     }
+                    for(var i = 0;i<arrs.length;i++){
+                        if(parseInt($(that).parents(".exer-in-list.border").attr("data-id")) == arrs[i]){
+                            arrs.splice(i,1)
+                        }
+                    }
                 }else{
                     $(li).css({display:'block'});
                     $(li).find(".number code").text(parseInt($(li).find(".number code").text())+1);
+                    arrs.push(parseInt($(that).parents(".exer-in-list.border").attr("data-id")));
                 }
             };
+            sessionStorage.removeItem("addJob");
+            sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(sessionStorageData,arrs)));
         })
     }
+    function newSessionStorageData(data,arr){
+        var json = {
+            "title":data.title,
+            "chapter":{
+                "unit":data.chapter.unit,
+                "section":data.chapter.section
+            },
+            "deadline":data.deadline,
+            "dateTime":data.dateTime,
+            "rulejob":data.rulejob,
+            "exercise":arr
+        }
+        return json
+    }
+
+    //预览
     
     $(".preview").on("click",function(){
-        let seeHtml = "<div class='seeBox'><div class='seeHead'><div><span class='seeTitle'>7月20日作业</span><span class='deleteJobs'><s></s><s></s></span></div></div><div class='jobLists'>";
-        $(".addBtnBox").css({display:'none'});
-        $(".deleteJobs").css({display:"block"});
-        $(".jobList").each(function(i){
-            if($(this).find(".checkbox-add").is(":checked")){
-                seeHtml += $(this).html();
+        var html = '';
+        $.ajax({
+            url:"/getExerciseList",
+            type:"POST",
+            async: false,
+            data:{'id_list':sessionStorageData.exercise,'_token':token},
+            success:function(data){
+                var data = JSON.parse(data)
+                console.log(data)
+                for(var i = 0; i < data.length;i++){
+                    html += viewHtml(data[i])
+                }
             }
         })
-        seeHtml += "</div><div class='seeBottom'><button>完成</button></div></div>"
+        console.log(html)
+        var seeHtml = "<div class='seeBox'>"+
+                        "<div class='seeHead'>"+
+                            "<div>"+
+                                "<span class='seeTitle'>7月20日作业</span>"+
+                                "<span class='deleteJobs'><s></s><s></s></span>"+
+                            "</div>"+
+                        "</div>"+
+                        "<div class='jobLists'>";
+        seeHtml += html;
+        seeHtml += "</div><div class='seeBottom'><button>完成</button></div></div>";
         layui.use("layer",function(){
             layer.open({
                 type: 1,
@@ -502,10 +724,7 @@
                 shadeClose: true,
                 area: ['700px', '730px'],
                 content: seeHtml,
-                end: function () {
-                    $(".addBtnBox").css({display:'block'});
-                    $(".deleteJobs").css({display:"none"});
-                }
+                end: function () {}
             });
             $(".seeHead > div .deleteJobs,.seeBottom button").on("click",function(){
                 layui.use('layer', function(){
@@ -513,12 +732,10 @@
                 })
             });
             $(".jobLists .exer-in-list.border").on("click",".deleteJobs",function(){
-                let parentList = $(this).parents(".exer-in-list.border")
-                parentList.remove();
-                let id = $(this).parents(".exer-in-list.border").attr("data-id");
-                let exerArr = sessionStorageData.exercise;
-                let newExerArr = exerArr;
-                for(let i = 0;i<exerArr.length;i++){
+                var id = $(this).parents(".exer-in-list.border").attr("data-id");
+                var exerArr = sessionStorageData.exercise;
+                var newExerArr = exerArr;
+                for(var i = 0;i<exerArr.length;i++){
                     if(exerArr[i] == parseInt(id)){
                         newExerArr.splice(i,1);
                     }
@@ -526,13 +743,15 @@
                 $(".exer-list .jobList").each(function(k){
                     if(id == $(this).find(".exer-in-list.border").attr("data-id")){
                         $(this).find(".checkbox-add").attr("checked",false);
+                        showCheckedList(this)
+                        $(this).remove();
                     }
                 })
-                let newArr = {
+                var newArr = {
                     "title":sessionStorageData.title,
                     "chapter":{
                         "unit":sessionStorageData.chapter.unit,
-                        "section":sessionStorageData.chapter.unit
+                        "section":sessionStorageData.chapter.section
                     },
                     "deadline":sessionStorageData.deadline,
                     "dateTime":sessionStorageData.dateTime,
@@ -541,6 +760,19 @@
                 }
                 sessionStorage.removeItem('addJob');
                 sessionStorage.setItem('addJob',JSON.stringify(newArr));
+                var delText=$(this).parents(".jobLists .exer-in-list.border").find(".exer-type-list").text();
+                for(var j = 0;j<$(".hw-list").find("li").length;j++){
+                    var liText = $(".hw-list").find("li").eq(j).find(".type");
+                    if(delText == liText.text()){
+                        liText.next(".number").find("code").text(parseInt(liText.next(".number").find("code").text())-1);
+                        if(parseInt(liText.next(".number").find("code").text())<=0){
+                            liText.parents("li").css({display:"none"});
+                        }
+                    }
+                }
+                var parentList = $(this).parents(".exer-in-list.border")
+                parentList.remove();
+                $(".AllCheckedJob").text(exercises.length);
             })
         });
     })

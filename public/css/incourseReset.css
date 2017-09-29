@@ -297,7 +297,7 @@
 .select-wrap {line-height: 28px;}
 .select-form {margin-top: 9px; font-size: 12px;}
 .select-form>div {min-width: 98px; float: left; position: relative; margin-right: 16px;}
-.select-form .ic-text-lg {min-width:156px;}
+.select-form .ic-text-lg {min-width:156px;position: relative;}
 .select-form .ic-text {
 	height: 28px;
 	line-height: 28px;

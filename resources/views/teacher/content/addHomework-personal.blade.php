@@ -167,6 +167,14 @@
     .unpublishing{
         float: right;
     }
+    .shade_box{
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 </style>
 @endsection
 
@@ -193,6 +201,7 @@
                         <div class="select-wrap">
                             <div class="select-form clear">
                                 <div class="ic-text-lg">
+                                    <div class="shade_box"></div>
                                     <p class="ic-text">
                                         <span class="chapter">选择章篇</span>
                                         <i class="fa fa-angle-down"></i>
@@ -204,6 +213,7 @@
                                     </ul>
                                 </div>
                                 <div class="ic-text-lg">
+                                    <div class="shade_box"></div>
                                     <p class="ic-text">
                                         <span class="trifle">选择小节</span>
                                         <i class="fa fa-angle-down"></i>
@@ -339,7 +349,26 @@
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-    let textareaPrompt = "例如：1、背诵课文《陋室铭》\n           2、抄写成语100遍\n           3、给妈妈洗脚";
+
+    function myBrowser(){
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1;
+        if (isOpera) {return "Opera";}; //判断是否Opera浏览器
+        if (userAgent.indexOf("Firefox") > -1) {return "FF";} //判断是否Firefox浏览器
+        if (userAgent.indexOf("Chrome") > -1){return "Chrome";}
+        if (userAgent.indexOf("Safari") > -1) {return "Safari";} //判断是否Safari浏览器
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {return "IE";}; //判断是否IE浏览器
+    }
+    var mb = myBrowser();
+    if ("IE" == mb) {}
+    if ("FF" == mb) {}
+    if ("Chrome" == mb) {}
+    if ("Opera" == mb) {}
+    if ("Safari" == mb) {
+        $(".layui-laydate-content td,.layui-laydate-content th").css("padding",0);
+    }
+
+    var textareaPrompt = "例如：1、背诵课文《陋室铭》\n           2、抄写成语100遍\n           3、给妈妈洗脚";
     $(".hw-content.border").attr("placeholder",textareaPrompt)
     //获取当前时间
     function CurentTime(){
@@ -370,7 +399,7 @@
     }
     $(".hw-title-input").attr("placeholder",(titlePrompt()+"作业"))
 
-    let ht="1、2、"
+    var ht="1、2、"
     //截止时间默认显示
     $("#expiration-time .expiration-time-input").val(CurentTime());
 
@@ -391,8 +420,8 @@
 
     //选择章节并获取小节数据
     $(".select-form.clear .unit-ul .unit-li").click(function(){
-        let child_span = $(".chapter");
-        let parent_ul = $(this).parents(".select-form.clear").find(".ic-text").next(".lists.section-ul");
+        var child_span = $(".chapter");
+        var parent_ul = $(this).parents(".select-form.clear").find(".ic-text").next(".lists.section-ul");
         child_span.attr("data-u",$(this).attr("data"));
         parent_ul.html("");
         $.get("/getSectionAjax/"+$(this).attr("data"),function(result){
@@ -404,13 +433,22 @@
 
     //上传习题
     $("#personHw-uploadExer").click(function(){
-        setStorage(this)
+        var that = this;
+        layui.use("layer",function(){
+            layer.confirm('是否确定您的填写？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                setStorage(that)
+            }, function(){
+                return;
+            });
+        })
     })
 
     //点击上传习题和题库选题函数
     function setStorage(obj){
         var objJson={}
-        let sessionStorageD=eval("("+sessionStorage.getItem("addJob")+")")
+        var sessionStorageD=eval("("+sessionStorage.getItem("addJob")+")")
         if(sessionStorageD){
             objJson=sessionStorageD
         }else{
@@ -434,29 +472,39 @@
             alert("请填写所属小节");
             return;
         }
-        let href = $(obj).attr("data-href");
+        var href = $(obj).attr("data-href");
+        sessionStorage.removeItem("addJob")
+        sessionStorage.setItem("addJob", JSON.stringify(objJson));
         window.location.href = href;
-        window.sessionStorage.setItem("addJob", JSON.stringify(objJson));
     }
 
     //题库选题
     $("#personHw-checkExercise").click(function(){
-        setStorage(this);
+        var that = this
+        layui.use("layer",function(){
+            layer.confirm('是否确定您的填写？',{
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                setStorage(that);
+            }, function(){
+                return;
+            });
+        })
     })
 
     //获取本地sessionStorage数据
-    let sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+    var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
 
     //删除习题
     if(sessionStorageData){
-        let exerciseArr = sessionStorageData.exercise;
+        var exerciseArr = sessionStorageData.exercise;
         $(".jobNum").text(exerciseArr.length+"/15题")
         //删除习题
         $("#delete-personHw").click(function(){
-            let newArr = exerciseArr;
+            var newArr = exerciseArr;
             $(".spread.tdBtn").each(function(i,trList){
                 if($(trList).find(".checkJob").is(":checked")){
-                    for(let j = 0;j<exerciseArr.length;j++){
+                    for(var j = 0;j<exerciseArr.length;j++){
                         if(exerciseArr[j] == $(trList).attr("data-id")){
                             newArr.splice(j,1)
                         }
@@ -464,8 +512,11 @@
                     $(trList).remove();
                 }
             })
+            if(newArr == 0){
+                $("#all-checked").attr("checked",false);
+            }
             sessionStorage.removeItem("addJob");
-            let sessionStorageJson={
+            var sessionStorageJson={
                 'title':sessionStorageData.title,
                 'chapter':{
                     'unit':sessionStorageData.chapter.unit,
@@ -477,19 +528,21 @@
                 'exercise':newArr
             }
             sessionStorage.setItem("addJob",JSON.stringify(sessionStorageJson))
+            disabledInput(sessionStorageData)
+            $(".jobNum").text(exerciseArr.length+"/15题")
         })
     }
 
 
     //页面加载数据 id
-    let getWork={
+    var getWork={
         "id_list":sessionStorageData?sessionStorageData.exercise:'',
         "_token":token
     }
 
     //选中的习题的展示HTML框架
     function htmlModule(data,i){
-        let html,ENNum = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        var html,ENNum = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
         html = "<tr data-id='"+data.id+"' class='spread tdBtn'>" +
                "<td>" +
                    "<input class='checkJob' type='checkbox' id='deleteJob"+i+"'/>" +
@@ -501,12 +554,12 @@
             "<div class='disSelsect active'>" +
             "<ul class='radio-wrap exer-list-ul'>";
             if(data.cate_title == "单选题" || data.cate_title == "多选题"){
-                let num = 0;
-                for(let s=0;s<data.options.length;s++){
-                    for(let j in data.options[s]){
-                        let item = data.options[s][j];
-                        let classTrue=false;
-                        for(let k = 0; k<data.answer.length;k++){
+                var num = 0;
+                for(var s=0;s<data.options.length;s++){
+                    for(var j in data.options[s]){
+                        var item = data.options[s][j];
+                        var classTrue=false;
+                        for(var k = 0; k<data.answer.length;k++){
                             if(j == data.answer[k]){
                                 classTrue=true;
                             }
@@ -537,7 +590,7 @@
             }else if(data.cate_title == "判断题" || data.cate_title == "填空题"){
                 html += "<li>";
                 if(data.cate_title == "填空题"){
-                    for(let l = 0;l<data.answer.length;l++){
+                    for(var l = 0;l<data.answer.length;l++){
                         html += "<span class='answer_span'>答案"+ENNum[l]+":"+data.answer[l]+"</span>";
                     }
                 }else if(data.cate_title == "判断题"){
@@ -551,8 +604,8 @@
                 html += "</li>";
             }else if(data.cate_title == "排序题"){
                 html += "<li>";
-                for(let x = 0; x<data.options.length;x++){
-                    for(let key in data.options[x]){
+                for(var x = 0; x<data.options.length;x++){
+                    for(var key in data.options[x]){
                         html += "<span class='answer_span'>排序"+(x+1)+":"+data.options[x][key]+"</span>";
                     }
                 }
@@ -574,7 +627,7 @@
             type:"POST",
             success:function(data){
                 data = JSON.parse(data);
-                for(let i=0;i<data.length;i++){
+                for(var i=0;i<data.length;i++){
                     $(".work_tbody").append(htmlModule(data[i],i));
                 }
                 $(".disSelsect").each(function(){
@@ -596,7 +649,7 @@
                 });
                 $("#all-checked").click(function(){
                     $(".spread.tdBtn").each(function(j,trList){
-                        $(this).find(".checkJob").attr("checked",true);
+                        $(trList).find(".checkJob").attr("checked",true);
                     })
                 })
                 $(".checkJob").click(function(e){
@@ -605,7 +658,7 @@
             }
         })
         $(".ic-input.hw-title-input").val(sessionStorageData.title);
-        let parent_ul = $(".trifle").parent().next(".lists.section-ul");
+        var parent_ul = $(".trifle").parent().next(".lists.section-ul");
         parent_ul.html("");
         $(".select-form.clear .unit-ul .unit-li").each(function(i,item){
             if($(item).attr("data") == sessionStorageData.chapter.unit){
@@ -623,7 +676,20 @@
             }
         })
         $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime);
-        $(".hw-content.border").val(sessionStorageData.rulejob)
+        $(".hw-content.border").val(sessionStorageData.rulejob);
+        disabledInput(sessionStorageData)
+        
+    }
+    function disabledInput(sessionStorageData){
+        if(sessionStorageData.exercise.length>0){
+            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",true).css({backgroundColor:"#ebebe4"});
+            $(".select-form .shade_box").css({display:"block"});
+            $(".select-form .ic-text").css({backgroundColor:"#ebebe4"})
+        }else{
+            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",false).css({backgroundColor:"#fff"});
+            $(".select-form .shade_box").css({display:"none"});
+            $(".select-form .ic-text").css({backgroundColor:"#fff"})
+        }
     }
 
     //必填
@@ -705,9 +771,9 @@
     //保存发布函数
     function publicClick(){
         mustWrist();
-        let upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
-        let classId = "{{$class_id}}";
-        let lastJob = {
+        var upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
+        var classId = "{{$class_id}}";
+        var lastJob = {
             'chapter':{
                 'unit':upLoadJob.chapter.unit,
                 'section':upLoadJob.chapter.section,
