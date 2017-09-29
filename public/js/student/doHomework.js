@@ -170,6 +170,9 @@ $(function(){
                 };
             }
         }
+   
+        if($(obj).attr('contenteditable')==='true'){
+        
            if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
                 if($(obj).text().length > 10) {
                     $(obj).text($(obj).text().substring(0, 10));
@@ -181,6 +184,7 @@ $(function(){
                     alert('最多不可超过20个字')
                 }
         }
+    }
     }
 
     //底部答过的题标蓝

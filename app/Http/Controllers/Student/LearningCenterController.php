@@ -80,7 +80,10 @@ class LearningCenterController extends Controller
     	$courseAll = Course::all();//这里以后要区分年级的科目
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
-        $date = strtotime(date('Ymd'));//大于当前时间且小于截至时间的id
+        $date = strtotime(date('Ymd H:i:s'));//大于当前时间且小于截至时间的id
+/*        dump("Y-m-d H:i:s",$date);
+        dump("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time);
+        dd("Y-m-d H:i:s",Job::where("id",32)->first()->deadline);*/
         $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<',$date)->get(['id'])->toArray(),'id');
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
@@ -219,26 +222,28 @@ class LearningCenterController extends Controller
 							array_push($data['sameExercise'], array(
 								'id' => 1,
 								"exe_id" => $sameExercise->exe_id,
-								"parent_id" =>$sameExercise->exe_id
+								"parent_id" =>$sameExercise->parent_id
 							));
 						}else{
 							array_push($data['sameExercise'], array(
 								'id' => 2,
-								"exe_id" => $sameExercise->parent_id,
+								"exe_id" => $sameExercise->exe_id,
 								"parent_id" =>$sameExercise->parent_id
 							));
 						}
 					}
+					//dd($data['sameExercise']);
 					$second =$data['sub_time'] - $work->start_time;
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = strtotime($this->changeTimeType($second));
-						$tutorship = implode('&',$tutorship); //所有的错题ID
+						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
 						$totalScore = $correctScore+$errorScore+0; //主观题先设为0
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
 						$exeScore = 0;
+						$tutorship = implode('&',$tutorship); //所有的错题ID
 						$grossExercise = $db->table($user->id)->select('score','second','parent_id')->where('work_id',$parameter)->get();//查询所有的作业以及同类型练习的信息
 						foreach ($grossExercise as $exercise) {
 							if (!empty($exercise->parent_id)) {
@@ -253,6 +258,7 @@ class LearningCenterController extends Controller
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
 					}
+
 					if(is_int($accuracy)){
 						$accuracy = $accuracy;
 					}else{
@@ -270,7 +276,6 @@ class LearningCenterController extends Controller
 		 			$exercise_id = $work_answer->exe_id;
 		 		}
 		 		$workFirst = $db->table($user->id)->where(['work_id' => $parameter,'exe_id' => $exercise_id])->first();
-		 		//dump($workFirst);
 		 		$errorReports = Exercises::find($exercise_id);
 		 		$data = array('exercises' => array());
 		 		if($workFirst->parent_id == NULL){
@@ -290,9 +295,7 @@ class LearningCenterController extends Controller
 			 			}
 			 		}
 		 			$answer_list = json_decode($objective->answer,true);	 //标准答案的记录
-		 			//dd(json_decode($workFirst->answer,true));
 		            $work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
-		           // dd($work_answer);
 		 			$answers = array();
 		 			if ($errorReports->categroy_id == Exercises::CATE_CHOOSE || $errorReports->categroy_id == Exercises::CATE_RADIO) {
 		 				$standard_answer = array();
