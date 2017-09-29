@@ -19,7 +19,12 @@
             <tr>
                 <td><img @if($work->job_type == 1) src="{{ asset('images/user.png') }}" @else src="{{ asset('images/users.png') }}" @endif />&nbsp;&nbsp; {{ $work->title }}作业</td>
                 <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
-                <td>{{ date('m月d日 h:i',$work->belongsToJob->deadline) }}</td>
+                <td>
+                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                @if(time() > $work->belongsToJob->deadline)
+                    <span>(超时)</span>
+                @endif
+                </td>
                 <td>
                 @if(empty($work->sub_time))
                     未答题
@@ -39,5 +44,6 @@
             </tr>
             @endforeach
 		</table>
+        {{ $data->links() }}
 	</div>
 </div>

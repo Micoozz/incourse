@@ -337,7 +337,7 @@
                 </div>
             </div>
         </div>
-        {{ $data->links() }}
+        {{$data->links()}}
         <!--底部 + 分页-->
         <!-- <div class="exer-list-foot clear">
             <span class="ic-blue">共搜索出187道题</span>
@@ -699,13 +699,11 @@
             data:{'id_list':sessionStorageData.exercise,'_token':token},
             success:function(data){
                 var data = JSON.parse(data)
-                console.log(data)
                 for(var i = 0; i < data.length;i++){
                     html += viewHtml(data[i])
                 }
             }
         })
-        console.log(html)
         var seeHtml = "<div class='seeBox'>"+
                         "<div class='seeHead'>"+
                             "<div>"+

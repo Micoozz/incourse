@@ -36,6 +36,10 @@ a{
 	background: url(../images/Cj_bg.png) no-repeat;
 	position: relative;
 	z-index: 9;
+	background-size:cover;  
+	-webkit-background-size:cover;  
+	-moz-background-size:cover; 
+	-o-background-size:cover;  
 }
 .form>form{
 	width: 418px;

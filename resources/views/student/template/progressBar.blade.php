@@ -20,7 +20,7 @@
 			<li>
 				<span>作业得分率</span>
 				<br /> 
-				<b>80%</b>
+				<b></b>
 			</li>
 		</ul>
 		<!--  Defining Angle Gradient Colors  -->

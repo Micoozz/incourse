@@ -19,11 +19,22 @@ use Session;
 use Cookie;
 use App\Models\Chapter;
 use PDO;
+use Redirect;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function index(){
+        if(Auth::guard("student")->user()){
+            return Redirect::to("/learningCenter");
+        }elseif(Auth::guard("employee")->user()){
+            return Redirect::to("/teachingCenter");
+        }elseif (Auth::guard("school")->user()) {
+            return Redirect::to("/adminArchives");
+        }
+        return view('index');
+    }
     public function getCourse(){
     	$course_list = Course::all();
     	return $course_list;
@@ -32,9 +43,9 @@ class Controller extends BaseController
     	$categroy_list = Categroy::where("course_id","like","%{$course_id}%")->pluck('title','id');
     	return $categroy_list;
     }
-    public function getUnit(){
+    public function getUnit($course_id){
     	$grade_list = Chapter::where('parent_id',1)->pluck('id');
-    	$unit_list = Chapter::whereIn('parent_id',$grade_list)->pluck('title','id');
+    	$unit_list = Chapter::whereIn('parent_id',$grade_list)->where('course_id',$course_id)->pluck('title','id');
     	return $unit_list;
     }
     public function getSection($unit_id){

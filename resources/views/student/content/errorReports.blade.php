@@ -4,12 +4,14 @@
 		<span class="col-xs-6 col-sm-6">错题解析</span>
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
-	<div class="ic-container accout">
+	<div class="ic-container accouts">
 		<div class="error-answer">
-			<div class="error-answer-title">
-				<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
-<!-- 				<span class=""><a href="#"><i class="fa fa-heart"></i>&nbsp;&nbsp;收藏</a></span>
-				<span><a href="#"><i class="fa fa-share-square-o"></i>&nbsp;&nbsp;分享本题</a></span> -->
+			<div class="error-answer-title">{{-- dd($several) --}}
+				@if(empty($errorExercise))
+					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
+				@else
+					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}/{{ $errorExercise }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
+				@endif
 				<span class="bj-gray"><span class="blue" style="margin-right: 6px;">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
 			</div>
 			<div class="question-types">
@@ -29,7 +31,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -51,7 +53,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option  options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -74,7 +76,7 @@
 						</span>
 						<div class="clear"></div>
 					</p>
-					<div class="option">
+					<div class="option options">
 						<span><img src="{{ asset('images/school/right.png') }}"/>&nbsp;&nbsp;正确</span>
 						<span><img src="{{ asset('images/school/wrong.png') }}"/>&nbsp;&nbsp;错误</span>
 					</div>
@@ -189,7 +191,6 @@
 
 				<!--排序题-->
 				@if($data['exercises'][0]['categroy_id'] == 6)
-
 				<div class="questions">
 					<p>
 						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
@@ -203,36 +204,13 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option  options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
-						<span><span class="blue">排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
+						<span><span @if($data['exercises'][0]['sameScore'] != 0) class="blue" @else style="color: red" @endif>排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
 						@endforeach
 					</div>
 				</div>
 				@endif
-
-				<!--多空题-->
-<!-- 				@if($data['exercises'][0]['categroy_id'] == 3)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-					</p>
-					<div class="option">
-						 <span>
-                            {!!  preg_replace('/&空\d+&/','<span  class="blank-item" contenteditable="true">空</span>',$data['exercises'][0]['subject'])  !!}</p>
-                        </span>
-					</div>
-				</div>
-				@endif -->
 
 				<!--填空题-->
 				@if($data['exercises'][0]['categroy_id'] == 3)
@@ -249,7 +227,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option">
+					<div class="option question-option">
 						{!! $data['exercises'][0]['subject'] !!}
 					</div>
 				</div>
@@ -337,7 +315,6 @@
 				</div>
 				@endif
 			
-
 				<div class="proper">
 					<!--连线题-->
 					<br>
@@ -357,23 +334,24 @@
 					@if($data['exercises'][0]['categroy_id'] == 6)
 						<div>
 							<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}，你的答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</p>
-							<p>回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
+							<p>@if($data['exercises'][0]['sameScore'] == 0)回答错误，@else 回答正确 @endif作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
 						</div>
 					@endif
-
+					{{-- dd($data['exercises'][0]['sameScore']) --}}
 					<!--单选题-->
 					@if($data['exercises'][0]['categroy_id'] == 1)
 					<div>
 						<p class="standardAnswer">正确答案是 <span class="standardAnswerSpan" data-standardAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['standard'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>，
-						你的答案是<span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
+						你的答案是<span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。@if($data['exercises'][0]['sameScore'] == 0)回答错误，@else 回答正确 @endif 作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
 
 					<!--多选题-->
+					{{-- dd($data['exercises'][0]) --}}
 					@if($data['exercises'][0]['categroy_id'] == 2)
 					<div>
-						<p class="standardAnswer">正确答案是 <span class="standardAnswerSpan" data-standardAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['standard'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>，你的答案是 <span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
+						<p class="standardAnswer">正确答案是 <span class="standardAnswerSpan" data-standardAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['standard'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>，你的答案是 <span class="errordAnswerSpan" data-errorAnswer="{{ json_encode($data['exercises'][0]['answer'][0]['user_answer'][0]['answer'],JSON_UNESCAPED_UNICODE) }}"></span>。@if($data['exercises'][0]['sameScore'] == 0)回答错误，@else 回答正确 @endif 作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
@@ -381,7 +359,7 @@
 					<!--判断题-->
 					@if($data['exercises'][0]['categroy_id'] == 4)
 					<div>
-						<p>正确答案是 正确，你的答案是 错误。回答错误，作答用时1秒。</p>
+						<p>正确答案是 @if($data['exercises'][0]['answer'][0]['standard']['answer'][0] == 1)正确@else 错误 @endif，你的答案是 @if($data['exercises'][0]['answer'][0]['user_answer']['answer'][0] == 1) 正确 @else 错误 @endif。@if($data['exercises'][0]['sameScore'] == 0)回答错误，@else 回答正确, @endif作答用时1秒。</p>
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
@@ -395,8 +373,9 @@
 					<!--多空题-->
 					@if($data['exercises'][0]['categroy_id'] == 3)
 					<div>
-						<p>正确答案是 {{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}, 你的答案是<span class="red"> {{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</span>
+						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
 						</p>
+						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif，作答用时{{ $data['exercises'][0]['second'] }}秒。
 						<!-- <p>得分4分，总分10分</p> -->
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
@@ -462,7 +441,7 @@
 							</div>
 						</div>
 					</div> -->
-						<button class="btn-white return" onclick="javascript:history.back(-1);">返回</button>
+						<button class="btn-white return" onclick="window.history.go(-1);">返回</button>
 				</div>
 			</div>
 		</div>

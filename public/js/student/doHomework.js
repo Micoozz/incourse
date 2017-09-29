@@ -150,26 +150,38 @@ $(function(){
         var order = parseInt($(".big-num").text());
          $(".hw-order span:nth-child("+order+")").addClass("active");
         if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
-                if(a){           
+            if(a){        
+                $(".hw-order span:nth-child("+order+")").addClass("active");
+            }else{
+                $(".hw-order span:nth-child("+order+")").removeClass("active");
+            }     
+        }else{
+            if($(obj).parents(".pan-duan").hasClass('pan-duan')){
+                 if($(obj).parents(".pan-duan").hasClass('no-active')){
+                     $(".hw-order span:nth-child("+order+")").removeClass("active");
+                 }else{
+                     $(".hw-order span:nth-child("+order+")").addClass("active");
+                    }
+            }else{
+                if($(obj).parent().find('span').text()!=''){
                     $(".hw-order span:nth-child("+order+")").addClass("active");
                 }else{
                     $(".hw-order span:nth-child("+order+")").removeClass("active");
-                }     
-        }else{
-            if($(obj).parents(".pan-duan").hasClass('pan-duan')){
-                     if($(obj).parents(".pan-duan").hasClass('no-active')){
-                         $(".hw-order span:nth-child("+order+")").removeClass("active");
-                     }else{
-                         $(".hw-order span:nth-child("+order+")").addClass("active");
-                        }
-                 }else{
-                        if($(obj).parent().find('span').text()!=''){
-                     $(".hw-order span:nth-child("+order+")").addClass("active");
-                     console.log('b')
-                }else{
-                    $(".hw-order span:nth-child("+order+")").removeClass("active");
-                    console.log('a')
-            };
+                };
+            }
+        }
+        if($(obj).attr('contenteditable')==='true'){
+        
+           if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
+                if($(obj).text().length > 10) {
+                    $(obj).text($(obj).text().substring(0, 10));
+                    alert('最多不可超过10个字')
+                }
+            } else {
+                if($(obj).text().length > 20) {
+                    $(obj).text($(obj).text().substring(0, 20));
+                    alert('最多不可超过20个字')
+                }
             }
         }
     }
@@ -221,6 +233,7 @@ $(function(){
 
     //交卷
     $("#handPaper").click(function(){
+        $("body").removeAttr("onbeforeunload");
         var work_id = $("#work_id").attr("value");
         clearInterval(timer);
         var total = [];
