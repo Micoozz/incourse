@@ -122,7 +122,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $port = "uploadExercise";
-        $unit_list = parent::getUnit();
+        $unit_list = parent::getUnit($course_id);
         $categroy_list = parent::getCategroy($course_id);
         return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port','exe_id'));
     }
