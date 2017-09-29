@@ -329,8 +329,7 @@ class LearningCenterController extends Controller
 		 		$error_same = $db->table($user->id)->select('exe_id','parent_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id','<>',null)->get();
 		 		$data = array('error_work' => $error_work->toArray(),'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
-		 		//dd($several);
-		 		$sameSkip = isset($several) ? $several : "several";
+		 		$sameSkip = $several;
 		 		$work = Work::select('start_time','sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -355,8 +354,10 @@ class LearningCenterController extends Controller
 					$accuracy = round($accuracy,4);
 				}
 		 		$data = array();
+		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
 					if ($exercise->score == 0) {
+						$sameErrorScore = $sameErrorScore + 1;
 						array_push($data, array(
 							"id" => 2,
 							"exe_id" => $exercise->exe_id
@@ -374,7 +375,7 @@ class LearningCenterController extends Controller
 		 	}
 
         }
-    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip'));
+    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip','errorScore','sameErrorScore'));
     }
     //做作业
     public function doHomework($work_id = NULL){
