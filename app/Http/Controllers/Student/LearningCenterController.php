@@ -147,7 +147,6 @@ class LearningCenterController extends Controller
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
 		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
-		    	//dd($data);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
 					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
@@ -174,7 +173,7 @@ class LearningCenterController extends Controller
 				$data['course_id'] = $work->course_id;
 				$data['sub_time'] = $work->sub_time;
 		 		$data['work'] = Work::find($parameter)->belongsToJob()->first();
-				$data['count'] = count($data['work']->exercise_id);
+				$data['count'] = count(json_decode($data['work']->exercise_id,true));
 				if ($func == Self::FUNC_WORK_SCORE) {
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数

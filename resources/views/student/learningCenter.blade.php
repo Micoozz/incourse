@@ -334,15 +334,14 @@
 			$('.proper>div:nth-of-type(3) .red b').remove();
 
 			for(var i=0;i<$('.proper>div:nth-of-type(3) .red span').length;i++){
-					if($('.proper>div:nth-of-type(3) .red span').eq(i).text().match(/[\u4e00-\u9fa5]+/g)==$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].match(/[\u4e00-\u9fa5]+/g)){
+					if($('.proper>div:nth-of-type(3) .red span').eq(i).text().replace(/\s|,/g,'')==$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].replace(/\s|,/g,'')){
 						$('.proper>div:nth-of-type(3) .red span').eq(i).css('color','#168bee')
 					}
 			}
 			
 			$('.questions .question-option span').each(function(i){
 				$(this).text($('.proper>div:nth-of-type(3) .red').text().split(',')[i])
-				if($(this).text().match(/[\u4e00-\u9fa5]+/g)!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].match(/[\u4e00-\u9fa5]+/g)){
-					console.log($(this).text())
+				if($(this).text().replace(/\s/g,'')!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].replace(/\s/g,'')){
 					console.log($('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i])
 					$(this).css('color','red')
 				}
