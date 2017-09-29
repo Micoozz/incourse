@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,9 +11,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test','Teacher\LearningCenterController@test');
+Route::post('/test','PageController@test');
 Route::post('/getScantronIdList','Controller@getScantronIdList');
-Route::get('/', 'Controller@index')->name('login');
+Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
@@ -45,12 +46,20 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPassEmployee/{id}','Admin\ArchivesController@resetPassEmployee');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
+		Route::get('/bindClass/{grade_id}','TeachingCenterController@bindClass');
 		Route::get('/teachingCenter/{class_id?}/{course_id?}','TeachingCenterController@teachingCenter');
 		Route::get('/homeworkManage/{class_id?}/{course_id?}','TeachingCenterController@homeworkManage');
 		Route::get('/addHomework/{class_id?}/{course_id?}','TeachingCenterController@addHomework');
 		Route::get('/addHomework-personal/{class_id?}/{course_id?}','TeachingCenterController@addHomeworkPer');
-		Route::get('/exercise/{class_id?}/{course_id?}','TeachingCenterController@exercise');
-		Route::get('/uploadExercise/{class_id?}/{course_id?}','TeachingCenterController@uploadExercise');
+		Route::get('/showJobList{class_id?}/{course_id?}','TeachingCenterController@showJobList');
+		Route::get('/exercise/{class_id?}/{course_id?}/{action?}','TeachingCenterController@exercise');
+		Route::get('/uploadExercise/{class_id?}/{course_id?}/{exe_id?}','TeachingCenterController@uploadExercise');
+		Route::get('/getEditExecrise/{exe_id}','TeachingCenterController@getEditExecrise');
+		Route::get('/correct/{class_id?}/{course_id?}/{type?}/{unit_id?}/{section_id?}','TeachingCenterController@correct');
+		Route::post('/createJob','TeachingCenterController@createJob');
+		Route::post('/pubJob','TeachingCenterController@pubJob');
+		Route::post('/addExercise','TeachingCenterController@addExercise');
+		Route::post('/teacherBindClass','TeachingCenterController@teacherBindClass');
 		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		//档案管理员
 		Route::get('/fileManager/{mod?}/{func?}/{parameter?}/{student?}','FileManagerController@fileManager');
@@ -63,9 +72,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPasswork/{id}','FileManagerController@resetPasswork');
 		Route::get('/employeeStatus/{id}','FileManagerController@employeeStatus');
 		Route::post('/addTeacher','FileManagerController@addTeacher');
-		
 		Route::get('/learningCenters/{class_id?}/{course_id?}/{mod?}/{func?}','LearningCenterController@learningCenter');
-		Route::post('/uploadExercise','LearningCenterController@uploadExercise');
+		Route::post('/uploadExercise','TeachingCenterController@uploadExercise');
 		Route::get('/correctingGroupWork','PageController@correctingGroupWork');
 		Route::get('/correctingHomepage','PageController@correctingHomepage');
 		Route::get('/correctingMainContents','PageController@correctingMainContents');
@@ -85,22 +93,24 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{course}/{page?}','ExerciseController@showExerciseList');
 		Route::post('/getExerciseList/{page?}','ExerciseController@getExerciseList');
-		Route::post('/createJob','JobController@createJob');
-		Route::post('/pubJob','JobController@pubJob');
-		Route::get('/showJobList/{page?}','JobController@showJobList');
+		
 	});
 	Route::group(['middleware' => 'student'],function(){		
 		//学生平台
+		Route::get('/selectClass/{grade_id}','student\LearningCenterController@selectClass');
 		Route::get('/todayWork/{func?}/{parameter?}','student\LearningCenterController@todayWork');
 		Route::get('/workList/{course?}/{page?}','student\LearningCenterController@workList');
-		//Route::get('/routineWork\{work_id}','student\LearningCenterController@routineWork');
+		Route::get('/routineWork\{work_id}','student\LearningCenterController@routineWork');
 		Route::get('/doHomework/{work_id?}','student\LearningCenterController@doHomework');
 		Route::get('/homotypology/{exercise_id?}/{work_id?}/{accuracy?}/{increase?}','student\LearningCenterController@homotypology');//同类型习题推送
 		Route::get('/workScore/{work_id}','student\LearningCenterController@workScore');
+
+
 		Route::get('/learningCenter/{course?}/{mod?}/{func?}/{parameter?}/{exercise_id?}/{several?}','student\LearningCenterController@learningCenter');
+
 		Route::post('/homeworkScores','student\LearningCenterController@homeworkScores');
 		Route::post('/todayWork/uptatePwd','student\LearningCenterController@updatePwd');
-		Route::post('/sameScore','student\LearningCenterController@sameScore');
+		Route::post('/studentSelectClass','student\LearningCenterController@studentSelectClass');
 
 		//习题本
 		Route::get('/review','student\LearningCenterController@review');
