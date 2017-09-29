@@ -95,6 +95,7 @@ class LearningCenterController extends Controller
             return $e;
         }
         //判断这个学生有没有做过作业,有做过作业显示引导页
+
         //$work_id = array_column(Work::where(['student_id' => $user->id,])->get()->toarray(), 'id');//这里要是没有学生写作业怎么办就会报错
         //$workCount = $db->table($user->id)->select('work_id')->whereIn('work_id',$work_id)->get()->toArray();
         if ($func == Self::FUNC_STUDENT_NAME){
@@ -426,6 +427,7 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
+    	//dd($input);
     	$user = Auth::guard('student')->user();
     	$work = Work::find(intval($input['work_id']));
     	if (!empty($work->sub_time )) {
@@ -680,6 +682,7 @@ class LearningCenterController extends Controller
         }
         return json_encode($data);
     }
+
     function changeTimeType($seconds){
 	    if ($seconds > 3600){
 	        $hours = intval($seconds/3600);
@@ -690,4 +693,18 @@ class LearningCenterController extends Controller
 	    }
 	    return $time;
 	}
+    //学生选择班级页面    小胡歌是赛
+    public function selectClass($grade_id){
+    	$title = "选择班级";
+        $class_list = Classs::where('parent_id',$grade_id)->pluck('title','id');
+        return view('student.pf-login-student',compact('title','grade_id','class_list'));
+    }
+    //学生选择班级
+    public function studentSelectClass(){
+    	$input = Input::get();
+    	$student = Auth::guard('student')->user();
+    	$student->class_id = $input['select-class'];
+    	$student->save();
+    	return json_encode(["code" => 200]);
+    }
 }

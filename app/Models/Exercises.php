@@ -13,7 +13,9 @@ class Exercises extends Model
     const CATE_JUDGE = 4;
     const CATE_LINE = 5;
     const CATE_SORT = 6;
+    const CATE_COMPUTE = 9;
     const CATE_SHORT = 10;
+    const CATE_ANSWER = 11;
     // const CATE_COMPOSITIVE = 10;
 
     const TYPE_OBJECTIVE = 1;//客观题

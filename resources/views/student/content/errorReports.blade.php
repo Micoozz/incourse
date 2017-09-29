@@ -4,7 +4,7 @@
 		<span class="col-xs-6 col-sm-6">错题解析</span>
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
-	<div class="ic-container accouts">
+	<div class="ic-container accout">
 		<div class="error-answer">
 			<div class="error-answer-title">{{-- dd($errorExercise) --}}
 				@if(empty($errorExercise))
@@ -31,7 +31,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -53,7 +53,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
 						@endforeach
@@ -76,7 +76,7 @@
 						</span>
 						<div class="clear"></div>
 					</p>
-					<div class="option options">
+					<div class="option">
 						<span><img src="{{ asset('images/school/right.png') }}"/>&nbsp;&nbsp;正确</span>
 						<span><img src="{{ asset('images/school/wrong.png') }}"/>&nbsp;&nbsp;错误</span>
 					</div>
@@ -181,7 +181,7 @@
 						<div class="clear"></div>
 						一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
 					</p>
-					<div class="option options">
+					<div class="option">
 						<span>
 							<img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;"/>
 						</span>
@@ -205,7 +205,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><span @if($data['exercises'][0]['sameScore'] != 0) class="blue" @else style="color: red" @endif>排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
 						@endforeach
@@ -291,7 +291,7 @@
 						</span>
 						</span>
 					</p>
-					<div class="option options">
+					<div class="option">
 						<div class="box_hpb">
 							<div class="line_hpb">
 								<ul class="question_hpb">

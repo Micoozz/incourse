@@ -3,6 +3,8 @@ $(function(){
     var exer = id_type.exercise;
     var order = hwInfo_obj.exercise_id;
 
+
+
     //"我上传的"按钮
     $("body").on("click",".my-exer-room-head .doMark",function(){
         $(".myUpload").show();

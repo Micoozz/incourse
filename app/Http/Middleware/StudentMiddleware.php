@@ -18,7 +18,10 @@ class StudentMiddleware
     {
         if(Auth::guard('student')->check()){
             return $next($request);
+        }elseif(Auth::guard('employee')->check()){
+            return redirect('/teachingCenter');///media
+        }elseif(Auth::guard('school')->check()){
+            return redirect('/adminArchives');
         }
-        return redirect('/learningCenter');///media
     }
 }
