@@ -617,7 +617,7 @@ class TeachingCenterController extends TeacherController
                 $work->chapter_id = $job->chapter_id;
                 $work->job_id = $job->id;
                 $work->course_id = Chapter::find($job->chapter_id)->course_id;
-                $work->scores = 0;
+                $work->score = 0;
                 $work->status = 0;
                 $work->start_time = 0;
                 $work->sub_time = 0;
