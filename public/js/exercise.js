@@ -205,21 +205,24 @@ $(function () {
                 "</div>";
 
         } else if (text === "连线题") {
-            tID = "lian-xian",tClass = "addLxOptionBtn",tOptions = "lian-xian-options";
+            Answer =""
+            /*tID = "lian-xian",tClass = "addLxOptionBtn",tOptions = "lian-xian-options";
             Answer = A.answerFun();
-            Answer += A.answerCheckedFun(tID,tClass,tOptions,"");
+            Answer += A.answerCheckedFun(tID,tClass,tOptions,"");*/
         } else if (text === "排序题") {
             tID = "pai-xu",tClass = "addPxOptionBtn",tOptions = "pai-xu-options";
             Answer = A.answerFun();
             Answer += A.answerCheckedFun(tID,tClass,tOptions,"");
         } else if (text === "完形填空") {
-            Answer = answerFun();
+            Answer =""
+            /*Answer = answerFun();
             Answer += "<div class='wan-xing-tk'>" +
                         "<div class='wan-xing-tk-only' data-num='0'></div>" +
                     "</div>" +
-                "</div>";
+                "</div>";*/
         } else if (text === "简答题" || text === "画图题" || text === "解答题" || text === "计算题") {
-            Answer = A.answerFun();
+            Answer =""
+            /*Answer = A.answerFun();
             Answer += "<div class='jian-da'>" +
                         "<div class='ic-editor border'>" +
                             "<div class='tools clear'>" +
@@ -232,16 +235,18 @@ $(function () {
                             "<div class='editor-content' contenteditable='true'></div>" +
                         "</div>" +
                     "</div>" +
-                "</div>";
+                "</div>";*/
         } else if (text === "作文题") {
-            Answer = A.answerFun();
-            Answer += "<div class='zuo-wen' style='line-height:20px'>略</div></div>";
+            Answer =""
+            /*Answer = A.answerFun();
+            Answer += "<div class='zuo-wen' style='line-height:20px'>略</div></div>";*/
         } else if (text === "听力题" || text === "阅读题" || text === "综合题") {
-            Answer = "<div class='mul-answer-box'></div>" +
+            Answer =""
+            /*Answer = "<div class='mul-answer-box'></div>" +
                 "<button class='addExerBtn addChildExer ic-blue c-d'>" +
                     "<i class='uploadExerIcons'></i>" +
                     "<span>添加子题目</span>" +
-                "</button>";
+                "</button>";*/
         }
         return Answer
     }

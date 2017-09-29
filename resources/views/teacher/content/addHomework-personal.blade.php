@@ -648,9 +648,16 @@
                     }
                 });
                 $("#all-checked").click(function(){
-                    $(".spread.tdBtn").each(function(j,trList){
-                        $(trList).find(".checkJob").attr("checked",true);
-                    })
+                    if($(this).is(":checked")){
+                        $(".spread.tdBtn").each(function(j,trList){
+                            $(trList).find(".checkJob").prop("checked",true);
+                        })
+                    }else{
+                        $(".spread.tdBtn").each(function(j,trList){
+                            $(trList).find(".checkJob").prop("checked",false);
+                        })
+                    }
+                    
                 })
                 $(".checkJob").click(function(e){
                     e.stopPropagation();
