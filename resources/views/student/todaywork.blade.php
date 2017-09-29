@@ -76,9 +76,9 @@
                         <div class="col-xs-12 left"></div>
                         @else
                          <div class="col-xs-12 col-sm-12 question-center" id="centery">
-                            @if($func == 1)
+                            @if($func == "exercise_book")
                                 @include('student.content.toDayWorkList')
-                            @elseif($func == 2)
+                            @elseif($func == "routine_work")
                                 @include('student.content.routineWork')
                             @elseif($func == 'student-pwd')  
                                 @include('student.content.changePwd')  
