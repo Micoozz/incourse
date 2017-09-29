@@ -242,7 +242,6 @@ class LearningCenterController extends Controller
 						$sameSecond = 0;
 						$grossScore = 0;
 						$exeScore = 0;
-						$tutorship = implode('&',$tutorship); //所有的错题ID
 						$grossExercise = $db->table($user->id)->select('score','second','parent_id')->where('work_id',$parameter)->get();//查询所有的作业以及同类型练习的信息
 						foreach ($grossExercise as $exercise) {
 							if (!empty($exercise->parent_id)) {
@@ -330,10 +329,10 @@ class LearningCenterController extends Controller
 		 		$error_same = $db->table($user->id)->select('exe_id','parent_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id','<>',null)->get();
 		 		$data = array('error_work' => $error_work->toArray(),'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
-		 		$sameSkip = $several;
+		 		//dd($several);
+		 		$sameSkip = isset($several) ? $several : "several";
 		 		$work = Work::select('start_time','sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
-		 		$several = explode('&',$several);
 		 		$grossScore = 0;
 		 		$exeScore = 0;
 		 		$exeSecond = 0;

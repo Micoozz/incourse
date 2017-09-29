@@ -21,7 +21,9 @@
 		<div class="clear"></div>
 		<div class="submits" error-exercise="{{ $sameSkip }}">
 			<button class=".btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >提交</button>
+			@if($sameSkip != "several")
 			<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/errorExercise'">错题解析</button>
+			@endif
 		</div>
 
 	</div>
