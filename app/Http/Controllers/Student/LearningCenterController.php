@@ -79,12 +79,15 @@ class LearningCenterController extends Controller
     	$user = Auth::guard('student')->user();
     	$courseAll = Course::all();//这里以后要区分年级的科目
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
+        // dump($date);
+        // dd(Job::where("id",32)->first()->pub_time);
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
-        $date = strtotime(date('Ymd H:i:s'));//大于当前时间且小于截至时间的id
-/*        dump("Y-m-d H:i:s",$date);
+        $date = strtotime(date('Ymd H:i'));//大于当前时间且小于截至时间的id
+    /*    dump("Y-m-d H:i:s",$date);
         dump("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time);
         dd("Y-m-d H:i:s",Job::where("id",32)->first()->deadline);*/
-        $job_list = array_column(Job::where('pub_time','>',$date)->where('deadline','<',$date)->get(['id'])->toArray(),'id');
+        $job_list = array_column(Job::where('pub_time','>',$date)/*->where('deadline','<=',$date)*/->get(['id'])->toArray(),'id');
+        //dd($job_list);
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
 		$baseNum = (int)($user->id/1000-0.0001)+1;
@@ -94,10 +97,6 @@ class LearningCenterController extends Controller
         }catch(\Exception $e){
             return $e;
         }
-        //判断这个学生有没有做过作业,有做过作业显示引导页
-
-        //$work_id = array_column(Work::where(['student_id' => $user->id,])->get()->toarray(), 'id');//这里要是没有学生写作业怎么办就会报错
-        //$workCount = $db->table($user->id)->select('work_id')->whereIn('work_id',$work_id)->get()->toArray();
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type',1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
@@ -233,7 +232,6 @@ class LearningCenterController extends Controller
 							));
 						}
 					}
-					//dd($data['sameExercise']);
 					$second =$data['sub_time'] - $work->start_time;
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = strtotime($this->changeTimeType($second));
@@ -518,6 +516,9 @@ class LearningCenterController extends Controller
 				$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 				$objective = Objective::where('exe_id',$exercise->id)->first();
 				$options = json_decode($objective->option,true);
+				if ($exercise->categroy_id == Exercises::CATE_FILL) {
+					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/','true',$objective->subject);
+				}
 				shuffle($options);
 			    array_push($data, array(
 			    	'id' => $exercise->id,
