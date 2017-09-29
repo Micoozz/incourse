@@ -44,7 +44,7 @@ class Controller extends BaseController
     }
     public function getUnit($course_id){
     	$grade_list = Chapter::where('parent_id',1)->pluck('id');
-    	$unit_list = Chapter::whereIn(['parent_id' => $grade_list,'course_id' => $course_id])->pluck('title','id');
+    	$unit_list = Chapter::whereIn('parent_id',$grade_list)->where('course_id',$course_id)->pluck('title','id');
     	return $unit_list;
     }
     public function getSection($unit_id){
