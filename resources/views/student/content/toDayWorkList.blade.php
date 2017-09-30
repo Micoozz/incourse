@@ -33,12 +33,16 @@
                 {{ date('m月d日',$work->belongsToJob->pub_time) }}作业
             </td>
             <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
-             <td style="color: red">
+            @if(time() > $work->belongsToJob->deadline)
+                <td style="color: red">
                 {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
-                @if(time() > $work->belongsToJob->deadline)
                     <span>(超时)</span>
-                @endif
                 </td>
+            @else
+                <td>
+                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                </td>
+            @endif
             <td>
             @if($work->status == 0)
                 未答题
