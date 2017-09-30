@@ -58,9 +58,8 @@
 .addExerBtn {
     font-size: 14px;
     display: inline-block;
-    height: 20px;
+    height: 100%;
     position: relative;
-    top: -8px;
 }
 .addExerBtn:hover {
     color: #1681DC;
@@ -561,7 +560,9 @@
     cursor: pointer;
 }
 
-
+.pagination {
+    float: right;
+}
 
 
 

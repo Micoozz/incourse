@@ -211,7 +211,7 @@ class LearningCenterController extends Controller
 								'id' => 3,
 								'exe_id' =>$exe_id,
 							));					
-						}	
+						}
 					}
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id','<>',null)->get();
@@ -568,7 +568,7 @@ class LearningCenterController extends Controller
     		return $code;
         }
         foreach ($input['data'] as $answer) {
-        	$exercise = Exercises::find($answer['parent_id']);//算出这道题的错误的题
+        	$exercise = Exercises::find($answer['id']);//算出这道题的错误的题
     		$objective = $exercise->hasManyObjective()->first();
     		$flag = true;
     		$standard = json_decode($objective->answer,true);
@@ -577,8 +577,8 @@ class LearningCenterController extends Controller
     		}else{
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
-    		foreach ($standard as $key => $value) {
-                if(!isset($answer_arr[$key]) || $value != $answer_arr[$key]){
+    		foreach ($standard['answer'] as $key => $value) {
+                if(!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
                     $flag = false;
                     break;
                 }
@@ -593,7 +593,7 @@ class LearningCenterController extends Controller
             }else{
                 $score = 0;
             }
-            $result = $db->table($user->id)->insert(['work_id' => $work_id,'parent_id' => $answer['parent_id'],'type' => 2,'exe_id' => $answer['id'],'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'],'sort' => isset($answer['option']) ? json_encode($answer['option'],JSON_UNESCAPED_UNICODE) : NULL]);
+            $result = $db->table($user->id)->insert(['work_id' => $work_id,'parent_id' => $answer['parent_id'],'type' => 2,'exe_id' => $answer['id'],'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'],'score' => $score,'sort' => isset($answer['option']) ? json_encode($answer['option'],JSON_UNESCAPED_UNICODE) : NULL]);
         }
         return $code;
     }

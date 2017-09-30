@@ -1,7 +1,7 @@
 <div class="navbar">
     <div>
         <div class="indexLogo">
-            <img src="/images/LOGO.png"/>
+            <img src="/images/logo (2).png"/>
             <!-- <img src="/images/Hpb_schoolLogo.png" class="schoolLogo"/>
             <b>湖南工程学院</b> -->
         </div>
