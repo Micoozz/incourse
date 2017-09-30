@@ -81,7 +81,6 @@ class LearningCenterController extends Controller
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
        //$date = strtotime(date('Y-m-d H-i-s'));//大于当前时间且小于截至时间的id
-
         $date = time();
         // dump(date("Y-m-d H:i:s",$date));
         // dump(date("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time));
@@ -89,18 +88,10 @@ class LearningCenterController extends Controller
         $job_list = array_column(Job::/*where('pub_time','<',$date)->*/where('deadline','>',$date)->get(['id'])->toArray(),'id');
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
-		$baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            return $e;
-        }
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type',1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
         	$sameSecond = 0;
-
 			foreach ($data as $work) {
 				$minutia = Chapter::find($work->chapter_id);
 				$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
@@ -109,13 +100,20 @@ class LearningCenterController extends Controller
 		        $work->deadline = $work->belongsToJob()->first()->deadline;
 		        $work->job_type = $work->belongsToJob()->first()->job_type;
 		        if ($work->status == 1) {
-		        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
-			        foreach($info_list as $info){
-			       		if (!empty($info->parent_id)) {
-			       			$sameSecond += $info->second;
-			       		}
-				        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
-			    	}
+			    $baseNum = (int)($user->id/1000-0.0001)+1;
+		        $db_name = 'mysql_stu_work_info_'.$baseNum;
+		        try{
+		            $db = DB::connection($db_name);
+		        }catch(\Exception $e){
+		            return $e;
+		        }
+	        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
+		        foreach($info_list as $info){
+		       		if (!empty($info->parent_id)) {
+		       			$sameSecond += $info->second;
+		       		}
+			        $work->score += isset($data['score']) ? $data['score'] + $info->score/100 : 0 + $info->score/100;
+		    	}
 			    	$second = $work->sub_time - $work->start_time + $sameSecond;
 		    		$work->second = $this->changeTimeType($second);
 		        }	
@@ -135,13 +133,15 @@ class LearningCenterController extends Controller
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $data = array();
         $data['status'] = array();
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            return $e;
-        }
+        if($func != Self::FUNC_EXERCISE_BOOK || $func != Self::FUNC_ROUTINE_WORK){
+	    	$baseNum = (int)($user->id/1000-0.0001)+1;
+	        $db_name = 'mysql_stu_work_info_'.$baseNum;
+	        try{
+	            $db = DB::connection($db_name);
+	        }catch(\Exception $e){
+	            return $e;
+	        }
+	    }
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
@@ -154,6 +154,13 @@ class LearningCenterController extends Controller
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
 			        $work->job_type = $work->belongsToJob()->first()->job_type;
 					if ($work->status == 1) {
+						$baseNum = (int)($user->id/1000-0.0001)+1;
+				        $db_name = 'mysql_stu_work_info_'.$baseNum;
+				        try{
+				            $db = DB::connection($db_name);
+				        }catch(\Exception $e){
+				            return $e;
+				        }
 			        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
 				        foreach($info_list as $info){
 				       		if (!empty($info->parent_id)) {
@@ -424,7 +431,6 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
-    	//dd($input);
     	$user = Auth::guard('student')->user();
     	$work = Work::find(intval($input['work_id']));
     	if (!empty($work->sub_time )) {
@@ -436,7 +442,7 @@ class LearningCenterController extends Controller
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
             $db = DB::connection($db_name);
-        }catch(\InvalidArgumentException $e){
+        }catch(\Exception $e){
             $this->createBase($baseNum);
             $db = DB::connection($db_name);
         }
@@ -541,27 +547,6 @@ class LearningCenterController extends Controller
     	$work_id = intval($input['work_id']);
     	$user = Auth::guard('student')->user();
     	$code = 200 ;
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\InvalidArgumentException $e){
-            $this->createBase($baseNum);
-            $db = DB::connection($db_name);
-        }
-        if(!Schema::connection($db_name)->hasTable($user->id)){
-            Schema::connection($db_name)->create($user->id, function ($table) {
-                $table->integer('work_id');
-                $table->integer('exe_id')->nullable();;
-                $table->integer('parent_id')->nullable();;
-                $table->integer('type')->nullable();;
-                $table->text('answer')->nullable();
-                $table->integer('second')->nullable();
-                $table->smallInteger('score')->default(0);
-                $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
-            });
-        }
         $same = $db->table($user->id)->select('work_id')->where('work_id',$work_id)->where('parent_id','<>',NULL)->get()->toArray();
         if ($same) {
         	$code = 1;

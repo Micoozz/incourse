@@ -30,7 +30,7 @@
                 @else 
                     src="{{ asset('images/users.png') }}" 
                 @endif />&nbsp;&nbsp; 
-                {{ date('m月d日',$work->belongsToJob->pub_time) }}作业
+                {{ date('m月d日',$work->belongsToJob->pub_time) }}
             </td>
             <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
             @if(time() > $work->belongsToJob->deadline)

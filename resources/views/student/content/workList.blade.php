@@ -17,7 +17,7 @@
 			</tr>
 			@foreach($data as $work)
             <tr>
-                <td><img @if($work->job_type == 1) src="{{ asset('images/user.png') }}" @else src="{{ asset('images/users.png') }}" @endif />&nbsp;&nbsp; {{ $work->title }}作业</td>
+                <td><img @if($work->job_type == 1) src="{{ asset('images/user.png') }}" @else src="{{ asset('images/users.png') }}" @endif />&nbsp;&nbsp; {{ $work->title }}</td>
                 <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
                 @if(time() > $work->belongsToJob->deadline)
                     <td style="color: red">
