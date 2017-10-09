@@ -20,7 +20,7 @@
 				@if($data['exercises'][0]['categroy_id'] == 1)
 				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -42,7 +42,7 @@
 				@if($data['exercises'][0]['categroy_id'] == 2)
 				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -64,7 +64,7 @@
 				@if($data['exercises'][0]['categroy_id'] == 4)
 				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -193,7 +193,7 @@
 				@if($data['exercises'][0]['categroy_id'] == 6)
 				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -279,7 +279,7 @@
 				@if($data['exercises'][0]['categroy_id'] == 5)
 				<div class="questions lian-xian-{{ $data['exercises'][0]['id'] }}" id="matching">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{{ $data['exercises'][0]['subject'] }}
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -294,7 +294,6 @@
 						<div class="box_hpb">
 							<div class="line_hpb">
 								<ul class="question_hpb">
-									{{-- dd($data['exercises'][0]['options'][0]) --}}	
 									@foreach($data['exercises'][0]['options'][0] as $option)
 									    <li style="top:{{ $loop->index * 54 }}px;">{{ array_values($option)[0] }}</li>
 									}
@@ -314,7 +313,6 @@
 					</div>
 				</div>
 				@endif
-			
 				<div class="proper">
 					<!--连线题-->
 					<br>
@@ -373,7 +371,7 @@
 					<!--多空题-->
 					@if($data['exercises'][0]['categroy_id'] == 3)
 					<div>
-						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
+						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>,你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
 						</p>
 						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif，作答用时{{ $data['exercises'][0]['second'] }}秒。
 						<!-- <p>得分4分，总分10分</p> -->

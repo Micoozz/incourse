@@ -53,9 +53,9 @@ class Controller extends BaseController
     	return $section_list;
     }
     protected function createDatabase($baseNum){
-    	$servername = "localhost"; 
+    	$servername = "10.110.18.111"; 
 		$username = "root"; 
-		$password = "gogo1993"; 
+		$password = "root"; 
 		$code = 200;
 
 		try { 
@@ -123,7 +123,6 @@ class Controller extends BaseController
         }
         return json_encode($result);
     }
-
     //发送邮件
     public function emailSend(){
         $input = Input::get();

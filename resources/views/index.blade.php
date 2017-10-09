@@ -17,7 +17,7 @@
 		<header>
 			<div class="header">
 				<div>
-					<img src="/images/Cj_iconfont-jiaoyu.png" />
+					<img src="/images/Cj_iconfont-jiaoyu (2).png" />
 					<img src="/images/Cj_InCourse1.png" />
 				</div>
 			</div>

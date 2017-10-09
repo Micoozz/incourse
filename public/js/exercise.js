@@ -503,7 +503,7 @@ $(function () {
     function blank_span(obj){
         $(obj).parents(".ic-editor").children(".editor-content").focus();
         var initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
-        document.execCommand("insertHTML", "false", '<span class="blank-item">空' + initNum + '</span>');
+        document.execCommand("insertHTML", "false", '<div class="blank-item" style="display:inline-block">空' + initNum + '</div>&nbsp;');
         $(obj).parents(".ic-editor").find(".blank-item").attr("contenteditable", false);
 
         //获取题型

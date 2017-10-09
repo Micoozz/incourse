@@ -17,14 +17,18 @@
 			</tr>
 			@foreach($data as $work)
             <tr>
-                <td><img @if($work->job_type == 1) src="{{ asset('images/user.png') }}" @else src="{{ asset('images/users.png') }}" @endif />&nbsp;&nbsp; {{ $work->title }}作业</td>
+                <td><img @if($work->job_type == 1) src="{{ asset('images/user.png') }}" @else src="{{ asset('images/users.png') }}" @endif />&nbsp;&nbsp; {{ $work->title }}</td>
                 <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
-                <td>
-                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
                 @if(time() > $work->belongsToJob->deadline)
-                    <span>(超时)</span>
+                    <td style="color: red">
+                    {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                        <span>(超时)</span>
+                    </td>
+                @else
+                    <td>
+                    {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                    </td>
                 @endif
-                </td>
                 <td>
                 @if(empty($work->sub_time))
                     未答题

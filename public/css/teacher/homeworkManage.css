@@ -521,6 +521,8 @@ body .lhgcal {
     width: 360px;
     display: block;
     word-break:break-all;
+    padding: 5px 0;
+    margin-top: -5px;
 }
 
 
