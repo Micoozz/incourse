@@ -506,6 +506,7 @@ body .lhgcal {
 }
 .my-exer-room-head .doMark,.my-exer-room-head .doMark.active {
     border-right: none;
+    border-left: none;
 }
 .subject_box.subject_box_noActive{
     width: 360px;
@@ -513,6 +514,8 @@ body .lhgcal {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    padding: 5px 0;
+    margin-top: -5px;
 }
 .subject_box.subject_box_active{
     width: 360px;

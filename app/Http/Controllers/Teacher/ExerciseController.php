@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use DB;
 use Input;
 use Auth;
 use App\Models\Exercises;
@@ -59,7 +60,7 @@ class ExerciseController extends Controller
     public function getExerciseList(){
         $input = Input::get();
         $exercise_id_arr = $input['id_list'];
-        $data = Exercises::whereIn("id",$exercise_id_arr)->get();
+        $data = Exercises::whereIn("id",$exercise_id_arr)->orderByRaw(DB::raw("FIELD(id, ".implode(',', $exercise_id_arr).')'))->get();
         foreach ($data as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
