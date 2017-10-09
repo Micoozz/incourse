@@ -533,12 +533,11 @@ class LearningCenterController extends Controller
 					'subject' => $objective->subject,
 					'type' => 2,
 					'options' => $options,
-					'answer' => json_decode($objective->answer,true),
+					'answer' => json_decode($objective->answer, true),
 					'score' => $exercise->score/100,
 			    ));
 			}
     	}
-    	
 		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     }
 
