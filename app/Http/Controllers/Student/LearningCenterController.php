@@ -85,11 +85,11 @@ class LearningCenterController extends Controller
         // dump(date("Y-m-d H:i:s",$date));
         // dump(date("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time));
         // dump(date("Y-m-d H:i:s",Job::where("id",32)->first()->deadline));
-        $job_list = array_column(Job::/*where('pub_time','<',$date)->*/where('deadline','>',$date)->get(['id'])->toArray(),'id');
-	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id',$job_list)->paginate(5);//显示所有的做作业
+        $job_list = array_column(Job::/*where('pub_time','<',$date)->*/where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
+	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id', $job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
         if ($func == Self::FUNC_STUDENT_NAME){
-        	$provinces = Region::where('type',1)->get();
+        	$provinces = Region::where('type', 1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
         	$sameSecond = 0;
 			foreach ($data as $work) {
@@ -107,7 +107,7 @@ class LearningCenterController extends Controller
 		        }catch(\Exception $e){
 		            return $e;
 		        }
-	        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
+	        	$info_list = $db->table($user->id)->select('score', 'parent_id', 'second')->where('work_id', $work->id)->get();
 		        foreach($info_list as $info){
 		       		if (!empty($info->parent_id)) {
 		       			$sameSecond += $info->second;
@@ -125,7 +125,7 @@ class LearningCenterController extends Controller
 			$data['work'] = Work::find($parameter)->belongsToJob()->first();
 			$data['count'] = count($data['work']->exercise_id);
 		}
-		return view('student.todayWork',compact('courseAll','courseFirst','data','count','func','parameter','user','minutia','chapter','workCount'));
+		return view('student.todayWork',compact('courseAll', 'courseFirst', 'data','count', 'func', 'parameter', 'user', 'minutia', 'chapter', 'workCount'));
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::guard('student')->user();
@@ -145,10 +145,10 @@ class LearningCenterController extends Controller
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
-		    	$data = Work::where(['student_id' => $user->id,'course_id' => $course])->paginate(5);
+		    	$data = Work::where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
 				foreach ($data as $work) {
 					$minutia = Chapter::find($work->chapter_id);
-					$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
+					$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);
 			        $work->title = $work->belongsToJob()->first()->title;
 			        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
@@ -161,7 +161,7 @@ class LearningCenterController extends Controller
 				        }catch(\Exception $e){
 				            return $e;
 				        }
-			        	$info_list = $db->table($user->id)->select('score','parent_id','second')->where('work_id',$work->id)->get();
+			        	$info_list = $db->table($user->id)->select('score', 'parent_id', 'second')->where('work_id', $work->id)->get();
 				        foreach($info_list as $info){
 				       		if (!empty($info->parent_id)) {
 				       			$sameSecond += $info->second;
@@ -173,39 +173,39 @@ class LearningCenterController extends Controller
 			        }	
 				}
 		 	}else if ($func == Self::FUNC_ROUTINE_WORK ||  $func == Self::FUNC_WORK_SCORE) {
-		 		$work = Work::select('chapter_id','sub_time','start_time','course_id')->find($parameter);
+		 		$work = Work::select('chapter_id', 'sub_time', 'start_time', 'course_id')->find($parameter);
 				$minutia =  Chapter::find($work->chapter_id);
-				$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
+				$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);
 				$data['course_id'] = $work->course_id;
 				$data['sub_time'] = $work->sub_time;
 		 		$data['work'] = Work::find($parameter)->belongsToJob()->first();
-				$data['count'] = count(json_decode($data['work']->exercise_id,true));
+				$data['count'] = count(json_decode($data['work']->exercise_id, true));
 				if ($func == Self::FUNC_WORK_SCORE) {
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
-					$exercise_id = json_decode($data['work']->exercise_id,true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
+					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
 						$exercise = Exercises::find($exe_id);
-						$work_answer = $db->table($user->id)->where(['work_id' => $parameter,'exe_id' => $exe_id])->first()->answer;
-						$work_answer = json_decode($work_answer,true)['answer'];
+						$work_answer = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first()->answer;
+						$work_answer = json_decode($work_answer, true)['answer'];
 						//客观题的正确率
 						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
-							$objective_answer = Objective::where('exe_id',$exercise->id)->first()->answer;//客观题的答案
-							$objective_answer = json_decode($objective_answer,true)['answer'];
+							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
+							$objective_answer = json_decode($objective_answer, true)['answer'];
 							if ($work_answer == $objective_answer) {
 								$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
-								array_push($data['status'],array(
+								array_push($data['status'], array(
 									'id' => 1,
 									'exe_id' => $exe_id,
 								));
 								$correctScore += $exercise->score / 100; //正确题的分数
 							}else{
 								$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
-								array_push($data['status'],array(
+								array_push($data['status'], array(
 									'id' => 2,
 									'exe_id' =>$exe_id,
 								));
@@ -214,14 +214,14 @@ class LearningCenterController extends Controller
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
 							$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
-							array_push($data['status'],array(
+							array_push($data['status'], array(
 								'id' => 3,
 								'exe_id' =>$exe_id,
 							));					
 						}
 					}
 					//同类型练习
-					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id','<>',null)->get();
+					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
 							array_push($data['sameExercise'], array(
@@ -241,13 +241,13 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = strtotime($this->changeTimeType($second));
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						$totalScore = $correctScore+$errorScore+0; //主观题先设为0
+						$totalScore = $correctScore + $errorScore + 0; //主观题先设为0
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
 						$exeScore = 0;
-						$grossExercise = $db->table($user->id)->select('score','second','parent_id')->where('work_id',$parameter)->get();//查询所有的作业以及同类型练习的信息
+						$grossExercise = $db->table($user->id)->select('score', 'second', 'parent_id')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
 						foreach ($grossExercise as $exercise) {
 							if (!empty($exercise->parent_id)) {
 								$sameSecond += $exercise->second;
@@ -257,7 +257,7 @@ class LearningCenterController extends Controller
 						$exeSecond = $second + $sameSecond;
 						$data['exeSecond'] = strtotime($this->changeTimeType($exeSecond));
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
-				 			$exeScore += Exercises::where('id',$exe)->first()->score; 
+				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
 					}
@@ -265,27 +265,27 @@ class LearningCenterController extends Controller
 					if(is_int($accuracy)){
 						$accuracy = $accuracy;
 					}else{
-						$accuracy = round($accuracy,4);
+						$accuracy = round($accuracy, 4);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
 		 		$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];	 		
 		 		if (empty($exercise_id)) {
-		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter,'score' => 0 ])->first();
+		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->first();
 		 			$exercise_id = $work_answer->exe_id;
 		 		}else if($exercise_id == "errorExercise"){
 		 			$errorExercise = $exercise_id;
-		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter,'score' => 0 ])->where("parent_id","<>",null)->first();
+		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->where("parent_id", "<>", null)->first();
 		 			$exercise_id = $work_answer->exe_id;
 		 		}
 		 		$workFirst = $db->table($user->id)->where(['work_id' => $parameter,'exe_id' => $exercise_id])->first();
 		 		$errorReports = Exercises::find($exercise_id);
 		 		$data = array('exercises' => array());
 		 		if($workFirst->parent_id == NULL){
-		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id",null)->get());
+		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", null)->get());
 		 		}else{
 		 			$errorExercise = "errorExercise";
-		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id","<>",null)->get());
+		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", "<>", null)->get());
 		 		}
 		 		$categroy_id = Categroy::find($errorReports->categroy_id)->id;
     			$categroy_title = Categroy::find($errorReports->categroy_id)->title;
@@ -297,23 +297,23 @@ class LearningCenterController extends Controller
 			 				array_push($option,json_decode($objective->option,true)[$sort-1]);
 			 			}
 			 		}
-		 			$answer_list = json_decode($objective->answer,true);	 //标准答案的记录
-		            $work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
+		 			$answer_list = json_decode($objective->answer, true);	 //标准答案的记录
+		            $work_answer = json_decode($workFirst->answer, true); //自己写的答案记录
 		 			$answers = array();
 		 			if ($errorReports->categroy_id == Exercises::CATE_CHOOSE || $errorReports->categroy_id == Exercises::CATE_RADIO) {
 		 				$standard_answer = array();
 	                	$user_answer = array();
 	                    foreach ($answer_list as  $answer) {
-	                    	array_push($standard_answer,empty($work_answer) ? '' : $answer_list);
+	                    	array_push($standard_answer, empty($work_answer) ? '' : $answer_list);
 	                    }
 	                    foreach ($work_answer as  $value) {
-		                    array_push($user_answer,empty($work_answer) ? '' : $work_answer);
+		                    array_push($user_answer, empty($work_answer) ? '' : $work_answer);
 		                }
-		                array_push($answers,array('standard' => $standard_answer,'user_answer' => $user_answer));
+		                array_push($answers,array('standard' => $standard_answer, 'user_answer' => $user_answer));
 		 			}else{
-		                array_push($answers,array('standard' => $answer_list,'user_answer' => $work_answer));
+		                array_push($answers,array('standard' => $answer_list, 'user_answer' => $work_answer));
 		            }
-		            array_push($data['exercises'],array(
+		            array_push($data['exercises'], array(
                     'id' => $errorReports->id,
                     'categroy_id' => $categroy_id,
                     'categroy_title' => $categroy_title,
@@ -330,23 +330,23 @@ class LearningCenterController extends Controller
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
-		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id',null)->get();
-		 		$error_same = $db->table($user->id)->select('exe_id','parent_id')->where(['work_id' => $parameter,'score' => 0 ])->where('parent_id','<>',null)->get();
-		 		$data = array('error_work' => $error_work->toArray(),'error_same' => $error_same->toArray());
+		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
+		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
+		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
-		 		$work = Work::select('start_time','sub_time')->find($parameter);
+		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
 		 		$exeScore = 0;
 		 		$exeSecond = 0;
 		 		$SecondAdding = 0;	
-		 		$sameExercise = $db->table($user->id)->select('score','exe_id','second')->where('work_id',$parameter)->where('parent_id','<>',NULl)->get();//本次的同类型习题
-		 		$grossExercise = $db->table($user->id)->select('score')->where('work_id',$parameter)->get();//查询所有的作业以及同类型练习的信息
-		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id',null)->get();//算出所有的作业的所有题
+		 		$sameExercise = $db->table($user->id)->select('score', 'exe_id', 'second')->where('work_id', $parameter)->where('parent_id', '<>', NULl)->get();//本次的同类型习题
+		 		$grossExercise = $db->table($user->id)->select('score')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
+		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id', null)->get();//算出所有的作业的所有题
 		 		foreach ($exerciseCount as $exe) {//作业的所有的分数
-		 			$exeScore += Exercises::where('id',$exe->exe_id)->first()->score; 
+		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score; 
 		 		}
 		 		//查询所有的作业以及同类型练习加起来的分数
 		 		foreach($grossExercise as $exercise){
@@ -374,58 +374,58 @@ class LearningCenterController extends Controller
 							"exe_id" => $exercise->exe_id
 						));
 					}
-					$exeSecond += $db->table($user->id)->where(['work_id' => $parameter,'exe_id' => $exercise->exe_id])->first()->second;
+					$exeSecond += $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exercise->exe_id])->first()->second;
 				}
 				$SecondAdding = $second + $exeSecond;
 				$entire = strtotime($this->changeTimeType($SecondAdding));
 		 	}
 
         }
-    	return view('student.learningCenter',compact('courseAll','courseFirst','data','mod','func','parameter','several','user','minutia','chapter','abcList','tutorship','accuracy','errorExercise','entire','exercise_id','sameSkip','errorScore','sameErrorScore'));
+    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'minutia', 'chapter', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
     }
     //做作业
     public function doHomework($work_id = NULL){
-			$work = Work::find($work_id);
-			if (empty($work->start_time)) {
-				$work->start_time = time();
-				$work->save();
-			}
-			$course = $work->course_id;
-			$data = array();
-			$exercises = json_decode($work->belongsToJob()->first()->exercise_id,true);
-			foreach ($exercises as  $eid) {
-				$exercise = Exercises::find($eid);
-				$categroy_id = Categroy::find($exercise->categroy_id)->id;
-				$categroy_title = Categroy::find($exercise->categroy_id)->title;
-				if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-					$subjective = Subjective::where('exe_id',$exercise->id)->first();
-					array_push($data, array(
-						'id' => $exercise->id,
-						'categroy_id' => $categroy_id,
-						'categroy_title' => $categroy_title,
-						'subject' => $subjective->subject,
-						'score' => $exercise->score/100,
-					));
-				}else if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
-					$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-					$objective = Objective::where('exe_id',$exercise->id)->first();
-					$options = json_decode($objective->option,true);
-					if ($exercise->categroy_id == Exercises::CATE_FILL) {
-						$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/','true',$objective->subject);
-					}
-					shuffle($options);
-				    array_push($data, array(
-				    	'id' => $exercise->id,
-				    	'categroy_id' => $categroy_id,
-						'categroy_title' => $categroy_title,
-						'subject' => $objective->subject,
-						'options' => $options,
-						'answer' => json_decode($objective->answer,true),
-						'score' => $exercise->score/100,
-				    ));
+		$work = Work::find($work_id);
+		if (empty($work->start_time)) {
+			$work->start_time = time();
+			$work->save();
+		}
+		$course = $work->course_id;
+		$data = array();
+		$exercises = json_decode($work->belongsToJob()->first()->exercise_id, true);
+		foreach ($exercises as  $eid) {
+			$exercise = Exercises::find($eid);
+			$categroy_id = Categroy::find($exercise->categroy_id)->id;
+			$categroy_title = Categroy::find($exercise->categroy_id)->title;
+			if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
+				$subjective = Subjective::where('exe_id', $exercise->id)->first();
+				array_push($data, array(
+					'id' => $exercise->id,
+					'categroy_id' => $categroy_id,
+					'categroy_title' => $categroy_title,
+					'subject' => $subjective->subject,
+					'score' => $exercise->score/100,
+				));
+			}else if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
+				$abcList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+				$objective = Objective::where('exe_id', $exercise->id)->first();
+				$options = json_decode($objective->option, true);
+				if ($exercise->categroy_id == Exercises::CATE_FILL) {
+					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
 				}
-    		}
-    	return view('student.doHomework',compact('data','work_id','course','abcList'));
+				shuffle($options);
+			    array_push($data, array(
+			    	'id' => $exercise->id,
+			    	'categroy_id' => $categroy_id,
+					'categroy_title' => $categroy_title,
+					'subject' => $objective->subject,
+					'options' => $options,
+					'answer' => json_decode($objective->answer,true),
+					'score' => $exercise->score/100,
+			    ));
+			}
+		}
+    	return view('student.doHomework',compact('data', 'work_id', 'course', 'abcList'));
     }
 
     //作业的分数
@@ -449,9 +449,9 @@ class LearningCenterController extends Controller
         if(!Schema::connection($db_name)->hasTable($user->id)){
             Schema::connection($db_name)->create($user->id, function ($table) {
                 $table->integer('work_id');
-                $table->integer('exe_id')->nullable();;
-                $table->integer('parent_id')->nullable();;
-                $table->integer('type')->nullable();;
+                $table->integer('exe_id')->nullable();
+                $table->integer('parent_id')->nullable();
+                $table->integer('type')->nullable();
                 $table->text('answer')->nullable();
                 $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
@@ -462,12 +462,12 @@ class LearningCenterController extends Controller
         foreach ($input['data'] as $answer) {
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-        		$db->table($user->id)->insert(['work_id' => $input['work_id'],'type' => 1,'exe_id' => $answer->id,'answer' => json_encode($answer->answer,JSON_UNESCAPED_UNICODE),'second' => $answer->last,'sort' => json_encode($answer['option'],JSON_UNESCAPED_UNICODE)]);
+        		$db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer->id, 'answer' => json_encode($answer->answer, JSON_UNESCAPED_UNICODE), 'second' => $answer->last, 'sort' => json_encode($answer['option'], JSON_UNESCAPED_UNICODE)]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         		$score = 0;
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
-        		$standard = json_decode($objective->answer,true);//这是同类型习题的分数
+        		$standard = json_decode($objective->answer, true);//这是同类型习题的分数
         		if(is_array($answer['answer'])){		
         			$answer_arr = array("answer" => $answer['answer']);
         		}else{
@@ -487,7 +487,9 @@ class LearningCenterController extends Controller
 	                    $score = 0;
 	                }
 	        	}
-                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'],'type' => 1,'exe_id' => $answer['id'],'answer' => json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'],'score' => $score,'sort' => isset($answer['option']) ? json_encode($answer['option'],JSON_UNESCAPED_UNICODE) : NULL]);
+                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
+                	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,
+                	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         	}
         }
        	if ($result) {
@@ -500,34 +502,34 @@ class LearningCenterController extends Controller
     }
 
     //同类型习题推送
-    public function homotypology($exercises_id,$work_id,$accuracy,$increase){
+    public function homotypology($exercises_id, $work_id, $accuracy, $increase){
     	$exercise_id = explode('&', $exercises_id);
     	$course = Work::find($work_id)->toArray()['course_id'];
     	$data = array();
-    	$error_exercise_list = Exercises::whereIn('id',$exercise_id)->get();
+    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score')->whereIn('id', $exercise_id)->get();
     	$error_cate_arr = array();
     	foreach ($error_exercise_list as $exercise) {
     		$error_cate_arr[$exercise->categroy_id] = isset($error_cate_arr[$exercise->categroy_id]) ? $error_cate_arr[$exercise->categroy_id] : array();
-    		array_push($error_cate_arr[$exercise->categroy_id],$exercise->id);
+    		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score);
     	}
-
     	foreach ($error_cate_arr as $cate_id => $exe_id_list) {
-    		$errorsCount = count($exe_id_list);
-    		$homotypology = Exercises::where(['chapter_id' => Work::find($work_id)->chapter_id,'categroy_id' =>$cate_id ])
-			->whereNotIn('id',$exe_id_list)->orderBy(\DB::raw('RAND()'))->take($errorsCount)->get();//查询出该错题的3道同类型习题
+    		//dd($exe_id_list);
+    		//$errorsCount = count($exe_id_list[0]);
+    		$homotypology = Exercises::where(['chapter_id' => Work::find($work_id)->chapter_id,'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
+			->whereNotIn('id', $exercise_id)->orderBy(\DB::raw('RAND()'))->take(1)->get();//查询出该错题的3道同类型习题
 			foreach ($homotypology as $key => $exercise) {
 				$categroy_id = Categroy::find($exercise->categroy_id)->id;
 				$categroy_title = Categroy::find($exercise->categroy_id)->title;
-				$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-				$objective = Objective::where('exe_id',$exercise->id)->first();
-				$options = json_decode($objective->option,true);
+				$abcList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+				$objective = Objective::where('exe_id', $exercise->id)->first();
+				$options = json_decode($objective->option, true);
 				if ($exercise->categroy_id == Exercises::CATE_FILL) {
-					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/','true',$objective->subject);
+					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
 				}
 				shuffle($options);
 			    array_push($data, array(
 			    	'id' => $exercise->id,
-			    	'parent_id' => $exe_id_list[$key],
+			    	'parent_id' => $exe_id_list[0][$key],
 			    	'categroy_id' => $categroy_id,
 					'categroy_title' => $categroy_title,
 					'subject' => $objective->subject,
@@ -538,7 +540,8 @@ class LearningCenterController extends Controller
 			    ));
 			}
     	}
-		return view('student.doHomework',compact('data','abcList','work_id','course','accuracy','increase'));
+    	
+		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     }
 
     //同类型习题算分
@@ -546,8 +549,16 @@ class LearningCenterController extends Controller
     	$input = Input::get();
     	$work_id = intval($input['work_id']);
     	$user = Auth::guard('student')->user();
-    	$code = 200 ;
-        $same = $db->table($user->id)->select('work_id')->where('work_id',$work_id)->where('parent_id','<>',NULL)->get()->toArray();
+    	$code = 200;
+    	$baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            $this->createBase($baseNum);
+            $db = DB::connection($db_name);
+        }
+        $same = $db->table($user->id)->select('work_id')->where('work_id', $work_id)->where('parent_id', '<>', NULL)->get()->toArray();
         if ($same) {
         	$code = 1;
     		return $code;
@@ -556,7 +567,7 @@ class LearningCenterController extends Controller
         	$exercise = Exercises::find($answer['id']);//算出这道题的错误的题
     		$objective = $exercise->hasManyObjective()->first();
     		$flag = true;
-    		$standard = json_decode($objective->answer,true);
+    		$standard = json_decode($objective->answer, true);
     		if(is_array($answer['answer'])){		
     			$answer_arr = array("answer" => $answer['answer']);
     		}else{
@@ -578,7 +589,7 @@ class LearningCenterController extends Controller
             }else{
                 $score = 0;
             }
-            $result = $db->table($user->id)->insert(['work_id' => $work_id,'parent_id' => $answer['parent_id'],'type' => 2,'exe_id' => $answer['id'],'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'],'score' => $score,'sort' => isset($answer['option']) ? json_encode($answer['option'],JSON_UNESCAPED_UNICODE) : NULL]);
+            $result = $db->table($user->id)->insert(['work_id' => $work_id, 'parent_id' => $answer['parent_id'],'type' => 2,'exe_id' => $answer['id'], 'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'], 'score' => $score, 'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         }
         return $code;
     }
@@ -587,7 +598,7 @@ class LearningCenterController extends Controller
     	$user = Auth::guard('student')->user();
     	$input = Input::get();
     	if (Session::get('milkcaptcha') != $input['data']['code']) { 
-    		$result = "201" ;
+    		$result = "201";
     	}else {
 			if (Hash::check($input['data']['pwd'], $user->password)) {
 				$newPwd = Student::find($user->id);
@@ -602,10 +613,10 @@ class LearningCenterController extends Controller
     //习题册
      public function review($course = 1){
     	$user = Auth::guard('student')->user();
-    	$workChapter = Work::where(['student_id' => $user->id,'course_id' => $course ])->get(['chapter_id'])->toArray();//作业的小节
-    	$minutiaList = Chapter::where('course_id',$course)->whereIn('id',$workChapter)->get()->toArray();//查询出小节的父id
+    	$workChapter = Work::where(['student_id' => $user->id, 'course_id' => $course ])->get(['chapter_id'])->toArray();//作业的小节
+    	$minutiaList = Chapter::where('course_id', $course)->whereIn('id', $workChapter)->get()->toArray();//查询出小节的父id
     	$minutia_parentId = array_column($minutiaList, 'parent_id');//所有这位学生作业的parent_id
-    	$chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
+    	$chapter = Chapter::where('course_id', $course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
     	$data = array();
     	foreach ($chapter as $key => $item) {
     		$data[$key]['id'] = $item->id;
