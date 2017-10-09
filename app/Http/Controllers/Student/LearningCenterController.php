@@ -180,6 +180,7 @@ class LearningCenterController extends Controller
 				$data['sub_time'] = $work->sub_time;
 		 		$data['work'] = Work::find($parameter)->belongsToJob()->first();
 				$data['count'] = count(json_decode($data['work']->exercise_id,true));
+				//dd($data['count']);
 				if ($func == Self::FUNC_WORK_SCORE) {
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
@@ -547,6 +548,14 @@ class LearningCenterController extends Controller
     	$work_id = intval($input['work_id']);
     	$user = Auth::guard('student')->user();
     	$code = 200 ;
+    	$baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            $this->createBase($baseNum);
+            $db = DB::connection($db_name);
+        }
         $same = $db->table($user->id)->select('work_id')->where('work_id',$work_id)->where('parent_id','<>',NULL)->get()->toArray();
         if ($same) {
         	$code = 1;

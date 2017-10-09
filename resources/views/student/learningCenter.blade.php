@@ -105,12 +105,12 @@
 				margin-top: 20px;
 				display: none;
 			}
-			.answer-ka{
-    color: #168BEE;
-    border-bottom: 1px solid #eee;
-    padding: 7px 0;
-    margin-bottom: 20px;
-    font-size: 14px;
+			.answer-ka {
+			    color: #168BEE;
+			    border-bottom: 1px solid #eee;
+			    padding: 7px 0;
+			    margin-bottom: 20px;
+			    font-size: 14px;
 			}
 		</style>
 	</head>

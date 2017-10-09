@@ -373,9 +373,9 @@
 					<!--多空题-->
 					@if($data['exercises'][0]['categroy_id'] == 3)
 					<div>
-						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
+						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>,你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
 						</p>
-						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif，作答用时{{ $data['exercises'][0]['second'] }}秒。
+						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
 						<!-- <p>得分4分，总分10分</p> -->
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
