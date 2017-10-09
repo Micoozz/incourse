@@ -80,12 +80,8 @@ class LearningCenterController extends Controller
     	$courseAll = Course::all();//这里以后要区分年级的科目
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
          //判断是否是今天的作业，数据库和当前时间时间戳进行对比
-       //$date = strtotime(date('Y-m-d H-i-s'));//大于当前时间且小于截至时间的id
         $date = time();
-        // dump(date("Y-m-d H:i:s",$date));
-        // dump(date("Y-m-d H:i:s",Job::where("id",32)->first()->pub_time));
-        // dump(date("Y-m-d H:i:s",Job::where("id",32)->first()->deadline));
-        $job_list = array_column(Job::/*where('pub_time','<',$date)->*/where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
+        $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id', $job_list)->paginate(5);//显示所有的做作业
 	    $count = count($data);
         if ($func == Self::FUNC_STUDENT_NAME){
@@ -353,7 +349,6 @@ class LearningCenterController extends Controller
 		 			$grossScore += $exercise->score;
 		 		}
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		
 		 		if(is_int($accuracy)){
 					$accuracy = $accuracy;
 				}else{
@@ -500,22 +495,19 @@ class LearningCenterController extends Controller
         }
         return json_encode($code);
     }
-
     //同类型习题推送
     public function homotypology($exercises_id, $work_id, $accuracy, $increase){
     	$exercise_id = explode('&', $exercises_id);
     	$course = Work::find($work_id)->toArray()['course_id'];
     	$data = array();
-    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score')->whereIn('id', $exercise_id)->get();
+    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score','chapter_id')->whereIn('id', $exercise_id)->get();
     	$error_cate_arr = array();
     	foreach ($error_exercise_list as $exercise) {
     		$error_cate_arr[$exercise->categroy_id] = isset($error_cate_arr[$exercise->categroy_id]) ? $error_cate_arr[$exercise->categroy_id] : array();
-    		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score);
+    		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score, $exercise->chapter_id);
     	}
     	foreach ($error_cate_arr as $cate_id => $exe_id_list) {
-    		//dd($exe_id_list);
-    		//$errorsCount = count($exe_id_list[0]);
-    		$homotypology = Exercises::where(['chapter_id' => Work::find($work_id)->chapter_id,'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
+    		$homotypology = Exercises::where(['chapter_id' => $exe_id_list[2],'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
 			->whereNotIn('id', $exercise_id)->orderBy(\DB::raw('RAND()'))->take(1)->get();//查询出该错题的3道同类型习题
 			foreach ($homotypology as $key => $exercise) {
 				$categroy_id = Categroy::find($exercise->categroy_id)->id;

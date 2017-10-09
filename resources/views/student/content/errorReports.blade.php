@@ -313,7 +313,6 @@
 					</div>
 				</div>
 				@endif
-			
 				<div class="proper">
 					<!--连线题-->
 					<br>

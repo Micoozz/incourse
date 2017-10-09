@@ -221,7 +221,7 @@
                     </li>
                     @endif
                     <!--简答题-->
-                    @if($exercise['categroy_id'] == 10)
+                    @if($exercise['categroy_id'] == 10 || $exercise['categroy_id'] == 11)
                     <li data-id="{{ $exercise['id'] }}" class="exer-in-list">
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
@@ -401,7 +401,7 @@
                                 <span class="ic-blue">（2016 华东师大）（
                                     <span class="do-hw-type">计算题</span>
                                     ）</span>
-                                <span>计算下面各小题</span>
+                                <span>{!! $exercise['subject'] !!}</span>
                                 <div class="of-h border question-img">
                                     <img src="{{ asset('images/Cj_bg.png') }}" alt=""/>
                                 </div>
