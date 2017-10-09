@@ -58,7 +58,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                            <span>{{ $exercise['subject'] }}</span>
+                            <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <div>
                             <ul class="radio-wrap exer-list-ul dan-xuan-options">
@@ -86,7 +86,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                            <span>{{ $exercise['subject'] }}</span>
+                            <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <div>
                             <ul class="radio-wrap exer-list-ul">
@@ -153,7 +153,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                            <span>{{ $exercise['subject'] }}</span>
+                            <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <div class="answer-box">
                             <ul class="exer-list-ul sortable">
@@ -195,7 +195,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                            <span>{{ $exercise['subject'] }}</span>
+                            <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <div class="answer-box">
                             <div class="box_hpb">
@@ -228,7 +228,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" >{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                        <span>{{ $exercise['subject'] }}</span>
+                        <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <hr/>
                         <div class="answer-box">
