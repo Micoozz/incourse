@@ -503,7 +503,7 @@ $(function () {
     function blank_span(obj){
         $(obj).parents(".ic-editor").children(".editor-content").focus();
         var initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
-        document.execCommand("insertHTML", "false", '<span class="blank-item">空' + initNum + '</span>&nbsp;');
+        document.execCommand("insertHTML", "false", '<span class="blank-item">空' + initNum + '</span>');
         $(obj).parents(".ic-editor").find(".blank-item").attr("contenteditable", false);
 
         //获取题型
@@ -684,7 +684,6 @@ $(function () {
                         }
                         alert("上传成功");
                     }else{
-                        alert("1111")
                     }
                 }
             })

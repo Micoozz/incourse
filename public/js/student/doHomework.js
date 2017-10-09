@@ -1,5 +1,6 @@
 /************* doHomework.html ****************/
 $(function(){
+    console.log(courseId)
     //毫秒格式化为00:00
     function changeTime(millisecond){
         //计算"分：秒"
@@ -16,10 +17,10 @@ $(function(){
 
     //计算总时间
     var now = new Date().getTime();
-    var ic_start_time = sessionStorage.getItem("ic_start_time");
+    var ic_start_time = sessionStorage.getItem("ic_"+courseId+"_start_time");
     if(!ic_start_time){
         ic_start_time = now;
-        sessionStorage.setItem("ic_start_time",now);
+        sessionStorage.setItem("ic_"+courseId+"_start_time",now);
     }else {
         var timeString = changeTime(new Date().getTime() - ic_start_time);
         $(".time-string").text(timeString);
@@ -42,10 +43,10 @@ $(function(){
         var last = Math.round((current - obj_time.start_time)/1000);
         var ic_id;
         for( var k in window.sessionStorage){
-            if(k==("ic_"+obj_time.id)){
+            if(k==("ic_"+courseId+"_"+obj_time.id)){
                 ic_id=k;
             }else{
-                ic_id = sessionStorage.getItem("ic_"+obj_time.id);
+                ic_id = sessionStorage.getItem("ic_"+courseId+"_"+obj_time.id);
             }
         }
         if(ic_id){
@@ -54,7 +55,7 @@ $(function(){
             obj_time.last = last;
         }
         obj_time.start_time = current;
-        sessionStorage.setItem("ic_"+obj_time.id,JSON.stringify(obj_time));
+        sessionStorage.setItem("ic_"+courseId+"_"+obj_time.id,JSON.stringify(obj_time));
     }
 
     //刷新页面时计算单题时间
@@ -232,12 +233,16 @@ $(function(){
 
 
     //交卷
+    var isHandPaper = true;
     $("#handPaper").click(function(){
+        if(!isHandPaper){
+            return;
+        }
         $("body").removeAttr("onbeforeunload");
         var work_id = $("#work_id").attr("value");
         clearInterval(timer);
         var total = [];
-        total.total_time = parseInt((new Date().getTime() - sessionStorage.getItem("ic_start_time"))/1000);
+        total.total_time = parseInt((new Date().getTime() - sessionStorage.getItem("ic_"+courseId+"_start_time"))/1000);
 
         $(".do-hw .exercise-box .exer-in-list").each(function(i,item){
             var type = $(item).children(".hw-question").find(".do-hw-type").text();
@@ -384,8 +389,6 @@ $(function(){
         var param = clearUp(total); //传给后台的作业答案参数
         param._token = token;
         param.work_id = work_id;
-        console.log(param['data'][0]['parent_id']);
-        console.log(param)
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
@@ -395,6 +398,7 @@ $(function(){
                     window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id + "/" + accuracy + "/" + increase;
                 }
                 sessionStorage.clear();
+                isHandPaper = true;
             });
         }else{
             $.post("/homeworkScores",param,function(result){
@@ -403,6 +407,7 @@ $(function(){
                     window.location.href = "/learningCenter/" + course + "/homework/work_score/" + work_id;
                 }
                 sessionStorage.clear();
+                isHandPaper = true;
             });
         }
     });

@@ -490,6 +490,7 @@
     var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
     var matching =  $('#matching').attr('data-id');
     var ligature = $('.question_hpb').children('li').length;
+    var courseId = "{{$course}}";
     $(function(){
         var a = ''
         var c = ''

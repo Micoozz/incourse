@@ -567,31 +567,29 @@
 .blank-answer>span {position: absolute; top: 6px; left: 6px; border-right:1px solid #d9d9d9;}
 
 /*文本加上标点*/
-.ic-editor .totted-active {position: relative;  overflow: hidden;}
-.ic-editor .totted-active:before {
+.totted-active {position: relative;  overflow: hidden;}
+.totted-active:before {
 	content: ".";
 	width: 100%;
 	text-align: center;
 	position: absolute;
 	top: 5px;
-	margin-left: -4px;
 	font-weight: bold;
 }
 
 /*文本加下标点*/
-.ic-editor .up-totted-active {position: relative;  overflow: hidden;}
-.ic-editor .up-totted-active:before {
+.up-totted-active {position: relative;  overflow: hidden;}
+.up-totted-active:before {
 	content: ".";
 	width: 100%;
 	text-align: center;
 	position: absolute;
 	top: -14px;
-	/*left: 2px;*/
 	font-weight: bold;
 }
 
 /*下划线*/
-.ic-editor .underline-active {text-decoration: underline;}
+.underline-active {text-decoration: underline;}
 
 
 /*蓝色的"添加附件"*/
