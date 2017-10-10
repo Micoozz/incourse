@@ -17,10 +17,10 @@ $(function(){
 
     //计算总时间
     var now = new Date().getTime();
-    var ic_start_time = sessionStorage.getItem("ic_"+courseId+"_start_time");
+    var ic_start_time = sessionStorage.getItem("ic_start_time");
     if(!ic_start_time){
         ic_start_time = now;
-        sessionStorage.setItem("ic_"+courseId+"_start_time",now);
+        sessionStorage.setItem("ic_start_time",now);
     }else {
         var timeString = changeTime(new Date().getTime() - ic_start_time);
         $(".time-string").text(timeString);
@@ -43,10 +43,10 @@ $(function(){
         var last = Math.round((current - obj_time.start_time)/1000);
         var ic_id;
         for( var k in window.sessionStorage){
-            if(k==("ic_"+courseId+"_"+obj_time.id)){
+            if(k==("ic_"+obj_time.id)){
                 ic_id=k;
             }else{
-                ic_id = sessionStorage.getItem("ic_"+courseId+"_"+obj_time.id);
+                ic_id = sessionStorage.getItem("ic_"+obj_time.id);
             }
         }
         if(ic_id){
@@ -55,7 +55,7 @@ $(function(){
             obj_time.last = last;
         }
         obj_time.start_time = current;
-        sessionStorage.setItem("ic_"+courseId+"_"+obj_time.id,JSON.stringify(obj_time));
+        sessionStorage.setItem("ic_"+obj_time.id,JSON.stringify(obj_time));
     }
 
     //刷新页面时计算单题时间
@@ -242,7 +242,7 @@ $(function(){
         var work_id = $("#work_id").attr("value");
         clearInterval(timer);
         var total = [];
-        total.total_time = parseInt((new Date().getTime() - sessionStorage.getItem("ic_"+courseId+"_start_time"))/1000);
+        total.total_time = parseInt((new Date().getTime() - sessionStorage.getItem("ic_start_time"))/1000);
 
         $(".do-hw .exercise-box .exer-in-list").each(function(i,item){
             var type = $(item).children(".hw-question").find(".do-hw-type").text();

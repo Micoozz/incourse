@@ -170,14 +170,14 @@
     .unpublishing{
         float: right;
     }
-    .shade_box{
+    /* .shade_box{
         width: 100%;
         height: 100%;
         display: none;
         position: absolute;
         top: 0;
         left: 0;
-    }
+    } */
 </style>
 @endsection
 
@@ -197,9 +197,9 @@
                                placeholder=""/>
                     </div>
                 </div>
-                <div class="clear one-line select-action-box">
+                <!-- <div class="clear one-line select-action-box">
                     <span>所属章节：</span>
-
+                
                     <div class="f-l">
                         <div class="select-wrap">
                             <div class="select-form clear">
@@ -228,7 +228,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="clear one-line">
                     <span>截止时间：</span>
 
@@ -457,23 +457,11 @@
         }else{
             objJson={
                 'title':$(".ic-input.hw-title-input").val(),
-                'chapter':{
-                    'unit':$(".chapter").attr("data-u")?$(".chapter").attr("data-u"):"",
-                    'section':$(".trifle").attr("data-s")?$(".trifle").attr("data-s"):"",
-                },
                 "deadline":stringToTimeStamp($("#expiration-time .expiration-time-input").val()),
                 "dateTime":$("#expiration-time .expiration-time-input").val(),
                 "rulejob":$(".hw-content.border").val(),
                 'exercise':[]
             }
-        }
-
-        if(!$(".chapter").attr("data-u")){
-            alert("请填写所属章节");
-            return;
-        }else if(!$(".trifle").attr("data-s")){
-            alert("请填写所属小节");
-            return;
         }
         var href = $(obj).attr("data-href");
         sessionStorage.removeItem("addJob")
@@ -521,17 +509,12 @@
             sessionStorage.removeItem("addJob");
             var sessionStorageJson={
                 'title':sessionStorageData.title,
-                'chapter':{
-                    'unit':sessionStorageData.chapter.unit,
-                    'section':sessionStorageData.chapter.section,
-                },
                 "deadline":sessionStorageData.deadline,
                 "dateTime":sessionStorageData.dateTime,
                 "rulejob":sessionStorageData.rulejob,
                 'exercise':newArr
             }
             sessionStorage.setItem("addJob",JSON.stringify(sessionStorageJson))
-            disabledInput(sessionStorageData)
             $(".jobNum").text(exerciseArr.length+"/15题")
         })
     }
@@ -688,25 +671,13 @@
         })
         $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime);
         $(".hw-content.border").val(sessionStorageData.rulejob);
-        disabledInput(sessionStorageData)
         
-    }
-    function disabledInput(sessionStorageData){
-        if(sessionStorageData.exercise.length>0){
-            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",true).css({backgroundColor:"#ebebe4"});
-            $(".select-form .shade_box").css({display:"block"});
-            $(".select-form .ic-text").css({backgroundColor:"#ebebe4"})
-        }else{
-            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",false).css({backgroundColor:"#fff"});
-            $(".select-form .shade_box").css({display:"none"});
-            $(".select-form .ic-text").css({backgroundColor:"#fff"})
-        }
     }
 
     //必填
     function mustWrist(){
         if(!$(".ic-input.hw-title-input").val()){
-            isPublic = false;
+            isPublic = true;
             alert("请填写作业标题");
             return;
         }
@@ -744,8 +715,9 @@
         if(!isPublic){
             return;
         }
+        isPublic = false
         var j = publicClick();
-        $.ajax({
+        /*$.ajax({
             url:"/pubJob",
             type:"POST",
             data:j,
@@ -780,21 +752,33 @@
                         });
                     })
                 }
-                isPublic = true;
             }
-        })
+        })*/
+                isPublic = true;
     });
 
     //保存发布函数
     function publicClick(){
         mustWrist();
         var upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
+        if(upLoadJob.title == ""){
+            if($(".ic-input.hw-title-input").val() == ""){
+                isPublic = true;
+                alert("请选择作业标题");
+                return;
+            }else{
+                upLoadJob.title = $(".ic-input.hw-title-input").val()
+            }
+        }
+        upLoadJob.dateTime = $(".expiration-time-input").val()
+        upLoadJob.deadline = stringToTimeStamp($("#expiration-time .expiration-time-input").val())
+        if(upLoadJob.rulejob == ""){
+            upLoadJob.rulejob = $(".hw-content.border").val()
+        }
+        sessionStorage.removeItem("addJob");
+        sessionStorage.setItem("addJob",JSON.stringify(upLoadJob));
         var classId = "{{$class_id}}";
         var lastJob = {
-            'chapter':{
-                'unit':upLoadJob.chapter.unit,
-                'section':upLoadJob.chapter.section,
-            },
             "class":classId,
             "type":1,
             "title":upLoadJob.title,

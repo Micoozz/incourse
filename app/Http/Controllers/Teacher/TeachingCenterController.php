@@ -155,6 +155,8 @@ class TeachingCenterController extends TeacherController
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
             $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+        }elseif($action == self::ACT_MY_COLLECTION){
+            $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
         }
         foreach ($data as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
