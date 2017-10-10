@@ -717,7 +717,7 @@
         }
         isPublic = false
         var j = publicClick();
-        /*$.ajax({
+        $.ajax({
             url:"/pubJob",
             type:"POST",
             data:j,
@@ -752,9 +752,9 @@
                         });
                     })
                 }
-            }
-        })*/
                 isPublic = true;
+            }
+        })
     });
 
     //保存发布函数
