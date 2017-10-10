@@ -94,7 +94,8 @@
 						<td><span class="gray">待统计</span></td>
 						<td><span class="red">可批改</span></td>
 						<td class="ic-blue">
-							<span class="red correction_pg"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+							<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span>&nbsp;  &nbsp;
+							<span class="correction_pg blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span>
 						</td>
 					</tr>
 					@endforeach
@@ -106,7 +107,7 @@
 						<td>80%</td>
 						<td><span class="gray">已完成</span></td>
 						<td class="ic-blue">
-							<span class="blue see"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+							<span class="blue see"><i class="fa fa-eye"></i>&nbsp;查看</span>
 						</td>
 					</tr>
 				</tbody>

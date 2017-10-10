@@ -131,6 +131,9 @@
     .TheClassCheck ul li.active,.TheClassCheck ul li:hover{
         background:#e0eeff;
     }
+    .TheClassCheck ul li.active{
+        color: #168bee;
+    }
     .classFooterBtn{
         position: absolute;
         bottom: 0;
@@ -626,6 +629,7 @@
             data:getWork,
             type:"POST",
             success:function(data){
+                console.log(data)
                 data = JSON.parse(data);
                 for(var i=0;i<data.length;i++){
                     $(".work_tbody").append(htmlModule(data[i],i));
@@ -702,6 +706,7 @@
     //必填
     function mustWrist(){
         if(!$(".ic-input.hw-title-input").val()){
+            isPublic = false;
             alert("请填写作业标题");
             return;
         }
@@ -734,7 +739,11 @@
     });
 
     //发布
+    var isPublic = true;
     $("#public").click(function(){
+        if(!isPublic){
+            return;
+        }
         var j = publicClick();
         $.ajax({
             url:"/pubJob",
@@ -771,6 +780,7 @@
                         });
                     })
                 }
+                isPublic = true;
             }
         })
     });

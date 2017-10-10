@@ -104,6 +104,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/doHomework/{work_id?}','student\LearningCenterController@doHomework');
 		Route::get('/homotypology/{exercise_id?}/{work_id?}/{accuracy?}/{increase?}','student\LearningCenterController@homotypology');//同类型习题推送
 		Route::get('/workScore/{work_id}','student\LearningCenterController@workScore');
+		Route::post('/sameScore','student\LearningCenterController@sameScore');
 
 
 		Route::get('/learningCenter/{course?}/{mod?}/{func?}/{parameter?}/{exercise_id?}/{several?}','student\LearningCenterController@learningCenter');
