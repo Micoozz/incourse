@@ -521,7 +521,7 @@ class LearningCenterController extends Controller
 				shuffle($options);
 			    array_push($data, array(
 			    	'id' => $exercise->id,
-			    	'parent_id' => $exe_id_list[0][$key],
+			    	'parent_id' => $exe_id_list[0],
 			    	'categroy_id' => $categroy_id,
 					'categroy_title' => $categroy_title,
 					'subject' => $objective->subject,

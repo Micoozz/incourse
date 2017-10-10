@@ -382,7 +382,6 @@ $(function(){
         var store = window.sessionStorage;
         for(var key in store){
             if(Number(key.slice(3))){
-                console.log(key);
                 total[Number(key.slice(3))-1].last = JSON.parse(store[key]).last;
             }
         }
