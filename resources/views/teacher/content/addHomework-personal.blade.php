@@ -352,7 +352,7 @@
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-
+    var course =  '{{$course_id}}'
     function myBrowser(){
         var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
         var isOpera = userAgent.indexOf("Opera") > -1;
@@ -780,6 +780,7 @@
         var classId = "{{$class_id}}";
         var lastJob = {
             "class":classId,
+            "course":course,
             "type":1,
             "title":upLoadJob.title,
             "exercise_id":upLoadJob.exercise,
