@@ -114,9 +114,9 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/studentSelectClass','student\LearningCenterController@studentSelectClass');
 
 		//习题本
-		Route::get('/review','student\LearningCenterController@review');
-		Route::get('/syncExercise','student\LearningCenterController@syncExercise');//同步练习
-		Route::get('/foreExercise','student\LearningCenterController@foreExercise');//预习
+		Route::get('/review/{course?}','student\LearningCenterController@review');
+		Route::get('/syncExercise/{course?}','student\LearningCenterController@syncExercise');//同步练习
+		Route::get('/foreExercise/{course?}','student\LearningCenterController@foreExercise');//预习
 		Route::get('/errorsExercise','student\LearningCenterController@errorsExercise');//错题本
 		Route::get('/collect','student\LearningCenterController@collect');//收藏
 	});

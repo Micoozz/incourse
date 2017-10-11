@@ -79,7 +79,6 @@ class LearningCenterController extends Controller
     	$user = Auth::guard('student')->user();
     	$courseAll = Course::all();//这里以后要区分年级的科目
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
-         //判断是否是今天的作业，数据库和当前时间时间戳进行对比
         $date = time();
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
 	    $data = Work::where(['student_id' => $user->id])->whereIn('job_id', $job_list)->paginate(5);//显示所有的做作业
@@ -89,8 +88,10 @@ class LearningCenterController extends Controller
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
         	$sameSecond = 0;
 			foreach ($data as $work) {
-				$minutia = Chapter::find($work->chapter_id);
-				$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
+				//dd($work->belongsToJob()->first()->exercise_id);
+/*				$minutia = Chapter::find($work->chapter_id);
+				$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);*/
+				$work->count = count(implode(',', json_decode($work->belongsToJob()->first()->exercise_id)));
 		        $work->title = $work->belongsToJob()->first()->title;
 		        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 		        $work->deadline = $work->belongsToJob()->first()->deadline;
@@ -115,13 +116,13 @@ class LearningCenterController extends Controller
 		        }	
 			}
 		}elseif ($func == Self::FUNC_ROUTINE_WORK){
-			$chapter_id = Work::find($parameter)->chapter_id;
+/*			$chapter_id = Work::find($parameter)->chapter_id;
 			$minutia =  Chapter::find($chapter_id);
-			$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);
+			$chapter = Chapter::where('id',$minutia->parent_id)->get(['title']);*/
 			$data['work'] = Work::find($parameter)->belongsToJob()->first();
 			$data['count'] = count($data['work']->exercise_id);
 		}
-		return view('student.todayWork',compact('courseAll', 'courseFirst', 'data','count', 'func', 'parameter', 'user', 'minutia', 'chapter', 'workCount'));
+		return view('student.todayWork',compact('courseAll', 'courseFirst', 'data','count', 'func', 'parameter', 'user',/* 'minutia', 'chapter', */'workCount'));
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::guard('student')->user();
@@ -143,8 +144,10 @@ class LearningCenterController extends Controller
  				$sameSecond = 0;
 		    	$data = Work::where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
 				foreach ($data as $work) {
-					$minutia = Chapter::find($work->chapter_id);
-					$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);
+/*					$minutia = Chapter::find($work->chapter_id);
+					$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);*/
+					$work->count = count(implode(',', json_decode($work->belongsToJob()->first()->exercise_id)));
+		       		$work->title = $work->belongsToJob()->first()->title;
 			        $work->title = $work->belongsToJob()->first()->title;
 			        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
@@ -169,9 +172,9 @@ class LearningCenterController extends Controller
 			        }	
 				}
 		 	}else if ($func == Self::FUNC_ROUTINE_WORK ||  $func == Self::FUNC_WORK_SCORE) {
-		 		$work = Work::select('chapter_id', 'sub_time', 'start_time', 'course_id')->find($parameter);
-				$minutia =  Chapter::find($work->chapter_id);
-				$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);
+		 		$work = Work::select(/*'chapter_id', */'sub_time', 'start_time', 'course_id')->find($parameter);
+/*				$minutia =  Chapter::find($work->chapter_id);
+				$chapter = Chapter::where('id', $minutia->parent_id)->get(['title']);*/
 				$data['course_id'] = $work->course_id;
 				$data['sub_time'] = $work->sub_time;
 		 		$data['work'] = Work::find($parameter)->belongsToJob()->first();
@@ -320,7 +323,7 @@ class LearningCenterController extends Controller
                     'second' => $workFirst->second,
                     'sameScore' => $workFirst->score,
                     ));
-		 		}else{
+		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			dd("此处是主观题");
 		 		}
 		 	
@@ -376,7 +379,7 @@ class LearningCenterController extends Controller
 		 	}
 
         }
-    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'minutia', 'chapter', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
+    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user',/*'minutia', 'chapter', */'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
     }
     //做作业
     public function doHomework($work_id = NULL){
@@ -457,7 +460,9 @@ class LearningCenterController extends Controller
         foreach ($input['data'] as $answer) {
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-        		$db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer->id, 'answer' => json_encode($answer->answer, JSON_UNESCAPED_UNICODE), 'second' => $answer->last, 'sort' => json_encode($answer['option'], JSON_UNESCAPED_UNICODE)]);
+        		$db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
+        			'answer' => json_encode($answer->answer, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => 0,
+        			'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         		$score = 0;
         		$objective = $exercise->hasManyObjective()->first();
@@ -589,7 +594,7 @@ class LearningCenterController extends Controller
     	$user = Auth::guard('student')->user();
     	$input = Input::get();
     	if (Session::get('milkcaptcha') != $input['data']['code']) { 
-    		$result = "201";
+    		$result = 201;
     	}else {
 			if (Hash::check($input['data']['pwd'], $user->password)) {
 				$newPwd = Student::find($user->id);
@@ -601,42 +606,115 @@ class LearningCenterController extends Controller
     	}
     	return json_encode($result);
     } 
-    //习题册
-     public function review($course = 1){
+    //习题册 学生的复习
+    public function review($course = 1){
     	$user = Auth::guard('student')->user();
-    	$workChapter = Work::where(['student_id' => $user->id, 'course_id' => $course ])->get(['chapter_id'])->toArray();//作业的小节
-    	$minutiaList = Chapter::where('course_id', $course)->whereIn('id', $workChapter)->get()->toArray();//查询出小节的父id
-    	$minutia_parentId = array_column($minutiaList, 'parent_id');//所有这位学生作业的parent_id
-    	$chapter = Chapter::where('course_id', $course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
-    	$data = array();
-    	foreach ($chapter as $key => $item) {
-    		$data[$key]['id'] = $item->id;
-    		$data[$key]['title'] = $item->title;
-    		$data[$key]['minutia'] = array();
-    		foreach ($minutiaList as  $k => $minutia) {
-    			$minutiaPat = Chapter::find($minutia->id)->parent_id; 
-    			if ($minutiaPat == $item->id ) {
-    				$data[$key]['minutia'][$k]['id'] = $minutia->id;
-    				$data[$key]['minutia'][$k]['title'] = $item->title;
-    			}
-    		}
-    	}
-    	return json_encode($data);
+    	$workId = Work::select('work_id')->where(['student_id' => $user->id, 'course_id' => $course])->get()->toArray();//查询出这个学生所有的作业work_id;
+    	if (empty($workId)) {//该学生还没有作业
+    		$result = 201;
+    	}else{
+    		$baseNum = (int)($user->id/1000-0.0001)+1;
+        	$db_name = 'mysql_stu_work_info_'.$baseNum;
+	        try{
+            	$db = DB::connection($db_name);
+	        }catch(\Exception $e){
+	            $this->createBase($baseNum);
+	            $db = DB::connection($db_name);
+	        }
+	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
+	        foreach ($workInfo as $exe_id) {
+	        	$chapter_id = Exercises::find($exe_id)->chapter_id;//查询出这个作业的chapter
+	        	$minutia = Chapter::select('id', 'title', 'parent_id')->where('id', $chapter_id)->first();//查询出所有的小节
+	        	$chapter = Chapter::select('id', 'title')->where('id', $minutia->parent_id)->first();
+	        	$result = array('id' => $chapter->id, 'title' => $chapter->title,'minutia' => array('id' => $minutia->id, 'title' => $minutia->title));
+	        }
+	        return json_encode($result);
+		}
+
     }
-    //同步练习
+
+    //  public function review($course = 1){
+    // 	$user = Auth::guard('student')->user();
+    // 	$workChapter = Work::where(['student_id' => $user->id, 'course_id' => $course])->get(['chapter_id'])->toArray();//查询出所有的作业
+    // 	$minutiaList = Chapter::where('course_id', $course)->whereIn('id', $workChapter)->get()->toArray();//查询出小节
+    // 	$minutia_parentId = array_column($minutiaList, 'parent_id');//所有这位学生作业的parent_id
+    // 	$chapter = Chapter::where('course_id', $course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
+    // 	$data = array();
+    // 	foreach ($chapter as $key => $item) {
+    // 		$data[$key]['id'] = $item->id;
+    // 		$data[$key]['title'] = $item->title;
+    // 		$data[$key]['minutia'] = array();
+    // 		foreach ($minutiaList as  $k => $minutia) {
+    // 			$minutiaPat = Chapter::find($minutia->id)->parent_id; 
+    // 			if ($minutiaPat == $item->id ) {
+    // 				$data[$key]['minutia'][$k]['id'] = $minutia->id;
+    // 				$data[$key]['minutia'][$k]['title'] = $item->title;
+    // 			}	
+    // 		}
+    // 	}
+    // 	return json_encode($data);
+    // }
+    //习题册 学生的同步练习
     public function syncExercise($course = 1){
     	$user = Auth::guard('student')->user();
-    	$minutia = Work::where(['student_id' => $user->id,'course_id' => $course])->first();//查询老师最新布置的作业
-    	$chapter = Chapter::where(['id' => $minutia->chapter_id,'course_id' =>$course])->first();//查询出该小节的大章节
-    	$data =array('id' => $chapter->id,'title' => $chapter->title,'minutia' => array('id' => $minutia->id,'title' => $minutia->title));
+    	$workId = work::select('work_id')->where(['student_id' => $user->id, 'course_id' => $course])->first()->toArray();//查寻老师最新布置的作业
+    	if (empty($workId)){
+    		$result = 201;
+    	}else{
+    		$baseNum = (int)($user->id/1000-0.0001)+1;
+        	$db_name = 'mysql_stu_work_info_'.$baseNum;
+	        try{
+            	$db = DB::connection($db_name);
+	        }catch(\Exception $e){
+	            $this->createBase($baseNum);
+	            $db = DB::connection($db_name);
+	        }
+    	    $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
+	        foreach ($workInfo as $exe_id) {
+	        	$chapter_id = Exercises::find($exe_id)->chapter_id;//查询出这个作业的chapter
+	        	$minutia = Chapter::select('id', 'title', 'parent_id')->where('id', $chapter_id)->first();//查询出所有的小节
+	        	$chapter = Chapter::select('id', 'title')->where('id', $minutia->parent_id)->first();
+	        	$result = array('id' => $chapter->id, 'title' => $chapter->title,'minutia' => array('id' => $minutia->id, 'title' => $minutia->title));
+	        }
+    	}
+    	return json_encode($result);
     }
-    //预习
+/*    public function syncExercise($course = 1){
+    	$user = Auth::guard('student')->user();
+    	$minutia = Work::where(['student_id' => $user->id,'course_id' => $course])->first();//查询老师最新布置的作业
+    	if (empty($minutia)) {
+    		$result = 201;
+    	}else{
+    		$chapter = Chapter::where(['id' => $minutia->chapter_id,'course_id' =>$course])->first();//查询出该小节的大章节
+    		$result = array('id' => $chapter->id,'title' => $chapter->title,'minutia' => array('id' => $minutia->id,'title' => $minutia->title));
+    	}
+    	return json_encode($result);//$result = 1 该老师还未布置作业 
+    }*/
+    //习题册 学生的预习
     public function foreExercise($course = 1){
+    	$user = Auth::guard('student')->user();
+    	$workId = Work::select('work_id')->where(['student_id' => $user->id,'course_id' => $course])->get()->toArray();//查询出所有作业
+    	if (empty($workId)) {
+    		$result = 201;
+    	}else{
+    		$baseNum = (int)($user->id/1000-0.0001)+1;
+        	$db_name = 'mysql_stu_work_info_'.$baseNum;
+	        try{
+            	$db = DB::connection($db_name);
+	        }catch(\Exception $e){
+	            $this->createBase($baseNum);
+	            $db = DB::connection($db_name);
+	        }
+	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
+
+    	}
+    }
+   /* public function foreExercise($course = 1){
     	$user = Auth::guard('student')->user();
     	$minutia_id = Work::where(['student_id' => $user->id,'course_id' => $course])->get()->pluck('Chapter_id');//查询出所有作业
     	$minutia_parentId = Chapter::where('course_id',$course)->whereIn('id',$minutia_id)->get()->pluck('parent_id');//查询出小节的父id
     	$chapter = Chapter::where('course_id',$course)->whereNotIn('id',$minutia_parentId)->get();//查询出除了复习的所有大章节
-    }
+    }*/
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2){
         $data = array();
