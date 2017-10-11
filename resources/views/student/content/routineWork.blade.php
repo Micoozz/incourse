@@ -14,3 +14,10 @@
 		</div>
 	</div>
 </div>
+<script>
+	var skip = sessionStorage.getItem("skip");
+	sessionStorage.clear();
+	if(skip){
+		sessionStorage.setItem("skip",skip);
+	}
+</script>
