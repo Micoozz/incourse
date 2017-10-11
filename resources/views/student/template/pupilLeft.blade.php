@@ -5,7 +5,7 @@
 			<li><a href="/learningCenter">作业本</a></li>
 		@endif
 		<li><a href="#">资料库</a></li>
-		<li><a href="#">习题册</a></li>
+		<li><a href="/review/{{ $courseFirst[0]['id'] }}">习题册</a></li>
 		<li><a href="#">预约老师</a></li>
 		<li><a href="#">课程大纲</a></li>
 	</ul>
