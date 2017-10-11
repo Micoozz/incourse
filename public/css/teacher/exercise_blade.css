@@ -1,0 +1,115 @@
+.addBtnBox{
+    cursor: pointer;
+}
+label.btnLabel {
+    cursor: pointer;
+}
+.seeBox{
+    width: 100%;
+    height: 100%;
+    padding: 40px 0;
+    position: relative;
+}
+.jobLists{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding:46px 32px 40px;
+}
+.seeHead{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    padding: 11px 20px 0;
+    top: 0;
+    left: 0;
+}
+.seeTitle{
+    line-height: 18px;
+    font-size: 14px;
+    color: #419bf9;
+}
+.seeHead > div{
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 11px;
+    position: relative;
+}
+.seeHead > div .deleteJobs{
+    top: 0;
+    right: 0;
+    display: block;
+}
+.seeBottom{
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.seeBottom button{
+    width: 60px;
+    height: 28px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -30px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 28px;
+    color: #fff;
+    background-color: #108EE9;
+}
+.exer-list-ul li{
+    padding: 5px 0;
+}
+.deleteJobs{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    cursor: pointer;
+}
+.deleteJobs s{
+    width: 100%;
+    height: 2px;
+    background-color: #d9d9d9;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+}
+.deleteJobs s:nth-child(1){
+    transform: rotate(45deg);
+}
+.deleteJobs s:nth-child(2){
+    transform: rotate(-45deg);
+}
+code{
+    background:none;
+}
+.list-group-item{
+    border: none;
+    background-color: none;
+}
+.exerciseBbase{
+    margin-right: -1px;
+}
+.isMark a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.ic-inline.collect a:hover,.ic-inline.collect a:focus{
+    color:#168bee;
+}
+a.collect{
+    margin-left: 15px;
+}
+.ic-inline.collect li{
+    cursor: default;
+}

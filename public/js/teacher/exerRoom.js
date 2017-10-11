@@ -11,7 +11,6 @@ $(function(){
         $(".all-exer,.myCollect").hide();
         $(".my-exer-room-head .isMark").removeClass("active");
         $(".my-exer-room-head .doMark").addClass("active");
-        $(".ls_hr").addClass("active");
     });
 
     //"我收藏的"按钮
@@ -20,7 +19,6 @@ $(function(){
         $(".myCollect").show();
         $(".my-exer-room-head .isMark").removeClass("active");
         $(".my-exer-room-head .notMark").addClass("active");
-        $(".ls_hr").addClass("active");
     });
 
 

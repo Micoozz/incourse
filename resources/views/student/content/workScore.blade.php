@@ -57,4 +57,8 @@
 		</div>
 	</div>
 </div>
-
+<script>
+	var skip = sessionStorage.getItem("skip");
+	sessionStorage.clear();
+	sessionStorage.setItem("skip",skip);
+</script>

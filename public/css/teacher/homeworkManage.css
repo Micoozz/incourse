@@ -303,7 +303,7 @@ body .lhgcal {
 .hw-list {
     position: fixed;
     right: 50%;
-    top: 500px;
+    top: 450px;
     margin-right:-570px;
     z-index: 300;
     width: 204px;

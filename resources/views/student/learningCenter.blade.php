@@ -67,6 +67,7 @@
 				line-height: 32px;
 				border-radius: 16px;
 				cursor: pointer;
+				margin-bottom: 10px;
 			}
 
 			.error-answer>ul>.bj-img1{
