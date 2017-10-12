@@ -3,8 +3,8 @@
     <table border="" cellspacing="" cellpadding="" class="title">
         <tr>
             <th>作业名称</th>
-            <th>章节</th>
             <th>截止时间&nbsp;&nbsp;<i class="fa fa-unsorted"></i></th>
+            <th>习题练习</th>
             <th>得分</th>
             <th>耗时</th>
             <th>操作</th>
@@ -30,19 +30,19 @@
                 @else 
                     src="{{ asset('images/users.png') }}" 
                 @endif />&nbsp;&nbsp; 
-                {{ date('m月d日',$work->belongsToJob->pub_time) }}
+                {{ date('m月d日',$work->pub_time) }}
             </td>
-            <td>{{ $chapter[0]->title }}  {{ $minutia->title }}</td>
-            @if(time() > $work->belongsToJob->deadline)
+            @if(time() > $work->deadline)
                 <td style="color: red">
-                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                {{ date('m月d日 h:i',$work->deadline) }}
                     <span>(超时)</span>
                 </td>
             @else
                 <td>
-                {{ date('m月d日 h:i',$work->belongsToJob->deadline) }}
+                {{ date('m月d日 h:i',$work->deadline) }}
                 </td>
             @endif
+            <td>{{ $work->count }}道</td>
             <td>
             @if($work->status == 0)
                 未答题

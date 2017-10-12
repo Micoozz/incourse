@@ -155,6 +155,8 @@ class TeachingCenterController extends TeacherController
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
             $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+        }elseif($action == self::ACT_MY_COLLECTION){
+            $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
         }
         foreach ($data as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
@@ -572,6 +574,7 @@ class TeachingCenterController extends TeacherController
             $job = new Job;
             $job->teacher_id = $user->id;
             $job->class_id = intval($input['class']);
+            $job->course_id = intval($input['course']);
             $job->title = $input['title'];
             $job->job_type = intval($input['type']);
             $job->score = 0; //intval($input['score'])*100;
@@ -614,7 +617,7 @@ class TeachingCenterController extends TeacherController
                 $work = new Work;
                 $work->student_id = $stu_id;
                 $work->job_id = $job->id;
-                $work->course_id = Chapter::find($job->chapter_id)->course_id;
+                $work->course_id = $job->course_id;
                 $work->score = 0;
                 $work->status = 0;
                 $work->start_time = 0;

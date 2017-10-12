@@ -655,7 +655,7 @@ $(function () {
         if(id != ""){
             allExer.exercise.exe_id=id;
         }
-
+        console.log(allExer)
         //判断题目是否漏填
         if(exerIsFill(allExer.exercise)){
             //向后台发送题目
@@ -677,9 +677,13 @@ $(function () {
                         }
                         var operationID = $("#operation_this_job").attr("data-id");
                         if(operationID == "" || !operationID){
+                            //上传作业 --> 习题库
+                            window.location.href = "/exercise/"+classId+"/"+courseId
                         }else if(operationID == "workUpLoad"){
-                           window.location.href = "/addHomework-personal/"+classId+"/"+courseId
+                            //上传作业 --> 添加作业
+                            window.location.href = "/addHomework-personal/"+classId+"/"+courseId
                         }else{
+                            //上传作业 --> 我的上传
                             window.location.href = "/exercise/"+classId+"/"+courseId+"/my-upload";
                         }
                         alert("上传成功");
@@ -836,7 +840,12 @@ function getExercises(obj){
 			exer.answer = arr;
 		}else if(type==="判断题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
-			exer.answer = $(item).find(".pan-duan").hasClass("rightActive") ? "1" : $(item).find(".pan-duan").hasClass("wrongActive") ? "0" : "";
+            /*if(!$(item).find(".pan-duan").hasClass("rightActive") && !$(item).find(".pan-duan").hasClass("wrongActive")){
+                alert("请选择判断题答案");
+                return;
+            }*/
+			arr.push($(item).find(".pan-duan").hasClass("rightActive") ? 1 : 0);
+            exer.answer = arr;
 		}else if(type==="连线题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			var right = [];
@@ -922,7 +931,12 @@ function getExercises(obj){
 					exer_child.answer = arr_child;
 				}else if(type_child === "判断题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
-					exer_child.answer = $(n).find(".pan-duan").hasClass("rightActive") ? "1" : $(n).find(".pan-duan").hasClass("wrongActive") ? "0" : "";
+					arr_child.push($(n).find(".pan-duan").hasClass("rightActive") ? 1 : 0);
+                    /*if(!$(n).find(".pan-duan").hasClass("rightActive") && !$(n).find(".pan-duan").hasClass("wrongActive")){
+                        alert("请选择判断题答案");
+                        return;
+                    }*/
+                    exer_child.answer = arr_child;
 				}else if(type_child === "排序题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
 					$(n).find(".pai-xu-option input").each(function(i,n){
