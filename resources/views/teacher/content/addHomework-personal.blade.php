@@ -13,12 +13,22 @@
     }
     .disSelsect{
         padding-top: 10px;
-        overflow: hidden;
-        transition: height 0.5s;
+        transition: all 0.5s;
         cursor: default;
+        overflow-y: hidden;
+        overflow-x: visible;
     }
     .disSelsect.active{
         height: 0!important;
+    }
+    .disSelsectBox{
+        width: 600px;
+        margin-left: -170px;
+        position: relative;
+        padding-left: 170px;
+        overflow: hidden;
+        margin-right: -100px;
+        padding-right: 100px;
     }
     .work_tbody tr td{
         vertical-align:top;
@@ -170,13 +180,58 @@
     .unpublishing{
         float: right;
     }
-    .shade_box{
+    /* .shade_box{
         width: 100%;
         height: 100%;
         display: none;
         position: absolute;
         top: 0;
         left: 0;
+    } */
+    .chapterBox{
+        width:100%;
+        height:24px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: none;
+        cursor: default;
+    }
+    .chapterBox .chapterBtn{
+        display: block;
+        color: #168bee;
+        height: 24px;
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid #168bee;
+        padding:0 20px 0 50px;
+        position: relative;
+    }
+    .chapterTitle{
+        display: inline-block;
+        width: 40px;
+        line-height: 16px;
+        position: absolute;
+        top: 4px;
+        left: 5px;
+    }
+    .chapterContent{
+        display: inline-block;
+        height: 24px;
+        width: 300px;
+        line-height: 16px;
+        text-align: center;
+        margin-top: 0;
+    }
+    .chapterIcon{
+        display: inline-block;
+        width: 15px;
+        text-align: center;
+        line-height: 16px;
+        position: absolute;
+        top: 4px;
+        right: 5px;
+        cursor: pointer;
     }
 </style>
 @endsection
@@ -197,9 +252,9 @@
                                placeholder=""/>
                     </div>
                 </div>
-                <div class="clear one-line select-action-box">
+                <!-- <div class="clear one-line select-action-box">
                     <span>所属章节：</span>
-
+                
                     <div class="f-l">
                         <div class="select-wrap">
                             <div class="select-form clear">
@@ -228,7 +283,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="clear one-line">
                     <span>截止时间：</span>
 
@@ -249,7 +304,18 @@
                 </div>
                 <div class="clear one-line">
                     <span>添加习题：</span>
+                     <!--没习题的模板-->
+                    <div class="f-l p-r no-exer">
+                        <a id="personHw-uploadExer" class="ic-blueB-btn personHw" data-href="/uploadExercise/{{$class_id}}/{{$course_id}}/workUpLoad">上传习题</a>
+                        <a id="personHw-checkExercise" class="ic-blueB-btn personHw" data-href="/exercise/{{$class_id}}/{{$course_id}}">题库选题</a>
 
+                        <!--"添加习题" 页面引导-->
+                        <!-- <div class="p-a guide">
+                            <img src="../../images/add_exer.jpg" alt=""/>
+
+                            <div class="p-a"></div>
+                        </div> -->
+                    </div>
                     <!--有习题的模板-->
                     <div class="has-exer">
                         <table class="d-b of-h border person-exer-list">
@@ -275,18 +341,7 @@
                         </div>
                     </div>
 
-                    <!--没习题的模板-->
-                    <div class="f-l p-r no-exer">
-                        <a id="personHw-uploadExer" class="ic-blueB-btn personHw" data-href="/uploadExercise/{{$class_id}}/{{$course_id}}/workUpLoad">上传习题</a>
-                        <a id="personHw-checkExercise" class="ic-blueB-btn personHw" data-href="/exercise/{{$class_id}}/{{$course_id}}">题库选题</a>
-
-                        <!--"添加习题" 页面引导-->
-                        <!-- <div class="p-a guide">
-                            <img src="../../images/add_exer.jpg" alt=""/>
-
-                            <div class="p-a"></div>
-                        </div> -->
-                    </div>
+                   
                 </div>
             </div>
 
@@ -352,7 +407,7 @@
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-
+    var course =  '{{$course_id}}'
     function myBrowser(){
         var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
         var isOpera = userAgent.indexOf("Opera") > -1;
@@ -437,15 +492,15 @@
     //上传习题
     $("#personHw-uploadExer").click(function(){
         var that = this;
-        layui.use("layer",function(){
+        setStorage(that)
+        /*layui.use("layer",function(){
             layer.confirm('是否确定您的填写？', {
                 btn: ['确定','取消'] //按钮
             }, function(){
-                setStorage(that)
             }, function(){
                 return;
             });
-        })
+        })*/
     })
 
     //点击上传习题和题库选题函数
@@ -457,23 +512,11 @@
         }else{
             objJson={
                 'title':$(".ic-input.hw-title-input").val(),
-                'chapter':{
-                    'unit':$(".chapter").attr("data-u")?$(".chapter").attr("data-u"):"",
-                    'section':$(".trifle").attr("data-s")?$(".trifle").attr("data-s"):"",
-                },
                 "deadline":stringToTimeStamp($("#expiration-time .expiration-time-input").val()),
                 "dateTime":$("#expiration-time .expiration-time-input").val(),
                 "rulejob":$(".hw-content.border").val(),
                 'exercise':[]
             }
-        }
-
-        if(!$(".chapter").attr("data-u")){
-            alert("请填写所属章节");
-            return;
-        }else if(!$(".trifle").attr("data-s")){
-            alert("请填写所属小节");
-            return;
         }
         var href = $(obj).attr("data-href");
         sessionStorage.removeItem("addJob")
@@ -484,15 +527,15 @@
     //题库选题
     $("#personHw-checkExercise").click(function(){
         var that = this
-        layui.use("layer",function(){
+        setStorage(that);
+        /*layui.use("layer",function(){
             layer.confirm('是否确定您的填写？',{
                 btn: ['确定','取消'] //按钮
             }, function(){
-                setStorage(that);
             }, function(){
                 return;
             });
-        })
+        })*/
     })
 
     //获取本地sessionStorage数据
@@ -521,17 +564,12 @@
             sessionStorage.removeItem("addJob");
             var sessionStorageJson={
                 'title':sessionStorageData.title,
-                'chapter':{
-                    'unit':sessionStorageData.chapter.unit,
-                    'section':sessionStorageData.chapter.section,
-                },
                 "deadline":sessionStorageData.deadline,
                 "dateTime":sessionStorageData.dateTime,
                 "rulejob":sessionStorageData.rulejob,
                 'exercise':newArr
             }
             sessionStorage.setItem("addJob",JSON.stringify(sessionStorageJson))
-            disabledInput(sessionStorageData)
             $(".jobNum").text(exerciseArr.length+"/15题")
         })
     }
@@ -553,7 +591,7 @@
                "</td>";
         html += "<td class='personHw-type'>"+data.cate_title+"</td>";
         html += "<td>" +
-            "<span class='subject_box subject_box_noActive'>"+data.subject+"</span>" +
+            "<span class='subject_box subject_box_noActive'>"+data.subject+"</span><div class='disSelsectBox' style='height: 0;'>" +
             "<div class='disSelsect active'>" +
             "<ul class='radio-wrap exer-list-ul'>";
             if(data.cate_title == "单选题" || data.cate_title == "多选题"){
@@ -616,8 +654,9 @@
             }
         html += "</ul>"+
             "</div>"+
+            "<div class='chapterBox'><span class='chapterBtn' style='width: 70px;'><span  class='chapterTitle'>知识点</span><span class='chapterContent'></span><span  class='fa chapterIcon fa-angle-double-right'></span></span></div></div>"+
             "</td>"+
-            "<td valign='top'><i class='fa is-spread fa-angle-down'></i></td>"
+            "<td valign='top'><i class='fa is-spread fa-angle-down'></i></td>"+
             "</tr>";
         return html;
     }
@@ -644,13 +683,34 @@
                     });
                     $(this).find(".disSelsect").toggleClass("active");
                     if($(this).find(".disSelsect").hasClass("active")){
+                        $(this).find(".chapterBox").css({display:"none"});
                         $(this).find(".fa.is-spread").removeClass("fa-angle-up").addClass("fa-angle-down");
                         $(".subject_box").removeClass("subject_box_active").addClass("subject_box_noActive");
+                        $(this).find(".chapterBtn").css({width:'70px'},500);
+                        $(this).find(".chapterIcon").removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+                        $(this).find(".disSelsectBox").animate({height:0},500);
                     }else{
                         $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
                         $(".subject_box").removeClass("subject_box_noActive").addClass("subject_box_active");
+                        $(this).find(".disSelsectBox").animate({height:($(this).find("ul").height()+34)},500);
+                        var that = this;
+                        setTimeout(function(){
+                            $(that).find('.chapterBox').css({display:'block'});
+                        },500)
+                        
                     }
                 });
+                $(".chapterBox").on("click",".chapterIcon",function(e){
+                    e.stopPropagation();
+                    if($(this).hasClass("fa-angle-double-right")){
+                        $(this).parent().animate({width:'370px'},500);
+                        $(this).removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
+                    }else{
+                        $(this).parent().animate({width:'70px'},500);
+                        $(this).removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+                    }
+                    
+                })
                 $("#all-checked").click(function(){
                     if($(this).is(":checked")){
                         $(".spread.tdBtn").each(function(j,trList){
@@ -663,7 +723,7 @@
                     }
                     
                 })
-                $(".checkJob").click(function(e){
+                $(".checkJob,.chapterBox").click(function(e){
                     e.stopPropagation();
                 })
             }
@@ -688,25 +748,12 @@
         })
         $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime);
         $(".hw-content.border").val(sessionStorageData.rulejob);
-        disabledInput(sessionStorageData)
         
     }
-    function disabledInput(sessionStorageData){
-        if(sessionStorageData.exercise.length>0){
-            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",true).css({backgroundColor:"#ebebe4"});
-            $(".select-form .shade_box").css({display:"block"});
-            $(".select-form .ic-text").css({backgroundColor:"#ebebe4"})
-        }else{
-            $(".hw-title-input,.expiration-time-input,.hw-content").attr("disabled",false).css({backgroundColor:"#fff"});
-            $(".select-form .shade_box").css({display:"none"});
-            $(".select-form .ic-text").css({backgroundColor:"#fff"})
-        }
-    }
-
     //必填
     function mustWrist(){
         if(!$(".ic-input.hw-title-input").val()){
-            isPublic = false;
+            isPublic = true;
             alert("请填写作业标题");
             return;
         }
@@ -744,6 +791,7 @@
         if(!isPublic){
             return;
         }
+        isPublic = false
         var j = publicClick();
         $.ajax({
             url:"/pubJob",
@@ -789,13 +837,26 @@
     function publicClick(){
         mustWrist();
         var upLoadJob = eval("("+sessionStorage.getItem("addJob")+")");
+        if(upLoadJob.title == ""){
+            if($(".ic-input.hw-title-input").val() == ""){
+                isPublic = true;
+                alert("请选择作业标题");
+                return;
+            }else{
+                upLoadJob.title = $(".ic-input.hw-title-input").val()
+            }
+        }
+        upLoadJob.dateTime = $(".expiration-time-input").val()
+        upLoadJob.deadline = stringToTimeStamp($("#expiration-time .expiration-time-input").val())
+        if(upLoadJob.rulejob == ""){
+            upLoadJob.rulejob = $(".hw-content.border").val()
+        }
+        sessionStorage.removeItem("addJob");
+        sessionStorage.setItem("addJob",JSON.stringify(upLoadJob));
         var classId = "{{$class_id}}";
         var lastJob = {
-            'chapter':{
-                'unit':upLoadJob.chapter.unit,
-                'section':upLoadJob.chapter.section,
-            },
             "class":classId,
+            "course":course,
             "type":1,
             "title":upLoadJob.title,
             "exercise_id":upLoadJob.exercise,
