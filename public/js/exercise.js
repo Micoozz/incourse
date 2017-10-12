@@ -684,7 +684,6 @@ $(function () {
                         }
                         alert("上传成功");
                     }else{
-                        alert("1111")
                     }
                 }
             })

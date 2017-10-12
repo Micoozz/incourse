@@ -467,9 +467,6 @@
 .screen_job{
     padding: 16px;
 }
-.screen_job label{
-    margin-bottom:16px;
-}
 .label_span{
     width:50px;
     text-align: right;
@@ -508,7 +505,12 @@
     min-width: 120px;
     float: left;
     position: relative;
-    margin-right: 16px;
+    margin:0 16px 16px 0;
+}
+.screen_job .f-l > div.areaSelect{
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
 }
 .screen_job .fa {
     font-size: 16px;

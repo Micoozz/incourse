@@ -102,6 +102,18 @@
     code{
         background:none;
     }
+    .list-group-item{
+        border: none;
+        background-color: none;
+    }
+    .exerciseBbase{
+        margin-right: -1px;
+    }
+    .isMark a{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 @endsection
 
@@ -116,9 +128,11 @@
             <span>上传习题</span>
         </a>
         <div class="f-r">
-            <span class="isMark doMark {{empty($action) ? "" : "active"}}" style="border-radius: 5px 0 0 5px;">
+            <span class="isMark exerciseBbase {{empty($action) ? "active" : ""}}" style="border-radius: 5px 0 0 5px;">
+                <a href="/exercise/{{$class_id}}/{{$course_id}}/">习题库</a>
+            </span><span class="ls_hr active"></span><span class="isMark doMark {{empty($action) ? "" : "active"}}">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-upload">我上传的</a>
-            </span><span class="ls_hr"></span><span class="isMark notMark" style="border-radius: 0 5px 5px 0;">我收藏的</span>
+            </span><span class="ls_hr {{empty($action) ? "" : "active"}}"></span><span class="isMark notMark" style="border-radius: 0 5px 5px 0;">我收藏的</span>
         </div>
     </div>
 
@@ -138,7 +152,122 @@
         <!----------- 我收藏的  ---------->
         <div class="myCollect">
             <div>
-                @if($action == "my-upload")
+                @if(empty($action))
+                <div class="screen_job border">
+                    <form action="" class="clear">
+                        <label class="d-b clear">
+                            <span class="f-l label_span">地区：</span>
+                            <div class="f-l">
+                                <div class="areaSelect">
+                                    <p class="ic-text-exer">
+                                        <span>全国</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="11">北京市</li>
+                                        <li data="12">天津市</li>
+                                    </ul>
+                                </div>
+                                <div class="areaSelect">
+                                    <p class="ic-text-exer">
+                                        <span>全省</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>全部学校</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>全部老师</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="d-b clear" style="padding-left: 70px;">
+                            <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
+                            <div class="f-l">
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>所有教材</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="11">北京市</li>
+                                        <li data="12">天津市</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>全部年级</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>第一章</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>第一小节</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="ic-text-exer">
+                                        <span>单选题</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </p>
+                                    <ul class="lists-exer" style="display: none;">
+                                        <li data="1" class="exer-li">单选题</li>
+                                        <li data="2" class="exer-li">多选题</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="d-b clear" for="">
+                            <span class="f-l label_span">关键字：</span>
+                            <div class="f-l">
+                                <input class="screen_input input_focus" type="text" name="key_words" placeholder="请填写关键词">
+                            </div>
+                        </label>
+                        <span  class="f-r btn_span">
+                            <button class="btn_seek btn_select">查找</button>
+                            <button class="btn_empty btn_select">清空</button>
+                        </span>
+                    </form>
+                </div>
+                @elseif($action == "my-upload")
                 <div class="screen_job border">
                     <form action="" class="clear">
                         <label class="d-b clear">
@@ -152,12 +281,6 @@
                                     <ul class="lists-exer" style="display: none;">
                                         <li data="1" class="exer-li">单选题</li>
                                         <li data="2" class="exer-li">多选题</li>
-                                        <li data="3" class="exer-li">填空题</li>
-                                        <li data="4" class="exer-li">判断题</li>
-                                        <li data="5" class="exer-li">连线题</li>
-                                        <li data="8" class="exer-li">画图题</li>
-                                        <li data="9" class="exer-li">计算题</li>
-                                        <li data="11" class="exer-li">解答题</li>
                                     </ul>
                                 </div>
                                 <div>
@@ -168,12 +291,6 @@
                                     <ul class="lists-exer" style="display: none;">
                                         <li data="1" class="exer-li">单选题</li>
                                         <li data="2" class="exer-li">多选题</li>
-                                        <li data="3" class="exer-li">填空题</li>
-                                        <li data="4" class="exer-li">判断题</li>
-                                        <li data="5" class="exer-li">连线题</li>
-                                        <li data="8" class="exer-li">画图题</li>
-                                        <li data="9" class="exer-li">计算题</li>
-                                        <li data="11" class="exer-li">解答题</li>
                                     </ul>
                                 </div>
                                 <div>
@@ -184,12 +301,6 @@
                                     <ul class="lists-exer" style="display: none;">
                                         <li data="1" class="exer-li">单选题</li>
                                         <li data="2" class="exer-li">多选题</li>
-                                        <li data="3" class="exer-li">填空题</li>
-                                        <li data="4" class="exer-li">判断题</li>
-                                        <li data="5" class="exer-li">连线题</li>
-                                        <li data="8" class="exer-li">画图题</li>
-                                        <li data="9" class="exer-li">计算题</li>
-                                        <li data="11" class="exer-li">解答题</li>
                                     </ul>
                                 </div>
                             </div>
@@ -313,8 +424,8 @@
                                     @if(empty($action))
                                     <ul class="f-r ic-inline collect">
                                         <li>
-                                            <a class="red collect">
-                                                <i class="fa fa-heart"></i>
+                                            <a class="gray collect">
+                                                <i class="fa fa-heart-o"></i>
                                                 <span>665</span>
                                             </a>
                                         </li>
@@ -365,6 +476,9 @@
                 <li style="display:none;"><span class='type'>填空题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
                 <li style="display:none;"><span class='type'>判断题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
                 <li style="display:none;"><span class='type'>排序题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>解答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>简答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                <li style="display:none;"><span class='type'>计算题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
             </ul>
             <div class="ta-c">
                 <a id="create-hw" class="ic-btn" data-href="/addHomework-personal/{{$class_id}}/{{$course_id}}">生成作业</a>
@@ -382,10 +496,13 @@
 <script src="/js/teacher/exerRoom.js" charset="utf-8"></script>
 <script src="/js/layui/lay/modules/laydate.js" charset="utf-8"></script>
 <script src="/js/layui/layui.js" charset="utf-8"></script>
+<script src="/js/Sortable.min.js" charset="utf-8"></script>
 <script>
     var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
-    var exercises = sessionStorageData.exercise;
-    var arrs = sessionStorageData.exercise;
+    if(sessionStorageData){
+        var exercises = sessionStorageData.exercise;
+        var arrs = sessionStorageData.exercise;
+    }
     var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     function myBrowser(){
         var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
@@ -462,7 +579,7 @@
 
     function viewHtml(data){
         var t = data.cate_title
-        var html = "<div class='jobList'>"+
+        var html = "<div class='jobListSee list-group-item' data-see='"+data.id+"'>"+
                         "<div data-id='"+data.id+"' data-see='' class='exer-in-list border'>"+
                             "<div class='exer-head'>"+
                                 "<span class='exer-type-list'>"+t+"</span>";
@@ -584,7 +701,7 @@
 
     //页面数据加载
     function sessionS(){
-        if(sessionStorageData){
+        if(exercises.length>0){
             $.ajax({
                 url:"/getExerciseList",
                 type:"POST",
@@ -690,6 +807,15 @@
 
     //预览
     
+    var sortArr = function (){
+        arrs = [];
+        for(var s = 0;s<$(".jobListSee").length;s++){
+            arrs.push(parseInt($(".jobListSee").eq(s).attr("data-see")));
+        }
+        sessionStorage.removeItem("addJob");
+        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(sessionStorageData,arrs)));
+    }
+
     $(".preview").on("click",function(){
         var html = '';
         $.ajax({
@@ -711,7 +837,7 @@
                                 "<span class='deleteJobs'><s></s><s></s></span>"+
                             "</div>"+
                         "</div>"+
-                        "<div class='jobLists'>";
+                        "<div class='jobLists list-group' id='simpleList'>";
         seeHtml += html;
         seeHtml += "</div><div class='seeBottom'><button>完成</button></div></div>";
         layui.use("layer",function(){
@@ -719,15 +845,14 @@
                 type: 1,
                 title: false,
                 closeBtn: 0,
-                shadeClose: true,
+                shadeClose: false,
                 area: ['700px', '730px'],
                 content: seeHtml,
                 end: function () {}
             });
             $(".seeHead > div .deleteJobs,.seeBottom button").on("click",function(){
-                layui.use('layer', function(){
-                    layer.closeAll();
-                })
+                sortArr();
+                layer.closeAll();
             });
             $(".jobLists .exer-in-list.border").on("click",".deleteJobs",function(){
                 var id = $(this).parents(".exer-in-list.border").attr("data-id");
@@ -738,13 +863,29 @@
                         newExerArr.splice(i,1);
                     }
                 }
-                $(".exer-list .jobList").each(function(k){
-                    if(id == $(this).find(".exer-in-list.border").attr("data-id")){
-                        $(this).find(".checkbox-add").attr("checked",false);
-                        showCheckedList(this)
-                        $(this).remove();
+                $(".exer-list .jobList").each(function(k,li){
+                    if(id == $(li).find(".exer-in-list.border").attr("data-id")){
+                        $(li).find(".checkbox-add").attr("checked",false);
+                        $(".hw-type-list").find("li").each(function(k,list){
+                            if($(list).find(".type").text() == $(li).find(".exer-type-list").text()){
+                                $(list).css({display:'block'});
+                                $(list).find(".number code").text(parseInt($(list).find(".number code").text())-1);
+                                if(parseInt($(list).find(".number code").text())<=0){
+                                    $(list).find(".number code").text("0");
+                                    $(list).css({display:"none"});
+                                }
+                                for(var i = 0;i<arrs.length;i++){
+                                    if(parseInt($(list).parents(".exer-in-list.border").attr("data-id")) == arrs[i]){
+                                        arrs.splice(i,1)
+                                    }
+                                }
+                            }
+                        })
+                        sessionStorage.removeItem("addJob");
+                        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(sessionStorageData,arrs)));
                     }
                 })
+                $(this).parents(".jobListSee").remove();
                 var newArr = {
                     "title":sessionStorageData.title,
                     "chapter":{
@@ -772,6 +913,7 @@
                 parentList.remove();
                 $(".AllCheckedJob").text(exercises.length);
             })
+            Sortable.create(simpleList, {group: 'shared'});
         });
     })
 </script>

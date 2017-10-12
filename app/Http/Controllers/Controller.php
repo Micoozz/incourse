@@ -123,7 +123,6 @@ class Controller extends BaseController
         }
         return json_encode($result);
     }
-
     //发送邮件
     public function emailSend(){
         $input = Input::get();
