@@ -508,9 +508,9 @@
     margin:0 16px 10px 0;
 }
 .screen_job .f-l > div.areaSelect{
-    width: 80px;
-    min-width: 80px;
-    max-width: 80px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
 }
 .screen_job .fa {
     font-size: 16px;
@@ -565,7 +565,16 @@
 .pagination {
     float: right;
 }
-
+ .isUsed{
+    margin-left: 5px;
+    width: 61px;
+    padding: 2px 3px;
+    line-height: 24px;
+    text-align: center;
+    color: #168bee;
+    border:1px solid #168bee;
+    border-radius: 4px;
+} 
 
 
 

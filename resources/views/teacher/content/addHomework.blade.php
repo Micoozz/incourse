@@ -48,5 +48,4 @@
 @endsection
 
 @section('JS:OPTIONAL')
-
 @endsection

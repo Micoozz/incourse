@@ -55,6 +55,7 @@ $(function(){
             obj_time.last = last;
         }
         obj_time.start_time = current;
+        obj_time.last_time = current
         sessionStorage.setItem("ic_"+obj_time.id,JSON.stringify(obj_time));
     }
 
@@ -218,16 +219,15 @@ $(function(){
     //交卷并查看结果
     $(".answer-sheet .answer-sheet-submit").click(function(){
         $(".ic-modal, .delete-modal").fadeIn();
-    //查看是否做完题目
-    var trues=[];
-    $('.answer-sheet p span').each(function(){
-        if($(this).attr('class')!='active'){
-                trues.push($(this).text())
-        }
-    });
-    console.log(trues)
-
-            $('.ic-text p:last-child').text('本套练习还有 '+(trues.length)+' 道题未做答')       
+        //查看是否做完题目
+        var trues=[];
+        $('.answer-sheet p span').each(function(){
+            if($(this).attr('class')!='active'){
+                    trues.push($(this).text())
+            }
+        });
+        console.log(trues)
+        $('.ic-text p:last-child').text('本套练习还有 '+(trues.length)+' 道题未做答')       
     });
 
 
@@ -302,7 +302,7 @@ $(function(){
                     obj.answer.push(parseInt($(n).attr('exercise-id')));
                 });
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id')
-            }else if(type === "画图题" || type === "作文题" || type === "计算题"){
+            }else if(type === "作文题"){
                 $(item).find(".one-img>img").each(function(i,n){
                     arr.push($(n).attr("src"));
                 });
@@ -310,71 +310,8 @@ $(function(){
             }else if(type === "连线题"){
                 obj.answer = JSON.parse(sessionStorage.getItem("ic_lianXianTi"+$(item).attr("data-id")));
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id')
-            }else if(type === "简答题"){
-                if($(item).find(".editor-content img").length !== 0){
-                    $(item).find(".editor-content img").each(function(i,n){
-                        arr.push($(n).attr("src"));
-                    });
-                    img_text.img = arr;
-                }else {
-                    img_text.text = $(item).find(".editor-content").text();
-                }
-                obj.answer = img_text;
-            }else if(type === "听力题" || type === "阅读题" || type === "解答题"){
-                $(item).find(".one-hw").each(function(i,item){
-                    var obj_child = {
-                        "id": $(item).attr("data-id"),
-                        "answer": ""
-                    };
-                    var arr = [];
-                    type = $(item).find(".do-hw-type").text();
-                    if(type === "单选题"){
-                        obj_child.answer = $(item).find(".ic-radio.active input").val();
-                    }else if(type === "多选题"){
-                        $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-                            obj_child.answer += $(n).val() + ",";
-                        });
-                        obj.answer= obj.answer.substring(0,obj.answer.length-1)
-                    }else if(type === "填空题" || type === "多空题"){
-                        $(item).find(".blank-item").each(function(i,n){
-                            arr.push($(n).text());
-                        });
-                        obj_child.answer = arr; 
-                    }else if(type === "判断题"){
-                        dom = $(item).find(".answer-box .pan-duan");
-                        if(dom.hasClass("rightActive")){
-                            obj_child.answer = "1";
-                        }else if(dom.hasClass("wrongActive")){
-                            obj_child.answer = "0";
-                        }else {
-                            obj_child.answer = "";
-                        }
-                    }else if(type === "排序题"){
-                        $(item).find(".exer-list-ul>li>span").each(function(i,n){
-                            arr.push($(n).attr("data-order"));
-                        });
-                        obj_child.answer = arr.join(",");
-                    }else if(type === "画图题" || type === "作文题" || type === "计算题"){
-                        $(item).find(".one-img>img").each(function(i,n){
-                            arr.push($(n).attr("src"));
-                        });
-                        obj_child.answer = arr;
-                    }else if(type === "连线题"){
-                        obj_child.answer = JSON.parse(sessionStorage.getItem("ic_lianXianTi"+$(item).attr("data-id")));
-                    }else if(type === "简答题"){
-                        if($(item).find(".editor-content img").length !== 0){
-                            $(item).find(".editor-content img").each(function(i,n){
-                                arr.push($(n).attr("src"));
-                            });
-                            img_text.img = arr;
-                        }else {
-                            img_text.text = $(item).find(".editor-content").text();
-                        }
-                        obj_child.answer = img_text;
-                    }
-                    arr_big.push(obj_child);
-                });
-                obj.answer = arr_big;
+            }else if(type === "画图题" || type === "简答题" || type === "解答题" || type === "听力题" || type === "阅读题"){
+                obj.answer = $(item).find(".editor-content").text();
             }
             total.push(obj);
         });
@@ -388,6 +325,8 @@ $(function(){
         var param = clearUp(total); //传给后台的作业答案参数
         param._token = token;
         param.work_id = work_id;
+        console.log(param);
+        return;
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
