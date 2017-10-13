@@ -6,20 +6,21 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 use Gregwar\Captcha\CaptchaBuilder; 
+use Illuminate\Support\Facades\Mail;
+
+use Auth;
+use Input;
+use Session;
+use PDO;
+use Redirect;
+use App\Models\Chapter;
 use App\Models\School;
 use App\Models\Employee;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Categroy;
-use Illuminate\Support\Facades\Mail;
-use Auth;
-use Input;
-use Session;
-use Cookie;
-use App\Models\Chapter;
-use PDO;
-use Redirect;
 
 class Controller extends BaseController
 {
@@ -76,15 +77,6 @@ class Controller extends BaseController
 		$conn = null; 
 		return $code;
     }
-  //   protected function modifyEnv(array $data){
-  //   	$envPath = base_path('.env');
-		// $contentArray = collect(file($envPath, FILE_IGNORE_NEW_LINES));
-		// foreach ($data as $key => $value) {
-		// 	array_add($contentArray,count($contentArray),$value);
-		// }
-		// $content = implode($contentArray->toArray(), "\n");
-		// \File::put($envPath, $content);
-  //  }
     protected function modifyConfFile(string $path,int $begin,array $data){
     	$code = 200;
     	$confPath = base_path($path);
@@ -103,7 +95,6 @@ class Controller extends BaseController
         $phrase = $builder->getPhrase();
         //把内容存入session 
         Session::flash('milkcaptcha', $phrase);
-        // $cookie = Cookie::forever('milkcaptcha',$phrase); 
         //dd($cookie); 
         //生成图片  
         header("Cache-Control: no-cache, must-revalidate");  

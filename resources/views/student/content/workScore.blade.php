@@ -60,5 +60,7 @@
 <script>
 	var skip = sessionStorage.getItem("skip");
 	sessionStorage.clear();
-	sessionStorage.setItem("skip",skip);
+	if(skip){
+		sessionStorage.setItem("skip",skip);
+	}
 </script>
