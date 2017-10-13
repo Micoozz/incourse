@@ -220,8 +220,8 @@
                         </div>
                     </li>
                     @endif
-                    <!--简答题-->
-                    @if($exercise['categroy_id'] == 10 || $exercise['categroy_id'] == 11)
+                    <!--简答题 解答题-->
+                    @if($exercise['categroy_id'] == 10 || $exercise['categroy_id'] == 11 || $exercise['categroy_id'] == 9)
                     <li data-id="{{ $exercise['id'] }}" class="exer-in-list">
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
@@ -394,7 +394,7 @@
                         </div>
                     </li> -->
                     <!--计算题-->
-                    @if($exercise['categroy_id'] == 9)
+<!--                     @if($exercise['categroy_id'] == 9)
                         <li data-id="{{ $exercise['id'] }}" class="exer-in-list">
                             <div class="clear hw-question">
                                 <i class="student_icons query"></i>
@@ -425,7 +425,7 @@
                                 </div>
                             </div>
                         </li>
-                    @endif
+                    @endif -->
                     <!--答题卡-->
                     @endforeach
                     <li class="answer-sheet ta-c">
