@@ -6,7 +6,7 @@
 	</div>
 	<div class="ic-container accout">
 		<div class="atitle" style='{{ isset($mod) ? "" : "position:relative; left:150px;" }}'>
-			<p><span>作业标题：</span><span>{{ date('m月d日',$data['work']->pub_time) }}</span></p>
+			<p><span>作业标题：</span><span>{{ $data['work']->title }}</span></p>
 			<p><span>截止时间：</span><span>{{ date('m月d日 h:i',$data['work']->deadline) }}</span></p>
 			<p><span>常规作业：</span><span>{{ $data['work']->content }}</span></p>
 			<p><span>习题练习：</span><span>共{{ $data['count'] }}小题</span></p>
