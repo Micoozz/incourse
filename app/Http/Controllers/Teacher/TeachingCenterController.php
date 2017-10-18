@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Auth;
 use Input;
+use DB;
 use App\Models\ClassTeacherCourseMap;
 use App\Models\Classs;
 use App\Models\Course;
@@ -42,10 +43,6 @@ class TeachingCenterController extends TeacherController
     public function __construct(){
         
     }
-
-
-
-
 
 
 
@@ -152,16 +149,14 @@ class TeachingCenterController extends TeacherController
     }
     /*教学中心页面*/
     public function teachingCenter($class_id = null,$course_id = null){
-        $port = "teachingCenter";
-        return $this->addHomework($class_id,$course_id,$port);
+        return $this->addHomework($class_id,$course_id);
     }
     /*作业管理页面*/
     public function homeworkManage($class_id = null,$course_id = null){
-        $port = "homeworkManage";
-        return $this->addHomework($class_id,$course_id,$port);
+        return $this->addHomework($class_id,$course_id);
     }
     /*添加作业页面*/
-    public function addHomework($class_id = null,$course_id = null,$port = null){
+    public function addHomework($class_id = null,$course_id = null){
         $title = "添加作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id); 
@@ -172,59 +167,84 @@ class TeachingCenterController extends TeacherController
         if(empty($course_id)){
             $course_id = $map->course_id;
         }
-        if(empty($port)){
-            $port = "addHomework";
-        }
-        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id','port'));
+        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id'));
     }
     /*添加个人作业页面*/
     public function addHomeworkPer($class_id,$course_id){
         $title = "添加作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $port = "addHomework-personal";
         $unit_list = parent::getUnit($course_id);
-        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list','port'));
+        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list'));
     }
     /*批改作业页面*/
     public function correct($class_id,$course_id,$type = Job::TYPE_PERSONAL,$unit_id = null,$section_id = null){
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $port = "correct";
-        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->where(function($query) use($unit_id,$section_id,$course_id){
-            if(!empty($section_id)){
-                $query->where('chapter_id',$section_id);
-            }elseif(!empty($unit_id)){
-                $section_id_list = Chapter::where('parent_id',$unit_id)->pluck('id');
-                $query->whereIn('chapter_id',$section_id_list);
-            }else{
-                $section_id_list = Chapter::where('course_id',$course_id)->pluck('id');
-                $query->whereIn('chapter_id',$section_id_list);
+        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->paginate(10);
+        // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
+        // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
+        // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
+        // $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
+        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','job_list','type','unit_id','section_id'));
+    }
+    public function correctWork($class_id,$course_id,$job_id){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $work_list = Work::where('job_id',$job_id)->paginate(10);
+        return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
+    }
+    public function correctDetail($class_id,$course_id,$work_id){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $work = Work::find($work_id);
+        $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
+        $data = Exercises::whereIn('id',$exercise_id_list)->get();
+        $baseNum = (int)($work->student_id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            throw $e;
+        }
+        foreach ($data as $exercise) {
+            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
+            $exercise->student_answer = json_decode($db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first()->answer,TRUE)["answer"];
+            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
+            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
             }
-        })->paginate(10);
-        $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
-        $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
-        $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
-        $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
-        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','port','job_list','unit_list','section_list','type','unit_id','section_id'));
+//          else{
+//              
+//          }
+        }
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){
         $title = "上传习题";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $port = "uploadExercise";
         $unit_list = parent::getUnit($course_id);
         $categroy_list = parent::getCategroy($course_id);
-        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','port','exe_id'));
+        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
     }
     /*习题库页面*/
     public function exercise($class_id,$course_id,$action = null){
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $port = "exercise";        
+        $class_course = $this->getClassCourse($teacher->id);    
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
         if(empty($action)){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
@@ -249,7 +269,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','port','data','action'));
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action'));
     }
     
 
@@ -662,6 +682,7 @@ class TeachingCenterController extends TeacherController
             $job = new Job;
             $job->teacher_id = $user->id;
             $job->class_id = intval($input['class']);
+            $job->course_id = intval($input['course']);
             $job->title = $input['title'];
             $job->job_type = intval($input['type']);
             $job->score = 0; //intval($input['score'])*100;
@@ -704,7 +725,7 @@ class TeachingCenterController extends TeacherController
                 $work = new Work;
                 $work->student_id = $stu_id;
                 $work->job_id = $job->id;
-                $work->course_id = Chapter::find($job->chapter_id)->course_id;
+                $work->course_id = $job->course_id;
                 $work->score = 0;
                 $work->status = 0;
                 $work->start_time = 0;

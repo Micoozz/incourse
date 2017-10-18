@@ -1,5 +1,5 @@
 <ul>
-	@if($func != 2)
+	@if($func != "routine_work")
 		<li onclick='window.location.href= "/todayWork" '>今日作业</li>
 	@endif
 	@foreach($courseAll as $course)
