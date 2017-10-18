@@ -26,18 +26,10 @@
 					<a href="/correct/{{$class_id}}/{{$course_id}}/1"><span class="entirely">个人作业</span></a>
 				</div>
 				<div>
-					<b>章节：</b>
-					<a href="/correct/{{$class_id}}/{{$course_id}}/{{$type}}"><span {{empty($unit_id) ? "class=entirely" : ""}}>全 部</span></a>
-					@foreach($unit_list as $id => $title)
-					<a href="/correct/{{$class_id}}/{{$course_id}}/{{$type}}/{{$id}}"><span {{$unit_id == $id ? "class=entirely" : ""}}>{{$title}}</span></a>
-					@endforeach
+					
 				</div>
 				<div>
-					<b>小节：</b>
-					<a href="/correct/{{$class_id}}/{{$course_id}}/{{$type}}/{{$unit_id}}"><span {{empty($section_id) ? "class=entirely" : ""}}>全 部</span></a>
-					@foreach($section_list as $id => $title)
-					<a href="/correct/{{$class_id}}/{{$course_id}}/{{$type}}/{{$unit_id}}/{{$id}}"><span {{$section_id == $id ? "class=entirely" : ""}}>{{$title}}</span></a>
-					@endforeach
+					
 				</div>
 			</div>
 

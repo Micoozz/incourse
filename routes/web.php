@@ -60,6 +60,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/pubJob','TeachingCenterController@pubJob');
 		Route::post('/addExercise','TeachingCenterController@addExercise');
 		Route::post('/teacherBindClass','TeachingCenterController@teacherBindClass');
+		Route::get('/correctWork/{class_id?}/{course_id?}/{job_id}','TeachingCenterController@correctWork');
+		Route::get('/correctDetail/{class_id?}/{course_id?}/{work_id}','TeachingCenterController@correctDetail');
 
 
 
