@@ -225,9 +225,7 @@ $(function(){
             }
         });
     })
-
     
-
     //底部答过的题标蓝
     //选择
     $("body").on("click",".exercise-box .ic-radio",function(){getOrderAndBlue(this)});

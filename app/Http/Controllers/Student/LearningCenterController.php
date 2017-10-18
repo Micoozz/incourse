@@ -174,7 +174,6 @@ class LearningCenterController extends Controller
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
-					$subjectScore = 0;
 					$modifyScore = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
