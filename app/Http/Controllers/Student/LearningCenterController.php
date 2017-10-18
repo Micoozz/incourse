@@ -521,31 +521,28 @@ class LearningCenterController extends Controller
     	$course = Work::find($work_id)->pluck('course_id');
     	$data = array();
     	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
-    	foreach($error_exercise_list as $exercises) {
-    		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
-    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
-    		foreach ($homotypology as $exercise) {
-				$categroy_id = Categroy::find($exercise->categroy_id)->id;
-				$categroy_title = Categroy::find($exercise->categroy_id)->title;
-				$abcList = range("A","Z");
-				$objective = Objective::where('exe_id', $exercise->id)->first();
-				$options = json_decode($objective->option, true);
-				if ($exercise->categroy_id == Exercises::CATE_FILL) {
-					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
-				}
-				shuffle($options);
-			    array_push($data, array(
-			    	'id' => $exercise->id,
-			    	'parent_id' => $exercises->id,
-			    	'categroy_id' => $categroy_id,
-					'categroy_title' => $categroy_title,
-					'subject' => $objective->subject,
-					'type' => 2,
-					'options' => $options,
-					'answer' => json_decode($objective->answer, true),
-					'score' => $exercise->score/100,
-			    ));
+    	foreach($error_exercise_list as $exercise) {
+    		$homotypology = Exercises::where(['chapter_id' => $exercise->chapter_id, 'categroy_id' => $exercise->categroy_id, 'score' => $exercise->score])
+    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->first();//查询出该错题的1道同类型习题
+    		$categroy_id = Categroy::find($homotypology->categroy_id)->id;
+			$categroy_title = Categroy::find($homotypology->categroy_id)->title;
+			$abcList = range("A","Z");
+			$objective = Objective::where('exe_id', $homotypology->id)->first();
+			if ($homotypology->categroy_id == Exercises::CATE_FILL) {
+				$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
 			}
+			shuffle($options);
+			array_push($data, array(
+		    	'id' => $homotypology->id,
+		    	'parent_id' => $exercise->id,
+		    	'categroy_id' => $categroy_id,
+				'categroy_title' => $categroy_title,
+				'subject' => $objective->subject,
+				'type' => 2,
+				'options' => $options,
+				'answer' => json_decode($objective->answer, true),
+				'score' => $exercise->score/100,
+		    ));
 			return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     	}
 /*    	$exercise_id = explode('&', $exercises_id);
