@@ -528,6 +528,7 @@ class LearningCenterController extends Controller
 			$categroy_title = Categroy::find($homotypology->categroy_id)->title;
 			$abcList = range("A","Z");
 			$objective = Objective::where('exe_id', $homotypology->id)->first();
+			$options = json_decode($objective->option, true);
 			if ($homotypology->categroy_id == Exercises::CATE_FILL) {
 				$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
 			}
