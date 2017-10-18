@@ -544,8 +544,8 @@ class LearningCenterController extends Controller
 				'answer' => json_decode($objective->answer, true),
 				'score' => $exercise->score/100,
 		    ));
-			return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     	}
+    	return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
 /*    	$exercise_id = explode('&', $exercises_id);
     	$course = Work::find($work_id)->toArray()['course_id'];
     	$data = array();
