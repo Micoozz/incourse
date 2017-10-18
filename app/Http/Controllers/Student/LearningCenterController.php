@@ -517,8 +517,8 @@ class LearningCenterController extends Controller
     }
     //同类型习题推送
     public function homotypology($exercises_id, $work_id, $accuracy, $increase){
-    	$exercise_id =  explode('&', $exercies_id);
-    	$course = Work::find($work_id)->pluck('course_id');
+    	$exercise_id =  explode('&', $exercises_id);
+    	$course = Work::find($work_id)->course_id;
     	$data = array();
     	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
     	foreach($error_exercise_list as $exercises) {
