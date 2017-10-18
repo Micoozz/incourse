@@ -86,41 +86,11 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
     }
-    public function answerIng($class_id = 1 ,$course_id = 1){
+    public function layim(){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
+        return view('layui.demo.index',compact("title",'class_course'));
     }
 
 
@@ -192,22 +162,12 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $port = "correct";
-        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->where(function($query) use($unit_id,$section_id,$course_id){
-            if(!empty($section_id)){
-                $query->where('chapter_id',$section_id);
-            }elseif(!empty($unit_id)){
-                $section_id_list = Chapter::where('parent_id',$unit_id)->pluck('id');
-                $query->whereIn('chapter_id',$section_id_list);
-            }else{
-                $section_id_list = Chapter::where('course_id',$course_id)->pluck('id');
-                $query->whereIn('chapter_id',$section_id_list);
-            }
-        })->paginate(10);
-        $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
-        $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
-        $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
-        $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
-        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','port','job_list','unit_list','section_list','type','unit_id','section_id'));
+        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->paginate(10);
+        // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
+        // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
+        // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
+        // $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
+        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','port','job_list','type'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){
