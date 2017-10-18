@@ -517,7 +517,38 @@ class LearningCenterController extends Controller
     }
     //同类型习题推送
     public function homotypology($exercises_id, $work_id, $accuracy, $increase){
-    	$exercise_id = explode('&', $exercises_id);
+    	$exercise_id =  explode('&', $exercise_id);
+    	$course = Work::find($work_id)->pluck('course_id');
+    	$data = array();
+    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
+    	foreach($error_exercise_list as $exercises) {
+    		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
+    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
+    		foreach ($homotypology as $exercise) {
+				$categroy_id = Categroy::find($exercise->categroy_id)->id;
+				$categroy_title = Categroy::find($exercise->categroy_id)->title;
+				$abcList = range("A","Z");
+				$objective = Objective::where('exe_id', $exercise->id)->first();
+				$options = json_decode($objective->option, true);
+				if ($exercise->categroy_id == Exercises::CATE_FILL) {
+					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
+				}
+				shuffle($options);
+			    array_push($data, array(
+			    	'id' => $exercise->id,
+			    	'parent_id' => $exercises->id,
+			    	'categroy_id' => $categroy_id,
+					'categroy_title' => $categroy_title,
+					'subject' => $objective->subject,
+					'type' => 2,
+					'options' => $options,
+					'answer' => json_decode($objective->answer, true),
+					'score' => $exercise->score/100,
+			    ));
+			}
+			return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
+    	}
+/*    	$exercise_id = explode('&', $exercises_id);
     	$course = Work::find($work_id)->toArray()['course_id'];
     	$data = array();
     	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score','chapter_id')->whereIn('id', $exercise_id)->get();
@@ -526,6 +557,7 @@ class LearningCenterController extends Controller
     		$error_cate_arr[$exercise->categroy_id] = isset($error_cate_arr[$exercise->categroy_id]) ? $error_cate_arr[$exercise->categroy_id] : array();
     		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score, $exercise->chapter_id);
     	}
+
     	foreach ($error_cate_arr as $cate_id => $exe_id_list) {
     		$homotypology = Exercises::where(['chapter_id' => $exe_id_list[2],'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
 			->whereNotIn('id', $exercise_id)->orderBy(\DB::raw('RAND()'))->take(1)->get();//查询出该错题的3道同类型习题
@@ -552,7 +584,7 @@ class LearningCenterController extends Controller
 			    ));
 			}
     	}
-		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
+		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));*/
     }
 
     //同类型习题算分
