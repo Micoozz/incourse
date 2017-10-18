@@ -16,7 +16,8 @@ class StudentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('student')->check()){
+        //$request = Auth::shouldUse('student');
+        if(Auth::check()){
             return $next($request);
         }elseif(Auth::guard('employee')->check()){
             return redirect('/teachingCenter');///media
