@@ -17,9 +17,9 @@
 		<div class="consuming">
 			总耗时：{{ date('i分s秒',$data['exeSecond']) }}<!-- //33分20秒 -->
 			<div>
-				<span>正确：{{ $data['objectiveCount'] }}题</span>	
+				<span>正确：{{ $data['objectiveCount'] }} + {{ $data['sameCount'] }}题</span>	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>错误：{{ $data['objectiveErrorCount'] }}题</span>
+				<span>错误：{{ $data['objectiveErrorCount'] }} + $data['sameErrorScore']题</span>
 				<span>未批改：{{ $data['modifyCount'] }}题</span>
 			</div>
 		</div>

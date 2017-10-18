@@ -174,6 +174,8 @@ class LearningCenterController extends Controller
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
+					$data['sameCount'] = 0;
+					$data['sameErrorScore'] = 0;
 					$modifyScore = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
@@ -190,7 +192,7 @@ class LearningCenterController extends Controller
 									'id' => 1,
 									'exe_id' => $exe_id,
 								));
-								$correctScore += $exercise->score / 100; //正确题的分数
+								$correctScore += $exercise->score / 100;//正确题的分数
 							}else{
 								$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 								array_push($data['status'], array(
@@ -231,12 +233,14 @@ class LearningCenterController extends Controller
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
+							$data['sameCount'] = $data['sameCount'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 1,
 								"exe_id" => $sameExercise->exe_id,
 								"parent_id" =>$sameExercise->parent_id
 							));
 						}else{
+							$data['sameErrorScore'] = $data['sameErrorScore'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 2,
 								"exe_id" => $sameExercise->exe_id,
@@ -520,29 +524,31 @@ class LearningCenterController extends Controller
     	$course = Work::find($work_id)->course_id;
     	$data = array();
     	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
-    	foreach($error_exercise_list as $exercise) {
-    		$homotypology = Exercises::where(['chapter_id' => $exercise->chapter_id, 'categroy_id' => $exercise->categroy_id, 'score' => $exercise->score])
-    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->first();//查询出该错题的1道同类型习题
-    		$categroy_id = Categroy::find($homotypology->categroy_id)->id;
-			$categroy_title = Categroy::find($homotypology->categroy_id)->title;
-			$abcList = range("A","Z");
-			$objective = Objective::where('exe_id', $homotypology->id)->first();
-			$options = json_decode($objective->option, true);
-			if ($homotypology->categroy_id == Exercises::CATE_FILL) {
-				$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
+    	foreach($error_exercise_list as $exercises) {
+    		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
+    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
+    		foreach ($homotypology as $exercise) {
+				$categroy_id = Categroy::find($exercise->categroy_id)->id;
+				$categroy_title = Categroy::find($exercise->categroy_id)->title;
+				$abcList = range("A","Z");
+				$objective = Objective::where('exe_id', $exercise->id)->first();
+				$options = json_decode($objective->option, true);
+				if ($exercise->categroy_id == Exercises::CATE_FILL) {
+					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
+				}
+				shuffle($options);
+			    array_push($data, array(
+			    	'id' => $exercise->id,
+			    	'parent_id' => $exercises->id,
+			    	'categroy_id' => $categroy_id,
+					'categroy_title' => $categroy_title,
+					'subject' => $objective->subject,
+					'type' => 2,
+					'options' => $options,
+					'answer' => json_decode($objective->answer, true),
+					'score' => $exercise->score/100,
+			    ));
 			}
-			shuffle($options);
-			array_push($data, array(
-		    	'id' => $homotypology->id,
-		    	'parent_id' => $exercise->id,
-		    	'categroy_id' => $categroy_id,
-				'categroy_title' => $categroy_title,
-				'subject' => $objective->subject,
-				'type' => 2,
-				'options' => $options,
-				'answer' => json_decode($objective->answer, true),
-				'score' => $exercise->score/100,
-		    ));
     	}
     	return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     }
