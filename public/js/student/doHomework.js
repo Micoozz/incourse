@@ -371,6 +371,8 @@ $(function(){
         var param = clearUp(total); //传给后台的作业答案参数
         param._token = token;
         param.work_id = work_id;
+        console.log(param);
+        return;
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');

@@ -5,7 +5,7 @@
             <span class="f-l label_span">地区：</span>
             <div class="f-l">
 
-                <div class="{{$action != 'my-conllection' ? 'areaSelect':''}}">
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>全国</span>
                         <i class="fa fa-angle-down"></i>
@@ -15,7 +15,7 @@
                         <li data="12">天津市</li>
                     </ul>
                 </div>
-                <div class="{{$action != 'my-conllection' ? 'areaSelect':''}}">
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>全省</span>
                         <i class="fa fa-angle-down"></i>
@@ -25,7 +25,7 @@
                         <li data="2" class="exer-li">多选题</li>
                     </ul>
                 </div>
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>全部学校</span>
                         <i class="fa fa-angle-down"></i>
@@ -36,7 +36,7 @@
                     </ul>
                 </div>
                 @if($action != "my-conllection")
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>全部老师</span>
                         <i class="fa fa-angle-down"></i>
@@ -54,7 +54,7 @@
             <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
             <div class="f-l">
                 @if(empty($action))
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>所有教材</span>
                         <i class="fa fa-angle-down"></i>
@@ -65,7 +65,7 @@
                     </ul>
                 </div>
                 @endif
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>第一章</span>
                         <i class="fa fa-angle-down"></i>
@@ -75,7 +75,7 @@
                         <li data="2" class="exer-li">多选题</li>
                     </ul>
                 </div>
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>第一小节</span>
                         <i class="fa fa-angle-down"></i>
@@ -85,7 +85,7 @@
                         <li data="2" class="exer-li">多选题</li>
                     </ul>
                 </div>
-                <div>
+                <div class="areaSelect">
                     <p class="ic-text-exer">
                         <span>单选题</span>
                         <i class="fa fa-angle-down"></i>

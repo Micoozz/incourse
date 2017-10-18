@@ -60,6 +60,26 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/pubJob','TeachingCenterController@pubJob');
 		Route::post('/addExercise','TeachingCenterController@addExercise');
 		Route::post('/teacherBindClass','TeachingCenterController@teacherBindClass');
+
+
+
+		// questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
+		Route::get('/courseWare/main/{class_id?}/{course_id?}','TeachingCenterController@courseWare');
+		Route::get('/courseWare/upLoadCourseware','TeachingCenterController@upLoadCourseware');
+		Route::get('/courseWare/setQuestions','TeachingCenterController@setQuestions');
+		Route::get('/courseWare/coursewareDetail','TeachingCenterController@coursewareDetail');
+		Route::get('/courseWare/answerStart','TeachingCenterController@answerStart');
+		Route::get('/courseWare/answerStartFreedom','TeachingCenterController@answerStart_freedom');
+		Route::get('/courseWare/answerIng','TeachingCenterController@answerIng');
+		Route::get('/courseWare/answerIngFreedom','TeachingCenterController@answerIng_freedom');
+		Route::get('/courseWare/answerEnd','TeachingCenterController@answerEnd');
+		Route::get('/courseWare/answerEndFreedom','TeachingCenterController@answerEnd_freedom');
+		Route::get('/courseWare/showSolution','TeachingCenterController@showSolution');
+		Route::get('/courseWare/showSolutionFreedom','TeachingCenterController@showSolution_freedom');
+
+
+
+
 		// Route::get('/learningCenter/{class_id?}/{course_id?}/{mod?}/{func?}/{universal?}','LearningCenterController@learningCenter');
 		//档案管理员
 		Route::get('/fileManager/{mod?}/{func?}/{parameter?}/{student?}','FileManagerController@fileManager');
