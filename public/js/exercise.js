@@ -379,6 +379,7 @@ $(function () {
         }
     }
 
+
     //删除空格时删除答案
     $("body").on("keyup", ".exercise .editor-content", function (event) {
         var blank_len = $(this).find(".blank-item").length;

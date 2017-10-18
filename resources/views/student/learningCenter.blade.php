@@ -79,7 +79,12 @@
 				background: url('{{ asset('images/pi.png')  }}') no-repeat #3DBD7D;
 				background-size: 100% 100%;
 			}
-
+			/*这里需要图片*/
+			.error-answer>ul>.bj-img3{
+				background: url('{{ asset('images/pi.png')  }}') no-repeat #168bee;
+				background-size: 100% 100%;
+			}
+			
 			.error-answer>ul>.bj-ff5 {
 				background-color: #FF5B5B;
 			}

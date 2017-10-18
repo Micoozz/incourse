@@ -142,6 +142,7 @@ $(function(){
     //获取当前题号并使底部序号变蓝的函数
     function getOrderAndBlue(obj) {
         var a = false;
+        var isblankNull = false;
         for(var i = 0;i<$(obj).parents(".exer-list-ul").find("li").length;i++){
             var li = $(obj).parents(".exer-list-ul").find("li").eq(i)
             if($(li).find("label").hasClass("active")){
@@ -172,6 +173,33 @@ $(function(){
                 };
             }
         }
+
+        if($(obj).hasClass("blank-item")){
+            $(obj).parent().find(".blank-item").each(function(i){
+                if($.trim($(this).text()) == "" || $.trim($(this).text()) == ("空" + (i + 1))){
+                    $(this).text("空" + (i + 1));
+                }else{
+                    isblankNull = true;
+                }
+            })
+            if(isblankNull){
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order.hw-order-index").find("span").eq(parseInt($(".big-num").text())-1).addClass("active");
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).addClass("active");
+            }else{
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order.hw-order-index").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
+            }
+        }
+
+        if($(obj).hasClass("editor-content")){
+            if($(obj).text() == ""){
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).addClass("active");
+            }else{
+                $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).addClass("active");
+            }
+        }
+
+        //填空题字数限定    
         if($(obj).attr('contenteditable')==='true'){
         
            if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
@@ -188,20 +216,38 @@ $(function(){
         }
     }
 
+    $("body").on("focus", ".blank-item",function(){
+        $(this).each(function (i, item) {
+            if($.trim($(item).text()) == ("空" + (i + 1))){
+                $(item).text("");
+            }else{
+                return;
+            }
+        });
+    })
+
+    
+
     //底部答过的题标蓝
+    //选择
     $("body").on("click",".exercise-box .ic-radio",function(){getOrderAndBlue(this)});
+    //填空
     $("body").on("keyup",".exercise-box .blank-item",function(){getOrderAndBlue(this)});
+    //判断
     $("body").on("click",".exercise-box .pan-duan .uploadExerIcons",function(){getOrderAndBlue(this)});
+    //画图
     $("body").on("change",".exercise-box .addFile",function(){getOrderAndBlue(this)});
     $("body").on("click",".exercise-box .question_hpb>li",function(){getOrderAndBlue(this)});
+    //连线题
     $("body").on("mouseup",".exercise-box .sortable>li",function(){getOrderAndBlue(this)});
+    //解答题
     $("body").on("keyup",".exercise-box .editor-content",function(){
-        console.log('a')
         if($(this).text().length === 0){
+            $(this).parents(".f-l.do-hw").find(".ta-c.hw-order.hw-order-index").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
+            $(".hw-order.ta-c").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active")
             var order = parseInt($(".big-num").text());
-            $(".hw-order span:nth-child("+order+")").removeClass("active");
         }else {
-            getOrderAndBlue();
+            getOrderAndBlue(this);
         }
     });
 
