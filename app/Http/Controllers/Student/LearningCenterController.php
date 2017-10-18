@@ -191,7 +191,6 @@ class LearningCenterController extends Controller
 									'exe_id' => $exe_id,
 								));
 								$correctScore += $exercise->score / 100; //正确题的分数
-								//dd($correctScore);
 							}else{
 								$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 								array_push($data['status'], array(
@@ -202,9 +201,8 @@ class LearningCenterController extends Controller
 								$errorScore += $exercise->score / 100; //错误题的分数
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
-							//dd(111);
-							$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 							if($work->status == 1) {
+								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
 									'id' => 3,
 									'exe_id' =>$exe_id,
@@ -212,19 +210,20 @@ class LearningCenterController extends Controller
 								$modifyScore +=  $exercise->score / 100;
 							}else if ($work->status == 2) {
 								if ($userWork->score != 0) {
+									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
 										'id' => 4,
 										'exe_id' =>$exe_id,
 									));
 									$correctScore += $exercise->score / 100; //正确题的分数
 								}else{
+									$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 									array_push($data['status'], array(
 										'id' => 5,
 										'exe_id' =>$exe_id,
 									));
 									$errorScore += $exercise->score / 100; //错误题的分数
 								}
-								//$subjectScore += $userWork->score / 100; //主观题的分数
 							}
 						}
 					}
@@ -546,43 +545,6 @@ class LearningCenterController extends Controller
 		    ));
     	}
     	return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
-/*    	$exercise_id = explode('&', $exercises_id);
-    	$course = Work::find($work_id)->toArray()['course_id'];
-    	$data = array();
-    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score','chapter_id')->whereIn('id', $exercise_id)->get();
-    	$error_cate_arr = array();
-    	foreach ($error_exercise_list as $exercise) {
-    		$error_cate_arr[$exercise->categroy_id] = isset($error_cate_arr[$exercise->categroy_id]) ? $error_cate_arr[$exercise->categroy_id] : array();
-    		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score, $exercise->chapter_id);
-    	}
-
-    	foreach ($error_cate_arr as $cate_id => $exe_id_list) {
-    		$homotypology = Exercises::where(['chapter_id' => $exe_id_list[2],'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
-			->whereNotIn('id', $exercise_id)->orderBy(\DB::raw('RAND()'))->take(1)->get();//查询出该错题的3道同类型习题
-			foreach ($homotypology as $exercise) {
-				$categroy_id = Categroy::find($exercise->categroy_id)->id;
-				$categroy_title = Categroy::find($exercise->categroy_id)->title;
-				$abcList = range("A","Z");
-				$objective = Objective::where('exe_id', $exercise->id)->first();
-				$options = json_decode($objective->option, true);
-				if ($exercise->categroy_id == Exercises::CATE_FILL) {
-					$objective->subject = preg_replace('/(?<=contenteditable\=\")false(?=\")/', 'true', $objective->subject);
-				}
-				shuffle($options);
-			    array_push($data, array(
-			    	'id' => $exercise->id,
-			    	'parent_id' => $exe_id_list[0],
-			    	'categroy_id' => $categroy_id,
-					'categroy_title' => $categroy_title,
-					'subject' => $objective->subject,
-					'type' => 2,
-					'options' => $options,
-					'answer' => json_decode($objective->answer, true),
-					'score' => $exercise->score/100,
-			    ));
-			}
-    	}
-		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));*/
     }
 
     //同类型习题算分
