@@ -14,7 +14,7 @@
 @include('teacher.template.title')
 <div>
 @include('teacher.template.homework-tag')
-<div class="admin-container exer-room">
+<div class="admin-container exer-room" data-type="{{$action}}">
     <div class="my-exer-room-head">
         <a class="icon-text-btn uploadExer-btn" href="/uploadExercise/{{$class_id}}/{{$course_id}}">
             <i class="uploadExerIcons"></i>
@@ -61,7 +61,7 @@
                     <div class="jobList">
                         <div data-id="{{$exercise->id}}" data-see="" class="exer-in-list border">
                             <div class="exer-head">
-                                <span class="exer-type-list">{{$exercise->cate_title}}</span>
+                                <span class="exer-type-list">{{$exercise->cate_title}}</span><span class="isUsed" style="display:none">已使用</span>
                                 @if(empty($action))
                                 <div class="f-r ic-blue addBtnBox">
                                     <input class="checkbox-add" type="checkbox" id="addCheckedBox{{ $exercise->id }}"/>
