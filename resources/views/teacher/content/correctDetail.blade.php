@@ -247,6 +247,9 @@
 		cursor: pointer;
 		position: absolute;top: 0;left: 0;
 	}
+	.black_answer{
+		margin-right: 20px;
+	}
 </style>
 @endsection
 
@@ -278,192 +281,87 @@
 							</ul>
 							<!--题目列表，都是客观题-->
 							<div class="exer-list">
-								<!--单选题-->
-								<div class="exer-in-list border">
-									<div class="exer-head">
-										<span class="exer-type-list">单选题</span>
-									</div>
-									<div class="exer-wrap">
-										<div class="clear">
-											<span class="f-l">题目：</span>
-
-											<div class="f-l question">有三只鸟，打死一只，还剩几只？</div>
+								@foreach($data['objective'] as $exercise)
+									<div class="exer-in-list border">
+										<div class="exer-head">
+											<span class="exer-type-list">{!!$exercise->cate_title!!}</span>
 										</div>
-										<div class="clear answer-box">
-											<span class="f-l">答案：</span>
-
-											<div class="f-l">
-												<ul class="radio-wrap exer-list-ul">
-													<li>
-														<label class="ic-radio border p-r f-l radio-right">
-                                                    <i class="p-a"></i>
-                                                    <input type="radio" name="radio" value="A"/>
-                                                </label>
-														<span class="f-l">A：</span>
-
-														<p class="f-l option">8只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r f-l radio-wrong">
-                                                    <i class="p-a"></i>
-                                                    <input type="radio" name="radio" value="B" checked/>
-                                                </label>
-														<span class="f-l">B：</span>
-
-														<p class="f-l option">16只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r  f-l">
-                                                    <i class="p-a"></i>
-                                                    <input type="radio" name="radio" value="C"/>
-                                                </label>
-														<span class="f-l">C：</span>
-
-														<p class="f-l option">1只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r  f-l">
-                                                    <i class="p-a"></i>
-                                                    <input type="radio" name="radio" value="D"/>
-                                                </label>
-														<span class="f-l">D：</span>
-
-														<p class="f-l option">2只</p>
-													</li>
-												</ul>
+										<div class="exer-wrap">
+											@if($exercise->categroy_id != 3)
+											<div class="clear">
+												<span class="f-l">题目：</span>
+												<div class="f-l question">{!!$exercise->subject!!}</div>
 											</div>
-										</div>
-										<div class="exer-foot clear">
-											<div class="f-l">
-												<span class="ic-blue">正确答案：</span>
-												<span>A</span>
+											@else
+											<div class="clear">
+												<span class="f-l">题目：</span>
+												<div class="f-l question black_question" data-black="{{$exercise->subject}}"></div>
 											</div>
-										</div>
-									</div>
-								</div>
-								<!--多选题-->
-								<div class="exer-in-list border">
-									<div class="exer-head">
-										<span class="exer-type-list">多选题</span>
-									</div>
-
-									<div class="exer-wrap">
-										<div class="clear">
-											<span class="f-l">题目：</span>
-
-											<div class="f-l question">有三只鸟，打死一只，还剩几只？</div>
-										</div>
-										<div class="clear answer-box">
-											<span class="f-l">答案：</span>
-
-											<div class="f-l">
-												<ul class="radio-wrap exer-list-ul">
-													<li>
-														<label class="ic-radio border p-r f-l active">
-                                                    <i class="p-a"></i>
-                                                    <input type="checkbox" name="checkbox" value="A" checked/>
-                                                </label>
-														<span class="f-l">A：</span>
-
-														<p class="f-l option">8只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r f-l active">
-                                                    <i class="p-a"></i>
-                                                    <input type="checkbox" name="checkbox" value="B" checked/>
-                                                </label>
-														<span class="f-l">B：</span>
-
-														<p class="f-l option">16只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r f-l">
-                                                    <i class="p-a"></i>
-                                                    <input type="checkbox" name="checkbox" value="C"/>
-                                                </label>
-														<span class="f-l">C：</span>
-
-														<p class="f-l option">1只</p>
-													</li>
-													<li>
-														<label class="ic-radio border p-r f-l">
-                                                    <i class="p-a"></i>
-                                                    <input type="checkbox" name="checkbox" value="D"/>
-                                                </label>
-														<span class="f-l">D：</span>
-
-														<p class="f-l option">2只</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="exer-foot clear">
-											<div class="f-l">
-												<span class="ic-blue">正确答案：</span>
-												<span>A D</span>
-											</div>
+											@endif
+											@if($exercise->categroy_id == 1 || $exercise->categroy_id == 2)
+												<!--单选题  &&  多选题-->
+												<div class="clear answer-box">
+													<span class="f-l">答案：</span>
+													<div class="f-l">
+														<ul class="radio-wrap exer-list-ul">
+															@foreach($exercise->options as $option)
+															<li>
+																<label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? 'radio-right' : (in_array(key($option),$exercise->student_answer) ? 'radio-wrong' : '')}}">
+				                                                    <i class="p-a"></i>
+				                                                    <input type="radio" name="radio" value="A"/>
+			                                                	</label>
+																<span class="f-l">{{key($option)}}：</span>
+																<p class="f-l option">{{$option[key($option)]}}</p>
+															</li>
+															@endforeach
+														</ul>
+													</div>
+												</div>
+												<div class="exer-foot clear">
+													<div class="f-l">
+														<span class="ic-blue">正确答案：</span>
+														<span>A</span>
+													</div>
+												</div>
+											@elseif($exercise->categroy_id == 3)
+												<!--填空题-->
+												<div class="exer-foot clear">
+													<div class="f-l">
+														<span class="ic-blue">正确答案：</span>
+														@foreach($exercise->answer as $answer)
+															<span class="black_answer">{{$loop->index +1}}、{{$answer}}</span>
+														@endforeach
+													</div>
+												</div>
+											@elseif($exercise->categroy_id == 4)
+												<!--判断题-->
+												<div class="clear answer-box">
+													<span class="f-l">答案：</span>
+													<div class="f-l">
+														<ul class="fs14 pan-duan {{$exercise->student_answer[0] == 1? 'rightActive':($exercise->student_answer[0] == 0? 'wrongActive':'')}}">
+															<li>
+																<i class="uploadExerIcons right"></i>
+																<span class="gray pan-duan-answ">正确</span>
+															</li>
+															<li>
+																<i class="uploadExerIcons wrong"></i>
+																<span class="pan-duan-answ">错误</span>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="exer-foot clear">
+													<div class="f-l p-r">
+														<span class="ic-blue">正确答案：</span>
+														<i class="p-a uploadExerIcons wrong pan-duan-icon"></i>
+													</div>
+												</div>
+											@endif
 										</div>
 									</div>
-								</div>
-								<!--填空题-->
-								<div class="exer-in-list border">
-									<div class="exer-head">
-										<span class="exer-type-list">填空题</span>
-									</div>
-
-									<div class="exer-wrap">
-										<div class="clear">
-											<span class="f-l">题目：</span>
-
-											<div class="f-l question">fgfgfgfggflgflgflhg<span class="blank-item">primed for</span>hgkhghgkhlgkhlghkglhkg<span class="blank-item tk-wrong">bank</span>hlgkhglhkghglg khglhkghgthg hghrtedwdssdsgd ht jhyj hjhkjk jkjklh
-											</div>
-										</div>
-										<div class="exer-foot clear">
-											<div class="f-l">
-												<span class="ic-blue">正确答案：</span>
-												<span>1.primed for&nbsp;&nbsp;&nbsp;2.painstaking</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--判断题-->
-								<div class="exer-in-list border">
-									<div class="exer-head">
-										<span class="exer-type-list">判断题</span>
-									</div>
-
-									<div class="exer-wrap">
-										<div class="clear">
-											<span class="f-l">题目：</span>
-
-											<div class="f-l question">天宇一定是个男孩子?</div>
-										</div>
-										<div class="clear answer-box">
-											<span class="f-l">答案：</span>
-
-											<div class="f-l">
-												<ul class="fs14 pan-duan wrongActive">
-													<li>
-														<i class="uploadExerIcons right"></i>
-														<span class="gray pan-duan-answ">正确</span>
-													</li>
-													<li>
-														<i class="uploadExerIcons wrong"></i>
-														<span class="pan-duan-answ">错误</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="exer-foot clear">
-											<div class="f-l p-r">
-												<span class="ic-blue">正确答案：</span>
-												<i class="p-a uploadExerIcons wrong pan-duan-icon"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--连线题-->
-								<!-- <div class="exer-in-list border">
+								@endforeach
+									<!--连线题-->
+									<!-- <div class="exer-in-list border">
 									<div class="exer-head">
 										<span class="exer-type-list">连线题</span>
 									</div>
@@ -503,22 +401,22 @@
 											</div>
 										</div>
 									</div>
-								</div> -->
-								<!--排序题-->
-								<div class="exer-in-list border">
+									</div> -->
+									<!--排序题-->
+									<!-- <div class="exer-in-list border">
 									<div class="exer-head">
 										<span class="exer-type-list">排序题</span>
 									</div>
-
+								
 									<div class="exer-wrap">
 										<div class="clear">
 											<span class="f-l">题目：</span>
-
+								
 											<div class="f-l question">请给下列句子排序</div>
 										</div>
 										<div class="clear answer-box">
 											<span class="f-l">答案：</span>
-
+								
 											<div class="f-l">
 												<ul class="exer-list-ul">
 													<li>
@@ -547,53 +445,53 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<!--完形填空-->
-								<div class="exer-in-list border">
+									</div> -->
+									<!--完形填空-->
+									<!-- <div class="exer-in-list border">
 									<div class="exer-head">
 										<span class="exer-type-list">完形填空</span>
 									</div>
-
+								
 									<div class="exer-wrap">
 										<div class="clear">
 											<span class="f-l">题目：</span>
-
+								
 											<div class="f-l question">fgfgfgfggflgflgflhg<span class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span class="blank-item">空2</span>hlgkhglhkghglg khglhkghgthg hghrtedwdssdsgd ht jhyj hjhkjk jkjklh
 											</div>
 										</div>
 										<div class="clear answer-box">
 											<span class="f-l">答案：</span>
-
+								
 											<div class="f-l">
 												<div class="wan-xing-tk-option clear">
 													<span class="f-l id">1.</span>
 													<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r radio-right">
-                                                        <i class="p-a"></i>
-                                                        <input type="radio" name="radio" value="A"/>
-                                                    </label>
+								                                                        <i class="p-a"></i>
+								                                                        <input type="radio" name="radio" value="A"/>
+								                                                    </label>
 															<span>A：show up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="p-a"></i>
-                                                        <input type="radio" name="radio" value="B"/>
-                                                    </label>
+								                                                        <i class="p-a"></i>
+								                                                        <input type="radio" name="radio" value="B"/>
+								                                                    </label>
 															<span>B：show up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="p-a"></i>
-                                                        <input type="radio" name="radio" value="C"/>
-                                                    </label>
+								                                                        <i class="p-a"></i>
+								                                                        <input type="radio" name="radio" value="C"/>
+								                                                    </label>
 															<span>C：set up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="p-a"></i>
-                                                        <input type="radio" name="radio" value="D"/>
-                                                    </label>
+								                                                        <i class="p-a"></i>
+								                                                        <input type="radio" name="radio" value="D"/>
+								                                                    </label>
 															<span>D：show up</span>
 														</div>
 													</div>
@@ -603,30 +501,30 @@
 													<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="ic-blue-bg p-a"></i>
-                                                        <input type="radio" name="radio" value="A"/>
-                                                    </label>
+								                                                        <i class="ic-blue-bg p-a"></i>
+								                                                        <input type="radio" name="radio" value="A"/>
+								                                                    </label>
 															<span>A：show up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="ic-blue-bg p-a"></i>
-                                                        <input type="radio" name="radio" value="B"/>
-                                                    </label>
+								                                                        <i class="ic-blue-bg p-a"></i>
+								                                                        <input type="radio" name="radio" value="B"/>
+								                                                    </label>
 															<span>B：show up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r active">
-                                                        <i class="ic-blue-bg p-a"></i>
-                                                        <input type="radio" name="radio" value="C"/>
-                                                    </label>
+								                                                        <i class="ic-blue-bg p-a"></i>
+								                                                        <input type="radio" name="radio" value="C"/>
+								                                                    </label>
 															<span>C：set up</span>
 														</div>
 														<div class="radio-wrap">
 															<label class="ic-radio border p-r">
-                                                        <i class="ic-blue-bg p-a"></i>
-                                                        <input type="radio" name="radio" value="D"/>
-                                                    </label>
+								                                                        <i class="ic-blue-bg p-a"></i>
+								                                                        <input type="radio" name="radio" value="D"/>
+								                                                    </label>
 															<span>D：show up</span>
 														</div>
 													</div>
@@ -640,7 +538,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+									</div> -->
 							</div>
 						</div>
 						<!--主观题-->
@@ -965,6 +863,12 @@
 <!-- <script src="/js/teacher/homeworkManage.js" charset="utf-8"></script> -->
 <script>
 	$(function() {
+
+		$(".black_question").each(function(){
+			var html = $(this).attr("data-black");
+			$(this).html(html);
+
+		})
 		$(".postil>div:last-child>div").css({height:($(".postil > div:first-child").height()-88)})
 		//已批改和未批改切换
 		var switchs = true
