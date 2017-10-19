@@ -342,12 +342,16 @@ class LearningCenterController extends Controller
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
-		 		$exe_id = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->pluck('exe_id');
+		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->toArray();
+		 		$workStatus = Work::find($parameter)->pluck('status');
+		 		if($workStatus == 3){
+		 			$subjectExercise = Exercises::select('id')->whereIn('id', $error_work)->where('exe_type',2)->get();
+		 			$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get();
+		 		}
+		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get()->toArray();
+		 		$data = array('error_work' => $error_work, 'error_same' => $error_same);
 
-		 		$subjectExercise = Exercises::select('id')->whereIn('id', $exe_id)->where('exe_type',2)->get();
-		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get();
-		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
-		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
+
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
