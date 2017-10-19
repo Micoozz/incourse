@@ -93,7 +93,7 @@ class LearningCenterController extends Controller
 		        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 		        $work->deadline = $work->belongsToJob()->first()->deadline;
 		        $work->job_type = $work->belongsToJob()->first()->job_type;
-		        if ($work->status == 1 || $work->status == 2) {
+		        if ($work->status == 2 || $work->status == 3) {
 			    $baseNum = (int)($user->id/1000-0.0001)+1;
 		        $db_name = 'mysql_stu_work_info_'.$baseNum;
 		        try{
@@ -120,6 +120,7 @@ class LearningCenterController extends Controller
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::guard('student')->user();
+    	dd($user->id);
     	$courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $data = array();
@@ -143,7 +144,7 @@ class LearningCenterController extends Controller
 			        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
 			        $work->job_type = $work->belongsToJob()->first()->job_type;
-					if ($work->status == 1 || $work->status == 2) {
+					if ($work->status == 2 || $work->status == 3) {
 						$baseNum = (int)($user->id/1000-0.0001)+1;
 				        $db_name = 'mysql_stu_work_info_'.$baseNum;
 				        try{
@@ -513,7 +514,7 @@ class LearningCenterController extends Controller
         }
        	if ($result) {
         	$work = Work::find($work->id);
-        	$work->status = 1;
+        	$work->status = 2;
 	        $work->sub_time = time();
 	        $work->save();
         }
