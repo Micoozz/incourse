@@ -202,7 +202,8 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         $work = Work::find($work_id);
         $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
-        $data = Exercises::whereIn('id',$exercise_id_list)->get();
+        $data = array('objective' => [],'subjective' => []);
+        $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -210,7 +211,7 @@ class TeachingCenterController extends TeacherController
         }catch(\Exception $e){
             throw $e;
         }
-        foreach ($data as $exercise) {
+        foreach ($exercise_list as $exercise) {
             $cate_title = Categroy::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
@@ -219,11 +220,13 @@ class TeachingCenterController extends TeacherController
                 $subjective = $exercise->hasManySubjective->first();
                 $exercise->subject = $subjective->subject;
                 $exercise->answer = array('自由发挥');
+                array_push($data['subjective'],$exercise);
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = $exercise->hasManyObjective->first();
                 $exercise->subject = $objective->subject;
                 $exercise->options = json_decode($objective->option,TRUE);
                 $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+                array_push($data['objective'],$exercise);
             }
 //          else{
 //              

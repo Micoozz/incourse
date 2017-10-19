@@ -12,8 +12,8 @@
 |
 */
 Route::post('/test','PageController@test');
+Route::get('/', 'Controller@index')->name('login');
 Route::post('/getScantronIdList','Teacher\TeachingCenterController@getScantronIdList');
-Route::get('/', 'PageController@index')->name('login');
 Route::post('/','LoginController@login');
 Route::post('/login','LoginController@login');
 Route::group(['middleware' => "auth:school,employee,student"],function(){
