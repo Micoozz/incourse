@@ -344,7 +344,6 @@
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
-
 					<!--多选题-->
 					{{-- dd($data['exercises'][0]) --}}
 					@if($data['exercises'][0]['categroy_id'] == 2)
