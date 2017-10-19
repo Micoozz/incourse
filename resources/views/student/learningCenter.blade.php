@@ -372,13 +372,10 @@
 		}
 		
 		$("#sameSkip").on("click",function(){
-			if(sessionStorageJson == null){
-				window.location.href = '/learningCenter/' + courseFirst + '/homework/' + '/work_score/' + parameter;
-			}else{
+			if(sessionStorageJson != null){
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
-			}	
+			}
 		});
-		
 		</script>
 	</body>
 
