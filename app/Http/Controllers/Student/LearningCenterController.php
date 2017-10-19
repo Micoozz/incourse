@@ -171,7 +171,6 @@ class LearningCenterController extends Controller
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
-					//dd($exercise_id);
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
@@ -344,7 +343,8 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
 		 		$exe_id = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->pluck('exe_id');
-		 		$subjectExercise = Exercises::select('id')->whereIn('id', $exe_id)->get();
+
+		 		$subjectExercise = Exercises::select('id')->whereIn('id', $exe_id)->where('exe_type',2)->get();
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get();
 		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
 		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
