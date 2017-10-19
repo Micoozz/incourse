@@ -231,7 +231,7 @@ class LearningCenterController extends Controller
 						}
 					}
 					//同类型练习
-					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->orderBy('exe_id','asc')->where('parent_id', '<>', null)->get();
+					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
 							$data['sameCount'] = $data['sameCount'] + 1;
