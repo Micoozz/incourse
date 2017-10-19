@@ -343,9 +343,10 @@ class LearningCenterController extends Controller
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
-		 		$exe_id = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->toArray();
-		 		dd($exe_id);
+		 		$exe_id = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
+		 		//dd($exe_id);
 		 		$subjectExercise = Exercises::select('id')->whereIn('id', $exe_id)->get();
+		 		dd($subjectExercise);
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get();
 		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
 		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
