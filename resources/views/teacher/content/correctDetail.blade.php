@@ -287,20 +287,17 @@
 											<span class="exer-type-list">{!!$exercise->cate_title!!}</span>
 										</div>
 										<div class="exer-wrap">
-											@if($exercise->categroy_id != 3)
 											<div class="clear">
 												<span class="f-l">题目：</span>
+												@if($exercise->categroy_id != 3)
 												<div class="f-l question">{!!$exercise->subject!!}</div>
+												@else
+												<div class="f-l question black_question" data-black="{{$exercise->subject}}" data-student-answer="{{$exercise->student_answer}}"></div>
+												@endif
 											</div>
-											@else
-											<div class="clear">
-												<span class="f-l">题目：</span>
-												<div class="f-l question black_question" data-black="{{$exercise->subject}}"></div>
-											</div>
-											@endif
 											@if($exercise->categroy_id == 1 || $exercise->categroy_id == 2)
 												<!--单选题  &&  多选题-->
-												<div class="clear answer-box">
+												<div class="clear answer-box ">
 													<span class="f-l">答案：</span>
 													<div class="f-l">
 														<ul class="radio-wrap exer-list-ul">
@@ -320,7 +317,9 @@
 												<div class="exer-foot clear">
 													<div class="f-l">
 														<span class="ic-blue">正确答案：</span>
-														<span>A</span>
+														@foreach($exercise->answer as $answer)
+															<span>{{$loop->index +1}}、{{$answer}}</span>
+														@endforeach
 													</div>
 												</div>
 											@elseif($exercise->categroy_id == 3)
@@ -329,7 +328,7 @@
 													<div class="f-l">
 														<span class="ic-blue">正确答案：</span>
 														@foreach($exercise->answer as $answer)
-															<span class="black_answer">{{$loop->index +1}}、{{$answer}}</span>
+															<span class="black_answer">{{$answer}}</span>
 														@endforeach
 													</div>
 												</div>
@@ -350,10 +349,15 @@
 														</ul>
 													</div>
 												</div>
-												<div class="exer-foot clear">
+												<div class="exer-foot clear answer-box">
 													<div class="f-l p-r">
-														<span class="ic-blue">正确答案：</span>
-														<i class="p-a uploadExerIcons wrong pan-duan-icon"></i>
+														<span class="ic-blue" style="display: inline-block;position: relative;top: -6px;">正确答案：</span>
+														<ul style="display: inline-block;" class="fs14 pan-duan {{$exercise->answer[0] == 1? 'rightActive':($exercise->answer[0] == 0? 'wrongActive':'')}}">
+															<li>
+																<i class="uploadExerIcons {{$exercise->answer[0] == 1? 'right':'wrong'}}"></i>
+																<span class="gray pan-duan-answ">{{$exercise->answer[0] == 1? '正确':'错误'}}</span>
+															</li>
+														</ul>
 													</div>
 												</div>
 											@endif
@@ -867,7 +871,10 @@
 		$(".black_question").each(function(){
 			var html = $(this).attr("data-black");
 			$(this).html(html);
-
+			var h = JSON.parse($(this).attr("data-student-answer"));
+			for(var i = 0;i < h.length;i++){
+				$(".blank-item").eq(i).text(h[i]);
+			}
 		})
 		$(".postil>div:last-child>div").css({height:($(".postil > div:first-child").height()-88)})
 		//已批改和未批改切换
