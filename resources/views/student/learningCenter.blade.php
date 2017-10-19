@@ -370,13 +370,15 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
-		if(sessionStorageJson != null || sessionStorageJson != 'undefined'){
-			$("#sameSkip").on("click",function(){
+		
+		$("#sameSkip").on("click",function(){
+			if(sessionStorageJson != null || sessionStorageJson != 'undefined'){
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
-			});
-		}else{
-			window.location.href = '/learningCenter/' + courseFirst + '/homework/' + '/work_score/' + parameter;
-		}	
+			}else{
+				window.location.href = '/learningCenter/' + courseFirst + '/homework/' + '/work_score/' + parameter;
+			}	
+		});
+		
 		</script>
 	</body>
 
