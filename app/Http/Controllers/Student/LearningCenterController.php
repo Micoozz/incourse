@@ -120,7 +120,6 @@ class LearningCenterController extends Controller
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::guard('student')->user();
-    	dd($user->id);
     	$courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $data = array();
@@ -475,7 +474,7 @@ class LearningCenterController extends Controller
                 $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
+                $table->string('sort',200)->nullable();s
             });
         }
         foreach ($input['data'] as $answer) {
