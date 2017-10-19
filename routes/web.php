@@ -60,6 +60,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/pubJob','TeachingCenterController@pubJob');
 		Route::post('/addExercise','TeachingCenterController@addExercise');
 		Route::post('/teacherBindClass','TeachingCenterController@teacherBindClass');
+		Route::get('/correctWork/{class_id?}/{course_id?}/{job_id}','TeachingCenterController@correctWork');
+		Route::get('/correctDetail/{class_id?}/{course_id?}/{work_id}','TeachingCenterController@correctDetail');
 
 
 
@@ -109,30 +111,28 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/showExerciseList/{course}/{page?}','ExerciseController@showExerciseList');
 		Route::post('/getExerciseList/{page?}','ExerciseController@getExerciseList');
 	});
-	Route::group(['middleware' => 'student'],function(){
-		//学生平台
-		Route::get('/selectClass/{grade_id}','student\LearningCenterController@selectClass');
-		Route::get('/todayWork/{func?}/{parameter?}','student\LearningCenterController@todayWork');
-		Route::get('/workList/{course?}/{page?}','student\LearningCenterController@workList');
-		Route::get('/routineWork\{work_id}','student\LearningCenterController@routineWork');
-		Route::get('/doHomework/{work_id?}','student\LearningCenterController@doHomework');
-		Route::get('/homotypology/{exercise_id?}/{work_id?}/{accuracy?}/{increase?}','student\LearningCenterController@homotypology');//同类型习题推送
-		Route::get('/workScore/{work_id}','student\LearningCenterController@workScore');
-		Route::post('/sameScore','student\LearningCenterController@sameScore');
-
-
-		Route::get('/learningCenter/{course?}/{mod?}/{func?}/{parameter?}/{exercise_id?}/{several?}','student\LearningCenterController@learningCenter');
-
-		Route::post('/homeworkScores','student\LearningCenterController@homeworkScores');
-		Route::post('/todayWork/uptatePwd','student\LearningCenterController@updatePwd');
-		Route::post('/studentSelectClass','student\LearningCenterController@studentSelectClass');
-
+	//学生平台
+	Route::group(['middleware' => 'student','namespace' => 'student'],function(){
+		//学生作业	
+		Route::get('/selectClass/{grade_id}','LearningCenterController@selectClass');
+		Route::get('/todayWork/{func?}/{parameter?}','LearningCenterController@todayWork');
+		Route::get('/workList/{course?}/{page?}','LearningCenterController@workList');
+		Route::get('/routineWork\{work_id}','LearningCenterController@routineWork');
+		Route::get('/doHomework/{work_id?}','LearningCenterController@doHomework');
+		Route::get('/homotypology/{exercise_id?}/{work_id?}/{accuracy?}/{increase?}','LearningCenterController@homotypology');//同类型习题推送
+		Route::get('/workScore/{work_id}','LearningCenterController@workScore');
+		Route::post('/sameScore','LearningCenterController@sameScore');
+		Route::get('/learningCenter/{course?}/{mod?}/{func?}/{parameter?}/{exercise_id?}/{several?}','LearningCenterController@learningCenter');
+		Route::post('/homeworkScores','LearningCenterController@homeworkScores');
+		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
+		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
 		//习题本
-		Route::get('/review/{course?}','student\LearningCenterController@review');
-		Route::get('/syncExercise/{course?}','student\LearningCenterController@syncExercise');//同步练习
-		Route::get('/foreExercise/{course?}','student\LearningCenterController@foreExercise');//预习
-		Route::get('/errorsExercise','student\LearningCenterController@errorsExercise');//错题本
-		Route::get('/collect','student\LearningCenterController@collect');//收藏
+		/*Route::get('/review/{course?}','ExerciseBookController@review');//复习
+		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习*/
+		Route::get('/freePractice/{course}/{parameter}','ExerciseBookController@freePractice');//复习、同类型练习
+		Route::get('/foreExercise/{course?}','ExerciseBookController@foreExercise');//预习
+		Route::get('/errorsExercise','ExerciseBookController@errorsExercise');//错题本
+		Route::get('/collect','ExerciseBookController@collect');//收藏
 	});
 	Route::get('/logout','LoginController@logout');
 });

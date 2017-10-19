@@ -21,7 +21,7 @@
 						<th colspan='5'>第一章第一节作业</th>
 					</tr>
 					<tr>
-						<td><b>学号</b></td>
+						<!-- <td><b>学号</b></td> -->
 						<td><b>姓名</b></td>
 						<td><b>分数</b></td>
 						<td><b>状态</b></td>
@@ -29,22 +29,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>20071027</td>
-						<td>曹操</td>
-						<td><span class="gray">待统计</span></td>
-						<td><span class="red">可批改</span></td>
+				@foreach($work_list as $work)
+					<tr data-id="{{$work->id}}">
+						<!-- <td>20071027</td> -->
+						<td>{{$work->student_name}}</td>
+						<td><span class="gray">{{$work->score}}</span></td>
+						<td><span class="red">111<!-- {{$work->status}} --></span></td>
 						<td class="ic-blue">
-							<span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title=""><span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span></a>
 						</td>
 					</tr>
+				@endforeach
 				</tbody>
 			</table>
-			<button class="btn-white">返回</button>
+			<a href="/correct/{{$class_id}}/{{$course_id}}"><button class="btn-white">返回</button></a>
 		</div>
 
 		<!--小组作业批改-->
-		<div class="Group-correction">
+		<!-- <div class="Group-correction">
 			<div class="Group-search">
 				<span>
 				<span class="member">小组分类</span>
@@ -96,7 +98,7 @@
 				</tbody>
 			</table>
 			<button class="btn-white">返回</button>
-		</div>
+		</div> -->
 	</div>
 @endsection
 

@@ -25,12 +25,12 @@
 					<span num=3 class="group">小组作业</span>
 					<a href="/correct/{{$class_id}}/{{$course_id}}/1"><span class="entirely">个人作业</span></a>
 				</div>
-				<!-- <div>
-					<b>章节：</b>
+				<div>
+
 				</div>
 				<div>
-					<b>小节：</b>
-				</div> -->
+
+				</div>
 			</div>
 
 			<!--未发布-->
@@ -82,12 +82,12 @@
 					<tr>
 						<!-- <td>{{$job->chapter_id}}</td> -->
 						<td>{{$job->job_type == 1?"个人":"小组"}}</td>
-						<td>{{ date('Y-m-d H:i:s',$job->deadline) }}</td>
+						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
 						<td><span class="gray">待统计</span></td>
 						<td><span class="red">可批改</span></td>
 						<td class="ic-blue">
-							<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span>&nbsp;  &nbsp;
-							<span class="blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span>
+							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}"><span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span></a>&nbsp;  &nbsp;
+							<!-- <span class="blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span> -->
 						</td>
 					</tr>
 					@endforeach
@@ -192,13 +192,7 @@
 		$(this).parent().nextAll().hide()
 	})
 
-	/*//个人作业批改
-	$('body').on('click', '.correction_pg', function() {
-		$('.manageAdmin-wrap').hide()
-		$('.work-correction').show()
-		$('.work-correction .pigaizuoye').show()
-		return false;
-	})*/
+	//个人作业批改
 	/*$('body').on('click', '.work-correction>button', function() {
 		$('.manageAdmin-wrap').show()
 		$('.work-correction').hide()

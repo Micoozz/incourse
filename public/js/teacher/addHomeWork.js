@@ -68,7 +68,7 @@ $("#cancel-person-hw").click(function(){
             window.sessionStorage.removeItem("addJob");
             window.location.href = herf;
         }, function(){});
-    }) 
+    })
 });
 
 //选择章节并获取小节数据
@@ -318,7 +318,6 @@ function getLocalData(sessionStorageData){
                     setTimeout(function(){
                         $(that).find('.chapterBox').css({display:'block'});
                     },500)
-                    
                 }
             });
             $(".chapterBox").on("click",".chapterIcon",function(e){
@@ -330,7 +329,7 @@ function getLocalData(sessionStorageData){
                     $(this).parent().animate({width:'70px'},500);
                     $(this).removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
                 }
-                
+
             })
             $("#all-checked").click(function(){
                 if($(this).is(":checked")){
@@ -342,7 +341,7 @@ function getLocalData(sessionStorageData){
                         $(trList).find(".checkJob").prop("checked",false);
                     })
                 }
-                
+
             })
             $(".checkJob,.chapterBox").click(function(e){
                 e.stopPropagation();
@@ -399,7 +398,7 @@ function saveoOrPublicJob(isTrue,sessionStorage,obj){
                         window.sessionStorage.removeItem("addJob");
                     })
                 }
-                
+
             }else{
                 layui.use('layer', function(){
                     layer.msg(t, {
@@ -471,6 +470,7 @@ function publicClick(sessionStorage){
         "class":classId,
         "course":course,
         "type":1,
+        "rulejob":upLoadJob.rulejob,
         "title":upLoadJob.title,
         "exercise_id":upLoadJob.exercise,
         "deadline":upLoadJob.deadline,

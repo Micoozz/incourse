@@ -422,9 +422,6 @@ body .lhgcal {
 
 
 /************* personHwMark.html ************/
-.person-hw-mark-head {
-    margin-top: 17px;
-}
 .person-hw-mark-head .lookSameExer {
     top: 8px;
     text-decoration: underline;
@@ -445,22 +442,22 @@ body .lhgcal {
     background-color: #e1f5fa;
 }
 .person-hw-derail {
-    margin-top: 35px;
+    margin-top: 20px;
 }
 .person-hw-derail>li {
-    width: 22%;
+    width: 24%;
     height: 25px;
     line-height: 25px;
 }
 .person-hw-derail>li:first-child {
-    width: 34%;
+    width: 28%;
 }
 .person-hw-derail .score {
-    width: 50px;
+    width: 88px;
     height: 25px;
     outline: none;
     padding-left: 10px;
-
+    line-height: 23px;
 }
 
 
@@ -647,7 +644,6 @@ body .lhgcal {
 
 .work-correction,
 .Group-correction {
-    display: none;
     text-align: center;
 }
 
