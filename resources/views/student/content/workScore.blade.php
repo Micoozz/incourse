@@ -15,7 +15,7 @@
 		</div>
 		<div class="progresse">@include("student.template.progressBar")</div>
 		<div class="consuming">
-			总耗时：{{ date('i分s秒',$data['exeSecond']) }}<!-- //33分20秒 -->
+			总耗时：{{ $data['exeSecond'] }}<!-- //33分20秒 -->
 			<div>
 				<span>正确：{{ $data['objectiveCount'] + $data['sameCount'] }}题</span>	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
