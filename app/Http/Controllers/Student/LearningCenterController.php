@@ -474,7 +474,7 @@ class LearningCenterController extends Controller
                 $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();s
+                $table->string('sort',200)->nullable();
             });
         }
         foreach ($input['data'] as $answer) {
