@@ -226,12 +226,16 @@ class TeachingCenterController extends TeacherController
                 $exercise->subject = $objective->subject;
                 $exercise->options = json_decode($objective->option,TRUE);
                 $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+                if($exercise->categroy_id == Exercises::CATE_FILL){
+                    $exercise->student_answer = json_encode($exercise->student_answer,JSON_UNESCAPED_UNICODE);
+                }
                 array_push($data['objective'],$exercise);
             }
 //          else{
 //              
 //          }
         }
+        dd($data);
         return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data'));
     }
     /*上传习题页面*/
