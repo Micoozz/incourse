@@ -304,8 +304,8 @@
 				})
 			})
         }
-		sameSort(".answerCard ul .bj-ff5-same",".sameTypeJob ul .bj-ff5-same","exe-id","parent-id");
-		sameSort(".answerSheets .bj-ff5-same",".homotypology .bj-ff5-same","exe-id","parent-id");
+		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5-same","exe-id","parent-id");
+		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5-same","exe-id","parent-id");
 		$('.answerCard ul li,.error-answer ul li').click(function(){
 			if($(this).attr('class')=='bj-ff5'){
 					localStorage.arry=$(this).text()
