@@ -359,6 +359,7 @@
 		//显示所有的	
 		//跳转到同类型习题页面
 		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
+		console.log(sessionStorageJson);
 		if (func == "work_tutorship") {
 			var sameSkip = $(".submits").attr("error-exercise");
 			if(!sessionStorageJson){
@@ -369,9 +370,13 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
-		$("#sameSkip").on("click",function(){
-			window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
-		});
+		if(sessionStorageJson != null || sessionStorageJson != 'undefined'){
+			$("#sameSkip").on("click",function(){
+				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
+			});
+		}else{
+			window.location.href = '/learningCenter/' + courseFirst + '/homework/' + '/work_score/' + parameter;
+		}	
 		</script>
 	</body>
 

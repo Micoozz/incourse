@@ -59,6 +59,7 @@
 </div>
 <script>
 	var skip = sessionStorage.getItem("skip");
+	console.log(sessionStorage)
 	sessionStorage.clear();
 	if(skip){
 		sessionStorage.setItem("skip",skip);
