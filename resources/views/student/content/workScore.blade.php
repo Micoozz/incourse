@@ -17,9 +17,9 @@
 		<div class="consuming">
 			总耗时：{{ date('i分s秒',$data['exeSecond']) }}<!-- //33分20秒 -->
 			<div>
-				<span>正确：{{ $data['objectiveCount'] }}题</span>	
+				<span>正确：{{ $data['objectiveCount'] + $data['sameCount'] }}题</span>	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>错误：{{ $data['objectiveErrorCount'] }}题</span>
+				<span>错误：{{ $data['objectiveErrorCount'] + $data['sameErrorScore'] }}题</span>
 				<span>未批改：{{ $data['modifyCount'] }}题</span>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data['status'] as $key => $status)
-					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] != 3) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @endif @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5" @elseif($status['id'] == 3) class="bj-img1"  @elseif($status['id'] == 4) class =".bj-img2"  @elseif($status['id'] == 5) class="" @endif >{{ $loop->iteration }}</li>
+					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] != 3) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @endif @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @elseif($status['id'] == 3) class="bj-img1 bj-ff5-same"  @elseif($status['id'] == 4) class ="bj-img2 bj-ff5-same"  @elseif($status['id'] == 5) class="bj-img3 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
 				@endforeach	
 			</ul>
 		</div>
@@ -35,10 +35,11 @@
 		@if(!empty($data['sameExercise']))
 		<div class="error-answer sameTypeJob">
 			<p>同类型习题：</p>
-			<ul>
-				@foreach($data['sameExercise'] as $key => $status)
-					<li parent-id="{{ $status['parent_id'] }}" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'"   @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5" @else class="bj-img1" @endif >{{ $loop->iteration }}</li>
-				@endforeach
+				<ul>
+					@foreach($data['sameExercise'] as $key => $status)
+						<li parent-id="{{ $status['parent_id'] }}" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'"   @if($status['id'] == 1) class="bj-ff5-same" @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @else class="bj-img1 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
+					@endforeach
+				</ul>
 			</ul>
 		</div>
 		@endif	
@@ -59,6 +60,7 @@
 </div>
 <script>
 	var skip = sessionStorage.getItem("skip");
+	console.log(sessionStorage)
 	sessionStorage.clear();
 	if(skip){
 		sessionStorage.setItem("skip",skip);

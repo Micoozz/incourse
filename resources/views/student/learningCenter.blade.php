@@ -111,12 +111,12 @@
 				margin-top: 20px;
 				display: none;
 			}
-			.answer-ka{
-    color: #168BEE;
-    border-bottom: 1px solid #eee;
-    padding: 7px 0;
-    margin-bottom: 20px;
-    font-size: 14px;
+			.answer-ka {
+			    color: #168BEE;
+			    border-bottom: 1px solid #eee;
+			    padding: 7px 0;
+			    margin-bottom: 20px;
+			    font-size: 14px;
 			}
 		</style>
 	</head>
@@ -304,8 +304,8 @@
 				})
 			})
         }
-		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5","exe-id","parent-id");
-		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5","exe-id","parent-id");
+		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5-same","exe-id","parent-id");
+		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5-same","exe-id","parent-id");
 		$('.answerCard ul li,.error-answer ul li').click(function(){
 			if($(this).attr('class')=='bj-ff5'){
 					localStorage.arry=$(this).text()
@@ -313,7 +313,7 @@
 		});
 
 		$('.submits button:nth-of-type(2)').click(function(){
-				var array=[];
+			var array=[];
 		$('.answerCard ul li,.error-answer ul li').each(function(){
 			if($(this).attr('class')=='bj-ff5'){
 					array.push($(this).text())
@@ -359,6 +359,7 @@
 		//显示所有的	
 		//跳转到同类型习题页面
 		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
+		console.log(sessionStorageJson);
 		if (func == "work_tutorship") {
 			var sameSkip = $(".submits").attr("error-exercise");
 			if(!sessionStorageJson){
@@ -369,8 +370,13 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
+		
 		$("#sameSkip").on("click",function(){
-			window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
+			if(sessionStorageJson != null){
+				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
+			}else{
+				window.location.href='/learningCenter/' + courseFirst + '/homework/work_score/' + parameter;
+			}
 		});
 		</script>
 	</body>

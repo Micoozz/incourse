@@ -171,9 +171,13 @@ class LearningCenterController extends Controller
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
+					//dd($exercise_id);
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
+					$data['sameCount'] = 0;
+					$data['sameErrorScore'] = 0;
+					$modifyScore = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
 						$exercise = Exercises::find($exe_id);
@@ -200,29 +204,44 @@ class LearningCenterController extends Controller
 								$errorScore += $exercise->score / 100; //错误题的分数
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
-							$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
-							array_push($data['status'], array(
-								'id' => 3,
-								'exe_id' =>$exe_id,
-							));
-							//status = 1，说明作业未批改 status = 2 说明作业已经批改
 							if($work->status == 1) {
-								$subjectScore = 0;
+								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
+								array_push($data['status'], array(
+									'id' => 3,
+									'exe_id' =>$exe_id,
+								));
+								$modifyScore +=  $exercise->score / 100;
 							}else if ($work->status == 2) {
-								$subjectScore += $userWork->score / 100; //主观题错误的题目			
-							}		
+								if ($userWork->score != 0) {
+									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
+									array_push($data['status'], array(
+										'id' => 4,
+										'exe_id' =>$exe_id,
+									));
+									$correctScore += $exercise->score / 100; //正确题的分数
+								}else{
+									$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
+									array_push($data['status'], array(
+										'id' => 5,
+										'exe_id' =>$exe_id,
+									));
+									$errorScore += $exercise->score / 100; //错误题的分数
+								}
+							}
 						}
 					}
 					//同类型练习
-					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
+					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->orderBy('exe_id','asc')->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
+							$data['sameCount'] = $data['sameCount'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 1,
 								"exe_id" => $sameExercise->exe_id,
 								"parent_id" =>$sameExercise->parent_id
 							));
 						}else{
+							$data['sameErrorScore'] = $data['sameErrorScore'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 2,
 								"exe_id" => $sameExercise->exe_id,
@@ -261,6 +280,7 @@ class LearningCenterController extends Controller
 						$accuracy = round($accuracy, 4);
 					}
 				}
+
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
 		 		$abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];	 		
 		 		if (empty($exercise_id)) {
@@ -324,6 +344,8 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
+
+
 		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
 		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
@@ -481,7 +503,7 @@ class LearningCenterController extends Controller
 	                }
 	        	}
                 $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
-                	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,
+                	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,		
                 	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         	}
         }
@@ -495,19 +517,14 @@ class LearningCenterController extends Controller
     }
     //同类型习题推送
     public function homotypology($exercises_id, $work_id, $accuracy, $increase){
-    	$exercise_id = explode('&', $exercises_id);
-    	$course = Work::find($work_id)->toArray()['course_id'];
+    	$exercise_id =  explode('&', $exercises_id);
+    	$course = Work::find($work_id)->course_id;
     	$data = array();
-    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score','chapter_id')->whereIn('id', $exercise_id)->get();
-    	$error_cate_arr = array();
-    	foreach ($error_exercise_list as $exercise) {
-    		$error_cate_arr[$exercise->categroy_id] = isset($error_cate_arr[$exercise->categroy_id]) ? $error_cate_arr[$exercise->categroy_id] : array();
-    		array_push($error_cate_arr[$exercise->categroy_id], $exercise->id, $exercise->score, $exercise->chapter_id);
-    	}
-    	foreach ($error_cate_arr as $cate_id => $exe_id_list) {
-    		$homotypology = Exercises::where(['chapter_id' => $exe_id_list[2],'categroy_id' => $cate_id, 'score' => $exe_id_list[1]])
-			->whereNotIn('id', $exercise_id)->orderBy(\DB::raw('RAND()'))->take(1)->get();//查询出该错题的3道同类型习题
-			foreach ($homotypology as $key => $exercise) {
+    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
+    	foreach($error_exercise_list as $exercises) {
+    		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
+    		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
+    		foreach ($homotypology as $exercise) {
 				$categroy_id = Categroy::find($exercise->categroy_id)->id;
 				$categroy_title = Categroy::find($exercise->categroy_id)->title;
 				$abcList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -519,7 +536,7 @@ class LearningCenterController extends Controller
 				shuffle($options);
 			    array_push($data, array(
 			    	'id' => $exercise->id,
-			    	'parent_id' => $exe_id_list[0],
+			    	'parent_id' => $exercises->id,
 			    	'categroy_id' => $categroy_id,
 					'categroy_title' => $categroy_title,
 					'subject' => $objective->subject,
@@ -530,7 +547,7 @@ class LearningCenterController extends Controller
 			    ));
 			}
     	}
-		return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
+    	return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     }
 
     //同类型习题算分
