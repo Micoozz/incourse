@@ -251,7 +251,7 @@ class LearningCenterController extends Controller
 					}
 					$second = $work->sub_time - $work->start_time;
 					if (empty($same_list->toArray())) {
-						$data['exeSecond'] = strtotime($this->changeTimeType($second));
+						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
 						$totalScore = $correctScore + $errorScore + $modifyScore; //主观题先设为0
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
@@ -267,7 +267,7 @@ class LearningCenterController extends Controller
 							$grossScore += $exercise->score;
 						}
 						$exeSecond = $second + $sameSecond;
-						$data['exeSecond'] = strtotime($this->changeTimeType($exeSecond));
+						$data['exeSecond'] = $this->changeTimeType($exeSecond);
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
@@ -348,12 +348,14 @@ class LearningCenterController extends Controller
 		 		}
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
-		 		$sameSkip = $exercise_id;
-		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
-
-
-		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
-		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
+		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->toArray(); 
+			   	$workStatus = Work::find($parameter)->status;
+			    if($workStatus == 3){ 
+			  		$subjectExercise = Exercises::select('id')->whereIn('id', $error_work)->where('exe_type',2)->get(); 
+				   	$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get(); 
+				} 
+			   $error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get()->toArray(); 
+			   $data = array('error_work' => $error_work, 'error_same' => $error_same); 
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
@@ -397,7 +399,7 @@ class LearningCenterController extends Controller
 					$exeSecond += $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exercise->exe_id])->first()->second;
 				}
 				$SecondAdding = $second + $exeSecond;
-				$entire = strtotime($this->changeTimeType($SecondAdding));
+				$entire = $this->changeTimeType($SecondAdding);
 		 	}
 
         }
