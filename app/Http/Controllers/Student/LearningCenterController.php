@@ -171,6 +171,7 @@ class LearningCenterController extends Controller
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
+					//dd($exercise_id);
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
@@ -230,7 +231,7 @@ class LearningCenterController extends Controller
 						}
 					}
 					//同类型练习
-					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
+					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->orderBy('exe_id','asc')->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
 							$data['sameCount'] = $data['sameCount'] + 1;
@@ -349,7 +350,6 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
-		 		
 
 
 		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
