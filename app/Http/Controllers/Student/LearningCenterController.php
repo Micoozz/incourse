@@ -343,7 +343,7 @@ class LearningCenterController extends Controller
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
-		 		$exe_id = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
+		 		$exe_id = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->pluck('exe_id');
 		 		//dd($exe_id);
 		 		$subjectExercise = Exercises::select('id')->whereIn('id', $exe_id)->get();
 		 		dd($subjectExercise);
