@@ -44,7 +44,7 @@
             @endif
             <td>{{ $work->count }}道</td>
             <td>
-            @if($work->status == 0)
+            @if($work->status == 1)
                 未答题
             @else
                 {{ $work->score }}

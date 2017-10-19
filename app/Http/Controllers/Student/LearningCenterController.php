@@ -93,7 +93,7 @@ class LearningCenterController extends Controller
 		        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 		        $work->deadline = $work->belongsToJob()->first()->deadline;
 		        $work->job_type = $work->belongsToJob()->first()->job_type;
-		        if ($work->status == 1 || $work->status == 2) {
+		        if ($work->status == 2 || $work->status == 3) {
 			    $baseNum = (int)($user->id/1000-0.0001)+1;
 		        $db_name = 'mysql_stu_work_info_'.$baseNum;
 		        try{
@@ -143,7 +143,7 @@ class LearningCenterController extends Controller
 			        $work->pub_time = $work->belongsToJob()->first()->pub_time;
 			        $work->deadline = $work->belongsToJob()->first()->deadline;
 			        $work->job_type = $work->belongsToJob()->first()->job_type;
-					if ($work->status == 1 || $work->status == 2) {
+					if ($work->status == 2 || $work->status == 3) {
 						$baseNum = (int)($user->id/1000-0.0001)+1;
 				        $db_name = 'mysql_stu_work_info_'.$baseNum;
 				        try{
@@ -171,7 +171,6 @@ class LearningCenterController extends Controller
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
-					//dd($exercise_id);
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
@@ -231,7 +230,7 @@ class LearningCenterController extends Controller
 						}
 					}
 					//同类型练习
-					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->orderBy('exe_id','asc')->where('parent_id', '<>', null)->get();
+					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
 						if ($sameExercise->score != 0) {
 							$data['sameCount'] = $data['sameCount'] + 1;
@@ -343,11 +342,16 @@ class LearningCenterController extends Controller
 		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
-		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get();
+		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->toArray();
+		 		$workStatus = Work::find($parameter)->status;
+		 		if($workStatus == 3){
+		 			$subjectExercise = Exercises::select('id')->whereIn('id', $error_work)->where('exe_type',2)->get();
+		 			$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->whereIn('exe_id',$subjectExercise)->get();
+		 		}
+		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get()->toArray();
+		 		$data = array('error_work' => $error_work, 'error_same' => $error_same);
 
 
-		 		$error_same = $db->table($user->id)->select('exe_id', 'parent_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', '<>', null)->get();
-		 		$data = array('error_work' => $error_work->toArray(), 'error_same' => $error_same->toArray());
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
@@ -470,7 +474,7 @@ class LearningCenterController extends Controller
                 $table->integer('second')->nullable();
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
+                $table->string('sort',200)->nullable();s
             });
         }
         foreach ($input['data'] as $answer) {
@@ -509,7 +513,7 @@ class LearningCenterController extends Controller
         }
        	if ($result) {
         	$work = Work::find($work->id);
-        	$work->status = 1;
+        	$work->status = 2;
 	        $work->sub_time = time();
 	        $work->save();
         }
