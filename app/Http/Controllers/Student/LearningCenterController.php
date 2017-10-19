@@ -250,7 +250,7 @@ class LearningCenterController extends Controller
 					}
 					$second = $work->sub_time - $work->start_time;
 					if (empty($same_list->toArray())) {
-						$data['exeSecond'] = strtotime($this->changeTimeType($second));
+						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
 						$totalScore = $correctScore + $errorScore + $subjectScore; //主观题先设为0
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
@@ -266,7 +266,7 @@ class LearningCenterController extends Controller
 							$grossScore += $exercise->score;
 						}
 						$exeSecond = $second + $sameSecond;
-						$data['exeSecond'] = strtotime($this->changeTimeType($exeSecond));
+						$data['exeSecond'] = $this->changeTimeType($exeSecond);
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
