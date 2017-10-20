@@ -49,12 +49,12 @@
 			@if(empty($data['sameExercise']))
 				<button class="btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}'" >返回</button>
 				@if(!empty($tutorship))
-					<button class="ic-btn" id="work-parsing" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}'" >错题解析</button>
+					<button class="ic-btn" id="work-parsing">错题解析</button>
 					<button class="ic-btn error-exercise" error-exercise="{{ $tutorship }}">分数提升</button>
 				@endif	
 			@else
 				<button class="ic-btn" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/exercise_book/{{ $parameter }}'" >返回</button>
-				<button class="ic-btn" id="work-parsing" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}'">错题解析</button>
+				<button class="ic-btn" id="work-parsing">错题解析</button>
 			@endif
 		</div>
 	</div>
