@@ -37,7 +37,7 @@
 			<p>同类型习题：</p>
 				<ul>
 					@foreach($data['sameExercise'] as $key => $status)
-						<li parent-id="{{ $status['parent_id'] }}" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'"   @if($status['id'] == 1) class="bj-ff5-same" @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @else class="bj-img1 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
+						<li parent-id="{{ $status['parent_id'] }}" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @if($status['id'] == 1) class="bj-ff5-same" @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @else class="bj-img1 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
 					@endforeach
 				</ul>
 			</ul>
