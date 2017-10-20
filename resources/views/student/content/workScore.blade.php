@@ -42,8 +42,7 @@
 				</ul>
 			</ul>
 		</div>
-		@endif	
-		{{-- dd($parameter) --}}
+		@endif
 		<div class="clear"></div>
 		<div class="submits">
 			@if(empty($data['sameExercise']))
@@ -61,7 +60,6 @@
 </div>
 <script>
 	var skip = sessionStorage.getItem("skip");
-	console.log(sessionStorage)
 	sessionStorage.clear();
 	if(skip){
 		sessionStorage.setItem("skip",skip);

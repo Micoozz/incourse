@@ -178,7 +178,6 @@
 						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
 					})
 				}, 10)
-
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
@@ -362,4 +361,4 @@
 		</script>
 	</body>
 
-</html>
+</html>	

@@ -157,7 +157,6 @@ class ExerciseBookController extends Controller
         foreach ($chapter as $key => $item) {
             $data[$key]['id'] = $item->id;
             $data[$key]['title'] = $item->title;
-            // $data[$kay]['completeness'] 
             $data[$key]['minutia'] = array();
             foreach ($minutiaList as  $k => $minutia) {
                 $minutiaPat = Chapter::find($minutia['id'])->parent_id;
