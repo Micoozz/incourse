@@ -205,7 +205,7 @@
 			} else {
 				$(this).find('i').attr('class', 'fa fa-circle-o')
 			}
-		});
+		})
 		//举报
 		$('body').click(function() {
 			$('.report').removeClass('red')
