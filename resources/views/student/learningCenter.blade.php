@@ -168,6 +168,18 @@
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
+			//错题解析
+			$(function() {
+				$("#work-parsing").on("click", function(){
+					var parameter=$('.answerCard ul li.bj-ff5').eq(0).attr("exe-id");
+					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter;
+				});
+				$("#same-parsing").on("click", function(){
+					var parameter=$('.error-answer ul li.bj-ff5').eq(0).attr("parent-id");
+					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter;
+				});
+			})
+
 			$(function() {
 				setTimeout(function() {
 					//圆形进度条
@@ -312,17 +324,7 @@
 			}
 		});
 
-		$('.submits button:nth-of-type(2)').click(function(){
-			var array=[];
-		$('.answerCard ul li,.error-answer ul li').each(function(){
-			if($(this).attr('class')=='bj-ff5'){
-					array.push($(this).text())
-			}else{
-				$(this).css('cursor','auto')
-			}
-		})
-			localStorage.arry=array[0]				
-		})
+		
 		if(localStorage.arry!=undefined){
 			$('.bj-gray .blue').text(localStorage.arry)	
 		}

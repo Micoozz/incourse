@@ -8,7 +8,7 @@
 	<div class="ic-container accout">
 		<div class="progresse">@include("student.template.progressBar")</div>
 		<div class="consuming">
-			总耗时：{{ date('i分s秒',$entire) }}
+			总耗时：{{ $entire }}
 		</div>
 		<div class="error-answer">
 			<p>答题卡：</p>
