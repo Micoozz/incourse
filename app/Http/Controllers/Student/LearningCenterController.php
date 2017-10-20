@@ -204,14 +204,14 @@ class LearningCenterController extends Controller
 								$errorScore += $exercise->score / 100; //错误题的分数
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
-							if($work->status == 1) {
+							if($work->status == 2) {
 								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
 									'id' => 3,
 									'exe_id' =>$exe_id,
 								));
 								$modifyScore +=  $exercise->score / 100;
-							}else if ($work->status == 2) {
+							}else if ($work->status == 3) {
 								if ($userWork->score != 0) {
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
