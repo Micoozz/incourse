@@ -157,8 +157,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
 <script type="text/javascript" src="{{ asset('js/jquery-1.12.4.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/student/fileSelectionone.js') }}"></script>
@@ -169,7 +167,18 @@
 	var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 	var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 	var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
+
+
 	$(function() {
+		//错题解析
+		$("#work-parsing").on("click", function(){
+			var several = $('.answerCard ul li.bj-ff5').text();
+			window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
+		});
+		$("#same-parsing").on("click", function(){
+			var several = $('.answerCard ul li.bj-ff5').text();
+			window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
+		});
 		setTimeout(function() {
 			//圆形进度条
 			var percentum = accuracy; //正确率百分比
@@ -196,7 +205,23 @@
 			} else {
 				$(this).find('i').attr('class', 'fa fa-circle-o')
 			}
-
+		});
+		//举报
+		$('body').click(function() {
+			$('.report').removeClass('red')
+			$('.reprot-a').hide()
+		})
+		$('body').on('click', '.report', function() {
+			$(this).addClass('red')
+			$('.reprot-a').show()
+			return false
+		});
+		$('.bad-information li').click(function() {
+			if($(this).find('i').attr('class') != 'fa fa-dot-circle-o blue') {
+				$(this).find('i').attr('class', 'fa fa-dot-circle-o blue')
+			} else {
+				$(this).find('i').attr('class', 'fa fa-circle-o')
+			}
 		})
 		$('.bad-information li:last-child').prev().click(function() {
 			if($(this).find('i').attr('class') == 'fa fa-circle-o') {
@@ -313,25 +338,7 @@
 		}
 	});
 
-	$('.submits button:nth-of-type(2)').click(function(){
-		var array=[];
-		$('.answerCard ul li,.error-answer ul li').each(function(){
-			if($(this).hasClass('bj-ff5'){
-				array.push($(this).text())
-			}else{
-				$(this).css('cursor','auto')
-			}
-		})
-		localStorage.arry=array[0]
-	})
-	/*if(localStorage.arry!=undefined){
-		$('.bj-gray .blue').text(localStorage.arry)
-	}*/
-	$('.answerCard ul li,.error-answer ul li').each(function(){
-		if($(this).attr('class')!='bj-ff5'){
-			$(this).css('cursor','auto')
-		}
-	})
+
 
 	if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
 		for(var i=0;i<$('.proper>div:nth-of-type(3) .red b').text().split(',').length;i++){
