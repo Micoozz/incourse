@@ -5,7 +5,7 @@
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
 	<div class="ic-container accouts">
-		<div class="error-answer">
+		<div class="error-answer">{{ dd($several) }}
 			<div class="error-answer-title">
 				@if(empty($errorExercise))
 					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
