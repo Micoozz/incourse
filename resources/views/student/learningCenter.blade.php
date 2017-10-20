@@ -168,18 +168,6 @@
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
-			//错题解析
-			$(function() {
-				$("#work-parsing").on("click", function(){
-					var several = $('.answerCard ul li.bj-ff5').text();
-					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
-				});
-				$("#same-parsing").on("click", function(){
-					var several = $('.answerCard ul li.bj-ff5').text();
-					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
-				});
-			})
-
 			$(function() {
 				setTimeout(function() {
 					//圆形进度条
@@ -195,7 +183,7 @@
 				$('body').click(function() {
 					$('.report').removeClass('red')
 					$('.reprot-a').hide()
-				
+				})
 				$('body').on('click', '.report', function() {
 					$(this).addClass('red')
 					$('.reprot-a').show()
@@ -207,7 +195,6 @@
 					} else {
 						$(this).find('i').attr('class', 'fa fa-circle-o')
 					}
-
 				})
 				$('.bad-information li:last-child').prev().click(function() {
 					if($(this).find('i').attr('class') == 'fa fa-circle-o') {
@@ -380,6 +367,15 @@
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_score/' + parameter;
 			}
 		});
+		//错题解析
+			$("#work-parsing").on("click", function(){
+				var several = $('.answerCard ul li.bj-ff5').text();
+				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
+			});
+			$("#same-parsing").on("click", function(){
+				var several = $('.answerCard ul li.bj-ff5').text();
+				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
+			});
 		</script>
 	</body>
 
