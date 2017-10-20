@@ -305,24 +305,7 @@
         }
 		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5-same","exe-id","parent-id");
 		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5-same","exe-id","parent-id");
-		$('.answerCard ul li,.error-answer ul li').click(function(){
-			if($(this).attr('class')=='bj-ff5'){
-					localStorage.arry=$(this).text()
-			}
-		});
-
-		
-		if(localStorage.arry!=undefined){
-			$('.bj-gray .blue').text(localStorage.arry)	
-		}
-				$('.answerCard ul li,.error-answer ul li').each(function(){
-					if($(this).attr('class')!='bj-ff5'){
-						$(this).css('cursor','auto')
-					}
-		})
-
-				if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
-
+		if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
 			for(var i=0;i<$('.proper>div:nth-of-type(3) .red b').text().split(',').length;i++){
 				$('.proper>div:nth-of-type(3) .red').append('<span>'+$('.proper>div:nth-of-type(3) .red b').text().split(',')[i]+',</span>');	
 			}
