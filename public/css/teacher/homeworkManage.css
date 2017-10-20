@@ -423,8 +423,11 @@ body .lhgcal {
 
 /************* personHwMark.html ************/
 .person-hw-mark-head .lookSameExer {
-    top: 8px;
+    line-height: 28px;
     text-decoration: underline;
+    padding: 0 5px;
+    display: block;
+    float: left;
 }
 .person-hw-mark-head .isMark {
     float: right;
@@ -432,7 +435,7 @@ body .lhgcal {
     text-align: center;
     height: 28px;
     line-height: 28px;
-    cursor: default;
+    cursor: pointer;
     color: #666;
     border: 1px solid #d9d9d9;
 }

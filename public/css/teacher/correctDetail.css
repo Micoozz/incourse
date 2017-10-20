@@ -1,0 +1,241 @@
+.person-correct-will .person-hw-derail .score {
+	width: 88px;
+}
+
+.Correcting-questions>.exer-head input {
+	width: 88px;
+	height: 25px;
+	outline: none;
+	padding-left: 10px;
+}
+
+.Correcting-questions,
+.questions>.issue>span {
+	border: 1px solid #eee;
+	padding: 10px;
+}
+.Correcting-questions{
+	margin-top: 24px;
+}
+.questions {
+	margin-top: 20px;
+}
+
+.questions>.issue>span {
+	display: inline-block;
+	width: 93%;
+	margin-left: 40px;
+	position: relative;
+	top: -16px;
+}
+
+.questions>.result>span:first-child {
+	width: 100px;
+	border-radius: 4px;
+	font-size: 12px;
+	padding: 5px;
+	margin: 0;
+}
+
+.questions>.result>span:first-child>b {
+	border-left: 1px solid #eee;
+	padding-left: 15px;
+	cursor: pointer;
+}
+
+.questions>.result>span {
+	top: 0;
+	margin-top: 10px;
+}
+
+.questions>.result>span:nth-of-type(2) {
+	word-break: break-all;
+}
+
+.Correct-answer>div {
+	margin-left: 40px;
+}
+
+.result {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.Correct-answer {
+	border: none;
+}
+
+.postil {
+	position: relative;
+	min-height: 160px;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2em;
+	width: 20%;
+}
+
+.postil>div:last-child {
+	min-height: 150px;
+	background-color: #fff;
+}
+
+.postil {
+	background-color: #444547;
+	padding: 0;
+	padding-top: 77px;
+}
+
+.postil > div:first-child {
+	background-color: #fff;
+	position: relative;
+	top:0;
+	line-height: 54px;
+	font-size: 16px;
+	color: #333;
+	padding: 68px 20px 20px;
+	border-left: 1px solid #f1f1f1;
+}
+
+.postil>div:last-child b {
+	position: relative;
+	top: -4px;
+}
+
+.postil>div:last-child>div {
+	position: relative;
+	top: 0;
+	width: 100%;
+	text-align: left;
+	min-height: 100%;
+	overflow: auto;
+}
+
+.postil>div:last-child>div>div>div>img {
+	position: relative;
+	top: -9px;
+}
+
+.pitchOn {
+	color: red;
+}
+
+sup {
+	z-index: 102;
+	background-color: #fff;
+}
+
+.amend {
+	position: relative;
+	line-height: 22px;
+}
+
+.textareaS {
+	display: inline-block;
+	border: 1px solid #eee;
+	width: 140px;
+	min-height: 100px;
+	overflow: hidden;
+	height: auto;
+	position: relative;
+	top: -2px;
+	left: 29px;
+}
+.textareaS div{
+	width: 100%;
+	min-height: 100px;
+	padding: 10px;
+	overflow: hidden;
+	height: auto;
+	font-size: 14px;
+	line-height: 16px;
+}
+.textareaS div:focus{
+	border: none;
+	outline: none;
+}
+.postil>div:last-child>div .UploadPictures {
+	position: relative;
+	font-size: 12px;
+	width: 140px;
+	border: 1px solid #eee;
+	border-bottom: none;
+	display: inline-block;
+	background: #fff;
+}
+
+.UploadPictures button{
+	width: 80px;
+	display: block;
+	height: 38px;
+	position: relative;
+}
+.UploadPictures .close{
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	text-align: center;
+	line-height: 16px;
+}
+
+.postil>div:last-child>div .UploadPictures input {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	display: block;
+	height: 100%;
+	cursor: pointer;
+}
+
+.textareaS>img {
+	width: 40px;
+	height: 40px;
+}
+
+.mycanvas {
+	position: absolute;
+	top: 80px;
+	left: 43px;
+}
+.remove{
+	cursor: pointer;
+}
+.exerManage{
+	position: relative;
+}
+.postil{
+	position: absolute;
+	top: 0;
+	right: -31.4%;
+	width: 31.4%;
+	display: none;
+}
+.postil .remark{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	background: #F1F1F1;
+}
+.UploadPictures{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+.btnFile{
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	position: absolute;top: 0;left: 0;
+}
+.black_answer{
+	margin-right: 20px;
+}

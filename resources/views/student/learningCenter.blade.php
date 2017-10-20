@@ -316,7 +316,7 @@
 	$('.submits button:nth-of-type(2)').click(function(){
 		var array=[];
 		$('.answerCard ul li,.error-answer ul li').each(function(){
-			if($(this).attr('class')=='bj-ff5'){
+			if($(this).hasClass('bj-ff5'){
 				array.push($(this).text())
 			}else{
 				$(this).css('cursor','auto')
@@ -324,9 +324,9 @@
 		})
 		localStorage.arry=array[0]
 	})
-	if(localStorage.arry!=undefined){
+	/*if(localStorage.arry!=undefined){
 		$('.bj-gray .blue').text(localStorage.arry)
-	}
+	}*/
 	$('.answerCard ul li,.error-answer ul li').each(function(){
 		if($(this).attr('class')!='bj-ff5'){
 			$(this).css('cursor','auto')
