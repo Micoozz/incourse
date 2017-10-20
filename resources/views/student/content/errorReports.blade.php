@@ -10,7 +10,6 @@
 				@if(empty($errorExercise))
 					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 				@else
-				{{ dd($several) }}
 					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}/{{ $errorExercise }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 				@endif
 				<span class="bj-gray"><span class="blue" style="margin-right: 6px;">{{ $several }}</span>/<span>{{ $data['workCount'] }}</span></span>
