@@ -262,10 +262,10 @@
 		<div>
 			<div class="p-r admin-container">
 				<div class="person-hw-mark-head clear">
-					<a class="page_Mark ic-blue c-d p-r blue-hover lookSameExer">查看学生同类型练习题</a>
+					<a class="page_Mark ic-blue c-d p-r blue-hover lookSameExer" data-page="3">查看学生同类型练习题</a>
 					<div class="f-r">
-						<span class="page_Mark isMark doMark active">客观题</span>
-						<span class="page_Mark isMark notMark">主观题</span>
+						<span class="page_Mark isMark doMark active" data-page="1">客观题</span>
+						<span class="page_Mark isMark notMark" data-page="2">主观题</span>
 					</div>
 				</div>
 				<!--客观题-->
@@ -545,6 +545,104 @@
 							</div> -->
 					</div>
 				</div>
+				<!-- 同类型习题 -->
+				<div class="person-correct-same">
+					<ul class="ic-inline clear person-hw-derail">
+						<li>作业章节：第一章第一小节</li>
+						<li>学号：20071027</li>
+						<li>姓名：曹操</li>
+						<li class="ta-r">
+							<span>同类型习题分值：</span>
+							<span>10</span>
+						</li>
+					</ul>
+					<!-- 题目列表，都是客观题 -->
+					<div class="exer-list">
+						@foreach($data['objective'] as $exercise)
+							<div class="exer-in-list border" data-id="$exercise->id">
+								<div class="exer-head">
+									<span class="exer-type-list">{!!$exercise->cate_title!!}</span>
+								</div>
+								<div class="exer-wrap">
+									<div class="clear">
+										<span class="f-l">题目：</span>
+										@if($exercise->categroy_id != 3)
+										<div class="f-l question">{!!$exercise->subject!!}</div>
+										@else
+										<div class="f-l question black_question" data-black="{{$exercise->subject}}" data-student-answer="{{$exercise->student_answer}}"></div>
+										@endif
+									</div>
+									@if($exercise->categroy_id == 1 || $exercise->categroy_id == 2)
+										<!-- 单选题  &&  多选题 -->
+										<div class="clear answer-box checked_work">
+											<span class="f-l">答案：</span>
+											<div class="f-l">
+												<ul class="radio-wrap exer-list-ul">
+													@foreach($exercise->options as $option)
+													<li>
+														<label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? 'radio-right' : (in_array(key($option),$exercise->student_answer) ? 'radio-wrong' : '')}}">
+						                                                    <i class="p-a"></i>
+						                                                    <input class="checked_work_input" type="radio" name="radio" value=""/>
+					                                                	</label>
+														<span class="f-l answer_sign"></span>
+														<p class="f-l option">{{$option[key($option)]}}</p>
+													</li>
+													@endforeach
+												</ul>
+											</div>
+										</div>
+										<div class="exer-foot clear checked_work_answer">
+											<div class="f-l">
+												<span class="ic-blue">正确答案：</span>
+												@foreach($exercise->answer as $answer)
+													<span class="black_answer">{{$answer}}</span>
+												@endforeach
+											</div>
+										</div>
+									@elseif($exercise->categroy_id == 3)
+										填空题
+										<div class="exer-foot clear">
+											<div class="f-l">
+												<span class="ic-blue">正确答案：</span>
+												@foreach($exercise->answer as $answer)
+													<span class="black_answer">{{$loop->index+1}}、{{$answer}}</span>
+												@endforeach
+											</div>
+										</div>
+									@elseif($exercise->categroy_id == 4)
+										判断题
+										<div class="clear answer-box">
+											<span class="f-l">答案：</span>
+											<div class="f-l">
+												<ul class="fs14 pan-duan {{$exercise->student_answer[0] == 1? 'rightActive':($exercise->student_answer[0] == 0? 'wrongActive':'')}}">
+													<li>
+														<i class="uploadExerIcons right"></i>
+														<span class="gray pan-duan-answ">正确</span>
+													</li>
+													<li>
+														<i class="uploadExerIcons wrong"></i>
+														<span class="pan-duan-answ">错误</span>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="exer-foot clear answer-box">
+											<div class="f-l p-r">
+												<span class="ic-blue" style="display: inline-block;position: relative;top: -6px;">正确答案：</span>
+												<ul style="display: inline-block;" class="fs14 pan-duan {{$exercise->answer[0] == 1? 'rightActive':($exercise->answer[0] == 0? 'wrongActive':'')}}">
+													<li>
+														<i class="uploadExerIcons {{$exercise->answer[0] == 1? 'right':'wrong'}}"></i>
+														<span class="gray pan-duan-answ">{{$exercise->answer[0] == 1? '正确':'错误'}}</span>
+													</li>
+												</ul>
+											</div>
+										</div>
+									@endif
+								</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
 				<!--主观题-->
 				<div class="person-correct-will d-n" data-id="$exercise->id">
 					<ul class="ic-inline clear person-hw-derail">
@@ -599,7 +697,7 @@
 		<!-- <div class="ic-modal d-n"></div> -->
 
 		<!-- 同类型习题 -->
-		<div class="fff-bg p-f preview-hw-wrap person-hw-mark d-n">
+		<!-- <div class="fff-bg p-f preview-hw-wrap person-hw-mark d-n">
 			<div class="preview-hw-head">
 				<span class="ic-blue hw-title">同类型习题</span>
 				<i class="f-r common-icon ic-close-icon"></i>
@@ -608,7 +706,7 @@
 				<span class="f-r">15/15 题</span>
 			</p>
 			<div class="exer-list">
-				<!-- 单选题 -->
+				单选题
 				<div class="exer-in-list border">
 					<div class="exer-head">
 						<span class="exer-type-list">单选题</span>
@@ -665,12 +763,12 @@
 							<div class="f-l">
 								<span>难易程度：</span>
 								<span>
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </span>
+		                                    <i class="fa fa-star active"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                </span>
 							</div>
 							<ul class="f-r ic-inline collect">
 								<li>
@@ -684,7 +782,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 填空题 -->
+				填空题
 				<div class="exer-in-list border">
 					<div class="exer-head">
 						<span class="exer-type-list">填空题</span>
@@ -737,7 +835,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 填空题 -->
+				填空题
 				<div class="exer-in-list border">
 					<div class="exer-head">
 						<span class="exer-type-list">填空题</span>
@@ -771,12 +869,12 @@
 							<div class="f-l">
 								<span>难易程度：</span>
 								<span>
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </span>
+		                                    <i class="fa fa-star active"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                </span>
 							</div>
 							<ul class="f-r ic-inline collect">
 								<li>
@@ -808,7 +906,7 @@
 					<a class="ic-btn" href="personHw.html">生成作业</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<div class="postil col-xs-12">
 		<div>
@@ -848,39 +946,24 @@
 			}
 		})
 		$(".postil>div:last-child>div").css({height:($(".postil > div:first-child").height()-88)})
-		//已批改和未批改切换
-		var switchs = true
-		$('#col').css({
-			'position': 'relative',
-			'left': '90px',
-		})
-
+		//主观题、客观题和同类型习题切换
 		$('body').on('click', '.page_Mark', function() {
 			$('.page_Mark').removeClass('active')
 			$(this).addClass('active');
-			if($(this).text() == "客观题"){
+			var page = $(this).attr("data-page");
+			$('#col').css({'position': 'relative','left': '0px'});
+			if(page == "1"){
 				$(".person-correct-did,.lookSameExer,.left").css("display","block");
-				$('.person-correct-will,.postil').css("display","none");
-			}else if($(this).text() == "主观题"){
-				$(".person-correct-did,.left,.lookSameExer").css("display","none");
+				$('.person-correct-will,.postil,.person-correct-same').css("display","none");
+			}else if(page == "2"){
+				$(".person-correct-did,.left,.lookSameExer,.person-correct-same").css("display","none");
 				$('.person-correct-will,.postil').css("display","block");
 				$('.postil').height($('#centery').height() - 78)
-				$('.postil>div:last-child').height($('.postil').height() - 87)
-			}else{
-
-			}
-
-			if($('.f-r .active').text() == '主观题') {
-				console.log('a')
-				$('#col').css({
-					'position': 'relative',
-					'left': '90px',
-				})
-			} else {
-				$('#col').css({
-					'position': 'relative',
-					'left': '0px',
-				})
+				$('.postil>div:last-child').height($('.postil').height() - 87);
+				$('#col').css({'position': 'relative','left': '90px'});
+			}else if(page == "3"){
+				$(".person-correct-same,.left,.lookSameExer").css("display","block");
+				$('.person-correct-will,.postil,.person-correct-did').css("display","none");
 			}
 		});
 
