@@ -171,12 +171,12 @@
 			//错题解析
 			$(function() {
 				$("#work-parsing").on("click", function(){
-					var parameter=$('.answerCard ul li.bj-ff5').eq(0).attr("exe-id");
-					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter;
+					var several = $('.answerCard ul li.bj-ff5').text();
+					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
 				});
 				$("#same-parsing").on("click", function(){
-					var parameter=$('.error-answer ul li.bj-ff5').eq(0).attr("parent-id");
-					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter;
+					var several = $('.answerCard ul li.bj-ff5').text();
+					window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
 				});
 			})
 
@@ -195,7 +195,7 @@
 				$('body').click(function() {
 					$('.report').removeClass('red')
 					$('.reprot-a').hide()
-				})
+				
 				$('body').on('click', '.report', function() {
 					$(this).addClass('red')
 					$('.reprot-a').show()
