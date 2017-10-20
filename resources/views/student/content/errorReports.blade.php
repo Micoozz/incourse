@@ -6,7 +6,7 @@
 	</div>
 	<div class="ic-container accouts">
 		<div class="error-answer">
-			<div class="error-answer-title">{{-- dd($several) --}}
+			<div class="error-answer-title">
 				@if(empty($errorExercise))
 					<span><a href="/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/answer_sheet/{{ $parameter }}"><i class="fa fa-file-text"></i>&nbsp;&nbsp;答题卡</a></span>
 				@else
@@ -344,7 +344,6 @@
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
-
 					<!--多选题-->
 					{{-- dd($data['exercises'][0]) --}}
 					@if($data['exercises'][0]['categroy_id'] == 2)
