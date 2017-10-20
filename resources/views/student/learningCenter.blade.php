@@ -369,11 +369,11 @@
 		});
 		//错题解析
 			$("#work-parsing").on("click", function(){
-				var several = $('.answerCard ul li.bj-ff5').text();
+				var several = $('.answerCard ul li.bj-ff5').eq(0).text();
 				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
 			});
 			$("#same-parsing").on("click", function(){
-				var several = $('.answerCard ul li.bj-ff5').text();
+				var several = $('.answerCard ul li.bj-ff5').eq(0).text();
 				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
 			});
 		</script>
