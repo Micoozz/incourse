@@ -22,9 +22,9 @@
 								@foreach($exercise->options as $option)
 								<li>
 									<label class="ic-radio border p-r f-l {{in_array(key($option),$exercise->answer) ? 'radio-right' : (in_array(key($option),$exercise->student_answer) ? 'radio-wrong' : '')}}">
-	                                                    <i class="p-a"></i>
-	                                                    <input class="checked_work_input" type="radio" name="radio" value=""/>
-                                                	</label>
+                                        <i class="p-a"></i>
+                                        <input class="checked_work_input" type="radio" name="radio" value=""/>
+                                	</label>
 									<span class="f-l answer_sign"></span>
 									<p class="f-l option">{{$option[key($option)]}}</p>
 								</li>
