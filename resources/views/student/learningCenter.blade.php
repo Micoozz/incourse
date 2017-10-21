@@ -178,7 +178,6 @@
 						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
 					})
 				}, 10)
-
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
@@ -342,7 +341,6 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
-		
 		$("#sameSkip").on("click",function(){
 			if(sessionStorageJson != null){
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
@@ -350,6 +348,11 @@
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_score/' + parameter;
 			}
 		});
+		//点击清除sessionStroage
+		$("#clearSkip").on("click", function(){
+			window.sessionStorage.removeItem("skip");
+			window.location.href="/learningCenter/" + courseFirst + "/homework" + "/work_score/" + parameter;
+		})
 		//错题解析
 			$("#work-parsing").on("click", function(){
 				var several = $('.answerCard ul li.bj-ff5').eq(0).text();
@@ -361,5 +364,4 @@
 			});
 		</script>
 	</body>
-
-</html>
+</html>	

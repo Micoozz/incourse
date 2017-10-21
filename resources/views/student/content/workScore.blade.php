@@ -1,4 +1,3 @@
-
 <div class="col-xs-12 col-sm-12" id='{{ isset($mod) ? "centery" : "" }}' >
 	<div class="files_nav">
 		<span class="col-xs-3 col-sm-3"></span>
@@ -42,8 +41,7 @@
 				</ul>
 			</ul>
 		</div>
-		@endif	
-		{{-- dd($parameter) --}}
+		@endif
 		<div class="clear"></div>
 		<div class="submits">
 			@if(empty($data['sameExercise']))
@@ -61,7 +59,6 @@
 </div>
 <script>
 	var skip = sessionStorage.getItem("skip");
-	console.log(sessionStorage)
 	sessionStorage.clear();
 	if(skip){
 		sessionStorage.setItem("skip",skip);
