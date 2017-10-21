@@ -350,7 +350,7 @@
 		});
 		//点击清除sessionStroage
 		$("#clearSkip").on("click", function(){
-			window.sessionStroage.removeItem("skip");
+			window.sessionStorage.removeItem("skip");
 			window.location.href="/learningCenter/" + courseFirst + "/homework" + "/work_score/" + parameter;
 		})
 		//错题解析
