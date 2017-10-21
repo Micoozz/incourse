@@ -134,7 +134,7 @@ sup {
 .textareaS {
 	display: inline-block;
 	border: 1px solid #eee;
-	width: 140px;
+	width: 130px;
 	min-height: 100px;
 	overflow: hidden;
 	height: auto;
@@ -158,7 +158,7 @@ sup {
 .postil>div:last-child>div .UploadPictures {
 	position: relative;
 	font-size: 12px;
-	width: 140px;
+	width: 130px;
 	border: 1px solid #eee;
 	border-bottom: none;
 	display: inline-block;

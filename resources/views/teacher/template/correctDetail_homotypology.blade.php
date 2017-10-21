@@ -83,3 +83,214 @@
 		</div>
 	@endforeach
 </div>
+<!-- 同类型习题 -->
+		<!-- <div class="fff-bg p-f preview-hw-wrap person-hw-mark d-n">
+			<div class="preview-hw-head">
+				<span class="ic-blue hw-title">同类型习题</span>
+				<i class="f-r common-icon ic-close-icon"></i>
+			</div>
+			<p class="clear">
+				<span class="f-r">15/15 题</span>
+			</p>
+			<div class="exer-list">
+				单选题
+				<div class="exer-in-list border">
+					<div class="exer-head">
+						<span class="exer-type-list">单选题</span>
+						<div class="f-r ic-blue">
+							<input class="checkbox-add" type="checkbox" />
+							<span>添加</span>
+						</div>
+					</div>
+					<div class="exer-wrap">
+						<div class="clear">
+							<span class="f-l">题目：</span>
+							<div class="f-l question">有三只鸟，打死一只，还剩几只？</div>
+						</div>
+						<div class="clear answer-box">
+							<span class="f-l">答案：</span>
+							<div class="f-l">
+								<ul class="radio-wrap exer-list-ul">
+									<li>
+										<label class="ic-radio border p-r f-l">
+											<i class="ic-blue-bg p-a"></i>
+		                                        <input type="radio" name="radio" value="A"/>
+		                                    </label>
+										<span class="f-l">A：</span>
+										<p class="f-l option">8只</p>
+									</li>
+									<li>
+										<label class="ic-radio active border p-r  f-l">
+		                                        <i class="ic-blue-bg p-a"></i>
+		                                        <input type="radio" name="radio" value="B" checked/>
+		                                    </label>
+										<span class="f-l">B：</span>
+										<p class="f-l option">16只</p>
+									</li>
+									<li>
+										<label class="ic-radio border p-r  f-l">
+		                                        <i class="ic-blue-bg p-a"></i>
+		                                        <input type="radio" name="radio" value="C"/>
+		                                    </label>
+										<span class="f-l">C：</span>
+										<p class="f-l option">1只</p>
+									</li>
+									<li>
+										<label class="ic-radio border p-r  f-l">
+		                                        <i class="ic-blue-bg p-a"></i>
+		                                        <input type="radio" name="radio" value="D"/>
+		                                    </label>
+										<span class="f-l">D：</span>
+										<p class="f-l option">2只</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="exer-foot clear">
+							<div class="f-l">
+								<span>难易程度：</span>
+								<span>
+		                                    <i class="fa fa-star active"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                </span>
+							</div>
+							<ul class="f-r ic-inline collect">
+								<li>
+									<i class="fa fa-thumbs-o-up"></i>
+								</li>
+								<li>
+									<i class="fa fa-heart-o"></i>
+									<span>665</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				填空题
+				<div class="exer-in-list border">
+					<div class="exer-head">
+						<span class="exer-type-list">填空题</span>
+						<div class="f-r ic-blue">
+							<input class="checkbox-add" type="checkbox" />
+							<span>添加</span>
+						</div>
+					</div>
+					<div class="exer-wrap">
+						<div class="clear">
+							<span class="f-l">题目：</span>
+							<div class="f-l question">fgfgfgfggflgflgflhg<span class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span class="blank-item">空2</span>hlgkhglhkghglg khglhkghgthg hghrtedwdssdsgd ht jhyj hjhkjk jkjklh
+							</div>
+						</div>
+						<div class="clear answer-box">
+							<span class="f-l">答案：</span>
+							<div class="f-l">
+								<ul class="exer-list-ul">
+									<li>
+										<span class="f-l">1.</span>
+										<p class="f-l option">primed for</p>
+									</li>
+									<li>
+										<span class="f-l">2.</span>
+										<p class="f-l option">primed for</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="exer-foot clear">
+							<div class="f-l">
+								<span>难易程度：</span>
+								<span>
+		                                        <i class="fa fa-star active"></i>
+		                                        <i class="fa fa-star"></i>
+		                                        <i class="fa fa-star"></i>
+		                                        <i class="fa fa-star"></i>
+		                                        <i class="fa fa-star"></i>
+		                                    </span>
+							</div>
+							<ul class="f-r ic-inline collect">
+								<li>
+									<i class="fa fa-thumbs-o-up"></i>
+								</li>
+								<li>
+									<i class="fa fa-heart-o"></i>
+									<span>665</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				填空题
+				<div class="exer-in-list border">
+					<div class="exer-head">
+						<span class="exer-type-list">填空题</span>
+						<div class="f-r ic-blue">
+							<input class="checkbox-add" type="checkbox" />
+							<span>添加</span>
+						</div>
+					</div>
+					<div class="exer-wrap">
+						<div class="clear">
+							<span class="f-l">题目：</span>
+							<div class="f-l question">fgfgfgfggflgflgflhg<span class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span class="blank-item">空2</span>hlgkhglhkghglg khglhkghgthg hghrtedwdssdsgd ht jhyj hjhkjk jkjklh
+							</div>
+						</div>
+						<div class="clear answer-box">
+							<span class="f-l">答案：</span>
+							<div class="f-l">
+								<ul class="exer-list-ul">
+									<li>
+										<span class="f-l">1.</span>
+										<p class="f-l option">primed for</p>
+									</li>
+									<li>
+										<span class="f-l">2.</span>
+										<p class="f-l option">primed for</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="exer-foot clear">
+							<div class="f-l">
+								<span>难易程度：</span>
+								<span>
+		                                    <i class="fa fa-star active"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                    <i class="fa fa-star"></i>
+		                                </span>
+							</div>
+							<ul class="f-r ic-inline collect">
+								<li>
+									<i class="fa fa-thumbs-o-up"></i>
+								</li>
+								<li>
+									<i class="fa fa-heart-o"></i>
+									<span>665</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			已添加的作业
+			<div class="hw-list">
+				<p class="title">7月20日作业</p>
+				<ul class="hw-type-list">
+					<li>
+		                    <span class="type">选择题</span>
+		                    <span class="number">（1）</span>
+		                </li>
+		                <li>
+		                    <span class="type">填空题</span>
+		                    <span class="number">（2）</span>
+		                </li>
+				</ul>
+				<div class="ta-c">
+					<a class="ic-btn" href="personHw.html">生成作业</a>
+				</div>
+			</div>
+		</div> -->

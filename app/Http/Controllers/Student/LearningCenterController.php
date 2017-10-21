@@ -281,9 +281,9 @@ class LearningCenterController extends Controller
 				}
 
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
+		 		//dd($several);
 		 		$abcList = range("A","Z");
 		 		if ($exercise_id == 1) {
-		 			dd($parameter);
 		 			$work_answer = $db->table($user->id)->where(['work_id' => $parameter, 'score' => 0 ])->where("parent_id", null)->first();
 		 			$exercise_id = $work_answer->exe_id;
 		 		}else if($exercise_id == 2){
