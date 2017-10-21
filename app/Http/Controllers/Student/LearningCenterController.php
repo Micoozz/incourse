@@ -367,12 +367,9 @@ class LearningCenterController extends Controller
 		 		$exeScore = 0;
 		 		$exeSecond = 0;
 		 		$SecondAdding = 0;	
-	/*	 		$sameExercise = $db->table($user->id)->select('score', 'exe_id', 'second')->where('work_id', $parameter)->where('parent_id', '<>', null)->get();//本次的同类型习题
+		 		$sameExercise = $db->table($user->id)->select('score', 'exe_id', 'second')->where('work_id', $parameter)->where('parent_id', '<>', null)->get();//本次的同类型习题
 		 		$grossExercise = $db->table($user->id)->select('score')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
-		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id', null)->get();//算出所有的作业的所有题*/
-				$grossExercise = $db->table($user->id)->select('score')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
-				$sameExercise = $grossExercise->where('parent_id', '<>', null)->get();
-				$exerciseCount = $grossExercise->where('parent_id', null)->get();
+		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id', null)->get();//算出所有的作业的所有题
 		 		foreach ($exerciseCount as $exe) {//作业的所有的分数
 		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score; 
 		 		}

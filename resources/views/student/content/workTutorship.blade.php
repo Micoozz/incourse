@@ -20,7 +20,7 @@
 		</div>
 		<div class="clear"></div>
 		<div class="submits" error-exercise="{{ $sameSkip }}">
-			<button class="btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >提交</button>
+			<button class="btn-white" id="clearSkip">提交</button>
 			@if(!$sameErrorScore == 0)
 				<button class="ic-btn" id="same-parsing">错题解析</button>
 			@endif

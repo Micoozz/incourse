@@ -349,6 +349,11 @@
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_score/' + parameter;
 			}
 		});
+		//点击清除sessionStroage
+		$("#clearSkip").on("click", function(){
+			sessionStroage.removeItem("skip");
+			window.location.href="/learningCenter/" + courseFirst + "/homework" + "/work_score/" + parameter;
+		})
 		//错题解析
 			$("#work-parsing").on("click", function(){
 				var several = $('.answerCard ul li.bj-ff5').eq(0).text();
