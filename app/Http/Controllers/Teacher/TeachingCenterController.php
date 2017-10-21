@@ -235,7 +235,6 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        dd($data);
         return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data'));
     }
     /*上传习题页面*/
