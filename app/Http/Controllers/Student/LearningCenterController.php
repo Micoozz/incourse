@@ -280,7 +280,6 @@ class LearningCenterController extends Controller
 						$accuracy = round($accuracy, 4);
 					}
 				}
-
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
 		 		$abcList = range("A","Z");
 		 		if ($exercise_id == 1) {
@@ -605,7 +604,7 @@ class LearningCenterController extends Controller
             }else{
                 $score = 0;
             }
-            $result = $db->table($user->id)->insert(['work_id' => $work_id, 'parent_id' => $answer['parent_id'],'type' => 2,'exe_id' => $answer['id'], 'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'], 'score' => $score, 'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
+            $result = $db->table($user->id)->insert(['work_id' => $work_id, 'parent_id' => $answer['parent_id'], 'type' => 2, 'exe_id' => $answer['id'], 'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'], 'score' => $score, 'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         }
         return $code;
     }
@@ -671,7 +670,7 @@ class LearningCenterController extends Controller
 	        foreach ($workInfo as $exe_id) {
 	        	$chapter_id = Exercises::find($exe_id)->chapter_id;//查询出这个作业的chapter
 	        	$minutia = Chapter::select('id', 'title', 'parent_id')->where('id', $chapter_id)->first();//查询出所有的小节
-	        	$chapter = Chapter::select('id', 'title')->where('id', $minutia->parent_id)->first();
+	        	$chapter = Chapter::select('id', 'title')->where('id', $minutia->parent_id)->first();//查询出所有的大节
 	        	$result = array('id' => $chapter->id, 'title' => $chapter->title,'minutia' => array('id' => $minutia->id, 'title' => $minutia->title));
 	        }
     	}
@@ -683,8 +682,9 @@ class LearningCenterController extends Controller
     	$user = Auth::user(); //查看当前老师
     	$workId = Work::select('id')->where(['student_id' => $user->id,'course_id' => $course])->get()->toArray();//查询出所有作业
     	if (empty($workId)) {
-    		//$result = Classes::find($user->class_id)->title; //这里是能算学生是那一个班级的学生，只拿到这个学生所有的章节课程
 
+
+    		//$result = Classes::find($user->class_id)->title; //这里是能算学生是那一个班级的学生，只拿到这个学生所有的章节课程
     	}else{
     		$baseNum = (int)($user->id/1000-0.0001)+1;
         	$db_name = 'mysql_stu_work_info_'.$baseNum;

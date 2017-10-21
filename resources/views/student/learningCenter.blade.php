@@ -341,7 +341,6 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
-		
 		$("#sameSkip").on("click",function(){
 			if(sessionStorageJson != null){
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
@@ -351,7 +350,7 @@
 		});
 		//点击清除sessionStroage
 		$("#clearSkip").on("click", function(){
-			sessionStroage.removeItem("skip");
+			window.sessionStroage.removeItem("skip");
 			window.location.href="/learningCenter/" + courseFirst + "/homework" + "/work_score/" + parameter;
 		})
 		//错题解析
@@ -365,5 +364,4 @@
 			});
 		</script>
 	</body>
-
 </html>	

@@ -129,7 +129,7 @@
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type" parent-id="{{ isset($exercise['parent_id'])? $exercise['parent_id'] : ''}}">{{ $exercise['categroy_title'] }}</span>
                                 ）</span>
-                            <span>{{ $exercise['subject'] }}</span>
+                            <span>{!! $exercise['subject'] !!}</span>
                         </div>
                         <div class="answer-box">
                             <ul class="pan-duan no-active">
