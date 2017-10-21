@@ -11,12 +11,10 @@
 	.uploadCourseware {
 		margin-top: 60px;
 	}
-	
 	.uploadCourseware label {
 		display: block;
 		margin-bottom: 20px;
 	}
-	
 	.uploadCourseware input,
 	.uploadCourseware .time {
 		background: #FFFFFF;
@@ -26,18 +24,15 @@
 		height: 28px;
 		text-indent: 10px;
 	}
-	
 	.uploadCourseware .flex {
 		display: flex;
 	}
-	
 	.uploadCourseware .flex span>span {
 		display: block;
 		border-right: 1px solid #eee;
 		margin: 10px;
 		width: 80px;
 	}
-	
 	.uploadCourseware .flex span>textarea {
 		width: 100%;
 		height: 100%;
@@ -46,7 +41,6 @@
 		padding: 10px;
 		outline: none;
 	}
-	
 	.uploadCourseware .flex>div>span{
 		background: #FFFFFF;
 		border: 1px solid #D9D9D9;
@@ -56,19 +50,16 @@
 		overflow: hidden;
 		display: block;
 	}
-	
 	.uploadCourseware .time {
 		width: 100px;
 		display: inline-block;
 	}
-	
 	.uploadCourseware .time input {
 		width: 78%;
 		border: 0;
 		height: 26px;
 		outline: none;
 	}
-	
 	.uploadCourseware .flex input {
 		width: 80px;
 		position: absolute;
@@ -117,10 +108,10 @@
 						习题练习：<span class="blue"><i class="fa fa-plus-circle"></i>&nbsp;添加习题</span>
 					</label>
 					<label>
-						倒计时：<span  class="time"><input type="" name="" id="" value="" />s</span>&nbsp;&nbsp;<img src="/images/cautionImg.png" style="width: 3%;" />
+						倒计时：<span  class="time"><input type="" name="" id="input_number" value="" onpaste="inputOnafterpaste(this)"/>s</span>&nbsp;&nbsp;<img src="/images/cautionImg.png" style="width: 3%;" />
 					</label>
 					<label for="" class="submit">
-						<button class="ic-btn">保存</button>											
+						<button class="ic-btn">保存</button>
 						<button class="btn-white"><a href="/courseWare/main">返回</a></button>
 					</label>
 				</form>
@@ -139,7 +130,6 @@
 <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 <script>
 	$(function() {
-		
 		var parpers = [] //上传文件
 		$('.uploadCourseware .flex input').change(function() {
 			parpers.push($(this).val());
@@ -153,6 +143,26 @@
 			var text=$('.parpers>b').text();
 			parpers=text.split('');
 		})
+
+
+
+		$("#input_number").keyup(function(){
+			inputOnkeyup(this)
+		})
+		function inputOnkeyup(obj){
+			if($(obj).val().length==1){
+				$(obj).val($(obj).val().replace(/[^1-9]/g,''))
+			}else{
+				$(obj).val($(obj).val().replace(/\D/g,''))
+			}
+		}
+		function inputOnafterpaste(obj){
+			if($(obj).val().length==1){
+				$(obj).val($(obj).val().replace(/[^1-9]/g,''))
+			}else{
+				$(obj).val($(obj).val().replace(/\D/g,''))
+			}
+		}
 	})
 </script>
 @endsection

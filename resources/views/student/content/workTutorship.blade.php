@@ -8,21 +8,21 @@
 	<div class="ic-container accout">
 		<div class="progresse">@include("student.template.progressBar")</div>
 		<div class="consuming">
-			总耗时：{{ date('i分s秒',$entire) }}
+			总耗时：{{ $entire }}
 		</div>
 		<div class="error-answer">
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data as $key => $status)
-				<li onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @if($status['id'] == 1) @elseif($status['id'] == 2)  class="bj-ff5"  @else class="bj-img1" @endif >{{ $several[$key] }}</li>
+				<li exe-id="{{ $status['exe_id'] }}" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @if($status['id'] == 1) class="bj-ff5-same" @elseif($status['id'] == 2)  class="bj-ff5 bj-ff5-same"  @else class="bj-img1 bj-ff5-same" @endif >{{ $several[$key] }}</li>
 				@endforeach
 			</ul>
 		</div>
 		<div class="clear"></div>
 		<div class="submits" error-exercise="{{ $sameSkip }}">
-			<button class="btn-white" onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $parameter }}'" >提交</button>
+			<button class="btn-white" id="clearSkip">提交</button>
 			@if(!$sameErrorScore == 0)
-				<button class="ic-btn" onclick="window.location.href='/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/errorExercise'">错题解析</button>
+				<button class="ic-btn" id="same-parsing">错题解析</button>
 			@endif
 		</div>
 	</div>

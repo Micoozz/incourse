@@ -178,7 +178,6 @@
 						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
 					})
 				}, 10)
-
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
@@ -195,7 +194,6 @@
 					} else {
 						$(this).find('i').attr('class', 'fa fa-circle-o')
 					}
-
 				})
 				$('.bad-information li:last-child').prev().click(function() {
 					if($(this).find('i').attr('class') == 'fa fa-circle-o') {
@@ -306,34 +304,7 @@
         }
 		sameSort(".answerCard ul .bj-ff5",".sameTypeJob ul .bj-ff5-same","exe-id","parent-id");
 		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5-same","exe-id","parent-id");
-		$('.answerCard ul li,.error-answer ul li').click(function(){
-			if($(this).attr('class')=='bj-ff5'){
-					localStorage.arry=$(this).text()
-			}
-		});
-
-		$('.submits button:nth-of-type(2)').click(function(){
-			var array=[];
-		$('.answerCard ul li,.error-answer ul li').each(function(){
-			if($(this).attr('class')=='bj-ff5'){
-					array.push($(this).text())
-			}else{
-				$(this).css('cursor','auto')
-			}
-		})
-			localStorage.arry=array[0]				
-		})
-		if(localStorage.arry!=undefined){
-			$('.bj-gray .blue').text(localStorage.arry)	
-		}
-				$('.answerCard ul li,.error-answer ul li').each(function(){
-					if($(this).attr('class')!='bj-ff5'){
-						$(this).css('cursor','auto')
-					}
-		})
-
-				if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
-
+		if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
 			for(var i=0;i<$('.proper>div:nth-of-type(3) .red b').text().split(',').length;i++){
 				$('.proper>div:nth-of-type(3) .red').append('<span>'+$('.proper>div:nth-of-type(3) .red b').text().split(',')[i]+',</span>');	
 			}
@@ -370,7 +341,6 @@
 				sessionStorage.setItem("skip",JSON.stringify(json))
 			}
 		}
-		
 		$("#sameSkip").on("click",function(){
 			if(sessionStorageJson != null){
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_tutorship/' + parameter + '/' + sessionStorageJson.score + '/' + sessionStorageJson.sameSkip;
@@ -378,7 +348,20 @@
 				window.location.href='/learningCenter/' + courseFirst + '/homework/work_score/' + parameter;
 			}
 		});
+		//点击清除sessionStroage
+		$("#clearSkip").on("click", function(){
+			window.sessionStorage.removeItem("skip");
+			window.location.href="/learningCenter/" + courseFirst + "/homework" + "/work_score/" + parameter;
+		})
+		//错题解析
+			$("#work-parsing").on("click", function(){
+				var several = $('.answerCard ul li.bj-ff5').eq(0).text();
+				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "1/" + several;
+			});
+			$("#same-parsing").on("click", function(){
+				var several = $('.error-answer ul li.bj-ff5').eq(0).text();
+				window.location.href="/learningCenter/" + courseFirst + "/homework/" + "error_reports/" + parameter + "/" + "2/" + several;
+			});
 		</script>
 	</body>
-
-</html>
+</html>	

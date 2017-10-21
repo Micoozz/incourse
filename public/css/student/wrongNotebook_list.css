@@ -1,0 +1,162 @@
+.wrongNoteBookSectionLists{
+	width: 100%;
+	height: auto;
+}
+.wrongNoteBookSectionList{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ddd;
+	overflow: hidden;
+	padding: 0 0 20px;
+}
+.SectionListTitle{
+	width: 100%;
+	height: 100%;
+	line-height: 30px;
+}
+.SectionListTitle .sectionTitle{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 30px;
+	position: relative;
+	cursor: pointer;
+}
+.SectionListTitle .sectionTitle .sectionTitleIcon{
+	width: 19px;
+	height: 19px;
+	display: block;
+	border-radius: 50%;
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 18px;
+	vertical-align: middle;
+	text-indent: 2px;
+	font-weight: 100;
+}
+.title-content{
+	width: 50%;
+	float: left;
+}
+.title-bar{
+	width: 120px;
+	float: right;
+	height: 6px;
+	margin-top: 13px;
+	border-radius: 3px;
+	background: #ddd;
+	display: block;
+	position: relative;
+}
+.title-bar span{
+	width: 70%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	border-radius: 3px;
+	top: 0;
+	left: 0;
+	background: -webkit-linear-gradient(left,#108EE9 70%, #67D9FF);
+	background: -o-linear-gradient(right,#108EE9 70%, #67D9FF);
+	background: -moz-linear-gradient(right,#108EE9 70%, #67D9FF);
+	background: linear-gradient(right,#108EE9 70%, #67D9FF);
+	cursor: pointer;
+}
+.title-bar span:hover b{
+	display: block;
+}
+.title-bar span b{
+	display: none;
+	padding: 5px;
+	background: rgba(0,0,0,0.7);
+	position: absolute;
+	top: -28px;
+	right: 0;
+	transform: translateX(50%);
+	color: #fff;
+	line-height: 12px;
+	font-size: 12px;
+	border-radius: 4px;
+	font-weight: 100;
+}
+.title-bar span b i{
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	bottom: -10px;
+	left: 50%;
+	margin-left: -5px;
+	border: 5px solid rgba(0,0,0,0.7);
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+}
+.sectionTitle-parent{
+	height: 80px;
+	overflow: hidden;
+	padding-top: 20px;
+}
+.chapterList{
+	width: 100%;
+	float: left;
+}
+.chapterList li{
+	margin: 15px 0;
+	height: 60px;
+	padding: 0 30px;
+	position: relative;
+}
+.chapterIcon{
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	width: 18px;
+	height: 18px;
+	display: block;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 18px;
+	font-weight: 100;
+}
+.sectionTitle-parent.active .sectionTitleIcon{
+	transform: rotate(90deg);
+}
+.chapterTitle{
+	float: left;
+	width: 100%;
+}
+.titleTime{
+	float: left;
+	color: #c9c9c9;
+	line-height: 30px;
+}
+.titleTime i{
+	font-size: 18px;
+	margin-right: 8px;
+	font-weight: 100;
+	vertical-align: middle;
+}
+.wrongClick{
+	float: right;
+	width: 120px;
+	text-align: left;
+	line-height: 30px;
+	cursor: pointer;
+}
+.wrongClick i{
+	margin-right: 8px;
+}
+.dowmLine{
+	position: absolute;
+	top: 28px;
+	left: 15px;
+	width: 1px;
+	height: 50px;
+	background: #ddd;
+}
+.SectionList-subTitle{
+	cursor: default!important;
+}

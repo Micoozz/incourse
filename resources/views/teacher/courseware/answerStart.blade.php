@@ -5,14 +5,7 @@
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" href="{{ asset('css/exercise.css') }}"/>
 <link rel="stylesheet" href="{{ asset('css/student/doHomework.css') }}"/>
-<style>
-    .do-hw{
-        width: 100%;
-    }
-    .radio-wrap{
-        margin-left:40px;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/teacher/answer.css') }}"/>
 @endsection
 @section('COURSEWARE_CONTENT')
     <!--内容主体-->
@@ -29,19 +22,52 @@
                                 ）</span>
                             <span>下列各句中，标点符号使用正确的一项是（）</span>
                         </div>
-                        
                         @include('teacher.template.courseware_answer')
-                        
                     </li>
 				 </ul>
             </div>
-			<div class="clear"></div>
-			<div class="ta-c">
-				<a href="/courseWare/answerIng"><button class="ic-btn">开始答题</button></a>
-			</div>            
+            <div id="answerInstrument">
+                <ul>
+                    <li>
+                        <div class="ta-c">
+                            <button class="ic-btn btnStart">开始答题</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mains">
+                            <div>
+                                <span class="isSubmitted"><b></b>人已提交</span>
+                                <span class="notSubmitted"><b></b>人未提交</span>
+                            </div>
+                            <div id="mainPie" style="width: 1000px;height:400px;"></div>
+                        </div>
+                        <div class="ta-c">
+                            <button class="ic-btn noEnd" id="showStatistics">查看统计</button>
+                            <button id="terminationTime" class="ic-btn">终止计时</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="mainBarBlue" style="width: 1000px;height:400px;"></div>
+                        <div class="ta-c">
+                            <button class="ic-btn" id="showAnswer">显示答案</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="mainBar" style="width: 1000px;height:400px;"></div>
+                        <div class="ta-c">
+                            <a href="/courseWare/main"><button class="ic-btn">关闭答案</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="ic-btn">下一题</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 		 </div>
     </div>
+    @include('teacher.template.courseware_echarts_tips')
 @endsection
 
 @section('JS:OPTIONAL')
+<script src="{{ asset('js/teacher/courseware_answer.js') }}"></script>
 @endsection

@@ -33,7 +33,7 @@
 			</table>
 			<div class="btns">
 				<button id="bind-email-btn" class="ic-btn">绑定邮箱</button>
-				<button onclick="window.history.go(-1);"" class="btn-white">返 回</button>
+				<button onclick="window.history.go(-1);" class="btn-white">返 回</button>
 			</div>
 		</form>
 		<div class="bind-email-box fs14 d-n">

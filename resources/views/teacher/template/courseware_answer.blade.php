@@ -1,5 +1,5 @@
 <div>
-	<span class="f-l">答案：</span>
+	<span class="f-l">选项：</span>
 	<ul class="radio-wrap exer-list-ul dan-xuan-options">
 		<li>
 			<span class="f-l">A：</span>
