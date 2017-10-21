@@ -5,6 +5,7 @@
 	<title>{{$title}}</title>
 	<meta charset="utf-8">
 	<!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/layui/css/layui.css') }}">
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/incourseReset.css">
@@ -29,6 +30,7 @@
 </body>
 <!-- Javascript -->
 <script src="/js/jquery-1.12.4.min.js" charset="utf-8"></script>
+<script src="{{ asset('css/layui/layui.js') }}"></script>
 <script src="/js/index.js" charset="utf-8"></script>
 <script src="/js/incourseReset.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/ajaxfileupload.js"></script>

@@ -106,16 +106,16 @@ $(function() {
 	$('body').on('click', '.remove', function() {
 
 		//删除画布批注
-			if(document.getElementById('mycanvas')!=null){
+		if(document.getElementById('mycanvas')!=null){
 			var canvas = document.getElementById('mycanvas');
 			var ctx = canvas.getContext('2d');
 
 			ctx.clearRect($(this).attr('movex')-5,$(this).attr('movey')-15,$(this).attr('linex')+5,20);
 
 		}
-		$('.sort' + $(this).attr('num') + '').find('sup').remove();
-		$('.sort' + $(this).attr('num') + '').before('<span>' + $('.sort' + $(this).attr('num') + '').text() + '</span>');
-		$('.sort' + $(this).attr('num') + '').remove();
+		$('.questions .sort' + $(this).attr('num') + '').find('sup').remove();
+		$('.questions .sort' + $(this).attr('num') + '').before('<span>' + $('.sort' + $(this).attr('num') + '').text() + '</span>');
+		$('.questions .sort' + $(this).attr('num') + '').remove();
 		var objet={
 			movex:$(this).attr('movex'),
 			movey:$(this).attr('movey')-2,
@@ -207,29 +207,54 @@ $(function() {
 
 	//提交
 	$("#next-stu").on("click",function(){
-		var arr = [];
-		var num = 0;
-		$(".Correcting-questions").each(function(j){
-			var len = $(this).find(".amend").find(".pitchOn").length;
-			var json = {
-				"id" : $(this).attr("data-id"),
-				"student_answer":'',
-				"data":[]
-			};
-			var dataArr = [];
-			var html = "<div class='upLoadHtmlDataContent'>"+$(this).find(".amend").html()+"</div>";
-			$(".upLoadHtmlData").append(html)
-			for(var i = num;i < (num+len);i++){
-				var cla = "sort"+(i+1);
-				var newCla = "sort"+(i-num+1);
-				$(".upLoadHtmlDataContent").eq(j).find("sup").eq(i-num).text(i-num+1);
-				$(".upLoadHtmlDataContent").eq(j).find(".pitchOn").eq(i-num).removeClass(cla).addClass(newCla);
-				dataArr.push($(".textareaS div").eq(i).html());
+		var valNullNum = 0,valNull = false;
+		$(".Correcting-questions").each(function(){
+			var val = $(this).find(".score").val();
+			if(val == ""){
+				valNullNum++;
+				valNull = true;
 			}
-			json.student_answer = JSON.stringify($(".upLoadHtmlDataContent").eq(j).html());
-			json.data = dataArr;
-			arr.push(json);
-			num += len;
 		})
+		if(valNull){
+			layui.use("layer",function(){
+				layer.confirm('您有'+valNullNum+'道题未打分，是否继续打分？', {
+	  				btn: ['答题','取消'] //按钮
+				}, function(){
+					upLoadData();
+					layer.closeAll('dialog');
+				}, function(){
+					alert("return");
+					return;
+				});
+			})
+		}
 	})
 })
+
+function upLoadData(){
+	var arr = [];
+	var num = 0;
+	$(".Correcting-questions").each(function(j){
+		var len = $(this).find(".amend").find(".pitchOn").length;
+		var json = {
+			"id" : $(this).attr("data-id"),
+			"student_answer":'',
+			"data":[]
+		};
+		var dataArr = [];
+		var html = "<div class='upLoadHtmlDataContent'>"+$(this).find(".amend").html()+"</div>";
+		$(".upLoadHtmlData").append(html)
+		for(var i = num;i < (num+len);i++){
+			var cla = "sort"+(i+1);
+			var newCla = "sort"+(i-num+1);
+			$(".upLoadHtmlDataContent").eq(j).find("sup").eq(i-num).text(i-num+1);
+			$(".upLoadHtmlDataContent").eq(j).find(".pitchOn").eq(i-num).removeClass(cla).addClass(newCla);
+			dataArr.push($(".textareaS div").eq(i).html());
+		}
+		json.student_answer = JSON.stringify($(".upLoadHtmlDataContent").eq(j).html());
+		json.data = dataArr;
+		arr.push(json);
+		num += len;
+	})
+	console.log(arr)
+}
