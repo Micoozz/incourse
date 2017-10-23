@@ -20,7 +20,7 @@ use App\Models\School;
 use App\Models\Employee;
 use App\Models\Student;
 use App\Models\Course;
-use App\Models\Categroy;
+use App\Models\Category;
 
 class Controller extends BaseController
 {
@@ -40,8 +40,8 @@ class Controller extends BaseController
     	$course_list = Course::all();
     	return $course_list;
     }
-    public function getCategroy($course_id){
-    	$categroy_list = Categroy::where("course_id","like","%{$course_id}%")->pluck('title','id');
+    public function getCategory($course_id){
+    	$categroy_list = Category::where("course_id","like","%{$course_id}%")->pluck('title','id');
     	return $categroy_list;
     }
     public function getUnit($course_id){

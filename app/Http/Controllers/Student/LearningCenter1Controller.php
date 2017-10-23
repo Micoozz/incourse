@@ -16,7 +16,7 @@ use App\Models\Work;
 use App\Models\Course;
 use App\Models\Exercises;
 use App\Models\Objective;
-use App\Models\Categroy;
+use App\Models\Category;
 use App\Models\Subjective;
 use App\Models\Student;
 use App\Models\Region;
@@ -220,8 +220,8 @@ class LearningCenterController extends Controller
         $errorReports = Exercises::find($exercise_id);
         $data = array('exercises' => array());
         $data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->get());
-        $categroy_id = Categroy::find($errorReports->categroy_id)->id;
-        $categroy_title = Categroy::find($errorReports->categroy_id)->title;
+        $categroy_id = Category::find($errorReports->categroy_id)->id;
+        $categroy_title = Category::find($errorReports->categroy_id)->title;
         if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {
             $objective = Objective::where('exe_id',$errorReports->id)->first();
             $answer_list = json_decode($objective->answer,true);     //标准答案的记录
@@ -265,8 +265,8 @@ class LearningCenterController extends Controller
             /*->where('id','<>',$eid)*/->take(3)->get();//查询出该错题的3道同类型习题
             //dd($homotypology);
             foreach ($homotypology as $exercise) {
-                $categroy_id = Categroy::find($exercise->categroy_id)->id;
-                $categroy_title = Categroy::find($exercise->categroy_id)->title;
+                $categroy_id = Category::find($exercise->categroy_id)->id;
+                $categroy_title = Category::find($exercise->categroy_id)->title;
                 //dd($categroy_title);
                 $abcList = ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
                 $objective = Objective::where('exe_id',$exercise->id)->first();

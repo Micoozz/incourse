@@ -11,11 +11,10 @@ class Work extends Model
     const STATUS_SUB = 2;
     const STATUS_CORRECT = 3;
 
-    protected $table = 'work';
     public $timestamps = false;
 
     public function belongsToJob(){
-    	return $this->belongsTo('App\Models\Job','job_id');
+    	return $this->belongsTo(Job::class, 'job_id');
     }
 
 /*    public function belongsToCourse(){

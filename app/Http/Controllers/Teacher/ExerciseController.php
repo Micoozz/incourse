@@ -12,7 +12,7 @@ use App\Models\Exercises;
 use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
-use App\Models\Categroy;
+use App\Models\Category;
 class ExerciseController extends Controller
 {
     public function showExerciseList($page = 1){
@@ -22,7 +22,7 @@ class ExerciseController extends Controller
         $exercise_list = Exercises::skip($limit)->take(5)->get();
         $data = array('total' => $exercise_all->count(),'pageLength' => $pageLength,'exercises' => array());
         foreach ($exercise_list as $exercise) {
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
                 array_push($data['exercises'],array(
@@ -62,7 +62,7 @@ class ExerciseController extends Controller
         $exercise_id_arr = $input['id_list'];
         $data = Exercises::whereIn("id",$exercise_id_arr)->orderByRaw(DB::raw("FIELD(id, ".implode(',', $exercise_id_arr).')'))->get();
         foreach ($data as $exercise) {
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){

@@ -9,16 +9,16 @@ use Auth;
 use Input;
 use DB;
 use App\Models\ClassTeacherCourseMap;
-use App\Models\Classs;
+use App\Models\Classes;
 use App\Models\Course;
 use App\Models\Job;
 use App\Models\Exercises;
-use App\Models\Categroy;
+use App\Models\Category;
 use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
 use App\Models\Chapter;
-use App\Models\TeacherExerciseChapterCategroyMap;
+use App\Models\TeacherExerciseChapterCategoryMap;
 use App\Models\Student;
 use App\Models\Work;
 
@@ -103,8 +103,8 @@ class TeachingCenterController extends TeacherController
         $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据 
         $class_course = array();
         foreach ($map_list as $map) {
-            $class = Classs::find($map->class_id);
-            $grade = Classs::find($class->parent_id);
+            $class = Classes::find($map->class_id);
+            $grade = Classes::find($class->parent_id);
             $course = Course::find($map->course_id);
             array_push($class_course,array('title' => $grade->title."届".$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
         }
@@ -113,7 +113,7 @@ class TeachingCenterController extends TeacherController
     /*云平台教师绑定班级页面*/
     public function bindClass($grade_id){
         $title = "绑定班级";
-        $class_list = Classs::where('parent_id',$grade_id)->pluck('title','id');
+        $class_list = Classes::where('parent_id',$grade_id)->pluck('title','id');
         $course_list = Course::pluck('title','id');
         return view('teacher.pf-login-teacher',compact('title','grade_id','class_list','course_list'));
     }
@@ -186,7 +186,7 @@ class TeachingCenterController extends TeacherController
             throw $e;
         }
         foreach ($exercise_list as $exercise) {
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
             $exercise->student_answer = json_decode($db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first()->answer,TRUE)["answer"];
@@ -217,7 +217,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $unit_list = parent::getUnit($course_id);
-        $categroy_list = parent::getCategroy($course_id);
+        $categroy_list = parent::getCategory($course_id);
         return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
     }
     /*习题库页面*/
@@ -232,7 +232,7 @@ class TeachingCenterController extends TeacherController
             $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
         }
         foreach ($data as $exercise) {
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
@@ -264,15 +264,15 @@ class TeachingCenterController extends TeacherController
             if(empty($course_id)){
                 $course_id = $map->course_id;
             }
-            $class = Classs::find($map->class_id);
-            $grade = Classs::find($class->parent_id);
+            $class = Classes::find($map->class_id);
+            $grade = Classes::find($class->parent_id);
             $course = Course::find($map->course_id);
             array_push($class_course,array('title' => $grade->title.$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
         }
     	$select_data = array();
     	if($mod == self::MOD_HOMEWORK){
-    		$class = Classs::find($class_id);
-    		$grade = Classs::find($class->parent_id);
+    		$class = Classes::find($class_id);
+    		$grade = Classes::find($class->parent_id);
     		$course = Course::find($course_id);
     		if(empty($func) || $func == self::FUNC_ADD_HOMEWORK){
     			$title = $grade->title.$class->title.'('.$course->title.'作业)';
@@ -285,7 +285,7 @@ class TeachingCenterController extends TeacherController
     			$chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
     			$data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(5);
     			foreach ($data as $exercise) {
-		            $cate_title = Categroy::find($exercise->categroy_id)->title;
+		            $cate_title = Category::find($exercise->categroy_id)->title;
 	                $exercise->cate_title = $cate_title;
 	                $exercise->score = $exercise->score/100;
 		            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
@@ -309,7 +309,7 @@ class TeachingCenterController extends TeacherController
     			$chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
     			$data = Exercises::where("teacher_id",$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
 		        foreach ($data as $exercise) {
-		            $cate_title = Categroy::find($exercise->categroy_id)->title;
+		            $cate_title = Category::find($exercise->categroy_id)->title;
 	                $exercise->cate_title = $cate_title;
 	                $exercise->score = $exercise->score/100;
 		            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
@@ -326,7 +326,7 @@ class TeachingCenterController extends TeacherController
 		//              
 		//          }
 		        }
-		        // $select_categroy = Categroy::where("course_id","like","%{$course_id}%")->get();
+		        // $select_categroy = Category::where("course_id","like","%{$course_id}%")->get();
 		        // $exer_chapter_list = Exercises::where("teacher_id",$teacher->id)->whereIn('chapter_id',$chapter_list)->pluck("chapter_id");
 		        // $parent_section = Chapter::whereIn("id",$exer_chapter_list)->pluck("parent_id");
 		        // $parent_unit = Chapter::whereIn("id",$parent_section)->pluck("parent_id");
@@ -335,17 +335,17 @@ class TeachingCenterController extends TeacherController
 		        // $select_data["select_categroy"] = $select_categroy;
 		        // $select_data["select_unit"] = $select_unit;
 		        // $select_data["select_grade"] = $select_grade;
-		        $map = TeacherExerciseChapterCategroyMap::where("teacher_id",$teacher->id)->get()->toArray();
-		        $select_data["select_categroy"] = Categroy::whereIn("id",array_column($map, "categroy_id"))->pluck("title","id");
+		        $map = TeacherExerciseChapterCategoryMap::where("teacher_id",$teacher->id)->get()->toArray();
+		        $select_data["select_categroy"] = Category::whereIn("id",array_column($map, "categroy_id"))->pluck("title","id");
 		        $select_data["select_unit"] = Chapter::whereIn("id",array_column($map, "unit_id"))->pluck("title","id");
 		        $select_data["select_grade"] = Chapter::whereIn("id",array_column($map, "grade_id"))->pluck("title","id");
 		        $select_data["select_section"] = Chapter::whereIn("id",array_column($map, "section_id"))->pluck("title","id");
     		}else if($func == self::FUNC_ADD_EXERCISE){
 				$unit_list = parent::getUnit();
-    			$categroy_list = parent::getCategroy($course_id);
+    			$categroy_list = parent::getCategory($course_id);
     			if(!empty($universal)){
     				$exercise = Exercises::find($universal);
-    				$map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exercise->id)->first();
+    				$map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exercise->id)->first();
     				$exercise->unit_id = $map->unit_id;
     				$section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
     				$exercise->section_id = $map->section_id;
@@ -373,13 +373,13 @@ class TeachingCenterController extends TeacherController
     public function teacherBindClass(){
         $input = Input::get();
         $teacher = Auth::guard('employee')->user();
-        $grade = Classs::find($input["grade_id"]);
+        $grade = Classes::find($input["grade_id"]);
         if(empty($grade) || $grade->school_id != $teacher->school_id){
             return json_encode(["code" => 202]);
         }
-        $class = Classs::where(['parent_id' => $grade->id,'title' => $input['create-class']."班"])->orWhere('id',$input['select-class'])->first();
+        $class = Classes::where(['parent_id' => $grade->id,'title' => $input['create-class']."班"])->orWhere('id',$input['select-class'])->first();
         if(empty($class)){
-            $class = new Classs;
+            $class = new Classes;
             $class->school_id = $teacher->school_id;
             $class->parent_id = $grade->id;
             $class->title = $input['create-class']."班";
@@ -454,7 +454,7 @@ class TeachingCenterController extends TeacherController
             $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
         }
         $exercise->save();
-        $map = new TeacherExerciseChapterCategroyMap;
+        $map = new TeacherExerciseChapterCategoryMap;
         $map->teacher_id = $user->id;
         $map->exercise_id = $exercise->id;
         $input_unit = Chapter::find($chapter["unit"]);
@@ -548,7 +548,7 @@ class TeachingCenterController extends TeacherController
     //         $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
     //     }
     //     $exercise->save();
-    //     $map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exe_id)->first();
+    //     $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exe_id)->first();
     //     $input_unit = Chapter::find($chapter["unit"]);
     //     $map->grade_id = Chapter::find($input_unit->parent_id)->id;
     //     $map->unit_id = $chapter["unit"];
@@ -609,7 +609,7 @@ class TeachingCenterController extends TeacherController
     // }
     // public function getEditExecrise($exe_id){
     //     $exercise = Exercises::find($exe_id);
-    //     $map = TeacherExerciseChapterCategroyMap::where("exercise_id",$exercise->id)->first();
+    //     $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exercise->id)->first();
     //     $exercise->unit_id = $map->unit_id;
     //     $section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
     //     $exercise->section_id = $map->section_id;
@@ -719,7 +719,7 @@ class TeachingCenterController extends TeacherController
     /*获取答题卡列表*/
     public function getScantronIdList(){
         $input = Input::get();
-        $class = Classs::where("receiver_id",$input["receiver_id"])->first();
+        $class = Classes::where("receiver_id",$input["receiver_id"])->first();
         $scantron_id_list = Student::where("class_id",$class->id)->pluck("scantron_id");
         return json_encode($scantron_id_list);
     }

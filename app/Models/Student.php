@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Student extends Authenticatable
 {
     //学生账户Model
-    protected $table = 'student';
     public $timestamps = false;
 
       //关联学生个人信息Model 单条数据
