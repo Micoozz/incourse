@@ -15,7 +15,7 @@ use App\Models\Exercises;
 use App\Models\Objective;
 use App\Models\Subjective;
 use App\Models\Compositive;
-use App\Models\Categroy;
+use App\Models\Category;
 use App\Models\Course;
 
 class WorkController extends Controller
@@ -111,7 +111,7 @@ class WorkController extends Controller
        
         foreach ($exercise_id as $eid) {
             $exercise = Exercises::find($eid);
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = Subjective::where('exe_id',$exercise->id)->first();
                 if (Exercises::CATE_FILLS) {
@@ -259,7 +259,7 @@ class WorkController extends Controller
         foreach ($exercise_id as $exe_id) {
             $work_info = $db->table($user->id)->where(['work_id' => $work_id,'exe_id' => $exe_id])->first();
             $exercise = Exercises::find($exe_id);
-            $cate_title = Categroy::find($exercise->categroy_id)->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
             if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = Objective::where('exe_id',$exercise->id)->first();
                 $answers = array();

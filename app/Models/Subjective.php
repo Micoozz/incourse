@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subjective extends Model
 {
     //
-    protected $table = 'subjective';
+    protected $table = 'subjectives';
     public $timestamps = false;
     protected $fillable = ['subject'];
 

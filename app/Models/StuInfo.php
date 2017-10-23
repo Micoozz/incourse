@@ -9,7 +9,6 @@ class StuInfo extends Model
     /*
     员工个人信息Model
      */
-    protected $table = 'stu_info';
     public $timestamps = false;
 
     //从属于员工账户Model
