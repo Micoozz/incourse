@@ -165,10 +165,10 @@
 				</div> -->
 
 				<!--简答题-->
-				@if($data['exercises'][0]['categroy_id'] == 10)
-				<div class="questions" style='display: none;'>
+				@if($data['exercises'][0]['categroy_id'] == 10 || $data['exercises'][0]['categroy_id'] == 11)
+				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>
+						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
 						<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -179,13 +179,7 @@
 						</span>
 						</span>
 						<div class="clear"></div>
-						一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
 					</p>
-					<div class="option">
-						<span>
-							<img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;"/>
-						</span>
-					</div>
 				</div>
 				@endif
 
@@ -360,10 +354,16 @@
 					<!-- 	<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
+					<!-- 简答题 || 解答题  -->
+					@if($data['exercises'][0]['categroy_id'] == 10 ||$data['exercises'][0]['categroy_id'] == 11)
+					<div>
+						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
+					</div>
+					@endif
 
 					<!--阅读题-->
 					<div style='display: none;'>
-						<p>回答错误，作答用时{{ $data['exercises'][0]['second'] }}秒。</p>
+						<p>回答错误，作答用时秒。</p>
 						<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p>
 					</div>
 

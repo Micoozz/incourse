@@ -26,7 +26,7 @@
 			<p>答题卡：</p>
 			<ul>
 				@foreach($data['status'] as $key => $status)
-					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] != 3) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @endif @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @elseif($status['id'] == 3) class="bj-img1 bj-ff5-same"  @elseif($status['id'] == 4) class ="bj-img2 bj-ff5-same"  @elseif($status['id'] == 5) class="bj-img3 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
+					<li exe-id="{{ $status['exe_id'] }}" @if($status['id'] != 6) onclick="window.location.href = '/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/error_reports/{{ $parameter }}/{{ $status['exe_id'] }}/{{ $key+1 }}'" @endif @if($status['id'] == 1) @elseif($status['id'] == 2) class="bj-ff5 bj-ff5-same" @elseif($status['id'] == 3) class="bj-img1 bj-ff5-same"  @elseif($status['id'] == 4) class ="bj-img2 bj-ff5-same"  @elseif($status['id'] == 5) class="bj-img3 bj-ff5-same" @endif >{{ $loop->iteration }}</li>
 				@endforeach	
 			</ul>
 		</div>
