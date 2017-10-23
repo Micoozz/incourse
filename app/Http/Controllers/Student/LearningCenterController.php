@@ -16,7 +16,7 @@ use App\Models\Work;
 use App\Models\Course;
 use App\Models\Exercises;
 use App\Models\Objective;
-use App\Models\Categroy;
+use App\Models\Category;
 use App\Models\Subjective;
 use App\Models\Student;
 use App\Models\Region;
@@ -299,8 +299,8 @@ class LearningCenterController extends Controller
 		 			$errorExercise = "errorExercise";
 		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", "<>", null)->get());
 		 		}
-		 		$categroy_id = Categroy::find($errorReports->categroy_id)->id;
-    		//	$categroy_title = Categroy::find($errorReports->categroy_id)->title;
+		 		$categroy_id = Category::find($errorReports->categroy_id)->id;
+    		//	$categroy_title = Category::find($errorReports->categroy_id)->title;
 		 		if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {	
 		 			$objective = Objective::where('exe_id',$errorReports->id)->first();
 		 			$option = array();
@@ -418,8 +418,8 @@ class LearningCenterController extends Controller
 		$exercises = json_decode($work->belongsToJob()->first()->exercise_id, true);
 		foreach ($exercises as  $eid) {
 			$exercise = Exercises::find($eid);
-			$categroy_id = Categroy::find($exercise->categroy_id)->id;
-			$categroy_title = Categroy::find($exercise->categroy_id)->title;
+			$categroy_id = Category::find($exercise->categroy_id)->id;
+			$categroy_title = Category::find($exercise->categroy_id)->title;
 			if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
 				$subjective = Subjective::where('exe_id', $exercise->id)->first();
 				array_push($data, array(
@@ -534,8 +534,8 @@ class LearningCenterController extends Controller
     		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
     		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
     		foreach ($homotypology as $exercise) {
-				$categroy_id = Categroy::find($exercise->categroy_id)->id;
-				$categroy_title = Categroy::find($exercise->categroy_id)->title;
+				$categroy_id = Category::find($exercise->categroy_id)->id;
+				$categroy_title = Category::find($exercise->categroy_id)->title;
 				$abcList = range("A","Z");
 				$objective = Objective::where('exe_id', $exercise->id)->first();
 				$options = json_decode($objective->option, true);
@@ -637,8 +637,8 @@ class LearningCenterController extends Controller
 	        try{
             	$db = DB::connection($db_name);
 	        }catch(\Exception $e){
-	            $this->createBase($baseNum);
-	            $db = DB::connection($db_name);
+	        	$result = [];//学生没有复习的内容
+	        	return $result;
 	        }
 	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
 	        foreach ($workInfo as $exe_id) {
@@ -682,9 +682,6 @@ class LearningCenterController extends Controller
     	$user = Auth::user(); //查看当前老师
     	$workId = Work::select('id')->where(['student_id' => $user->id,'course_id' => $course])->get()->toArray();//查询出所有作业
     	if (empty($workId)) {
-
-
-    		//$result = Classes::find($user->class_id)->title; //这里是能算学生是那一个班级的学生，只拿到这个学生所有的章节课程
     	}else{
     		$baseNum = (int)($user->id/1000-0.0001)+1;
         	$db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -712,6 +709,7 @@ class LearningCenterController extends Controller
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
+
             return $e;
         }
         $result = $db->table($user->id)->select('work_id','exe_id')->whereIn('work_id',$work_id)->where(['score' => 0])->get();//查询出所有的这个学生错误的exe_id 题型id，
@@ -735,8 +733,8 @@ class LearningCenterController extends Controller
     function practice($course,$chapter_id,$type){
     	$randomExeercise = Exercises::where('chapter_id',$chapter_id)->orderBy(\DB::raw('RAND()'))->take(15)->get();//查询出随机的15道题的内容
     	foreach ($randomExeercise as $exercise) {
-    		$categroy_id = Categroy::find($exercise->categroy_id)->id;
-    		$categroy_title = Categroy::find($exercise->categroy_id)->title;
+    		$categroy_id = Category::find($exercise->categroy_id)->id;
+    		$categroy_title = Category::find($exercise->categroy_id)->title;
     		if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
     			$abcList = range("A","Z");
     			$objective= Objective::where('exe_id', $exercise->id)->first();
@@ -787,7 +785,7 @@ class LearningCenterController extends Controller
     //学生选择班级页面    小胡歌
     public function selectClass($grade_id){
     	$title = "选择班级";
-        $class_list = Classs::where('parent_id',$grade_id)->pluck('title','id');
+        $class_list = Classes::where('parent_id',$grade_id)->pluck('title','id');
         return view('student.pf-login-student',compact('title','grade_id','class_list'));
     }
     //学生选择班级

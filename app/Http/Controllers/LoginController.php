@@ -8,7 +8,7 @@ use Input;
 use Redirect;
 use App\Models\Student;
 use App\Models\School;
-use App\Models\Classs;
+use App\Models\Classes;
 use App\Models\ClassTeacherCourseMap;
 
 class LoginController extends Controller
@@ -56,14 +56,14 @@ class LoginController extends Controller
             if(empty($school)){
                 $school = self::createSchool($user_info->schoolId,$user_info->schoolName,$user_info->schoolType);
             }
-            $grade = Classs::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
+            $grade = Classes::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
             if(empty($grade)){
-                $grade = new Classs;
+                $grade = new Classes;
                 $grade->title = $user_info->classYear;
                 $grade->school_id = $school->id;
                 $grade->save();
             }
-            // $class = Classs::where("pf_class_id",$user_info->classId)->first();
+            // $class = Classes::where("pf_class_id",$user_info->classId)->first();
             // if(empty($class)){
             //     $flag = strpos($user_info->className,"级");
             //     if($flag){
@@ -71,7 +71,7 @@ class LoginController extends Controller
             //     }else{
             //         $class_title = explode("年", $user_info->className);
             //     }
-            //     $class = new Classs;
+            //     $class = new Classes;
             //     $class->parent_id = $grade->id;
             //     $class->school_id = $school->id;
             //     $class->title = $class_title[1];
