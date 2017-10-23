@@ -114,7 +114,7 @@ $(function() {
 
 		}
 		$('.questions .sort' + $(this).attr('num') + '').find('sup').remove();
-		$('.questions .sort' + $(this).attr('num') + '').before('<span>' + $('.sort' + $(this).attr('num') + '').text() + '</span>');
+		$('.questions .sort' + $(this).attr('num') + '').before('<span>' + $('.questions .sort' + $(this).attr('num') + '').text() + '</span>');
 		$('.questions .sort' + $(this).attr('num') + '').remove();
 		var objet={
 			movex:$(this).attr('movex'),
@@ -256,5 +256,14 @@ function upLoadData(){
 		arr.push(json);
 		num += len;
 	})
-	console.log(arr)
+	$.ajax({
+		url:"",
+		data:arr,
+		success:function(data){
+			alert("成功")
+		},
+		error:function(data){
+			alert("失败")
+		}
+	})
 }

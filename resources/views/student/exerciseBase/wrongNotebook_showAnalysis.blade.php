@@ -30,7 +30,7 @@
 @endsection
 
 @section('NOTEBOOK')
-<div id="wrongTopic">
+<div id="wrongTopic" class="pageType" data-type="4">
 	<!--题目类型-->
 	<!--单选题-->
 	<div class="questions">

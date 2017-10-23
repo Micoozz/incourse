@@ -128,11 +128,11 @@ class ExerciseBookController extends Controller
                 $table->string('comment',200)->nullable();
                 $table->string('sort',200)->nullable();
                 });
-            }*/
+            }
     	}else{
 
 	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
-    	}
+    	}*/
     	return json_encode($result);
     }
     //先查询所有这位学生的作业错题本
@@ -178,26 +178,27 @@ class ExerciseBookController extends Controller
 
 
 
-
-    public function errorsExerciseShowWork($course = 2) {
+//错题本
+    public function errorsExerciseShowWorkList($course = 2) {
         $func = "";
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
         $user = Auth::guard('student')->user();
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
-        return view('student.exerciseBase.wrongNotebook_showWork',compact("func", "user", 'courseAll', 'courseFirst'));
+        return view('student.exerciseBase.wrongNotebook_showWorkList',compact("func", "user", 'courseAll', 'courseFirst'));
     }
-    public function errorsExerciseDoWork($course = 2) {
+    public function errorsExerciseShowAnalysis($course = 2) {
         $func = "";
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
         $user = Auth::guard('student')->user();
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
-        return view('student.exerciseBase.wrongNotebook_doWork',compact("func", "user", 'courseAll', 'courseFirst'));
+        return view('student.exerciseBase.wrongNotebook_showAnalysis',compact("func", "user", 'courseAll', 'courseFirst'));
     }
-    public function foreExercise1($course = 2) {
+//预习
+    public function foreExerciseDoWork($course = 2) {
         $func = "";
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
@@ -206,7 +207,35 @@ class ExerciseBookController extends Controller
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         return view('student.exerciseBase.foreExercise_content',compact("func", "user", 'courseAll', 'courseFirst'));
     }
-
+    public function foreExerciseList($course = 2) {
+        $func = "";
+        $courseAll = Course::all();
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();
+        $user = Auth::guard('student')->user();
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        return view('student.exerciseBase.foreExercise_contentList',compact("func", "user", 'courseAll', 'courseFirst'));
+    }
+//复习
+    public function review($course = 2) {
+        $func = "";
+        $courseAll = Course::all();
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();
+        $user = Auth::guard('student')->user();
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        return view('student.exerciseBase.review_list',compact("func", "user", 'courseAll', 'courseFirst'));
+    }
+//同步练习
+    public function syncExercise($course = 2) {
+        $func = "";
+        $courseAll = Course::all();
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();
+        $user = Auth::guard('student')->user();
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        return view('student.exerciseBase.syncExercise_list',compact("func", "user", 'courseAll', 'courseFirst'));
+    }
 
 
 

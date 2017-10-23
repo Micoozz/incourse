@@ -16,7 +16,7 @@
 
 @section('NOTEBOOK')
 <!--习题库-->
-<div class="admin-container exer-room">
+<div class="admin-container exer-room pageType" data-type="4">
     <div class="p-r exercise-room">
         <div class="error-book-introduce">
             <p class="error-book-title">
