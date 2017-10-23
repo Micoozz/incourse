@@ -259,6 +259,8 @@ class ExerciseBookController extends Controller
                 $table->string('sort',200)->nullable();
             });
         }
+        
+        
 
     }
     //当前学生收藏的所有的题目
