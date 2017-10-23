@@ -11,7 +11,7 @@
     	margin: 0 auto;
     }
     .sumTimeConsuming{
-    	margin: 15px auto;
+    	margin: 0 auto 15px;
     	width: 100%;
     	height: 24px;
     	line-height: 24px;
@@ -23,6 +23,7 @@
     	width: 100%;
     	height: auto;
     	overflow: hidden;
+    	padding: 0 30px;
     }
     .listBtnSkip span{
     	line-height: 20px;
@@ -34,28 +35,52 @@
     	width: 100%;
     	height: auto;
     	overflow: hidden;
+    	margin: 15px 0;
     }
     .listBtnSkip ul li{
     	float: left;
     	width: 32px;
     	height: 32px;
     	border-radius: 50%;
-    	color: #fff;
     	background: #3DBD7D;
     	text-align: center;
     	line-height: 32px;
     	font-size: 14px;
+    	margin-right: 30px;
+    }
+    .listBtnSkip ul li a{
+    	color: #fff;
+    }
+    .listBtnSkip ul li.bj-ff5{
+    	background: #f76156;
     }
     .btnSkip{
-    	width: auto;
+    	width: 300px;
     	height: auto;
     	overflow: hidden;
-    	margin: 0 auto;
-    	margin-left: -30px;
+    	margin: 20px auto;
     }
     .btnSkip button{
     	float: left;
+    	height: 28px;
+    	line-height: 22px;
     	margin-left: 30px;
+    	display: inline-block;
+ 		padding: 3px 10px;
+ 		border-radius: 4px;
+ 		border: 1px solid #d9d9d9;
+ 		font-size: 12px;
+ 		overflow: hidden;
+    }
+    .btnSkip button.fff:hover{
+    	color: #fff;
+    }
+    .btnSkip button:focus{
+    	outline: none;
+    	box-shadow: none;
+    }
+    .btnSkip button.fff:focus{
+    	color: #fff;
     }
 </style>
 @endsection
@@ -69,17 +94,17 @@
 	<div class="listBtnSkip">
 		<span>答题卡：</span>
 		<ul>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li class="bj-f00">4</li>
-			<li>5</li>
+			<li><a href="" title="">1</a></li>
+			<li><a href="" title="">2</a></li>
+			<li><a href="" title="">3</a></li>
+			<li class="bj-ff5"><a href="" title="">4</a></li>
+			<li><a href="" title="">5</a></li>
 		</ul>
 	</div>
 	<div class="btnSkip">
 		<button class="btn">放弃答题</button>
-		<button class="btn">错题解析</button>
-		<button class="btn">继续辅导</button>
+		<button class="btn ic-blue-bg fff">错题解析</button>
+		<button class="btn ic-blue-bg fff">继续辅导</button>
 	</div>
 </div>
 @endsection
@@ -88,6 +113,6 @@
 <script src="{{asset('js/index.js')}}" charset="utf-8"></script>
 <script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
 <script>
-	toCanvas('canvas',5,19.1227);
+	toCanvas('canvas',5,30);
 </script>
 @endsection

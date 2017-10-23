@@ -46,8 +46,15 @@ function toCanvas(id , progressNow ,progress){
 
     // 刷新
     function loading() {
+        var num
+        if(process >= 100){
+            num = process.toFixed(0)
+        }else{
+            num = process.toFixed(2)
+        }
         if (process >= percent) {
             clearInterval(circleLoading);
+            return;
         }
 
       // 清除canvas内容
@@ -71,26 +78,24 @@ function toCanvas(id , progressNow ,progress){
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#333';
-        ctx.fillText(process.toFixed(2), textX, textY);
+        ctx.fillText(num, textX, textY);
         // 圆形
          circle(circleX, circleY, radius);
         //  圆弧
-         sector(circleX, circleY, radius, Math.PI*2/3, process);
+         sector(circleX, circleY, radius, Math.PI*2/3, num);
         // 控制结束时动画的速度
         // process += 0.01;
         if(percent>60){
-        	if (process / percent < 0.98){
-        		process += 0.5
-        	}else if(process / percent < 0.5){
+        	if (process / percent < 0.5){
+        		process += 0.7
+        	}else if(process / percent < 0.995){
         		process += 0.3
         	}else{
-        		process += 0.01
-        	}
+                process += 0.01
+            }
         }else if(percent<60 && percent>20){
-        	if (process / percent < 0.98){
-        		process += 0.5
-        	}else if(process / percent < 0.5){
-        		process += 0.3
+        	if(process / percent < 0.99){
+        		process += 0.4
         	}else{
         		process += 0.01
         	}

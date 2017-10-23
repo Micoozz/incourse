@@ -179,12 +179,9 @@
 						</span>
 						</span>
 						<div class="clear"></div>
-						一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
 					</p>
 					<div class="option">
-						<span>
-							<img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;"/>
-						</span>
+						{!! $data['exercises'][0]['subject'] !!}
 					</div>
 				</div>
 				@endif
@@ -373,11 +370,17 @@
 						<p>正确答案是<span class="exactitude">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>,你的答案是<span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
 						</p>
 						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
-						<!-- <p>得分4分，总分10分</p> -->
-						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
 
+					<!-- 解答题 || 简答题 -->
+					@if($data['exercises'][0]['categroy_id'] == 10)
+					<div>
+						<p>你的答案是<br><span class="red"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
+						</p>
+						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
+					</div>
+					@endif
 					<!--画图题题-->
 					<div style='display: none;'>
 						<p>正确答案是 <img src="{{ asset('images/Cj_bg1.png') }}" style="width: 100%;" /></span>
@@ -434,7 +437,6 @@
 								<div class="imgse">
 
 								</div>
-							
 							</div>
 						</div>
 					</div> -->
