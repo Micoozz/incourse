@@ -26,10 +26,10 @@
 					<a href="/correct/{{$class_id}}/{{$course_id}}/1"><span class="entirely">个人作业</span></a>
 				</div>
 				<div>
-					
+
 				</div>
 				<div>
-					
+
 				</div>
 			</div>
 
@@ -69,7 +69,7 @@
 			<table class="admin-list border pigaizuoye">
 				<thead>
 					<tr>
-						<th>作业章节</th>
+						<!-- <th>作业章节</th> -->
 						<th>分类</th>
 						<th>截止时间</th>
 						<th>正确率</th>
@@ -80,28 +80,17 @@
 				<tbody>
 					@foreach($job_list as $job)
 					<tr>
-						<td>{{$job->chapter_id}}</td>
-						<td>{{$job->job_type}}</td>
-						<td>{{$job->deadline}}</td>
+						<!-- <td>{{$job->chapter_id}}</td> -->
+						<td>{{$job->job_type == 1?"个人":"小组"}}</td>
+						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
 						<td><span class="gray">待统计</span></td>
 						<td><span class="red">可批改</span></td>
 						<td class="ic-blue">
-							<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span>&nbsp;  &nbsp;
-							<span class="correction_pg blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span>
+							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}"><span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span></a>&nbsp;  &nbsp;
+							<!-- <span class="blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span> -->
 						</td>
 					</tr>
 					@endforeach
-					
-					<tr>
-						<td>1.第一章第一节</td>
-						<td>个人</td>
-						<td>10月1日 17:00</td>
-						<td>80%</td>
-						<td><span class="gray">已完成</span></td>
-						<td class="ic-blue">
-							<span class="blue see"><i class="fa fa-eye"></i>&nbsp;查看</span>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 
@@ -156,135 +145,8 @@
 				</tbody>
 			</table>
 
-			<div>分页</div>
+			<!-- <div>分页</div> -->
 		</div>
-
-		<!--个人作业批改-->
-		<div class="work-correction">
-			<a href="" class="blue f-r">查看学生错题</a>
-			<table class="admin-list border pigaizuoye">
-				<thead>
-					<tr>
-						<th colspan='5'>第一章第一节作业</th>
-					</tr>
-					<tr>
-						<td><b>学号</b></td>
-						<td><b>姓名</b></td>
-						<td><b>分数</b></td>
-						<td><b>状态</b></td>
-						<td><b>操作</b></td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>20071027</td>
-						<td>曹操</td>
-						<td><span class="gray">待统计</span></td>
-						<td><span class="red">可批改</span></td>
-						<td class="ic-blue">
-							<span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
-						</td>
-					</tr>
-					<tr>
-						<td>20071027</td>
-						<td>曹操</td>
-						<td>80%</td>
-						<td><span class="gray">已完成</span></td>
-						<td class="ic-blue">
-							<span class="blue see"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<button class="btn-white">返回</button>
-		</div>
-
-		<!--小组作业批改-->
-		<div class="Group-correction">
-			<div class="Group-search">
-				<span>
-				<span class="member">小组分类</span>
-				<i class="fa fa-angle-down"></i>
-				<div>
-					<ul>
-						<li>1.科技组</li>
-						<li>1.科技组</li>
-						<li>1.科技组</li>
-					</ul>
-				</div>
-			</span>
-				<span>
-				<span class="member">组员</span> 
-				<i class="fa fa-angle-down"></i>
-				<div>
-					<ul>
-						<li>曹操</li>
-					</ul>
-				</div>											
-			</span>
-				<span class="f-r">
-				<input type="" name="" id="" value="" placeholder="请输入搜索内容" />
-				<i class="fa fa-search"></i>
-			</span>
-			</div>
-			<table class="admin-list border pigaizuoye">
-				<thead>
-					<tr>
-						<th>小组</th>
-						<th>组长</th>
-						<th>组员</th>
-						<th>评分</th>
-						<th>状态</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1.科技组</td>
-						<td>曹操</td>
-						<td>曹操</td>
-						<td>0</td>
-						<td><span class="red">未批改</span></td>
-						<td class="ic-blue">
-							<span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
-						</td>
-					</tr>
-					<tr>
-						<td>1.科技组</td>
-						<td>曹操</td>
-						<td>曹操</td>
-						<td>0</td>
-						<td><span class="gray">已批改</span></td>
-						<td class="ic-blue">
-							<span class="blue see"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
-						</td>
-					</tr>
-					<tr>
-						<td>1.科技组</td>
-						<td>曹操</td>
-						<td>曹操</td>
-						<td>0</td>
-						<td><span class="red">未提交</span></td>
-						<td class="ic-blue">
-							<span class="gray"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
-						</td>
-					</tr>
-					<tr>
-						<td>1.科技组</td>
-						<td>曹操</td>
-						<td>曹操</td>
-						<td>0</td>
-						<td><span class="red">批改中</span></td>
-						<td class="ic-blue">
-							<span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
-						</td>
-					</tr>
-
-				</tbody>
-			</table>
-			<button class="btn-white">返回</button>
-		</div>
-
 	</div>
 </div>
 @endsection
@@ -331,24 +193,17 @@
 	})
 
 	//个人作业批改
-	$('body').on('click', '.correction_pg', function() {
-		$('.manageAdmin-wrap').hide()
-		$('.work-correction').show()
-		$('.work-correction .pigaizuoye').show()
-		return false;
-	})
-	$('body').on('click', '.work-correction>button', function() {
+	/*$('body').on('click', '.work-correction>button', function() {
 		$('.manageAdmin-wrap').show()
 		$('.work-correction').hide()
 		return false;
-	})
+	})*/
 
 	//小组批改
 	$('body').click(function() {
 		$('.Group-search>span ul').hide()
 	})
 	$('body').on('click', '.Group-search>span', function() {
-		
 		if($(this).find('ul').css('display')!='block') {
 			$('.Group-search>span ul').hide()
 			$(this).find('ul').show()
@@ -373,12 +228,10 @@
 		$('.Group-correction').hide()
 		return false;
 	})
-	
 	//查看
 	$('body').on('click','.see',function(){
 			window.location.href='jobView.html'
 	})
-	
 	//发布
 	$('body').on('click','.issuance',function(){
 		$('.estate>span').attr('class', '');
@@ -387,6 +240,5 @@
 		$('.group').attr('class','entirely group').next().attr('class','')
 		$('.pigaizuoye:nth-of-type(3),.Panel-selection,.Panel-selection>div:first-child').show()
 	})
-		
 </script>
 @endsection

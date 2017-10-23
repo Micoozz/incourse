@@ -8,8 +8,8 @@ class Work extends Model
 {
     //
     const STATUS_OPEN = 1;
-    const STATUS_CLOSE = 2;
-    const STATUS_UNSUB = 3;
+    const STATUS_SUB = 2;
+    const STATUS_CORRECT = 3;
 
     public $timestamps = false;
 

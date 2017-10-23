@@ -33,7 +33,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		//管理员平台
 		Route::get('/adminArchives/{mod?}/{func?}/{employee?}','Admin\ArchivesController@adminArchives');
 		Route::post('/adminArchives/uptatePwd','Admin\ArchivesController@updatePwd');
-		Route::post('/addImage','Admin\ArchivesController@addImage');		
+		Route::post('/addImage','Admin\ArchivesController@addImage');
 		Route::post('/addAdmin','Admin\ArchivesController@addAdmin');
 		Route::get('/forbid/{id}/{status}','Admin\ArchivesController@forbid');
 		Route::get('/delEmployee/{id}','Admin\ArchivesController@delEmployee');
@@ -67,17 +67,12 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 
 		// questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
 		Route::get('/courseWare/main/{class_id?}/{course_id?}','TeachingCenterController@courseWare');
-		Route::get('/courseWare/upLoadCourseware','TeachingCenterController@upLoadCourseware');
-		Route::get('/courseWare/setQuestions','TeachingCenterController@setQuestions');
-		Route::get('/courseWare/coursewareDetail','TeachingCenterController@coursewareDetail');
-		Route::get('/courseWare/answerStart','TeachingCenterController@answerStart');
-		Route::get('/courseWare/answerStartFreedom','TeachingCenterController@answerStart_freedom');
-		Route::get('/courseWare/answerIng','TeachingCenterController@answerIng');
-		Route::get('/courseWare/answerIngFreedom','TeachingCenterController@answerIng_freedom');
-		Route::get('/courseWare/answerEnd','TeachingCenterController@answerEnd');
-		Route::get('/courseWare/answerEndFreedom','TeachingCenterController@answerEnd_freedom');
-		Route::get('/courseWare/showSolution','TeachingCenterController@showSolution');
-		Route::get('/courseWare/showSolutionFreedom','TeachingCenterController@showSolution_freedom');
+		Route::get('/courseWare/upLoadCourseware/{class_id?}/{course_id?}','TeachingCenterController@upLoadCourseware');
+		Route::get('/courseWare/setQuestions/{class_id?}/{course_id?}','TeachingCenterController@setQuestions');
+		Route::get('/courseWare/coursewareDetail/{class_id?}/{course_id?}','TeachingCenterController@coursewareDetail');
+		Route::get('/courseWare/answerStart/{class_id?}/{course_id?}','TeachingCenterController@answerStart');
+		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
+		Route::get('/courseWare/layim/{class_id?}/{course_id?}','TeachingCenterController@layim');
 
 
 
@@ -89,7 +84,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/fileManager/updateName','FileManagerController@updateName');
 		Route::post('/createClass','FileManagerController@createClass');
 		Route::post('/createGrade','FileManagerController@createGrade');
-		Route::post('/addStudent','FileManagerController@addStudent');	
+		Route::post('/addStudent','FileManagerController@addStudent');
 		Route::get('/delStudent/{id}','FileManagerController@delStudent');
 		Route::get('/resetPasswork/{id}','FileManagerController@resetPasswork');
 		Route::get('/employeeStatus/{id}','FileManagerController@employeeStatus');
@@ -132,11 +127,14 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
 		//习题本
-		/*Route::get('/review/{course?}','ExerciseBookController@review');//复习
-		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习*/
+		Route::get('/review/{course?}','ExerciseBookController@review');//复习
+		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习
 		Route::get('/freePractice/{course}/{parameter}','ExerciseBookController@freePractice');//复习、同类型练习
-		Route::get('/foreExercise/{course?}','ExerciseBookController@foreExercise');//预习
-		Route::get('/errorsExercise','ExerciseBookController@errorsExercise');//错题本
+		Route::get('/foreExerciseList/{course?}','ExerciseBookController@foreExerciseList');//预习列表
+		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
+		Route::get('/errorsExercise/{course?}','ExerciseBookController@errorsExercise');//错题本
+		Route::get('/errorsExerciseShowWorkList/{course?}','ExerciseBookController@errorsExerciseShowWorkList');//错题本展示题列表
+		Route::get('/errorsExerciseShowAnalysis/{course?}','ExerciseBookController@errorsExerciseShowAnalysis');//错题本查看解析
 		Route::get('/collect','ExerciseBookController@collect');//收藏
 	});
 	Route::get('/logout','LoginController@logout');

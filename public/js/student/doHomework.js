@@ -1,6 +1,5 @@
 /************* doHomework.html ****************/
 $(function(){
-    console.log(courseId)
     //毫秒格式化为00:00
     function changeTime(millisecond){
         //计算"分：秒"

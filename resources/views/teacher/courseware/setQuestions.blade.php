@@ -1,6 +1,6 @@
 @extends('teacher.courseware_main')
-@section('DESCTIPTION','è¿™æ˜¯é¡µé¢æè¿°æè¿°')
-@section('KEYWORDS','è¿™æ˜¯å…³é”®è¯å…³é”®è¯')
+@section('DESCTIPTION','ÕâÊÇÒ³ÃæÃèÊöÃèÊö')
+@section('KEYWORDS','ÕâÊÇ¹Ø¼ü´Ê¹Ø¼ü´Ê')
 
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" href="{{ asset('css/exercise.css') }}" />
@@ -83,28 +83,28 @@
 @endsection
 @section('COURSEWARE_CONTENT')
 <div class="row">
-		<!--å†…å®¹ä¸»ä½“-->
+		<!--ÄÚÈİÖ÷Ìå-->
 		<div id="centery" style="width:100%;">
 			<div class="clear">
-				<!--ä¸­é—´å†…å®¹-->
+				<!--ÖĞ¼äÄÚÈİ-->
 				<div class="f-l do-hw">
 					<div class="of-h p-r view">
 						<div class="result">
-							<div>ç­”æ¡ˆï¼š&nbsp;&nbsp;&nbsp;
+							<div>´ğ°¸£º&nbsp;&nbsp;&nbsp;
 								<div>
 									<div></div>
 									<span><img src="/images/uploadExerIcons.png"/></span>
-									<span class="ic-blue">æ·»åŠ é€‰é¡¹</span>
+									<span class="ic-blue">Ìí¼ÓÑ¡Ïî</span>
 								</div>
 							</div>
-							<div>å€’è®¡æ—¶ï¼š&nbsp;&nbsp;
+							<div>µ¹¼ÆÊ±£º&nbsp;&nbsp;
 								<span>
-		    				<input type="" name="" id="" value="" />s
+		    				<input type="" name="" value="" id="input_number" onpaste="inputOnafterpaste(this)"/>s
 		    			</span>
 							</div>
 						</div>
 						<div class="ta-c">
-							<a href="/courseWare/answerStartFreedom"><button class="ic-btn">å‡º  é¢˜</button></a>
+							<a href="/courseWare/answerStartFreedom"><button class="ic-btn">³ö  Ìâ</button></a>
 						</div>
 					</div>
 				</div>
@@ -127,6 +127,24 @@
 		$('body').on('blur','.view .result>div input, .ipho .input',function(){
 			$(this).parent().removeClass('blues')
 		});
+
+		$("#input_number").keyup(function(){
+			inputOnkeyup(this)
+		})
+		function inputOnkeyup(obj){
+			if($(obj).val().length==1){
+				$(obj).val($(obj).val().replace(/[^1-9]/g,''))
+			}else{
+				$(obj).val($(obj).val().replace(/\D/g,''))
+			}
+		}
+		function inputOnafterpaste(obj){
+			if($(obj).val().length==1){
+				$(obj).val($(obj).val().replace(/[^1-9]/g,''))
+			}else{
+				$(obj).val($(obj).val().replace(/\D/g,''))
+			}
+		}
 	})
 </script>
 @endsection

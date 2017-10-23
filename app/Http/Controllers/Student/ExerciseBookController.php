@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Subjective;
 use App\Models\Chapter;
 use App\Models\Classes;
+use App\Models\Course;
 use Schema;
 
 class ExerciseBookController extends Controller
@@ -30,6 +31,7 @@ class ExerciseBookController extends Controller
         }
 	}
 */
+    //public function 
 	//习题册 学生的复习、同类型练习 多传一个参数，判断是1是复习，2是同类型练习
     public function freePractice($course = 2, $work_id = 1) {
     	$data = [];
@@ -95,17 +97,20 @@ class ExerciseBookController extends Controller
                 $table->string('comment',200)->nullable();
                 $table->string('sort',200)->nullable();
                 });
-            }*/
+            }
     	}else{
 
 	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
-    	}
+    	}*/
     	return json_encode($result);
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2) {
+        $func = "";
+        $courseAll = Course::all();
+        $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
+        $user = Auth::guard('student')->user();
         $data = [];
-        $user = Auth::user();
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{

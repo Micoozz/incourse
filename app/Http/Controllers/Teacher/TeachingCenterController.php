@@ -41,7 +41,7 @@ class TeachingCenterController extends TeacherController
     protected $course_id;
 
     public function __construct(){
-        
+
     }
 
 
@@ -83,41 +83,11 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
     }
-    public function answerIng($class_id = 1 ,$course_id = 1){
+    public function layim(){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
+        return view('layui.demo.index',compact("title",'class_course'));
     }
 
 
@@ -193,7 +163,11 @@ class TeachingCenterController extends TeacherController
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $work_list = Work::where('job_id',$job_id)->paginate(10);
+        $work_list = Work::where(['job_id' => $job_id/*,'status' => Work::STATUS_SUB*/])->paginate(10);
+        foreach ($work_list as $work) {
+            $student = Student::find($work->student_id);
+            $work->student_name = $student->name;
+        }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
     public function correctDetail($class_id,$course_id,$work_id){
@@ -232,10 +206,9 @@ class TeachingCenterController extends TeacherController
                 array_push($data['objective'],$exercise);
             }
 //          else{
-//              
+//
 //          }
         }
-        dd($data);
         return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data'));
     }
     /*上传习题页面*/
