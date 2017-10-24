@@ -127,6 +127,9 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
 		//习题本
+		Route::get('/freePractice/{course?}/{type?}','ExerciseBookController@freePractice');//同类练习及复习
+
+
 		Route::get('/review/{course?}','ExerciseBookController@review');//复习
 		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习
 		Route::get('/foreExerciseList/{course?}','ExerciseBookController@foreExerciseList');//预习列表

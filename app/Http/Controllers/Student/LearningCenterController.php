@@ -184,8 +184,7 @@ class LearningCenterController extends Controller
 						$exercise = Exercises::find($exe_id);
 						$userWork = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first();
 						$work_answer = json_decode($userWork->answer, true)['answer'];
-						//客观题的正确率
-						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
+						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {//客观题的正确率
 							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
 							$objective_answer = json_decode($objective_answer, true)['answer'];
 							if ($work_answer == $objective_answer) {

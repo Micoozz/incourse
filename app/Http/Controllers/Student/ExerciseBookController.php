@@ -15,19 +15,29 @@ use App\Models\Subjective;
 use App\Models\Chapter;
 use App\Models\Classes;
 use App\Models\Course;
+use App\Models\School;
+use App\Models\Job;
 use Schema;
 
 class ExerciseBookController extends Controller
 {
     //public function 
 	//习题册 学生的复习、同类型练习 多传一个参数，判断是1是复习，2是同类型练习
-    public function freePractice($course = 2, $work_id = 1) {
+    public function freePractice($course = 2, $type_id = 1) {
     	$data = [];
     	$user = Auth::user();
-    	if ($work_id == 1) {
-    		$work = Work::select('id')->where(['student_id' => $user->id, 'course_id' => $course])->get();//查询出这个学生所有的作业work_id;
+        $time = date("Y",time());
+        $lastTerm = strtotime($time.'-'."08-01");//获取上学期的时间
+        $semesterTime = time(); // 现在的时间戳
+            if (time() >$lastTerm){
+               $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', strtotime(($time+1).'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+            }else{
+                $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+            }
+    	if ($type_id == 1) {
+    		$work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
     	}else{
-    		$work = Work::select('id')->where(['student_id' => $user->id, 'course_id' => $course])->orderBy('id', 'desc')->first();//查询出这个学生所有的作业work_id;
+    		$work = Work::select('id')->where(['student_id' => $user->id])->orderBy('id', 'desc')->whereIn('job_id', $jobs)->first();//查询出这个学生所有的作业work_id;
     	}
     	if (empty($work)) {//该学生还没有作业
     		$data = [];
@@ -205,7 +215,7 @@ class ExerciseBookController extends Controller
     public function practice($course, $chapter_id, $type = null){
     	$data =[];
         if ($type != 3) {
-            $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course])->inRandomOrder()->take(15)->get();//查询出随机的15道题的内容
+            $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course, 'exe_type' => 1])->inRandomOrder()->take(15)->get();//查询出随机的15道题的内容
         }else{
             $exercise_id = Exercises::where('chapter_id', $chapter_id)->get()->pluck('id');//找到这个章节下的所有的题目
         }
@@ -260,8 +270,6 @@ class ExerciseBookController extends Controller
             });
         }
         
-        
-
     }
     //当前学生收藏的所有的题目
     public function studentCollect(){
