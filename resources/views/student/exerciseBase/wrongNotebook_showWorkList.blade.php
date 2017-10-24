@@ -108,7 +108,7 @@
 	                            <i class="fa fa-star"></i>
 	                        </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -231,7 +231,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -274,7 +274,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -379,7 +379,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -485,7 +485,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -519,7 +519,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -553,7 +553,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>
@@ -585,7 +585,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="/errorsExerciseShowAnalysis" title=""><i class="fa fa-eye"></i>查看</a></span>
                     </div>
                 </div>
             </div>

@@ -131,10 +131,10 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习
 		Route::get('/foreExerciseList/{course?}','ExerciseBookController@foreExerciseList');//预习列表
 		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
+		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//提交展示结果
 		Route::get('/errorsExercise/{course?}','ExerciseBookController@errorsExercise');//错题本
 		Route::get('/errorsExerciseShowWorkList/{course?}','ExerciseBookController@errorsExerciseShowWorkList');//错题本展示题列表
 		Route::get('/errorsExerciseShowAnalysis/{course?}','ExerciseBookController@errorsExerciseShowAnalysis');//错题本查看解析
-		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//错题本查看解析
 		Route::get('/collect','ExerciseBookController@collect');//收藏
 	});
 	Route::get('/logout','LoginController@logout');
