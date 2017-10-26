@@ -23,7 +23,7 @@
 @endsection
 
 @section('NOTEBOOK')
-<div class="admin-container exer-room pageType" data-type="2">
+<div class="admin-container exer-room pageType">
 	<ul class="wrongNoteBookSectionLists">
 		<li class="wrongNoteBookSectionList">
 			<div class="SectionListTitle">

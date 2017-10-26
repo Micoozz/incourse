@@ -30,7 +30,7 @@
 
 @section('NOTEBOOK')
 <!--习题库-->
-<div class="admin-container exer-room pageType" data-type="5">
+<div class="admin-container exer-room pageType">
     <div class="p-r exercise-room">
         <!-- 下拉选框 -->
         <div class="screen_job border">

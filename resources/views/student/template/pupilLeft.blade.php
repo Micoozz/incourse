@@ -6,6 +6,6 @@
 		@endif
 		<li><a href="#">资料库</a></li>
 		<li><a href="/review/{{ $courseFirst[0]['id'] }}/1">习题册</a></li>
-		<li><a href="#">预约老师</a></li>
-		<li><a href="#">课程大纲</a></li>
+		<li><a href="javascript:;">预约老师</a></li>
+		<li><a href="javascript:;">课程大纲</a></li>
 	</ul>
