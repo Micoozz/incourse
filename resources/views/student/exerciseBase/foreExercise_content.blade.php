@@ -104,6 +104,19 @@
     ul.radio-wrap .ic-radio>i.fa-dot-circle-o.active.student_answer{
         color: #FF5B5B;
     }
+    .noData{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        color: #168bee;
+        margin: 0 auto;
+    }
+    .goBackBtn{
+        width: 100%;
+        height: 28px;
+        margin-top: 20px;
+    }
 </style>
 @section('CSS:OPTIONAL')
 @endsection
@@ -114,10 +127,16 @@
     <div class="f-l change-exer"></div>
     <!--中间内容-->
     <div class="f-l do-hw">
+        @if(empty($data))
+            <div class="noData">该章节的错题都已经答对。</div>
+            <div class="goBackBtn">
+                <button class="answer_btn" id="goBack">返回</button>
+            </div>
+        @else
         <div class="p-r view">
             <div class="answerQuestion answerModule">
                 <ul class="ic-inline exercise-box">
-                    <li data-id="{{$data[0]['id']}}" class="exer-in-list dan-xuan-only">
+                    <li data-id="{{$data[0]['id']}}" class="exer-in-list dan-xuan-only" data-score="{{ $data[0]['score'] }}">
                         <div class="clear hw-question">
                             <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
@@ -136,7 +155,7 @@
                                             <input type="radio" name="radio1" value="{{$abcList[$loop->index]}}"/>
                                         </span>
                                         <span class="f-l">{{$abcList[$loop->index]}}：</span>
-                                        <p class="f-l option">{{$option[key($option)]}}</p>
+                                        <p class="f-l option" data-key="{{ key($option) }}">{{$option[key($option)]}}</p>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -196,6 +215,7 @@
                 <button class="answer_btn giveUp"><a href="javascript:;" title="">放弃答题</a></button>
             </span>
         </div>
+        @endif
     </div>
     <div class="f-r ta-r change-exer"></div>
 </div>
@@ -204,12 +224,14 @@
 @section('JS:OPTIONAL')
 <script type="text/javascript">
 $(function(){
-    var type = '{{$data[0]["categroy_id"]}}';
+    var type = '{{isset($data[0]["categroy_id"]) ? $data[0]["categroy_id"] : ""}}';
     var Stime = 0;
     var Mtime = 0;
     var NStime,NMtime = "00";
-    var urlId = "{{$data[0]['id']}}";
+    var urlId = "{{isset($data[0]['id']) ? $data[0]['id'] : ''}}";
+    var token = "{{ csrf_token()}}";
     var isT = true;
+    var typeId = "{{ $type_id }}";
     var Nowt = window.setInterval(function(){
         Stime++;
         if(Stime>=60){
@@ -234,9 +256,11 @@ $(function(){
     }, 1000)
     var ENnum = ['A','B','C','D','E','F','G','H','I'];
     var nt = '';
+    var narr = [],optionsArr = [],student_answer_arr=[];
     if(type != 3){
         for(var i = 0;i < $(".ic-radio").length;i++){
             var isThat = $(".ic-radio").eq(i);
+            optionsArr.push($(isThat).parent().find(".option").attr("data-key"))
             var clar = $(isThat).find("i").attr("data-answer");
             if(clar){
                 nt += '，'+$(isThat).find("input").val();
@@ -255,9 +279,10 @@ $(function(){
         $(".expend_time").text(tt)
         var ut = '';
         var student_t;
+        var obj = {};
+        var studennt_score = 0;
         if(type == 1 || type == 2){
             //单选题 || 多选题
-            var narr = [];
             for(var j = 0;j<$(".ic-radio").length;j++){
                 var that = $(".ic-radio").eq(j);
                 var cla = $(that).find("i").attr("data-answer");
@@ -274,7 +299,15 @@ $(function(){
                     if(narr.indexOf(student_t)<0){
                         isT = false;
                     }
+                    student_answer_arr.push($(that).parent().find(".option").attr("data-key"))
                 }
+            }
+            obj = {
+                "exe_id":urlId,
+                "student_answer":student_answer_arr,
+                "second":(Mtime*60+Stime),
+                "sort":optionsArr,
+                "token":token
             }
         }else if(type == 3){
             //填空题
@@ -293,12 +326,32 @@ $(function(){
         if(isT){
             $(".isRight").text("正确").removeClass("red").addClass("green");
             $(".user_answer").removeClass("red").addClass("green");
+            studennt_score = $(".exer-in-list").attr("data-score");
+            if(typeId==3){
+                $.ajax({
+                    url:'/correctExercise/'+urlId,
+                    type:'GET',
+                    success:function(){}
+                })
+            }
         }else{
             $(".isRight").text("错误");
         }
         $(this).css({display:"none"});
         $("#go_on").css({display:"block"});
         $(".answerResultModule").animate({height:'300px',opacity:1},500);
+        obj.score = studennt_score;
+        if(typeId!=3){
+            $.ajax({
+                url: '',
+                type:'POST',
+                data:obj,
+                success:function(data){
+                    alert(111)
+                }
+            })
+            console.log(obj)
+        }
     })
     $("body").on("click",".radio-wrap li",function(){
         var that = $(this).find("i");
@@ -309,11 +362,16 @@ $(function(){
             //单选题
             $(".ic-radio.p-r.f-l i").removeClass("active fa-dot-circle-o").addClass("fa-circle-o");
             $(obj).removeClass("fa-circle-o").addClass("active fa-dot-circle-o");
+            $(".ic-radio.p-r.f-l i").attr("data-s",null);
             $(obj).attr("data-s",'student_answer');
         }else if(type == 2){
             //多选题
             $(obj).toggleClass("active fa-dot-circle-o");
-            $(obj).attr("data-s",'student_answer');
+            if($(obj).hasClass("active")){
+                $(obj).attr("data-s",'student_answer');
+            }else{
+                $(obj).attr("data-s",null);
+            }
         }else if(type == 3){
             //填空题，多空题
         }else if(type == 4){
@@ -330,17 +388,10 @@ $(function(){
         }
     })
     $("#go_on").on("click",function(){
-        if(isT){
-            $.ajax({
-                url:'/correctExercise/'+urlId,
-                type:'GET',
-                success:function(){
-                    window.location.reload()
-                }
-            })
-        }else{
-            window.location.reload()
-        }
+        window.location.reload()
+    })
+    $("#goBack").on("click",function(){
+        window.history.go(-1);
     })
 })
 </script>

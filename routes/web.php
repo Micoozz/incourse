@@ -136,6 +136,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//提交展示结果
 		Route::get('/errorsExerciseShowAnalysis/{course?}','ExerciseBookController@errorsExerciseShowAnalysis');//错题本查看解析
 		Route::get('/collect','ExerciseBookController@collect');//收藏
+		Route::post('/addWorkExercise', 'ExerciseBookController@addWorkExercise');
 
 		Route::get('/foreExercise/{course}/{type}', 'ExerciseBookController@foreExercise');//预习
 		Route::get('/freePractice/{course?}/{type_id?}','ExerciseBookController@freePractice');//同类练习及复习
