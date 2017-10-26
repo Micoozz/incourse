@@ -189,7 +189,6 @@ class Controller extends BaseController
     public function uploadPhoto() {
         $files = array();
         $index = count($files);
-        var_dump($_FILES);
 
         $files[$index]['srcName'] = $_FILES['exer-image']['name'];    //上传图片的原名字
         $files[$index]['error'] = $_FILES['exer-image']['error'];    //和该文件上传相关的错误代码
@@ -202,7 +201,7 @@ class Controller extends BaseController
         if($_FILES['exer-image']['error'] != 0) return;
         //判断图片能不能上传
         if(!is_uploaded_file($_FILES['exer-image']['tmp_name'])) {
-            $files[$index]['error'] = 8000;
+            $files[$index]['error'] = 201;
             return;
         }
         //扩展名
@@ -220,7 +219,7 @@ class Controller extends BaseController
             //如果type不是以上三者，我们就从图片原名称里面去截取判断去取得(处于严谨性)    
             $substr = strrchr($_FILES['exer-image']['name'], '.');
             if(FALSE == $substr) {
-                $files[$index]['error'] = 8002;
+                $files[$index]['error'] = 202;
                 return;
             }
 
@@ -235,7 +234,7 @@ class Controller extends BaseController
                 $files[$index]['type'] = 'image/gif';
             }
             else {
-                $files[$index]['error'] = 8003;
+                $files[$index]['error'] = 202;
                 return;
             }
             $extension = $substr;
