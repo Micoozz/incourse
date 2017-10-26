@@ -30,8 +30,8 @@
 	top: 6px;
 	left: 6px;
 	text-align: center;
-	line-height: 18px;
-	font-size: 18px;
+	line-height: 19px;
+	font-size: 19px;
 	vertical-align: middle;
 	text-indent: 2px;
 	font-weight: 100;
@@ -41,7 +41,7 @@
 	float: left;
 }
 .title-bar{
-	width: 120px;
+	width: 140px;
 	float: right;
 	height: 6px;
 	margin-top: 13px;
@@ -141,7 +141,7 @@
 }
 .wrongClick{
 	float: right;
-	width: 120px;
+	width: 140px;
 	text-align: left;
 	line-height: 30px;
 	cursor: pointer;
@@ -159,4 +159,18 @@
 }
 .SectionList-subTitle{
 	cursor: default!important;
+}
+.sectionAllSubject{
+	min-width: 140px;
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    color: #c9c9c9;
+}
+.allSubject,.thisGrade {
+	float: left;
+	width: 50%;
+	height: 30px;
+	display: block;
+	line-height: 30px;
 }

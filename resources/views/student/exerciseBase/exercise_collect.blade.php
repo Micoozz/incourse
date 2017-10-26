@@ -15,20 +15,22 @@
     	float: right;
     	line-height: 17px;
     	font-size: 14px;
+        color: #FF5B5B;
+        cursor: pointer;
     }
     .examineAnalysis i{
     	font-size: 16px;
     	margin-right: 8px;
     }
-    .examineAnalysis a{
-    	color: #FF5B5B;
+    .accout {
+        padding: 70px 0 0;
     }
 </style>
 @endsection
 
 @section('NOTEBOOK')
 <!--习题库-->
-<div class="admin-container exer-room pageType" data-type="4">
+<div class="admin-container exer-room pageType">
     <div class="p-r exercise-room">
         <!-- 下拉选框 -->
         <div class="screen_job border">
@@ -80,11 +82,10 @@
                 </span>
             </form>
         </div>
-
         <!--题目列表-->
         <div class="exer-list myCollect">
             <!--单选题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="1">
                 <div class="exer-head">
                     <span class="exer-type-list">单选题</span>
                 </div>
@@ -146,12 +147,12 @@
 	                            <i class="fa fa-star"></i>
 	                        </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--多选题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="2">
                 <div class="exer-head">
                     <span class="exer-type-list">多选题</span>
                 </div>
@@ -217,12 +218,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--填空题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="3">
                 <div class="exer-head">
                     <span class="exer-type-list">填空题</span>
                 </div>
@@ -265,12 +266,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--判断题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="4">
                 <div class="exer-head">
                     <span class="exer-type-list">判断题</span>
                 </div>
@@ -306,12 +307,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--连线题-->
-            <!-- <div class="exer-in-list border lian-xian-1">
+            <!-- <div class="exer-in-list border lian-xian-1" data-id="5">
                 <div class="exer-head">
                     <span class="exer-type-list">连线题</span>
                 </div>
@@ -357,7 +358,7 @@
                 </div>
             </div> -->
             <!--排序题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="6">
                 <div class="exer-head">
                     <span class="exer-type-list">排序题</span>
                 </div>
@@ -407,12 +408,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--完形填空-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="7">
                 <div class="exer-head">
                     <span class="exer-type-list">完形填空</span>
                 </div>
@@ -511,12 +512,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--画图题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="8">
                 <div class="exer-head">
                     <span class="exer-type-list">画图题</span>
                 </div>
@@ -543,12 +544,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--简答题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="9">
                 <div class="exer-head">
                     <span class="exer-type-list">简答题</span>
                 </div>
@@ -575,12 +576,12 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
             <!--作文题-->
-            <div class="exer-in-list border">
+            <div class="exer-in-list border" data-id="10">
                 <div class="exer-head">
                     <span class="exer-type-list">作文题</span>
                 </div>
@@ -605,13 +606,11 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
+                        <span class="examineAnalysis"><i class="fa fa-heart"></i>666</span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <button class="btn-white btn-center">返 回</button>
     </div>
 </div>
 @endsection
@@ -643,5 +642,10 @@
         $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
         $p.next("ul").toggle();
     });
+
+    $(".examineAnalysis").on("click",function(){
+        console.log($(this).parents(".exer-in-list").attr("data-id"));
+        $(this).parents(".exer-in-list").remove();
+    })
 </script>
 @endsection
