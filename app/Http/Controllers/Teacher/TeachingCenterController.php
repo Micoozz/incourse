@@ -750,4 +750,69 @@ class TeachingCenterController extends TeacherController
         $scantron_id_list = Student::where("class_id",$class->id)->pluck("scantron_id");
         return json_encode($scantron_id_list);
     }
+    /*添加章节页面*/
+    public function addChapter(){
+        $course = Course::pluck('title','id');
+        $version = Chapter::where('parent_id',0)->pluck('title','id');
+        return view('addChapter',compact('course','version'));
+    }
+    public function getChapter($course_id,$id){
+        $data = Chapter::where(function ($query) use ($course_id,$id) {
+            $query->where(['course_id' => $course_id,'parent_id' => $id]);
+        })->orWhere(function ($query) use ($course_id,$id) {
+            $query->where(['course_id' => 0,'parent_id' => $id]);
+        })->pluck('title','id');
+        return json_encode($data);
+    }
+    public function createChapter(){
+        $input = Input::get();
+        $sel = $input['sel'];
+        $inp = $input['input'];
+        foreach($sel as $item){
+            if(!empty($item['value'])){
+                if($item['name'] == "c-sel"){
+                    $c = Course::find($item["value"]);
+                }elseif($item['name'] == "v-sel"){
+                    $v = Chapter::find($item["value"]);
+                }elseif($item['name'] == "g-sel"){
+                    $g = Chapter::find($item["value"]);
+                }elseif($item['name'] == "u-sel"){
+                    $u = Chapter::find($item["value"]);
+                }elseif($item['name'] == "s-sel"){
+                    $s = Chapter::find($item["value"]);
+                }
+            }
+        }
+        foreach($inp as $item){
+            if($item['name'] == "c"){
+                $c = new Course;
+                $c->title = $item['value'];
+                $c->save();
+            }elseif($item['name'] == "v"){
+                $v = new Chapter;
+                $v->parent_id = 0;
+                $v->title = $item['value'];
+                $v->course_id = 0;
+                $v->save();
+            }elseif($item['name'] == "g"){
+                $g = new Chapter;
+                $g->parent_id = $v->id;
+                $g->title = $item['value'];
+                $g->course_id = 0;
+                $g->save();
+            }elseif($item['name'] == "u"){
+                $u = new Chapter;
+                $u->parent_id = $g->id;
+                $u->title = $item['value'];
+                $u->course_id = $c->id;
+                $u->save();
+            }elseif($item['name'] == "s"){
+                $s = new Chapter;
+                $s->parent_id = $u->id;
+                $s->title = $item['value'];
+                $s->course_id =$c->id;
+                $s->save();
+            }
+        }
+    }
 }

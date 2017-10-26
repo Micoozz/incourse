@@ -63,6 +63,10 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/correctWork/{class_id?}/{course_id?}/{job_id}','TeachingCenterController@correctWork');
 		Route::get('/correctDetail/{class_id?}/{course_id?}/{work_id}','TeachingCenterController@correctDetail');
 
+		Route::get('/addChapter','TeachingCenterController@addChapter');
+		Route::get('/getChapter/{course_id}/{id}','TeachingCenterController@getChapter');
+		Route::post('/createChapter','TeachingCenterController@createChapter');
+
 
 
 		// questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
