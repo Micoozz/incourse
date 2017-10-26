@@ -430,9 +430,8 @@ class ExerciseBookController extends Controller
                 $table->string('sort',200)->nullable();
             });
         }
-        $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input->id,
-            'answer' => json_encode($input->answer, JSON_UNESCAPED_UNICODE),
-            'second' => $input->second, 'score' => $input->score, 'sort' => isset($input->sort) ? json_encode($input->sort, JSON_UNESCAPED_UNICODE) : NULL]);
+        $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],
+            'answer' => empty($input['student_answe']) ? json_encode(array('answer' => ''), JSON_UNESCAPED_UNICODE) : json_encode($input['student_answer'], JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'], 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
         //return Redirect::to('');//跳转到同类型或复习或者预习的页面
     }
 //预习--做题
