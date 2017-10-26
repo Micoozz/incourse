@@ -194,6 +194,10 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $work_list = Work::where('job_id',$job_id)->paginate(10);
+        foreach($work_list as $work){
+            $student = Student::find($work->student_id);
+            $work->student_name = $student->name;
+        }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
     public function correctDetail($class_id,$course_id,$work_id){
