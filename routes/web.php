@@ -127,14 +127,16 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
 		//习题本
-		Route::get('/freePractice/{course?}/{type?}','ExerciseBookController@freePractice');//同类练习及复习
-
+		Route::get('/freePractice/{course}/{type}','ExerciseBookController@freePractice');//同类练习及复习  
+		Route::get('/chapterErrorExercise/{course}/{chapter}','ExerciseBookController@chapterErrorExercise');
+		Route::get('/practice/{course}/{chapter}/{type_id}/{exe_id?}', 'ExerciseBookController@practice');//复习练习同类型习题的内容
+		Route::get('/foreExercise/{course}/{type}', 'ExerciseBookController@foreExercise');
 
 		Route::get('/review/{course?}','ExerciseBookController@review');//复习
 		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习
 		Route::get('/foreExerciseList/{course?}','ExerciseBookController@foreExerciseList');//预习列表
 		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
-		Route::get('/errorsExercise/{course?}','ExerciseBookController@errorsExercise');//错题本
+		Route::get('/errorsExercise/{course?}/{type?}','ExerciseBookController@errorsExercise');//错题本
 		Route::get('/errorsExerciseShowWorkList/{course?}','ExerciseBookController@errorsExerciseShowWorkList');//错题本展示题列表
 		Route::get('/errorsExerciseShowAnalysis/{course?}','ExerciseBookController@errorsExerciseShowAnalysis');//错题本查看解析
 		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//错题本查看解析

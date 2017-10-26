@@ -230,6 +230,7 @@ class LearningCenterController extends Controller
 							}
 						}
 					}
+					//dd($data);
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
@@ -301,7 +302,7 @@ class LearningCenterController extends Controller
 		 		$categroy_id = Category::find($errorReports->categroy_id)->id;
 		 		if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {	
 		 			$objective = Objective::where('exe_id',$errorReports->id)->first();
-		 			$option = array();
+		 			$option = array();	
 		 			if (!empty($workFirst->sort)) {
 			 			foreach(json_decode($workFirst->sort) as $sort){
 			 				array_push($option,json_decode($objective->option,true)[$sort-1]);
@@ -335,7 +336,7 @@ class LearningCenterController extends Controller
                     ));
 		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			$workStatus = Work::find($parameter)->status;
-		 			if ($workStatus == 2) {
+		 			if ($workStatus == 3) {
 		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
 		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
 		 				$user_answer = array();
@@ -349,27 +350,12 @@ class LearningCenterController extends Controller
 		 					'answer' => $user_answer,
 		 					'score' => $errorReports->score/100,
 		 					'second' => $workFirst->second,
+		 					'totalScore' => $errorReports->score/100,
 		 					'sameScore' => $workFirst->score,
-		 				));
-		 			}else if ($workStatus == 3) {
-		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
-		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
-		 				$user_answer = array();
-		 				foreach($work_answer as $answer){
-		 					array_push($user_answer, empty($work_answer) ? '' : $work_answer);
-		 				}
-		 				array_push($data['exercises'], array(
-		 					'id' => $errorReports->id,
-		 					'categroy_id' => $categroy_id,
-		 					'subject' => $subjective->subject,
-		 					'answer' => $user_answer,
-		 					'score' => $errorReports->score/100,
-		 					'second' => $workFirst->second,
-		 					'sameScore' => $workFirst->score,
+		 					'postil' => json_decode($workFirst->correct),
 		 				));
 		 			}
 		 		}
-		 	
 		 	}else if ($func == Self::FUNC_ANSWER_SHEET) {//错题卡
 		 		$sameSkip = $exercise_id;
 		 		$error_work = $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter, 'score' => 0 ])->where('parent_id', null)->get()->toArray(); 
@@ -425,7 +411,6 @@ class LearningCenterController extends Controller
 				$SecondAdding = $second + $exeSecond;
 				$entire = $this->changeTimeType($SecondAdding);
 		 	}
-
         }
     	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
     }
@@ -473,7 +458,6 @@ class LearningCenterController extends Controller
 		}
     	return view('student.doHomework',compact('data', 'work_id', 'course', 'abcList'));
     }
-
     //作业的分数
     public function homeworkScores(){    	
     	$input = Input::get();
@@ -581,7 +565,6 @@ class LearningCenterController extends Controller
     	}
     	return view('student.doHomework', compact('data', 'abcList', 'work_id', 'course', 'accuracy', 'increase'));
     }
-
     //同类型习题算分
     public function sameScore(){
     	$input = Input::get();
@@ -775,8 +758,7 @@ class LearningCenterController extends Controller
 					'options' => $options,
 					'answer' => json_decode($objective->answer, true),
 					'score' => $exercise->score/100,
-			    ));    			
-
+			    ));
     		}else if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
     			$subjective = Subjective::where('exe_id',$exercise->id)->first();
     			array_push($data, array(
@@ -795,6 +777,7 @@ class LearningCenterController extends Controller
     public function studentCollect(){
 
     }
+    //秒数转时间戳
     function changeTimeType($seconds){
 	    if ($seconds > 3600){
 	        $hours = intval($seconds/3600);
@@ -805,7 +788,7 @@ class LearningCenterController extends Controller
 	    }
 	    return $time;
 	}
-    //学生选择班级页面    小胡歌
+    //学生选择班级页面   小胡歌
     public function selectClass($grade_id){
     	$title = "选择班级";
         $class_list = Classes::where('parent_id',$grade_id)->pluck('title','id');

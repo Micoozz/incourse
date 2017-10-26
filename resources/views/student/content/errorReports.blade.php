@@ -199,7 +199,6 @@
 						<p>得分5分，总分10分，回答错误，作答用时1秒。</p>
 						<p>本题备作答次数261738次，正确率为68%，易错项为错误。</p>
 					</div>
-
 					<!--排序题-->
 					@if($data['exercises'][0]['categroy_id'] == 6)
 						<div>
@@ -223,7 +222,6 @@
 						<!-- <p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p> -->
 					</div>
 					@endif
-
 					<!--判断题-->
 					@if($data['exercises'][0]['categroy_id'] == 4)
 					<div>
@@ -251,7 +249,19 @@
 					<div>
 						<p>你的答案是<br><span class="red"  exercise-id=""><b style="font-weight: normal;">123</b>
 						</p>
-						@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
+						<p>
+							@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,总分{{ $data['exercises'][0]['totalScore'] }}分,您获得得分{{ $data['exercises'][0]['sameScore'] }}分,作答用时{{ $data['exercises'][0]['second'] }}秒。
+						</p>
+						<div class="clear">
+							<div style="float: left;">批注：</div>
+							<ul style="width:500px;float:left;margin: 0 0 0 10px;">
+								@forelse($data['exercises'][0]['postil'] as $postil)
+								<li>{{ $loop->iteration }} . {!! $postil !!}</li>
+								@empty
+								<li>无</li>
+								@endforelse
+							</ul>
+						</div>
 					</div>
 					@endif
 					<!--画图题题-->
