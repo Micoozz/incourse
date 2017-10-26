@@ -21,7 +21,7 @@
 							<div class="title-content"><span>
 								<a href='/chapterErrorExercise/{{$courseFirst[0]["id"]}}/{{$chapter["id"]}}'>{{ $chapter['title'] }}</a>
 							</span></div>
-							@if($type_id == 3 || $type_id == 4)
+							@if($type_id == 3)
 							<span class="title-bar">
 								<span><b>70%<i></i></b></span>
 							</span>
@@ -43,12 +43,18 @@
 						<ul class="chapterList">
 							@foreach($chapter['minutia'] as $key=>$minutia)
 							<li data-son-id="{{$minutia['id']}}">
-								<b class="chapterIcon ic-blue-bg fff">{{$key+1}}</b>
+								<b class="chapterIcon ic-blue-bg fff">{{$loop->iteration}}</b>
 								<div class="title-content"><span><a href="/chapterErrorExercise/{{$type_id}}/{{$courseFirst[0]['id']}}/{{$minutia['id']}}">{{$minutia['title']}}</a></span></div>
+								@if($type_id == 3)
+								<span class="title-bar">
+									<span><b>70%<i></i></b></span>
+								</span>
+								@else
 								<div class="sectionAllSubject">
-									<span class="allSubject">共 <span>15000</span>题</span>
+									<span class="allSubject">共 <span>3000</span>题</span>
 									<span class="thisGrade">分数：<span>无</span></span>
 								</div>
+								@endif
 								<div class="chapterTitle">
 									<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第一节</span>
 									<span class="wrongClick ic-blue">
@@ -57,7 +63,7 @@
 										</a>
 									</span>
 								</div>
-								<span class="dowmLine" style="{{  $key+1==count($chapter['minutia'])?'display:none;':'' }}"></span>
+								<span class="dowmLine" style="{{  $loop->iteration==count($chapter['minutia'])?'display:none;':'' }}"></span>
 							</li>
 							@endforeach
 						</ul>
