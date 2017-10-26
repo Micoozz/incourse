@@ -18,9 +18,5 @@
                     </li>
                 </ul>
             </div>
-            <p class="p-a exer-num">
-                <span class="ic-blue big-num">1</span>
-                <span class="gray">/12</span>
-            </p>
         </div>
     </div>

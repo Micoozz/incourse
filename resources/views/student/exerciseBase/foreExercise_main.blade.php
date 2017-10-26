@@ -56,8 +56,6 @@
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/echarts.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/layui/layui.js') }}" charset="utf-8"></script>
-<script src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
-<script src="{{ asset('js/student/doHomework.js') }}" charset="utf-8"></script>
 <!-- Plugin -->
 @yield('JS:OPTIONAL')
 </html>

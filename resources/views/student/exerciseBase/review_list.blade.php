@@ -4,202 +4,69 @@
 
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" type="text/css" href="{{asset('css/student/wrongNotebook_list.css')}}">
-<style>
-	.sectionAllSubject{
-		width: 120px;
-	    float: right;
-	    height: 30px;
-	    line-height: 30px;
-	    color: #c9c9c9;
-	}
-	.allSubject,.thisGrade {
-		float: left;
-		width: 50%;
-		height: 30px;
-		display: block;
-		line-height: 30px;
-	}
-</style>
 @endsection
 
 @section('NOTEBOOK')
-<div class="admin-container exer-room pageType" data-type="1">
-	<ul class="wrongNoteBookSectionLists">
-		<li class="wrongNoteBookSectionList">
-			<div class="SectionListTitle">
-				<div class="sectionTitle-parent">
-					<div class="SectionList-title sectionTitle">
-						<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
-						<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第一章</a></span></div>
-						<div class="sectionAllSubject">
-							<span class="allSubject">共 <span>15</span>题</span>
-							<span class="thisGrade">分数：<span>无</span></span>
+<div class="admin-container exer-room pageType">
+	@if(empty($data))
+	<div>没有数据</div>
+	@else
+		<ul class="wrongNoteBookSectionLists">
+			@foreach($data as $chapter)
+			<li class="wrongNoteBookSectionList" data-id="{{$chapter['id']}}" style="{{ count($data) <=1?'border-bottom:none;':'' }}">
+				<div class="SectionListTitle">
+					<div class="sectionTitle-parent">
+						<div class="SectionList-title sectionTitle">
+							<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
+							<div class="title-content"><span>
+								<a href='/chapterErrorExercise/{{$courseFirst[0]["id"]}}/{{$chapter["id"]}}'>{{ $chapter['title'] }}</a>
+							</span></div>
+							@if($type_id == 3 || $type_id == 4)
+							<span class="title-bar">
+								<span><b>70%<i></i></b></span>
+							</span>
+							@else
+							<div class="sectionAllSubject">
+								<span class="allSubject">共 <span>3000</span>题</span>
+								<span class="thisGrade">分数：<span>无</span></span>
+							</div>
+							@endif
 						</div>
-					</div>
-					<div class="SectionList-subTitle sectionTitle">
-						<span class="titleTime"><i class="fa fa-clock-o"></i>第一章</span>
-						<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-					</div>
-					<ul class="chapterList">
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">1</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第一章第一节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第一节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-							<span class="dowmLine"></span>
-						</li>
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">2</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第一章第二节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第二节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-							<span class="dowmLine"></span>
-						</li>
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">3</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第一章第三节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第三节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</li>
-		<li class="wrongNoteBookSectionList">
-			<div class="SectionListTitle">
-				<div class="sectionTitle-parent">
-					<div class="SectionList-title sectionTitle">
-						<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
-						<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第二章</a></span></div>
-						<div class="sectionAllSubject">
-							<span class="allSubject">共 <span>15</span>题</span>
-							<span class="thisGrade">分数：<span>无</span></span>
+						<div class="SectionList-subTitle sectionTitle">
+							<span class="titleTime"><i class="fa fa-clock-o"></i>第一章</span>
+							<span class="wrongClick ic-blue">
+								<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$chapter['id']}}/{{$type_id}}" title=""><i class="fa fa-pencil"></i>
+								@if($type_id != 3) 开始做题 @else 错题练习 @endif
+								</a>
+							</span>
 						</div>
+						<ul class="chapterList">
+							@foreach($chapter['minutia'] as $key=>$minutia)
+							<li data-son-id="{{$minutia['id']}}">
+								<b class="chapterIcon ic-blue-bg fff">{{$key+1}}</b>
+								<div class="title-content"><span><a href="/chapterErrorExercise/{{$type_id}}/{{$courseFirst[0]['id']}}/{{$minutia['id']}}">{{$minutia['title']}}</a></span></div>
+								<div class="sectionAllSubject">
+									<span class="allSubject">共 <span>15000</span>题</span>
+									<span class="thisGrade">分数：<span>无</span></span>
+								</div>
+								<div class="chapterTitle">
+									<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第一节</span>
+									<span class="wrongClick ic-blue">
+										<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$minutia['id']}}/{{$type_id}}" title=""><i class="fa fa-pencil"></i>
+										@if($type_id != 3) 开始做题 @else 错题练习 @endif
+										</a>
+									</span>
+								</div>
+								<span class="dowmLine" style="{{  $key+1==count($chapter['minutia'])?'display:none;':'' }}"></span>
+							</li>
+							@endforeach
+						</ul>
 					</div>
-					<div class="SectionList-subTitle sectionTitle">
-						<span class="titleTime"><i class="fa fa-clock-o"></i>第二章</span>
-						<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-					</div>
-					<ul class="chapterList">
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">1</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第二章第一节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第二章第一节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-						</li>
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">2</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第二章第二节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第二章第二节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-						</li>
-						<li>
-							<b class="chapterIcon ic-blue-bg fff">3</b>
-							<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第二章第三节</a></span></div>
-							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>15</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
-							</div>
-							<div class="chapterTitle">
-								<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第二章第三节</span>
-								<span class="wrongClick ic-blue"><a class="eoorosExercise" data-href="/errorsExerciseShowWorkList" title=""><i class="fa fa-pencil"></i>开始预习</a></span>
-							</div>
-						</li>
-					</ul>
 				</div>
-			</div>
-		</li>
-		<li class="wrongNoteBookSectionList">
-			<div class="SectionListTitle">
-				<div class="sectionTitle-parent">
-					<div class="SectionList-title sectionTitle">
-						<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
-						<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第三章</a></span></div>
-						<div class="sectionAllSubject">
-							<span class="allSubject">共 <span>15</span>题</span>
-							<span class="thisGrade">分数：<span>无</span></span>
-						</div>
-					</div>
-					<div class="SectionList-subTitle sectionTitle"><span class="titleTime"><i class="fa fa-clock-o"></i>第三章</span><span class="wrongClick"></span></div>
-					<ul class="chapterList">
-						<li><b class="chapterIcon ic-blue-bg fff">1</b>001</li>
-						<li><b class="chapterIcon ic-blue-bg fff">2</b>002</li>
-						<li><b class="chapterIcon ic-blue-bg fff">3</b>003</li>
-					</ul>
-				</div>
-			</div>
-		</li>
-		<li class="wrongNoteBookSectionList">
-			<div class="SectionListTitle">
-				<div class="sectionTitle-parent">
-					<div class="SectionList-title sectionTitle">
-						<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
-						<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第四章</a></span></div>
-						<div class="sectionAllSubject">
-							<span class="allSubject">共 <span>15</span>题</span>
-							<span class="thisGrade">分数：<span>无</span></span>
-						</div>
-					</div>
-					<div class="SectionList-subTitle sectionTitle"><span class="titleTime"><i class="fa fa-clock-o"></i>第四章</span><span class="wrongClick"></span></div>
-					<ul class="chapterList">
-						<li><b class="chapterIcon ic-blue-bg fff">1</b>001</li>
-						<li><b class="chapterIcon ic-blue-bg fff">2</b>002</li>
-						<li><b class="chapterIcon ic-blue-bg fff">3</b>003</li>
-					</ul>
-				</div>
-			</div>
-		</li>
-		<li class="wrongNoteBookSectionList">
-			<div class="SectionListTitle">
-				<div class="sectionTitle-parent">
-					<div class="SectionList-title sectionTitle">
-						<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
-						<div class="title-content"><span><a href="/errorsExerciseShowAnalysis">第五章</a></span></div>
-						<div class="sectionAllSubject">
-							<span class="allSubject">共 <span>15</span>题</span>
-							<span class="thisGrade">分数：<span>无</span></span>
-						</div>
-					</div>
-					<div class="SectionList-subTitle sectionTitle"><span class="titleTime"><i class="fa fa-clock-o"></i>第五章</span><span class="wrongClick"></span></div>
-					<ul class="chapterList">
-						<li><b class="chapterIcon ic-blue-bg fff">1</b>001</li>
-						<li><b class="chapterIcon ic-blue-bg fff">2</b>002</li>
-						<li><b class="chapterIcon ic-blue-bg fff">3</b>003</li>
-					</ul>
-				</div>
-			</div>
-		</li>
-	</ul>
+			</li>
+			@endforeach
+		</ul>
+	@endif
 </div>
 
 @endsection

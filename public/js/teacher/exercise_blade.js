@@ -323,11 +323,18 @@ function sessionS(){
 
 //选择联动函数
 function checkedFunLinkage(data,that){
-    if(sessionStorageData.exercise.length>15){
-        layui.use('layer',function(){
-            layer.msg("最多只能选择15道题",{offset: 't'})
-        });
-        return;
+    if(data){
+        if(data.exercise.length>15){
+            layui.use('layer',function(){
+                layer.msg("最多只能选择15道题",{offset: 't'})
+            });
+            return;
+        }
+        if(data.exercise.length>0){
+            $("#create-hw").text("添加到作业");
+        }else{
+            $("#create-hw").text("取消");
+        }
     }
     if($(that).is(":checked")){
         $(".hw-type-list li").each(function(j,num){
@@ -351,11 +358,6 @@ function checkedFunLinkage(data,that){
                 }
             }
         })
-    }
-    if(exercises.length>0){
-        $("#create-hw").text("添加到作业");
-    }else{
-        $("#create-hw").text("取消");
     }
     sessionStorage.removeItem("addJob");
     sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));

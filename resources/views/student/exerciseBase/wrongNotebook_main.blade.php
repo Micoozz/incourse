@@ -44,7 +44,7 @@
         .admin-container{
             margin-top: 0;
         }
-        .wrongNoteBookSectionLists a{
+        .wrongNoteBookSectionLists,.wrongNoteBookSectionLists a{
             color: #168bee;
         }
         .wrongNoteBookSectionLists a:hover{
@@ -100,13 +100,6 @@
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/echarts.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/layui/layui.js') }}" charset="utf-8"></script>
-<script>
-    $(function(){
-        var type = $(".pageType").attr("data-type");
-        $(".homework-manage-title").find("li").find("a").removeClass("active");
-        $(".homework-manage-title").find("li").eq(parseInt(type)-1).find("a").addClass("active");
-    })
-</script>
 <!-- Plugin -->
 @yield('JS:OPTIONAL')
 </html>
