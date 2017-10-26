@@ -256,6 +256,7 @@ function upLoadData(){
 		arr.push(json);
 		num += len;
 	})
+	console.log(data);
 	$.ajax({
 		url:"/uplaodCorrect",
 		data:{'_token':token,'student_id':$(".stu-answer").attr('stu-id'),'work_id':$(".stu-answer").attr('work-id'),'data':arr},
