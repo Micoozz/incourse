@@ -74,10 +74,12 @@ class ExerciseBookController extends Controller
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'func', 'user', 'courseAll'));
     }
     //习题册 学生的预习
-    public function foreExercise($course = 2) {
-        //dd(11);
+    public function foreExercise($course = 2, $type_id = 4) {
+        $func = "";
         $user = Auth::user(); //查看当前老师 
         $schoolType = School::where('id',$user->school_id)->first()->type;
+        $courseAll = Course::all();
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();
         $class =  Classes::where('id',$user->class_id)->first()->parent_id;
         $gradeTitle = Classes::where('id',$class)->first()->title;
        // 开学时间判断他是上学期还是下学期
@@ -86,7 +88,6 @@ class ExerciseBookController extends Controller
         $semesterTime = time(); // 现在的时间戳
         $nextTerm = strtotime(($time+1).'-'."02-01");//获取下学期的时间
         $grade = $time-$gradeTitle+1;
-       // dd($grade);s
         //1 代表小学 2 代表初中 3 代表大学
         if ($schoolType == 1) {
             if ($grade == 1) {
@@ -143,7 +144,6 @@ class ExerciseBookController extends Controller
                 $grade = "九年级下";
             }
         }
-        //dd($grade);
         if (time() > $lastTerm){
            $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm)->get()->pluck('id');
            //今年上学期的作业
@@ -191,6 +191,7 @@ class ExerciseBookController extends Controller
                 }
             }
         }
+        return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'))
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2, $type_id = 3) {
