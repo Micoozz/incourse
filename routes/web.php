@@ -132,18 +132,18 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
 		//习题本
-		Route::get('/foreExerciseList/{course?}','ExerciseBookController@foreExerciseList');//预习列表
 		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
 		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//提交展示结果
 		Route::get('/errorsExerciseShowAnalysis/{course?}','ExerciseBookController@errorsExerciseShowAnalysis');//错题本查看解析
 		Route::get('/collect','ExerciseBookController@collect');//收藏
 
-
+		Route::get('/foreExercise/{course}/{type}', 'ExerciseBookController@foreExercise');//预习
 		Route::get('/freePractice/{course?}/{type_id?}','ExerciseBookController@freePractice');//同类练习及复习
 		Route::get('/errorsExercise/{course?}/{type_id?}','ExerciseBookController@errorsExercise');//错题本
 		Route::get('/chapterErrorExercise/{type_id?}/{course?}/{chapter?}','ExerciseBookController@chapterErrorExercise');
 		Route::get('/errorExerciseInfo/{type_id}/{course}/{exe_id}', 'ExerciseBookController@errorExerciseInfo');
 		Route::get('/practice/{course}/{chapter}/{type_id}', 'ExerciseBookController@practice');//复习同类型预习错题本练习
+		Route::get('/correctExercise/{exe_id}', 'ExerciseBookController@correctExercise');
 	});
 	Route::get('/logout','LoginController@logout');
 });

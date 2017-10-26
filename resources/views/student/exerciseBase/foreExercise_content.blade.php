@@ -181,7 +181,7 @@
             <div class="answerResult answerModule">
                 <div class="answerResultModule">
                     <p>
-                        <span class="span_br">正确答案是：<span class="green right_a" data-r="{{ json_encode($data[0]['answer']['answer'],JSON_UNESCAPED_UNICODE) }}">{{ $data[0]["categroy_id"] == 3? implode(',',$data[0]['answer']['answer']) : '' }}</span>，您的答案是：<span class="red user_answer"></span>，回答<span class="red isRight"></span>。作答用时<span>1</span>秒</span>
+                        <span class="span_br">正确答案是：<span class="green right_a">{{ $data[0]["categroy_id"] == 3? implode(',',$data[0]['answer']['answer']) : '' }}</span>，您的答案是：<span class="red user_answer"></span>，回答<span class="red isRight"></span>。作答用时<span class="expend_time"></span></span>
                         <span class="span_br">本体<span class="red">得分率</span>：68%，<span class="red">易错项</span>：B</span>
                         <span class="span_br">解析：无</span>
                         <span class="span_br">来源：2017年湖南工程学院初中毕业升学考试：第三章语病解析与修改，第四题。</span>
@@ -208,6 +208,8 @@ $(function(){
     var Stime = 0;
     var Mtime = 0;
     var NStime,NMtime = "00";
+    var urlId = "{{$data[0]['id']}}";
+    var isT = true;
     var Nowt = window.setInterval(function(){
         Stime++;
         if(Stime>=60){
@@ -232,10 +234,13 @@ $(function(){
     }, 1000)
     var ENnum = ['A','B','C','D','E','F','G','H','I'];
     var nt = '';
-    var arr = JSON.parse($(".right_a").attr("data-r"));
     if(type != 3){
-        for(var i = 0;i < arr.length;i++){
-            nt += '，'+ENnum[arr[i]-1];
+        for(var i = 0;i < $(".ic-radio").length;i++){
+            var isThat = $(".ic-radio").eq(i);
+            var clar = $(isThat).find("i").attr("data-answer");
+            if(clar){
+                nt += '，'+$(isThat).find("input").val();
+            }
         }
         $(".right_a").text(nt.slice(1, nt.length));
     }
@@ -247,17 +252,18 @@ $(function(){
         }else{
             tt = Mtime+'分'+Stime+'秒'
         }
-        console.log(tt)
-        var isT = true;
+        $(".expend_time").text(tt)
         var ut = '';
         var student_t;
         if(type == 1 || type == 2){
             //单选题 || 多选题
+            var narr = [];
             for(var j = 0;j<$(".ic-radio").length;j++){
                 var that = $(".ic-radio").eq(j);
                 var cla = $(that).find("i").attr("data-answer");
                 var cls = $(that).find("i").attr("data-s");
                 if(cla){
+                    narr.push($(that).find("input").val());
                     $(that).find("i").addClass(cla + " fa-dot-circle-o");
                 }else if(cls){
                     $(that).find("i").addClass(cls + " fa-dot-circle-o");
@@ -265,7 +271,7 @@ $(function(){
                 if(cls){
                     student_t = $(".ic-radio").eq(j).next("span.f-l").text().slice(0,1)
                     ut += '，' + student_t;
-                    if(arr.indexOf(student_t)<0){
+                    if(narr.indexOf(student_t)<0){
                         isT = false;
                     }
                 }
@@ -285,7 +291,8 @@ $(function(){
         }
         $(".user_answer").text(ut.slice(1, ut.length));
         if(isT){
-            $(".isRight").text("正确");
+            $(".isRight").text("正确").removeClass("red").addClass("green");
+            $(".user_answer").removeClass("red").addClass("green");
         }else{
             $(".isRight").text("错误");
         }
@@ -320,6 +327,19 @@ $(function(){
         var t = "空"+(1+index);
         if($(this).text() == t){
             $(this).text('');
+        }
+    })
+    $("#go_on").on("click",function(){
+        if(isT){
+            $.ajax({
+                url:'/correctExercise/'+urlId,
+                type:'GET',
+                success:function(){
+                    window.location.reload()
+                }
+            })
+        }else{
+            window.location.reload()
         }
     })
 })

@@ -18,12 +18,15 @@ $(".hw-title-input").attr("placeholder",(titlePrompt()+"作业"))
 $("#expiration-time .expiration-time-input").val(CurentTime());
 
 //日历表
-laydate.render({
-    elem: '#expiration-time .expiration-time-input',
-    min: CurentTime(),
-    type: 'datetime',
-    format: 'yyyy-MM-dd H:m'
-});
+layui.use("laydate",function(){
+    var laydate = layui.laydate;
+    laydate.render({
+        elem: '#expiration-time .expiration-time-input',
+        min: CurentTime(),
+        type: 'datetime',
+        format: 'yyyy-MM-dd H:m'
+    });
+})
 
 //页面加载本地数据 + 删除习题
 if(sessionStorageData){
@@ -275,7 +278,7 @@ function htmlModule(ENNum,data,i){
         }
     html += "</ul>"+
         "</div>"+
-        "<div class='chapterBox'><span class='chapterBtn' style='width: 70px;'><span  class='chapterTitle'>知识点</span><span class='chapterContent'></span><span  class='fa chapterIcon fa-angle-double-right'></span></span></div></div>"+
+        "<div class='chapterBox'><span class='chapterBtn' style='width: 70px;'><span  class='chapterTitle'>知识点</span><span class='chapterContent'>"+data.chapter_ttile+"</span><span  class='fa chapterIcon fa-angle-double-right'></span></span></div></div>"+
         "</td>"+
         "<td valign='top'><i class='fa is-spread fa-angle-down'></i></td>"+
         "</tr>";

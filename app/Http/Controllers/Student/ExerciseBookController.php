@@ -17,6 +17,7 @@ use App\Models\Classes;
 use App\Models\Course;
 use App\Models\School;
 use App\Models\Job;
+use Redirect;
 use Schema;
 
 class ExerciseBookController extends Controller
@@ -29,11 +30,12 @@ class ExerciseBookController extends Controller
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $user = Auth::user();
+       // dd($user);
         $time = date("Y",time());
         $lastTerm = strtotime($time.'-'."08-01");//获取上学期的时间
         $semesterTime = time(); // 现在的时间戳
             if (time() >$lastTerm){
-               $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', strtotime(($time+1).'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+               $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->get()->pluck('id');//今年上学期的作业
             }else{
                 $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年上学期的作业
             }
@@ -145,11 +147,9 @@ class ExerciseBookController extends Controller
             }
         }
         if (time() > $lastTerm){
-           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm)->get()->pluck('id');
-           //今年上学期的作业
+           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm)->get()->pluck('id');//今年上学期的作业
         }else{
-            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))
-            ->get()->pluck('id');//今年下学期的作业
+            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年下学期的作业
         }
         //如果为空的话说明这个学期还没有布置作业
         if (empty($jobs)) {
@@ -352,12 +352,23 @@ class ExerciseBookController extends Controller
 
     }
 
+    public function correctExercise($exe_id){
+        $user = Auth::user();
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            return $e;
+        }
+        $exerciseUpdate = $db->table($user->id)->where(['exe_id' => $exe_id, 'score' => 0])->update(['type' => 3]);
+    }
 //学生复习，预习，同步练习，错题本做的作业页面 状态码3代表错题本
     public function practice($course, $chapter_id, $type_id){
         $data =[];
         $user = Auth::user();
         $courseAll = Course::all();
-        $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
             $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course, 'exe_type' => 1])->whereNotIn()->inRandomOrder()->take(1)->get();
         }else{
@@ -368,7 +379,7 @@ class ExerciseBookController extends Controller
             }catch(\Exception $e){
                 return $e;
             }
-            $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');;
+            $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');
             //查询这个学生的所有的错题
             //这个章节下拿出随机一道
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
@@ -392,7 +403,7 @@ class ExerciseBookController extends Controller
                 'answer' => json_decode($objective->answer, true),
                 'score' => $chapterExercises->score/100,
             ));
-        return view('student.exerciseBase.foreExercise_content', compact('data', 'course', 'abcList' , 'user', 'courseAll', 'courseFirst', 'type_id'));
+        return view('student.exerciseBase.foreExercise_content', compact('data', 'course', 'abcList' , 'user', 'courseAll', 'courseFirst', 'type_id', 'chapter_id'));
     }
 //预习--做题
 /*    public function foreExerciseDoWork($course = 2) {
