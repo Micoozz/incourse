@@ -316,7 +316,7 @@ function getLocalData(sessionStorageData){
                 }else{
                     $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
                     $(".subject_box").removeClass("subject_box_noActive").addClass("subject_box_active");
-                    $(this).find(".disSelsectBox").animate({height:($(this).find("ul").height()+34)},500);
+                    $(this).find(".disSelsectBox").animate({height:($(this).find("ul").height()+45)},500);
                     var that = this;
                     setTimeout(function(){
                         $(that).find('.chapterBox').css({display:'block'});
