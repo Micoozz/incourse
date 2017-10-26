@@ -86,7 +86,7 @@
 @endsection
 
 @section('NOTEBOOK')
-<div class="admin-container exer-room pageType" data-type="4">
+<div class="admin-container exer-room pageType">
 	<div class="canvasModule">
 		<canvas id="canvas" width="400" height="400"></canvas>
 	</div>

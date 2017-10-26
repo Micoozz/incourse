@@ -209,17 +209,19 @@ p{
     display: inline-block;
     height: 24px;
     width: 300px;
-    line-height: 16px;
-    text-align: center;
+    line-height: 24px;
+    text-align: left;
     margin-top: 0;
+    padding-left: 10px;
 }
 .chapterIcon{
     display: inline-block;
-    width: 15px;
+    width: 24px;
     text-align: center;
-    line-height: 16px;
+    line-height: 24px;
     position: absolute;
-    top: 4px;
-    right: 5px;
+    top: 0;
+    right: 0;
     cursor: pointer;
+    background: #fff;
 }
