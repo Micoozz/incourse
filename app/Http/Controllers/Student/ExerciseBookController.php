@@ -15,31 +15,29 @@ use App\Models\Subjective;
 use App\Models\Chapter;
 use App\Models\Classes;
 use App\Models\Course;
+use App\Models\School;
+use App\Models\Job;
 use Schema;
 
 class ExerciseBookController extends Controller
 {
-    //启动别的数据库
-/*	public function dbInfo(){
-	    $baseNum = (int)($user->id/1000-0.0001)+1;
-    	$db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-        	$db = DB::connection($db_name);
-        }catch(\Exception $e){
-            $this->createBase($baseNum);
-            $db = DB::connection($db_name);
-        }
-	}
-*/
     //public function 
 	//习题册 学生的复习、同类型练习 多传一个参数，判断是1是复习，2是同类型练习
-    public function freePractice($course = 2, $work_id = 1) {
+    public function freePractice($course = 2, $type_id = 1) {
     	$data = [];
     	$user = Auth::user();
-    	if ($work_id == 1) {
-    		$work = Work::select('id')->where(['student_id' => $user->id, 'course_id' => $course])->get();//查询出这个学生所有的作业work_id;
+        $time = date("Y",time());
+        $lastTerm = strtotime($time.'-'."08-01");//获取上学期的时间
+        $semesterTime = time(); // 现在的时间戳
+            if (time() >$lastTerm){
+               $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', strtotime(($time+1).'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+            }else{
+                $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+            }
+    	if ($type_id == 1) {
+    		$work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
     	}else{
-    		$work = Work::select('id')->where(['student_id' => $user->id, 'course_id' => $course])->orderBy('id', 'desc')->first();//查询出这个学生所有的作业work_id;
+    		$work = Work::select('id')->where(['student_id' => $user->id])->orderBy('id', 'desc')->whereIn('job_id', $jobs)->first();//查询出这个学生所有的作业work_id;
     	}
     	if (empty($work)) {//该学生还没有作业
     		$data = [];
@@ -75,33 +73,12 @@ class ExerciseBookController extends Controller
     //习题册 学生的预习
     public function foreExercise($course = 1) {
     	$user = Auth::user(); //查看当前老师
-    	$workId = Work::select('id')->where(['student_id' => $user->id,'course_id' => $course])->get()->toArray();//查询出所有作业
-/*	    if (empty($workId)) {
-            $baseNum = (int)($user->id/1000-0.0001)+1;
-            $db_name = 'mysql_stu_work_info_'.$baseNum;
-            try{
-                $db = DB::connection($db_name);
-            }catch(\Exception $e){
-                $this->createBase($baseNum);
-                $db = DB::connection($db_name);
-            }
-    		if(!Schema::connection($db_name)->hasTable($user->id)){
-            Schema::connection($db_name)->create($user->id, function ($table) {
-                $table->integer('work_id');
-                $table->integer('exe_id')->nullable();
-                $table->integer('parent_id')->nullable();
-                $table->integer('type')->nullable();
-                $table->text('answer')->nullable();
-                $table->integer('second')->nullable();
-                $table->smallInteger('score')->default(0);
-                $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
-                });
-            }
-    	}else{
+    	$workId = Work::where(['student_id' => $user->id,'course_id' => $course])->get()->pluck('Chapter_id', 'id');//查询出所有作业
+        if (empty($workId)) {
+            
+        }else{
 
-	        $workInfo = $db->table($user->id)->select('exe_id')->whereIn('work_id', $workId)->get()->toArray();//查询所有的作业
-    	}*/
+        }
     	return json_encode($result);
     }
     //先查询所有这位学生的作业错题本
@@ -117,7 +94,7 @@ class ExerciseBookController extends Controller
             $db = DB::connection($db_name);
         }catch(\Exception $e){
             $data = [];
-            return $data;       
+            return $data;
         }
         $exe_id = $db->table($user->id)->where('score', 0)->get()->pluck(['exe_id']);//查询所有的错题
         $exerciseChapter = Exercises::whereIn('id',$exe_id)->pluck('chapter_id')->unique();
@@ -138,35 +115,6 @@ class ExerciseBookController extends Controller
         }
         return $data;
     }        
-/*    public function errorsExercise($course = 2){
-        $data = array();
-        $user = Auth::user();
-        //$workId = Work::select('id')->where(['student_id' => $user->id,'course_id' => $course])->get();//查询出这个学生的所有作业
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            return $e;
-        }
-
-        $result = $db->table($user->id)->select('work_id','exe_id')->whereIn('work_id',$workId)->where(['score' => 0])->get();//查询出所有的这个学生错误的exe_id 题型id，
-        foreach($result as $exercise){ //通过循环把日期最早的错题归结在那个作业下
-        	$work = Work::find($exercise->work_id);
-            $workTitle = $work->belongsToJob()->first()->title;//查出这次作业的名称，老师名字老师自取
-            $point = Exercises::where('id',$exercise->exe_id)->first()->chapter_id;//找到这个作业题型的在哪个知识点下
-            $minutia = Chapter::where('id',$point)->first();//获取这个小节的知识点
-            $chapter = Chapter::where('id',$minutia->parent_id)->first();//获取这个知识点的大章节
-            $data[$chapter->id]["chapter"] = $chapter->title;
-            $data[$chapter->id][$minutia->id]["title"] = $minutia->title;
-            //dd($data[$chapter->id][$minutia->id]["title"]);
-            $data[$chapter->id][$minutia->id]["work"] = $workTitle;
-            $data[$chapter->id][$minutia->id]["work"] = isset($data[$chapter->id][$minutia->id]["work"]) ? $data[$chapter->id][$minutia->id]["work"] : array();
-            array_push($data[$chapter->id][$minutia->id]["work"],array("workTitle" => $workTitle,"exe_id" => $exercise->exe_id)
-            );
-        }
-        return json_encode($data);
-    }*/
     //这个学生某个章节错了多少题
     public function chapterErrorExercise($course,$chapter) {
     	$data = [];
@@ -267,7 +215,7 @@ class ExerciseBookController extends Controller
     public function practice($course, $chapter_id, $type = null){
     	$data =[];
         if ($type != 3) {
-            $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course])->inRandomOrder()->take(15)->get();//查询出随机的15道题的内容
+            $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course, 'exe_type' => 1])->inRandomOrder()->take(15)->get();//查询出随机的15道题的内容
         }else{
             $exercise_id = Exercises::where('chapter_id', $chapter_id)->get()->pluck('id');//找到这个章节下的所有的题目
         }
@@ -308,7 +256,20 @@ class ExerciseBookController extends Controller
             $this->createBase($baseNum);
             $db = DB::connection($db_name);
         }
-
+        if(!Schema::connection($db_name)->hasTable($user->id)){
+            Schema::connection($db_name)->create($user->id, function ($table) {
+                $table->integer('work_id');
+                $table->integer('exe_id')->nullable();
+                $table->integer('parent_id')->nullable();
+                $table->integer('type')->nullable();
+                $table->text('answer')->nullable();
+                $table->integer('second')->nullable();
+                $table->smallInteger('score')->default(0);
+                $table->string('comment',200)->nullable();
+                $table->string('sort',200)->nullable();
+            });
+        }
+        
     }
     //当前学生收藏的所有的题目
     public function studentCollect(){

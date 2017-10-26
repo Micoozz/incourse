@@ -50,7 +50,7 @@
 @endsection
 
 @section('JS:OPTIONAL')
-<script src="/js/load1.js" charset="utf-8"></script>
+
 <script src="/js/school/step.js" charset="utf-8"></script>
 <script>
 	$(function() {

@@ -21,7 +21,7 @@
     	margin-right: 8px;
     }
     .examineAnalysis a{
-    	color: #168bee;
+    	color: #FF5B5B;
     }
 </style>
 @endsection
@@ -30,14 +30,55 @@
 <!--习题库-->
 <div class="admin-container exer-room pageType" data-type="4">
     <div class="p-r exercise-room">
-        <div class="error-book-introduce">
-            <p class="error-book-title">
-                <b>第一章节 数与代数</b>
-            </p>
-            <p class="fs14">
-                <span>第一小节 数与代数</span>
-                <span class="error-book-date">06.27作业</span>
-            </p>
+        <!-- 下拉选框 -->
+        <div class="screen_job border">
+            <form action="" class="clear">
+                <label class="d-b clear" style="padding-left: 70px;">
+                    <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
+                    <div class="f-l">
+                        <div class="areaSelect">
+                            <p class="ic-text-exer">
+                                <span>第一章</span>
+                                <i class="fa fa-angle-down"></i>
+                            </p>
+                            <ul class="lists-exer" style="display: none;">
+                                <li data="1" class="exer-li">单选题</li>
+                                <li data="2" class="exer-li">多选题</li>
+                            </ul>
+                        </div>
+                        <div class="areaSelect">
+                            <p class="ic-text-exer">
+                                <span>第一小节</span>
+                                <i class="fa fa-angle-down"></i>
+                            </p>
+                            <ul class="lists-exer" style="display: none;">
+                                <li data="1" class="exer-li">单选题</li>
+                                <li data="2" class="exer-li">多选题</li>
+                            </ul>
+                        </div>
+                        <div class="areaSelect">
+                            <p class="ic-text-exer">
+                                <span>单选题</span>
+                                <i class="fa fa-angle-down"></i>
+                            </p>
+                            <ul class="lists-exer" style="display: none;">
+                                <li data="1" class="exer-li">单选题</li>
+                                <li data="2" class="exer-li">多选题</li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label class="d-b clear" for="">
+                    <span class="f-l label_span">关键字：</span>
+                    <div class="f-l">
+                        <input class="screen_input input_focus" type="text" name="key_words" placeholder="请填写关键词">
+                    </div>
+                </label>
+                <span  class="f-r btn_span">
+                    <button class="btn_seek btn_select">查找</button>
+                    <button class="btn_empty btn_select">清空</button>
+                </span>
+            </form>
         </div>
 
         <!--题目列表-->
@@ -49,12 +90,9 @@
                 </div>
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
-
                         <div class="f-l question">有三只鸟，打死一只，还剩几只？</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <ul class="radio-wrap exer-list-ul">
@@ -108,7 +146,7 @@
 	                            <i class="fa fa-star"></i>
 	                        </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -120,12 +158,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">有三只鸟，打死一只，还剩几只？</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <ul class="radio-wrap exer-list-ul">
@@ -181,7 +217,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -193,7 +229,6 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">fgfgfgfggflgflgflhg<span
                                 class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span
@@ -203,7 +238,6 @@
                         </div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <ul class="exer-list-ul">
@@ -231,7 +265,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -243,12 +277,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">天宇一定是个男孩子?</div>
                     </div>
                     <div class="clear answer-box pd-answ-list">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <ul class="fs14 pan-duan wrongActive">
@@ -274,7 +306,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -286,12 +318,10 @@
             
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
             
                         <div class="f-l question">请把对应的题目连上线</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
             
                         <div class="f-l box_hpb">
                             <div class="line_hpb">
@@ -334,12 +364,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">请给下列句子排序</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <ul class="exer-list-ul">
@@ -379,7 +407,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -391,7 +419,6 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">fgfgfgfggflgflgflhg<span
                                 class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span
@@ -401,7 +428,6 @@
                         </div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <div class="wan-xing-tk-option clear">
@@ -485,7 +511,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -497,12 +523,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">请画出一个等腰三角形的中线。</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l">
                             <img class="exer-list-img" src="{{asset('images/Cj_bg.png')}}"/>
@@ -519,7 +543,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -531,12 +555,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">中秋节的由来。</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l question">
                             远古时候天上有十日同时出现，晒得庄稼枯死，民不聊生，一个名叫后羿的英雄，力大无穷，他同情受苦的百姓，拉开神弓，一气射下九个多太阳，并严令最后一个太阳按时起落，为民造福。后羿妻子名叫嫦娥。后羿除传艺狩猎外，终日和妻子在一起。不少志士慕名前来投师学艺，心术不正的蓬蒙也混了进来。
@@ -553,7 +575,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -565,12 +587,10 @@
 
                 <div class="exer-wrap">
                     <div class="clear">
-                        <span class="f-l">题目：</span>
 
                         <div class="f-l question">请以“你最出彩”为题写一篇作文。</div>
                     </div>
                     <div class="clear answer-box">
-                        <span class="f-l">答案：</span>
 
                         <div class="f-l question">略</div>
                     </div>
@@ -585,7 +605,7 @@
                             <i class="fa fa-star"></i>
                         </span>
                         </div>
-                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-eye"></i>查看</a></span>
+                        <span class="examineAnalysis"><a href="" title=""><i class="fa fa-heart"></i>666</a></span>
                     </div>
                 </div>
             </div>
@@ -597,7 +617,31 @@
 @endsection
 
 @section('JS:OPTIONAL')
+<script type="text/javascript">
+    //下拉框
+    $("body").on("click", ".screen_job .ic-text-exer", function (e) {
+        e.stopPropagation();
+        var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
+        $(".screen_job .ic-text-exer .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
+        $(".screen_job .lists-exer").hide();
 
-
-
+        if (is_collapse) {
+            $(this).children(".fa").removeClass("fa-angle-down").addClass("fa-angle-up");
+            $(this).next("ul").show();
+        } else {
+            $(this).children(".fa").removeClass("fa-angle-up").addClass("fa-angle-down");
+            $(this).next("ul").hide();
+        }
+        $("body").one("click", function () {
+            $(".screen_job .ic-text-exer .fa").removeClass("fa-angle-up").addClass("fa-angle-down");
+            $(".screen_job .lists-exer").hide();
+        })
+    });
+    $("body").on("click", ".screen_job .lists-exer>li", function () {
+        var $p = $(this).parent().prev();
+        $p.children("span").text($(this).text());
+        $p.children(".fa").toggleClass("fa-angle-down fa-angle-up");
+        $p.next("ul").toggle();
+    });
+</script>
 @endsection

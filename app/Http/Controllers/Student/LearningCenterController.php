@@ -184,8 +184,7 @@ class LearningCenterController extends Controller
 						$exercise = Exercises::find($exe_id);
 						$userWork = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first();
 						$work_answer = json_decode($userWork->answer, true)['answer'];
-						//客观题的正确率
-						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
+						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {//客观题的正确率
 							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
 							$objective_answer = json_decode($objective_answer, true)['answer'];
 							if ($work_answer == $objective_answer) {
@@ -300,7 +299,6 @@ class LearningCenterController extends Controller
 		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", "<>", null)->get());
 		 		}
 		 		$categroy_id = Category::find($errorReports->categroy_id)->id;
-    		//	$categroy_title = Category::find($errorReports->categroy_id)->title;
 		 		if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {	
 		 			$objective = Objective::where('exe_id',$errorReports->id)->first();
 		 			$option = array();
@@ -328,7 +326,6 @@ class LearningCenterController extends Controller
 		            array_push($data['exercises'], array(
                     'id' => $errorReports->id,
                     'categroy_id' => $categroy_id,
-                    //'categroy_title' => $categroy_title,
                     'subject' => $objective->subject,
                     'options' => $option,
                     'answer' => $answers,
@@ -339,11 +336,37 @@ class LearningCenterController extends Controller
 		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			$workStatus = Work::find($parameter)->status;
 		 			if ($workStatus == 2) {
-		 				dd("主观题未批改");
+		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
+		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
+		 				$user_answer = array();
+		 				foreach($work_answer as $answer){
+		 					array_push($user_answer, empty($work_answer) ? '' : $work_answer);
+		 				}
+		 				array_push($data['exercises'], array(
+		 					'id' => $errorReports->id,
+		 					'categroy_id' => $categroy_id,
+		 					'subject' => $subjective->subject,
+		 					'answer' => $user_answer,
+		 					'score' => $errorReports->score/100,
+		 					'second' => $workFirst->second,
+		 					'sameScore' => $workFirst->score,
+		 				));
 		 			}else if ($workStatus == 3) {
 		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
-		 				$answer_list = json_decode($subjective->answer,true); //标准答案的记录
 		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
+		 				$user_answer = array();
+		 				foreach($work_answer as $answer){
+		 					array_push($user_answer, empty($work_answer) ? '' : $work_answer);
+		 				}
+		 				array_push($data['exercises'], array(
+		 					'id' => $errorReports->id,
+		 					'categroy_id' => $categroy_id,
+		 					'subject' => $subjective->subject,
+		 					'answer' => $user_answer,
+		 					'score' => $errorReports->score/100,
+		 					'second' => $workFirst->second,
+		 					'sameScore' => $workFirst->score,
+		 				));
 		 			}
 		 		}
 		 	
@@ -452,11 +475,11 @@ class LearningCenterController extends Controller
     }
 
     //作业的分数
-    public function homeworkScores(){
+    public function homeworkScores(){    	
     	$input = Input::get();
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
-    	if (!empty($work->sub_time )) {
+    	if (!empty($work->sub_time)) {
     		$code = 1;
     		return $code;
     	}
