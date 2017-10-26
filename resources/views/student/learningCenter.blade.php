@@ -81,7 +81,8 @@
 			}
 			/*这里需要图片*/
 			.error-answer>ul>.bj-img3{
-				background: url('{{ asset('images/pi.png')  }}') no-repeat #168bee;
+				background: url('{{ asset('images/pi.png')  }}') no-repeat #FF5B5B;
+;
 				background-size: 100% 100%;
 			}
 			

@@ -45,13 +45,13 @@ class ExerciseBookController extends Controller
         if (empty($work)) {//该学生还没有作业
             $data = [];
         }else{
+
             $baseNum = (int)($user->id/1000-0.0001)+1;
             $db_name = 'mysql_stu_work_info_'.$baseNum;
             try{
                 $db = DB::connection($db_name);
             }catch(\Exception $e){
-                $this->createBase($baseNum);
-                $db = DB::connection($db_name);
+                return $e;
             }
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//要是有同样的chapter_id 则只显示一个
@@ -191,7 +191,7 @@ class ExerciseBookController extends Controller
                 }
             }
         }
-        return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'))
+        return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2, $type_id = 3) {
