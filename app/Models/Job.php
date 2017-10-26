@@ -15,7 +15,6 @@ class Job extends Model
     const TYPE_INTO = 3;
 
 
-    protected $table = 'job';
     public $timestamps = false;
 
     public function hasManyWork(){

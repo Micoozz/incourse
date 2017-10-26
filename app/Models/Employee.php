@@ -8,7 +8,6 @@ class Employee extends Authenticatable
     /*
     员工账户Model
      */
-    protected $table = 'employee';
     public $timestamps = false;
 
     //关联员工个人信息Model 单条数据

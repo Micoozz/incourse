@@ -3,45 +3,45 @@
 					stroke-dashoffset: 0;
 				}
 			}
-			
+
 			@keyframes load {
 				0% {
 					stroke-dashoffset: 0;
 				}
 			}
-			
-			.progressbar {
+
+		.progressbar {
 		    position: relative;
 		    display: inline-block;
 		    padding: 0;
 		    text-align: center;
-		    margin: 10% 0 0 15%;
 		    height: 400px;
-					}
-					
-					.progressbar>li {
+		    width: 100%;
+		}
+
+		.progressbar>li {
 		    display: inline-block;
 		    text-align: center;
-		    font-family: Lato;
 		    font-weight: 100;
-		    margin: 2rem;
+		    margin: -205px 0 0 -205px;
 		    position: absolute;
-		    width: 370px;
-		    height: 360px;
+		    width: 410px;
+		    height: 410px;
+		    top: 70%;
+			left: 59%
 			}
-			
+
 			.progressbar>li:nth-of-type(2) {
 				font-size: 80px;
-				top: 50px;
+				left: 50%
 			}
-			
+
 			.progressbar>li:nth-of-type(2)>span {
 			font-size: 30px;
 			    color: #ccc;
 			    display: inline-block;
 			    width: 100%;
 			}
-			
 			.progressbar>li:before {
 				content: attr(data-name);
 				position: absolute;
@@ -49,7 +49,6 @@
 				bottom: -2rem;
 				font-weight: 400;
 			}
-			
 			.progressbar>li:after {
 				content: attr(data-percent);
 				position: absolute;
@@ -59,12 +58,13 @@
 				font-size: 2rem;
 				text-align: center;
 			}
-			
 			.progressbar svg {
 				width: 30rem;
 				height: 30rem;
+				position: absolute;
+				top: 0;
+				left: 0;
 			}
-			
 			.progressbar svg:nth-child(2) {
 				position: absolute;
 				left: 0;

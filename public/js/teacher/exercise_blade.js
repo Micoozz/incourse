@@ -61,7 +61,6 @@ $("a.collect").on("click",function(){
     }else if($(".admin-container.exer-room").attr("data-type") == 'my-conllection'){
         $(this).parents(".jobList").remove();
     }
-    
 })
 //生成作业
 $("#create-hw").on("click",function(){
@@ -324,6 +323,12 @@ function sessionS(){
 
 //选择联动函数
 function checkedFunLinkage(data,that){
+    if(sessionStorageData.exercise.length>15){
+        layui.use('layer',function(){
+            layer.msg("最多只能选择15道题",{offset: 't'})
+        });
+        return;
+    }
     if($(that).is(":checked")){
         $(".hw-type-list li").each(function(j,num){
             if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
@@ -331,7 +336,7 @@ function checkedFunLinkage(data,that){
                 $(num).css({display:'block'});
                 arrs.push(parseInt($(that).parents(".exer-in-list").attr("data-id")));
             }
-        })  
+        })
     }else{
         $(".hw-type-list li").each(function(j,num){
             if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
@@ -345,7 +350,7 @@ function checkedFunLinkage(data,that){
                     $(num).css({display:'none'});
                 }
             }
-        })  
+        })
     }
     if(exercises.length>0){
         $("#create-hw").text("添加到作业");
@@ -354,7 +359,7 @@ function checkedFunLinkage(data,that){
     }
     sessionStorage.removeItem("addJob");
     sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
-        
+
     $(".AllCheckedJob").text(exercises?exercises.length:arrs.length);
 }
 
@@ -448,7 +453,6 @@ function layuiEndFun(data){
             }
         })
         $(this).parents(".jobListSee").remove();
-        
         newSessionStorageData(data,newExerArr)
         sessionStorage.removeItem('addJob');
         sessionStorage.setItem('addJob',JSON.stringify(newArr));

@@ -28,8 +28,6 @@ $(function () {
         event.preventDefault();
         $(this).toggleClass("active");
     });
-    
-
     /*动态生成的三级联动*/
     $("body").on("click", ".exercise-box .select-form .ic-text-exer", function () {
         var is_collapse = $(this).children(".fa").hasClass("fa-angle-down");
@@ -429,7 +427,7 @@ $(function () {
         }
     });
 
-	
+
     /*单选题*/
     //添加选项
     $("body").on("click", ".addXzOptionBtn", function () {
@@ -558,7 +556,7 @@ $(function () {
     		$(this).parents(".pan-duan").removeClass("wrongActive").addClass("no-active");
     	}else{
     		 $(this).parents(".pan-duan").removeClass("no-active rightActive").addClass("wrongActive");
-    	}    	
+    	}
     });
 })
 
@@ -820,7 +818,7 @@ function getExercises(obj){
 		if(type==="单选题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			$(item).find(".answer-box .dan-xuan-option .radio-ipt > input").each(function(i,item){
-				exer.option.push($(item).val());
+				exer.option.push($.trim($(item).val()));
 			});
             arr.push(strToNum($(item).find(".ic-radio.active input").val()));
             exer.answer = arr;
@@ -830,13 +828,13 @@ function getExercises(obj){
 				exer.option.push($(item).val());
 			});
 			$(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-				arr.push(strToNum($(n).val()));
+				arr.push(strToNum($.trim($(n).val())));
 			});
 			exer.answer = arr;
 		}else if(type==="填空题" || type==="多空题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			$(item).find(".duo-kong .blank-answer>input").each(function(i,n){
-				arr.push($(n).val());
+				arr.push($.trim($(n).val()));
 			});
 			exer.answer = arr;
 		}else if(type==="判断题"){
@@ -851,22 +849,22 @@ function getExercises(obj){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			var right = [];
 			$(item).find(".lian-xian-option").each(function(i,n){
-				arr.push($(n).children("input").first().val());
-				right.push($(n).children("input").last().val());
+				arr.push($.trim($(n).children("input").first().val()));
+				right.push($.trim($(n).children("input").last().val()));
 			});
 			exer.option.push(arr);
 			exer.option.push(right);
 		}else if(type==="排序题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			$(item).find(".pai-xu-option input").each(function(i,n){
-				exer.option.push($(n).val());
+				exer.option.push($.trim($(n).val()));
 			});
 		}else if(type==="完形填空"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			$(item).find(".wan-xing-tk-option").each(function(i,n){
 				var child = [];
 				$(n).find(".radio-ipt>input").each(function(j,m){
-					child.push($(m).val());
+					child.push($.trim($(m).val()));
 				});
 				exer.option.push(child);
 			});
@@ -878,15 +876,15 @@ function getExercises(obj){
 			});
 			exer.answer = arr;
 		}else if(type==="画图题" || type==="简答题" || type==="解答题" || type==="计算题"){
-			exer.subject = $(item).find(".question-box .editor-content").html();
-			exer.answer = $(item).find(".answer-wrap .editor-content").html();
+			exer.subject = $.trim($(item).find(".question-box .editor-content").html());
+			exer.answer = $.trim($(item).find(".answer-wrap .editor-content").html());
 		}else if(type==="作文题"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
 			exer.answer = $(item).find(".answer-wrap .zuo-wen").text();
 		}else if(type==="听力题" || type==="阅读题" || type==="综合题"){
 
 			if(type==="听力题"){
-				exer.subject = $(item).find(".question-box .text").text();
+				exer.subject = $.trim($(item).find(".question-box .text").text());
 				exer.material = [];
 				$(item).find(".question-box .audio-child").each(function(i,n){
 					exer.material.push(n.files);
@@ -912,22 +910,22 @@ function getExercises(obj){
 				if(type_child === "单选题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
 					$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
-						exer_child.option.push($(n).val());
+						exer_child.option.push($.trim($(n).val()));
 					});
 					exer_child.answer = strToNum($(n).find(".ic-radio.active input").val());
 				}else if(type_child === "多选题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
 					$(n).find(".answer-box .dan-xuan-option .radio-ipt>input").each(function(i,n){
-						exer_child.option.push($(n).val());
+						exer_child.option.push($.trim($(n).val()));
 					});
 					$(n).find(".radio-wrap .ic-radio.active input").each(function(i,n){
-						arr_child.push(strToNum($(n).val()));
+						arr_child.push(strToNum($.trim($(n).val())));
 					});
 					exer_child.answer = arr_child;
 				}else if(type_child === "填空题" || type_child === "多空题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
 					$(n).find(".duo-kong .blank-answer>input").each(function(i,n){
-						arr_child.push($(n).val());
+						arr_child.push($.trim($(n).val()));
 					});
 					exer_child.answer = arr_child;
 				}else if(type_child === "判断题"){
@@ -941,15 +939,15 @@ function getExercises(obj){
 				}else if(type_child === "排序题"){
 					exer_child.subject = $(n).find(".question-box .editor-content").html();
 					$(n).find(".pai-xu-option input").each(function(i,n){
-						exer_child.option.push($(n).val());
+						exer_child.option.push($.trim($(n).val()));
 					});
 				}else if(type_child==="画图题" || type_child==="计算题" || type_child === "简答题" || type_child === "解答题"){
-					exer_child.subject = $(n).find(".question-box .editor-content").html();
-					exer_child.answer = $(n).find(".answer-wrap .editor-content").html();
+					exer_child.subject = $.trim($(n).find(".question-box .editor-content").html());
+					exer_child.answer = $.trim($(n).find(".answer-wrap .editor-content").html());
 				}
 				else if(type_child === "作文题"){
-					exer_child.subject = $(n).find(".question-box .editor-content").html();
-					exer_child.answer = $(n).find(".answer-wrap .zuo-wen").text();
+					exer_child.subject = $.trim($(n).find(".question-box .editor-content").html());
+					exer_child.answer = $.trim($(n).find(".answer-wrap .zuo-wen").text());
 				}
 				arr.push(exer_child);
 			});
@@ -1188,7 +1186,7 @@ $(function () {
     })*/
     /*if (typeof(ligature) != "undefined") {
    		lianXianTiFunc(matching,ligature);
-	}else{	
+	}else{
 		lianXianTiFunc(exercise_id,exercise_length,answer);
 	}*/
 

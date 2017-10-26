@@ -11,7 +11,7 @@
 		<script src="js/selectivizr.js"></script>
 		<link rel="stylesheet" href="css/reset.css"/>
 		<![endif]-->
-		
+
 	</head>
 	<body>
 		<header>
@@ -51,8 +51,8 @@
 					</label>
 					<label for="input3">
 						<input type="radio" id="input3" name="job" value="manager" num='3'/><span>管理员</span>
-					</label>	
-					
+					</label>
+
 					<input type="button" class="submitBtn" value="登录"/>
 				</form>
 			</div>
@@ -108,10 +108,7 @@ $(function(){
 			alert('用户名不能为空')
 		}else if(passwords==''){
 			alert('密码不能为空')
-			
-			
-			
-			
+
 		}else{
 			$.ajax({
 				type:"post",
