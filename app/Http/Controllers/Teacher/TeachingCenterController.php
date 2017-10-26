@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Teacher;
 
 use Illuminate\Http\Request;
@@ -157,6 +156,7 @@ class TeachingCenterController extends TeacherController
     }
     /*添加作业页面*/
     public function addHomework($class_id = null,$course_id = null){
+        //echo php_info();
         $title = "添加作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id); 
@@ -202,7 +202,8 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         $work = Work::find($work_id);
         $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
-        $data = array('objective' => [],'subjective' => []);
+        $student = Student::find($work->student_id);
+        $data = array('student' => $student,'objective' => [],'subjective' => []);
         $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -235,7 +236,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data'));
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){
@@ -652,6 +653,34 @@ class TeachingCenterController extends TeacherController
     //     return json_encode($exercise,JSON_UNESCAPED_UNICODE);
     // }
     
+
+    public function getExerciseList(){
+        $input = Input::get();
+        $exercise_id_arr = $input['id_list'];
+        $data = Exercises::whereIn("id",$exercise_id_arr)->orderByRaw(DB::raw("FIELD(id, ".implode(',', $exercise_id_arr).')'))->get();
+        foreach ($data as $exercise) {
+            $section = Chapter::find($exercise->chapter_id);
+            $unit = Chapter::find($section->parent_id);
+            $exercise->chapter_ttile = $unit->title.$section->title;
+            $cate_title = Category::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
+            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
+            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+            }
+//          else{
+//              
+//          }
+        }
+        return json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
     //作业功能
     /*显示作业列表*/
     public function showJoblist($course = 1,$page = 1)
@@ -752,6 +781,17 @@ class TeachingCenterController extends TeacherController
     /*上传批注*/
     public function uplaodCorrect(){
         $input = Input::get();
-        
+        $student_id = $input['student_id'];
+        $baseNum = (int)($student_id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            throw $e;
+        }
+        foreach ($input['data'] as $item) {
+            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['correct' => json_encode($item['data'],JSON_UNESCAPED_UNICODE)]);
+            dd($stu_answer_info);
+        }
     }
 }

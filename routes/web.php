@@ -11,7 +11,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/test','PageController@test');
+Route::post('/test','Controller@uploadPhoto');
 Route::get('/', 'Controller@index')->name('login');
 Route::post('/getScantronIdList','Teacher\TeachingCenterController@getScantronIdList');
 Route::post('/','LoginController@login');
@@ -62,6 +62,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/teacherBindClass','TeachingCenterController@teacherBindClass');
 		Route::get('/correctWork/{class_id?}/{course_id?}/{job_id}','TeachingCenterController@correctWork');
 		Route::get('/correctDetail/{class_id?}/{course_id?}/{work_id}','TeachingCenterController@correctDetail');
+		Route::post('/uplaodCorrect','TeachingCenterController@uplaodCorrect');
+		Route::post('/getExerciseList','TeachingCenterController@getExerciseList');
 
 
 
@@ -109,7 +111,6 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/jobAnalysis','PageController@jobAnalysis');
 		Route::get('/singleWorkViewjob','PageController@singleWorkViewjob');
 		Route::get('/showExerciseList/{course}/{page?}','ExerciseController@showExerciseList');
-		Route::post('/getExerciseList/{page?}','ExerciseController@getExerciseList');
 	});
 	//学生平台
 	Route::group(['middleware' => 'student','namespace' => 'student'],function(){

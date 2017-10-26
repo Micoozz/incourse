@@ -257,8 +257,9 @@ function upLoadData(){
 		num += len;
 	})
 	$.ajax({
-		url:"",
-		data:arr,
+		url:"/uplaodCorrect",
+		data:{'_token':token,'student_id':$(".stu-answer").attr('stu-id'),'work_id':$(".stu-answer").attr('work-id'),'data':arr},
+		type:"POST",
 		success:function(data){
 			alert("成功")
 		},
