@@ -74,7 +74,8 @@ class ExerciseBookController extends Controller
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'func', 'user', 'courseAll'));
     }
     //习题册 学生的预习
-    public function foreExercise($course = 1) {
+    public function foreExercise($course = 2) {
+        //dd(11);
         $user = Auth::user(); //查看当前老师 
         $schoolType = School::where('id',$user->school_id)->first()->type;
         $class =  Classes::where('id',$user->class_id)->first()->parent_id;
@@ -85,6 +86,7 @@ class ExerciseBookController extends Controller
         $semesterTime = time(); // 现在的时间戳
         $nextTerm = strtotime(($time+1).'-'."02-01");//获取下学期的时间
         $grade = $time-$gradeTitle+1;
+       // dd($grade);s
         //1 代表小学 2 代表初中 3 代表大学
         if ($schoolType == 1) {
             if ($grade == 1) {
@@ -140,9 +142,55 @@ class ExerciseBookController extends Controller
             }else if($grade == 4){
                 $grade = "九年级下";
             }
-        }else if ($schoolType == 3) {
         }
-        return json_encode($result);
+        //dd($grade);
+        if (time() > $lastTerm){
+           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm)->get()->pluck('id');
+           //今年上学期的作业
+        }else{
+            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))
+            ->get()->pluck('id');//今年下学期的作业
+        }
+        //如果为空的话说明这个学期还没有布置作业
+        if (empty($jobs)) {
+            $data = [];
+            $grade_id = Chapter::where(['title' => $grade])->first()->id;
+            $chapterAll = Chapter::where('parent_id', $grade_id)->get();//所有大章节的Id
+            foreach($chapterAll as $key => $chapter){
+                $minutia = Chapter::where('parent_id', $chapter->id)->get()->toArray();
+                array_push($data, array(
+                    'id' => $chapter->id,
+                    'title' => $chapter->title,
+                    'minutia' => $minutia,
+                )); 
+            }
+        }else{
+            $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();
+            $baseNum = (int)($user->id/1000-0.0001)+1;
+            $db_name = 'mysql_stu_work_info_'.$baseNum;
+            try{
+                $db = DB::connection($db_name);
+            }catch(\Exception $e){
+                return $e;
+            }
+            $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
+            $exerciseChapter = Exercises::whereNotIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的章节id
+            $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
+            $minutia_parentId = array_column($minutiaList, 'parent_id');//所有作业的parent_id
+            $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
+            foreach ($chapter as $key => $item) {
+                $data[$key]['id'] = $item->id;
+                $data[$key]['title'] = $item->title;
+                $data[$key]['minutia'] = [];
+                foreach ($minutiaList as  $k => $minutia) {
+                    $minutiaPat = Chapter::find($minutia['id'])->parent_id; 
+                    if ($minutiaPat == $item->id ) {
+                        $data[$key]['minutia'][$k]['id'] = $minutia['id'];
+                        $data[$key]['minutia'][$k]['title'] = $minutia['title'];
+                    }
+                }
+            }
+        }
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2, $type_id = 3) {
@@ -356,7 +404,7 @@ class ExerciseBookController extends Controller
         return view('student.exerciseBase.foreExercise_content',compact("func", "user", 'courseAll', 'courseFirst'));
     }*/
 //预习列表
-    public function foreExerciseList($course = 2) {
+    /*public function foreExerciseList($course = 2) {
         $func = "";
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
@@ -364,7 +412,7 @@ class ExerciseBookController extends Controller
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         return view('student.exerciseBase.foreExercise_contentList',compact("func", "user", 'courseAll', 'courseFirst'));
-    }
+    }*/
 //答题结果
     public function submitResuit_foreExercise($course = 2) {
         $func = "";
