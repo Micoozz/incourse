@@ -132,6 +132,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/chapterErrorExercise/{course}/{chapter}','ExerciseBookController@chapterErrorExercise');
 		Route::get('/practice/{course}/{chapter}/{type_id}/{exe_id?}', 'ExerciseBookController@practice');//复习练习同类型习题的内容
 		Route::get('/foreExercise/{course}/{type}', 'ExerciseBookController@foreExercise');
+		Route::get('/correct/{$exe_id}', 'ExerciseBookController@correct');
 
 		Route::get('/review/{course?}','ExerciseBookController@review');//复习
 		Route::get('/syncExercise/{course?}','ExerciseBookController@syncExercise');//同步练习

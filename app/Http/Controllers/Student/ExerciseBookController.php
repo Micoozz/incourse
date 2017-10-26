@@ -140,7 +140,6 @@ class ExerciseBookController extends Controller
                 $grade = "九年级下";
             }
         }
-        //dd($grade);
         if (time() > $lastTerm){
            $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm)->get()->pluck('id');
            //今年上学期的作业
@@ -162,6 +161,7 @@ class ExerciseBookController extends Controller
                 )); 
             }
         }else{
+            $data = [];
             $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();
             $baseNum = (int)($user->id/1000-0.0001)+1;
             $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -171,24 +171,18 @@ class ExerciseBookController extends Controller
                 return $e;
             }
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
-            $exerciseChapter = Exercises::whereNotIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的章节id
-            $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
-            $minutia_parentId = array_column($minutiaList, 'parent_id');//所有作业的parent_id
-            $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
-            foreach ($chapter as $key => $item) {
-                $data[$key]['id'] = $item->id;
-                $data[$key]['title'] = $item->title;
-                $data[$key]['minutia'] = [];
-                foreach ($minutiaList as  $k => $minutia) {
-                    $minutiaPat = Chapter::find($minutia['id'])->parent_id; 
-                    if ($minutiaPat == $item->id ) {
-                        $data[$key]['minutia'][$k]['id'] = $minutia['id'];
-                        $data[$key]['minutia'][$k]['title'] = $minutia['title'];
-                    }
-                }
+            $exerciseChapter = Exercises::whereNotIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的小节id
+            $grade_id = Chapter::where(['title' => $grade])->first()->id;
+            $chapterAll = Chapter::where('parent_id', $grade_id)->get();
+            foreach ($chapterAll as $chapter) {
+                $minutia = Chapter::where('parent_id', $chapter->id)->whereNotIn('id', $exerciseChapter)->get()->toArray();
+                array_push($data, array(
+                    'id' => $chapter->id,
+                    'title' => $chapter->title,
+                    'minutia' => $minutia,
+                ));
             }
         }
-       
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course = 2, $type_id = 3) {
@@ -325,7 +319,7 @@ class ExerciseBookController extends Controller
         }
     }
     //学生复习，预习，同步练习，错题本做的作业页面 状态码3代表错题本
-    public function practice($course, $chapter_id, $type_id, $exe_id = null, $status = null){
+    public function practice($course, $chapter_id, $type_id){
     	$data =[];
         $user = Auth::user();
         $courseAll = Course::all();
@@ -333,9 +327,6 @@ class ExerciseBookController extends Controller
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
             $randomExeercise = Exercises::where(['chapter_id' => $chapter_id, 'course' => $course, 'exe_type' => 1])->inRandomOrder()->first();
         }else{
-            if ($status == 1) {
-                $exerciseUpdate = $db->table($user->id)->where(['exe_id' => $exe_id, 'score' => 0])->update(['type' => 3]);
-            }
             $errorsExeId = $db->table($user->id)->select('exe_id')->where('score', 0)->whereIn('type', '<>', 3)->get();//查询这个学生的所有的错题
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('exe_id',$errorsExeId)->where('chapter_id',$chapter)->inRandomOrder()->first();
         }
@@ -351,9 +342,9 @@ class ExerciseBookController extends Controller
 			shuffle($options);
 		    array_push($data, array(
 		    	'id' => $exercise->id,
-                'type' => $type,
 		    	'categroy_id' => $categroy_id,
 				'categroy_title' => $categroy_title,
+                'chapter' => $chapter_id,
 				'subject' => $objective->subject,
 				'options' => $options,
 				'answer' => json_decode($objective->answer, true),
@@ -362,20 +353,36 @@ class ExerciseBookController extends Controller
     	}
     	return view('student.doHomework', compact('data', 'course', 'abcList' , 'user', 'courseAll', 'courseFirst', 'type_id'));
     }
-    //查看学生所有的错题练习的得分
-/*    public function errorExerciseScore(){
-        $input = Input::get();
+    //复习和同类型练习预习都添加到work_info表里,work_id为空
+    public function addWorkExercise(){
         $user = Auth::user();
-        $code = 200;
+        $input = Input::get();
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
-            return $e;
+            $this->createBase($baseNum);
+            $db = DB::connection($db_name);
         }
-              
-    }*/
+        if(!Schema::connection($db_name)->hasTable($user->id)){
+            Schema::connection($db_name)->create($user->id, function ($table) {
+                $table->integer('work_id');
+                $table->integer('exe_id')->nullable();
+                $table->integer('parent_id')->nullable();
+                $table->integer('type')->nullable();
+                $table->text('answer')->nullable();
+                $table->integer('second')->nullable();
+                $table->smallInteger('score')->default(0);
+                $table->string('comment',200)->nullable();
+                $table->string('sort',200)->nullable();
+            });
+        }
+        $result = $db->table($user->id)->insert('type' => NULL, 'exe_id' => $input->id, 
+            'answer' => json_encode($input->answer, JSON_UNESCAPED_UNICODE),
+            'second' => $input->second, 'score' => $input->score, 'sort' => 'sort' => isset($input->sort) ? json_encode($input->sort, JSON_UNESCAPED_UNICODE) : NULL]);
+        return Redirect::to('');//跳转到同类型或复习或者预习的页面
+    }
     //当前学生收藏的所有的题目
     public function studentCollect(){
 
