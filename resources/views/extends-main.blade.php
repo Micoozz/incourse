@@ -10,6 +10,11 @@
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/incourseReset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <style type="text/css">
+        .homework-manage-title li a:hover {
+            color: #168bee;
+        }
+    </style>
 	<!-- Plugin -->
     @yield('CSS:OPTIONAL')
 </head>

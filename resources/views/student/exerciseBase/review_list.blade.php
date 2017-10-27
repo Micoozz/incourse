@@ -74,9 +74,7 @@
 		</ul>
 	@endif
 </div>
-
 @endsection
-
 @section('JS:OPTIONAL')
 <script>
 	$(".sectionTitle-parent.active").css({height:($(".sectionTitle-parent .chapterList").height()+80)})

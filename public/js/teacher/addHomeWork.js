@@ -33,6 +33,8 @@ if(sessionStorageData){
     getLocalData(sessionStorageData)
     delJob(sessionStorageData)
     $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime == ""?CurentTime():sessionStorageData.dateTime);
+}else{
+    $("#expiration-time .expiration-time-input").val(CurentTime());
 }
 
 //上传习题

@@ -19,7 +19,7 @@
 				<b class="implement"><img src="/images/1.jpg" alt=""></b>
 			</span>
 			<span>
-				<div class="amend" contenteditable="false">{!!$exercise->student_answer!!}</div>
+				<div class="amend" contenteditable="false">{!!$exercise->student_answer[0]!!}</div>
 			</span>
 		</div>
 		<div class="Correct-answer result issue">

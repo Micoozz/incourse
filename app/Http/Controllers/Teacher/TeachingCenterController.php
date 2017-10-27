@@ -194,6 +194,10 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $work_list = Work::where('job_id',$job_id)->paginate(10);
+        foreach($work_list as $work){
+            $student = Student::find($work->student_id);
+            $work->student_name = $student->name;
+        }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
     public function correctDetail($class_id,$course_id,$work_id){
@@ -663,7 +667,7 @@ class TeachingCenterController extends TeacherController
         foreach ($data as $exercise) {
             $section = Chapter::find($exercise->chapter_id);
             $unit = Chapter::find($section->parent_id);
-            $exercise->chapter_ttile = $unit->title.$section->title;
+            $exercise->chapter_ttile = $unit->title."    ".$section->title;
             $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
@@ -783,18 +787,21 @@ class TeachingCenterController extends TeacherController
     /*上传批注*/
     public function uplaodCorrect(){
         $input = Input::get();
+        $code = 200;
         $student_id = $input['student_id'];
         $baseNum = (int)($student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
-            throw $e;
+            $code = 201;
         }
         foreach ($input['data'] as $item) {
-            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['correct' => json_encode($item['data'],JSON_UNESCAPED_UNICODE)]);
-            dd($stu_answer_info);
+            $score = empty($item['score']) ? 0 :intval($item['score']);
+            $correct = empty($item['data']) ? null : json_encode($item['data'],JSON_UNESCAPED_UNICODE);
+            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => $item['student_answer']), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
         }
+        return json_encode(['code' => $code]);
     }
     /*添加章节页面*/
     public function addChapter(){

@@ -125,6 +125,9 @@
 				overflow: hidden;
 				margin: 0 auto;
 			}
+			b.pitchOn {
+			    color: red;
+			}
 		</style>
 	</head>
 

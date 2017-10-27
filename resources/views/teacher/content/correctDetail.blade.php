@@ -19,11 +19,11 @@
 				<div class="person-hw-mark-head clear">
 					<a class="page_Mark ic-blue c-d p-r blue-hover lookSameExer" data-page="3">查看学生同类型练习题</a>
 					<div class="f-r">
-						<span class="page_Mark isMark doMark active" data-page="1">客观题</span>
-						<span class="page_Mark isMark notMark" data-page="2">主观题</span>
+						<span class="page_Mark isMark doMark active" data-page="1">已批改</span>
+						<span class="page_Mark isMark notMark" data-page="2">未批改</span>
 					</div>
 				</div>
-				<!--客观题-->
+				<!--已批改-->
 				<div class="person-correct-did">
 					<ul class="ic-inline clear person-hw-derail">
 						<li>作业章节：第一章第一小节</li>
@@ -51,7 +51,7 @@
 					<!-- 题目列表，都是客观题 -->
 					@include('teacher.template.correctDetail_homotypology')
 				</div>
-				<!--主观题-->
+				<!--为批改-->
 				<div class="person-correct-will d-n">
 					<ul class="ic-inline clear person-hw-derail">
 						<li>作业章节：第一章第一小节</li>
@@ -80,6 +80,7 @@
 			<div class="postil_parent"></div>
 		</div>
 	</div>
+	<div class="upLoadHtmlData" style="display:none;"></div>
 </div>
 
 @endsection

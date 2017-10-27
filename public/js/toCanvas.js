@@ -2,7 +2,7 @@ function toCanvas(id , progressNow ,progress,t){
     //canvas进度条
     var canvas = document.getElementById(id),
     ctx = canvas.getContext("2d"),
-    percent = progress,  //最终百分比
+    percent = progress?progress:0,  //最终百分比
     circleX = canvas.width / 2,  //中心x坐标
     circleY = canvas.height / 2,  //中心y坐标
     textX = canvas.width / 2 - 10,  //中心x坐标
