@@ -459,7 +459,7 @@ class LearningCenterController extends Controller
     	return view('student.doHomework',compact('data', 'work_id', 'course', 'abcList'));
     }
     //作业的分数
-    public function homeworkScores(){    	
+    public function homeworkScores(){
     	$input = Input::get();
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
@@ -491,15 +491,16 @@ class LearningCenterController extends Controller
         }
         foreach ($input['data'] as $answer) {
         	$exercise = Exercises::find($answer['id']);
+        	dump($answer);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-        		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
+        		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'],
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => 0	]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         		$score = 0;
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
         		$standard = json_decode($objective->answer, true);//这是同类型习题的分数
-        		if(is_array($answer['answer'])){		
+        		if(is_array($answer['answer'])){
         			$answer_arr = array("answer" => $answer['answer']);
         		}else{
 	        		$answer_arr = array("answer" => array($answer['answer']));
@@ -518,9 +519,9 @@ class LearningCenterController extends Controller
 	                    $score = 0;
 	                }
 	        	}
-                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
-            	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,		
-            	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]); 
+                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'],
+            	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,
+            	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]);
         	}
         }
        	if ($result) {

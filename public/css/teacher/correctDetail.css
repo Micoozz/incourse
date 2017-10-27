@@ -239,3 +239,6 @@ sup {
 .black_answer{
 	margin-right: 20px;
 }
+.person-correct-same{
+	display: none;
+}

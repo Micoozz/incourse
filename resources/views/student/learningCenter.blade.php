@@ -119,6 +119,12 @@
 			    margin-bottom: 20px;
 			    font-size: 14px;
 			}
+			.progresse{
+				width: 400px;
+				height: auto;
+				overflow: hidden;
+				margin: 0 auto;
+			}
 		</style>
 	</head>
 
@@ -163,22 +169,16 @@
 		<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/student/fileSelectionone.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
+		<script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
 		<script>
 			var token = "{{csrf_token()}}";
 			var func = "{{ isset($func) ? $func : ''}}";
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
+			console.log(parameter)
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			$(function() {
-				setTimeout(function() {
-					//圆形进度条
-					var percentum = accuracy; //正确率百分比
-					var percentums = percentum * 6.29 //进度条百分比
-					$(function() {
-						$('.progressbar>li').find('svg:last-child').find('path').attr('stroke-dashoffset', percentums)
-						$('.progressbar>li:last-child>b:last-child').text(percentum + '%')
-					})
-				}, 10)
+				toCanvas('canvas',0,accuracy,"回答");
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')

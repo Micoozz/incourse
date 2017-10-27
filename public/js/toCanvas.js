@@ -1,4 +1,4 @@
-function toCanvas(id , progressNow ,progress){
+function toCanvas(id , progressNow ,progress,t){
     //canvas进度条
     var canvas = document.getElementById(id),
     ctx = canvas.getContext("2d"),
@@ -66,7 +66,7 @@ function toCanvas(id , progressNow ,progress){
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#999';
-        ctx.fillText('预习正确率', circleX, textY2);
+        ctx.fillText(t+'正确率', circleX, textY2);
         //%
         ctx.font = 20 + 'px April';
         ctx.textAlign = 'center';
