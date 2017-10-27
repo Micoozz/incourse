@@ -53,13 +53,10 @@ class ExerciseBookController extends Controller
             }catch(\Exception $e){
                 return $e;
             }
-    
-            $notWork_id = $db->table($user->id)->where('work_id', NULL)->get()->pluck(['exe_id']);//通过练习的exe_id
+    //dd(111);
+/*            $notWork_id = $db->table($user->id)->where('work_id', NULL)->get()->pluck(['exe_id']);//通过练习的exe_id
             $exerciseAll = Exercises::whereIn('id', $notWork_id)->get()->pluck(['chapter_id']);//所有练习的小章节
-            //dd($exerciseAll);
-            $chapterParent_id = Chapter::where('id',$exerciseAll)->get()->pluck('parent_id'); 
-            //dd($chapterParent_id);
-
+            $chapterParent_id = Chapter::where('id',$exerciseAll)->get()->pluck('parent_id'); */
 
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//要是有同样的chapter_id 则只显示一个
@@ -69,11 +66,6 @@ class ExerciseBookController extends Controller
             foreach ($chapter as $key => $item) {
                 $data[$key]['id'] = $item->id;
                 $data[$key]['title'] = $item->title;
-/*                $parent_id = Chapter::find($item->id)->id;//这个章节总共有多少道题 
-                $chapterAll = Chapter::where('parent_id',$parent_id)->get()->pluck('id');
-                dd($chapterAll); */
-                //$data[$key]['count'] = 
-                //dd($data[$key]['count']);
                 $data[$key]['minutia'] = [];
                 foreach ($minutiaList as  $k => $minutia) {
                     $minutiaPat = Chapter::find($minutia['id'])->parent_id; 
@@ -102,7 +94,6 @@ class ExerciseBookController extends Controller
         $half = $semesterTime < $lastTerm ? '年级下' : '年级上';
         $grade = $time - $gradeTitle + 1;
         $grade = $grade * 2 - ($half === '年级上' ? 1 : 2);
-
         //1 代表小学 2 代表初中 3 代表大学
         if ($schoolType == 1) {
             switch ($grade) {
@@ -159,7 +150,7 @@ class ExerciseBookController extends Controller
                 return $e;
             }
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
-            $exerciseChapter = Exercises::whereNotIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的小节id
+            $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的小节id
         }
         $grade_id = Chapter::where(['title' => $grade])->first()->id;     
         $chapterAll = Chapter::where('parent_id', $grade_id)->get();//所有大章节的Id
@@ -305,7 +296,7 @@ class ExerciseBookController extends Controller
                 'second' => $errorExercise->second,
                 'sameScore' => $errorExercise->score,
             ));
-        }else if ($errorReports->exe_type == TYPE_SUBJECTIVE) {
+        }else if ($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE) {
             dd(11);
         }
         return view('student.exerciseBase.wrongNotebook_showAnalysis', compact('data', 'abcList', 'user', 'func', 'courseAll', 'courseFirst', 'type_id'));
@@ -362,6 +353,7 @@ class ExerciseBookController extends Controller
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
 
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
+
             $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])->inRandomOrder()->take(1)->first();
         }else{
             $baseNum = (int)($user->id/1000-0.0001)+1;
@@ -372,7 +364,7 @@ class ExerciseBookController extends Controller
                 return $e;
             }
             $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');
-            //查询这个学生的所有的错题,$db->table($user->id)
+            //查询这个学生的所有的错题
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
         }
         if(!empty($chapterExercises)) {

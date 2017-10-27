@@ -19,7 +19,7 @@
 						<div class="SectionList-title sectionTitle">
 							<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
 							<div class="title-content"><span>
-								<a href='/chapterErrorExercise/{{$courseFirst[0]["id"]}}/{{$chapter["id"]}}'>{{ $chapter['title'] }}</a>
+								<a href='/chapterErrorExercise/{{$courseFirst[0]["id"]}}/{{$chapter["id"]}}/{{$type_id}}'>{{ $chapter['title'] }}</a>
 							</span></div>
 							@if($type_id == 3)
 							<span class="title-bar">
