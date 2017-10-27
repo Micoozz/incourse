@@ -200,7 +200,7 @@
             <div class="answerResult answerModule">
                 <div class="answerResultModule">
                     <p>
-                        <span class="span_br">正确答案是：<span class="green right_a">{{ $data[0]["categroy_id"] == 3? implode(',',$data[0]['answer']['answer']) : '' }}</span>，您的答案是：<span class="red user_answer"></span>，回答<span class="red isRight"></span>。作答用时<span class="expend_time"></span></span>
+                        <span class="span_br">正确答案是：<span class="green right_a" data-r="{{ json_encode($data[0]['answer']['answer'],JSON_UNESCAPED_UNICODE) }}">{{ $data[0]["categroy_id"] == 3? implode(',',$data[0]['answer']['answer']) : '' }}</span>，您的答案是：<span class="red user_answer"></span>，回答<span class="red isRight"></span>。作答用时<span class="expend_time"></span></span>
                         <span class="span_br">本体<span class="red">得分率</span>：68%，<span class="red">易错项</span>：B</span>
                         <span class="span_br">解析：无</span>
                         <span class="span_br">来源：2017年湖南工程学院初中毕业升学考试：第三章语病解析与修改，第四题。</span>
@@ -212,7 +212,7 @@
             <span>
                 <button class="answer_btn" id="ensure">确定</button>
                 <button class="answer_btn" id="go_on">继续答题</button>
-                <button class="answer_btn giveUp"><a href="javascript:;" title="">放弃答题</a></button>
+                <button class="answer_btn giveUp"><a href="/practice/{{$courseFirst[0]['id']}}/{{$minutia['id']}}/{{$type_id}}" title="">放弃答题</a></button>
             </span>
         </div>
         @endif
@@ -232,6 +232,7 @@ $(function(){
     var token = "{{ csrf_token()}}";
     var isT = true;
     var typeId = "{{ $type_id }}";
+    var arr = JSON.parse($(".right_a").attr("data-r"));
     var Nowt = window.setInterval(function(){
         Stime++;
         if(Stime>=60){
@@ -307,12 +308,12 @@ $(function(){
                 "student_answer":student_answer_arr,
                 "second":(Mtime*60+Stime),
                 "sort":optionsArr,
-                "token":token
+                "_token":token
             }
         }else if(type == 3){
             //填空题
             for(var j = 0;j<$(".blank-item").length;j++){
-                student_t = $(".blank-item").eq(j).text()
+                student_t = $(".blank-item").eq(j).text();
                 if(student_t == "空" + (j+1)){
                     student_t = '';
                 }
@@ -320,6 +321,13 @@ $(function(){
                 if(arr.indexOf(student_t)<0){
                     isT = false;
                 }
+                student_answer_arr.push(student_t);
+            }
+            obj = {
+                "exe_id":urlId,
+                "student_answer":student_answer_arr,
+                "second":(Mtime*60+Stime),
+                "_token":token
             }
         }
         $(".user_answer").text(ut.slice(1, ut.length));
@@ -343,7 +351,7 @@ $(function(){
         obj.score = studennt_score;
         if(typeId!=3){
             $.ajax({
-                url: '',
+                url: '/addWorkExercise',
                 type:'POST',
                 data:obj,
                 success:function(data){

@@ -294,11 +294,13 @@ class LearningCenterController extends Controller
 		 		$errorReports = Exercises::find($exercise_id);
 		 		$data = array('exercises' => array());
 		 		if($workFirst->parent_id == NULL){	
+		 			dd(11);
 		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", null)->get());
 		 		}else{
 		 			$errorExercise = "errorExercise";
 		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", "<>", null)->get());
 		 		}
+		 		dd($data['workCount']);
 		 		$categroy_id = Category::find($errorReports->categroy_id)->id;
 		 		if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {	
 		 			$objective = Objective::where('exe_id',$errorReports->id)->first();
@@ -339,15 +341,15 @@ class LearningCenterController extends Controller
 		 			if ($workStatus == 3) {
 		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
 		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
-		 				$user_answer = array();
-		 				foreach($work_answer as $answer){
+		 				//$user_answer = array();
+/*		 				foreach($work_answer as $answer){
 		 					array_push($user_answer, empty($work_answer) ? '' : $work_answer);
-		 				}
+		 				}*/
 		 				array_push($data['exercises'], array(
 		 					'id' => $errorReports->id,
 		 					'categroy_id' => $categroy_id,
 		 					'subject' => $subjective->subject,
-		 					'answer' => $user_answer,
+		 					'answer' => $work_answer,
 		 					'score' => $errorReports->score/100,
 		 					'second' => $workFirst->second,
 		 					'totalScore' => $errorReports->score/100,
@@ -463,72 +465,78 @@ class LearningCenterController extends Controller
     	$input = Input::get();
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
-    	if (!empty($work->sub_time)) {
-    		$code = 1;
-    		return $code;
-    	}
-    	$code = 200 ;
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            $this->createBase($baseNum);
-            $db = DB::connection($db_name);
-        }
-        if(!Schema::connection($db_name)->hasTable($user->id)){
-            Schema::connection($db_name)->create($user->id, function ($table) {
-                $table->integer('work_id');
-                $table->integer('exe_id')->nullable();
-                $table->integer('parent_id')->nullable();
-                $table->integer('type')->nullable();
-                $table->text('answer')->nullable();
-                $table->integer('second')->nullable();
-                $table->smallInteger('score')->default(0);
-                $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
-            });
-        }
-        foreach ($input['data'] as $answer) {
-        	$exercise = Exercises::find($answer['id']);
-        	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-        		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
-        			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => 0	]);
-        	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-        		$score = 0;
-        		$objective = $exercise->hasManyObjective()->first();
-        		$flag = true;
-        		$standard = json_decode($objective->answer, true);//这是同类型习题的分数
-        		if(is_array($answer['answer'])){		
-        			$answer_arr = array("answer" => $answer['answer']);
-        		}else{
-	        		$answer_arr = array("answer" => array($answer['answer']));
-	        	}
-	        	foreach ($standard['answer'] as $key => $value) {
-	        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]) {
-	        			$flag = false;
+    	try{
+	    	if (!empty($work->sub_time)) {
+	    		$code = 1;
+	    		return $code;
+	    	}
+	    	$code = 200 ;
+	        $baseNum = (int)($user->id/1000-0.0001)+1;
+	        $db_name = 'mysql_stu_work_info_'.$baseNum;
+	        try{
+	            $db = DB::connection($db_name);
+	        }catch(\Exception $e){
+	            $this->createBase($baseNum);
+	            $db = DB::connection($db_name);
+	        }
+	        if(!Schema::connection($db_name)->hasTable($user->id)){
+	            Schema::connection($db_name)->create($user->id, function ($table) {
+	                $table->integer('work_id');
+	                $table->integer('exe_id')->nullable();
+	                $table->integer('parent_id')->nullable();
+	                $table->integer('type')->nullable();
+	                $table->text('answer')->nullable();
+	                $table->integer('second')->nullable();
+	                $table->smallInteger('score')->default(0);
+	                $table->string('comment',200)->nullable();
+	                $table->string('sort',200)->nullable();
+	            });
+	        }
+	        foreach ($input['data'] as $answer) {
+	        	$exercise = Exercises::find($answer['id']);
+	        	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
+	        		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
+	        			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => 0]);
+	        	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+	        		$score = 0;
+	        		$objective = $exercise->hasManyObjective()->first();
+	        		$flag = true;
+	        		$standard = json_decode($objective->answer, true);
+	        		if(is_array($answer['answer'])){		
+	        			$answer_arr = array("answer" => $answer['answer']);
 	        		}else{
-	        			$score += 2 * 100;
-	        		}
+		        		$answer_arr = array("answer" => array($answer['answer']));
+		        	}
+		        	foreach ($standard['answer'] as $key => $value) {
+		        		if (!isset($answer['answer'][$key]) || $value != sort($answer['answer'][$key])) {
+		        			$flag = false;
+		        		}else{
+		        			$score += 2 * 100;
+		        		}
+		        	}
+		        	if ($exercise->categroy_id != Exercises::CATE_FILL) {
+		        		if($flag){
+	                   	 	$score = $exercise->score;
+		                }else{
+		                    $score = 0;
+		                }
+		        	}
+	                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
+	            	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,		
+	            	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]); 
 	        	}
-	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {
-	        		if($flag){
-                   	 	$score = $exercise->score;
-	                }else{
-	                    $score = 0;
-	                }
-	        	}
-                $result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
-            	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,		
-            	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]); 
-        	}
-        }
-       	if ($result) {
-        	$work = Work::find($work->id);
-        	$work->status = 2;
-	        $work->sub_time = time();
-	        $work->save();
-        }
+	        	$work_score += $score;
+	        }
+	       	if ($result) {
+	        	$work = Work::find($work->id);
+	        	$work->score = $work_score;
+	        	$work->status = 2;
+		        $work->sub_time = time();
+		        $work->save();
+	        }
+	    }catch(\Exception $e){
+            return $code == 201;
+        } 
         return json_encode($code);
     }
     //同类型习题推送

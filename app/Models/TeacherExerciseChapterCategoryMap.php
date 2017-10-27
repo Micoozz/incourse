@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherExerciseChapterCategoryMap extends Model
 {
     //
-    protected $table = 'teacher_exercise_chapter_categroy_map';
+    protected $table = 'teacher_exercise_chapter_category_map';
     public $timestamps = false;
 }
