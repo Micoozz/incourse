@@ -371,6 +371,7 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
+		 		$startAccurary = $exercise_id;
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -414,7 +415,7 @@ class LearningCenterController extends Controller
 				$entire = $this->changeTimeType($SecondAdding);
 		 	}
         }
-    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
+    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore','startAccurary'));
     }
     //做作业
     public function doHomework($work_id = NULL){

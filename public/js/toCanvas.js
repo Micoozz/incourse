@@ -7,10 +7,10 @@ function toCanvas(id , progressNow ,progress,t){
     circleY = canvas.height / 2,  //中心y坐标
     textX = canvas.width / 2 - 10,  //中心x坐标
     textX1 = canvas.width / 2 + 75,  //中心x坐标
-    textY = canvas.height / 2 + 20,  //中心y坐标
-    textY1 = canvas.height / 2 + 35,  //中心y坐标
-    textY2 = canvas.height / 2 - 55,  //中心y坐标
-    radius = 120, //圆环半径
+    textY = canvas.height / 2 + 10,  //中心y坐标
+    textY1 = canvas.height / 2 + 25,  //中心y坐标
+    textY2 = canvas.height / 2 - 75,  //中心y坐标
+    radius = 150, //圆环半径
     lineWidth = 15,  //圆形线条的宽度
     fontSize = 60; //字体大小
 
@@ -66,7 +66,7 @@ function toCanvas(id , progressNow ,progress,t){
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#999';
-        ctx.fillText(t+'正确率', circleX, textY2);
+        ctx.fillText('得分比', circleX, textY2);
         //%
         ctx.font = 20 + 'px April';
         ctx.textAlign = 'center';
