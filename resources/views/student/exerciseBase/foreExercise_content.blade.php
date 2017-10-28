@@ -354,11 +354,8 @@ $(function(){
                 url: '/addWorkExercise',
                 type:'POST',
                 data:obj,
-                success:function(data){
-                    alert(111)
-                }
+                success:function(data){}
             })
-            console.log(obj)
         }
     })
     $("body").on("click",".radio-wrap li",function(){

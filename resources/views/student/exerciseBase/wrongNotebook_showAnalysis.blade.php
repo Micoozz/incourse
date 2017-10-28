@@ -215,7 +215,15 @@
 
 		<!--单选题-->
 		<div>
-			<p>正确答案是<b class="bj-green right_A" data-a="{{ json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}"></b>，你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}"></span>。回答<span class="answerRight"></span>，作答用时<span>1</span>秒。</p>
+			<p>正确答案是<b class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
+				@if($analysis['categroy_id'] == 3)
+					{{ implode(',',$analysis['answer']) }}
+				@endif
+			</b>，你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}">
+				@if($analysis['categroy_id'] == 3)
+					{{ implode(',',$analysis['wrokAnswer']) }}
+				@endif
+			</span>。回答<span class="answerRight"></span>，作答用时<span>1</span>秒。</p>
 			<p>本题备作答次数261738次 本题正确率:68% 易错项:B</p>
 		</div>
 
@@ -287,20 +295,20 @@
 					newSA += ',' + EN;
 				}
 			})
-			for(var j = 0; j < studentAnswerArr.length;j++){
-				if(answerArr.indexOf(studentAnswerArr[j])<0){
-					isError = true;
-				}
-			}
-			if(isError){
-				$(".answerRight").text("错误").addClass('red');
-				$(".student_A").removeClass("bj-green").addClass("red");
-			}else{
-				$(".answerRight").text("正确").addClass('bj-green');
-				$(".student_A").removeClass("red").addClass("bj-green");
-			}
 			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
 			$(".student_A").text(newSA.slice(1,newSA.length))
+		}
+		for(var j = 0; j < studentAnswerArr.length;j++){
+			if(answerArr.indexOf(studentAnswerArr[j])<0){
+				isError = true;
+			}
+		}
+		if(isError){
+			$(".answerRight").text("错误").addClass('red');
+			$(".student_A").removeClass("bj-green").addClass("red");
+		}else{
+			$(".answerRight").text("正确").addClass('bj-green');
+			$(".student_A").removeClass("red").addClass("bj-green");
 		}
 		$('.view-resolution').click(function() {
 			$(".optionse").find(".fa").each(function(){
