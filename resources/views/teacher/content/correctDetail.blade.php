@@ -18,9 +18,9 @@
 			<div class="p-r admin-container stu-answer" stu-id="{{$data['student']->id}}" work-id="{{$work_id}}">
 				<div class="person-hw-mark-head clear">
 					<a class="page_Mark ic-blue c-d p-r blue-hover lookSameExer" data-page="3">查看学生同类型练习题</a>
-					<div class="f-r">
-						<span class="page_Mark isMark doMark active" data-page="1">已批改</span>
-						<span class="page_Mark isMark notMark" data-page="2">未批改</span>
+					<div class="f-r p-r">
+						<span class="page_Mark isMark doMark active" data-page="1" style="border-radius: 0 4px 4px 0;">已批改</span>
+						<span class="page_Mark isMark notMark" data-page="2" style="border-radius: 4px 0 0 4px;">未批改</span>
 					</div>
 				</div>
 				<!--已批改-->

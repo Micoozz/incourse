@@ -30,21 +30,20 @@
                 @endif
                 <td>{{ $work->count }}道</td>
                 <td>
-                @if(empty($work->sub_time))
+                @if($work->sub_time == 0)
                     未答题
                 @else
                     {{ $work->score }}
                 @endif
                 </td>
                 <td>
-                @if(empty($work->sub_time) )
+                @if($work->sub_time == 0)
                 	未答题
                 @else
                 	{{ $work->second }}
                 @endif
                 </td>
-                <td><i @if(empty($work->sub_time)) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' 
-    	  		@else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif class="fa fa-edit"></i></td>
+                <td style="cursor: pointer;" @if(empty($work->sub_time)) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif><i class="fa fa-pencil"></i>做题</td>
             </tr>
             @endforeach
 		</table>
