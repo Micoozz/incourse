@@ -6,7 +6,7 @@ function toCanvas(id , progressNow ,progress,t){
     circleX = canvas.width / 2,  //中心x坐标
     circleY = canvas.height / 2,  //中心y坐标
     textX = canvas.width / 2 - 10,  //中心x坐标
-    textX1 = canvas.width / 2 + 75,  //中心x坐标
+    textX1 = canvas.width / 2 + 85,  //中心x坐标
     textY = canvas.height / 2 + 10,  //中心y坐标
     textY1 = canvas.height / 2 + 25,  //中心y坐标
     textY2 = canvas.height / 2 - 75,  //中心y坐标

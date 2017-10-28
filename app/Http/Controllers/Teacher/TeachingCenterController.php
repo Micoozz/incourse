@@ -255,7 +255,7 @@ class TeachingCenterController extends TeacherController
     public function exercise($class_id,$course_id,$action = null){
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);    
+        $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
         if(empty($action)){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);

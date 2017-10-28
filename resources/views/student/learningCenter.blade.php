@@ -302,7 +302,7 @@
 				$(b).each(function(j,sameType){
 					if($(answer).attr(c)==$(sameType).attr(d)){
 						$(sameType).text($(answer).text());
-					} 
+					}
 				})
 			})
         }
@@ -310,7 +310,7 @@
 		sameSort(".answerSheets .bj-ff5",".homotypology .bj-ff5-same","exe-id","parent-id");
 		if($('.proper>div:nth-of-type(3) .red').attr('exercise-id')=='3'){
 			for(var i=0;i<$('.proper>div:nth-of-type(3) .red b').text().split(',').length;i++){
-				$('.proper>div:nth-of-type(3) .red').append('<span>'+$('.proper>div:nth-of-type(3) .red b').text().split(',')[i]+',</span>');	
+				$('.proper>div:nth-of-type(3) .red').append('<span>'+$('.proper>div:nth-of-type(3) .red b').text().split(',')[i]+',</span>');
 			}
 			$('.proper>div:nth-of-type(3) .red b').remove();
 
@@ -319,7 +319,6 @@
 						$('.proper>div:nth-of-type(3) .red span').eq(i).css('color','#168bee')
 					}
 			}
-			
 			$('.questions .question-option .blank-item').each(function(i){
 				$(this).text($('.proper>div:nth-of-type(3) .red').text().split(',')[i])
 				if($(this).text().replace(/\s/g,'')!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].replace(/\s/g,'')){
@@ -331,7 +330,7 @@
 			$('.proper>div:nth-of-type(3) .red span:last-child').text($('.proper>div:nth-of-type(3) .red span:last-child').text().substr(0,$('.proper>div:nth-of-type(3) .red span:last-child').text().length-1));
 		}
 
-		//显示所有的	
+		//显示所有的
 		//跳转到同类型习题页面
 		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
 		console.log(sessionStorageJson);
@@ -368,4 +367,4 @@
 			});
 		</script>
 	</body>
-</html>	
+</html>
