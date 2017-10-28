@@ -212,7 +212,7 @@
             <span>
                 <button class="answer_btn" id="ensure">确定</button>
                 <button class="answer_btn" id="go_on">继续答题</button>
-                <button class="answer_btn giveUp"><a href="/practice/{{$courseFirst[0]['id']}}/{{$minutia['id']}}/{{$type_id}}" title="">放弃答题</a></button>
+                <button class="answer_btn giveUp"><a href="#" onclick="window.history.go(-1)" title="">放弃答题</a></button>
             </span>
         </div>
         @endif
