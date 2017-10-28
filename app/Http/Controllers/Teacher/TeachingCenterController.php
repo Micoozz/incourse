@@ -804,7 +804,9 @@ class TeachingCenterController extends TeacherController
         foreach ($input['data'] as $item) {
             $score = empty($item['score']) ? 0 :intval($item['score']);
             $correct = empty($item['data']) ? null : json_encode($item['data'],JSON_UNESCAPED_UNICODE);
-            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => $item['student_answer']), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
+            if($score != -1){
+                $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => array($item['student_answer'])), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
+            }
         }
         return json_encode(['code' => $code]);
     }
