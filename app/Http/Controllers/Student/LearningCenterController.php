@@ -16,7 +16,7 @@ use App\Models\Work;
 use App\Models\Course;
 use App\Models\Exercises;
 use App\Models\Objective;
-use App\Models\Categroy;
+use App\Models\Category;
 use App\Models\Subjective;
 use App\Models\Student;
 use App\Models\Region;
@@ -301,8 +301,8 @@ class LearningCenterController extends Controller
 		 			$errorExercise = "errorExercise";
 		 			$data['workCount'] = count($db->table($user->id)->where(['work_id' => $parameter])->where("parent_id", "<>", null)->get());
 		 		}
-		 		$categroy_id = Categroy::find($errorReports->categroy_id)->id;
-    		//	$categroy_title = Categroy::find($errorReports->categroy_id)->title;
+		 		$categroy_id = Category::find($errorReports->categroy_id)->id;
+    		//	$categroy_title = Category::find($errorReports->categroy_id)->title;
 		 		if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {	
 		 			$objective = Objective::where('exe_id',$errorReports->id)->first();
 		 			$option = array();
@@ -420,8 +420,8 @@ class LearningCenterController extends Controller
 		$exercises = json_decode($work->belongsToJob()->first()->exercise_id, true);
 		foreach ($exercises as  $eid) {
 			$exercise = Exercises::find($eid);
-			$categroy_id = Categroy::find($exercise->categroy_id)->id;
-			$categroy_title = Categroy::find($exercise->categroy_id)->title;
+			$categroy_id = Category::find($exercise->categroy_id)->id;
+			$categroy_title = Category::find($exercise->categroy_id)->title;
 			if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
 				$subjective = Subjective::where('exe_id', $exercise->id)->first();
 				array_push($data, array(
@@ -537,8 +537,8 @@ class LearningCenterController extends Controller
     		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
     		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题
     		foreach ($homotypology as $exercise) {
-				$categroy_id = Categroy::find($exercise->categroy_id)->id;
-				$categroy_title = Categroy::find($exercise->categroy_id)->title;
+				$categroy_id = Category::find($exercise->categroy_id)->id;
+				$categroy_title = Category::find($exercise->categroy_id)->title;
 				$abcList = range("A","Z");
 				$objective = Objective::where('exe_id', $exercise->id)->first();
 				$options = json_decode($objective->option, true);
@@ -737,8 +737,8 @@ class LearningCenterController extends Controller
     function practice($course,$chapter_id,$type){
     	$randomExeercise = Exercises::where('chapter_id',$chapter_id)->orderBy(\DB::raw('RAND()'))->take(15)->get();//查询出随机的15道题的内容
     	foreach ($randomExeercise as $exercise) {
-    		$categroy_id = Categroy::find($exercise->categroy_id)->id;
-    		$categroy_title = Categroy::find($exercise->categroy_id)->title;
+    		$categroy_id = Category::find($exercise->categroy_id)->id;
+    		$categroy_title = Category::find($exercise->categroy_id)->title;
     		if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
     			$abcList = range("A","Z");
     			$objective= Objective::where('exe_id', $exercise->id)->first();
