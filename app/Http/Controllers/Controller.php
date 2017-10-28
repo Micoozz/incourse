@@ -21,9 +21,7 @@ use App\Models\Employee;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
-
-
-use Request;
+use App\Models\Exercise;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -167,6 +165,11 @@ class Controller extends BaseController
             }
         }
         return json_encode($result);
+    }
+    /*获取同类型习题*/
+    protected function getSameTypeExercise($eid){
+        $exercise = Exercise::find($eid);
+        $exercise_list = Exercise::where(['chapter_id' => $exercise->chapter_id,'categroy']);
     }
     protected function send_post($url, $post_data) {    
         header("Content-type:text/html;charset=utf-8");  

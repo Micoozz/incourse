@@ -414,7 +414,7 @@ class LearningCenterController extends Controller
 				$entire = $this->changeTimeType($SecondAdding);
 		 	}
         }
-    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore'));
+    	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore','startAccurary'));
     }
     //做作业
     public function doHomework($work_id = NULL){

@@ -178,10 +178,10 @@
 			var func = "{{ isset($func) ? $func : ''}}";
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
-			console.log(parameter)
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
+			var startAccuracy = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
 			$(function() {
-				toCanvas('canvas',0,accuracy,"回答");
+				toCanvas('canvas',parseInt(startAccuracy),accuracy);
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')

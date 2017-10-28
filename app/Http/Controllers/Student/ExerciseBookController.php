@@ -351,8 +351,9 @@ class ExerciseBookController extends Controller
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
 
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
-
-            $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])->inRandomOrder()->take(1)->first();
+            //查询已经做过的题
+            $didExercise = $db->table($user->id)->where('type', NULL)->get()->pluck('exe_id');
+            $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])->whereNotIn('id', $didExercise)->inRandomOrder()->take(1)->first();
         }else{
             $baseNum = (int)($user->id/1000-0.0001)+1;
             $db_name = 'mysql_stu_work_info_'.$baseNum;

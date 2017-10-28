@@ -354,7 +354,8 @@ $(function(){
                 obj.answer = JSON.parse(sessionStorage.getItem("ic_lianXianTi"+$(item).attr("data-id")));
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id')
             }else if(type === "画图题" || type === "简答题" || type === "解答题" || type === "听力题" || type === "阅读题"){
-                obj.answer = $(item).find(".editor-content").text();
+                arr.push($(item).find(".editor-content").text())
+                obj.answer = arr;
             }
             total.push(obj);
         });
@@ -371,7 +372,6 @@ $(function(){
         if (param['data'][0]['parent_id'] != ""){
             $.post("/sameScore",param,function(result){
                 var course = $("#course_id").attr('value');
-                console.log(course)
                 var increase = $("#course_id").attr('error-increase');
                 if (result == 200 || result == 1) {
                     window.location.href = "/learningCenter/" + course + "/homework/work_tutorship/" + work_id + "/" + accuracy + "/" + increase;
