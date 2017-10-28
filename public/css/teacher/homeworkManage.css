@@ -448,6 +448,9 @@ body .lhgcal {
 .person-hw-mark-head .isMark.notMark{
     right: 66px;
 }
+.person-hw-mark-head .f-r.p-r{
+    height: 28px;
+}
 .person-hw-mark-head .isMark.active {
     color: #168bee;
     border: 1px solid #168bee;
