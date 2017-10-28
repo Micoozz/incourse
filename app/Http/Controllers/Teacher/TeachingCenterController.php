@@ -260,7 +260,11 @@ class TeachingCenterController extends TeacherController
         if(empty($action)){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
-            $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+            if($teacher->id == 1){
+                $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+            }else{
+                $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+            }
         }
         foreach ($data as $exercise) {
             $cate_title = Category::find($exercise->categroy_id)->title;
@@ -550,114 +554,114 @@ class TeachingCenterController extends TeacherController
     }
 
     /*编辑习题*/
-    // private function editExecrise($exe_id,$chapter,$item){
-    //     $exercise = Exercises::find($exe_id);
-    //     $exercise->chapter_id = $chapter["section"];
-    //     $exercise->categroy_id = intval($item['categroy']);
-    //     $exercise->updata_time = time();
-    //     if($exercise->categroy_id == Exercises::CATE_RADIO ||
-    //         $exercise->categroy_id == Exercises::CATE_CHOOSE || 
-    //         $exercise->categroy_id == Exercises::CATE_JUDGE ||
-    //         $exercise->categroy_id == Exercises::CATE_FILL)
-    //     {
-    //         $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
-    //         $exercise->score = 2 * count($item['answer']) * 100;
-    //     }
-    //     else if($exercise->categroy_id == Exercises::CATE_LINE || 
-    //             $exercise->categroy_id == Exercises::CATE_SORT)
-    //     {
-    //         $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
-    //         $exercise->score = 1 * count($item['option'][0]) * 100;
-    //     }
-    //     else if($exercise->categroy_id == Exercises::CATE_SHORT || 
-    //         $exercise->categroy_id == Exercises::CATE_COMPUTE || 
-    //         $exercise->categroy_id == Exercises::CATE_ANSWER)
-    //     {
-    //         $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
-    //         $exercise->score = 10 * 100;
-    //     }
-    //     else
-    //     {
-    //         $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
-    //     }
-    //     $exercise->save();
-    //     $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exe_id)->first();
-    //     $input_unit = Chapter::find($chapter["unit"]);
-    //     $map->grade_id = Chapter::find($input_unit->parent_id)->id;
-    //     $map->unit_id = $chapter["unit"];
-    //     $map->section_id = $chapter["section"];
-    //     $map->categroy_id = intval($item['categroy']);
-    //     $map->save();
-    //     if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-    //         if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
-    //             $item["answer"] = array();
-    //             for($i = 0;$i < count($item["option"]);$i++){
-    //                 array_push($item["answer"],$i+1);
-    //             }
-    //         }
-    //         if($exercise->categroy_id == Exercises::CATE_LINE && empty($item['answer'])){
-    //             $item["answer"] = array();
-    //             for($i = 0;$i < count($item["option"][0]);$i++){
-    //                 array_push($item["answer"],($i+1).":".($i+1));
-    //             }
-    //         }
-    //         $option = array();
-    //         if(isset($item["option"])){
-    //             if($exercise->categroy_id == Exercises::CATE_LINE){
-    //                 foreach($item["option"] as $i => $options){
-    //                     $option[$i] = array();
-    //                     foreach($options as $key => $value){
-    //                         array_push($option[$i],array(($key+1) => $value));
-    //                     }
-    //                 }
-    //             }else{
-    //                 foreach ($item["option"] as $key => $value) {
-    //                     array_push($option,array($key+1 => $value));
-    //                 }
-    //             }
-    //         }
-    //         if($exercise->categroy_id == Exercises::CATE_RADIO ||
-    //             $exercise->categroy_id == Exercises::CATE_CHOOSE){
-    //             foreach ($item["answer"] as $key => &$value) {
-    //                 $value += 1;
-    //             }
-    //         }
-    //         $answer = array("answer" => $item["answer"]);
-    //         $objective = Objective::where("exe_id",$exe_id)->first();
-    //         $objective->subject = $item['subject'];
-    //         $objective->option = json_encode($option,JSON_UNESCAPED_UNICODE);
-    //         $objective->answer = json_encode($answer,JSON_UNESCAPED_UNICODE);
-    //         $objective->save();
-    //     }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-    //         $subjective = Subjective::where("exe_id",$exe_id)->first();
-    //         $subjective->subject = $item['subject'];
-    //         $subjective->save();
-    //     }else{
-    //         $compositive = new Compositive(['content' => $item['subject']]);
-    //         $exercise->hasOneCompositive()->save($compositive);
-    //         $exercise->hasManySubjective()->create($item['subjective']);
-    //         $exercise->hasManyObjective()->create($item['objective']);
-    //     }
-    //     return $exercise->id;
-    // }
-    // public function getEditExecrise($exe_id){
-    //     $exercise = Exercises::find($exe_id);
-    //     $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exercise->id)->first();
-    //     $exercise->unit_id = $map->unit_id;
-    //     $section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
-    //     $exercise->section_id = $map->section_id;
-    //     if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-    //         $subjective = $exercise->hasManySubjective->first();
-    //         $exercise->subject = $subjective->subject;
-    //         $exercise->answer = array('自由发挥');
-    //     }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-    //         $objective = $exercise->hasManyObjective->first();
-    //         $exercise->subject = $objective->subject;
-    //         $exercise->options = json_decode($objective->option,TRUE);
-    //         $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
-    //     }
-    //     return json_encode($exercise,JSON_UNESCAPED_UNICODE);
-    // }
+    private function editExecrise($exe_id,$chapter,$item){
+        $exercise = Exercises::find($exe_id);
+        $exercise->chapter_id = $chapter["section"];
+        $exercise->categroy_id = intval($item['categroy']);
+        $exercise->updata_time = time();
+        if($exercise->categroy_id == Exercises::CATE_RADIO ||
+            $exercise->categroy_id == Exercises::CATE_CHOOSE || 
+            $exercise->categroy_id == Exercises::CATE_JUDGE ||
+            $exercise->categroy_id == Exercises::CATE_FILL)
+        {
+            $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+            $exercise->score = 2 * count($item['answer']) * 100;
+        }
+        else if($exercise->categroy_id == Exercises::CATE_LINE || 
+                $exercise->categroy_id == Exercises::CATE_SORT)
+        {
+            $exercise->exe_type = Exercises::TYPE_OBJECTIVE;
+            $exercise->score = 1 * count($item['option'][0]) * 100;
+        }
+        else if($exercise->categroy_id == Exercises::CATE_SHORT || 
+            $exercise->categroy_id == Exercises::CATE_COMPUTE || 
+            $exercise->categroy_id == Exercises::CATE_ANSWER)
+        {
+            $exercise->exe_type = Exercises::TYPE_SUBJECTIVE;
+            $exercise->score = 10 * 100;
+        }
+        else
+        {
+            $exercise->exe_type = Exercises::TYPE_COMPOSITIVE;
+        }
+        $exercise->save();
+        $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exe_id)->first();
+        $input_unit = Chapter::find($chapter["unit"]);
+        $map->grade_id = Chapter::find($input_unit->parent_id)->id;
+        $map->unit_id = $chapter["unit"];
+        $map->section_id = $chapter["section"];
+        $map->categroy_id = intval($item['categroy']);
+        $map->save();
+        if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+            if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
+                $item["answer"] = array();
+                for($i = 0;$i < count($item["option"]);$i++){
+                    array_push($item["answer"],$i+1);
+                }
+            }
+            if($exercise->categroy_id == Exercises::CATE_LINE && empty($item['answer'])){
+                $item["answer"] = array();
+                for($i = 0;$i < count($item["option"][0]);$i++){
+                    array_push($item["answer"],($i+1).":".($i+1));
+                }
+            }
+            $option = array();
+            if(isset($item["option"])){
+                if($exercise->categroy_id == Exercises::CATE_LINE){
+                    foreach($item["option"] as $i => $options){
+                        $option[$i] = array();
+                        foreach($options as $key => $value){
+                            array_push($option[$i],array(($key+1) => $value));
+                        }
+                    }
+                }else{
+                    foreach ($item["option"] as $key => $value) {
+                        array_push($option,array($key+1 => $value));
+                    }
+                }
+            }
+            if($exercise->categroy_id == Exercises::CATE_RADIO ||
+                $exercise->categroy_id == Exercises::CATE_CHOOSE){
+                foreach ($item["answer"] as $key => &$value) {
+                    $value += 1;
+                }
+            }
+            $answer = array("answer" => $item["answer"]);
+            $objective = Objective::where("exe_id",$exe_id)->first();
+            $objective->subject = $item['subject'];
+            $objective->option = json_encode($option,JSON_UNESCAPED_UNICODE);
+            $objective->answer = json_encode($answer,JSON_UNESCAPED_UNICODE);
+            $objective->save();
+        }else if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+            $subjective = Subjective::where("exe_id",$exe_id)->first();
+            $subjective->subject = $item['subject'];
+            $subjective->save();
+        }else{
+            $compositive = new Compositive(['content' => $item['subject']]);
+            $exercise->hasOneCompositive()->save($compositive);
+            $exercise->hasManySubjective()->create($item['subjective']);
+            $exercise->hasManyObjective()->create($item['objective']);
+        }
+        return $exercise->id;
+    }
+    public function getEditExecrise($exe_id){
+        $exercise = Exercises::find($exe_id);
+        $map = TeacherExerciseChapterCategoryMap::where("exercise_id",$exercise->id)->first();
+        $exercise->unit_id = $map->unit_id;
+        $section_list = Chapter::where("parent_id",$exercise->unit_id)->pluck("title","id");
+        $exercise->section_id = $map->section_id;
+        if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+            $subjective = $exercise->hasManySubjective->first();
+            $exercise->subject = $subjective->subject;
+            $exercise->answer = array('自由发挥');
+        }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+            $objective = $exercise->hasManyObjective->first();
+            $exercise->subject = $objective->subject;
+            $exercise->options = json_decode($objective->option,TRUE);
+            $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+        }
+        return json_encode($exercise,JSON_UNESCAPED_UNICODE);
+    }
     
 
     public function getExerciseList(){
