@@ -113,6 +113,7 @@ class LearningCenterController extends Controller
 		    		$work->second = $this->changeTimeType($second);
 		        }	
 			}
+
 		}elseif ($func == Self::FUNC_ROUTINE_WORK){
 			$data['work'] = Work::find($parameter)->belongsToJob()->first(['title', 'deadline', 'exercise_id', 'content']);
 			$data['count'] = count(json_decode($data['work']->exercise_id));
