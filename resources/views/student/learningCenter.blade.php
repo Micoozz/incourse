@@ -178,7 +178,6 @@
 			var func = "{{ isset($func) ? $func : ''}}";
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
-			console.log(parameter)
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			$(function() {
 				toCanvas('canvas',0,accuracy,"回答");

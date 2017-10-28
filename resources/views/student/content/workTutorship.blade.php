@@ -6,7 +6,7 @@
 		<span class="col-xs-3 col-sm-3 add"></span>
 	</div>
 	<div class="ic-container accout">
-		<div class="progresse">@include("student.template.progressBar")</div>
+		<div class="progresse"><canvas id="canvas" width="400px" height="400px"></canvas></div>
 		<div class="consuming">
 			总耗时：{{ $entire }}
 		</div>
