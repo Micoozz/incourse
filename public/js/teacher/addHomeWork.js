@@ -15,7 +15,7 @@ $(".hw-content.border").attr("placeholder",textareaPrompt)
 $(".hw-title-input").attr("placeholder",(titlePrompt()+"作业"))
 
 //截止时间默认显示
-$("#expiration-time .expiration-time-input").val(CurentTime());
+var timeVal = "";
 
 //日历表
 layui.use("laydate",function(){
@@ -32,6 +32,9 @@ layui.use("laydate",function(){
 if(sessionStorageData){
     getLocalData(sessionStorageData)
     delJob(sessionStorageData)
+    $("#expiration-time .expiration-time-input").val(sessionStorageData.dateTime == ""?CurentTime():sessionStorageData.dateTime);
+}else{
+    $("#expiration-time .expiration-time-input").val(CurentTime());
 }
 
 //上传习题
@@ -156,7 +159,13 @@ function setStorage(obj){
     var objJson={}
     var sessionStorageD=eval("("+sessionStorage.getItem("addJob")+")")
     if(sessionStorageD){
-        objJson=sessionStorageD
+        objJson={
+            'title':$(".ic-input.hw-title-input").val() == ""?sessionStorageD.title:$(".ic-input.hw-title-input").val(),
+            "deadline":stringToTimeStamp($("#expiration-time .expiration-time-input").val()) == ""?sessionStorageD.deadline:stringToTimeStamp($("#expiration-time .expiration-time-input").val()),
+            "dateTime":$("#expiration-time .expiration-time-input").val() == "" ? sessionStorageD.dateTime:$("#expiration-time .expiration-time-input").val(),
+            "rulejob":$(".hw-content.border").val() == "" ?sessionStorageD.rulejob:$(".hw-content.border").val(),
+            'exercise':sessionStorageD.exercise
+        }
     }else{
         objJson={
             'title':$(".ic-input.hw-title-input").val(),
@@ -434,7 +443,7 @@ function publicJob(){
         $(".unpublishing").on("click",function(){
             layui.use('layer', function(){
                 layer.closeAll();
-            })
+            });
         });
     })
     window.sessionStorage.removeItem("addJob");
@@ -459,13 +468,13 @@ function publicClick(sessionStorage){
             alert("请选择作业标题");
             return;
         }else{
-            upLoadJob.title = $(".ic-input.hw-title-input").val()
+            upLoadJob.title = $(".ic-input.hw-title-input").val();
         }
     }
-    upLoadJob.dateTime = $(".expiration-time-input").val()
-    upLoadJob.deadline = stringToTimeStamp($("#expiration-time .expiration-time-input").val())
+    upLoadJob.dateTime = $(".expiration-time-input").val();
+    upLoadJob.deadline = stringToTimeStamp($("#expiration-time .expiration-time-input").val());
     if(upLoadJob.rulejob == ""){
-        upLoadJob.rulejob = $(".hw-content.border").val()
+        upLoadJob.rulejob = $(".hw-content.border").val();
     }
     sessionStorage.removeItem("addJob");
     sessionStorage.setItem("addJob",JSON.stringify(upLoadJob));
@@ -473,7 +482,7 @@ function publicClick(sessionStorage){
         "class":classId,
         "course":course,
         "type":1,
-        "rulejob":upLoadJob.rulejob,
+        "content":upLoadJob.rulejob,
         "title":upLoadJob.title,
         "exercise_id":upLoadJob.exercise,
         "deadline":upLoadJob.deadline,

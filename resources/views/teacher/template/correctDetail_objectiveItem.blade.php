@@ -42,6 +42,7 @@
 					</div>
 				@elseif($exercise->categroy_id == 3)
 					<!--填空题-->
+					<div class="clear answer-box checked_work"></div>
 					<div class="exer-foot clear">
 						<div class="f-l">
 							<span class="ic-blue">正确答案：</span>

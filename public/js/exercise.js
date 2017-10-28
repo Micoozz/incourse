@@ -381,8 +381,10 @@ $(function () {
     //删除空格时删除答案
     $("body").on("keyup", ".exercise .editor-content", function (event) {
         var blank_len = $(this).find(".blank-item").length;
+        var data_blank_num_arr = [];
         $(this).find(".blank-item").each(function (i, item) {
             $(item).text("空" + (i + 1));
+            data_blank_num_arr.push($(item).attr("data_blank_num"));
         });
         var html = "";
 
@@ -414,10 +416,21 @@ $(function () {
             }
         } else {
             var duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
-            if ((event.keyCode === 8) && (blank_len < Number(duo_kong_dom.attr("data-num")))) {
+            if(event.keyCode === 8){
+                for(var i = 0; i < duo_kong_dom.find(".blank-answer").length;i++){
+                    var blankI = duo_kong_dom.find(".blank-answer").eq(i);
+                    if(data_blank_num_arr.indexOf(blankI.attr("data_blank_answer_num")) < 0){
+                        blankI.remove();
+                    }
+                }
+                for(var j = 0; j<$(".answer-box").find(".blank-answer").length;j++){
+                    var blankAI = $(".answer-box").find(".blank-answer").eq(j);
+                    blankAI.find("span").text("答案"+(j+1)+"：")
+                }
+            }else{
                 duo_kong_dom.attr("data-num", blank_len);
                 for (var i = 0; i < blank_len; i++) {
-                    html += "<div class='blank-answer p-r'>" +
+                    html += "<div class='blank-answer p-r' data_blank_answer_num="+(i + 1)+">" +
                         "<span>答案" + (i + 1) + "：</span>" +
                         "<input type='text'/>" +
                         "</div>";
@@ -502,7 +515,7 @@ $(function () {
     function blank_span(obj){
         $(obj).parents(".ic-editor").children(".editor-content").focus();
         var initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
-        document.execCommand("insertHTML", "false", '<div class="blank-item" style="display:inline-block">空' + initNum + '</div>&nbsp;');
+        document.execCommand("insertHTML", "false", '<div class="blank-item" data_blank_num=' + initNum + ' style="display:inline-block">空' + initNum + '</div>&nbsp;');
         $(obj).parents(".ic-editor").find(".blank-item").attr("contenteditable", false);
 
         //获取题型
@@ -531,7 +544,7 @@ $(function () {
             wan_xing_tk_dom.attr("data-num", Number(wan_xing_tk_dom.attr("data-num")) + 1);
         } else {
             var duo_kong_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".duo-kong");
-            duo_kong_dom.append("<div class='blank-answer p-r'>" +
+            duo_kong_dom.append("<div class='blank-answer p-r' data_blank_answer_num="+initNum+">" +
                 "<span>答案" + initNum + "：</span>" +
                 "<input type='text'>" +
                 "</div>");
@@ -758,13 +771,12 @@ function exerIsFill(arr){
 				if(n===""){ return false; }
 			});
 		}
-
 		if(categroy===12){
 			if(item.material.length===0){ return false; }
 			exerIsFill(item.answer);
 		}
 
-		if(categroy===13 || categroy===15){
+		if(categroy===13 || categroy===15 || categroy===10 || categroy===11){
 			exerIsFill(item.answer);
 		}
 	}
@@ -791,8 +803,8 @@ function getExercises(obj){
         if(id=="workUpLoad"){
             var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
             obj.chapter={
-                "unit":sessionStorageData.chapter.unit,
-                "section":sessionStorageData.chapter.section
+                "unit":$(".select_unit").attr("data-u"),
+                "section":$(".select_section").attr("data-s")
             };
         }else{
             obj.chapter={

@@ -34,7 +34,7 @@
 						<!-- <td>20071027</td> -->
 						<td>{{$work->student_name}}</td>
 						<td><span class="gray">{{$work->score}}</span></td>
-						<td><span class="red">111<!-- {{$work->status}} --></span></td>
+						<td><span class="red">{{$work->status}}</span></td>
 						<td class="ic-blue">
 							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title=""><span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span></a>
 						</td>

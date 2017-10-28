@@ -12,7 +12,7 @@
 			<p><span>习题练习：</span><span>共{{ $data['count'] }}小题</span></p>
 			<p><span>交卷时间：</span><span>{{ date('m月d日 H:i',$data['sub_time']) }}</span></p>
 		</div>
-		<div class="progresse">@include("student.template.progressBar")</div>
+		<div class="progresse"><canvas id="canvas" width="400" height="400"></canvas></div>
 		<div class="consuming">
 			总耗时：{{ $data['exeSecond'] }}
 			<div>
