@@ -434,7 +434,7 @@ class TeachingCenterController extends TeacherController
     	$input = Input::get();
     	$code = 200;
         $exercise_id_list = array();
-        try{
+/*        try{*/
             if(empty($input["exercise"][0]["exe_id"])){
                 foreach($input["exercise"] as $item){
                     array_push($exercise_id_list,$this->createExercise($input["chapter"],$item));
@@ -442,9 +442,9 @@ class TeachingCenterController extends TeacherController
             }else{
                 array_push($exercise_id_list,$this->editExecrise($input["exercise"][0]["exe_id"],$input["chapter"],$input["exercise"][0]));
             }
-        }catch(\Exception $e){
+/*        }catch(\Exception $e){
             $code = 201;
-        }
+        }*/
      	$data = array('code' => $code,'id_list' => $exercise_id_list);
         return json_encode($data);
     }
@@ -459,6 +459,7 @@ class TeachingCenterController extends TeacherController
         $exercise->chapter_id = $chapter["section"];
         $exercise->categroy_id = intval($item['categroy']);
         $exercise->updata_time = $time;
+
         if($exercise->categroy_id == Exercises::CATE_RADIO ||
             $exercise->categroy_id == Exercises::CATE_CHOOSE || 
             $exercise->categroy_id == Exercises::CATE_JUDGE ||
@@ -493,7 +494,7 @@ class TeachingCenterController extends TeacherController
         $map->unit_id = $chapter["unit"];
         $map->section_id = $chapter["section"];
         $map->categroy_id = intval($item['categroy']);
-        $map->save();
+        $result = $map->save();
         if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         	if($exercise->categroy_id == Exercises::CATE_SORT && empty($item['answer'])){
         		$item["answer"] = array();
@@ -544,6 +545,7 @@ class TeachingCenterController extends TeacherController
             $exercise->hasManySubjective()->create($item['subjective']);
             $exercise->hasManyObjective()->create($item['objective']);
         }
+
         return $exercise->id;
     }
 
@@ -797,7 +799,7 @@ class TeachingCenterController extends TeacherController
         foreach ($input['data'] as $item) {
             $score = empty($item['score']) ? 0 :intval($item['score']);
             $correct = empty($item['data']) ? null : json_encode($item['data'],JSON_UNESCAPED_UNICODE);
-            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => $item['student_answer']), JSON_UNESCAPED_UNICODE),'score' => $score,'correct' => $correct,'status' => 2]);
+            $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => $item['student_answer']), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
         }
         return json_encode(['code' => $code]);
     }

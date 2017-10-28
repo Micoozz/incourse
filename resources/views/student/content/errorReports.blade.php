@@ -247,7 +247,7 @@
 					<!-- 解答题 || 简答题 -->
 					@if($data['exercises'][0]['categroy_id'] == 10 ||$data['exercises'][0]['categroy_id'] == 11)
 					<div>
-						<p>你的答案是<br><span class="red"  exercise-id=""><b style="font-weight: normal;">{{ $data['exercises'][0]['answer']['answer'] }}</b>
+						<p>你的答案是<br><span exercise-id=""><b style="font-weight: normal;">{!!$data['exercises'][0]['answer']['answer'][0]!!}</b>
 						</p>
 						<p>
 							@if($data['exercises'][0]['sameScore'] == 0) 回答错误 @else 回答正确 @endif,总分{{ $data['exercises'][0]['totalScore'] }}分,您获得得分{{ $data['exercises'][0]['sameScore'] }}分,作答用时{{ $data['exercises'][0]['second'] }}秒。
@@ -255,11 +255,13 @@
 						<div class="clear">
 							<div style="float: left;">批注：</div>
 							<ul style="width:500px;float:left;margin: 0 0 0 10px;">
-								@forelse($data['exercises'][0]['postil'] as $postil)
-								<li>{{ $loop->iteration }} . {!! $postil !!}</li>
-								@empty
-								<li>无</li>
-								@endforelse
+								@if(empty($data['exercises'][0]['postil']))
+									<li>无</li>
+								@else
+									@foreach($data['exercises'][0]['postil'] as $postil)
+										<li>{{ $loop->iteration }} . {!! $postil !!}</li>
+									@endforeach
+								@endif
 							</ul>
 						</div>
 					</div>

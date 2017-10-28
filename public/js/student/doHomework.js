@@ -309,7 +309,7 @@ $(function(){
             var img_text = {};
 
             if(type === "单选题"){
-                obj.answer = $(item).find(".ic-radio.active input").val() == null ? "" : parseInt($(item).find(".ic-radio.active input").val());
+                obj.answer.push(parseInt($(item).find(".ic-radio.active input").val() == null ? "" : parseInt($(item).find(".ic-radio.active input").val())));
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id');
             }else if(type === "多选题"){
                 $(item).find(".radio-wrap .ic-radio.active input").each(function(i,n){

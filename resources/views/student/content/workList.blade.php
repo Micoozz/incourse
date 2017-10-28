@@ -30,14 +30,14 @@
                 @endif
                 <td>{{ $work->count }}道</td>
                 <td>
-                @if(empty($work->sub_time))
+                @if($work->sub_time == 0)
                     未答题
                 @else
                     {{ $work->score }}
                 @endif
                 </td>
                 <td>
-                @if(empty($work->sub_time) )
+                @if($work->sub_time == 0)
                 	未答题
                 @else
                 	{{ $work->second }}

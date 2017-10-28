@@ -217,16 +217,17 @@ $(function() {
 		})
 		if(valNull){
 			layui.use("layer",function(){
-				layer.confirm('您有'+valNullNum+'道题未打分，是否继续打分？', {
-	  				btn: ['答题','取消'] //按钮
+				layer.confirm('您有'+valNullNum+'道题未打分，不打分将不计入数据库。', {
+	  				btn: ['确定','取消'] //按钮
 				}, function(){
 					upLoadData();
 					layer.closeAll('dialog');
 				}, function(){
-					alert("return");
 					return;
 				});
 			})
+		}else{
+			upLoadData();
 		}
 	})
 })
@@ -234,12 +235,14 @@ $(function() {
 function upLoadData(){
 	var arr = [];
 	var num = 0;
+	var scoreN = -1;
 	$(".Correcting-questions").each(function(j){
 		var len = $(this).find(".amend").find(".pitchOn").length;
 		var json = {
 			"id" : $(this).attr("data-id"),
 			"student_answer":'',
-			"data":[]
+			"data":[],
+			"score":0
 		};
 		var dataArr = [];
 		var html = "<div class='upLoadHtmlDataContent'>"+$(this).find(".amend").html()+"</div>";
@@ -251,21 +254,26 @@ function upLoadData(){
 			$(".upLoadHtmlDataContent").eq(j).find(".pitchOn").eq(i-num).removeClass(cla).addClass(newCla);
 			dataArr.push($(".textareaS div").eq(i).html());
 		}
-		json.student_answer = JSON.stringify($(".upLoadHtmlDataContent").eq(j).html());
+		json.student_answer = $(".upLoadHtmlDataContent").eq(j).html();
 		json.data = dataArr;
+		json.score = $(this).find(".score").val() == ""?$(this).find(".score").val():scoreN;
 		arr.push(json);
 		num += len;
 	})
-	console.log(data);
 	$.ajax({
 		url:"/uplaodCorrect",
 		data:{'_token':token,'student_id':$(".stu-answer").attr('stu-id'),'work_id':$(".stu-answer").attr('work-id'),'data':arr},
 		type:"POST",
 		success:function(data){
-			alert("成功")
+			layui.use("layer",function(){
+				layer.msg('批改成功');
+				window.location.reload() ;
+			})
 		},
 		error:function(data){
-			alert("失败")
+			layui.use("layer",function(){
+				layer.msg('批改失败');
+			})
 		}
 	})
 }

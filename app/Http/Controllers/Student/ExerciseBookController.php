@@ -53,8 +53,7 @@ class ExerciseBookController extends Controller
             }catch(\Exception $e){
                 return $e;
             }
-    //dd(111);
-/*            $notWork_id = $db->table($user->id)->where('work_id', NULL)->get()->pluck(['exe_id']);//通过练习的exe_id
+/*          $notWork_id = $db->table($user->id)->where('work_id', NULL)->get()->pluck(['exe_id']);//通过练习的exe_id
             $exerciseAll = Exercises::whereIn('id', $notWork_id)->get()->pluck(['chapter_id']);//所有练习的小章节
             $chapterParent_id = Chapter::where('id',$exerciseAll)->get()->pluck('parent_id'); */
 
@@ -132,8 +131,7 @@ class ExerciseBookController extends Controller
         $grade .= $half;
         $jobs = Job::select('id')->where('course_id', $course);
         if (time() > $lastTerm){
-           $jobs->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm);
-           //今年上学期的作业
+           $jobs->where('pub_time', '>', $lastTerm)->where('pub_time', '<', $nextTerm);//今年上学期的作业
         }else{
             $jobs->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"));//今年下学期的作业
         }

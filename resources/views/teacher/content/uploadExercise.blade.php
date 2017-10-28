@@ -19,7 +19,7 @@
 @include('teacher.template.title')
 <div>
 	<div class="admin-container" id="operation_this_job" data-id="{{$exe_id}}">
-		<div class="filter-box-upload select-action-box" style="{{($exe_id == 'workUpLoad') ? 'display:none' : ''}}">
+		<div class="filter-box-upload select-action-box">
 			<div>
 				<div class="chapter">
 					<span class="f-l fs14">章节：</span>
