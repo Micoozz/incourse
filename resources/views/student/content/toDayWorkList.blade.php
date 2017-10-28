@@ -44,7 +44,7 @@
             @endif
             <td>{{ $work->count }}道</td>
             <td>
-            @if($work->status == 1)
+            @if($work->sub_time == 0)
                 未答题
             @else
                 {{ $work->score }}
@@ -57,7 +57,7 @@
                     {{ $work->second }}
                 @endif
             </td>
-            <td style="cursor: pointer;" @if($work->sub_time == 0) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $work->course_id }}/homework/work_score/{{ $work->id }}" ' @endif><i class="fa fa-pencil"></i>做题
+            <td style="cursor: pointer;" @if($work->sub_time == 0) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $work->id }}" ' @endif><i class="fa fa-pencil"></i>做题
             </td>
         </tr>
         @endforeach
