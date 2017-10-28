@@ -21,6 +21,9 @@
 	height: 20px;
 	border-radius: 10px;
 	line-height: 20px;
+	position: absolute;
+    right: 22px;
+    top: 5px;
 }
 
 .subject-nav {
