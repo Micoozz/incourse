@@ -27,7 +27,7 @@
 							</span>
 							@else
 							<div class="sectionAllSubject">
-								<span class="allSubject">共 <span>3000</span>题</span>
+								<span class="allSubject">共<span>{{ $chapter['count'] }}</span>题</span>
 								<span class="thisGrade">分数：<span>无</span></span>
 							</div>
 							@endif
@@ -51,7 +51,7 @@
 								</span>
 								@else
 								<div class="sectionAllSubject">
-									<span class="allSubject">共 <span>3000</span>题</span>
+									<span class="allSubject">共 <span>{{ $minutia['count'] }}</span>题</span>
 									<span class="thisGrade">分数：<span>无</span></span>
 								</div>
 								@endif

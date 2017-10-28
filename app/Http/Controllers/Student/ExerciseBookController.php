@@ -53,9 +53,6 @@ class ExerciseBookController extends Controller
             }catch(\Exception $e){
                 return $e;
             }
-/*          $notWork_id = $db->table($user->id)->where('work_id', NULL)->get()->pluck(['exe_id']);//通过练习的exe_id
-            $exerciseAll = Exercises::whereIn('id', $notWork_id)->get()->pluck(['chapter_id']);//所有练习的小章节
-            $chapterParent_id = Chapter::where('id',$exerciseAll)->get()->pluck('parent_id'); */
 
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//要是有同样的chapter_id 则只显示一个
@@ -63,14 +60,17 @@ class ExerciseBookController extends Controller
             $minutia_parentId = array_column($minutiaList, 'parent_id');//所有作业的parent_id
             $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
             foreach ($chapter as $key => $item) {
-                $data[$key]['id'] = $item->id;
+                $data[$key]['id'] = $item->id;//大章节的id
                 $data[$key]['title'] = $item->title;
                 $data[$key]['minutia'] = [];
+                $data[$key]['count'] = 0;
                 foreach ($minutiaList as  $k => $minutia) {
                     $minutiaPat = Chapter::find($minutia['id'])->parent_id; 
                     if ($minutiaPat == $item->id ) {
+                        $data[$key]['minutia'][$k]['count'] = count(Exercises::where('chapter_id', $minutia['id'])->get());
                         $data[$key]['minutia'][$k]['id'] = $minutia['id'];
                         $data[$key]['minutia'][$k]['title'] = $minutia['title'];
+                        $data[$key]['count'] +=  $data[$key]['minutia'][$k]['count'];
                     }
                 }
             }
@@ -157,13 +157,19 @@ class ExerciseBookController extends Controller
             if (!empty($jobs)) {
                 $minutia = $minutia->whereNotIn('id', $exerciseChapter);
             }
-            $minutia = $minutia->get()->toArray();
-            array_push($data, array(
-                'id' => $chapter->id,
-                'title' => $chapter->title,
-                'minutia' => $minutia,
-            ));
+            $minutiaAll = $minutia->get()->toArray();
+            $data[$key]['id'] = $chapter->id;
+            $data[$key]['title'] = $chapter->title;
+            $data[$key]['minutia'] = [];
+            $data[$key]['count'] = 0;
+            foreach($minutiaAll as  $k => $minutia){
+                $data[$key]['minutia'][$k]['count'] = count(Exercises::where('chapter_id', $minutia['id'])->get());
+                $data[$key]['minutia'][$k]['id'] = $minutia['id'];
+                $data[$key]['minutia'][$k]['title'] = $minutia['title'];
+                $data[$key]['count'] +=  $data[$key]['minutia'][$k]['count'];
+            }
         }
+        //dd($data);
         return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //先查询所有这位学生的作业错题本

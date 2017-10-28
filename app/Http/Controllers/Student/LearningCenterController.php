@@ -335,7 +335,7 @@ class LearningCenterController extends Controller
                     'categroy_id' => $categroy_id,
                     'subject' => $objective->subject,
                     'options' => $option,
-                    'answer' => json_decode($answers,true),
+                    'answer' => $answers,
                     'score' => $errorReports->score/100,
                     'second' => $workFirst->second,
                     'sameScore' => $workFirst->score,
