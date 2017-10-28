@@ -33,11 +33,9 @@
 <div id="wrongTopic" class="pageType">
 	<!--题目类型-->
 	@foreach($data as $analysis)
-		@if($analysis['categroy_id'] == 1 || $analysis['categroy_id'] == 2)
-		<!--单选题-->
 		<div class="questions" data-id="{{$analysis['id']}}">
 			<p>
-				<span class="blue">（2016 湖南工程）</span>{{$analysis['subject']}}
+				<span class="blue">（2016 湖南工程）</span>
 				<span class="f-r gray">难易程度:
 						<span>
 							<i class="fa fa-star bj-yellow"></i>
@@ -47,182 +45,47 @@
 							<i class="fa fa-star"></i>
 						</span>
 				</span>
+				<div class="clear">
+					{!!$analysis['subject']!!}
+				</div>
+
 			</p>
-			<div class="optionse">
+			@if($analysis['categroy_id'] == 1 || $analysis['categroy_id'] == 2)
+			<!--单选题-->
+			<div class="optionse optionse-option">
 				@foreach($analysis['options'] as $option)
-				<span><i class="fa fa-circle-o" data-class="{{ in_array(key($option),$analysis['answer']) ? 'bj-green':(in_array(key($option),$analysis['wrokAnswer'])?'red':'')}}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}：{{$option[key($option)]}}</span>
+				<span data-option="{{key($option)}}" data-EN="{{ $abcList[$loop->index] }}"><i class="fa fa-circle-o" data-class="{{ in_array(key($option),$analysis['answer']) ? 'bj-green':(in_array(key($option),$analysis['wrokAnswer'])?'red':'')}}"></i>&nbsp;&nbsp;{{ $abcList[$loop->index] }}：{{$option[key($option)]}}</span>
 				@endforeach
 			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 3)
-		<!--填空题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>
-				<span class="f-r gray">难易程度:
-					<span>
-						<i class="fa fa-star bj-yellow"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-					</span>
-				</span>
-			</p>
-			<div class="optionse">
-				There has been much hand-writing about how unprepared American students are for college. Graff reverses this perspective, suggesting that colleges are unprepared for students.<b class="red">___</b> In his analysis, the university culture is largely entering students because academic culture fails to make connections to the kinds of arguments and cultural references that students grasp. Understandably, man students view academic life as ritual.
-			</div>
-		</div>
-		<!--多空题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>
-				<span class="f-r gray">难易程度:
-					<span>
-						<i class="fa fa-star bj-yellow"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-					</span>
-				</span>
-			</p>
-			<div class="optionse">
-				There has been much hand-writing about how unprepared American students are for college. Graff reverses this perspective, suggesting that colleges are unprepared for students.<b class="red">___</b> In his analysis, the university culture is largely entering students because academic culture fails to make connections to the kinds of arguments and cultural references that students grasp. Understandably, man students view academic life as ritual.
-			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 4)
-		<!--判断题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>
-				<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-				</span>
-				<div class="clear"></div>
-				鲁滨孙是英国作家笛福写的小说《鲁滨孙漂流记》中的主人公。他具有勇敢、坚强、面对困难不屈不挠的精神。（）
-			</p>
+			@elseif($analysis['categroy_id'] == 3)
+			@elseif($analysis['categroy_id'] == 4)
+			<!--判断题-->
 			<div class="optionse">
 				<span><img src="{{asset('images/school/right.png')}}"/>&nbsp;&nbsp;正确</span>
 				<span><img src="{{asset('images/school/wrong.png')}}"/>&nbsp;&nbsp;错误</span>
 			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 5)
-		<!--连线题-->
-		<div class="questions lian-xian-1" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>请把对应的题目连上线：
-				<span class="f-r gray">难易程度:
-					<span>
-						<i class="fa fa-star bj-yellow"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-					</span>
-				</span>
-			</p>
-			<div class="optionse">
-				<div class="box_hpb">
-					<div class="line_hpb">
-						<ul class="question_hpb">
-							<li style="top:0;">湖广会馆放到奋斗奋斗方法</li>
-							<li style="top:54px;">大妈</li>
-							<li style="top:108px;">大嫂</li>
-						</ul>
-						<div class="container_hpb">
-							<canvas class="canvas1" width="322">您的浏览器暂不支持Canvas！</canvas>
-							<canvas class="canvas2" width="322">您的浏览器暂不支持Canvas！</canvas>
-						</div>
-						<ul class="answer_hpb">
-							<li style="top:0;">哥哥</li>
-							<li style="top:54px;">大姨</li>
-							<li style="top:108px;">大妈</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 6)
-		<!--排序题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>请把对应的题目连上线：
-				<span class="f-r gray">难易程度:
-					<span>
-						<i class="fa fa-star bj-yellow"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-					</span>
-				</span>
-			</p>
+			@elseif($analysis['categroy_id'] == 5)
+			<!--连线题-->
+			<div class="optionse"></div>
+			@elseif($analysis['categroy_id'] == 6)
+			<!--排序题-->
 			<div class="optionse">
 				<span><span class="blue">排序A</span>&nbsp;&nbsp;当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</span>
 				<span><span class="blue">排序E</span>&nbsp;&nbsp;种子在这块土地上的生活并不那么顺利，周围的各种杂草都嘲笑它，排挤它，认为它只是一粒平凡的种子</span>
 				<span><span class="red">排序D</span>&nbsp;&nbsp;虽然它经受着黑暗的恐惧，暴雨的侵袭，但是它依然努力地生长着。</span>
 				<span><span class="red">排序C</span>&nbsp;&nbsp;从此，它变得沉默，只有它知道它在努力，它在默默地汲取土壤中的养</span>
 				<span><span class="blue">排序B</span>&nbsp;&nbsp;不久，它从泥土里探出了小脑袋，渐渐地，种子变成了嫩芽。</span>
-
 			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 7)
-		@elseif($analysis['categroy_id'] == 8)
-		@elseif($analysis['categroy_id'] == 9)
-		<!--简答题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>
-				<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-				</span>
-				<div class="clear"></div>
-				一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
-			</p>
+			@elseif($analysis['categroy_id'] == 7 || $analysis['categroy_id'] == 8)
+			<div class="optionse"></div>
+			@elseif($analysis['categroy_id'] == 9 || $analysis['categroy_id'] == 10 || $analysis['categroy_id'] == 11)
 			<div class="optionse">
 				<span>
 					<img src="{{asset('images/Cj_bg1.png')}}" style="width: 100%;"/>
 				</span>
 			</div>
+			@endif
 		</div>
-		@elseif($analysis['categroy_id'] == 10)
-		<!--作文题-->
-		<div class="questions" style='display: none;'>
-			<p>
-				<span class="blue">（2016 湖南工程）</span>
-				<span class="f-r gray">难易程度:
-					<span>
-						<i class="fa fa-star bj-yellow"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-					</span>
-				</span>
-				<div class="clear"></div>
-				一些中学僧过生日，流行“送礼物”、“搞聚会”……你希望自己过生日能够有一个怎么样的情景？请描述你所希望的过生日的情景。（不少于100字）
-			</p>
-			<div class="optionse">
-				<span>
-					<img src="{{asset('images/Cj_bg1.png')}}" style="width: 100%;"/>
-				</span>
-			</div>
-		</div>
-		@elseif($analysis['categroy_id'] == 11)
-		@endif
 	@endforeach
 	<!--阅读题-->
 	<div class="questions" style='display: none;'>
@@ -352,7 +215,7 @@
 
 		<!--单选题-->
 		<div>
-			<p>正确答案是<b class="bj-green">D</b>，你的答案是 <span class="red">A</span>。回答错误，作答用时1秒。</p>
+			<p>正确答案是<b class="bj-green right_A" data-a="{{ json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}"></b>，你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}"></span>。回答<span class="answerRight"></span>，作答用时<span>1</span>秒。</p>
 			<p>本题备作答次数261738次 本题正确率:68% 易错项:B</p>
 		</div>
 
@@ -405,6 +268,40 @@
 <script>
 	$(function() {
 		var trues = 1;
+		var type = "{{$analysis['categroy_id']}}";
+		var answerArr = JSON.parse($(".right_A").attr("data-a"));
+		var studentAnswerArr = JSON.parse($(".student_A").attr("data-s"));
+		var newAnswer = '',newSA = '';
+		var isError = false;
+		if(type == 1||type == 2){
+			var arr = [];
+			$(".optionse-option span").each(function(i,item){
+				var op = $(item).attr("data-option")
+				arr.push(op);
+				if(answerArr.indexOf(parseInt(op)) >= 0){
+					var EN = $(item).attr("data-EN");
+					newAnswer += ',' + EN;
+				}
+				if(studentAnswerArr.indexOf(op) >= 0){
+					var EN = $(item).attr("data-EN");
+					newSA += ',' + EN;
+				}
+			})
+			for(var j = 0; j < studentAnswerArr.length;j++){
+				if(answerArr.indexOf(studentAnswerArr[j])<0){
+					isError = true;
+				}
+			}
+			if(isError){
+				$(".answerRight").text("错误").addClass('red');
+				$(".student_A").removeClass("bj-green").addClass("red");
+			}else{
+				$(".answerRight").text("正确").addClass('bj-green');
+				$(".student_A").removeClass("red").addClass("bj-green");
+			}
+			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
+			$(".student_A").text(newSA.slice(1,newSA.length))
+		}
 		$('.view-resolution').click(function() {
 			$(".optionse").find(".fa").each(function(){
 				var cl = $(this).attr("data-class");

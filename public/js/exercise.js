@@ -417,25 +417,20 @@ $(function () {
         } else {
             var duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
             if(event.keyCode === 8){
-                for(var i = 0; i < duo_kong_dom.find(".blank-answer").length;i++){
-                    var blankI = duo_kong_dom.find(".blank-answer").eq(i);
-                    if(data_blank_num_arr.indexOf(blankI.attr("data_blank_answer_num")) < 0){
-                        blankI.remove();
+                if(data_blank_num_arr.length<=0){
+                    duo_kong_dom.html("")
+                }else{
+                    for(var i = 0; i < duo_kong_dom.find(".blank-answer").length;i++){
+                        var blankI = duo_kong_dom.find(".blank-answer").eq(i);
+                        if(data_blank_num_arr.indexOf(blankI.attr("data_blank_answer_num")) < 0){
+                            blankI.remove();
+                        }
+                    }
+                    for(var j = 0; j<$(".answer-box").find(".blank-answer").length;j++){
+                        var blankAI = $(".answer-box").find(".blank-answer").eq(j);
+                        blankAI.find("span").text("答案"+(j+1)+"：")
                     }
                 }
-                for(var j = 0; j<$(".answer-box").find(".blank-answer").length;j++){
-                    var blankAI = $(".answer-box").find(".blank-answer").eq(j);
-                    blankAI.find("span").text("答案"+(j+1)+"：")
-                }
-            }else{
-                duo_kong_dom.attr("data-num", blank_len);
-                for (var i = 0; i < blank_len; i++) {
-                    html += "<div class='blank-answer p-r' data_blank_answer_num="+(i + 1)+">" +
-                        "<span>答案" + (i + 1) + "：</span>" +
-                        "<input type='text'/>" +
-                        "</div>";
-                }
-                duo_kong_dom.html(html);
             }
         }
     });
