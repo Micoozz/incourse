@@ -430,7 +430,6 @@ body .lhgcal {
     float: left;
 }
 .person-hw-mark-head .isMark {
-    float: right;
     width: 67px;
     text-align: center;
     height: 28px;
@@ -438,11 +437,25 @@ body .lhgcal {
     cursor: pointer;
     color: #666;
     border: 1px solid #d9d9d9;
+    margin-right: -1px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.person-hw-mark-head .isMark.doMark{
+    right: 0;
+}
+.person-hw-mark-head .isMark.notMark{
+    right: 66px;
+}
+.person-hw-mark-head .f-r.p-r{
+    height: 28px;
 }
 .person-hw-mark-head .isMark.active {
     color: #168bee;
     border: 1px solid #168bee;
     background-color: #e1f5fa;
+    z-index: 9;
 }
 .person-hw-derail {
     margin-top: 20px;

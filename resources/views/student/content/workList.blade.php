@@ -43,8 +43,8 @@
                 	{{ $work->second }}
                 @endif
                 </td>
-                <td><i @if($work->sub_time == 0) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' 
-    	  		@else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif class="fa fa-edit"></i></td>
+
+                <td style="cursor: pointer;" @if($work->sub_time == 0) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif><i class="fa fa-pencil"></i>做题</td>
             </tr>
             @endforeach
 		</table>
