@@ -727,6 +727,7 @@ class TeachingCenterController extends TeacherController
             $job->title = $input['title'];
             $job->job_type = intval($input['type']);
             $job->score = 0; //intval($input['score'])*100;
+            $job->content = $input['content'];
             $job->exercise_id = json_encode($input['exercise_id']);
             $job->status = $status;
             $job->pub_time = $status == Job::STATUS_UNPUB ? 0 : time();
