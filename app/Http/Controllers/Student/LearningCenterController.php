@@ -171,7 +171,6 @@ class LearningCenterController extends Controller
 					$correctScore = 0; //正确题的分数
 					$errorScore = 0; //错误题的分数
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
-					//dd($exercise_id);
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
