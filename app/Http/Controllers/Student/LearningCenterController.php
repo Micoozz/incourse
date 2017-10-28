@@ -253,6 +253,7 @@ class LearningCenterController extends Controller
 							));
 						}
 					}
+					
 					$second = $work->sub_time - $work->start_time;
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
