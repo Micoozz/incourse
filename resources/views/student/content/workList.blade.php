@@ -30,6 +30,7 @@
                 @endif
                 <td>{{ $work->count }}道</td>
                 <td>
+                {{ dd($work->score) }}
                 @if($work->sub_time == 0)
                     未答题
                 @else

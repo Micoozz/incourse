@@ -169,7 +169,6 @@ class ExerciseBookController extends Controller
                 $data[$key]['count'] +=  $data[$key]['minutia'][$k]['count'];
             }
         }
-        //dd($data);
         return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //先查询所有这位学生的作业错题本
