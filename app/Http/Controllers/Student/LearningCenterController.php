@@ -119,7 +119,6 @@ class LearningCenterController extends Controller
 		}
 		return view('student.todayWork',compact('courseAll', 'courseFirst', 'data','count', 'func', 'parameter', 'user', 'workCount'));
     }
-
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::user();
     	$courseAll = Course::all();
