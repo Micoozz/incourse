@@ -96,8 +96,8 @@ class LoginController extends Controller
                 }
                 Auth::guard('employee')->login($user);
                 $map_list = ClassTeacherCourseMap::where('teacher_id',$user->id)->get();
-                if(empty($map_list)){
-                    return Redirect::to('/bindClass/{$grade->id}');
+                if($map_list->isEmpty()){
+                    return Redirect::to('/bindClass/'.$grade->id);
                 }else{
                     return Redirect::to('/teachingCenter');
                 }
