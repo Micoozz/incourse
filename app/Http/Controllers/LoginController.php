@@ -58,10 +58,11 @@ class LoginController extends Controller
             if(empty($school)){
                 $school = self::createSchool($user_info->schoolId,$user_info->schoolName,$user_info->schoolType);
             }
-            $grade = Classes::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
+            $user_grade = empty($user_info->classYear) ? date('Y',time()) : $user_info->classYear;
+            $grade = Classes::where(["school_id" => $school->id,"title" => $user_grade])->first();
             if(empty($grade)){
                 $grade = new Classes;
-                $grade->title = empty($user_info->classYear) ? date('Y',time()) : $user_info->classYear;
+                $grade->title = $user_grade;
                 $grade->school_id = $school->id;
                 $grade->save();
             }
