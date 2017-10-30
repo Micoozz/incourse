@@ -41,7 +41,6 @@
 
         <!--题目列表-->
         <div class="exer-list myCollect">
-        {{-- dd($abcList) --}}
             @foreach($data as $errorExercise)
             <div class="exer-in-list border" data-id="{{$errorExercise['id']}}">
                 <div class="exer-head">

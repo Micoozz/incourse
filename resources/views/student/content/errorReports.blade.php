@@ -16,152 +16,52 @@
 			</div>
 			<div class="question-types">
 				<!--题目类型-->
-				<!--单选题-->
-				@if($data['exercises'][0]['categroy_id'] == 1)
 				<div class="questions">
 					<p>
-						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
+						<span class="blue">（2016 湖南工程）</span>
 						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
+							<span>
+								<i class="fa fa-star bj-yellow"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+							</span>
 						</span>
-						</span>
+						<div class="clear">题目：{!! $data['exercises'][0]['subject'] !!}</div>
 					</p>
+					@if($data['exercises'][0]['categroy_id'] == 1)
+					<!-- 单选题 -->
 					<div class="option options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>:{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
-				</div>
-				@endif
-				<!-- 多选题 -->
-				@if($data['exercises'][0]['categroy_id'] == 2)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-					</p>
+					@elseif($data['exercises'][0]['categroy_id'] == 2)
+					<!-- 多选题 -->
 					<div class="option  options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span class="optionSpan"><i class="fa fa-circle-o  @if(array_keys($option)[0] == $data['exercises'][0]['answer'][0]['user_answer'][0]) red @else  @endif" data-id="{{ array_keys($option)[0] }}"></i>&nbsp;&nbsp;<answer>{{ $abcList[$loop->index] }}</answer>：{{ array_values($option)[0] }} </span>
 						@endforeach
 					</div>
-				</div>
-				@endif
-				<!--判断题-->
-				@if($data['exercises'][0]['categroy_id'] == 4)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-						<div class="clear"></div>
-					</p>
+					@elseif($data['exercises'][0]['categroy_id'] == 4)
+					<!-- 判断题 -->
 					<div class="option options">
 						<span><img src="{{ asset('images/school/right.png') }}"/>&nbsp;&nbsp;正确</span>
 						<span><img src="{{ asset('images/school/wrong.png') }}"/>&nbsp;&nbsp;错误</span>
 					</div>
-				</div>
-				@endif
-				<!--简答题-->
-				@if($data['exercises'][0]['categroy_id'] == 10 || $data['exercises'][0]['categroy_id'] == 11)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-						<div class="clear"></div>
-					</p>
-					<div class="option">
-						{!! $data['exercises'][0]['subject'] !!}
-					</div>
-				</div>
-				@endif
-
-				<!--排序题-->
-				@if($data['exercises'][0]['categroy_id'] == 6)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-					</p>
+					@elseif($data['exercises'][0]['categroy_id'] == 10 || $data['exercises'][0]['categroy_id'] == 11 || $data['exercises'][0]['categroy_id'] == 3)
+					<!-- 填空题、解答题、简答题 -->
+					<div class="option"></div>
+					@elseif($data['exercises'][0]['categroy_id'] == 6)
+					<!-- 排序题 -->
 					<div class="option  options">
 						@foreach($data['exercises'][0]['options'] as $key => $option)
 						<span><span @if($data['exercises'][0]['sameScore'] != 0) class="blue" @else style="color: red" @endif>排序{{ array_keys($option)[0] }}</span>&nbsp;&nbsp;{{ array_values($option)[0] }}</span>
 						@endforeach
 					</div>
-				</div>
-				@endif
-
-				<!--填空题-->
-				@if($data['exercises'][0]['categroy_id'] == 3)
-				<div class="questions">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-					</p>
-					<div class="option question-option">
-						{!! $data['exercises'][0]['subject'] !!}
-					</div>
-				</div>
-				@endif
-				<!--连线题-->
-				@if($data['exercises'][0]['categroy_id'] == 5)
-				<div class="questions lian-xian-{{ $data['exercises'][0]['id'] }}" id="matching">
-					<p>
-						<span class="blue">（2016 湖南工程）</span>{!! $data['exercises'][0]['subject'] !!}
-						<span class="f-r gray">难易程度:
-						<span>
-							<i class="fa fa-star bj-yellow"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</span>
-						</span>
-					</p>
+					@elseif($data['exercises'][0]['categroy_id'] == 5)
+					<!--连线题-->
 					<div class="option">
 						<div class="box_hpb">
 							<div class="line_hpb">
@@ -183,8 +83,8 @@
 							</div>
 						</div>
 					</div>
+					@endif
 				</div>
-				@endif
 				<div class="proper">
 					<!--连线题-->
 					<br>

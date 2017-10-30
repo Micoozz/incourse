@@ -263,6 +263,7 @@ class ExerciseBookController extends Controller
     }
     //错题的题型
     public function errorExerciseInfo($type_id, $course ,$exe_id) {
+        //dd(11);
         $data = [];
         $abcList = range("A","Z");
         $func = "";
@@ -355,9 +356,16 @@ class ExerciseBookController extends Controller
         $user = Auth::user();
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
-
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
             //查询已经做过的题
+            $baseNum = (int)($user->id/1000-0.0001)+1;
+            $db_name = 'mysql_stu_work_info_'.$baseNum;
+            try{
+                $db = DB::connection($db_name);
+            }catch(\Exception $e){
+                dd(11);
+               return $e;
+            }
             $didExercise = $db->table($user->id)->where('type', NULL)->get()->pluck('exe_id');
             $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])->whereNotIn('id', $didExercise)->inRandomOrder()->take(1)->first();
         }else{
@@ -421,7 +429,7 @@ class ExerciseBookController extends Controller
             });
         }
         $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],
-            'answer' => empty($input['student_answe']) ? json_encode(array('answer' => ''), JSON_UNESCAPED_UNICODE) : json_encode($input['student_answer'], JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'], 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
+            'answer' => empty($input['student_answer']) ? json_encode(array('answer' => ''), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'], 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
         //return Redirect::to('');//跳转到同类型或复习或者预习的页面
     }
 //预习--做题

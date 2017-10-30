@@ -57,7 +57,7 @@
                     {{ $work->second }}
                 @endif
             </td>
-            <td style="cursor: pointer;" @if($work->sub_time == 0) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $work->id }}" ' @endif><i class="fa {{$work->sub_time == 0?'fa-pencil':'fa-eye'}}"></i>{{empty($work->sub_time)?'做题':'查看'}}
+            <td style="cursor: pointer;color: #168BEE;" @if($work->sub_time == 0) onclick='window.location.href= "/todayWork/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/homework/work_score/{{ $work->id }}" ' @endif><i class="fa {{$work->sub_time == 0?'fa-pencil':'fa-eye'}}"></i>{{empty($work->sub_time)?'做题':'查看'}}
             </td>
         </tr>
         @endforeach
