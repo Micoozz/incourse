@@ -19,7 +19,7 @@ class LoginController extends Controller
                 $school = new School;
                 $school->pf_school_id = $pf_school_id;
                 $school->title = $school_name;
-                $school->type = $school_type;
+                $school->type = empty($school_type) ? 0 : intval($school_type);
                 $school->username = rand(100000000,999999999);
                 $school->save();
             }catch(\Illuminate\Database\QueryException $e){
