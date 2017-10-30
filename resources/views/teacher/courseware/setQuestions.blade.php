@@ -1,8 +1,9 @@
 @extends('teacher.courseware_main')
-@section('DESCTIPTION','ÕâÊÇÒ³ÃæÃèÊöÃèÊö')
-@section('KEYWORDS','ÕâÊÇ¹Ø¼ü´Ê¹Ø¼ü´Ê')
+@section('DESCTIPTION','è¿™æ˜¯é¡µé¢æè¿°æè¿°')
+@section('KEYWORDS','è¿™æ˜¯å…³é”®è¯å…³é”®è¯')
 
 @section('CSS:OPTIONAL')
+<meta charset="UTF-8">
 <link rel="stylesheet" href="{{ asset('css/exercise.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/student/doHomework.css') }}" />
 <style>
@@ -83,28 +84,28 @@
 @endsection
 @section('COURSEWARE_CONTENT')
 <div class="row">
-		<!--ÄÚÈİÖ÷Ìå-->
+		<!--å†…å®¹ä¸»ä½“-->
 		<div id="centery" style="width:100%;">
 			<div class="clear">
-				<!--ÖĞ¼äÄÚÈİ-->
+				<!--ä¸­é—´å†…å®¹-->
 				<div class="f-l do-hw">
 					<div class="of-h p-r view">
 						<div class="result">
-							<div>´ğ°¸£º&nbsp;&nbsp;&nbsp;
+							<div>ç­”æ¡ˆï¼š&nbsp;&nbsp;&nbsp;
 								<div>
 									<div></div>
 									<span><img src="/images/uploadExerIcons.png"/></span>
-									<span class="ic-blue">Ìí¼ÓÑ¡Ïî</span>
+									<span class="ic-blue">æ·»åŠ é€‰é¡¹</span>
 								</div>
 							</div>
-							<div>µ¹¼ÆÊ±£º&nbsp;&nbsp;
+							<div>å€’è®¡æ—¶ï¼š&nbsp;&nbsp;
 								<span>
 		    				<input type="" name="" value="" id="input_number" onpaste="inputOnafterpaste(this)"/>s
 		    			</span>
 							</div>
 						</div>
 						<div class="ta-c">
-							<a href="/courseWare/answerStartFreedom"><button class="ic-btn">³ö  Ìâ</button></a>
+							<a href="/courseWare/answerStartFreedom"><button class="ic-btn">å‡º  é¢˜</button></a>
 						</div>
 					</div>
 				</div>

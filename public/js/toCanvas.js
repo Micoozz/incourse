@@ -1,15 +1,15 @@
-function toCanvas(id , progressNow ,progress,t){
+function toCanvas(id , progressStart ,progressEnd){
     //canvas进度条
     var canvas = document.getElementById(id),
     ctx = canvas.getContext("2d"),
-    percent = progress?progress:0,  //最终百分比
+    percent = progressEnd?(progressEnd == 0? 0.000001:progressEnd):0.000001,  //最终百分比
     circleX = canvas.width / 2,  //中心x坐标
     circleY = canvas.height / 2,  //中心y坐标
-    textX = canvas.width / 2 - 10,  //中心x坐标
-    textX1 = canvas.width / 2 + 85,  //中心x坐标
-    textY = canvas.height / 2 + 10,  //中心y坐标
-    textY1 = canvas.height / 2 + 25,  //中心y坐标
-    textY2 = canvas.height / 2 - 75,  //中心y坐标
+    textX = canvas.width / 2 - 10,  //文字x坐标
+    textX1 = canvas.width / 2 + 85,  //%x坐标
+    textY = canvas.height / 2 + 10,  //文字y坐标
+    textY1 = canvas.height / 2 + 25,  //%y坐标
+    textY2 = canvas.height / 2 - 75,  //得分比y坐标
     radius = 150, //圆环半径
     lineWidth = 15,  //圆形线条的宽度
     fontSize = 60; //字体大小
@@ -47,12 +47,12 @@ function toCanvas(id , progressNow ,progress,t){
     // 刷新
     function loading() {
         var num
-        if(process >= 100){
-            num = process.toFixed(0)
+        if(progressEnd < 100){
+            num = progressEnd.toFixed(2)
         }else{
-            num = process.toFixed(2)
+            num = 100;
         }
-        if (process >= percent) {
+        if (progressEnd >= percent) {
             clearInterval(circleLoading);
             return;
         }
@@ -84,32 +84,37 @@ function toCanvas(id , progressNow ,progress,t){
         //  圆弧
          sector(circleX, circleY, radius, Math.PI*2/3, num);
         // 控制结束时动画的速度
-        // process += 0.01;
-        if(percent>60){
-        	if (process / percent < 0.5){
-        		process += 0.7
-        	}else if(process / percent < 0.995){
-        		process += 0.3
-        	}else{
-                process += 0.01
-            }
-        }else if(percent<60 && percent>20){
-        	if(process / percent < 0.99){
-        		process += 0.4
-        	}else{
-        		process += 0.01
-        	}
+        if((percent - progressEnd) > 90){
+            progressEnd += 18;
+        }else if((percent - progressEnd) > 80){
+            progressEnd += 16;
+        }else if((percent - progressEnd) > 70){
+            progressEnd += 14;
+        }else if((percent - progressEnd) > 60){
+            progressEnd += 12;
+        }else if((percent - progressEnd) > 50){
+            progressEnd += 10;
+        }else if((percent - progressEnd) > 40){
+            progressEnd += 8;
+        }else if((percent - progressEnd) > 30){
+            progressEnd += 6;
+        }else if((percent - progressEnd) > 20){
+            progressEnd += 4;
+        }else if((percent - progressEnd) > 10){
+            progressEnd += 2;
+        }else if((percent - progressEnd) > 5){
+            progressEnd += 1;
+        }else if((percent - progressEnd) > 1){
+            progressEnd += 0.2;
+        }else if((percent - progressEnd) > 0.5){
+            progressEnd += 0.1;
+        }else if((percent - progressEnd) > 0.01){
+            progressEnd += 0.01;
         }else{
-        	if (process / percent < 0.9){
-            	process += 0.3;
-            }else if (process / percent < 0.5){
-            	process += 0.5;
-            }else{
-            	process += 0.01;
-            }
+            progressEnd += 0.001;
         }
     }
-    var process = progressNow;  //进度
+    var progressEnd = progressStart;  //进度
     var circleLoading = window.setInterval(function () {
         loading();
     }, 20);
