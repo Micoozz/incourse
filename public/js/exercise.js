@@ -510,7 +510,19 @@ $(function () {
     function blank_span(obj){
         $(obj).parents(".ic-editor").children(".editor-content").focus();
         var initNum = $(obj).parents(".ic-editor").find(".editor-content .blank-item").length + 1;
-        document.execCommand("insertHTML", "false", '<div class="blank-item" data_blank_num=' + initNum + ' style="display:inline-block">空' + initNum + '</div>&nbsp;');
+        var mbs = myBrowser();
+        if ("IE" == mbs) {
+            console.log("IE")
+        }
+        if ("FF" == mbs) {
+            $(obj).parents(".ic-editor").children(".editor-content").append('<div class="blank-item" data_blank_num=' + initNum + ' style="display:inline-block">空' + initNum + '</div>&nbsp;')
+        }
+        if ("Chrome" == mbs || "Safari" == mbs) {
+            document.execCommand("insertHTML", "false", '<div class="blank-item" data_blank_num=' + initNum + ' style="display:inline-block">空' + initNum + '</div>&nbsp;');
+        }
+        if ("Opera" == mbs) {
+            console.log("Opera")
+        }
         $(obj).parents(".ic-editor").find(".blank-item").attr("contenteditable", false);
 
         //获取题型

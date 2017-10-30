@@ -30,7 +30,6 @@
                 @endif
                 <td>{{ $work->count }}道</td>
                 <td>
-                {{ dd($work->score) }}
                 @if($work->sub_time == 0)
                     未答题
                 @else
@@ -45,7 +44,7 @@
                 @endif
                 </td>
 
-                <td style="cursor: pointer;" @if($work->sub_time == 0) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif><i class="fa {{$work->sub_time == 0?'fa-pencil':'fa-eye'}}"></i>{{$work->sub_time == 0?'做题':'查看'}}</td>
+                <td style="cursor: pointer;color: #168BEE;" @if($work->sub_time == 0) onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/routine_work/{{ $work->id }}" ' @else onclick='window.location.href= "/learningCenter/{{ $courseFirst[0]['id'] }}/{{ $mod }}/work_score/{{ $work->id }}" ' @endif><i class="fa {{$work->sub_time == 0?'fa-pencil':'fa-eye'}}"></i>{{$work->sub_time == 0?'做题':'查看'}}</td>
             </tr>
             @endforeach
 		</table>
