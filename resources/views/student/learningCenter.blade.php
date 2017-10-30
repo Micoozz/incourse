@@ -172,16 +172,22 @@
 		<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/student/fileSelectionone.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
-		<script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
+		@if($mod == 'homework')
+			@if($func == 'work_tutorship' || $func == 'work_score')
+				<script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
+			@endif
+		@endif
 		<script>
-			var token = "{{csrf_token()}}";
-			var func = "{{ isset($func) ? $func : ''}}";
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
-			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			var startAccurary = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
+			var token = "{{csrf_token()}}";
+			var func = "{{ isset($func) ? $func : ''}}";
+			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			$(function() {
-				toCanvas('canvas',parseInt(startAccurary),accuracy);
+				if(func == 'work_tutorship' || func == 'work_score'){
+					toCanvas('canvas',parseInt(startAccurary),10.55);
+				}
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
