@@ -61,7 +61,7 @@ class LoginController extends Controller
             $grade = Classes::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
             if(empty($grade)){
                 $grade = new Classes;
-                $grade->title = $user_info->classYear;
+                $grade->title = empty($user_info->classYear) ? date('Y',time()) : $user_info->classYear;
                 $grade->school_id = $school->id;
                 $grade->save();
             }
@@ -115,7 +115,7 @@ class LoginController extends Controller
                 }
                 Auth::guard("student")->login($user);
                 if(empty($user->class_id)){
-                    return Redirect::to('/selectClass/{$grade->id}');
+                    return Redirect::to('/selectClass/'.$grade->id);
                 }else{
                     return Redirect::to('/learningCenter');
                 }
