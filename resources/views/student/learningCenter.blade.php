@@ -328,18 +328,15 @@
 			$('.questions .question-option .blank-item').each(function(i){
 				$(this).text($('.proper>div:nth-of-type(3) .red').text().split(',')[i])
 				if($(this).text().replace(/\s/g,'')!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].replace(/\s/g,'')){
-					console.log($('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i])
 					$(this).css('color','red')
 				}
 			});
-			console.log('a')
 			$('.proper>div:nth-of-type(3) .red span:last-child').text($('.proper>div:nth-of-type(3) .red span:last-child').text().substr(0,$('.proper>div:nth-of-type(3) .red span:last-child').text().length-1));
 		}
 
 		//显示所有的
 		//跳转到同类型习题页面
 		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
-		console.log(sessionStorageJson);
 		if (func == "work_tutorship") {
 			var sameSkip = $(".submits").attr("error-exercise");
 			if(!sessionStorageJson){
