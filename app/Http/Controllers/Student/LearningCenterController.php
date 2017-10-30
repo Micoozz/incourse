@@ -36,7 +36,6 @@ class LearningCenterController extends Controller
 	const FUNC_ERROR_REPORTS = 'error_reports';
 	const FUNC_ANSWER_SHEET = 'answer_sheet';
 	const FUNC_WORK_TUTORSHIP = 'work_tutorship';//分数提升
-	
  	private function createBase($baseNum){
         $code = parent::createDatabase($baseNum);
         if($code === 200){

@@ -9,6 +9,7 @@
         height: auto;
         overflow: hidden;
         position: relative;
+        width: 998px;
     }
     .do-hw .p-r.view{
         height: auto;
@@ -110,12 +111,37 @@
         line-height: 50px;
         font-size: 18px;
         color: #168bee;
-        margin: 0 auto;
+        margin: 100px auto 0;
+        text-align: center;
     }
     .goBackBtn{
         width: 100%;
         height: 28px;
         margin-top: 20px;
+        position: relative;
+    }
+    #goBack{
+        position: absolute;
+        left: 50%;
+        margin-left: -24px;
+    }
+    .f-l.TOrF_img{
+        margin-top: 0;
+    }
+    .TOrF_img_title{
+        margin-left: 10px;
+    }
+    .TOrF_img.right_Img.active{
+        background-position: -22px -86px;
+    }
+    .TOrF_img.error_Img.active{
+        background-position: -70px -86px;
+    }
+    .right_Img{
+        background-position: -20px -50px;
+    }
+    .error_Img{
+        background-position:-68px -50px;
     }
 </style>
 @section('CSS:OPTIONAL')
@@ -130,7 +156,7 @@
         @if(empty($data))
             <div class="noData">该章节的错题都已经答对。</div>
             <div class="goBackBtn">
-                <button class="answer_btn" id="goBack">返回</button>
+                <button class="answer_btn" id="goBack" onclick="window.history.go(-1)">返回</button>
             </div>
         @else
         <div class="p-r view">
@@ -161,6 +187,24 @@
                                 </ul>
                             @elseif($data[0]['categroy_id'] == 3)
                                 <!--填空题，多空题-->
+                            @elseif($data[0]['categroy_id'] == 4)
+                            <ul class="exer-list-ul" id="simpleList">
+                                <li>
+                                    <span data-answer-num="1" class="f-l TOrF_img right_Img"></span>
+                                    <span class="TOrF_img_title">正确</span>
+                                </li>
+                                <li>
+                                    <span data-answer-num="0" class="f-l TOrF_img error_Img"></span>
+                                    <span class="TOrF_img_title">错误</span>
+                                </li>
+                            </ul>
+                            @elseif($data[0]['categroy_id'] == 6)
+                            <ul class="exer-list-ul">
+                                <li class="list-group-item">It works with Bootstrap...</li>
+                                <li class="list-group-item">...out of the box.</li>
+                                <li class="list-group-item">It has support for touch devices.</li>
+                                <li class="list-group-item">Just drag some elements around.</li>
+                            </ul>
                             @endif
                         </div>
                     </li>
@@ -222,6 +266,7 @@
 @endsection
 
 @section('JS:OPTIONAL')
+<script src="/js/Sortable.min.js"></script>
 <script type="text/javascript">
 $(function(){
     var type = '{{isset($data[0]["categroy_id"]) ? $data[0]["categroy_id"] : ""}}';
@@ -233,6 +278,7 @@ $(function(){
     var isT = true;
     var typeId = "{{ $type_id }}";
     var arr = JSON.parse($(".right_a").attr("data-r"));
+    console.log(arr)
     var Nowt = window.setInterval(function(){
         Stime++;
         if(Stime>=60){
@@ -258,7 +304,7 @@ $(function(){
     var ENnum = ['A','B','C','D','E','F','G','H','I'];
     var nt = '';
     var narr = [],optionsArr = [],student_answer_arr=[];
-    if(type != 3){
+    if(type == 1 || type == 2){
         for(var i = 0;i < $(".ic-radio").length;i++){
             var isThat = $(".ic-radio").eq(i);
             optionsArr.push($(isThat).parent().find(".option").attr("data-key"))
@@ -268,6 +314,22 @@ $(function(){
             }
         }
         $(".right_a").text(nt.slice(1, nt.length));
+    }else if(type == 4){
+        if(arr[0] == "0"){
+            $(".right_a").text("错误");
+        }else{
+            $(".right_a").text("正确");
+        }
+        $(".exer-list-ul").find("li").click(function(){
+            if($(this).find(".TOrF_img").hasClass("active")){
+                $(".TOrF_img").removeClass("active");
+            }else{
+                $(".TOrF_img").removeClass("active");
+                $(this).find(".TOrF_img").addClass("active");
+            }
+        })
+    }else if(type == 6){
+        Sortable.create(simpleList, {group: 'shared'});
     }
     $("#ensure").on("click",function(){
         window.clearInterval(Nowt);
@@ -310,6 +372,7 @@ $(function(){
                 "sort":optionsArr,
                 "_token":token
             }
+            $(".user_answer").text(ut.slice(1, ut.length));
         }else if(type == 3){
             //填空题
             for(var j = 0;j<$(".blank-item").length;j++){
@@ -329,8 +392,15 @@ $(function(){
                 "second":(Mtime*60+Stime),
                 "_token":token
             }
+            $(".user_answer").text(ut.slice(1, ut.length));
+        }else if(type == 4){
+            if(arr[0] == $(".TOrF_img.active").attr("data-answer-num")){
+                isT = true;
+            }else{
+                isT = false;
+            }
+            $(".user_answer").text($(".TOrF_img.active").next(".TOrF_img_title").text());
         }
-        $(".user_answer").text(ut.slice(1, ut.length));
         if(isT){
             $(".isRight").text("正确").removeClass("red").addClass("green");
             $(".user_answer").removeClass("red").addClass("green");
@@ -349,7 +419,7 @@ $(function(){
         $("#go_on").css({display:"block"});
         $(".answerResultModule").animate({height:'300px',opacity:1},500);
         obj.score = studennt_score;
-        if(typeId!=3){
+        if(typeId == 1 || typeId == 2){
             $.ajax({
                 url: '/addWorkExercise',
                 type:'POST',
@@ -379,8 +449,6 @@ $(function(){
             }
         }else if(type == 3){
             //填空题，多空题
-        }else if(type == 4){
-            //判断题
         }else if(type == 5){
             //排序题
         }

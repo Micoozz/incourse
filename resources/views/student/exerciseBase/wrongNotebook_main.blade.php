@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>title</title>
+    <title>习题册</title>
     <meta charset="utf-8">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
