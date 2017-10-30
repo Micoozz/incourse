@@ -7,6 +7,7 @@ use Auth;
 use Input;
 use Redirect;
 use App\Models\Student;
+use App\Models\Employee;
 use App\Models\School;
 use App\Models\Classes;
 use App\Models\ClassTeacherCourseMap;
@@ -19,14 +20,15 @@ class LoginController extends Controller
                 $school = new School;
                 $school->pf_school_id = $pf_school_id;
                 $school->title = $school_name;
-                $school->type = $school_type;
+                $school->type = empty($school_type) ? 0 : intval($school_type);
                 $school->username = rand(100000000,999999999);
+                $school->password = bcrypt(123456);
                 $school->save();
             }catch(\Illuminate\Database\QueryException $e){
                 if($e->errorInfo[0] != 23000 || $e->errorInfo[1] != 1062){
                     throw $e;
                 }
-                self::createSchool();
+                self::createSchool($pf_school_id,$school_name,$school_type);
             }
             return $school;
     }
@@ -59,7 +61,7 @@ class LoginController extends Controller
             $grade = Classes::where(["school_id" => $school->id,"title" => $user_info->classYear])->first();
             if(empty($grade)){
                 $grade = new Classes;
-                $grade->title = $user_info->classYear;
+                $grade->title = empty($user_info->classYear) ? date('Y',time()) : $user_info->classYear;
                 $grade->school_id = $school->id;
                 $grade->save();
             }
@@ -93,9 +95,9 @@ class LoginController extends Controller
                     $user->save();
                 }
                 Auth::guard('employee')->login($user);
-                $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();
-                if(empty($map_list)){
-                    return Redirect::to('/bindClass/{$grade->id}');
+                $map_list = ClassTeacherCourseMap::where('teacher_id',$user->id)->get();
+                if($map_list->isEmpty()){
+                    return Redirect::to('/bindClass/'.$grade->id);
                 }else{
                     return Redirect::to('/teachingCenter');
                 }
@@ -113,7 +115,7 @@ class LoginController extends Controller
                 }
                 Auth::guard("student")->login($user);
                 if(empty($user->class_id)){
-                    return Redirect::to('/selectClass/{$grade->id}');
+                    return Redirect::to('/selectClass/'.$grade->id);
                 }else{
                     return Redirect::to('/learningCenter');
                 }

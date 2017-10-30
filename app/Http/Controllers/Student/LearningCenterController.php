@@ -369,7 +369,7 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
-		 		$startAccuracy = $exercise_id;
+		 		$startAccurary = $exercise_id;
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -547,7 +547,7 @@ class LearningCenterController extends Controller
     	$exercise_id =  explode('&', $exercises_id);
     	$course = Work::find($work_id)->course_id;
     	$data = array();
-    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->get();//查询出所有错题的数据
+    	$error_exercise_list = Exercises::select('categroy_id', 'id', 'score', 'chapter_id')->whereIn('id', $exercise_id)->orderByRaw(DB::raw("FIELD(id, ".implode(',', $exercise_id).')'))->get();//查询出所有错题的数据
     	foreach($error_exercise_list as $exercises) {
     		$homotypology = Exercises::where(['chapter_id' => $exercises->chapter_id, 'categroy_id' => $exercises->categroy_id, 'score' => $exercises->score])
     		->whereNotIn('id', $exercise_id)->inRandomOrder()->take(1)->get();//查询出该错题的1道同类型习题

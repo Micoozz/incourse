@@ -179,9 +179,10 @@
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
-			var startAccuracy = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
+			var startAccurary = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
+			console.log(startAccurary);console.log(accuracy);
 			$(function() {
-				toCanvas('canvas',12.12,36.4656);
+				toCanvas('canvas',parseInt(startAccurary),accuracy);
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
