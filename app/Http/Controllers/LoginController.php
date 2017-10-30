@@ -7,6 +7,7 @@ use Auth;
 use Input;
 use Redirect;
 use App\Models\Student;
+use App\Models\Employee;
 use App\Models\School;
 use App\Models\Classes;
 use App\Models\ClassTeacherCourseMap;
