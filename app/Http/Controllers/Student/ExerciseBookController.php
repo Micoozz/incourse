@@ -22,6 +22,43 @@ use Schema;
 
 class ExerciseBookController extends Controller
 {
+    private function createBase($baseNum){
+        $code = parent::createDatabase($baseNum);
+        if($code === 200){
+            $envArray = ['DB_DATABASE_STU_WORK_INFO_'.$baseNum.' = stu_work_info_'.$baseNum];
+            parent::modifyConfFile('.env',11,$envArray);
+            $DBConfArray = ["",
+            "\t\t'mysql_stu_work_info_".$baseNum. "' => [",
+            "\t\t\t'driver' => 'mysql',",
+            "\t\t\t'host' => env('DB_HOST', '127.0.0.1'),",
+            "\t\t\t'port' => env('DB_PORT', '3306'),",
+            "\t\t\t'database' => env('DB_DATABASE_STU_WORK_INFO_".$baseNum."', 'forge'),",
+            "\t\t\t'username' => env('DB_USERNAME', 'forge'),",
+            "\t\t\t'password' => env('DB_PASSWORD', ''),",
+            "\t\t\t'unix_socket' => env('DB_SOCKET', ''),",
+            "\t\t\t'charset' => 'utf8mb4',",
+            "\t\t\t'collation' => 'utf8mb4_unicode_ci',",
+            "\t\t\t'prefix' => 'work_table_',",
+            "\t\t\t'strict' => true,",
+            "\t\t\t'engine' => null,",
+            "\t\t],"];
+            parent::modifyConfFile('config'.DIRECTORY_SEPARATOR.'database.php',55,$DBConfArray);
+            config(['database.connections.mysql_stu_work_info_'.$baseNum => 
+                ['driver' => 'mysql',
+                'host' => env('DB_HOST','127.0.0.1'),
+                'port' => env('DB_PORT', '3306'),
+                'database' => 'stu_work_info_'.$baseNum,
+                'username' => env('DB_USERNAME', 'forge'),
+                'password' => env('DB_PASSWORD', ''),
+                'unix_socket' => env('DB_SOCKET', ''),
+                'charset' => 'utf8mb4',
+                'collation' => 'utf8mb4_unicode_ci',
+                'prefix' => 'work_table_',
+                'strict' => true,
+                'engine' => null,
+            ]]);
+        }
+    }
     //习题册 学生的复习、同类型练习 多传一个参数，判断是1是复习，2是同类型练习
     public function freePractice($course = 2, $type_id = 1) {
         $data = [];
@@ -33,9 +70,9 @@ class ExerciseBookController extends Controller
         $lastTerm = strtotime($time.'-'."08-01");//获取上学期的时间
         $semesterTime = time(); // 现在的时间戳
         if (time() >$lastTerm){
-           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->get()->pluck('id');//今年上学期的作业
+           $jobs = Job::where('course_id', 2)->where('pub_time', '>', $lastTerm)->get()->pluck('id');//今年上学期的作业
         }else{
-            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年上学期的作业
+            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');//今年下学期的作业
         }
         if ($type_id == 1) {
             $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
@@ -151,7 +188,7 @@ class ExerciseBookController extends Controller
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//除了学过的小节id
         }
         $grade_id = Chapter::where(['title' => $grade])->first()->id;     
-        $chapterAll = Chapter::where('parent_id', $grade_id)->get();//所有大章节的Id
+        $chapterAll = Chapter::where(['parent_id' => $grade_id, 'course_id' => $course])->get();//所有大章节的Id
         foreach($chapterAll as $key => $chapter){
             $minutia = Chapter::where('parent_id', $chapter->id);
             if (!empty($jobs)) {
@@ -169,7 +206,6 @@ class ExerciseBookController extends Controller
                 $data[$key]['count'] +=  $data[$key]['minutia'][$k]['count'];
             }
         }
-        //dd($data);
         return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //先查询所有这位学生的作业错题本
@@ -263,7 +299,6 @@ class ExerciseBookController extends Controller
     }
     //错题的题型
     public function errorExerciseInfo($type_id, $course ,$exe_id) {
-        //dd(11);
         $data = [];
         $abcList = range("A","Z");
         $func = "";
@@ -356,26 +391,21 @@ class ExerciseBookController extends Controller
         $user = Auth::user();
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
-        if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
-            //查询已经做过的题
-            $baseNum = (int)($user->id/1000-0.0001)+1;
-            $db_name = 'mysql_stu_work_info_'.$baseNum;
-            try{
+        //查询已经做过的题
+        $baseNum = (int)($user->id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            if($type_id == 4){
+                $this->createBase($baseNum);
                 $db = DB::connection($db_name);
-            }catch(\Exception $e){
-                dd(11);
-               return $e;
             }
+        }
+        if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
             $didExercise = $db->table($user->id)->where('type', NULL)->get()->pluck('exe_id');
             $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])->whereNotIn('id', $didExercise)->inRandomOrder()->take(1)->first();
         }else{
-            $baseNum = (int)($user->id/1000-0.0001)+1;
-            $db_name = 'mysql_stu_work_info_'.$baseNum;
-            try{
-                $db = DB::connection($db_name);
-            }catch(\Exception $e){
-                return $e;
-            }
             $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');
             //查询这个学生的所有的错题
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
@@ -430,37 +460,6 @@ class ExerciseBookController extends Controller
         }
         $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],
             'answer' => empty($input['student_answer']) ? json_encode(array('answer' => ''), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'], 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
-        //return Redirect::to('');//跳转到同类型或复习或者预习的页面
-    }
-//预习--做题
-/*    public function foreExerciseDoWork($course = 2) {
-        $func = "";
-        $courseAll = Course::all();
-        $courseFirst = Course::where(['id' => $course])->get()->toArray();
-        $user = Auth::guard('student')->user();
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        return view('student.exerciseBase.foreExercise_content',compact("func", "user", 'courseAll', 'courseFirst'));
-    }*/
-//预习列表
-    /*public function foreExerciseList($course = 2) {
-        $func = "";
-        $courseAll = Course::all();
-        $courseFirst = Course::where(['id' => $course])->get()->toArray();
-        $user = Auth::guard('student')->user();
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        return view('student.exerciseBase.foreExercise_contentList',compact("func", "user", 'courseAll', 'courseFirst'));
-    }*/
-//答题结果
-    public function submitResuit_foreExercise($course = 2) {
-        $func = "";
-        $courseAll = Course::all();
-        $courseFirst = Course::where(['id' => $course])->get()->toArray();
-        $user = Auth::guard('student')->user();
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        return view('student.exerciseBase.submitResult_foreExercise',compact("func", "user", 'courseAll', 'courseFirst'));
     }
 //收藏
     public function collect($course = 2) {
