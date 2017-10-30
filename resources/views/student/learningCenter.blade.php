@@ -149,17 +149,17 @@
 							@if($func == 'exercise_book')
 								@include('student.content.workList')
 							@elseif($func == 'routine_work')
-								@include('student.content.routineWork')	
+								@include('student.content.routineWork')
 							@elseif($func == 'work_score')
 								@include('student.content.workScore')
 							@elseif($func == 'error_reports')
 								@include('student.content.errorReports')
 							@elseif($func == 'answer_sheet')
-								@include('student.content.errorParsing')	
+								@include('student.content.errorParsing')
 							@elseif($func == 'work_tutorship')
-								@include('student.content.workTutorship')			
+								@include('student.content.workTutorship')
 							@endif
-						@endif	
+						@endif
 						<!--右侧栏-->
 						<div class="col-xs-12 left">@include('student.template.right_notice')</div>
 						<!-- 聊天窗口 -->

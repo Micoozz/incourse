@@ -39,7 +39,6 @@
 <script src="/js/index.js" charset="utf-8"></script>
 <script src="/js/incourseReset.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
-<script type="text/javascript" src="/js/echarts.min.js"></script>
 <script>
 var token = "{{csrf_token()}}";
 //检测浏览器

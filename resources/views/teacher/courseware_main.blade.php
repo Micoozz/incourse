@@ -30,8 +30,6 @@
     @include('teacher.courseware_header')
     <!--创建班级-->
 
-    <!--内容主体-->
-
     <div class="do-hw-wrap clear">
         @yield('COURSEWARE_CONTENT')
     </div>

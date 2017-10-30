@@ -98,7 +98,6 @@
 <script src="{{ asset('js/jquery-1.12.4.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/jquery-ui-sortable.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
-<script src="{{ asset('js/echarts.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/layui/layui.js') }}" charset="utf-8"></script>
 <!-- Plugin -->
 @yield('JS:OPTIONAL')
