@@ -46,6 +46,12 @@
 	.error_Img{
         background-position:-68px -50px;
     }
+    .TOrF_img.right_Img.active{
+        background-position: -22px -86px;
+    }
+    .TOrF_img.error_Img.active{
+        background-position: -70px -86px;
+    }
 </style>
 @endsection
 
@@ -238,7 +244,8 @@
 					</span>。回答<span class="answerRight"></span>，作答用时<span>1</span>秒。
 				@elseif($analysis['categroy_id'] == 4)
 					<!--判断题-->
-					正确答案是<b class="bj-green right_A">{{$analysis['answer'][0] == 1?'正确':'错误'}}</b>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答<span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时<span>1</span>秒。
+					正确答案是<b class="bj-green right_A" data-p-a="{{$analysis['answer'][0]}}">{{$analysis['answer'][0] == 1?'正确':'错误'}}</b>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答<span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时<span>1</span>秒。
+				@elseif($analysis['categroy_id'] == 6)
 				@endif
 			</p>
 			<!-- <p>本题被作答次数261738次 本题正确率:68% 易错项:B</p> -->
@@ -260,12 +267,6 @@
 		<div style='display: none;'>
 			<p>正确答案是AEBCDF，你的答案是AEDCB</p>
 			<p>回答错误，作答用时1秒。</p>
-		</div>
-
-		<!--判断题-->
-		<div style='display: none;'>
-			<p>正确答案是正确，你的答案是错误。回答错误，作答用时1秒。</p>
-			<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p>
 		</div>
 
 		<!--阅读题-->
@@ -342,12 +343,6 @@
 			}
 		}
 		$('.view-resolution').click(function() {
-			$(".optionse").find(".fa").each(function(){
-				var cl = $(this).attr("data-class");
-				if(cl != ""){
-					$(this).removeClass("fa-circle-o").addClass("fa-dot-circle-o "+cl);
-				}
-			})
 			if(trues == 1) {
 				$(this).find('i').attr('class','fa fa-angle-up')
 				$('#wrongTopic .proper').show();
@@ -357,10 +352,24 @@
 				$('#wrongTopic .proper').hide()
 				trues = 1
 			}
-			if(type == 3){
+			if(type == 1 || type == 2){
+				$(".optionse").find(".fa").each(function(){
+					var cl = $(this).attr("data-class");
+					if(cl != ""){
+						$(this).removeClass("fa-circle-o").addClass("fa-dot-circle-o "+cl);
+					}
+				})
+			}else if(type == 3){
 				$(".questions").find(".blank-item").each(function(i){
 					$(this).text(studentAnswerArr[i])
 				})
+			}else if(type == 4){
+				var an = $(".right_A").attr("data-p-a");
+				if(an == 1){
+					$(".right_Img").addClass("active");
+				}else if(an == 0){
+					$(".error_Img").addClass("active");
+				}
 			}
 		})
 

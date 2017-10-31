@@ -12,6 +12,7 @@
 @include('teacher.template.title')
 <div>
 @include('teacher.template.homework-tag')
+{{dd($data)}}
 	<div class="school-container admin-container">
 		<!--内容-->
 		<div>
