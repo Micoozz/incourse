@@ -270,6 +270,7 @@ class LearningCenterController extends Controller
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
+				 		dump($correctScore);dump($totalScore);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
@@ -375,7 +376,7 @@ class LearningCenterController extends Controller
 		 			$grossScore += $exercise->score;
 		 		}
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		dump($grossScore);dd($exeScore);
+		 		dump($grossScore);dump($exeScore);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
