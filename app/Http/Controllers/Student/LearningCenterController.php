@@ -358,6 +358,7 @@ class LearningCenterController extends Controller
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
 		 		$startAccurary = $exercise_id; //起始值
+		 		dump($startAccurary);
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
