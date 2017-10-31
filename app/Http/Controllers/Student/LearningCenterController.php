@@ -182,7 +182,7 @@ class LearningCenterController extends Controller
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
 						$exercise = Exercises::find($exe_id);
-						$totalScore += $exercise->score / 100;
+						$totalScore += $exercise->score;
 						$userWork = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first();
 						$work_answer = json_decode($userWork->answer, true)['answer'];
 						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {//客观题的正确率
@@ -194,7 +194,7 @@ class LearningCenterController extends Controller
 									'id' => 1,
 									'exe_id' => $exe_id,
 								));
-								$correctScore += $exercise->score / 100;//正确题的分数
+								$correctScore += $exercise->score;//正确题的分数
 							}else{
 								$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 								array_push($data['status'], array(
@@ -378,9 +378,7 @@ class LearningCenterController extends Controller
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
-		 		dump($grossScore);dump($exeScore);
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		dd($accuracy);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
