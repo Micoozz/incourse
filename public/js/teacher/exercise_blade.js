@@ -19,9 +19,14 @@ $(".exer-in-list").each(function(i){
         li.eq(k).find("span.f-l").text(num[k]+"：");
     })
 })
-$(".sort_list").each(function(i){
-    $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
+$(".exer-list-ul").each(function(i,item){
+    $(item).find(".sort_list").find("span.exer-ans-order").each(function(j,span){
+        $(span).text("排序"+num[j]+"：")
+    })
 })
+/*$(".sort_list").each(function(i){
+    $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
+})*/
 //下拉框
 $("body").on("click", ".screen_job .ic-text-exer", function (e) {
     e.stopPropagation();
@@ -128,17 +133,15 @@ $(".viewAnalysis").on("click",function(){
 //我的上传 --> 删除
 $(".delExercise").on("click",function(){
     var id = $(this).parents(".exer-in-list.border").attr("data-id");
-    layui.use("layer",function(){
-        layer.open({
-            type: 1,
-            title: false,
-            closeBtn: 0,
-            shadeClose: true,
-            area: ['700px', '730px'],
-            content: id+"删除",
-            end: function () {}
-        });
-    });
+    $.ajax({
+        url:'',
+        type:'GET',
+        success:function(data){
+            layui.use("layer",function(){
+                layer.msg('删除成功！');
+            });
+        }
+    })
 })
 
 
