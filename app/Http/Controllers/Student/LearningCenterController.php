@@ -253,6 +253,7 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
+						dump($correctScore);dd($errorScore);
 						$correctScore = $correctScore  + $errorScore;
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
 					}else{
