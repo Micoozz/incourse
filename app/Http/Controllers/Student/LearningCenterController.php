@@ -172,7 +172,7 @@ class LearningCenterController extends Controller
 				if ($func == Self::FUNC_WORK_SCORE) {
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
 					$correctScore = 0; //正确题的分数
-					$errorScore = 0; //错误题的分数
+					//$errorScore = 0; //错误题的分数
 					$totalScore = 0;
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
@@ -202,7 +202,6 @@ class LearningCenterController extends Controller
 									'exe_id' =>$exe_id,
 								));
 								$tutorship[] = $exe_id;//做错题，传同类型习题
-								$errorScore += $userWork->score / 100; //错误题的分数
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
 							if($work->status == 2 || $work->status == 3) {
@@ -218,14 +217,12 @@ class LearningCenterController extends Controller
 										'id' => 4,
 										'exe_id' =>$exe_id,
 									));
-									$correctScore += $exercise->score / 100; //正确题的分数
 								}else{
 									$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 									array_push($data['status'], array(
 										'id' => 5,
 										'exe_id' =>$exe_id,
 									));
-									$errorScore += $userWork->score / 100; //错误题的分数
 								}
 							}
 						}
@@ -253,8 +250,6 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						dump($correctScore);dd($errorScore);
-						$correctScore = $correctScore  + $errorScore;
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
 					}else{
 						$sameSecond = 0;
@@ -281,7 +276,6 @@ class LearningCenterController extends Controller
 						$accuracy = round($accuracy, 4);
 					}
 				}
-				dd($accuracy);
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
 		 		$abcList = range("A","Z");
 		 		if ($exercise_id == 1) {
