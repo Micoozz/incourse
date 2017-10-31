@@ -292,7 +292,6 @@
 				}
 			}
 		})
-
 	})
 </script>
 @endsection
