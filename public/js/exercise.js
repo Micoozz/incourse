@@ -1,5 +1,5 @@
 
-var typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题","综合题"];
+var typeString = ["单选题","多选题","填空题","判断题","连线题","排序题","完形填空","画图题","计算题","简答题","解答题","听力题","阅读题","作文题","综合题"],EnglishNum = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"];
 
 /***************** 出题 *******************/
 $(function () {
@@ -373,6 +373,18 @@ $(function () {
                 $(".answer-box .pan-duan .right").parents(".pan-duan").removeClass("wrongActive").addClass("rightActive");
             }else{
                 $(".answer-box .pan-duan .right").parents(".pan-duan").removeClass("rightActive").addClass("wrongActive");
+            }
+        }else if(nT == "排序题"){
+            var num = nD.answer;
+            for(var i = 0; i < num.length; i++){
+                var html = "<div class='radio-wrap pai-xu-option'>"+
+                    "<div class='radio-ipt p-r'>"+
+                        "<span class='p-a'>排序"+EnglishNum[i]+"：</span>"+
+                        "<input class='ic-input' type='text' value='"+num[i]+"'>"+
+                    "</div>"+
+                    "<i class='delete uploadExerIcons'></i>"+
+                "</div>"
+                $(".pai-xu-options").append(html);
             }
         }
     }

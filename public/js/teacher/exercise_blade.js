@@ -19,9 +19,14 @@ $(".exer-in-list").each(function(i){
         li.eq(k).find("span.f-l").text(num[k]+"：");
     })
 })
-$(".sort_list").each(function(i){
-    $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
+$(".exer-list-ul").each(function(i,item){
+    $(item).find(".sort_list").find("span.exer-ans-order").each(function(j,span){
+        $(span).text("排序"+num[j]+"：")
+    })
 })
+/*$(".sort_list").each(function(i){
+    $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
+})*/
 //下拉框
 $("body").on("click", ".screen_job .ic-text-exer", function (e) {
     e.stopPropagation();
