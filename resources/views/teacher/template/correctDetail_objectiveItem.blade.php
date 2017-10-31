@@ -90,13 +90,10 @@
 							@endforeach
 						</div>
 						<div class="f-l subjectiveA">
-							<span class="ic-blue f-l">学生答案：</span>
+							<span class="ic-blue f-l">批注：</span>
 							<span class="answer_module">
-								@foreach($exercise->student_answer as $answer)
-									<span class="black_answer f-l">批注{{$loop->index+1}}、{!!$answer!!}</span>
-								@endforeach
-								@foreach($exercise->student_answer as $answer)
-									<span class="black_answer f-l">批注{{$loop->index+1}}、{!!$answer!!}</span>
+								@foreach($exercise->correct as $postil)
+									<span class="black_answer f-l">{{$loop->index+1}}、{!!$postil!!}</span>
 								@endforeach
 							</span>
 						</div>
