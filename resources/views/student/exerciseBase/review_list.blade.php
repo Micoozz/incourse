@@ -19,7 +19,7 @@
 						<div class="SectionList-title sectionTitle">
 							<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
 							<div class="title-content"><span>
-								<a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $chapter['id'] }}/1">{{ $chapter['title'] }}(已做题{{ $chapter['exeCount'] }}题)</a>
+								<a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $chapter['id'] }}/1">{{ $chapter['title'] }}<small class="finishWorks">(已做题&nbsp;{{ $chapter['exeCount'] }}&nbsp;题)</small></a>
 							</span></div>
 							@if($type_id == 3)
 							<span class="title-bar">
@@ -28,7 +28,7 @@
 							@else
 							<div class="sectionAllSubject">
 								<span class="allSubject">共<span>{{ $chapter['count'] }}</span>题</span>
-								<span class="thisGrade">分数：<span>无</span></span>
+								<!-- <span class="thisGrade">分数：<span>无</span></span> -->
 							</div>
 							@endif
 						</div>
@@ -44,7 +44,7 @@
 							@foreach($chapter['minutia'] as $key=>$minutia)
 							<li data-son-id="{{$minutia['id']}}">
 								<b class="chapterIcon ic-blue-bg fff">{{$loop->iteration}}</b>
-								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }}(已做题{{ $minutia['exeCount'] }}题)</a></span></div>
+								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }}<small class="finishWorks">(已做题&nbsp;{{ $minutia['exeCount'] }}&nbsp;题)</small></a></span></div>
 								@if($type_id == 3)
 								<span class="title-bar">
 									<span><b>70%<i></i></b></span>

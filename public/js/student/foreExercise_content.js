@@ -2,7 +2,7 @@ var Stime = 0;
 var Mtime = 0;
 var NStime,NMtime = "00";
 var isT = true;
-var arr = JSON.parse($(".right_a").attr("data-r"));
+var arr = JSON.parse($(".right_a").attr("data-r")?$(".right_a").attr("data-r"):'[]');
 var Nowt = window.setInterval(function(){
     Stime++;
     if(Stime>=60){

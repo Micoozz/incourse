@@ -109,7 +109,7 @@
         width: 100%;
         height: 50px;
         line-height: 50px;
-        font-size: 18px;
+        font-size: 20px;
         color: #168bee;
         margin: 100px auto 0;
         text-align: center;
@@ -143,6 +143,16 @@
     .error_Img{
         background-position:-68px -50px;
     }
+    .isNullData-finish {
+        margin-right: 8px;
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        overflow: hidden;
+        background-image: url(/images/uploadExerIcons.png);
+        background-position: -22px -86px;
+        vertical-align: middle;
+    }
 </style>
 @section('CSS:OPTIONAL')
 @endsection
@@ -154,9 +164,9 @@
     <!--中间内容-->
     <div class="f-l do-hw">
         @if(empty($data))
-            <div class="noData">该章节的错题都已经答对。</div>
+            <div class="noData"><span><span data-answer-num="1" class="isNullData-finish"></span>该小节的题目您已全部答完！</span></div>
             <div class="goBackBtn">
-                <button class="answer_btn" id="goBack" onclick="window.history.go(-1)">返回</button>
+                <button class="answer_btn btn-white" id="goBack" onclick="window.history.go(-1)">返回</button>
             </div>
         @else
         <div class="p-r view">
