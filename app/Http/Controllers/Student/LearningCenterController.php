@@ -179,7 +179,6 @@ class LearningCenterController extends Controller
 					$data['modifyCount'] = 0;
 					$data['sameCount'] = 0;
 					$data['sameErrorScore'] = 0;
-					$modifyScore = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
 						$exercise = Exercises::find($exe_id);
@@ -206,7 +205,6 @@ class LearningCenterController extends Controller
 								$errorScore += $userWork->score / 100; //错误题的分数
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
-							$modifyScore +=  $exercise->score / 100;
 							if($work->status == 2 || $work->status == 3) {
 								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
@@ -221,7 +219,6 @@ class LearningCenterController extends Controller
 										'exe_id' =>$exe_id,
 									));
 									$correctScore += $exercise->score / 100; //正确题的分数
-
 								}else{
 									$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 									array_push($data['status'], array(
