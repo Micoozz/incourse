@@ -238,9 +238,9 @@ class TeachingCenterController extends TeacherController
 //          else{
 //              
 //          }
-            if($work_info->status = 1){
+            if($work_info->status == 1){
                 array_push($data['un_correct'],$exercise);
-            }elseif($work_info->status = 2){
+            }elseif($work_info->status == 2){
                 array_push($data['done_correct'],$exercise);
             }
         }
