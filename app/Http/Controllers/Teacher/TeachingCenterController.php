@@ -220,12 +220,12 @@ class TeachingCenterController extends TeacherController
             $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
             $exercise->score = $exercise->score/100;
-            $exercise->student_answer = json_decode($db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first()->answer,TRUE)["answer"];
+            $work_info = $db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first();
+            $exercise->student_answer = json_decode($work_info->answer,TRUE)["answer"];
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = $exercise->hasManySubjective->first();
                 $exercise->subject = $subjective->subject;
                 $exercise->answer = array('自由发挥');
-                array_push($data['subjective'],$exercise);
             }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
                 $objective = $exercise->hasManyObjective->first();
                 $exercise->subject = $objective->subject;
@@ -234,11 +234,15 @@ class TeachingCenterController extends TeacherController
                 if($exercise->categroy_id == Exercises::CATE_FILL){
                     $exercise->student_answer = json_encode($exercise->student_answer,JSON_UNESCAPED_UNICODE);
                 }
-                array_push($data['objective'],$exercise);
             }
 //          else{
 //              
 //          }
+            if($work_info->status = 1){
+                array_push($data['un_correct'],$exercise);
+            }elseif($work_info->status = 2){
+                array_push($data['done_correct'],$exercise);
+            }
         }
         return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id'));
     }
@@ -796,6 +800,8 @@ class TeachingCenterController extends TeacherController
         $student_id = $input['student_id'];
         $baseNum = (int)($student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
+        $status = true;
+        $work = Work::find($input['work_id']);
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
@@ -805,8 +811,16 @@ class TeachingCenterController extends TeacherController
             $score = empty($item['score']) ? 0 :intval($item['score']);
             $correct = empty($item['data']) ? null : json_encode($item['data'],JSON_UNESCAPED_UNICODE);
             if($score != -1){
-                $stu_answer_info = $db->table($student_id)->where(['work_id' => $input['work_id'],'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => array($item['student_answer'])), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
+                $stu_answer_info = $db->table($student_id)->where(['work_id' => $work->id,'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => array($item['student_answer'])), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
+                $work->status = Work::STATUS_CORRECTING;
+                $work->save();
+            }else{
+                $status = false;
             }
+        }
+        if($status){
+            $work->status = Work::STATUS_CORRECT_DONE;
+            $work->save();
         }
         return json_encode(['code' => $code]);
     }
