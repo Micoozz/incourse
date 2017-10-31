@@ -361,7 +361,7 @@ $(function () {
             }
         }else if(nT == "填空题"){
             for(var i = 0;i< nD.answer.length;i++) {
-                html = "<div class='blank-answer p-r'>" +
+                html = "<div class='blank-answer p-r' data_blank_answer_num='"+(i+1)+"'>" +
                     "<span>答案" + (i+1) + "：</span>" +
                     "<input type='text' value='"+nD.answer[i]+"'>" +
                     "</div>";
