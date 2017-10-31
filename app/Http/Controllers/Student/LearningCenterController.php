@@ -280,6 +280,7 @@ class LearningCenterController extends Controller
 						$accuracy = round($accuracy, 4);
 					}
 				}
+				dd($accuracy);
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
 		 		$abcList = range("A","Z");
 		 		if ($exercise_id == 1) {
