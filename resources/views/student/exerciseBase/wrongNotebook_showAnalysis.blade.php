@@ -215,7 +215,7 @@
 
 		<!--单选题-->
 		<div>
-			<p>正确答案是<b class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
+			<p>正确答案是<b class="bj-green right_A" data-a="{{ json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE) }}">
 				@if($analysis['categroy_id'] == 3)
 					{{ implode(',',$analysis['answer']) }}
 				@endif
