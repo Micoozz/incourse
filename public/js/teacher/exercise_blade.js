@@ -24,9 +24,6 @@ $(".exer-list-ul").each(function(i,item){
         $(span).text("排序"+num[j]+"：")
     })
 })
-/*$(".sort_list").each(function(i){
-    $(".sort_list").eq(i).find("span").text("排序"+num[i]+"：")
-})*/
 //下拉框
 $("body").on("click", ".screen_job .ic-text-exer", function (e) {
     e.stopPropagation();
@@ -115,7 +112,7 @@ $(".sameExercise").on("click",function(){
 })
 
 //我的上传 --> 查看解析
-$(".viewAnalysis").on("click",function(){
+/*$(".viewAnalysis").on("click",function(){
     var id = $(this).parents(".exer-in-list.border").attr("data-id");
     layui.use("layer",function(){
         layer.open({
@@ -128,17 +125,24 @@ $(".viewAnalysis").on("click",function(){
             end: function () {}
         });
     });
-})
+})*/
 
 //我的上传 --> 删除
 $(".delExercise").on("click",function(){
     var id = $(this).parents(".exer-in-list.border").attr("data-id");
+    var that = this;
     $.ajax({
         url:'',
         type:'GET',
         success:function(data){
             layui.use("layer",function(){
                 layer.msg('删除成功！');
+            });
+            $(that).parents(".jobList").remove();
+        },
+        error:function(){
+            layui.use("layer",function(){
+                layer.msg('删除失败！');
             });
         }
     })

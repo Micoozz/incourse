@@ -17,7 +17,7 @@
 .SectionListTitle .sectionTitle{
 	height: 30px;
 	line-height: 30px;
-	padding: 0 30px;
+	padding: 0 0 0 30px;
 	position: relative;
 	cursor: pointer;
 }
@@ -41,7 +41,7 @@
 	float: left;
 }
 .title-bar{
-	width: 140px;
+	width: 120px;
 	float: right;
 	height: 6px;
 	margin-top: 13px;
@@ -106,7 +106,7 @@
 .chapterList li{
 	margin: 15px 0;
 	height: 60px;
-	padding: 0 30px;
+	padding:0 0 0 30px;
 	position: relative;
 }
 .chapterIcon{
@@ -141,7 +141,7 @@
 }
 .wrongClick{
 	float: right;
-	width: 140px;
+	width: 120px;
 	text-align: left;
 	line-height: 30px;
 	cursor: pointer;
@@ -161,7 +161,7 @@
 	cursor: default!important;
 }
 .sectionAllSubject{
-	min-width: 140px;
+	min-width: 120px;
     float: right;
     height: 30px;
     line-height: 30px;
@@ -173,4 +173,8 @@
 	height: 30px;
 	display: block;
 	line-height: 30px;
+}
+.finishWorks{
+	color: #333;
+	margin-left: 10px;
 }

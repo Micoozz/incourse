@@ -159,7 +159,7 @@
             @endforeach
         </div>
 
-        <button class="btn-white btn-center">返 回</button>
+        <button class="btn-white btn-center" onclick="window.history.go(-1)">返 回</button>
     </div>
 </div>
 @endsection

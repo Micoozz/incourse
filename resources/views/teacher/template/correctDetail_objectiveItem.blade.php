@@ -1,5 +1,5 @@
 <div class="exer-list">
-	@foreach($data['objective'] as $exercise)
+	@foreach($data['done_correct'] as $exercise)
 		<div class="exer-in-list border" data-id="{{$exercise->id}}">
 			<div class="exer-head">
 				<span class="exer-type-list">{!!$exercise->cate_title!!}</span>
@@ -77,6 +77,25 @@
 									<span class="gray pan-duan-answ">{{$exercise->answer[0] == 1? '正确':'错误'}}</span>
 								</li>
 							</ul>
+						</div>
+					</div>
+				@elseif($exercise->categroy_id == 10 || $exercise->categroy_id == 11)
+					<!--主观题-->
+					<div class="clear answer-box checked_work"></div>
+					<div class="exer-foot clear">
+						<div class="f-l subjectiveA">
+							<span class="ic-blue">学生答案：</span>
+							@foreach($exercise->student_answer as $answer)
+								<span class="black_answer">{!!$answer!!}</span>
+							@endforeach
+						</div>
+						<div class="f-l subjectiveA">
+							<span class="ic-blue f-l">批注：</span>
+							<span class="answer_module">
+								@foreach($exercise->correct as $postil)
+									<span class="black_answer f-l">{{$loop->index+1}}、{!!$postil!!}</span>
+								@endforeach
+							</span>
 						</div>
 					</div>
 				@endif

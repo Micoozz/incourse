@@ -427,7 +427,7 @@ class ExerciseBookController extends Controller
         }else{
             $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');//查询这个学生的所有的错题
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')
-            ->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
+            ->where(['chapter_id' => $chapter_id, 'exe_type' => 1, 'categroy_id' => 4])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
         }
         if(!empty($chapterExercises)) {
             $categroy = Category::find($chapterExercises->categroy_id);

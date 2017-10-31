@@ -193,7 +193,7 @@ class TeachingCenterController extends TeacherController
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $work_list = Work::where('job_id',$job_id)->paginate(10);
+        $work_list = Work::where(['job_id' => $job_id,'status' => Work::STATUS_SUB])->paginate(10);
         foreach($work_list as $work){
             $student = Student::find($work->student_id);
             $work->student_name = $student->name;
@@ -207,7 +207,7 @@ class TeachingCenterController extends TeacherController
         $work = Work::find($work_id);
         $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
         $student = Student::find($work->student_id);
-        $data = array('student' => $student,'objective' => [],'subjective' => []);
+        $data = array('student' => $student,'un_correct' => [],'done_correct' => []);
         $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -222,6 +222,7 @@ class TeachingCenterController extends TeacherController
             $exercise->score = $exercise->score/100;
             $work_info = $db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first();
             $exercise->student_answer = json_decode($work_info->answer,TRUE)["answer"];
+            $exercise->correct = json_decode($work_info->correct,true);
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = $exercise->hasManySubjective->first();
                 $exercise->subject = $subjective->subject;
@@ -238,9 +239,9 @@ class TeachingCenterController extends TeacherController
 //          else{
 //              
 //          }
-            if($work_info->status = 1){
+            if($work_info->status == 1){
                 array_push($data['un_correct'],$exercise);
-            }elseif($work_info->status = 2){
+            }elseif($work_info->status == 2){
                 array_push($data['done_correct'],$exercise);
             }
         }
@@ -777,7 +778,7 @@ class TeachingCenterController extends TeacherController
                 $work->job_id = $job->id;
                 $work->course_id = $job->course_id;
                 $work->score = 0;
-                $work->status = 0;
+                $work->status = Work::STATUS_OPEN;
                 $work->start_time = 0;
                 $work->sub_time = 0;
                 $work->save();
