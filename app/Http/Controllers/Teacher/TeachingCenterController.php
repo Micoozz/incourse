@@ -207,7 +207,7 @@ class TeachingCenterController extends TeacherController
         $work = Work::find($work_id);
         $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
         $student = Student::find($work->student_id);
-        $data = array('student' => $student,'objective' => [],'subjective' => []);
+        $data = array('student' => $student,'un_correct' => [],'done_correct' => []);
         $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -777,7 +777,7 @@ class TeachingCenterController extends TeacherController
                 $work->job_id = $job->id;
                 $work->course_id = $job->course_id;
                 $work->score = 0;
-                $work->status = 0;
+                $work->status = Work::STATUS_OPEN;
                 $work->start_time = 0;
                 $work->sub_time = 0;
                 $work->save();
