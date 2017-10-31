@@ -360,7 +360,7 @@ class LearningCenterController extends Controller
 		 	}else if ($func == Self::FUNC_WORK_TUTORSHIP) {//查询出同类型习题的
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
-		 		$startAccurary = $exercise_id;
+		 		$startAccurary = $exercise_id; //起始值
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -371,17 +371,16 @@ class LearningCenterController extends Controller
 		 		$grossExercise = $db->table($user->id)->select('score')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
 		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id', null)->get();//算出所有的作业的所有题
 		 		foreach ($exerciseCount as $exe) {//作业的所有的分数
-		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score; 
+		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score;
+
 		 		}//查询所有的作业以及同类型练习加起来的分数
+		 		//dump($exeScore);
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
+		 		dump($grossScore);dump($exeScore);
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		if(is_int($accuracy)){
-					$accuracy = $accuracy;
-				}else{
-					$accuracy = round($accuracy,4);
-				}
+		 		dd($accuracy);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
