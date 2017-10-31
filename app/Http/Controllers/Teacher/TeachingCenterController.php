@@ -222,6 +222,7 @@ class TeachingCenterController extends TeacherController
             $exercise->score = $exercise->score/100;
             $work_info = $db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first();
             $exercise->student_answer = json_decode($work_info->answer,TRUE)["answer"];
+            $exercise->correct = json_decode($work_info->correct,true);
             if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
                 $subjective = $exercise->hasManySubjective->first();
                 $exercise->subject = $subjective->subject;
