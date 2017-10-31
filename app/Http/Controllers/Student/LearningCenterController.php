@@ -176,7 +176,7 @@ class LearningCenterController extends Controller
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
-					$data['sameCount'] = 0
+					$data['sameCount'] = 0;
 					$data['sameErrorScore'] = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
@@ -374,7 +374,6 @@ class LearningCenterController extends Controller
 		 			$grossScore += $exercise->score;
 		 		}
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		dump($grossScore);dump($exeScore);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
