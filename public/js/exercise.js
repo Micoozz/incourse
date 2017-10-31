@@ -672,7 +672,7 @@ $(function () {
         var allExer = uploadExer();  //保存需要上传的题目
         allExer._token = token;
         if(id != ""){
-            allExer.exercise.exe_id=id;
+            allExer.exercise[0].exe_id=id;
         }
         console.log(allExer)
         //判断题目是否漏填

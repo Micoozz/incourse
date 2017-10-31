@@ -172,17 +172,22 @@
 		<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/student/fileSelectionone.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
-		<script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
+		@if($mod == 'homework')
+			@if($func == 'work_tutorship' || $func == 'work_score')
+				<script src="{{asset('js/toCanvas.js')}}" charset="utf-8"></script>
+			@endif
+		@endif
 		<script>
-			var token = "{{csrf_token()}}";
-			var func = "{{ isset($func) ? $func : ''}}";
 			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
-			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			var startAccurary = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
-			console.log(startAccurary);console.log(accuracy);
+			var token = "{{csrf_token()}}";
+			var func = "{{ isset($func) ? $func : ''}}";
+			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			$(function() {
-				toCanvas('canvas',parseInt(startAccurary),accuracy);
+				if(func == 'work_tutorship' || func == 'work_score'){
+					toCanvas('canvas',parseInt(startAccurary),10.55);
+				}
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
@@ -323,18 +328,15 @@
 			$('.questions .question-option .blank-item').each(function(i){
 				$(this).text($('.proper>div:nth-of-type(3) .red').text().split(',')[i])
 				if($(this).text().replace(/\s/g,'')!=$('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i].replace(/\s/g,'')){
-					console.log($('.proper>div:nth-of-type(3) .exactitude').text().split(',')[i])
 					$(this).css('color','red')
 				}
 			});
-			console.log('a')
 			$('.proper>div:nth-of-type(3) .red span:last-child').text($('.proper>div:nth-of-type(3) .red span:last-child').text().substr(0,$('.proper>div:nth-of-type(3) .red span:last-child').text().length-1));
 		}
 
 		//显示所有的
 		//跳转到同类型习题页面
 		var sessionStorageJson=JSON.parse(window.sessionStorage.getItem("skip"));
-		console.log(sessionStorageJson);
 		if (func == "work_tutorship") {
 			var sameSkip = $(".submits").attr("error-exercise");
 			if(!sessionStorageJson){

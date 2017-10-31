@@ -9,6 +9,7 @@
         height: auto;
         overflow: hidden;
         position: relative;
+        width: 998px;
     }
     .do-hw .p-r.view{
         height: auto;
@@ -110,12 +111,37 @@
         line-height: 50px;
         font-size: 18px;
         color: #168bee;
-        margin: 0 auto;
+        margin: 100px auto 0;
+        text-align: center;
     }
     .goBackBtn{
         width: 100%;
         height: 28px;
         margin-top: 20px;
+        position: relative;
+    }
+    #goBack{
+        position: absolute;
+        left: 50%;
+        margin-left: -24px;
+    }
+    .f-l.TOrF_img{
+        margin-top: 0;
+    }
+    .TOrF_img_title{
+        margin-left: 10px;
+    }
+    .TOrF_img.right_Img.active{
+        background-position: -22px -86px;
+    }
+    .TOrF_img.error_Img.active{
+        background-position: -70px -86px;
+    }
+    .right_Img{
+        background-position: -20px -50px;
+    }
+    .error_Img{
+        background-position:-68px -50px;
     }
 </style>
 @section('CSS:OPTIONAL')
@@ -130,7 +156,7 @@
         @if(empty($data))
             <div class="noData">该章节的错题都已经答对。</div>
             <div class="goBackBtn">
-                <button class="answer_btn" id="goBack">返回</button>
+                <button class="answer_btn" id="goBack" onclick="window.history.go(-1)">返回</button>
             </div>
         @else
         <div class="p-r view">
@@ -138,7 +164,6 @@
                 <ul class="ic-inline exercise-box">
                     <li data-id="{{$data[0]['id']}}" class="exer-in-list dan-xuan-only" data-score="{{ $data[0]['score'] }}">
                         <div class="clear hw-question">
-                            <i class="student_icons query"></i>
                             <span class="ic-blue">（2016 华东师大）（
                                 <span class="do-hw-type">{{$data[0]['categroy_title']}}</span>
                                 ）</span>
@@ -161,6 +186,25 @@
                                 </ul>
                             @elseif($data[0]['categroy_id'] == 3)
                                 <!--填空题，多空题-->
+                            @elseif($data[0]['categroy_id'] == 4)
+                                <!-- 判断题 -->
+                                <ul class="exer-list-ul">
+                                    <li>
+                                        <span data-answer-num="1" class="f-l TOrF_img right_Img"></span>
+                                        <span class="TOrF_img_title">正确</span>
+                                    </li>
+                                    <li>
+                                        <span data-answer-num="0" class="f-l TOrF_img error_Img"></span>
+                                        <span class="TOrF_img_title">错误</span>
+                                    </li>
+                                </ul>
+                            @elseif($data[0]['categroy_id'] == 6)
+                                <!-- 排序题 -->
+                                <ul class="exer-list-ul" id="simpleList">
+                                    @foreach($data[0]['options'] as $option)
+                                    <li data-key='{{key($option)}}'><span class="sortTitle">排序{{$abcList[$loop->index]}}</span><span>：</span><span class="TOrF_img_title">{{$option[key($option)]}}</span></li>
+                                    @endforeach
+                                </ul>
                             @endif
                         </div>
                     </li>
@@ -201,7 +245,7 @@
                 <div class="answerResultModule">
                     <p>
                         <span class="span_br">正确答案是：<span class="green right_a" data-r="{{ json_encode($data[0]['answer']['answer'],JSON_UNESCAPED_UNICODE) }}">{{ $data[0]["categroy_id"] == 3? implode(',',$data[0]['answer']['answer']) : '' }}</span>，您的答案是：<span class="red user_answer"></span>，回答<span class="red isRight"></span>。作答用时<span class="expend_time"></span></span>
-                        <span class="span_br">本体<span class="red">得分率</span>：68%，<span class="red">易错项</span>：B</span>
+                        <!-- <span class="span_br">本体<span class="red">得分率</span>：68%，<span class="red">易错项</span>：B</span> -->
                         <span class="span_br">解析：无</span>
                         <span class="span_br">来源：2017年湖南工程学院初中毕业升学考试：第三章语病解析与修改，第四题。</span>
                     </p>
@@ -222,182 +266,12 @@
 @endsection
 
 @section('JS:OPTIONAL')
+<script src="/js/Sortable.min.js"></script>
 <script type="text/javascript">
-$(function(){
     var type = '{{isset($data[0]["categroy_id"]) ? $data[0]["categroy_id"] : ""}}';
-    var Stime = 0;
-    var Mtime = 0;
-    var NStime,NMtime = "00";
     var urlId = "{{isset($data[0]['id']) ? $data[0]['id'] : ''}}";
     var token = "{{ csrf_token()}}";
-    var isT = true;
     var typeId = "{{ $type_id }}";
-    var arr = JSON.parse($(".right_a").attr("data-r"));
-    var Nowt = window.setInterval(function(){
-        Stime++;
-        if(Stime>=60){
-            Stime = 0;
-            Mtime++;
-            if(Mtime<10){
-                NMtime = '0'+Mtime;
-            }else{
-                NMtime = Mtime;
-            }
-        }
-        if(Stime<10){
-            NStime = "0" + Stime;
-        }else{
-            NStime = Stime;
-        }
-        if(NMtime>60){
-            alert("您已超时");
-            window.clearInterval(Nowt);
-        }
-        $(".time-string").text(NMtime+":"+NStime)
-    }, 1000)
-    var ENnum = ['A','B','C','D','E','F','G','H','I'];
-    var nt = '';
-    var narr = [],optionsArr = [],student_answer_arr=[];
-    if(type != 3){
-        for(var i = 0;i < $(".ic-radio").length;i++){
-            var isThat = $(".ic-radio").eq(i);
-            optionsArr.push($(isThat).parent().find(".option").attr("data-key"))
-            var clar = $(isThat).find("i").attr("data-answer");
-            if(clar){
-                nt += '，'+$(isThat).find("input").val();
-            }
-        }
-        $(".right_a").text(nt.slice(1, nt.length));
-    }
-    $("#ensure").on("click",function(){
-        window.clearInterval(Nowt);
-        var tt = '';
-        if(Mtime<=0){
-            tt = Stime+'秒'
-        }else{
-            tt = Mtime+'分'+Stime+'秒'
-        }
-        $(".expend_time").text(tt)
-        var ut = '';
-        var student_t;
-        var obj = {};
-        var studennt_score = 0;
-        if(type == 1 || type == 2){
-            //单选题 || 多选题
-            for(var j = 0;j<$(".ic-radio").length;j++){
-                var that = $(".ic-radio").eq(j);
-                var cla = $(that).find("i").attr("data-answer");
-                var cls = $(that).find("i").attr("data-s");
-                if(cla){
-                    narr.push($(that).find("input").val());
-                    $(that).find("i").addClass(cla + " fa-dot-circle-o");
-                }else if(cls){
-                    $(that).find("i").addClass(cls + " fa-dot-circle-o");
-                }
-                if(cls){
-                    student_t = $(".ic-radio").eq(j).next("span.f-l").text().slice(0,1)
-                    ut += '，' + student_t;
-                    if(narr.indexOf(student_t)<0){
-                        isT = false;
-                    }
-                    student_answer_arr.push($(that).parent().find(".option").attr("data-key"))
-                }
-            }
-            obj = {
-                "exe_id":urlId,
-                "student_answer":student_answer_arr,
-                "second":(Mtime*60+Stime),
-                "sort":optionsArr,
-                "_token":token
-            }
-        }else if(type == 3){
-            //填空题
-            for(var j = 0;j<$(".blank-item").length;j++){
-                student_t = $(".blank-item").eq(j).text();
-                if(student_t == "空" + (j+1)){
-                    student_t = '';
-                }
-                ut += '，'+student_t;
-                if(arr.indexOf(student_t)<0){
-                    isT = false;
-                }
-                student_answer_arr.push(student_t);
-            }
-            obj = {
-                "exe_id":urlId,
-                "student_answer":student_answer_arr,
-                "second":(Mtime*60+Stime),
-                "_token":token
-            }
-        }
-        $(".user_answer").text(ut.slice(1, ut.length));
-        if(isT){
-            $(".isRight").text("正确").removeClass("red").addClass("green");
-            $(".user_answer").removeClass("red").addClass("green");
-            studennt_score = $(".exer-in-list").attr("data-score");
-            if(typeId==3){
-                $.ajax({
-                    url:'/correctExercise/'+urlId,
-                    type:'GET',
-                    success:function(){}
-                })
-            }
-        }else{
-            $(".isRight").text("错误");
-        }
-        $(this).css({display:"none"});
-        $("#go_on").css({display:"block"});
-        $(".answerResultModule").animate({height:'300px',opacity:1},500);
-        obj.score = studennt_score;
-        if(typeId!=3){
-            $.ajax({
-                url: '/addWorkExercise',
-                type:'POST',
-                data:obj,
-                success:function(data){}
-            })
-        }
-    })
-    $("body").on("click",".radio-wrap li",function(){
-        var that = $(this).find("i");
-        answerChecked(that,type)
-    })
-    function answerChecked(obj,type){
-        if(type == 1){
-            //单选题
-            $(".ic-radio.p-r.f-l i").removeClass("active fa-dot-circle-o").addClass("fa-circle-o");
-            $(obj).removeClass("fa-circle-o").addClass("active fa-dot-circle-o");
-            $(".ic-radio.p-r.f-l i").attr("data-s",null);
-            $(obj).attr("data-s",'student_answer');
-        }else if(type == 2){
-            //多选题
-            $(obj).toggleClass("active fa-dot-circle-o");
-            if($(obj).hasClass("active")){
-                $(obj).attr("data-s",'student_answer');
-            }else{
-                $(obj).attr("data-s",null);
-            }
-        }else if(type == 3){
-            //填空题，多空题
-        }else if(type == 4){
-            //判断题
-        }else if(type == 5){
-            //排序题
-        }
-    }
-    $(".blank-item").click(function(){
-        var index = $(this).index();
-        var t = "空"+(1+index);
-        if($(this).text() == t){
-            $(this).text('');
-        }
-    })
-    $("#go_on").on("click",function(){
-        window.location.reload()
-    })
-    $("#goBack").on("click",function(){
-        window.history.go(-1);
-    })
-})
 </script>
+<script src="/js/student/foreExercise_content.js"></script>
 @endsection

@@ -128,17 +128,15 @@ $(".viewAnalysis").on("click",function(){
 //我的上传 --> 删除
 $(".delExercise").on("click",function(){
     var id = $(this).parents(".exer-in-list.border").attr("data-id");
-    layui.use("layer",function(){
-        layer.open({
-            type: 1,
-            title: false,
-            closeBtn: 0,
-            shadeClose: true,
-            area: ['700px', '730px'],
-            content: id+"删除",
-            end: function () {}
-        });
-    });
+    $.ajax({
+        url:'',
+        type:'GET',
+        success:function(data){
+            layui.use("layer",function(){
+                layer.msg('删除成功！');
+            });
+        }
+    })
 })
 
 

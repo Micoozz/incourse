@@ -2,6 +2,71 @@
 
 @section('CSS:OPTIONAL')
 <link rel="stylesheet" href="/css/school/step.css" />
+<style type="text/css">
+	.addInfo .terrace-form {
+		margin-top: 0;
+	}
+	.myForm table .sexuality>td {
+		width: 140px;
+	}
+	.myForm table .email-box>td {
+		text-align: left;
+		width: 64px;
+		display: inline-block;
+		height: 45px;
+	}
+	.class-box,
+	.achieve {
+		width: 638px;
+		height: 238px;
+		background-color: #fff;
+		border-radius: 4px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -115px 0 0 -300px;
+		z-index: 1000;
+		display: none;
+	}
+	.achieve {
+		width: auto;
+		height: auto;
+		padding: 10px;
+		background: url("/images/school/right.png") no-repeat;
+		background-position: 10px 10px;
+		background-size: 15px;
+		text-indent: 21px;
+		top: 60%;
+		left: 80%;
+		background-color: #fff;
+	}
+	.class-box button {
+		position: absolute;
+		bottom: 0;
+		right: 5%;
+	}
+	.myForm .submit {
+		position: absolute;
+		left: 45%;
+	}
+	.myForm table .account td {
+		width: 65px;
+		text-align: left;
+		display: inline-block;
+		line-height: 30px;
+	}
+	.myForm table .account {
+		margin-top: 20px;
+		display: block;
+	}
+	.myForm table .account td select {
+		outline: none;
+		width: 141px;
+		height: 28px;
+		border: 1px solid #D9D9D9;
+		border-radius: 4px;
+	}
+</style>
 @endsection
 
 @section('CLIENT')

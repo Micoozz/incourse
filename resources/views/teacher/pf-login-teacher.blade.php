@@ -6,22 +6,18 @@
 	.addInfo .terrace-form {
 		margin-top: 0;
 	}
-	
 	.myForm table .sexuality>td {
 		width: 140px;
 	}
-	
 	.myForm table .email-box>td {
 		text-align: left;
 		width: 64px;
 		display: inline-block;
 		height: 45px;
 	}
-	
 	.myForm table .account .p-r {
 		width: 115px;
 	}
-	
 	.class-box,
 	.achieve {
 		width: 480px;
@@ -35,12 +31,10 @@
 		z-index: 1000;
 		display: none;
 	}
-	
 	.class-box>div {
 		height: 30%;
 		text-align: left;
 	}
-	
 	.class-box>div:first-child {
 		width: 29px;
 		overflow: hidden;
@@ -49,21 +43,18 @@
 		margin-right: 10px;
 		position: relative;
 	}
-	
 	.class-box>div:first-child>img {
 		margin-left: -107px;
 		margin-top: 5px;
 		cursor: pointer;
 	}
-	
 	.class-box>div:nth-of-type(2) {
 		margin-left: 60px;
 		margin-top: 45px;
-		background: url(/images/232029369033102916.png) no-repeat;
+		background: url("/images/232029369033102916.png") no-repeat;
 		background-size: 22px;
 		text-indent: 35px;
 	}
-	
 	.class-box>div:nth-of-type(3) {
 		border-top: 1px solid #D9D9D9;
 		margin-left: 40px;
@@ -71,17 +62,15 @@
 		padding-top: 20px;
 		margin-top: 30px;
 	}
-	
 	.class-box>div:nth-of-type(3)>div:last-child {
 		font-size: 12px;
 		color: #ccc;
 	}
-	
 	.achieve {
 		width: auto;
 		height: auto;
 		padding: 10px;
-		background: url(/images/school/right.png) no-repeat;
+		background: url("/images/school/right.png") no-repeat;
 		background-position: 10px 10px;
 		background-size: 15px;
 		text-indent: 21px;
@@ -89,30 +78,25 @@
 		left: 80%;
 		background-color: #fff;
 	}
-	
 	.class-box button {
 		position: absolute;
 		bottom: 0;
 		right: 5%;
 	}
-	
 	.myForm .submit {
 		position: absolute;
 		left: 45%;
 	}
-	
 	.myForm table .account td {
 		width: 65px;
 		text-align: left;
 		display: inline-block;
 		line-height: 30px;
 	}
-	
 	.myForm table .account {
 		margin-top: 20px;
 		display: block;
 	}
-	
 	.myForm table .account td select,
 	.myForm table .account td input {
 		outline: none;
@@ -122,7 +106,6 @@
 		border-radius: 4px;
 	}
 	/*键盘*/
-	
 	.keyset>div>div>span {
 		display: inline-block;
 		text-align: center;
@@ -135,7 +118,6 @@
 		border-radius: 5px;
 		cursor: pointer;
 	}
-	
 	.keyset>div>div>span:hover {
 		outline: none;
 		background-color: #fff;
@@ -143,14 +125,12 @@
 		color: #168bee;
 		box-shadow: 0 0 4px #168bee;
 	}
-	
 	.myForm table .account .keyset {
 		width: 535px;
 		background-color: #fff;
 		display: none;
 		margin-top: 20px;
 	}
-	
 	.myForm table .add td {
 		text-align: left!important;
 		text-indent: 35px;
@@ -161,7 +141,6 @@
 	.input-box input {
 		width: 90px!important;
 	}
-	
 	.myForm table .account .remove {
 		width: 27px;
 		overflow: hidden;
@@ -169,11 +148,9 @@
 		cursor: pointer;
 		height: 28px;
 	}
-	
 	.myForm table .account:first-child .remove {
 		display: none;
 	}
-	
 	.myForm .remove img {
 		margin-left: -65px;
 		margin-top: -48px;
