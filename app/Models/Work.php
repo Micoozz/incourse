@@ -9,7 +9,8 @@ class Work extends Model
     //
     const STATUS_OPEN = 1;
     const STATUS_SUB = 2;
-    const STATUS_CORRECT = 3;
+    const STATUS_CORRECTING = 3;
+    const STATUS_CORRECT_DONE = 4;
 
     public $timestamps = false;
 
