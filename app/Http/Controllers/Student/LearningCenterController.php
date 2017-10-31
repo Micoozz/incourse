@@ -459,6 +459,7 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
+    	$score = 0;
     	$work_score = 0;
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
@@ -491,11 +492,9 @@ class LearningCenterController extends Controller
         foreach ($input['data'] as $answer) {
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
-        		$score = 0;
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-        		$score = 0;
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
         		$standard = json_decode($objective->answer, true);
