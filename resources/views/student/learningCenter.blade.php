@@ -178,7 +178,7 @@
 			@endif
 		@endif
 		<script>
-			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+			var accuracy = "{{ isset($accuracy) ? $accuracy : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			var startAccurary = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
 			var token = "{{csrf_token()}}";
