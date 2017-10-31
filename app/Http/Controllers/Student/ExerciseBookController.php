@@ -70,11 +70,10 @@ class ExerciseBookController extends Controller
         $lastTerm = strtotime($time.'-'."08-01");//获取上学期的时间
         $semesterTime = time(); // 现在的时间戳
         if (time() >$lastTerm){
-            //今年上学期的作业
-           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->get()->pluck('id');
+           $jobs = Job::where('course_id', $course)->where('pub_time', '>', $lastTerm)->get()->pluck('id');//今年上学期的作业
         }else{
-            //今年下学期的作业
-            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');
+            $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)//今年下学期的作业
+            ->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');
         }
         if ($type_id == 1) {
             $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
@@ -92,7 +91,6 @@ class ExerciseBookController extends Controller
             }catch(\Exception $e){
                 return $e;
             }
-
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//要是有同样的chapter_id 则只显示一个
             $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id 
@@ -234,7 +232,14 @@ class ExerciseBookController extends Controller
             $data = [];
             return $data;
         }
-        $exe_id = $db->table($user->id)->where('score', 0)->get()->pluck(['exe_id']);//查询所有的错题
+
+        $exeInfo = $db->table($user->id)->select('exe_id', 'score')->get();//查询所有的错题
+        foreach ($exeInfo as $exe) {
+            $exerciseScore = Exercises::find($exe->exe_id)->score;
+            if ($exe->score < $exerciseScore) {
+                $exe_id[] = $exe->exe_id;
+            }
+        }
         $exerciseChapter = Exercises::whereIn('id',$exe_id)->pluck('chapter_id')->unique();
         $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id 
         $minutia_parentId= array_column($minutiaList, 'parent_id');//所有作业的parent_id
@@ -254,7 +259,6 @@ class ExerciseBookController extends Controller
                 }
             }
         }
-        //dd($data);
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //这个学生某个章节错了多少题
@@ -334,7 +338,6 @@ class ExerciseBookController extends Controller
             return $e;
         }
         $errorExercise = $db->table($user->id)->where('exe_id', $exe_id)->first();
-
         $errorReports = Exercises::find($exe_id);
         if ($errorReports->exe_type == Exercises::TYPE_OBJECTIVE) {
             $objective = Objective::where('exe_id', $exe_id)->first();
@@ -359,37 +362,21 @@ class ExerciseBookController extends Controller
             ));
         }else if ($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE) {
             //显示每个主观题的内容
-
+            $subjective = Subjective::where('exe_id',$errorReports->id)->first();
+            $work_answer = json_decode($errorExercise->answer,true);//自己写的答案
+            array_push($data, array(
+                'id' => $errorReports->id,
+                'categroy_id' => $errorReports->categroy_id,
+                'subject' => $subjective->subject,
+                'answer' => $work_answer,
+                'score' => $errorExercise->score/100,
+                'second' => $errorExercise->second,
+                'totalScore' => $errorReports->score/100,
+                'postil' => json_decode($errorExercise->correct),
+            ));
         }
+        //dd($data);
         return view('student.exerciseBase.wrongNotebook_showAnalysis', compact('data', 'abcList', 'user', 'func', 'courseAll', 'courseFirst', 'type_id'));
-    }
-
-    //查看学生所有的错题练习的得分
-    public function errorExerciseScore(){
-        $input = Input::get();
-        $user = Auth::user();
-        $code = 200;
-        $baseNum = (int)($user->id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            $this->createBase($baseNum);
-            $db = DB::connection($db_name);
-        }
-        if(!Schema::connection($db_name)->hasTable($user->id)){
-            Schema::connection($db_name)->create($user->id, function ($table) {
-                $table->integer('work_id');
-                $table->integer('exe_id')->nullable();
-                $table->integer('parent_id')->nullable();
-                $table->integer('type')->nullable();
-                $table->text('answer')->nullable();
-                $table->integer('second')->nullable();
-                $table->smallInteger('score')->default(0);
-                $table->string('comment',200)->nullable();
-                $table->string('sort',200)->nullable();
-            });
-        }
     }
 
     public function correctExercise($exe_id){
@@ -403,7 +390,7 @@ class ExerciseBookController extends Controller
         }
         $exerciseUpdate = $db->table($user->id)->where(['exe_id' => $exe_id, 'score' => 0])->update(['type' => 3]);
     }
-//学生复习，预习，同步练习，错题本做的作业页面 状态码3代表错题本
+    //学生复习，预习，同步练习，错题本做的作业页面 状态码3代表错题本
     public function practice($course, $chapter_id, $type_id, $several = NULL){
         $data =[];
         $user = Auth::user();
@@ -471,7 +458,7 @@ class ExerciseBookController extends Controller
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
-            $db = DB::connection($db_name);
+            $db = DB::connection($db_name); 
         }catch(\Exception $e){
             $this->createBase($baseNum);
             $db = DB::connection($db_name);

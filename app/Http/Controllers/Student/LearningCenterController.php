@@ -207,13 +207,13 @@ class LearningCenterController extends Controller
 							}
 						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
 							$modifyScore +=  $exercise->score / 100;
-							if($work->status == 2) {
+							if($work->status == 2 || $work->status == 3) {
 								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
 									'id' => 3,
 									'exe_id' =>$exe_id,
 								));
-							}else if ($work->status == 3) {
+							}else if ($work->status == 4) {
 								if ($userWork->score == $exercise->score) {
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
@@ -349,7 +349,6 @@ class LearningCenterController extends Controller
 		 					'answer' => $work_answer,
 		 					'score' => $errorReports->score/100,
 		 					'second' => $workFirst->second,
-		 					'totalScore' => $errorReports->score/100,
 		 					'sameScore' => $workFirst->score/100,
 		 					'postil' => json_decode($workFirst->correct),
 		 				));
@@ -495,6 +494,7 @@ class LearningCenterController extends Controller
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => 0]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+        		$work_score = 0;
         		$score = 0;
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
@@ -530,11 +530,11 @@ class LearningCenterController extends Controller
             	'answer' => json_encode($answer_arr, JSON_UNESCAPED_UNICODE), 'second' => $answer['last'], 'score' => $score,		
             	'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL]); 
         	}
-        	//$work_score += $score;
+        	$work_score += $score;
         }
        	if ($result) {
         	$work = Work::find($work->id);
-        	//$work->score = $work_score;
+        	$work->score = $work_score;
         	$work->status = 2;
 	        $work->sub_time = time();
 	        $work->save();
