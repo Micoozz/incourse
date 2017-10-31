@@ -186,7 +186,7 @@
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			$(function() {
 				if(func == 'work_tutorship' || func == 'work_score'){
-					toCanvas('canvas',parseInt(startAccurary),accuracy);
+					toCanvas('canvas',(parseInt(startAccurary)*100),(accuracy*100));
 				}
 				//举报
 				$('body').click(function() {

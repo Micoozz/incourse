@@ -172,12 +172,11 @@ class LearningCenterController extends Controller
 				if ($func == Self::FUNC_WORK_SCORE) {
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
 					$correctScore = 0; //正确题的分数
-					//$errorScore = 0; //错误题的分数
 					$totalScore = 0;
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
-					$data['sameCount'] = 0;
+					$data['sameCount'] = 0
 					$data['sameErrorScore'] = 0;
 					$data['sameExercise'] = array();
 					foreach ($exercise_id as $exe_id) {
@@ -250,8 +249,7 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						$accuracy = ($correctScore / $totalScore) * 100;//这里算分数率，
-						dump($correctScore);dump($totalScore);
+						$accuracy = $correctScore / $totalScore;//这里算分数率，
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -270,7 +268,6 @@ class LearningCenterController extends Controller
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
-				 		dump($correctScore);dump($totalScore);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
