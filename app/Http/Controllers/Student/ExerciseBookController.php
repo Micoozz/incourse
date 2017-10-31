@@ -404,7 +404,7 @@ class ExerciseBookController extends Controller
         }
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
             $didExercise = $db->table($user->id)->where('type', NULL)->get()->pluck('exe_id');
-            $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1, 'categroy_id' =>6])->whereNotIn('id', $didExercise)->inRandomOrder()->take(1)->first();
+            $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1, 'categroy_id' =>3])->whereNotIn('id', $didExercise)->inRandomOrder()->take(1)->first();
         }else{
             $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');//查询这个学生的所有的错题
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();

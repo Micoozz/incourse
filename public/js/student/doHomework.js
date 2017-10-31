@@ -215,7 +215,7 @@ $(function(){
         }
     }
 
-    $("body").on("focus", ".blank-item",function(){
+    /*$("body").on("focus", ".blank-item",function(){
         $(this).each(function (i, item) {
             if($.trim($(item).text()) == ("空" + (i + 1))){
                 $(item).text("");
@@ -223,8 +223,21 @@ $(function(){
                 return;
             }
         });
+    })*/
+    $(".blank-item").on("focus",function(){
+        var index = $(this).index();
+        var t = "空"+(1+index);
+        if($(this).text() == t){
+            $(this).text('');
+        }
     })
-    
+    $(".blank-item").on("blur",function(){
+        var index = $(this).index();
+        var t = "空"+(1+index);
+        if($(this).text() == ''){
+            $(this).text(t);
+        }
+    })
     //底部答过的题标蓝
     //选择
     $("body").on("click",".exercise-box .ic-radio",function(){getOrderAndBlue(this)});
