@@ -251,6 +251,7 @@ class LearningCenterController extends Controller
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
 						$accuracy = ($correctScore / $totalScore) * 100;//这里算分数率，
+						dump($correctScore);dump($totalScore);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -374,6 +375,7 @@ class LearningCenterController extends Controller
 		 			$grossScore += $exercise->score;
 		 		}
 		 		$accuracy = $grossScore / $exeScore;//总分数率
+		 		dump($grossScore);dd($exeScore);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
