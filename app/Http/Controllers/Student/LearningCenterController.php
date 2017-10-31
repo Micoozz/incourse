@@ -250,9 +250,9 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						dump($correctScore);dump($totalScore);
+						//dump($correctScore);dump($totalScore);
 						$accuracy = $correctScore / $totalScore;//这里算分数率，
-						dd($accuracy);
+						//dd($accuracy);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -271,11 +271,6 @@ class LearningCenterController extends Controller
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
-					}
-					if(is_int($accuracy)){
-						$accuracy = $accuracy;
-					}else{
-						$accuracy = round($accuracy, 4);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
