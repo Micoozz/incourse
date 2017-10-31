@@ -19,7 +19,7 @@
 						<div class="SectionList-title sectionTitle">
 							<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
 							<div class="title-content"><span>
-								<a href='/chapterErrorExercise/{{$courseFirst[0]["id"]}}/{{$chapter["id"]}}/{{$type_id}}'>{{ $chapter['title'] }}</a>
+								<a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $chapter['id'] }}/1">{{ $chapter['title'] }}(已做题{{ $chapter['exeCount'] }}题)</a>
 							</span></div>
 							@if($type_id == 3)
 							<span class="title-bar">
@@ -35,7 +35,7 @@
 						<div class="SectionList-subTitle sectionTitle">
 							<span class="titleTime"><i class="fa fa-clock-o"></i>第一章</span>
 							<span class="wrongClick ic-blue">
-								<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$chapter['id']}}/{{$type_id}}" title=""><i class="fa fa-pencil"></i>
+								<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$chapter['id']}}/{{$type_id}}/1" title=""><i class="fa fa-pencil"></i>
 								@if($type_id != 3) 开始做题 @else 错题练习 @endif
 								</a>
 							</span>
@@ -44,7 +44,7 @@
 							@foreach($chapter['minutia'] as $key=>$minutia)
 							<li data-son-id="{{$minutia['id']}}">
 								<b class="chapterIcon ic-blue-bg fff">{{$loop->iteration}}</b>
-								<div class="title-content"><span><a href="/chapterErrorExercise/{{$type_id}}/{{$courseFirst[0]['id']}}/{{$minutia['id']}}">{{$minutia['title']}}</a></span></div>
+								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }}(已做题{{ $minutia['exeCount'] }}题)</a></span></div>
 								@if($type_id == 3)
 								<span class="title-bar">
 									<span><b>70%<i></i></b></span>
@@ -58,7 +58,7 @@
 								<div class="chapterTitle">
 									<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第一节</span>
 									<span class="wrongClick ic-blue">
-										<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$minutia['id']}}/{{$type_id}}" title=""><i class="fa fa-pencil"></i>
+										<a class="eoorosExercise" data-href="/practice/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}/{{ $type_id }}" title=""><i class="fa fa-pencil"></i>
 										@if($type_id != 3) 开始做题 @else 错题练习 @endif
 										</a>
 									</span>

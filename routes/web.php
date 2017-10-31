@@ -141,9 +141,9 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/foreExercise/{course}/{type}', 'ExerciseBookController@foreExercise');//预习
 		Route::get('/freePractice/{course?}/{type_id?}','ExerciseBookController@freePractice');//同类练习及复习
 		Route::get('/errorsExercise/{course?}/{type_id?}','ExerciseBookController@errorsExercise');//错题本
-		Route::get('/chapterErrorExercise/{type_id?}/{course?}/{chapter?}','ExerciseBookController@chapterErrorExercise');
+		Route::get('/chapterErrorExercise/{type_id?}/{course?}/{chapter?}/{several?}','ExerciseBookController@chapterErrorExercise');
 		Route::get('/errorExerciseInfo/{type_id}/{course}/{exe_id}', 'ExerciseBookController@errorExerciseInfo');
-		Route::get('/practice/{course}/{chapter}/{type_id}', 'ExerciseBookController@practice');//复习同类型预习错题本练习
+		Route::get('/practice/{course}/{chapter}/{type_id}/{several?}', 'ExerciseBookController@practice');//复习同类型预习错题本练习
 		Route::get('/correctExercise/{exe_id}', 'ExerciseBookController@correctExercise');
 	});
 	Route::get('/logout','LoginController@logout');
