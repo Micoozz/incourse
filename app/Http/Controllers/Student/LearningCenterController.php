@@ -212,7 +212,6 @@ class LearningCenterController extends Controller
 								));
 							}else if ($work->status == 4) {
 								if ($userWork->score == $exercise->score) {
-									//$sameCorrectScore += $exercise->score;
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
 										'id' => 4,
@@ -251,7 +250,9 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率，
+						dump($correctScore);dump($sameCorrectScore);
+						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率
+						dd($accuracy);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -376,7 +377,9 @@ class LearningCenterController extends Controller
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
+		 		dump($grossScore);dump($exeScore);
 		 		$accuracy = $grossScore / $exeScore;//总分数率
+		 		dump($accuracy);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
