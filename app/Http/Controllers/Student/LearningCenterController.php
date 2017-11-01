@@ -173,6 +173,7 @@ class LearningCenterController extends Controller
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
 					$correctScore = 0; //正确题的分数
 					$totalScore = 0;
+					$sameCorrectScore = 0;
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
@@ -210,6 +211,7 @@ class LearningCenterController extends Controller
 									'exe_id' =>$exe_id,
 								));
 							}else if ($work->status == 4) {
+								$sameCorrectScore += $exercise->score;
 								if ($userWork->score == $exercise->score) {
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
@@ -249,7 +251,7 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						$accuracy = $correctScore / $totalScore;//这里算分数率，
+						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率，
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
