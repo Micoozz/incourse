@@ -203,7 +203,7 @@ class LearningCenterController extends Controller
 								));
 								$tutorship[] = $exe_id;//做错题，传同类型习题
 							}
-						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
+						}else if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
 							if($work->status == 2 || $work->status == 3) {
 								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
@@ -250,7 +250,7 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						dump($correctScore);dump($sameCorrectScore);
+						dump($correctScore);dump($sameCorrectScore);dump($totalScore);
 						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率
 						dump($accuracy);
 					}else{
