@@ -495,7 +495,7 @@ class LearningCenterController extends Controller
         		}else{
 	        		$answer_arr = array("answer" => array($answer['answer']));
 	        	}
-	        	if(!isset($answer['answer'])){ 
+	        	if(isset($answer['answer'])){ 
 		        	foreach ($standard['answer'] as $key => $value) {
 			        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
 			        		if (in_array($value, $answer['answer'])) {
@@ -603,7 +603,7 @@ class LearningCenterController extends Controller
     		}else{
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
-        	if (!isset($answer['answer'])) {
+        	if (isset($answer['answer'])) {
 	    		foreach ($standard['answer'] as $key => $value) {
 		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
 
