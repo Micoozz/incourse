@@ -202,6 +202,7 @@ class TeachingCenterController extends TeacherController
     }
     public function correctDetail($class_id,$course_id,$work_id){
         $title = "批改作业";
+        $abcList = range("A","Z");
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $work = Work::find($work_id);
@@ -245,7 +246,7 @@ class TeachingCenterController extends TeacherController
                 array_push($data['done_correct'],$exercise);
             }
         }
-        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id'));
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id','abcList'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){

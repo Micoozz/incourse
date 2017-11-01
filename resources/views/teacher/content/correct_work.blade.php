@@ -34,9 +34,15 @@
 						<!-- <td>20071027</td> -->
 						<td>{{$work->student_name}}</td>
 						<td><span class="gray">{{$work->score}}</span></td>
-						<td><span class="red">{{$work->status}}</span></td>
+						<td><span class="{{$work->status != 4?'red':'gray'}}">{{$work->status == 2? '可批改':($work->status == 3?'批改中':'已完成')}}</span></td>
 						<td class="ic-blue">
-							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title=""><span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span></a>
+							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title="">
+							@if($work->status == 4)
+								<span class="blue"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+							@else
+								<span class="red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+							@endif
+							</a>
 						</td>
 					</tr>
 				@endforeach
