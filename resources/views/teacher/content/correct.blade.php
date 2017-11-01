@@ -69,8 +69,7 @@
 			<table class="admin-list border pigaizuoye">
 				<thead>
 					<tr>
-						<!-- <th>作业章节</th> -->
-						<th>分类</th>
+						<th>作业标题</th>
 						<th>截止时间</th>
 						<th>正确率</th>
 						<th>状态</th>
@@ -80,13 +79,18 @@
 				<tbody>
 					@foreach($job_list as $job)
 					<tr>
-						<!-- <td>{{$job->chapter_id}}</td> -->
-						<td>{{$job->job_type == 1?"个人":"小组"}}</td>
+						<td>{{$job->title}}</td>
 						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
 						<td><span class="gray">待统计</span></td>
-						<td><span class="red">可批改</span></td>
+						<td><span class="{{$job->status != 4?'red':'gray'}}">{{$job->status == 2? '可批改':($job->status == 3?'批改中':'已完成')}}</span></td>
 						<td class="ic-blue">
-							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}"><span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;批改</span></a>&nbsp;  &nbsp;
+							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}">
+							@if($job->status == 4)
+								<span class="correction_pg blue"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+							@else
+								<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+							@endif
+							</a>
 							<!-- <span class="blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span> -->
 						</td>
 					</tr>

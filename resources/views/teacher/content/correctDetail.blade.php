@@ -65,8 +65,10 @@
 					@include('teacher.template.correctDetail_subjectiveItem')
 				</div>
 				<div class="btns">
+					@if(!empty($data['un_correct']))
 					<button id="next-stu" class="ic-btn btn-hover-bg">提交</button>
-					<button class="btn-white gray-hover-bg ic-return">返 回</button>
+					@endif
+					<button class="btn-white gray-hover-bg ic-return" onclick="window.history.go(-1)">返 回</button>
 				</div>
 			</div>
 		</div>

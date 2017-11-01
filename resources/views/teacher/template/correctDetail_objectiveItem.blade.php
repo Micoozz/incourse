@@ -79,6 +79,21 @@
 							</ul>
 						</div>
 					</div>
+				@elseif($exercise->categroy_id == 6)
+					<!--排序题-->
+					<div class="clear answer-box sort-work">
+						<span class="f-l">答案：</span>
+						<div class="f-l">
+							<ul class="exer-list-ul">
+								@foreach($exercise->options as $option)
+								<li data-key="{{key($option)}}">
+									<span class="f-l answer_sign">排序{{$abcList[$loop->index]}}</span>
+									<p class="f-l option">：{{$option[key($option)]}}</p>
+								</li>
+								@endforeach
+							</ul>
+						</div>
+					</div>
 				@elseif($exercise->categroy_id == 10 || $exercise->categroy_id == 11)
 					<!--主观题-->
 					<div class="clear answer-box checked_work"></div>
@@ -102,183 +117,4 @@
 			</div>
 		</div>
 	@endforeach
-	<!--连线题-->
-		<!-- <div class="exer-in-list border">
-		<div class="exer-head">
-			<span class="exer-type-list">连线题</span>
-		</div>
-	
-		<div class="exer-wrap">
-			<div class="clear">
-				<span class="f-l">题目：</span>
-	
-				<div class="f-l question">请把对应的题目连上线</div>
-			</div>
-			<div class="clear answer-box">
-				<span class="f-l">答案：</span>
-	
-				<div class="f-l box_hpb">
-					<div class="line_hpb">
-						<ul class="question_hpb">
-							<li style="top:0;">湖广会馆放到奋斗奋斗方法</li>
-							<li style="top:54px;">大妈</li>
-							<li style="top:108px;">大嫂</li>
-						</ul>
-						<div class="container_hpb">
-							<canvas id="canvas1" width="322">您的浏览器暂不支持Canvas！</canvas>
-							<canvas id="canvas2" width="322">您的浏览器暂不支持Canvas！</canvas>
-						</div>
-						<ul class="answer_hpb">
-							<li style="top:0;">哥哥</li>
-							<li style="top:54px;">大姨</li>
-							<li style="top:108px;">大妈</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="exer-foot clear">
-				<div class="f-l p-r">
-					<span class="ic-blue">正确答案：</span>
-					<span>1连2，2连1，3连3</span>
-				</div>
-			</div>
-		</div>
-		</div> -->
-		<!--排序题-->
-		<!-- <div class="exer-in-list border">
-		<div class="exer-head">
-			<span class="exer-type-list">排序题</span>
-		</div>
-	
-		<div class="exer-wrap">
-			<div class="clear">
-				<span class="f-l">题目：</span>
-	
-				<div class="f-l question">请给下列句子排序</div>
-			</div>
-			<div class="clear answer-box">
-				<span class="f-l">答案：</span>
-	
-				<div class="f-l">
-					<ul class="exer-list-ul">
-						<li>
-							<span class="f-l ic-blue">排序A：</span>
-							<p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, animi aperiam blanditiis cupiditate</p>
-						</li>
-						<li>
-							<span class="f-l ic-blue">排序B：</span>
-							<p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-						</li>
-						<li>
-							<span class="f-l red">排序C：</span>
-							<p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-						</li>
-						<li>
-							<span class="f-l red">排序D：</span>
-							<p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="exer-foot clear">
-				<div class="f-l p-r">
-					<span class="ic-blue">正确答案：</span>
-					<span>DABC</span>
-				</div>
-			</div>
-		</div>
-		</div> -->
-		<!--完形填空-->
-		<!-- <div class="exer-in-list border">
-		<div class="exer-head">
-			<span class="exer-type-list">完形填空</span>
-		</div>
-	
-		<div class="exer-wrap">
-			<div class="clear">
-				<span class="f-l">题目：</span>
-	
-				<div class="f-l question">fgfgfgfggflgflgflhg<span class="blank-item">空1</span>hgkhghgkhlgkhlghkglhkg<span class="blank-item">空2</span>hlgkhglhkghglg khglhkghgthg hghrtedwdssdsgd ht jhyj hjhkjk jkjklh
-				</div>
-			</div>
-			<div class="clear answer-box">
-				<span class="f-l">答案：</span>
-	
-				<div class="f-l">
-					<div class="wan-xing-tk-option clear">
-						<span class="f-l id">1.</span>
-						<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r radio-right">
-	                                                        <i class="p-a"></i>
-	                                                        <input type="radio" name="radio" value="A"/>
-	                                                    </label>
-								<span>A：show up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="p-a"></i>
-	                                                        <input type="radio" name="radio" value="B"/>
-	                                                    </label>
-								<span>B：show up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="p-a"></i>
-	                                                        <input type="radio" name="radio" value="C"/>
-	                                                    </label>
-								<span>C：set up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="p-a"></i>
-	                                                        <input type="radio" name="radio" value="D"/>
-	                                                    </label>
-								<span>D：show up</span>
-							</div>
-						</div>
-					</div>
-					<div class="wan-xing-tk-option clear">
-						<span class="f-l id">2.</span>
-						<div class="f-l wan-xing-tk-box dan-xuan-options dan-xuan-only">
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="ic-blue-bg p-a"></i>
-	                                                        <input type="radio" name="radio" value="A"/>
-	                                                    </label>
-								<span>A：show up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="ic-blue-bg p-a"></i>
-	                                                        <input type="radio" name="radio" value="B"/>
-	                                                    </label>
-								<span>B：show up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r active">
-	                                                        <i class="ic-blue-bg p-a"></i>
-	                                                        <input type="radio" name="radio" value="C"/>
-	                                                    </label>
-								<span>C：set up</span>
-							</div>
-							<div class="radio-wrap">
-								<label class="ic-radio border p-r">
-	                                                        <i class="ic-blue-bg p-a"></i>
-	                                                        <input type="radio" name="radio" value="D"/>
-	                                                    </label>
-								<span>D：show up</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="exer-foot clear">
-				<div class="f-l p-r">
-					<span class="ic-blue">正确答案：</span>
-					<span>1.A&nbsp;&nbsp;&nbsp;2.B</span>
-				</div>
-			</div>
-		</div>
-		</div> -->
 </div>

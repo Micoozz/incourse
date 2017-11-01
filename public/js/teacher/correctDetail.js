@@ -267,7 +267,7 @@ function upLoadData(){
 		success:function(data){
 			layui.use("layer",function(){
 				layer.msg('批改成功');
-				// window.location.reload() ;
+				window.location.reload();
 			})
 		},
 		error:function(data){
