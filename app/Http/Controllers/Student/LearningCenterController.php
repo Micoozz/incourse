@@ -252,7 +252,7 @@ class LearningCenterController extends Controller
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
 						dump($correctScore);dump($sameCorrectScore);
 						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率
-						dd($accuracy);
+						dump($accuracy);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -360,7 +360,6 @@ class LearningCenterController extends Controller
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
 		 		$startAccurary = $exercise_id; //起始值
-		 		dump($startAccurary);
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -377,9 +376,7 @@ class LearningCenterController extends Controller
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
-		 		dump($grossScore);dump($exeScore);
 		 		$accuracy = $grossScore / $exeScore;//总分数率
-		 		dump($accuracy);
 		 		$data = array();
 		 		$sameErrorScore = 0;
 				foreach($sameExercise as $exercise){
