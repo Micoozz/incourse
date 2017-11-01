@@ -190,7 +190,7 @@ class WorkController extends Controller
                 $answer_arr = explode(',',$answer);
                 foreach ($standard as $key => $value) {
                     if(!isset($answer_arr[$key]) || $value != $answer_arr[$key]){
-                        $flagflag = false;
+                        $flag = false;
                         break;
                     }
                 }

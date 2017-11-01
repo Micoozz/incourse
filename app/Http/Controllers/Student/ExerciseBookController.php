@@ -289,7 +289,6 @@ class ExerciseBookController extends Controller
         if (!empty($several)) {
             $chapter = Chapter::select('id')->where(['parent_id' => $chapter,'course_id'=> $course])->get()->pluck('id')->toArray();
             $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$exe_id)->get()->pluck('chapter_id')->toArray();
-            dump($exercisesChapter);dd($chapter);
             $chapter_id = array_intersect($chapter,$exercisesChapter);
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('chapter_id',$chapter_id)->whereIn('id',$exe_id)->get();
         }else{

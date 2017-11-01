@@ -80,7 +80,7 @@ class LearningCenterController extends Controller
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
         $date = time();
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
-	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->paginate(5);//显示所有的做作业
+	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
 	    $count = count($data);
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type', 1)->get();
@@ -137,7 +137,7 @@ class LearningCenterController extends Controller
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
-		    	$data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
+		    	$data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id, 'course_id' => $course])->orderBy('id', 'desc')->paginate(5);
 				foreach ($data as $work) {
 					$job = $work->belongsToJob()->first();
 					$work->count = count(json_decode($job->exercise_id));
@@ -492,20 +492,26 @@ class LearningCenterController extends Controller
 	        	}
 	        	foreach ($standard['answer'] as $key => $value) {
 		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-		        		if (!isset($answer['answer'][$key]) || $value != sort($answer['answer'])[$key]) {
+		        		if (in_array($value, $answer['answer'])) {
+		        			$flag = true;
+		        		}else{
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
 		        			$flag = false;
 		        		}else{
 		        			$score += 2 * 100;
 		        		}
 		        	}else{
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]) {
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
 		        			$flag = false;
-		        		}else{
-		        			$score += 2 * 100;
+		        			break;
 		        		}
 		        	}
 		        }
-	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {
+	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {//填空题
 	        		if($flag){
                    	 	$score = $exercise->score;
 	                }else{
