@@ -486,7 +486,7 @@ class LearningCenterController extends Controller
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'],
-        			'score' => $score, 'status' => 1]);
+        			'score' => 0, 'status' => 1]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
@@ -603,6 +603,26 @@ class LearningCenterController extends Controller
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
     		foreach ($standard['answer'] as $key => $value) {
+	        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+	        		if (in_array($value, $answer['answer'])) {
+	        			$flag = true;
+	        		}else{
+	        			$flag = false;
+	        			break;
+	        		}
+	        	}else{
+	        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+	        			$flag = false;
+	        			break;
+	        		}
+	        	}
+	        }
+    		if($flag){
+           	 	$score = $exercise->score;
+            }else{
+                $score = 0;
+            }
+/*    		foreach ($standard['answer'] as $key => $value) {
                 if(!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
                     $flag = false;
                     break;
@@ -617,7 +637,7 @@ class LearningCenterController extends Controller
             	}
             }else{
                 $score = 0;
-            }
+            }*/
             $result = $db->table($user->id)->insert(['work_id' => $work_id, 'parent_id' => $answer['parent_id'], 'type' => 2, 'exe_id' => $answer['id'], 'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'], 'score' => $score, 'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL, 'status' => 2]);
         }
         return $code;
