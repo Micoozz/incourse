@@ -447,7 +447,6 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
-    	$score = 0;
     	$work_score = 0;
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
@@ -479,6 +478,7 @@ class LearningCenterController extends Controller
             });
         }
         foreach ($input['data'] as $answer) {
+        	$score = 0;
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
