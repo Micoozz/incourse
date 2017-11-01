@@ -182,7 +182,7 @@ class TeachingCenterController extends TeacherController
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->paginate(10);
+        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->paginate(10);
         // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
         // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
         // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
@@ -193,7 +193,7 @@ class TeachingCenterController extends TeacherController
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $work_list = Work::where(['job_id' => $job_id,'status' => Work::STATUS_SUB])->paginate(10);
+        $work_list = Work::where(['job_id' => $job_id])->where('status','>=',Work::STATUS_SUB)->paginate(10);
         foreach($work_list as $work){
             $student = Student::find($work->student_id);
             $work->student_name = $student->name;

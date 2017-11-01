@@ -80,7 +80,7 @@ class LearningCenterController extends Controller
         $courseFirst = Course::where(['id' => 1])->get()->toArray();
         $date = time();
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
-	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->paginate(5);//显示所有的做作业
+	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
 	    $count = count($data);
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type', 1)->get();
@@ -137,7 +137,7 @@ class LearningCenterController extends Controller
         if ($mod == Self::MOD_HOMEWORK) {
  			if ($func == Self::FUNC_EXERCISE_BOOK) {
  				$sameSecond = 0;
-		    	$data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id, 'course_id' => $course])->paginate(5);
+		    	$data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id, 'course_id' => $course])->orderBy('id', 'desc')->paginate(5);
 				foreach ($data as $work) {
 					$job = $work->belongsToJob()->first();
 					$work->count = count(json_decode($job->exercise_id));
@@ -173,6 +173,7 @@ class LearningCenterController extends Controller
 					$exercise_id = json_decode($data['work']->exercise_id, true);//有两种判断方法 一种判断分数有没有值，第二种答案对比
 					$correctScore = 0; //正确题的分数
 					$totalScore = 0;
+					$sameCorrectScore = 0;
 					$data['objectiveCount'] = 0;
 					$data['objectiveErrorCount'] = 0;
 					$data['modifyCount'] = 0;
@@ -183,11 +184,11 @@ class LearningCenterController extends Controller
 						$exercise = Exercises::find($exe_id);
 						$totalScore += $exercise->score;
 						$userWork = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first();
-						$work_answer = json_decode($userWork->answer, true)['answer'];
+						//$work_answer = json_decode($userWork->answer, true)['answer'];
 						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {//客观题的正确率
-							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
-							$objective_answer = json_decode($objective_answer, true)['answer'];
-							if ($work_answer == $objective_answer) {
+/*							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
+							$objective_answer = json_decode($objective_answer, true)['answer'];*/
+							if ($exercise->score == $userWork->score) {
 								$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 								array_push($data['status'], array(
 									'id' => 1,
@@ -202,7 +203,7 @@ class LearningCenterController extends Controller
 								));
 								$tutorship[] = $exe_id;//做错题，传同类型习题
 							}
-						}else if ($exercise->exe_type ==Exercises::TYPE_SUBJECTIVE) {
+						}else if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
 							if($work->status == 2 || $work->status == 3) {
 								$data['modifyCount'] = $data['modifyCount'] + 1;//主观题有多少道
 								array_push($data['status'], array(
@@ -211,6 +212,7 @@ class LearningCenterController extends Controller
 								));
 							}else if ($work->status == 4) {
 								if ($userWork->score == $exercise->score) {
+									$sameCorrectScore += $exercise->score;
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
 										'id' => 4,
@@ -229,7 +231,8 @@ class LearningCenterController extends Controller
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
-						if ($sameExercise->score != 0) {
+						$objectiveScore = Exercises::find($sameExercise->exe_id)->score;
+						if ($sameExercise->score == $objectiveScore) {
 							$data['sameCount'] = $data['sameCount'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 1,
@@ -249,7 +252,9 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						$accuracy = $correctScore / $totalScore;//这里算分数率，
+						dump($correctScore);dump($sameCorrectScore);dump($totalScore);
+						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率
+						dump($accuracy);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -267,7 +272,9 @@ class LearningCenterController extends Controller
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
+				 		dump($grossScore);dump($exeScore);
 				 		$accuracy = $grossScore / $exeScore;//总分数率
+				 		dump($accuracy);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
@@ -355,7 +362,6 @@ class LearningCenterController extends Controller
 		 		$sameSkip = $several;
 		 		$several = explode('&',$several);
 		 		$startAccurary = $exercise_id; //起始值
-		 		dump($startAccurary);
 		 		$work = Work::select('start_time', 'sub_time')->find($parameter);
 		 		$second = $work->sub_time - $work->start_time;
 		 		$grossScore = 0;
@@ -369,7 +375,6 @@ class LearningCenterController extends Controller
 		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score;
 
 		 		}//查询所有的作业以及同类型练习加起来的分数
-		 		//dump($exeScore);
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
@@ -444,7 +449,6 @@ class LearningCenterController extends Controller
     //作业的分数
     public function homeworkScores(){
     	$input = Input::get();
-    	$score = 0;
     	$work_score = 0;
     	$user = Auth::user();
     	$work = Work::find(intval($input['work_id']));
@@ -476,11 +480,12 @@ class LearningCenterController extends Controller
             });
         }
         foreach ($input['data'] as $answer) {
+        	$score = 0;
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'],
-        			'score' => $score, 'status' => 1]);
+        			'score' => 0, 'status' => 1]);
         	}else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
         		$objective = $exercise->hasManyObjective()->first();
         		$flag = true;
@@ -492,20 +497,26 @@ class LearningCenterController extends Controller
 	        	}
 	        	foreach ($standard['answer'] as $key => $value) {
 		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-		        		if (!isset($answer['answer'][$key]) || $value != sort($answer['answer'])[$key]) {
+		        		if (in_array($value, $answer['answer'])) {
+		        			$flag = true;
+		        		}else{
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
 		        			$flag = false;
 		        		}else{
 		        			$score += 2 * 100;
 		        		}
 		        	}else{
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]) {
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
 		        			$flag = false;
-		        		}else{
-		        			$score += 2 * 100;
+		        			break;
 		        		}
 		        	}
 		        }
-	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {
+	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {//填空题
 	        		if($flag){
                    	 	$score = $exercise->score;
 	                }else{
@@ -591,6 +602,26 @@ class LearningCenterController extends Controller
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
     		foreach ($standard['answer'] as $key => $value) {
+	        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+	        		if (in_array($value, $answer['answer'])) {
+	        			$flag = true;
+	        		}else{
+	        			$flag = false;
+	        			break;
+	        		}
+	        	}else{
+	        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+	        			$flag = false;
+	        			break;
+	        		}
+	        	}
+	        }
+    		if($flag){
+           	 	$score = $exercise->score;
+            }else{
+                $score = 0;
+            }
+/*    		foreach ($standard['answer'] as $key => $value) {
                 if(!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
                     $flag = false;
                     break;
@@ -605,7 +636,7 @@ class LearningCenterController extends Controller
             	}
             }else{
                 $score = 0;
-            }
+            }*/
             $result = $db->table($user->id)->insert(['work_id' => $work_id, 'parent_id' => $answer['parent_id'], 'type' => 2, 'exe_id' => $answer['id'], 'answer' =>json_encode($answer_arr,JSON_UNESCAPED_UNICODE),'second' => $answer['last'], 'score' => $score, 'sort' => isset($answer['option']) ? json_encode($answer['option'], JSON_UNESCAPED_UNICODE) : NULL, 'status' => 2]);
         }
         return $code;

@@ -287,6 +287,7 @@ class ExerciseBookController extends Controller
             $exe_id = $db->table($user->id)->where(['work_id' => NULL])->select('exe_id', 'score')->get()->pluck('exe_id');//查询所有的错题
         }
         if (!empty($several)) {
+            //查询该章节下所有的小节
             $chapter = Chapter::select('id')->where(['parent_id' => $chapter,'course_id'=> $course])->get()->pluck('id')->toArray();
             $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$exe_id)->get()->pluck('chapter_id')->toArray();
             $chapter_id = array_intersect($chapter,$exercisesChapter);
