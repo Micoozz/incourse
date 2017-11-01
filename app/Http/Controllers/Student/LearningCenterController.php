@@ -93,7 +93,7 @@ class LearningCenterController extends Controller
 		        $work->pub_time = $job->pub_time;
 		        $work->deadline = $job->deadline;
 		        $work->job_type = $job->job_type;
-		        if ($work->status == 2 || $work->status == 3) {
+		        if ($work->status == 2 || $work->status == 3 || $work->status == 4) {
 			    $baseNum = (int)($user->id/1000-0.0001)+1;
 		        $db_name = 'mysql_stu_work_info_'.$baseNum;
 		        try{
@@ -145,7 +145,7 @@ class LearningCenterController extends Controller
 			        $work->pub_time = $job->pub_time;
 			        $work->deadline = $job->deadline;
 			        $work->job_type = $job->job_type;
-					if ($work->status == 2 || $work->status == 3) {
+					if ($work->status == 2 || $work->status == 3 || $work->status == 4) {
 						$baseNum = (int)($user->id/1000-0.0001)+1;
 				        $db_name = 'mysql_stu_work_info_'.$baseNum;
 				        try{
