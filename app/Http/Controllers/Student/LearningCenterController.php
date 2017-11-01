@@ -495,27 +495,29 @@ class LearningCenterController extends Controller
         		}else{
 	        		$answer_arr = array("answer" => array($answer['answer']));
 	        	}
-	        	foreach ($standard['answer'] as $key => $value) {
-		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-		        		if (!isset($answer['answer'][$key]) && in_array($value, $answer['answer'])) {
-		        			$flag = true;
-		        		}else{
-		        			$flag = false;
-		        			break;
-		        		}
-		        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-		        			$flag = false;
-		        		}else{
-		        			$score += 2 * 100;
-		        		}
-		        	}else{
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-		        			$flag = false;
-		        			break;
-		        		}
-		        	}
-		        }
+	        	if(!isset($answer['answer'])){ 
+		        	foreach ($standard['answer'] as $key => $value) {
+			        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+			        		if (in_array($value, $answer['answer'])) {
+			        			$flag = true;
+			        		}else{
+			        			$flag = false;
+			        			break;
+			        		}
+			        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
+			        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+			        			$flag = false;
+			        		}else{
+			        			$score += 2 * 100;
+			        		}
+			        	}else{
+			        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+			        			$flag = false;
+			        			break;
+			        		}
+			        	}
+			        }
+			    }    
 	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {//填空题
 	        		if($flag){
                    	 	$score = $exercise->score;
@@ -601,21 +603,24 @@ class LearningCenterController extends Controller
     		}else{
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
-    		foreach ($standard['answer'] as $key => $value) {
-	        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-	        		if (!isset($answer['answer'][$key]) && in_array($value, $answer['answer'])) {
-	        			$flag = true;
-	        		}else{
-	        			$flag = false;
-	        			break;
-	        		}
-	        	}else{
-	        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-	        			$flag = false;
-	        			break;
-	        		}
-	        	}
-	        }
+        	if (!isset($answer['answer'])) {
+	    		foreach ($standard['answer'] as $key => $value) {
+		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+
+		        		if (in_array($value, $answer['answer'])) {
+		        			$flag = true;
+		        		}else{
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}else{
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}
+		        }
+		    }    
     		if($flag){
            	 	$score = $exercise->score;
             }else{
