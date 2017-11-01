@@ -231,7 +231,7 @@ class LearningCenterController extends Controller
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
-						$objectiveScore = Objective::find($sameExercise->exe_id)->score;
+						$objectiveScore = Exercises::find($sameExercise->exe_id)->score;
 						if ($sameExercise->score == $objectiveScore) {
 							$data['sameCount'] = $data['sameCount'] + 1;
 							array_push($data['sameExercise'], array(
