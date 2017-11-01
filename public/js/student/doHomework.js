@@ -152,11 +152,11 @@ $(function(){
         var order = parseInt($(".big-num").text());
          $(".hw-order span:nth-child("+order+")").addClass("active");
         if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
-            if(a){        
+            if(a){
                 $(".hw-order span:nth-child("+order+")").addClass("active");
             }else{
                 $(".hw-order span:nth-child("+order+")").removeClass("active");
-            }     
+            }
         }else{
             if($(obj).parents(".pan-duan").hasClass('pan-duan')){
                  if($(obj).parents(".pan-duan").hasClass('no-active')){
@@ -188,6 +188,7 @@ $(function(){
                 $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order.hw-order-index").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
                 $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
             }
+            minLengthNum(obj)
         }
 
         if($(obj).hasClass("editor-content")){
@@ -197,10 +198,10 @@ $(function(){
                 $(obj).parents(".f-l.do-hw").find(".ta-c.hw-order").find("span").eq(parseInt($(".big-num").text())-1).addClass("active");
             }
         }
-
-        //填空题字数限定    
+    }
+    function minLengthNum(obj){
+        //填空题字数限定
         if($(obj).attr('contenteditable')==='true'){
-        
            if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
                 if($(obj).text().length > 10) {
                     $(obj).text($(obj).text().substring(0, 10));

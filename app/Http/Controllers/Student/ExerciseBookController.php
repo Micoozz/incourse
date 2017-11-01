@@ -239,7 +239,7 @@ class ExerciseBookController extends Controller
             }
         }
         $exerciseChapter = Exercises::whereIn('id',$exe_id)->pluck('chapter_id')->unique();
-        $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id 
+        $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
         $minutia_parentId= array_column($minutiaList, 'parent_id');//所有作业的parent_id
         $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
         foreach ($chapter as $key => $item) {
