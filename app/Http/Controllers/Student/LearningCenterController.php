@@ -184,11 +184,11 @@ class LearningCenterController extends Controller
 						$exercise = Exercises::find($exe_id);
 						$totalScore += $exercise->score;
 						$userWork = $db->table($user->id)->where(['work_id' => $parameter, 'exe_id' => $exe_id])->first();
-						$work_answer = json_decode($userWork->answer, true)['answer'];
+						//$work_answer = json_decode($userWork->answer, true)['answer'];
 						if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {//客观题的正确率
-							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
-							$objective_answer = json_decode($objective_answer, true)['answer'];
-							if ($work_answer == $objective_answer) {
+/*							$objective_answer = Objective::where('exe_id', $exercise->id)->first()->answer;//客观题的答案
+							$objective_answer = json_decode($objective_answer, true)['answer'];*/
+							if ($exercise->score == $userWork->score) {
 								$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 								array_push($data['status'], array(
 									'id' => 1,
@@ -230,7 +230,8 @@ class LearningCenterController extends Controller
 					//同类型练习
 					$same_list = $db->table($user->id)->where(['work_id' => $parameter])->where('parent_id', '<>', null)->get();
 					foreach($same_list as $sameExercise){
-						if ($sameExercise->score != 0) {
+						$objectiveScore = Objective::find($sameExercise->exe_id)->score;
+						if ($sameExercise->score == $objectiveScore) {
 							$data['sameCount'] = $data['sameCount'] + 1;
 							array_push($data['sameExercise'], array(
 								'id' => 1,
