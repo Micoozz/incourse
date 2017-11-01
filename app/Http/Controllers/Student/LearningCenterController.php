@@ -212,7 +212,7 @@ class LearningCenterController extends Controller
 								));
 							}else if ($work->status == 4) {
 								if ($userWork->score == $exercise->score) {
-									$sameCorrectScore += $exercise->score;
+									//$sameCorrectScore += $exercise->score;
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
 										'id' => 4,
@@ -269,7 +269,9 @@ class LearningCenterController extends Controller
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
+				 		dump($grossScore);dump($exeScore);
 				 		$accuracy = $grossScore / $exeScore;//总分数率
+				 		dump($accuracy);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
@@ -371,7 +373,6 @@ class LearningCenterController extends Controller
 		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score;
 
 		 		}//查询所有的作业以及同类型练习加起来的分数
-		 		//dump($exeScore);
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
 		 		}
