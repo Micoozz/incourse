@@ -326,7 +326,7 @@ class LearningCenterController extends Controller
                     ));
 		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			$workStatus = Work::find($parameter)->status;
-		 			if ($workStatus == 3) {
+		 			if ($workStatus == 4) {
 		 				$subjective = Subjective::where('exe_id',$errorReports->id)->first();
 		 				$work_answer = json_decode($workFirst->answer,true); //自己写的答案记录
 		 				array_push($data['exercises'], array(
