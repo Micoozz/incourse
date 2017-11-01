@@ -287,8 +287,9 @@ class ExerciseBookController extends Controller
             $exe_id = $db->table($user->id)->where(['work_id' => NULL])->select('exe_id', 'score')->get()->pluck('exe_id');//查询所有的错题
         }
         if (!empty($several)) {
-            $chapter = Chapter::select('id')->where('parent_id',$chapter)->get()->pluck('id')->toArray();
+            $chapter = Chapter::select('id')->where(['parent_id' => $chapter,'course_id'=> $course])->get()->pluck('id')->toArray();
             $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$exe_id)->get()->pluck('chapter_id')->toArray();
+            dump($exercisesChapter);dd($chapter);
             $chapter_id = array_intersect($chapter,$exercisesChapter);
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('chapter_id',$chapter_id)->whereIn('id',$exe_id)->get();
         }else{
@@ -363,8 +364,7 @@ class ExerciseBookController extends Controller
                 'second' => $errorExercise->second,
                 'sameScore' => $errorExercise->score,
             ));
-        }else if ($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE) {
-            //显示每个主观题的内容
+        }else if ($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE) {//显示每个主观题的内容
             $subjective = Subjective::where('exe_id',$errorReports->id)->first();
             array_push($data, array(
                 'id' => $errorReports->id,
@@ -396,8 +396,7 @@ class ExerciseBookController extends Controller
         $data =[];
         $user = Auth::user();
         $courseAll = Course::all();
-        $courseFirst = Course::where(['id' => $course])->get()->toArray();
-        //查询已经做过的题
+        $courseFirst = Course::where(['id' => $course])->get()->toArray();//查询已经做过的题
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
