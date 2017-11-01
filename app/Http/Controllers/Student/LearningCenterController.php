@@ -212,6 +212,7 @@ class LearningCenterController extends Controller
 								));
 							}else if ($work->status == 4) {
 								if ($userWork->score == $exercise->score) {
+									$sameCorrectScore += $exercise->score;
 									$data['objectiveCount'] = $data['objectiveCount'] + 1;//正确多少道题
 									array_push($data['status'], array(
 										'id' => 4,
