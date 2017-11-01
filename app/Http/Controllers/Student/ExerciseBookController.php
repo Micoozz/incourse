@@ -238,14 +238,10 @@ class ExerciseBookController extends Controller
                 $exe_id[] = $exe->exe_id;
             }
         }
-       dd($exe_id);
         $exerciseChapter = Exercises::whereIn('id',$exe_id)->pluck('chapter_id')->unique();
-      // dd($exerciseChapter);
-        $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id 
-        dd($minutiaList);
+        $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
         $minutia_parentId= array_column($minutiaList, 'parent_id');//所有作业的parent_id
         $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
-        //dd($chapter);
         foreach ($chapter as $key => $item) {
             $data[$key]['id'] = $item->id;
             $data[$key]['title'] = $item->title;
@@ -261,7 +257,6 @@ class ExerciseBookController extends Controller
                 }
             }
         }
-        //dd($data);
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //这个学生某个章节错了多少题
@@ -294,7 +289,6 @@ class ExerciseBookController extends Controller
         if (!empty($several)) {
             $chapter = Chapter::select('id')->where(['parent_id' => $chapter,'course_id'=> $course])->get()->pluck('id')->toArray();
             $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$exe_id)->get()->pluck('chapter_id')->toArray();
-            dump($exercisesChapter);dd($chapter);
             $chapter_id = array_intersect($chapter,$exercisesChapter);
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('chapter_id',$chapter_id)->whereIn('id',$exe_id)->get();
         }else{

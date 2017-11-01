@@ -25,6 +25,7 @@
 	}
 	#wrongTopic .proper {
 		display: none;
+		margin-top: 50px;
 	}
 	#wrongTopic .btn-center{
 		position: relative;
@@ -97,7 +98,7 @@
 						</span>
 				</span>
 				<div class="clear">
-					{!!$analysis['subject']!!}
+					题目：{!!$analysis['subject']!!}
 				</div>
 
 			</p>
@@ -129,11 +130,9 @@
 			@elseif($analysis['categroy_id'] == 6)
 			<!--排序题-->
 			<div class="optionse">
-				<span><span class="blue">排序A</span>&nbsp;&nbsp;当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</span>
-				<span><span class="blue">排序E</span>&nbsp;&nbsp;种子在这块土地上的生活并不那么顺利，周围的各种杂草都嘲笑它，排挤它，认为它只是一粒平凡的种子</span>
-				<span><span class="red">排序D</span>&nbsp;&nbsp;虽然它经受着黑暗的恐惧，暴雨的侵袭，但是它依然努力地生长着。</span>
-				<span><span class="red">排序C</span>&nbsp;&nbsp;从此，它变得沉默，只有它知道它在努力，它在默默地汲取土壤中的养</span>
-				<span><span class="blue">排序B</span>&nbsp;&nbsp;不久，它从泥土里探出了小脑袋，渐渐地，种子变成了嫩芽。</span>
+				@foreach($data[0]['options'] as $option)
+				<span class="sortOption" data-sort-option-key="{{key($option)}}"><span>排序{{$abcList[$loop->index]}}</span>：{{$option[key($option)]}}</span>
+				@endforeach
 			</div>
 			@elseif($analysis['categroy_id'] == 7 || $analysis['categroy_id'] == 8)
 			<div class="optionse"></div>
@@ -252,25 +251,27 @@
 	<div class="proper">
 		<div>
 			<p>
-				@if($analysis['categroy_id'] == 1 || $analysis['categroy_id'] == 2 || $analysis['categroy_id'] == 3)
-					<!--单选题 多选题 填空题 多空题-->
-					正确答案是<b class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
+				@if(
+					$analysis['categroy_id'] == 1 ||
+					$analysis['categroy_id'] == 2 ||
+					$analysis['categroy_id'] == 3 ||
+					$analysis['categroy_id'] == 6)
+					<!--单选题 多选题 填空题 多空题 排序题-->
+					正确答案是 <span class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
 						@if($analysis['categroy_id'] == 3)
 							{{ implode(',',$analysis['answer']) }}
 						@endif
-					</b>，你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}">
+					</span>.@if($analysis['categroy_id'] == 6)<br>@endif你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}">
 						@if($analysis['categroy_id'] == 3)
 							{{ implode(',',$analysis['wrokAnswer']) }}
 						@endif
-					</span>。回答<span class="answerRight"></span>，作答用时<span>{{$data[0]['second']}}</span>秒。
+					</span>。@if($analysis['categroy_id'] == 6)<br>@endif回答 <span class="answerRight"></span>，作答用时 <span>{{$data[0]['second']}}</span> 秒。
 				@elseif($analysis['categroy_id'] == 4)
 					<!--判断题-->
-					正确答案是<b class="bj-green right_A" data-p-a="{{$analysis['answer'][0]}}">{{$analysis['answer'][0] == 1?'正确':'错误'}}</b>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答<span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时<span>{{$data[0]['second']}}</span>秒。
-				@elseif($analysis['categroy_id'] == 6)
-					{{dd($data)}}
+					正确答案是 <span class="bj-green right_A" data-p-a="{{$analysis['answer'][0]}}">{{$analysis['answer'][0] == 1?'正确':'错误'}}</span>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答 <span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时 <span>{{$data[0]['second']}}</span> 秒。
 				@elseif($analysis['categroy_id'] == 11 || $analysis['categroy_id'] == 10)
 					<!-- 主管题 -->
-					你的答案是 <span class="student_A">{!!$data[0]['wrokAnswer'][0]!!}</span>。作答用时<span>{{$data[0]['second']}}</span>秒。
+					你的答案是 <span class="student_A">{!!$data[0]['wrokAnswer'][0]!!}</span>。作答用时 <span>{{$data[0]['second']}}</span> 秒。
 					<p class="subjectiveA">
 						<span class="f-l">批改：</span>
 						<span class="answer_module">
@@ -359,13 +360,36 @@
 			})
 			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
 			$(".student_A").text(newSA.slice(1,newSA.length))
-		}
-		for(var j = 0; j < studentAnswerArr.length;j++){
-			if(answerArr.indexOf(studentAnswerArr[j])<0){
-				isError = true;
+			for(var j = 0; j < studentAnswerArr.length;j++){
+				if(answerArr.indexOf(studentAnswerArr[j])<0){
+					isError = true;
+				}
 			}
+		}else if(type == 6){
+			var arr = [];
+			for(var i = 0;i < answerArr.length; i++){
+				$(".sortOption").each(function(j,item){
+					var sortO = parseInt($(item).attr("data-sort-option-key"));
+					if(sortO == answerArr[i]){
+						newAnswer += ','+$(item).find("span").text();
+					}
+				})
+				if(answerArr[i] != studentAnswerArr[i]){
+					isError = true;
+				}
+			}
+			for(var i = 0;i < studentAnswerArr.length; i++){
+				$(".sortOption").each(function(j,item){
+					var sortO = $(item).attr("data-sort-option-key");
+					if(sortO == studentAnswerArr[i]){
+						newSA += ','+$(item).find("span").text();
+					}
+				})
+			}
+			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
+			$(".student_A").text(newSA.slice(1,newSA.length))
 		}
-		if(type == 1||type == 2 || type == 3){
+		if(type == 1||type == 2 || type == 3 || type == 6){
 			if(isError){
 				$(".answerRight").text("错误").addClass('red');
 				$(".student_A").removeClass("bj-green").addClass("red");
