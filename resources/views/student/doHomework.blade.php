@@ -307,7 +307,7 @@
 <script src="{{ asset('js/student/doHomework.js') }}" charset="utf-8"></script>
 <script type="text/javascript">
     var token = "{{csrf_token()}}";
-    var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+    var accuracy = "{{ isset($accuracy) ? $accuracy : '' }}";
     var matching =  $('#matching').attr('data-id');
     var ligature = $('.question_hpb').children('li').length;
     var courseId = "{{$course}}";

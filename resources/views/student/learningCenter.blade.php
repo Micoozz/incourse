@@ -178,7 +178,7 @@
 			@endif
 		@endif
 		<script>
-			var accuracy = "{{ isset($accuracy) ? $accuracy * 100 : '' }}";
+			var accuracy = "{{ isset($accuracy) ? $accuracy : '' }}";
 			var courseFirst = "{{ isset($courseFirst) ? $courseFirst[0]['id'] : '' }}";
 			var startAccurary = "{{ isset($startAccurary) ? $startAccurary : 0 }}";
 			var token = "{{csrf_token()}}";
@@ -186,7 +186,7 @@
 			var parameter = "{{ isset($parameter) ? $parameter : '' }}";
 			$(function() {
 				if(func == 'work_tutorship' || func == 'work_score'){
-					toCanvas('canvas',parseInt(startAccurary),10.55);
+					toCanvas('canvas',(parseInt(startAccurary)*100),(accuracy*100));
 				}
 				//举报
 				$('body').click(function() {

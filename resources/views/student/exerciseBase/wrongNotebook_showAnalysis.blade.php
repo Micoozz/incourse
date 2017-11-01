@@ -25,6 +25,58 @@
 	}
 	#wrongTopic .proper {
 		display: none;
+		margin-top: 50px;
+	}
+	#wrongTopic .btn-center{
+		position: relative;
+		bottom: -30px;
+	}
+	.exer-list-ul>li {
+	    height: 35px;
+	    cursor: pointer;
+	}
+	.f-l.TOrF_img{
+        margin-top: 0;
+    }
+	.TOrF_img_title{
+        margin-left: 10px;
+    }
+	.right_Img {
+	    background-position: -20px -50px;
+	}
+	.error_Img{
+        background-position:-68px -50px;
+    }
+    .TOrF_img.right_Img.active{
+        background-position: -22px -86px;
+    }
+    .TOrF_img.error_Img.active{
+        background-position: -70px -86px;
+    }
+    .subjectiveA{
+        width: 100%;
+        min-height: 30px;
+        height: auto;
+        overflow: hidden;
+        line-height: 30px;
+    }
+    .answer_module{
+        width: 450px;
+        float: left;
+        display: block;
+    }
+    .answer_module span{
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+    }
+    .pitchOn {
+		color: red;
+	}
+
+	sup {
+		z-index: 102;
+		background-color: #fff;
 	}
 </style>
 @endsection
@@ -46,7 +98,7 @@
 						</span>
 				</span>
 				<div class="clear">
-					{!!$analysis['subject']!!}
+					题目：{!!$analysis['subject']!!}
 				</div>
 
 			</p>
@@ -61,8 +113,16 @@
 			@elseif($analysis['categroy_id'] == 4)
 			<!--判断题-->
 			<div class="optionse">
-				<span><img src="{{asset('images/school/right.png')}}"/>&nbsp;&nbsp;正确</span>
-				<span><img src="{{asset('images/school/wrong.png')}}"/>&nbsp;&nbsp;错误</span>
+				<ul class="exer-list-ul">
+                    <li>
+                        <span data-answer-num="1" class="f-l TOrF_img right_Img"></span>
+                        <span class="TOrF_img_title">正确</span>
+                    </li>
+                    <li>
+                        <span data-answer-num="0" class="f-l TOrF_img error_Img"></span>
+                        <span class="TOrF_img_title">错误</span>
+                    </li>
+                </ul>
 			</div>
 			@elseif($analysis['categroy_id'] == 5)
 			<!--连线题-->
@@ -70,20 +130,14 @@
 			@elseif($analysis['categroy_id'] == 6)
 			<!--排序题-->
 			<div class="optionse">
-				<span><span class="blue">排序A</span>&nbsp;&nbsp;当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</span>
-				<span><span class="blue">排序E</span>&nbsp;&nbsp;种子在这块土地上的生活并不那么顺利，周围的各种杂草都嘲笑它，排挤它，认为它只是一粒平凡的种子</span>
-				<span><span class="red">排序D</span>&nbsp;&nbsp;虽然它经受着黑暗的恐惧，暴雨的侵袭，但是它依然努力地生长着。</span>
-				<span><span class="red">排序C</span>&nbsp;&nbsp;从此，它变得沉默，只有它知道它在努力，它在默默地汲取土壤中的养</span>
-				<span><span class="blue">排序B</span>&nbsp;&nbsp;不久，它从泥土里探出了小脑袋，渐渐地，种子变成了嫩芽。</span>
+				@foreach($data[0]['options'] as $option)
+				<span class="sortOption" data-sort-option-key="{{key($option)}}"><span>排序{{$abcList[$loop->index]}}</span>：{{$option[key($option)]}}</span>
+				@endforeach
 			</div>
 			@elseif($analysis['categroy_id'] == 7 || $analysis['categroy_id'] == 8)
 			<div class="optionse"></div>
-			@elseif($analysis['categroy_id'] == 9 || $analysis['categroy_id'] == 10 || $analysis['categroy_id'] == 11)
-			<div class="optionse">
-				<span>
-					<img src="{{asset('images/Cj_bg1.png')}}" style="width: 100%;"/>
-				</span>
-			</div>
+			@elseif($analysis['categroy_id'] == 10 || $analysis['categroy_id'] == 11)
+			<div class="optionse"></div>
 			@endif
 		</div>
 	@endforeach
@@ -193,8 +247,44 @@
 			</div>
 		</div>
 	</div>
-	<div class="view-resolution">查看解析 <i class="fa fa-angle-down"></i></div>
+	<div class="view-resolution">查看答案 <i class="fa fa-angle-down"></i></div>
 	<div class="proper">
+		<div>
+			<p>
+				@if(
+					$analysis['categroy_id'] == 1 ||
+					$analysis['categroy_id'] == 2 ||
+					$analysis['categroy_id'] == 3 ||
+					$analysis['categroy_id'] == 6)
+					<!--单选题 多选题 填空题 多空题 排序题-->
+					正确答案是 <span class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
+						@if($analysis['categroy_id'] == 3)
+							{{ implode(',',$analysis['answer']) }}
+						@endif
+					</span>.@if($analysis['categroy_id'] == 6)<br>@endif你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}">
+						@if($analysis['categroy_id'] == 3)
+							{{ implode(',',$analysis['wrokAnswer']) }}
+						@endif
+					</span>。@if($analysis['categroy_id'] == 6)<br>@endif回答 <span class="answerRight"></span>，作答用时 <span>{{$data[0]['second']}}</span> 秒。
+				@elseif($analysis['categroy_id'] == 4)
+					<!--判断题-->
+					正确答案是 <span class="bj-green right_A" data-p-a="{{$analysis['answer'][0]}}">{{$analysis['answer'][0] == 1?'正确':'错误'}}</span>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答 <span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时 <span>{{$data[0]['second']}}</span> 秒。
+				@elseif($analysis['categroy_id'] == 11 || $analysis['categroy_id'] == 10)
+					<!-- 主管题 -->
+					你的答案是 <span class="student_A">{!!$data[0]['wrokAnswer'][0]!!}</span>。作答用时 <span>{{$data[0]['second']}}</span> 秒。
+					<p class="subjectiveA">
+						<span class="f-l">批改：</span>
+						<span class="answer_module">
+							@foreach($data[0]['postil'] as $postil)
+							<span>{{$loop->index+1}}、{{$data[0]['postil'][0]}}</span>
+							@endforeach
+						</span>
+					</p>
+				@endif
+			</p>
+			<!-- <p>本题被作答次数261738次 本题正确率:68% 易错项:B</p> -->
+		</div>
+
 		<!--连线题-->
 		<div style='display: none;'>
 			<p>正确答案是1连3 2连2 3连4 4连1</p>
@@ -212,38 +302,9 @@
 			<p>正确答案是AEBCDF，你的答案是AEDCB</p>
 			<p>回答错误，作答用时1秒。</p>
 		</div>
-
-		<!--单选题-->
-		<div>
-			<p>正确答案是<b class="bj-green right_A" data-a="{{json_encode($analysis['answer'],JSON_UNESCAPED_UNICODE)}}">
-				@if($analysis['categroy_id'] == 3)
-					{{ implode(',',$analysis['answer']) }}
-				@endif
-			</b>，你的答案是 <span class="student_A" data-s="{{ json_encode($analysis['wrokAnswer'],JSON_UNESCAPED_UNICODE)}}">
-				@if($analysis['categroy_id'] == 3)
-					{{ implode(',',$analysis['wrokAnswer']) }}
-				@endif
-			</span>。回答<span class="answerRight"></span>，作答用时<span>1</span>秒。</p>
-			<p>本题备作答次数261738次 本题正确率:68% 易错项:B</p>
-		</div>
-
-		<!--判断题-->
-		<div style='display: none;'>
-			<p>正确答案是正确，你的答案是错误。回答错误，作答用时1秒。</p>
-			<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p>
-		</div>
-
 		<!--阅读题-->
 		<div style='display: none;'>
 			<p>回答错误，作答用时1秒。</p>
-			<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p>
-		</div>
-
-		<!--多空题题-->
-		<div style='display: none;'>
-			<p>正确答案是 so science 你的答案是<span class="red">as education</span>
-			</p>
-			<p>得分4分，总分10分</p>
 			<p>本题 <span class="red">正确率</span>:68% <span class="red">易错项</span>:B</p>
 		</div>
 
@@ -257,17 +318,19 @@
 
 		<div class="proper_div">
 			<p>解析：</p>
-			<span>A项目，成分残缺，“展开”后面缺宾语。应改为“开展了特色鲜明、丰富多彩的活动来传播壮乡文化。”选项有语病病</span>
+			<span>无</span>
+			<!-- <span>A项目，成分残缺，“展开”后面缺宾语。应改为“开展了特色鲜明、丰富多彩的活动来传播壮乡文化。”选项有语病病</span>
 			<span>B项目，成分累赘，“津津乐道”指很有兴趣地说个不停，喝“谈论”词语重复。应改为“人们谈论着今年年初广西姑娘石房里撞倒老人后积极救治的事迹”。选项有语病。</span>
 			<span>C项目，概念误用，“文具”不是提神药物。应改为“一些爱心送考车为考生准备了考试所需要的风油精等提神药品”。选项有语病。</span>
 			<span>D项目，选项没有语病。</span>
 			<br />
 			<span>本题要求选择没有语病的一项。</span>
 			<br />
-			<span>综上所述，本题答案为D项。</span>
+			<span>综上所述，本题答案为D项。</span> -->
 		</div>
-		<p>来源：2017年湖南工程学院初中毕业升学考试：第三章病句解析与修改，第四题。</p>
+		<!-- <p>来源：2017年湖南工程学院初中毕业升学考试：第三章病句解析与修改，第四题。</p> -->
 	</div>
+	<button class="btn-white btn-center" onclick="window.history.go(-1)">返 回</button>
 </div>
 @endsection
 
@@ -277,8 +340,8 @@
 	$(function() {
 		var trues = 1;
 		var type = "{{$analysis['categroy_id']}}";
-		var answerArr = JSON.parse($(".right_A").attr("data-a"));
-		var studentAnswerArr = JSON.parse($(".student_A").attr("data-s"));
+		var answerArr = JSON.parse($(".right_A").attr("data-a")?$(".right_A").attr("data-a"):'[]');
+		var studentAnswerArr = JSON.parse($(".student_A").attr("data-s")?$(".student_A").attr("data-s"):'[]');
 		var newAnswer = '',newSA = '';
 		var isError = false;
 		if(type == 1||type == 2){
@@ -297,26 +360,45 @@
 			})
 			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
 			$(".student_A").text(newSA.slice(1,newSA.length))
+			for(var j = 0; j < studentAnswerArr.length;j++){
+				if(answerArr.indexOf(studentAnswerArr[j])<0){
+					isError = true;
+				}
+			}
+		}else if(type == 6){
+			var arr = [];
+			for(var i = 0;i < answerArr.length; i++){
+				$(".sortOption").each(function(j,item){
+					var sortO = parseInt($(item).attr("data-sort-option-key"));
+					if(sortO == answerArr[i]){
+						newAnswer += ','+$(item).find("span").text();
+					}
+				})
+				if(answerArr[i] != studentAnswerArr[i]){
+					isError = true;
+				}
+			}
+			for(var i = 0;i < studentAnswerArr.length; i++){
+				$(".sortOption").each(function(j,item){
+					var sortO = $(item).attr("data-sort-option-key");
+					if(sortO == studentAnswerArr[i]){
+						newSA += ','+$(item).find("span").text();
+					}
+				})
+			}
+			$(".right_A").text(newAnswer.slice(1,newAnswer.length));
+			$(".student_A").text(newSA.slice(1,newSA.length))
 		}
-		for(var j = 0; j < studentAnswerArr.length;j++){
-			if(answerArr.indexOf(studentAnswerArr[j])<0){
-				isError = true;
+		if(type == 1||type == 2 || type == 3 || type == 6){
+			if(isError){
+				$(".answerRight").text("错误").addClass('red');
+				$(".student_A").removeClass("bj-green").addClass("red");
+			}else{
+				$(".answerRight").text("正确").addClass('bj-green');
+				$(".student_A").removeClass("red").addClass("bj-green");
 			}
 		}
-		if(isError){
-			$(".answerRight").text("错误").addClass('red');
-			$(".student_A").removeClass("bj-green").addClass("red");
-		}else{
-			$(".answerRight").text("正确").addClass('bj-green');
-			$(".student_A").removeClass("red").addClass("bj-green");
-		}
 		$('.view-resolution').click(function() {
-			$(".optionse").find(".fa").each(function(){
-				var cl = $(this).attr("data-class");
-				if(cl != ""){
-					$(this).removeClass("fa-circle-o").addClass("fa-dot-circle-o "+cl);
-				}
-			})
 			if(trues == 1) {
 				$(this).find('i').attr('class','fa fa-angle-up')
 				$('#wrongTopic .proper').show();
@@ -325,6 +407,25 @@
 				$(this).find('i').attr('class','fa fa-angle-down')
 				$('#wrongTopic .proper').hide()
 				trues = 1
+			}
+			if(type == 1 || type == 2){
+				$(".optionse").find(".fa").each(function(){
+					var cl = $(this).attr("data-class");
+					if(cl != ""){
+						$(this).removeClass("fa-circle-o").addClass("fa-dot-circle-o "+cl);
+					}
+				})
+			}else if(type == 3){
+				$(".questions").find(".blank-item").each(function(i){
+					$(this).text(studentAnswerArr[i])
+				})
+			}else if(type == 4){
+				var an = $(".right_A").attr("data-p-a");
+				if(an == 1){
+					$(".right_Img").addClass("active");
+				}else if(an == 0){
+					$(".error_Img").addClass("active");
+				}
 			}
 		})
 

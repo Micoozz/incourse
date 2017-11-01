@@ -683,7 +683,7 @@ $(function () {
         var id=$("#operation_this_job").attr("data-id");
         var allExer = uploadExer();  //保存需要上传的题目
         allExer._token = token;
-        if(id != ""){
+        if(id != "" && id != "workUpLoad"){
             allExer.exercise[0].exe_id=id;
         }
         console.log(allExer)

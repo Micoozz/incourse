@@ -106,11 +106,6 @@
         {{$data->links()}}
         @endif
         <!--添加作业 页面引导-->
-        <!-- <div class="p-a guide d-n">
-            <img src="../../images/exer.png" alt="" />
-
-            <div class="p-a"></div>
-        </div> -->
 
         <!--已添加的作业-->
         <div class="hw-list">

@@ -109,7 +109,7 @@
         width: 100%;
         height: 50px;
         line-height: 50px;
-        font-size: 18px;
+        font-size: 20px;
         color: #168bee;
         margin: 100px auto 0;
         text-align: center;
@@ -143,6 +143,16 @@
     .error_Img{
         background-position:-68px -50px;
     }
+    .isNullData-finish {
+        margin-right: 8px;
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        overflow: hidden;
+        background-image: url(/images/uploadExerIcons.png);
+        background-position: -22px -86px;
+        vertical-align: middle;
+    }
 </style>
 @section('CSS:OPTIONAL')
 @endsection
@@ -154,9 +164,9 @@
     <!--中间内容-->
     <div class="f-l do-hw">
         @if(empty($data))
-            <div class="noData">该章节的错题都已经答对。</div>
+            <div class="noData"><span><span data-answer-num="1" class="isNullData-finish"></span>该小节的题目您已全部答完！</span></div>
             <div class="goBackBtn">
-                <button class="answer_btn" id="goBack" onclick="window.history.go(-1)">返回</button>
+                <button class="answer_btn btn-white" id="goBack" onclick="window.history.go(-1)">返回</button>
             </div>
         @else
         <div class="p-r view">
@@ -208,37 +218,6 @@
                             @endif
                         </div>
                     </li>
-                    <!--连线题-->
-                    <!-- <li data-id="7" class="exer-in-list lian-xian-7">
-                        <div class="clear hw-question">
-                            <i class="student_icons query"></i>
-                            <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">连线题</span>
-                                ）</span>
-                            <span>请把对应的题目连上线</span>
-                        </div>
-                        <div class="answer-box">
-                            <div class="box_hpb">
-                                <div class="line_hpb">
-                                    <ul class="question_hpb">
-                                        <li style="top:0;">湖广会馆放到奋斗奋斗方法</li>
-                                        <li style="top:54px;">大妈</li>
-                                        <li style="top:108px;">大嫂</li>
-                                    </ul>
-                                    <div class="container_hpb">
-                                        <canvas class="canvas1" width="322">您的浏览器暂不支持Canvas！</canvas>
-                                        <canvas class="canvas2" width="322">您的浏览器暂不支持Canvas！</canvas>
-                                    </div>
-                                    <ul class="answer_hpb">
-                                        <li style="top:0;">哥哥</li>
-                                        <li style="top:54px;">大姨</li>
-                                        <li style="top:108px;">大妈</li>
-                                    </ul>
-                                </div>
-                                <button class="ic-blue f-r return_hpb">撤销 <img src="{{asset('images/revoke.png')}}" alt=""/></button>
-                            </div>
-                        </div>
-                    </li> -->
                 </ul>
             </div>
             <div class="answerResult answerModule">

@@ -1,5 +1,5 @@
 <div class="exer-list">
-	@foreach($data['objective'] as $exercise)
+	@foreach($data['done_correct'] as $exercise)
 		<div class="exer-in-list border" data-id="{{$exercise->id}}">
 			<div class="exer-head">
 				<span class="exer-type-list">{!!$exercise->cate_title!!}</span>

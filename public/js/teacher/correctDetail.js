@@ -256,7 +256,7 @@ function upLoadData(){
 		}
 		json.student_answer = $(".upLoadHtmlDataContent").eq(j).html();
 		json.data = dataArr;
-		json.score = $(this).find(".score").val() == ""?$(this).find(".score").val():scoreN;
+		json.score = $(this).find(".score").val() != ""?$(this).find(".score").val():scoreN;
 		arr.push(json);
 		num += len;
 	})
@@ -267,7 +267,7 @@ function upLoadData(){
 		success:function(data){
 			layui.use("layer",function(){
 				layer.msg('批改成功');
-				window.location.reload() ;
+				// window.location.reload() ;
 			})
 		},
 		error:function(data){

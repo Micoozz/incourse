@@ -111,24 +111,12 @@
                         <span class="f-l">答案：</span>
                         <div class="f-l">
                             <ul class="exer-list-ul">
+                                @foreach($data[0]['options'] as $option)
                                 <li>
-                                    <span class="f-l">排序A：</span>
-                                    <p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花 Lorem
-                                        ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Adipisci, animi aperiam blanditiis cupiditate</p>
+                                    <span class="f-l">排序{{$abcList[$loop->index]}}：</span>
+                                    <p class="f-l option">{{$option[key($option)]}}</p>
                                 </li>
-                                <li>
-                                    <span class="f-l">排序B：</span>
-                                    <p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-                                </li>
-                                <li>
-                                    <span class="f-l">排序C：</span>
-                                    <p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-                                </li>
-                                <li>
-                                    <span class="f-l">排序D：</span>
-                                    <p class="f-l option">当阳光洒在身上时，它更坚定了心中的信念--要开出：一朵鲜艳的花</p>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         @elseif(
@@ -159,7 +147,7 @@
             @endforeach
         </div>
 
-        <button class="btn-white btn-center">返 回</button>
+        <button class="btn-white btn-center" onclick="window.history.go(-1)">返 回</button>
     </div>
 </div>
 @endsection
