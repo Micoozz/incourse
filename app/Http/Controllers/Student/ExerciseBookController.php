@@ -465,7 +465,7 @@ class ExerciseBookController extends Controller
         }
         if(!Schema::connection($db_name)->hasTable($user->id)){
             Schema::connection($db_name)->create($user->id, function ($table) {
-                $table->integer('work_id');
+                $table->integer('work_id')->nullable();;
                 $table->integer('exe_id')->nullable();
                 $table->integer('parent_id')->nullable();
                 $table->integer('type')->nullable();
@@ -474,6 +474,7 @@ class ExerciseBookController extends Controller
                 $table->smallInteger('score')->default(0);
                 $table->string('comment',200)->nullable();
                 $table->string('sort',200)->nullable();
+                $table->integer('status')->nullable();
             });
         }
         $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],

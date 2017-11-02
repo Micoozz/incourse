@@ -252,9 +252,7 @@ class LearningCenterController extends Controller
 					if (empty($same_list->toArray())) {
 						$data['exeSecond'] = $this->changeTimeType($second);
 						$tutorship = isset($tutorship) ? implode('&',$tutorship) : null;//所有的错题ID
-						dump($correctScore);dump($sameCorrectScore);dump($totalScore);
 						$accuracy = ($correctScore+$sameCorrectScore) / $totalScore;//这里算分数率
-						dump($accuracy);
 					}else{
 						$sameSecond = 0;
 						$grossScore = 0;
@@ -272,9 +270,7 @@ class LearningCenterController extends Controller
 				 		foreach ($exercise_id as $exe) {//作业的所有的分数
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
-				 		dump($grossScore);dump($exeScore);
 				 		$accuracy = $grossScore / $exeScore;//总分数率
-				 		dump($accuracy);
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
@@ -495,27 +491,31 @@ class LearningCenterController extends Controller
         		}else{
 	        		$answer_arr = array("answer" => array($answer['answer']));
 	        	}
-	        	foreach ($standard['answer'] as $key => $value) {
-		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-		        		if (in_array($value, $answer['answer'])) {
-		        			$flag = true;
-		        		}else{
-		        			$flag = false;
-		        			break;
-		        		}
-		        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-		        			$flag = false;
-		        		}else{
-		        			$score += 2 * 100;
-		        		}
-		        	}else{
-		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-		        			$flag = false;
-		        			break;
-		        		}
-		        	}
-		        }
+	        	if(isset($answer['answer'])){ 
+		        	foreach ($standard['answer'] as $key => $value) {
+			        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+			        		if (in_array($value, $answer['answer'])) {
+			        			$flag = true;
+			        		}else{
+			        			$flag = false;
+			        			break;
+			        		}
+			        	}elseif ($exercise->categroy_id == Exercises::CATE_FILL){
+			        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+			        			$flag = false;
+			        		}else{
+			        			$score += 2 * 100;
+			        		}
+			        	}else{
+			        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+			        			$flag = false;
+			        			break;
+			        		}
+			        	}
+			        }
+			    }else{
+			    	$flag = false;
+			    }    
 	        	if ($exercise->categroy_id != Exercises::CATE_FILL) {//填空题
 	        		if($flag){
                    	 	$score = $exercise->score;
@@ -601,21 +601,26 @@ class LearningCenterController extends Controller
     		}else{
         		$answer_arr = array("answer" => array($answer['answer']));
         	}
-    		foreach ($standard['answer'] as $key => $value) {
-	        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
-	        		if (in_array($value, $answer['answer'])) {
-	        			$flag = true;
-	        		}else{
-	        			$flag = false;
-	        			break;
-	        		}
-	        	}else{
-	        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
-	        			$flag = false;
-	        			break;
-	        		}
-	        	}
-	        }
+        	if (isset($answer['answer'])) {
+	    		foreach ($standard['answer'] as $key => $value) {
+		        	if ($exercise->categroy_id == Exercises::CATE_CHOOSE) {
+
+		        		if (in_array($value, $answer['answer'])) {
+		        			$flag = true;
+		        		}else{
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}else{
+		        		if (!isset($answer['answer'][$key]) || $value != $answer['answer'][$key]){
+		        			$flag = false;
+		        			break;
+		        		}
+		        	}
+		        }
+		    }else{
+		    	$flag = false;
+		    }     
     		if($flag){
            	 	$score = $exercise->score;
             }else{
