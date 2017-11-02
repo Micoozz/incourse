@@ -74,28 +74,34 @@ $("#ensure").on("click",function(){
     $(".expend_time").text(tt)
     var ut = '';
     var student_t;
+    var student_tArr = []
     var obj = {};
     var studennt_score = 0;
     if(type == 1 || type == 2){
         //单选题 || 多选题
         for(var j = 0;j<$(".ic-radio").length;j++){
             var that = $(".ic-radio").eq(j);
-            var cla = $(that).find("i").attr("data-answer");
-            var cls = $(that).find("i").attr("data-s");
+            var cla = that.find("i").attr("data-answer");
+            var cls = that.find("i").attr("data-s");
             if(cla){
-                narr.push($(that).find("input").val());
-                $(that).find("i").addClass(cla + " fa-dot-circle-o");
-            }else if(cls){
-                $(that).find("i").addClass(cls + " fa-dot-circle-o");
+                narr.push(that.find("input").val());
+                that.find("i").addClass(cla + " fa-dot-circle-o");
             }
             if(cls){
+                if(!cla){
+                    that.find("i").addClass(cls + " fa-dot-circle-o");
+                }
                 student_t = $(".ic-radio").eq(j).next("span.f-l").text().slice(0,1)
+                student_tArr.push(student_t);
                 ut += '，' + student_t;
+                student_answer_arr.push(that.parent().find(".option").attr("data-key"));
                 if(narr.indexOf(student_t)<0){
                     isT = false;
                 }
-                student_answer_arr.push($(that).parent().find(".option").attr("data-key"))
             }
+        }
+        if(student_tArr.length<=0){
+            isT = false;
         }
         obj = {
             "exe_id":urlId,

@@ -435,7 +435,7 @@
 /*编辑器*/
 .ic-editor {width:554px; border-radius:4px;}
 .ic-editor .tools {padding:6px 10px; border-bottom:1px solid #d9d9d9;}
-.ic-editor .tools>div {margin-right: 12px; cursor:default;}
+.ic-editor .tools>div {margin-right: 12px; cursor:pointer;}
 .ic-editor .vertical-line {height:20px; margin-right: 7px; margin-left: 7px; border-left: 1px solid #E9E9E9;}
 .addFile {
 	position: absolute;
