@@ -105,6 +105,7 @@
 			</table>
 			<button class="btn-white">返回</button>
 		</div> -->
+		{{ $work_list->links() }}
 	</div>
 @endsection
 

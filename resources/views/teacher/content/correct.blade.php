@@ -149,7 +149,7 @@
 				</tbody>
 			</table>
 
-			<!-- <div>分页</div> -->
+			{{ $job_list->links() }}
 		</div>
 	</div>
 </div>

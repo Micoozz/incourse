@@ -7,7 +7,7 @@
 @endsection
 
 @section('NOTEBOOK')
-<div class="admin-container exer-room pageType">
+<div class="admin-container exer-room pageType" >
 	@if(empty($data))
 	<div>没有数据</div>
 	@else
