@@ -111,12 +111,7 @@
                         <span class="f-l">答案：</span>
                         <div class="f-l">
                             <ul class="exer-list-ul">
-                                @foreach($data[0]['options'] as $option)
-                                <li>
-                                    <span class="f-l">排序{{$abcList[$loop->index]}}：</span>
-                                    <p class="f-l option">{{$option[key($option)]}}</p>
-                                </li>
-                                @endforeach
+
                             </ul>
                         </div>
                         @elseif(
