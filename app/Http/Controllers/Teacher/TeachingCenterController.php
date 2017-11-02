@@ -723,7 +723,7 @@ class TeachingCenterController extends TeacherController
         }
         return json_encode($data);
     }
-    
+
     /*保存作业*/
     public function createJob($status = Job::STATUS_UNPUB){
         $input = Input::get();

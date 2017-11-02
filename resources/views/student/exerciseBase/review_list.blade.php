@@ -28,7 +28,7 @@
 							@else
 							<div class="sectionAllSubject">
 								<span class="allSubject">共<span>{{ $chapter['count'] }}</span>题</span>
-								<!-- <span class="thisGrade">分数：<span>无</span></span> -->
+								<span class="thisGrade">分数：<span>无</span></span>
 							</div>
 							@endif
 						</div>
