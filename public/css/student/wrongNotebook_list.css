@@ -138,6 +138,7 @@
 	margin-right: 8px;
 	font-weight: 100;
 	vertical-align: middle;
+	margin-top: -1px;
 }
 .wrongClick{
 	float: right;
@@ -147,7 +148,7 @@
 	cursor: pointer;
 }
 .wrongClick i{
-	margin-right: 8px;
+	margin-right: 5px;
 }
 .dowmLine{
 	position: absolute;

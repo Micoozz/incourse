@@ -118,6 +118,3 @@
 		</div>
 	@endforeach
 </div>
-<script type="text/javascript">
-	var categroy_id = "{{$exercise->categroy_id}}";
-</script>
