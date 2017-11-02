@@ -68,8 +68,8 @@ $(function () {
                 "<button class='f-l p-r of-h addFileTool icon_margin_r'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'/>" +
                 "</button>" +
+                "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank d-n icon_margin_r'>" +
                     "<i class='tool'></i>" +
@@ -100,8 +100,8 @@ $(function () {
                 "<button class='p-r of-h ic-blue addFileTool'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'>" +
                 "</button>" +
+                "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'>" +
             "</p>" +
             "<div class='mp3-box'></div>" +
         "</div>" +
@@ -115,8 +115,8 @@ $(function () {
                 "<button class='f-l p-r of-h addFileTool'>" +
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
-                    "<input id='image-upload' class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'/>" +
                 "</button>" +
+                "<input id='image-upload' class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank icon_margin_r'>" +
                     "<i class='tool'></i>" +
@@ -265,7 +265,9 @@ $(function () {
         }
         //答案
         parent_html_el.html(AnswerFun(tID,tClass,tOptions,tIDOnly,text));
-
+        $(".addFileTool").click(function(){
+            $(this).parent().find(".addFile").click();
+        })
     }
 
     //我的上传--编辑
@@ -668,6 +670,9 @@ $(function () {
     //添加题目
 	$("body").on("click",".addExerBtn-box .addExerBtn",function () {
 		$(".exercise-box").append(html);
+        $(".addFileTool").click(function(){
+            $(this).parent().find(".addFile").click();
+        })
 	});
 
     //添加子题目
@@ -1202,24 +1207,9 @@ $(function () {
             }
         }
     }
-    /*$.ajax({
-        url:"/getExerciseList",
-        data:grtWork,
-        type:"POST",
-        success:function(data){
-            console.log(data);
-            var data = JSON.parse(data);
-            for(var i=0;i<data.length;i++){
-                $(".work_tbody").append(htmlModule(data[i],i));
-            }
-
-        }
-    })*/
-    /*if (typeof(ligature) != "undefined") {
-   		lianXianTiFunc(matching,ligature);
-	}else{
-		lianXianTiFunc(exercise_id,exercise_length,answer);
-	}*/
+    $(".addFileTool").click(function(){
+        $(this).parent().find(".addFile").click();
+    })
 
 });
 

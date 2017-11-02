@@ -100,7 +100,6 @@
                                         <span class="f-l">{{ $abcList[$loop->index] }}：</span>
                                         <p class="f-l option">{{ $option[array_keys($option)[0]] }}</p>
                                     </div>
-                                    
                                 </li>
                                 @endforeach
                             </ul>
@@ -236,16 +235,15 @@
                                 <div class="tools clear">
                                     <div class="f-l p-r of-h addFileTool">
                                         <i class="tool"></i>
-                                        <span>添加附件</span>
-                                        <input class="addFile" type="file" />
+                                        <span >添加附件</span>
                                     </div>
+                                    <input class="addFile" type="file" style="top:50px;display: none;"/>
                                 </div>
                                 <div class="editor-content" contenteditable="true"></div>
                             </div>
                         </div>
                     </li>
                     @endif
-                    
                     <!--答题卡-->
                     @endforeach
                     <li class="answer-sheet ta-c">
@@ -257,7 +255,6 @@
                         <button class="ic-btn answer-sheet-submit">交卷并查看结果</button>
                     </li>
                 </ul>
-               
             </div>
 
             <!--题目序号-->
@@ -331,7 +328,6 @@
 
         })
     })
-
     function checkLeave(){
         return "11";
     }

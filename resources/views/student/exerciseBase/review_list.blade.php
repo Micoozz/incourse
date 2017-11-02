@@ -28,16 +28,14 @@
 							@else
 							<div class="sectionAllSubject">
 								<span class="allSubject">共<span>{{ $chapter['count'] }}</span>题</span>
-								<!-- <span class="thisGrade">分数：<span>无</span></span> -->
+								<span class="thisGrade">分数：<span>无</span></span>
 							</div>
 							@endif
 						</div>
 						<div class="SectionList-subTitle sectionTitle">
 							<span class="titleTime"><i class="fa fa-clock-o"></i>第一章</span>
 							<span class="wrongClick ic-blue">
-								<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$chapter['id']}}/{{$type_id}}/1" title=""><i class="fa fa-pencil"></i>
-								@if($type_id != 3) 开始做题 @else 错题练习 @endif
-								</a>
+								<a class="eoorosExercise" data-href="/practice/{{$courseFirst[0]['id']}}/{{$chapter['id']}}/{{$type_id}}/1" title=""><i class="fa fa-pencil"></i><span>@if($type_id != 3)开始做题 @else错题练习 @endif</span></a>
 							</span>
 						</div>
 						<ul class="chapterList">
@@ -58,9 +56,7 @@
 								<div class="chapterTitle">
 									<span class="chapterTitleTime titleTime"><i class="fa fa-clock-o"></i>第一章第一节</span>
 									<span class="wrongClick ic-blue">
-										<a class="eoorosExercise" data-href="/practice/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}/{{ $type_id }}" title=""><i class="fa fa-pencil"></i>
-										@if($type_id != 3) 开始做题 @else 错题练习 @endif
-										</a>
+										<a class="eoorosExercise" data-href="/practice/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}/{{ $type_id }}" title=""><i class="fa fa-pencil"></i><span>@if($type_id != 3)开始做题 @else错题练习 @endif</span></a>
 									</span>
 								</div>
 								<span class="dowmLine" style="{{  $loop->iteration==count($chapter['minutia'])?'display:none;':'' }}"></span>

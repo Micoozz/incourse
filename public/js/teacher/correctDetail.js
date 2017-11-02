@@ -73,7 +73,7 @@ $(function() {
 		var center = '<div style="color:#333;margin-bottom:20px">\
 						<b>' + num + '：</b>\
 						<div class="UploadPictures">\
-							<button><span class="btnFile"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" /></button>\
+							<button><span class="btnFile addFileTool"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" class="addFile" style="display:none;" /></button>\
 							<i class="fa fa-times close remove" num="' + num + '"></i>\
 						</div>\
 						<div class="textareaS"><div contenteditable="true"></div></div></div>'
@@ -98,6 +98,9 @@ $(function() {
 		})
 
 		$('.postil>div:last-child>div').css('overflow-y', 'auto')
+        $(".addFileTool").click(function(){
+            $(this).parent().find(".addFile").click();
+        })
 	});
 
 	//删除批语
@@ -186,7 +189,7 @@ $(function() {
 					var center = '<div style="color:#333;margin-bottom:20px">\
 							<b>' + obj.numbers + '：</b>\
 							<div class="UploadPictures">\
-								<button><span class="btnFile"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" /></button><i class="fa fa-times close" num="' + num + '"  moveX="'+obj.x+'" moveY="'+obj.y+'" lineX="'+lineX+'" ></i>\
+								<button><span class="btnFile addFileTool"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" class="addFile" style="display:none;"/></button><i class="fa fa-times close" num="' + num + '"  moveX="'+obj.x+'" moveY="'+obj.y+'" lineX="'+lineX+'" ></i>\
 							</div>\
 							<div contenteditable="true" class="textareaS"><div></div></div></div>'
 					ctx.lineTo(event.pageX - $('#mycanvas').offset().left, obj.y);
@@ -203,6 +206,9 @@ $(function() {
 				}
 			}
 		}
+        $(".addFileTool").click(function(){
+            $(this).parent().find(".addFile").click();
+        })
 	}
 
 	//提交
