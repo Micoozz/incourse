@@ -17,12 +17,14 @@ class LoginController extends Controller
     //登录逻辑Controller
     public function createSchool($pf_school_id,$school_name,$school_type){
         try{
+                $time = time();
                 $school = new School;
                 $school->pf_school_id = $pf_school_id;
                 $school->title = $school_name;
                 $school->type = empty($school_type) ? 0 : intval($school_type);
                 $school->username = rand(100000000,999999999);
                 $school->password = bcrypt(123456);
+                $school->create_time = $time;
                 $school->save();
             }catch(\Illuminate\Database\QueryException $e){
                 if($e->errorInfo[0] != 23000 || $e->errorInfo[1] != 1062){
@@ -49,6 +51,7 @@ class LoginController extends Controller
                 $code = '200';
             }
         }else{
+            $time = time();
             $input["appId"] = "74";
             $user_info = parent::send_post("http://manage.jledu.com/api/getUserInfo.do",$input);
             $preg = "/\=(\{.+?\})\&/";
@@ -93,8 +96,11 @@ class LoginController extends Controller
                     $user->status = 1;
                     $user->group_id = 0;
                     $user->pf_teacher_id = $user_info->userID;
+                    $user->create_time = $time;
                     $user->save();
                 }
+                $user->last_time = $time;
+                $user->save();
                 Auth::guard('employee')->login($user);
                 $map_list = ClassTeacherCourseMap::where('teacher_id',$user->id)->get();
                 if($map_list->isEmpty()){
@@ -112,8 +118,11 @@ class LoginController extends Controller
                     $user->school_id = $school->id;
                     $user->class_id = 0;
                     $user->pf_student_id = $user_info->userID;
+                    $user->create_time = $time;
                     $user->save();
                 }
+                $user->last_time = $time;
+                $user->save();
                 Auth::guard("student")->login($user);
                 if(empty($user->class_id)){
                     return Redirect::to('/selectClass/'.$grade->id);
