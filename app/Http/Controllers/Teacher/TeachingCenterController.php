@@ -171,7 +171,7 @@ class TeachingCenterController extends TeacherController
                 array_push($data['done_correct'],$exercise);
             }
         }
-        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id','abcList','job_id'));
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work','abcList','job_id'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){
