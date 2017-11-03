@@ -15,7 +15,7 @@
 	<div class="school-container admin-container">
 		<!--内容-->
 		<div>
-			<div class="p-r admin-container stu-answer" stu-id="{{$data['student']->id}}" work-id="{{$work_id}}">
+			<div class="p-r admin-container stu-answer" stu-id="{{$data['student']->id}}" work-id="{{$work->id}}">
 				<div class="person-hw-mark-head clear">
 					<a class="page_Mark ic-blue c-d p-r blue-hover lookSameExer" data-page="3">查看学生同类型练习题</a>
 					<div class="f-r p-r">
@@ -31,7 +31,7 @@
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
 							<span>总分值：</span>
-							<span>10</span>
+							<span>{{$work->score}}</span>
 						</li>
 					</ul>
 					<!--题目列表，都是客观题-->

@@ -18,11 +18,12 @@
 			<table class="admin-list border pigaizuoye">
 				<thead>
 					<tr>
-						<th colspan='4'>第一章第一节作业</th>
+						<th colspan='5'>第一章第一节作业</th>
 					</tr>
 					<tr>
 						<td><b>姓名</b></td>
-						<td><b>分数</b></td>
+						<td><b>得分率</b></td>
+						<td><b>得分</b></td>
 						<td><b>状态</b></td>
 						<td><b>操作</b></td>
 					</tr>
@@ -32,6 +33,7 @@
 					<tr data-id="{{$work->id}}">
 						<td>{{$work->student_name}}</td>
 						<td><span class="gray">{{$work->score / 100}}</span></td>
+						<td><span class="gray">{{$work->score / 100}}/{{$work->score / 100}}</span></td>
 						<td><span class="{{$work->status != 4?'red':'gray'}}">{{$work->status == 2? '可批改':($work->status == 3?'批改中':'已完成')}}</span></td>
 						<td class="ic-blue">
 							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title="">

@@ -139,13 +139,13 @@ $(".delExercise").on("click",function(){
         type:'GET',
         success:function(data){
             layui.use("layer",function(){
-                layer.msg('删除成功！');
+                layer.msg('删除成功！', {offset: 't'});
             });
             $(that).parents(".jobList").remove();
         },
         error:function(){
             layui.use("layer",function(){
-                layer.msg('删除失败！');
+                layer.msg('删除失败！', {offset: 't'});
             });
         }
     })
