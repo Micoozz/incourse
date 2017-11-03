@@ -71,8 +71,9 @@ function myBrowser(){
        console.log("Safari")
     }
     $(".go-page").click(function(){
-        var page = $(".goPage").val() == ''?$(".goPage").parents("ul").find("li.active").find('span').text():$(".goPage").val();
-        window.location.href = '/exercise/41/2?page='+page;
+        var page = $(".goPage").val() == ''?$("ul#pagaSkip").find("li.active").find('span').text():$(".goPage").val();
+        var pathName = window.location.pathname;
+        window.location.href = pathName + '?page=' + page;
     })
 })()
 </script>
