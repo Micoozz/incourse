@@ -107,6 +107,11 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->orderBy('pub_time','desc')->paginate(10);
+        foreach($job_list as $job){
+            $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get();
+            $job->count = $job->hasManyWork()->get()->count();
+
+        }
         // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
         // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
         // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
@@ -143,6 +148,7 @@ class TeachingCenterController extends TeacherController
         }catch(\Exception $e){
             throw $e;
         }
+        $work->title = $work->belongsToJob()->title;
         foreach ($exercise_list as $exercise) {
             $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
