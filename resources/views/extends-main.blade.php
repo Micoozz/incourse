@@ -70,6 +70,10 @@ function myBrowser(){
     if ("Safari" == mb) {
        console.log("Safari")
     }
+    $(".go-page").click(function(){
+        var page = $(".goPage").val() == ''?$(".goPage").parents("ul").find("li.active").find('span').text():$(".goPage").val();
+        window.location.href = '/exercise/41/2?page='+page;
+    })
 })()
 </script>
 <!-- Plugin -->

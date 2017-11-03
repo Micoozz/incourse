@@ -699,4 +699,6 @@
 .hint{
 	color: red;
 }
-
+.pagination{
+	float: right;
+}

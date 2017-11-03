@@ -1,5 +1,6 @@
 @if ($paginator->hasPages())
-    <ul class="pagination">
+{{dump($paginator)}}
+    <ul class="pagination" id="pagaSkip">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="disabled"><span>&laquo;</span></li>
@@ -32,5 +33,6 @@
         @else
             <li class="disabled"><span>&raquo;</span></li>
         @endif
+        <li><input class='goPage' type='text' style=''/><span class='go-page' style='cursor: pointer;'>GO</span></li>
     </ul>
 @endif
