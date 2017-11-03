@@ -255,19 +255,19 @@ class ExerciseBookController extends Controller
                 $minutiaPat = Chapter::find($minutia['id'])->parent_id;
                 if ($minutiaPat == $item->id) {
                     $exercise = Exercises::select('id')->where('chapter_id', $minutia['id'])->get()->pluck('id')->toArray();
-                    $data[$key]['minutia'][$k]['exeCount'] = count(array_intersect($exercise,$db->table($user->id)
+                    $data[$key]['minutia'][$k]['count'] = count(array_intersect($exercise,$db->table($user->id)
                     ->select('exe_id')->whereIn('exe_id',$exe_id)->get()->pluck('exe_id')->toArray()));
 
-                    $data[$key]['minutia'][$k]['count'] = count(array_intersect($exercise,$db->table($user->id)
+                    $data[$key]['minutia'][$k]['exeCount'] = count(array_intersect($exercise,$db->table($user->id)
                     ->select('exe_id')->whereIn('exe_id',$exe_id)->where('type',3)->get()->pluck('exe_id')->toArray()));
-
-                    $data[$key]['count'] += $data[$key]['minutia'][$k]['count'];
                     $data[$key]['exeCount'] += $data[$key]['minutia'][$k]['exeCount'];
+                    $data[$key]['count'] += $data[$key]['minutia'][$k]['count'];
                     $data[$key]['minutia'][$k]['id'] = $minutia['id'];
                     $data[$key]['minutia'][$k]['title'] = $minutia['title'];
                 }
             }
         }
+        dd($data);
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //这个学生某个章节错了多少题
