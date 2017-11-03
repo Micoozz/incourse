@@ -274,13 +274,13 @@ function upLoadData(){
 		type:"POST",
 		success:function(data){
 			layui.use("layer",function(){
-				layer.msg('批改成功');
+				layer.msg('批改成功', {offset: 't'});
 				window.location.reload();
 			})
 		},
 		error:function(data){
 			layui.use("layer",function(){
-				layer.msg('批改失败');
+				layer.msg('批改失败', {offset: 't'});
 			})
 		}
 	})

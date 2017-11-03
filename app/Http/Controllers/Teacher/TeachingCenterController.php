@@ -143,6 +143,7 @@ class TeachingCenterController extends TeacherController
         $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
+        $work->title = $work->belongsToJob()->first()->title;
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
