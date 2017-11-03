@@ -110,7 +110,7 @@ class TeachingCenterController extends TeacherController
         foreach($job_list as $job){
             $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get()->count();
             $job->count = $job->hasManyWork()->get()->count();
-            $avg_score = $job->hasManyWork()->where('status','>=',2)->sum('score') / $job->sub_count;
+            $avg_score = empty($job->sub_count) ? 0 : $job->hasManyWork()->where('status','>=',2)->sum('score') / $job->sub_count;
             $job->avg_ratings = round($avg_score / $job->score,2);
         }
         // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
