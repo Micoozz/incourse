@@ -92,6 +92,7 @@ $(".preview").on("click",function(){
             shadeClose: false,
             area: ['700px', '730px'],
             content: htmlModuleAssembly(sessionStorageData),
+            scrollbar: false,
             end: function () {}
         });
         layuiEndFun(sessionStorageData)
@@ -109,6 +110,7 @@ $(".sameExercise").on("click",function(){
             shadeClose: true,
             area: ['700px', '730px'],
             content: id+"同类型习题",
+            scrollbar: false,
             end: function () {}
         });
     });
