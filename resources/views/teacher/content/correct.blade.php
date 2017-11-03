@@ -82,7 +82,7 @@
 						<td>{{$job->title}}</td>
 						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
 						<td><span class="gray">待统计</span></td>
-						<td><span>5/10</span></td>
+						<td><span>{{$job->sub_count}}/{{$job->count}}</span></td>
 						<td class="ic-blue">
 							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}">
 							@if($job->status == 4)
