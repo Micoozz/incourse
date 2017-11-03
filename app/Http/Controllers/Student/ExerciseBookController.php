@@ -267,7 +267,6 @@ class ExerciseBookController extends Controller
                 }
             }
         }
-        dd($data);
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //这个学生某个章节错了多少题

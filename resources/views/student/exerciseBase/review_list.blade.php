@@ -13,17 +13,17 @@
 	@else
 		<ul class="wrongNoteBookSectionLists">
 			@foreach($data as $chapter)
-			<li class="wrongNoteBookSectionList" data-id="{{$chapter['id']}}" style="{{ count($data) <=1?'border-bottom:none;':'' }}">
-				<div class="SectionListTitle">
+			<li class="wrongNoteBookSectionList" data-id="{{$chapter['id']}}">
+				<div class="SectionListTitle" style="{{ count($data) <=1?'border-bottom:none;':'' }}">
 					<div class="sectionTitle-parent">
 						<div class="SectionList-title sectionTitle">
 							<i class="sectionTitleIcon fa fa-angle-right ic-blue-bg fff"></i>
 							<div class="title-content"><span>
-								<a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $chapter['id'] }}/1">{{ $chapter['title'] }}<small class="finishWorks">(已做题&nbsp;{{ $chapter['exeCount'] }}&nbsp;题)</small></a>
+								<a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $chapter['id'] }}/1">{{ $chapter['title'] }} @if($type_id != 3)<small class="finishWorks">(已做题&nbsp;{{ $chapter['count'] }}&nbsp;题)</small>@endif</a>
 							</span></div>
 							@if($type_id == 3)
 							<span class="title-bar">
-								<span style="width:{{$chapter['exeCount']/$chapter['count']*100}}%"><b>{{$chapter['exeCount']/$chapter['count']*100}}%<i></i></b></span>
+								<span style="width:{{($chapter['exeCount']/$chapter['count']*100) == 0?'5':$chapter['exeCount']/$chapter['count']*100}}%"><b>{{$chapter['exeCount']/$chapter['count']*100}}%<i></i></b></span>
 							</span>
 							@else
 							<div class="sectionAllSubject">
@@ -42,10 +42,10 @@
 							@foreach($chapter['minutia'] as $key=>$minutia)
 							<li data-son-id="{{$minutia['id']}}">
 								<b class="chapterIcon ic-blue-bg fff">{{$loop->iteration}}</b>
-								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }}<small class="finishWorks">(已做题&nbsp;{{ $minutia['exeCount'] }}&nbsp;题)</small></a></span></div>
+								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }} @if($type_id != 3)<small class="finishWorks">(已做题&nbsp;{{ $minutia['count'] }}&nbsp;题)</small>@endif</a></span></div>
 								@if($type_id == 3)
 								<span class="title-bar">
-									<span style="width:70%"><b>70%<i></i></b></span>
+									<span style="width:{{($minutia['exeCount']/$chapter['count']*100) == 0?'5':$minutia['exeCount']/$minutia['count']*100}}%"><b>{{$minutia['exeCount']/$minutia['count']*100}}%<i></i></b></span>
 								</span>
 								@else
 								<div class="sectionAllSubject">
