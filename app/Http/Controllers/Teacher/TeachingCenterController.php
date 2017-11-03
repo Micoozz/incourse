@@ -108,7 +108,7 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->orderBy('pub_time','desc')->paginate(10);
         foreach($job_list as $job){
-            $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get();
+            $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get()->count();
             $job->count = $job->hasManyWork()->get()->count();
 
         }
