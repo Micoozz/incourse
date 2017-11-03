@@ -66,9 +66,9 @@
 				</div>
 				<div class="btns">
 					@if(!empty($data['un_correct']))
-					<button id="next-stu" class="ic-btn btn-hover-bg">提交</button>
+					<button id="next-stu" class="ic-btn btn-hover-bg" style="display:none;">提交</button>
 					@endif
-					<button class="btn-white gray-hover-bg ic-return" onclick="window.history.go(-1)">返 回</button>
+					<button class="btn-white gray-hover-bg ic-return"><a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job_id}}" title="">返 回</a></button>
 				</div>
 			</div>
 		</div>
