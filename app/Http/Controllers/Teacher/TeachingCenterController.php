@@ -46,83 +46,7 @@ class TeachingCenterController extends TeacherController
 
 
     // questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
-    public function courseWare($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id'));
-    }
-    public function upLoadCourseware($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.upLoadCourseware',compact("title",'class_course','class_id','course_id'));
-    }
-    public function setQuestions($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id'));
-    }
-    public function coursewareDetail($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerStart($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerStart',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerStart_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-
-
-
-
-
+   
 
     /**
      * 学习中心主体页面
@@ -182,7 +106,7 @@ class TeachingCenterController extends TeacherController
         $title = "批改作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->paginate(10);
+        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->orderBy('pub_time','desc')->paginate(10);
         // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
         // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
         // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
@@ -292,7 +216,90 @@ class TeachingCenterController extends TeacherController
         }
         return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action'));
     }
-    
+
+    /*课堂课件页面*/
+     public function courseWare($class_id = null,$course_id = null){
+        $title = "课堂课件";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id); 
+        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
+        if(empty($class_id)){
+            $class_id = $map->class_id;
+        }
+        if(empty($course_id)){
+            $course_id = $map->course_id;
+        }
+        $grade_id = Classes::find(Classes::find($class_id)->parent_id)->id;
+
+        return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id'));
+    }
+    public function upLoadCourseware($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.upLoadCourseware',compact("title",'class_course','class_id','course_id'));
+    }
+    public function setQuestions($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id'));
+    }
+    public function coursewareDetail($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerStart($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerStart',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerStart_freedom($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerIng($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerEnd($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
+    }
+    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
+    }
+    public function showSolution($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
+    }
+    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
+    }
+
 
     public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
         $teacher = Auth::guard("employee")->user();

@@ -31,7 +31,7 @@
 				@foreach($work_list as $work)
 					<tr data-id="{{$work->id}}">
 						<td>{{$work->student_name}}</td>
-						<td><span class="gray">{{$work->score}}</span></td>
+						<td><span class="gray">{{$work->score / 100}}</span></td>
 						<td><span class="{{$work->status != 4?'red':'gray'}}">{{$work->status == 2? '可批改':($work->status == 3?'批改中':'已完成')}}</span></td>
 						<td class="ic-blue">
 							<a href="/correctDetail/{{$class_id}}/{{$course_id}}/{{$work->id}}" title="">
