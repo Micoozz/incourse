@@ -23,7 +23,7 @@
 							</span></div>
 							@if($type_id == 3)
 							<span class="title-bar">
-								<span><b>70%<i></i></b></span>
+								<span style="width:{{$chapter['exeCount']/$chapter['count']*100}}%"><b>{{$chapter['exeCount']/$chapter['count']*100}}%<i></i></b></span>
 							</span>
 							@else
 							<div class="sectionAllSubject">
@@ -45,7 +45,7 @@
 								<div class="title-content"><span><a href="/chapterErrorExercise/{{ $type_id }}/{{ $courseFirst[0]['id'] }}/{{ $minutia['id'] }}">{{ $minutia['title'] }}<small class="finishWorks">(已做题&nbsp;{{ $minutia['exeCount'] }}&nbsp;题)</small></a></span></div>
 								@if($type_id == 3)
 								<span class="title-bar">
-									<span><b>70%<i></i></b></span>
+									<span style="width:70%"><b>70%<i></i></b></span>
 								</span>
 								@else
 								<div class="sectionAllSubject">
