@@ -30,7 +30,7 @@
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
-							<span>客观题分值：</span>
+							<span>总分值：</span>
 							<span>10</span>
 						</li>
 					</ul>
@@ -44,7 +44,7 @@
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
-							<span>同类型习题分值：</span>
+							<span>分值：</span>
 							<span>10</span>
 						</li>
 					</ul>
@@ -58,7 +58,7 @@
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
-							<span>该题分值：</span>
+							<span>分值：</span>
 							<span>10</span>
 						</li>
 					</ul>
@@ -66,9 +66,9 @@
 				</div>
 				<div class="btns">
 					@if(!empty($data['un_correct']))
-					<button id="next-stu" class="ic-btn btn-hover-bg">提交</button>
+					<button id="next-stu" class="ic-btn btn-hover-bg" style="display:none;">提交</button>
 					@endif
-					<button class="btn-white gray-hover-bg ic-return" onclick="window.history.go(-1)">返 回</button>
+					<button class="btn-white gray-hover-bg ic-return"><a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job_id}}" title="">返 回</a></button>
 				</div>
 			</div>
 		</div>

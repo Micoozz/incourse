@@ -30,12 +30,14 @@ $(function() {
 		if(page == "1"){
 			$(".person-correct-did,.lookSameExer,.left").css("display","block");
 			$('.person-correct-will,.postil,.person-correct-same').css("display","none");
+			$("#next-stu").css({display:'none'});
 		}else if(page == "2"){
 			$(".person-correct-did,.left,.lookSameExer,.person-correct-same").css("display","none");
 			$('.person-correct-will,.postil').css("display","block");
 			$('.postil').height($('#centery').height() - 78)
 			$('.postil>div:last-child').height($('.postil').height() - 87);
 			$('#col').css({'position': 'relative','left': '90px'});
+			$("#next-stu").css({display:'inline-block'});
 		}else if(page == "3"){
 			$(".person-correct-same,.left,.lookSameExer").css("display","block");
 			$('.person-correct-will,.postil,.person-correct-did').css("display","none");

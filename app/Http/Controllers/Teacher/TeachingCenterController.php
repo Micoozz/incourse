@@ -46,10 +46,198 @@ class TeachingCenterController extends TeacherController
 
 
     // questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
-    public function courseWare($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
+   
+
+    /**
+     * 学习中心主体页面
+     */
+    /*获取教师关联班级科目*/
+    private function getClassCourse($teacher_id){
+        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据 
+        $class_course = array();
+        foreach ($map_list as $map) {
+            $class = Classes::find($map->class_id);
+            $grade = Classes::find($class->parent_id);
+            $course = Course::find($map->course_id);
+            array_push($class_course,array('title' => $grade->title."届".$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
+        }
+        return $class_course;
+    }
+    /*云平台教师绑定班级页面*/
+    public function bindClass($grade_id){
+        $title = "绑定班级";
+        $class_list = Classes::where('parent_id',$grade_id)->pluck('title','id');
+        $course_list = Course::pluck('title','id');
+        return view('teacher.pf-login-teacher',compact('title','grade_id','class_list','course_list'));
+    }
+    /*教学中心页面*/
+    public function teachingCenter($class_id = null,$course_id = null){
+        return $this->addHomework($class_id,$course_id);
+    }
+    /*作业管理页面*/
+    public function homeworkManage($class_id = null,$course_id = null){
+        return $this->addHomework($class_id,$course_id);
+    }
+    /*添加作业页面*/
+    public function addHomework($class_id = null,$course_id = null){
+        //echo php_info();
+        $title = "添加作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id); 
+        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
+        if(empty($class_id)){
+            $class_id = $map->class_id;
+        }
+        if(empty($course_id)){
+            $course_id = $map->course_id;
+        }
+        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id'));
+    }
+    /*添加个人作业页面*/
+    public function addHomeworkPer($class_id,$course_id){
+        $title = "添加作业";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
+        $unit_list = parent::getUnit($course_id);
+        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list'));
+    }
+    /*批改作业页面*/
+    public function correct($class_id,$course_id,$type = Job::TYPE_PERSONAL,$unit_id = null,$section_id = null){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->orderBy('pub_time','desc')->paginate(10);
+        foreach($job_list as $job){
+            $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get()->count();
+            $job->count = $job->hasManyWork()->get()->count();
+
+        }
+        // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
+        // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
+        // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
+        // $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
+        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','job_list','type','unit_id','section_id'));
+    }
+    public function correctWork($class_id,$course_id,$job_id){
+        $title = "批改作业";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $work_list = Work::where(['job_id' => $job_id])->where('status','>=',Work::STATUS_SUB)->paginate(10);
+        foreach($work_list as $work){
+            $student = Student::find($work->student_id);
+            $work->student_name = $student->name;
+        }
+        return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
+    }
+    public function correctDetail($class_id,$course_id,$work_id){
+        $title = "批改作业";
+        $abcList = range("A","Z");
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $work = Work::find($work_id);
+        $job_id = $work->job_id;
+        $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
+        $student = Student::find($work->student_id);
+        $data = array('student' => $student,'un_correct' => [],'done_correct' => []);
+        $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
+        $baseNum = (int)($work->student_id/1000-0.0001)+1;
+        $db_name = 'mysql_stu_work_info_'.$baseNum;
+        try{
+            $db = DB::connection($db_name);
+        }catch(\Exception $e){
+            throw $e;
+        }
+        $work->title = $work->belongsToJob()->title;
+        foreach ($exercise_list as $exercise) {
+            $cate_title = Category::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
+            $work_info = $db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first();
+            $exercise->student_answer = json_decode($work_info->answer,TRUE)["answer"];
+            $exercise->correct = json_decode($work_info->correct,true);
+            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
+            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+                if($exercise->categroy_id == Exercises::CATE_FILL){
+                    $exercise->student_answer = json_encode($exercise->student_answer,JSON_UNESCAPED_UNICODE);
+                }
+            }
+//          else{
+//              
+//          }
+            if($work_info->status == 1){
+                array_push($data['un_correct'],$exercise);
+            }elseif($work_info->status == 2){
+                array_push($data['done_correct'],$exercise);
+            }
+        }
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work','abcList','job_id'));
+    }
+    /*上传习题页面*/
+    public function uploadExercise($class_id,$course_id,$exe_id = null){
+        $title = "上传习题";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $unit_list = parent::getUnit($course_id);
+        $categroy_list = parent::getCategory($course_id);
+        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
+    }
+    /*习题库页面*/
+    public function exercise($class_id,$course_id,$action = null){
+        $title = "习题库";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+        if(empty($action)){
+            $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+        }elseif($action == self::ACT_MY_UPLOAD){
+            if($teacher->id == 1){
+                $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+            }else{
+                $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
+            }
+        }
+        foreach ($data as $exercise) {
+            $cate_title = Category::find($exercise->categroy_id)->title;
+            $exercise->cate_title = $cate_title;
+            $exercise->score = $exercise->score/100;
+            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
+                $subjective = $exercise->hasManySubjective->first();
+                $exercise->subject = $subjective->subject;
+                $exercise->answer = array('自由发挥');
+            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
+                $objective = $exercise->hasManyObjective->first();
+                $exercise->subject = $objective->subject;
+                $exercise->options = json_decode($objective->option,TRUE);
+                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+            }
+//          else{
+//              
+//          }
+        }
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action'));
+    }
+
+    /*课堂课件页面*/
+     public function courseWare($class_id = null,$course_id = null){
+        $title = "课堂课件";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id); 
+        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
+        if(empty($class_id)){
+            $class_id = $map->class_id;
+        }
+        if(empty($course_id)){
+            $course_id = $map->course_id;
+        }
+        $grade_id = Classes::find(Classes::find($class_id)->parent_id)->id;
+
         return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id'));
     }
     public function upLoadCourseware($class_id = 1 ,$course_id = 1){
@@ -119,180 +307,6 @@ class TeachingCenterController extends TeacherController
         return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
     }
 
-
-
-
-
-
-    /**
-     * 学习中心主体页面
-     */
-    /*获取教师关联班级科目*/
-    private function getClassCourse($teacher_id){
-        $map_list = ClassTeacherCourseMap::where('teacher_id',$teacher_id)->get();//查询出所有老师关联的数据 
-        $class_course = array();
-        foreach ($map_list as $map) {
-            $class = Classes::find($map->class_id);
-            $grade = Classes::find($class->parent_id);
-            $course = Course::find($map->course_id);
-            array_push($class_course,array('title' => $grade->title."届".$class->title.$course->title,'class_id' => $map->class_id,'course_id' => $map->course_id));
-        }
-        return $class_course;
-    }
-    /*云平台教师绑定班级页面*/
-    public function bindClass($grade_id){
-        $title = "绑定班级";
-        $class_list = Classes::where('parent_id',$grade_id)->pluck('title','id');
-        $course_list = Course::pluck('title','id');
-        return view('teacher.pf-login-teacher',compact('title','grade_id','class_list','course_list'));
-    }
-    /*教学中心页面*/
-    public function teachingCenter($class_id = null,$course_id = null){
-        return $this->addHomework($class_id,$course_id);
-    }
-    /*作业管理页面*/
-    public function homeworkManage($class_id = null,$course_id = null){
-        return $this->addHomework($class_id,$course_id);
-    }
-    /*添加作业页面*/
-    public function addHomework($class_id = null,$course_id = null){
-        //echo php_info();
-        $title = "添加作业";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id); 
-        $map = ClassTeacherCourseMap::where('teacher_id',$teacher->id)->first();
-        if(empty($class_id)){
-            $class_id = $map->class_id;
-        }
-        if(empty($course_id)){
-            $course_id = $map->course_id;
-        }
-        return view('teacher.content.addHomework',compact("title",'class_course','class_id','course_id'));
-    }
-    /*添加个人作业页面*/
-    public function addHomeworkPer($class_id,$course_id){
-        $title = "添加作业";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $unit_list = parent::getUnit($course_id);
-        return view('teacher.content.addHomework-personal',compact("title",'class_course','class_id','course_id','unit_list'));
-    }
-    /*批改作业页面*/
-    public function correct($class_id,$course_id,$type = Job::TYPE_PERSONAL,$unit_id = null,$section_id = null){
-        $title = "批改作业";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $job_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id,'course_id' => $course_id])->paginate(10);
-        // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
-        // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
-        // $unit_list = Chapter::whereIn('id',$section_id_list)->where('course_id',$course_id)->pluck('title','id');
-        // $section_list = Chapter::where('parent_id',$unit_id)->whereIn('id',$job_section_list)->pluck('title','id');
-        return view('teacher.content.correct',compact("title",'class_course','class_id','course_id','job_list','type','unit_id','section_id'));
-    }
-    public function correctWork($class_id,$course_id,$job_id){
-        $title = "批改作业";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $work_list = Work::where(['job_id' => $job_id])->where('status','>=',Work::STATUS_SUB)->paginate(10);
-        foreach($work_list as $work){
-            $student = Student::find($work->student_id);
-            $work->student_name = $student->name;
-        }
-        return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
-    }
-    public function correctDetail($class_id,$course_id,$work_id){
-        $title = "批改作业";
-        $abcList = range("A","Z");
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $work = Work::find($work_id);
-        $exercise_id_list = json_decode(Job::find($work->job_id)->exercise_id);
-        $student = Student::find($work->student_id);
-        $data = array('student' => $student,'un_correct' => [],'done_correct' => []);
-        $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
-        $baseNum = (int)($work->student_id/1000-0.0001)+1;
-        $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
-            $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            throw $e;
-        }
-        foreach ($exercise_list as $exercise) {
-            $cate_title = Category::find($exercise->categroy_id)->title;
-            $exercise->cate_title = $cate_title;
-            $exercise->score = $exercise->score/100;
-            $work_info = $db->table($work->student_id)->where(['work_id' => $work->id,'exe_id' => $exercise->id])->first();
-            $exercise->student_answer = json_decode($work_info->answer,TRUE)["answer"];
-            $exercise->correct = json_decode($work_info->correct,true);
-            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-                $subjective = $exercise->hasManySubjective->first();
-                $exercise->subject = $subjective->subject;
-                $exercise->answer = array('自由发挥');
-            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-                $objective = $exercise->hasManyObjective->first();
-                $exercise->subject = $objective->subject;
-                $exercise->options = json_decode($objective->option,TRUE);
-                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
-                if($exercise->categroy_id == Exercises::CATE_FILL){
-                    $exercise->student_answer = json_encode($exercise->student_answer,JSON_UNESCAPED_UNICODE);
-                }
-            }
-//          else{
-//              
-//          }
-            if($work_info->status == 1){
-                array_push($data['un_correct'],$exercise);
-            }elseif($work_info->status == 2){
-                array_push($data['done_correct'],$exercise);
-            }
-        }
-        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id','abcList'));
-    }
-    /*上传习题页面*/
-    public function uploadExercise($class_id,$course_id,$exe_id = null){
-        $title = "上传习题";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $unit_list = parent::getUnit($course_id);
-        $categroy_list = parent::getCategory($course_id);
-        return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
-    }
-    /*习题库页面*/
-    public function exercise($class_id,$course_id,$action = null){
-        $title = "习题库";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
-        if(empty($action)){
-            $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
-        }elseif($action == self::ACT_MY_UPLOAD){
-            if($teacher->id == 1){
-                $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
-            }else{
-                $data = Exercises::where('teacher_id',$teacher->id)->whereIn('chapter_id',$chapter_list)->paginate(10);
-            }
-        }
-        foreach ($data as $exercise) {
-            $cate_title = Category::find($exercise->categroy_id)->title;
-            $exercise->cate_title = $cate_title;
-            $exercise->score = $exercise->score/100;
-            if($exercise->exe_type == Exercises::TYPE_SUBJECTIVE){
-                $subjective = $exercise->hasManySubjective->first();
-                $exercise->subject = $subjective->subject;
-                $exercise->answer = array('自由发挥');
-            }else if($exercise->exe_type == Exercises::TYPE_OBJECTIVE){
-                $objective = $exercise->hasManyObjective->first();
-                $exercise->subject = $objective->subject;
-                $exercise->options = json_decode($objective->option,TRUE);
-                $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
-            }
-//          else{
-//              
-//          }
-        }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action'));
-    }
-    
 
     public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
         $teacher = Auth::guard("employee")->user();
@@ -723,7 +737,7 @@ class TeachingCenterController extends TeacherController
         }
         return json_encode($data);
     }
-
+    
     /*保存作业*/
     public function createJob($status = Job::STATUS_UNPUB){
         $input = Input::get();
@@ -815,6 +829,7 @@ class TeachingCenterController extends TeacherController
             if($score != -1){
                 $stu_answer_info = $db->table($student_id)->where(['work_id' => $work->id,'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => array($item['student_answer'])), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
                 $work->status = Work::STATUS_CORRECTING;
+                $work->score += $score * 100;
                 $work->save();
             }else{
                 $status = false;
