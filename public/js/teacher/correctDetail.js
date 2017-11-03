@@ -37,7 +37,7 @@ $(function() {
 			$('.postil').height($('#centery').height() - 78)
 			$('.postil>div:last-child').height($('.postil').height() - 87);
 			$('#col').css({'position': 'relative','left': '90px'});
-			$("#next-stu").css({display:'block'});
+			$("#next-stu").css({display:'inline-block'});
 		}else if(page == "3"){
 			$(".person-correct-same,.left,.lookSameExer").css("display","block");
 			$('.person-correct-will,.postil,.person-correct-did').css("display","none");
