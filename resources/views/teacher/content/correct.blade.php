@@ -71,8 +71,8 @@
 					<tr>
 						<th>作业标题</th>
 						<th>截止时间</th>
-						<th>正确率</th>
-						<th>状态</th>
+						<th>平均得分率</th>
+						<th>提交人数</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -82,7 +82,7 @@
 						<td>{{$job->title}}</td>
 						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
 						<td><span class="gray">待统计</span></td>
-						<td><span class="{{$job->status != 4?'red':'gray'}}">{{$job->status == 2? '可批改':($job->status == 3?'批改中':'已完成')}}</span></td>
+						<td><span>5/10</span></td>
 						<td class="ic-blue">
 							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}">
 							@if($job->status == 4)

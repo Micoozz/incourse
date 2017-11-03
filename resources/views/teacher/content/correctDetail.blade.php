@@ -26,12 +26,12 @@
 				<!--已批改-->
 				<div class="person-correct-did">
 					<ul class="ic-inline clear person-hw-derail">
-						<li>作业章节：第一章第一小节</li>
+						<li>作业章节：{{$work->title}}</li>
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
 							<span>总分值：</span>
-							<span>{{$work->score}}</span>
+							<span>{{$work->score/100}}</span>
 						</li>
 					</ul>
 					<!--题目列表，都是客观题-->
@@ -40,12 +40,12 @@
 				<!-- 同类型习题 -->
 				<div class="person-correct-same">
 					<ul class="ic-inline clear person-hw-derail">
-						<li>作业章节：第一章第一小节</li>
+						<li>作业章节：{{$work->title}}</li>
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
 							<span>分值：</span>
-							<span>10</span>
+							<span>{{$work->score/100}}</span>
 						</li>
 					</ul>
 					<!-- 题目列表，都是客观题 -->
@@ -54,12 +54,12 @@
 				<!--为批改-->
 				<div class="person-correct-will d-n">
 					<ul class="ic-inline clear person-hw-derail">
-						<li>作业章节：第一章第一小节</li>
+						<li>作业章节：{{$work->title}}</li>
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
 							<span>分值：</span>
-							<span>10</span>
+							<span>{{$work->score/100}}</span>
 						</li>
 					</ul>
 					@include('teacher.template.correctDetail_subjectiveItem')
