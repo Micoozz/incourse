@@ -76,7 +76,8 @@ class ExerciseBookController extends Controller
             ->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');
         }
         if ($type_id == 1) {
-            $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
+            $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();
+            //查询出这个学生所有的作业work_id;
         }else{
             $work = Work::select('id')->where(['student_id' => $user->id])->orderBy('id', 'desc')
             ->whereIn('job_id', $jobs)->first(); //查询出这个学生所有的作业work_id;
@@ -98,7 +99,7 @@ class ExerciseBookController extends Controller
             $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
 
             foreach ($chapter as $key => $item) {
-                $data[$key]['id'] = $item->id;//大章节的id
+                $data[$key]['id'] = $item->id;
                 $data[$key]['title'] = $item->title;
                 $data[$key]['minutia'] = [];
                 $data[$key]['count'] = 0;
@@ -177,8 +178,7 @@ class ExerciseBookController extends Controller
         }else{
             $jobs->where('pub_time', '<', $lastTerm)->where('pub_time', '>', strtotime($time.'-'."02-01"));//今年下学期的作业
         }
-        $jobs = $jobs->get()->toArray();
-        //如果为空的话说明这个学期还没有布置作业
+        $jobs = $jobs->get()->toArray(); //如果为空的话说明这个学期还没有布置作业
         $data = [];
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
@@ -254,12 +254,20 @@ class ExerciseBookController extends Controller
             foreach ($minutiaList as  $k => $minutia) {
                 $minutiaPat = Chapter::find($minutia['id'])->parent_id;
                 if ($minutiaPat == $item->id) {
-                     $data[$key]['minutia'][$k]['exeCount'] = 0;
+                    $exercise = Exercises::select('id')->where('chapter_id', $minutia['id'])->get()->pluck('id')->toArray();
+                    $data[$key]['minutia'][$k]['count'] = count(array_intersect($exercise,$db->table($user->id)
+                    ->select('exe_id')->whereIn('exe_id',$exe_id)->get()->pluck('exe_id')->toArray()));
+
+                    $data[$key]['minutia'][$k]['exeCount'] = count(array_intersect($exercise,$db->table($user->id)
+                    ->select('exe_id')->whereIn('exe_id',$exe_id)->where('type',3)->get()->pluck('exe_id')->toArray()));
+                    $data[$key]['exeCount'] += $data[$key]['minutia'][$k]['exeCount'];
+                    $data[$key]['count'] += $data[$key]['minutia'][$k]['count'];
                     $data[$key]['minutia'][$k]['id'] = $minutia['id'];
                     $data[$key]['minutia'][$k]['title'] = $minutia['title'];
                 }
             }
         }
+        dd($data);
         return view('student.exerciseBase.review_list',compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //这个学生某个章节错了多少题
@@ -302,7 +310,7 @@ class ExerciseBookController extends Controller
             if($type_id != 4) {
                 $chapter_id = array_intersect($chapter,$exercisesChapter);
             }else{
-                $chapter_id = array_diff($chapter,$exercisesChapter);
+                $chapter_id = array_diff($exercisesChapter,$chapter);
             }
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('chapter_id',$chapter_id)
             ->whereIn('id', $exe_id)->get();
@@ -313,8 +321,8 @@ class ExerciseBookController extends Controller
             $categroy_id = Category::find($exercise->categroy_id)->id;
             $categroy_title = Category::find($exercise->categroy_id)->title;
             if ($exercise->exe_type == Exercises::TYPE_OBJECTIVE) {
-                $objective = Objective::where('exe_id',$exercise->id)->first();
-                $exercisesSort = $db->table($user->id)->select('sort')->where('exe_id',$exercise->id)->first();//查询这个学生的单个的错题
+                $objective = Objective::where('exe_id',$exercise->id)->first();//查询这个学生的单个的错题
+                $exercisesSort = $db->table($user->id)->select('sort')->where('exe_id',$exercise->id)->first();
                 $option = [];
                 if (!empty($exercisesSort->sort)) {//单选题 多选题 排序题要做特殊处理
                     foreach(json_decode($exercisesSort->sort) as $sort){
@@ -439,15 +447,25 @@ class ExerciseBookController extends Controller
                 ->whereNotIn('id', $didExercise)->inRandomOrder()->first();
             }
         }else{//查询这个学生的所有的错题
-            $errorsExeId = $db->table($user->id)->where('score', 0)->where('type', '<>', 3)->get()->pluck('exe_id');
-            $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')
-            ->where(['chapter_id' => $chapter_id, 'exe_type' => 1, 'categroy_id' => 4])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
+            $errorsExeId = $db->table($user->id)->where(['score' => 0, 'status' => 2])
+            ->where('type', '<>', 3)->get()->pluck('exe_id');
+            if (!empty($several)) {
+                $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->get()->pluck('id')->toArray();
+                $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$errorsExeId)
+                    ->get()->pluck('chapter_id')->toArray();
+                $chapter_id = array_intersect($chapter,$exercisesChapter);
+                $chapterExercises = Exercises::where('exe_type', 1)->whereIn('chapter_id', $chapter_id)
+                    ->whereIn('id', $errorsExeId)->inRandomOrder()->first();                 
+            }else { 
+                $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')
+                ->where(['chapter_id' => $chapter_id, 'exe_type' => 1])->whereIn('id',$errorsExeId)->inRandomOrder()->first();
+            }
         }
         if(!empty($chapterExercises)) {
             $categroy = Category::find($chapterExercises->categroy_id);
             $categroy_id = $categroy->id;
             $categroy_title = $categroy->title;
-            $abcList = range("A","Z");
+            $abcList = range("A","Z");              
             $objective= Objective::where('exe_id', $chapterExercises->id)->first();
             $options = json_decode($objective->option, true);
             if ($chapterExercises->categroy_id == Exercises::CATE_FILL) {
@@ -493,9 +511,9 @@ class ExerciseBookController extends Controller
             });
         }
         $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],
-            'answer' => empty($input['student_answer']) ? json_encode(array('answer' => []), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'], 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
+            'answer' => empty($input['student_answer']) ? json_encode(array('answer' => []), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'] * 100, 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
     }
-//收藏
+    //收藏
     public function collect($course = 2) {
         $func = "";
         $courseAll = Course::all();
