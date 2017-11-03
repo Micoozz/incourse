@@ -33,7 +33,7 @@
 				@foreach($work_list as $work)
 					<tr data-id="{{$work->id}}">
 						<td>{{$work->student_name}}</td>
-						<td><span class="gray">{{$work->ratings}}%</span></td>
+						<td><span class="gray">{{$work->ratings * 100}}%</span></td>
 						<td><span class="gray">{{$work->score / 100}}/{{$work->total / 100}}</span></td>
 						<td><span class="gray data-time" data-start-time="{{$work->start_time}}" data-end-time="{{$work->sub_time}}"></span></td>
 						<td><span class="{{$work->status != 4?'red':'gray'}}">{{$work->status == 2? '可批改':($work->status == 3?'批改中':'已完成')}}</span></td>
