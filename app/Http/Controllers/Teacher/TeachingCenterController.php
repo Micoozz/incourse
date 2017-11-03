@@ -170,7 +170,7 @@ class TeachingCenterController extends TeacherController
                 array_push($data['done_correct'],$exercise);
             }
         }
-        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work_id','abcList'));
+        return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work','abcList'));
     }
     /*上传习题页面*/
     public function uploadExercise($class_id,$course_id,$exe_id = null){
@@ -730,7 +730,7 @@ class TeachingCenterController extends TeacherController
         }
         return json_encode($data);
     }
-
+    
     /*保存作业*/
     public function createJob($status = Job::STATUS_UNPUB){
         $input = Input::get();
@@ -822,6 +822,7 @@ class TeachingCenterController extends TeacherController
             if($score != -1){
                 $stu_answer_info = $db->table($student_id)->where(['work_id' => $work->id,'exe_id' => $item['id']])->update(['answer' => json_encode(array("answer" => array($item['student_answer'])), JSON_UNESCAPED_UNICODE),'score' => $score * 100,'correct' => $correct,'status' => 2]);
                 $work->status = Work::STATUS_CORRECTING;
+                $work->score += $score * 100;
                 $work->save();
             }else{
                 $status = false;
