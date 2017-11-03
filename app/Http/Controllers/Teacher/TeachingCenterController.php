@@ -148,7 +148,7 @@ class TeachingCenterController extends TeacherController
         }catch(\Exception $e){
             throw $e;
         }
-        $work->title = $work->belongsToJob()->title;
+        $work->title = $work->belongsToJob()->first()->title;
         foreach ($exercise_list as $exercise) {
             $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
