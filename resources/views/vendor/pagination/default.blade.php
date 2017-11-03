@@ -1,5 +1,4 @@
 @if ($paginator->hasPages())
-{{dump($paginator)}}
     <ul class="pagination" id="pagaSkip">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
