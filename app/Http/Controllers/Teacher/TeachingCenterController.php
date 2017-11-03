@@ -126,6 +126,7 @@ class TeachingCenterController extends TeacherController
         foreach($work_list as $work){
             $student = Student::find($work->student_id);
             $work->student_name = $student->name;
+            $work->total =$work->belongsToJob()->first()->score;
         }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
@@ -744,6 +745,10 @@ class TeachingCenterController extends TeacherController
         $input = Input::get();
         $code = 200;
         $user = Auth::guard('employee')->user();
+        $job_score = 0;
+        foreach($input['exercise_id'] as $eid){
+            $job_score += Exercises::find($eid)->score;
+        }
         try{
             $job = new Job;
             $job->teacher_id = $user->id;
@@ -751,7 +756,7 @@ class TeachingCenterController extends TeacherController
             $job->course_id = intval($input['course']);
             $job->title = $input['title'];
             $job->job_type = intval($input['type']);
-            $job->score = 0; //intval($input['score'])*100;
+            $job->score = $job_score;
             $job->content = $input['content'];
             $job->exercise_id = json_encode($input['exercise_id']);
             $job->status = $status;
