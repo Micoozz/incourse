@@ -8,17 +8,6 @@
 <link rel="stylesheet" href="/css/teacher/homeworkManage.css" />
 <link rel="stylesheet" type="text/css" href="/css/exercise.css">
 <link rel="stylesheet" href="/css/teacher/exercise_blade.css" />
-<style type="text/css">
-    .goPage{
-        float:left;
-        width:50px;
-        height:31px;
-        border:1px solid #d9d9d9;
-        border-left:none;
-        border-right:none;
-        padding:5px;
-    }
-</style>
 @endsection
 
 @section('CONTENT')
