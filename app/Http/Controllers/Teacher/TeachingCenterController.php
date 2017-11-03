@@ -126,6 +126,7 @@ class TeachingCenterController extends TeacherController
         foreach($work_list as $work){
             $student = Student::find($work->student_id);
             $work->student_name = $student->name;
+            $work->total =$work->belongsToJob()->first()->score;
         }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
