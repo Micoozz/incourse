@@ -77,8 +77,8 @@
 									<button class="f-l p-r of-h addFileTool icon_margin_r">
 										<i class="tool"></i>
 										<span>添加附件</span>
-										<input class="addFile" id="image-upload" name="exer-image" type="file" accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp'/>
 									</button>
+									<input class="addFile" id="image-upload" name="exer-image" type="file" accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style="display: none"/>
 									<b class="vertical-line f-l"></b>
 									<button class="f-l blank d-n icon_margin_r">
 										<i class="tool"></i>

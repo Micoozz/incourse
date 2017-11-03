@@ -236,8 +236,8 @@
                                     <div class="f-l p-r of-h addFileTool">
                                         <i class="tool"></i>
                                         <span >添加附件</span>
-                                        <input class="addFile" type="file"/>
                                     </div>
+                                    <input class="addFile" type="file" style="top:50px;display: none;"/>
                                 </div>
                                 <div class="editor-content" contenteditable="true"></div>
                             </div>

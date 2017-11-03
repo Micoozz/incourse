@@ -96,10 +96,10 @@
 						<div>
 							<div class="parpers"></div>
 							<span>
-								<span>
+								<span class="addFileTool">
 									<i class="fa fa-paperclip"></i>&nbsp;添加附件
-									<input type="file" name="" id="" value="" />
 								</span>
+								<input type="file" name="" class="addFile" value="" />
 								<textarea name="" rows="" cols="" placeholder="请输入内容"></textarea>
 							</span>
 						</div>
@@ -163,6 +163,9 @@
 				$(obj).val($(obj).val().replace(/\D/g,''))
 			}
 		}
+	    $(".addFileTool").click(function(){
+	        $(this).parent().find(".addFile").click();
+	    })
 	})
 </script>
 @endsection

@@ -4,12 +4,15 @@ var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","
 if(sessionStorageData){
     var exercises = sessionStorageData.exercise;
     arrs = sessionStorageData.exercise;
+    textEstimate(exercises)
+    sessionS()
+}
+function textEstimate(exercises){
     if(exercises.length<=0){
         $("#create-hw").text("取消");
     }else{
         $("#create-hw").text("添加到作业");
     }
-    sessionS()
 }
 myBrowserStyle()
 
@@ -370,6 +373,7 @@ function checkedFunLinkage(data,that){
     sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
 
     $(".AllCheckedJob").text(exercises?exercises.length:arrs.length);
+    textEstimate(exercises)
 }
 
 //保存数据函数

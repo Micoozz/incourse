@@ -7,7 +7,7 @@
 @endsection
 
 @section('NOTEBOOK')
-<div class="admin-container exer-room pageType">
+<div class="admin-container exer-room pageType" >
 	@if(empty($data))
 	<div>没有数据</div>
 	@else
@@ -28,7 +28,7 @@
 							@else
 							<div class="sectionAllSubject">
 								<span class="allSubject">共<span>{{ $chapter['count'] }}</span>题</span>
-								<!-- <span class="thisGrade">分数：<span>无</span></span> -->
+								<span class="thisGrade">分数：<span>无</span></span>
 							</div>
 							@endif
 						</div>

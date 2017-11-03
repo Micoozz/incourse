@@ -562,9 +562,6 @@
     cursor: pointer;
 }
 
-.pagination {
-    float: right;
-}
  .isUsed{
     margin-left: 5px;
     width: 61px;
