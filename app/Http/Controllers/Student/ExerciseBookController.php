@@ -439,7 +439,7 @@ class ExerciseBookController extends Controller
                         $didExercise = json_decode($work);
                         $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
                         ->get()->pluck('chapter_id')->toArray();
-                        $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
+                         $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
                         ->get()->pluck('id')->toArray();
                     }elseif ($type_id == 4) {
                         $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)

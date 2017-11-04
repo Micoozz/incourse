@@ -82,13 +82,6 @@ class LearningCenterController extends Controller
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
 	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
 	    $count = count($data);
-	    //dd($courseAll[0]);
-	/*	    foreach($courseAll as  $key => $course){
-		    	dd($courseAll[$key]->);
-		    	if ($course->id) {
-		    		# code...
-		    	}
-		    }*/
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type', 1)->get();
         }elseif ($func == Self::FUNC_EXERCISE_BOOK) {
