@@ -915,4 +915,40 @@ class TeachingCenterController extends TeacherController
             }
         }
     }
+    //显示所有该老师的课件
+    public function index(){
+        $user = Auth::user();
+        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
+        return view('', compact('courseware'));
+    }
+
+    //创建课件
+    public function create(){
+        return view('');
+    }
+
+    //保存课件
+    public function store(){
+        $input = Input::get();
+        $courseware = Courseware::create($input);
+        return Redirect::to('/index');
+    }
+
+    //课件详情
+    public function show($id) {
+        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
+                    ->with(['teacher' => function($query){
+                        return $query->select('id', 'name');
+                    }])->find($id);
+        return view('', compact('courseware'));
+    }
+
+    //课件答题
+    public function coursewareExercise() {
+        $exercise_id = Input::get('exercise_id');
+        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
+            return $query->select('id', 'subject', 'option', 'answer');
+        }])->with('belongsToCategory')->get();
+        return view('', compact('exercises'));
+    }
 }
