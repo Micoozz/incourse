@@ -104,6 +104,7 @@
 								<span class="black_answer">{!!$answer!!}</span>
 							@endforeach
 						</div>
+						@if(!empty($exercise['correct']))
 						<div class="f-l subjectiveA">
 							<span class="ic-blue f-l">批注：</span>
 							<span class="answer_module">
@@ -112,6 +113,7 @@
 								@endforeach
 							</span>
 						</div>
+						@endif
 					</div>
 				@endif
 			</div>
