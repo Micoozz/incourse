@@ -16,6 +16,7 @@ class EmployeeMiddleware
      */
     public function handle($request, Closure $next)
     {
+        Auth::shouldUse('teacher');
         if(Auth::guard('employee')->check()){
             return $next($request);
         }elseif(Auth::guard('student')->check()){

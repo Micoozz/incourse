@@ -34,4 +34,8 @@ class Exercises extends Model
     public function hasManySubjective(){
     	return $this->hasMany('App\Models\Subjective','exe_id');
     }
+
+    public function belongsToCategory(){
+        return $this->belongsTo('App\Models\Category');
+    }
 }

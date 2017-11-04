@@ -11,7 +11,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/test','Controller@uploadPhoto');
 Route::get('/', 'Controller@index')->name('login');
 Route::post('/getScantronIdList','Teacher\TeachingCenterController@getScantronIdList');
 Route::post('/','LoginController@login');
@@ -46,6 +45,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPassEmployee/{id}','Admin\ArchivesController@resetPassEmployee');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
+		Route::post('/test','TeachingCenterController@test');
 		Route::get('/bindClass/{grade_id}','TeachingCenterController@bindClass');
 		Route::get('/teachingCenter/{class_id?}/{course_id?}','TeachingCenterController@teachingCenter');
 		Route::get('/homeworkManage/{class_id?}/{course_id?}','TeachingCenterController@homeworkManage');

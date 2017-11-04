@@ -20,6 +20,8 @@ use App\Models\Chapter;
 use App\Models\TeacherExerciseChapterCategoryMap;
 use App\Models\Student;
 use App\Models\Work;
+use App\Models\Courseware;
+use App\Models\CoursewareTeacherCourseMap;
 
 class TeachingCenterController extends TeacherController
 {
@@ -832,6 +834,28 @@ class TeachingCenterController extends TeacherController
         $scantron_id_list = Student::where("class_id",$class->id)->pluck("scantron_id");
         return json_encode($scantron_id_list);
     }
+    /*上传课件*/
+    public function createCourseware(){
+        $input = Input::get();
+        $teacher_id = Auth::guard('employee')->user()->id;
+        $exercise_id = array();
+        foreach($input['exercise_id'] as $eid){
+            array_push($exercise_id,array($eid => intval($input['count_down'])));
+        }
+        $cw = new Courseware;
+        $cw->title = $input['title'];
+        $cw->content = $input['content'];
+        $cw->exercise_id = json_encode($exercise_id);
+        $cw->file = json_encode($input['file'],JSON_UNESCAPED_UNICODE);
+        $cw->create_time = time();
+        $cw->save();
+        $map = new CoursewareTeacherCourseMap;
+        $map->cw_id = $cw->id;
+        $map->teacher_id = $teacher_id;
+        $map->course_id = intval($input['course_id']);
+        $map->in_auth = 1;
+        $map->save();
+    }
     /*上传批注*/
     public function uplaodCorrect(){
         $input = Input::get();
@@ -928,5 +952,11 @@ class TeachingCenterController extends TeacherController
                 $s->save();
             }
         }
+    }
+    //user-upload/teacher(student)/$id/images(file)/
+    public function test(){
+        $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
+        $teacher_id = Auth::guard('employee')->user()->id;
+        return parent::UploadFile('test/file/'.$teacher_id.'/',$name);
     }
 }
