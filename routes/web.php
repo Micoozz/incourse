@@ -76,7 +76,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/upLoadCourseware/{class_id?}/{course_id?}','TeachingCenterController@upLoadCourseware');
 		Route::get('/courseWare/setQuestions/{class_id?}/{course_id?}','TeachingCenterController@setQuestions');
 		Route::get('/courseWare/coursewareDetail/{class_id?}/{course_id?}','TeachingCenterController@coursewareDetail');
-		Route::get('/courseWare/answerStart/{class_id?}/{course_id?}','TeachingCenterController@answerStart');
+		Route::match(['get','post'],'/courseWare/answerStart/{class_id?}/{course_id?}/{cw_id?}/{exercise_id?}','TeachingCenterController@answerStart');
 		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
 
 		Route::get('/courseWare/layim/{class_id?}/{course_id?}','TeachingCenterController@layim');
