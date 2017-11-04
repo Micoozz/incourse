@@ -30,7 +30,7 @@
                 <ul>
                     <li>
                         <div class="ta-c">
-                            <button class="ic-btn btnStart">开始答题</button>
+                            <button class="ic-btn btnStart" id="btnStart">开始答题</button>
                         </div>
                     </li>
                     <li>
