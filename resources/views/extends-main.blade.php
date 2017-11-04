@@ -71,10 +71,26 @@ function myBrowser(){
        console.log("Safari")
     }
     $(".go-page").click(function(){
-        var page = $(".goPage").val() == ''?$("ul#pagaSkip").find("li.active").find('span').text():$(".goPage").val();
+        goPageFun()
+    })
+    $(".goPage").focus(function(){
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                goPageFun()
+            }
+        }
+    })
+    function goPageFun(){
+        var liActive = $("ul#pagaSkip").find("li.active").find('span').text();
+        var val = $(".goPage").val()
+        if(val == liActive){
+            return;
+        }
+        var page = val == ''?liActive:val;
         var pathName = window.location.pathname;
         window.location.href = pathName + '?page=' + page;
-    })
+    }
 })()
 </script>
 <!-- Plugin -->
