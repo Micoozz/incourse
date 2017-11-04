@@ -48,6 +48,9 @@
 <script src="{{ asset('js/jquery-ui-sortable.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/echarts.min.js') }}" charset="utf-8"></script>
+<script type="text/javascript">
+    var token = "{{csrf_token()}}";
+</script>
 <!-- Plugin -->
 @yield('JS:OPTIONAL')
 </html>

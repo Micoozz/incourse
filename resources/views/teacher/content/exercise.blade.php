@@ -21,14 +21,14 @@
             <span>上传习题</span>
         </a>
         <div class="f-r">
-            <span class="isMark exerciseBbase {{empty($action) ? "active" : ""}}" style="border-radius: 5px 0 0 5px;">
+            <span class="isMark exerciseBbase {{empty($action) || $action == 'addCourseware' ? "active" : ""}}" style="border-radius: 5px 0 0 5px;">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}">习题库</a>
             </span>
             <span class="ls_hr {{$action == 'my-conllection' ? "" : "active"}}"></span>
             <span class="isMark doMark {{$action == 'my-upload' ? "active" : ""}}">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-upload">我上传的</a>
             </span>
-            <span class="ls_hr {{empty($action) ? "" : "active"}}"></span>
+            <span class="ls_hr {{empty($action) || $action == 'addCourseware' ? "" : "active"}}"></span>
             <span class="isMark notMark {{$action == 'my-conllection' ? "active" : ""}}" style="border-radius: 0 5px 5px 0;">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-conllection">我收藏的</a>
             </span>
@@ -62,7 +62,7 @@
                         <div data-id="{{$exercise->id}}" data-see="" class="exer-in-list border">
                             <div class="exer-head">
                                 <span class="exer-type-list">{{$exercise->cate_title}}</span><span class="isUsed" style="display:none">已使用</span>
-                                @if(empty($action))
+                                @if(empty($action) || $action == 'addCourseware')
                                 <div class="f-r ic-blue addBtnBox">
                                     <input class="checkbox-add" type="checkbox" id="addCheckedBox{{ $exercise->id }}"/>
                                     <label class="btnLabel" for="addCheckedBox{{ $exercise->id }}">添加</label>
@@ -108,7 +108,7 @@
         <!--添加作业 页面引导-->
 
         <!--已添加的作业-->
-        @if(empty($action))
+        @if(empty($action) || $action == 'addCourseware')
             <div class="hw-list">
                 <p class="title">
                     <span>7月20日作业</span>
@@ -125,7 +125,7 @@
                     <li style="display:none;"><span class='type'>计算题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
                 </ul>
                 <div class="ta-c">
-                    <a id="create-hw" class="ic-btn" data-href="/addHomework-personal/{{$class_id}}/{{$course_id}}">生成作业</a>
+                    <a id="create-hw" class="ic-btn">生成作业</a>
                     <span id="preview" class="ic-blue c-d preview">预览</span>
                 </div>
             </div>
@@ -143,4 +143,7 @@
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 <script src="/js/Sortable.min.js" charset="utf-8"></script>
 <script src="/js/teacher/exercise_blade.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var class_id = "{{$class_id}}",course_id = '{{$course_id}}';
+</script>
 @endsection
