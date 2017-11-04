@@ -50,7 +50,7 @@
                         <div id="mainBarBlue" style="width: 1000px;height:400px;"></div>
                         <div class="ta-c">
                             <button class="ic-btn" id="showAnswer">显示答案</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                            <a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}"><button class="btn-white ">返回课件</button></a>
                         </div>
                     </li>
                     <li>
@@ -58,7 +58,7 @@
                         <div class="ta-c">
                             <a href="/courseWare/main"><button class="ic-btn">关闭答案</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="ic-btn">下一题</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                            <a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}"><button class="btn-white ">返回课件</button></a>
                         </div>
                     </li>
                 </ul>

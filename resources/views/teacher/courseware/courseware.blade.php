@@ -75,7 +75,7 @@
 		<div class="ic-container">
 			<div class="waitBox">
 				<div class="issue clear">
-					<a href="/courseWare/upLoadCourseware" class="ic-btn" style="float: left;"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;上传课件</a>
+					<a href="/courseWare/upLoadCourseware/{{$class_id}}/{{$course_id}}" class="ic-btn" style="float: left;"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;上传课件</a>
 					<span class="selectCourseware"><input type="text" class="screen_input input_focus"><i class="fa fa-search"></i></span>
 				</div>
 				<div>

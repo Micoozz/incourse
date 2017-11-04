@@ -30,7 +30,7 @@
                         <li><a href="javascript:;" num='4'>班级管理</a></li>
                         <li><a href="javascript:;" num='5'>成绩管理</a></li>
                         <li><a href="javascript:;" num='6'>课程大纲</a></li>
-                        <li><a href="/courseWare/main" num='7'>课堂课件</a></li>
+                        <li><a href="/courseWare/main/{{$class_id}}/{{$course_id}}" num='7'>课堂课件</a></li>
                     </ul>
                 </div>
                 <!--内容-->

@@ -89,7 +89,7 @@
 			<div class="uploadCourseware">
 				<form action="" method="post">
 					<label>
-						课件名称：<input type="" name="" id="" value=""/>
+						课件名称：<input type="" name="" id="course_title" value=""/>
 					</label>
 					<label for="" class="flex">
 						<span>课件内容：</span>
@@ -100,19 +100,19 @@
 									<i class="fa fa-paperclip"></i>&nbsp;添加附件
 								</span>
 								<input type="file" name="" class="addFile" value="" />
-								<textarea name="" rows="" cols="" placeholder="请输入内容"></textarea>
+								<textarea name="" rows="" id="course_textarea" cols="" placeholder="请输入内容"></textarea>
 							</span>
 						</div>
 					</label>
 					<label>
-						习题练习：<span class="blue"><i class="fa fa-plus-circle"></i>&nbsp;添加习题</span>
+						习题练习：<a href="/exercise//{{$class_id}}/{{$course_id}}/addCourseware"><span class="blue"><i class="fa fa-plus-circle"></i>&nbsp;添加习题</span></a>
 					</label>
 					<label>
 						倒计时：<span  class="time"><input type="" name="" id="input_number" value="" onpaste="inputOnafterpaste(this)"/>s</span>&nbsp;&nbsp;<img src="/images/cautionImg.png" style="width: 3%;" />
 					</label>
 					<label for="" class="submit">
-						<button class="ic-btn">保存</button>
-						<button class="btn-white"><a href="/courseWare/main">返回</a></button>
+						<button class="ic-btn" id="saveJob">保存</button>
+						<button class="btn-white"><a href="/courseWare/main/{{$class_id}}/{{$course_id}}">返回</a></button>
 					</label>
 				</form>
 			</div>
@@ -130,6 +130,7 @@
 <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 <script>
 	$(function() {
+		var course_id = '{{$course_id}}';
 		var parpers = [] //上传文件
 		$('.uploadCourseware .flex input').change(function() {
 			parpers.push($(this).val());
@@ -165,6 +166,27 @@
 		}
 	    $(".addFileTool").click(function(){
 	        $(this).parent().find(".addFile").click();
+	    })
+	    $("#saveJob").click(function(){
+	    	var title = $("#course_title").val();
+	    	var textarea = $("#course_textarea").text();
+	    	var time = $("#input_number").val();
+	    	var arr = []
+	    	var data = {
+	    		'_token':token,
+	    		'title':title,
+	    		'content':textarea,
+	    		'exercise_id':,
+	    		'file':'',
+	    		'count_down':time,
+	    		'course_id':course_id
+	    	}
+	    	$.ajax({
+	    		url:'/courseWare/createCourseware',
+	    		type:'POST',
+	    		data:,
+	    		success:function(){}
+	    	})
 	    })
 	})
 </script>
