@@ -78,9 +78,18 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/coursewareDetail/{class_id?}/{course_id?}','TeachingCenterController@coursewareDetail');
 		Route::get('/courseWare/answerStart/{class_id?}/{course_id?}','TeachingCenterController@answerStart');
 		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
+
+		Route::get('/courseWare/layim/{class_id?}/{course_id?}','TeachingCenterController@layim');
+		//答题器接口
+		Route::get('/courseWare/index','TeachingCenterController@index');
+		Route::get('/courseWare/create','TeachingCenterController@create');
+		Route::get('/courseWare/store','TeachingCenterController@store');
+		Route::get('/courseWare/show','TeachingCenterController@show');
+		Route::get('/courseWare/coursewareExercise','TeachingCenterController@coursewareExercise');
 		Route::get('/courseWare/addRefreshCards/{class_id?}/{course_id?}','TeachingCenterController@addRefreshCards');
 		Route::post('/courseWare/addRefreshCards/bindCardId/{student_id?}/{scantron_id?}','TeachingCenterController@bindCardId');
 		Route::post('/courseWare/createCourseware','TeachingCenterController@createCourseware');
+
 
 
 

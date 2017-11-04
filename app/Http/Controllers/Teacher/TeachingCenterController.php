@@ -37,6 +37,8 @@ class TeachingCenterController extends TeacherController
 
     const ACT_MY_UPLOAD = 'my-upload';
     const ACT_MY_COLLECTION = 'my-conllection';
+    const ACT_ADD_JOB = 'addJob';
+    const ACT_ADD_COURSEWARE = 'addCourseware';
 
     protected $class_id;
     protected $course_id;
@@ -201,7 +203,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
-        if(empty($action)){
+        if(empty($action) || $action == self::ACT_ADD_COURSEWARE || $action == self::ACT_ADD_JOB){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
             if($teacher->id == 1){
@@ -953,7 +955,43 @@ class TeachingCenterController extends TeacherController
             }
         }
     }
+    //显示所有该老师的课件
+    public function index(){
+        $user = Auth::user();
+        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
+        return view('', compact('courseware'));
+    }
+
+    //创建课件
+    public function create(){
+        return view('');
+    }
+
+    //保存课件
+    public function store(){
+        $input = Input::get();
+        $courseware = Courseware::create($input);
+        return Redirect::to('/index');
+    }
+
+    //课件详情
+    public function show($id) {
+        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
+                    ->with(['teacher' => function($query){
+                        return $query->select('id', 'name');
+                    }])->find($id);
+        return view('', compact('courseware'));
+    }
+
+    //课件答题
+    public function coursewareExercise() {
+        $exercise_id = Input::get('exercise_id');
+        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
+            return $query->select('id', 'subject', 'option', 'answer');
+        }])->with('belongsToCategory')->get();
+        return view('', compact('exercises'));
     //user-upload/teacher(student)/$id/images(file)/
+        
     public function test(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('employee')->user()->id;
