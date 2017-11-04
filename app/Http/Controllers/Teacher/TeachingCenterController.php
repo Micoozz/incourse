@@ -315,6 +315,20 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
     }
+    public function addRefreshCards($class_id = 1 ,$course_id = 1){
+        // $teacher = Auth::guard("employee")->user();
+        $students = Student::where('class_id', $class_id)->get();
+        // dd($students);
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.addRefreshCards',compact("title",'class_course','class_id','course_id', 'students'));
+    }
+    public function bindCardId($student_id, $scantron_id){
+        $student = Student::find($student_id);
+        $student->scantron_id = $scantron_id;
+        $student->save();
+    }
 
 
     public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
@@ -941,7 +955,43 @@ class TeachingCenterController extends TeacherController
             }
         }
     }
+    //显示所有该老师的课件
+    public function index(){
+        $user = Auth::user();
+        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
+        return view('', compact('courseware'));
+    }
+
+    //创建课件
+    public function create(){
+        return view('');
+    }
+
+    //保存课件
+    public function store(){
+        $input = Input::get();
+        $courseware = Courseware::create($input);
+        return Redirect::to('/index');
+    }
+
+    //课件详情
+    public function show($id) {
+        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
+                    ->with(['teacher' => function($query){
+                        return $query->select('id', 'name');
+                    }])->find($id);
+        return view('', compact('courseware'));
+    }
+
+    //课件答题
+    public function coursewareExercise() {
+        $exercise_id = Input::get('exercise_id');
+        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
+            return $query->select('id', 'subject', 'option', 'answer');
+        }])->with('belongsToCategory')->get();
+        return view('', compact('exercises'));
     //user-upload/teacher(student)/$id/images(file)/
+        
     public function test(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('employee')->user()->id;
