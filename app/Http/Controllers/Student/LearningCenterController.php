@@ -702,7 +702,6 @@ class LearningCenterController extends Controller
     	}
     	return json_encode($result);
     }
-
     //习题册 学生的预习
     public function foreExercise($course = 1){
     	$user = Auth::user(); //查看当前老师
@@ -754,6 +753,7 @@ class LearningCenterController extends Controller
         }
         return json_encode($data);
     }
+    
     //学生复习，预习，同步练习，错题本做的作业页面
     function practice($course,$chapter_id,$type){
     	$randomExeercise = Exercises::where('chapter_id',$chapter_id)->orderBy(\DB::raw('RAND()'))->take(15)->get();//查询出随机的15道题的内容
