@@ -283,44 +283,46 @@ class TeachingCenterController extends TeacherController
     }
 
     //开始答题 --> 结束答题 (习题库)
-    public function answerStart($class_id ,$course_id,$cw_id,$exercise_id = null){
+    public function answerStart($class_id ,$course_id,$cw_id,$exercise_id){
         $title = "aaa";
         $abcList = range("A","Z");
         $data = collect();
         $student_list = Student::where('class_id',$class_id)->get();
-        if(!empty($exercise_id)){
-            $exercise = Exercises::find($exercise_id);
-            $objective = $exercise->hasManyObjective()->first();
-            $exercise->subject = $objective->subject;
-            $exercise->cate_title = Category::find($exercise->categroy_id)->title;
-            $exercise->options = json_decode($objective->option,TRUE);
-            $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
-            $cw_exercise_id_list = json_decode(Courseware::find($cw_id)->exercise_id,true);
-            foreach($cw_exercise_id_list as $item){
-                if(key($item) == $exercise_id){
-                    $next_exercise_id_index = key($cw_exercise_id_list)+1;
-                    $exercise->count_down = $item[key($item)];
-                    break;
-                }
-                next($cw_exercise_id_list);
+        $exercise = Exercises::find($exercise_id);
+        $objective = $exercise->hasManyObjective()->first();
+        $exercise->subject = $objective->subject;
+        $exercise->cate_title = Category::find($exercise->categroy_id)->title;
+        $exercise->options = json_decode($objective->option,TRUE);
+        $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+        $cw_exercise_id_list = json_decode(Courseware::find($cw_id)->exercise_id,true);
+        foreach($cw_exercise_id_list as $item){
+            if(key($item) == $exercise_id){
+                $next_exercise_id_index = key($cw_exercise_id_list)+1;
+                $exercise->count_down = $item[key($item)];
+                break;
             }
-            $data->next_exercise_id = key($cw_exercise_id_list) < count($cw_exercise_id_list)-1 ? key($cw_exercise_id_list[$next_exercise_id_index]) :  null;
-        }else{
-            $input = Input::get();
-            $exercise = collect();
-            $exercise->option = $input['option'];
-            $exercise->count_down = intval($input['count_down']);
+            next($cw_exercise_id_list);
         }
+        $data->next_exercise_id = key($cw_exercise_id_list) < count($cw_exercise_id_list)-1 ? key($cw_exercise_id_list[$next_exercise_id_index]) :  null;
+        $data->exercise_count = count($cw_exercise_id_list);
+        $data->current = key($cw_exercise_id_list);
+        
         $data->student_list = $student_list;
         $data->exercise = $exercise;
         return view('teacher.courseware.answerStart',compact("title",'class_id','course_id','data','abcList','cw_id'));
     }
     //开始答题 --> 结束答题 (自由)
-    public function answerStart_freedom($class_id ,$course_id){
+    public function answerStart_freedom($class_id ,$course_id,$cw_id){
         $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
+        $data = collect();
+        $student_list = Student::where('class_id',$class_id)->get();
+        $input = Input::get();
+        $exercise = collect();
+        $exercise->option = $input['option'];
+        $exercise->count_down = intval($input['count_down']);
+        $data->student_list = $student_list;
+        $data->exercise = $exercise;
+        return view('teacher.courseware.answerStart_freedom',compact("title",'class_id','course_id','data','cw_id'));
     }
     //添加学生cardID
     public function addRefreshCards($class_id ,$course_id = null){
@@ -865,6 +867,15 @@ class TeachingCenterController extends TeacherController
         $map->course_id = intval($input['course_id']);
         $map->is_auth = 1;
         $map->save();
+    }
+    /*提交答题卡数据*/
+    public function subTrueScantron(){
+        $input = Input::get();
+        foreach($input['card_list'] as $card){
+            $student = Student::where('scantron_id',$card)->first();
+            $student->class_score += 1;
+            $student->save();
+        }
     }
     /*上传批注*/
     public function uplaodCorrect(){
