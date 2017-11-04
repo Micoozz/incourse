@@ -253,19 +253,23 @@ class TeachingCenterController extends TeacherController
         $courseware_list = Courseware::whereIn('id',$cw_id_list)->paginate(10);
         return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id','courseware_list'));
     }
-    public function upLoadCourseware($class_id = 1 ,$course_id = 1){
+    //上传课件
+    public function upLoadCourseware($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.upLoadCourseware',compact("title",'class_course','class_id','course_id'));
     }
-    public function setQuestions($class_id = 1 ,$course_id = 1){
+    //自由做题 --> 编辑选项
+    public function setQuestions($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id'));
     }
-    public function coursewareDetail($class_id = 1 ,$course_id = 1,$cw_id){
+
+    // 课件详情
+    public function coursewareDetail($class_id ,$course_id,$cw_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
@@ -274,7 +278,9 @@ class TeachingCenterController extends TeacherController
         $courseware->auth_name = Employee::find($auth_id)->name;
         return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id','courseware'));
     }
-    public function answerStart($class_id = 1 ,$course_id = 1,$cw_id,$exercise_id = null){
+
+    //开始答题 --> 结束答题 (习题库)
+    public function answerStart($class_id ,$course_id,$cw_id,$exercise_id = null){
         $title = "aaa";
         $data = collect();
         $student_list = Student::where('class_id',$class_id)->get();
@@ -306,57 +312,23 @@ class TeachingCenterController extends TeacherController
         dd($data);
         return view('teacher.courseware.answerStart',compact("title",'class_id','course_id','$data'));
     }
-    public function answerStart_freedom($class_id = 1 ,$course_id = 1){
+    //开始答题 --> 结束答题 (自由)
+    public function answerStart_freedom($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
     }
-    public function answerIng($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
+    //添加学生cardID
+    public function addRefreshCards($class_id ,$course_id = null){
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function addRefreshCards($class_id = 1 ,$course_id = 1){
-        // $teacher = Auth::guard("employee")->user();
         $students = Student::where('class_id', $class_id)->get();
-        // dd($students);
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.addRefreshCards',compact("title",'class_course','class_id','course_id', 'students'));
     }
+    //绑定学生cardID
     public function bindCardId($student_id, $scantron_id){
         $student = Student::find($student_id);
         $student->scantron_id = $scantron_id;
@@ -888,7 +860,7 @@ class TeachingCenterController extends TeacherController
         $map->cw_id = $cw->id;
         $map->teacher_id = $teacher_id;
         $map->course_id = intval($input['course_id']);
-        $map->in_auth = 1;
+        $map->is_auth = 1;
         $map->save();
     }
     /*上传批注*/
@@ -989,10 +961,10 @@ class TeachingCenterController extends TeacherController
         }
     }
     //user-upload/teacher(student)/$id/images(file)/
-        
     public function test(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('employee')->user()->id;
         return parent::UploadFile('test/file/'.$teacher_id.'/',$name);
     }
 }
+    

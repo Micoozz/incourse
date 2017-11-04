@@ -38,14 +38,7 @@
 		$(".bind").on("click",function(){
 			var data = [];
 			var studentId = $(this).attr('data-id')
-			$.ajax({
-			    url: "http://127.0.0.1:60003/startreadcardid",
-			    type: "GET",
-			    dataType: 'JSONP',
-			    success: function(result){
-			        data = result;
-			    }
-			});
+			$.get("http://127.0.0.1:60003/startreadcardid")
 			layui.use('layer',function(){
 				layer.open({
 				  type: 1,
@@ -54,21 +47,20 @@
 				  content: '<p>学生名：对对对</p><p>卡片id<input id="cardId" disabled><button class="btn" id="getCard">任意点击卡片后再点击获取</button></p><button class="btn" id="submitCardId">确认绑定</button>'
 				});
 				$("#getCard").on("click",function(){
-					// $.ajax({
-					//     url: "http://127.0.0.1:60003/getcardid",
-					//     type: "GET",
-					//     dataType: 'JSONP',
-					//     success: function(result){
-					//         console.log(result);
-					//     }
-					// });
-					var fakeData = {"cardids":["2870130888"],"dev_state":0}
-					var data = fakeData
-					if (data.cardids.length === 0){
-						alert('请点击答题器任意按键，并点击获取')
-					} else {
-						$('#cardId').val(data.cardids[0])
-					}
+					$.ajax({
+					    url: "http://127.0.0.1:60003/getcardid",
+					    type: "GET",
+					    dataType: 'json',
+					    success: function(result){
+					        console.log(result);
+							var data = result
+							if (data.cardids.length !== 1){
+								alert('请点击答题器任意按键，并点击获取')
+							} else {
+								$('#cardId').val(data.cardids[0])
+							}
+					    }
+					});
 
 				})
 				$('#submitCardId').click(function () {
@@ -80,8 +72,9 @@
 					$.ajax({
 					    url: "http://127.0.0.1:60003/stopreadcardid",
 					    type: "GET",
-					    dataType: 'JSONP',
-					    success: function(result){}
+					    success: function(result){
+					    	console.log(result)
+					    }
 					});
 					$.ajax({
 					    url: "/courseWare/addRefreshCards/bindCardId/" + studentId + "/" + cardId,

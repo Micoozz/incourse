@@ -30,7 +30,7 @@
                 @else 
                     src="{{ asset('images/users.png') }}" 
                 @endif />&nbsp;&nbsp; 
-                {{ date('m月d日',$work->pub_time) }}
+                {{ $work->title }}
             </td>
             @if(time() > $work->deadline)
                 <td style="color: red">

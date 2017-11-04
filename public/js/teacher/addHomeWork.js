@@ -301,7 +301,6 @@ function getLocalData(sessionStorageData){
         data:getWork,
         type:"POST",
         success:function(data){
-            console.log(data)
             data = JSON.parse(data);
             for(var i=0;i<data.length;i++){
                 $(".work_tbody").append(htmlModule(ENNum,data[i],i));

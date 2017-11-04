@@ -100,7 +100,7 @@
                 <li>
                     <div id="mainBar" style="width: 1000px;height:400px;"></div>
                     <div class="ta-c">
-                        <button class="ic-btn">上一步</button><button class="ic-btn" style="width:auto">编辑下一题</button><a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                        <button class="ic-btn">上一步</button><button class="ic-btn" style="width:auto">编辑下一题</button><a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}"><button class="btn-white ">返回课件</button></a>
                     </div>
                 </li>
             </ul>

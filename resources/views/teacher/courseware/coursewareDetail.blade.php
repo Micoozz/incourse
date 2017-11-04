@@ -106,9 +106,9 @@
 							<h5>习题练习:共15小题</h5>
 						</div>
 						<div class="foot-fastener">
-							<a href="/courseWare/answerStart"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
-							<a href="/courseWare/setQuestions"><button class="ic-btn">自由做题</button></a>
-							<a href="/courseWare/main"><button class="btn-white">返 回</button></a>
+							<a href="/courseWare/answerStart/{{$class_id}}/{{$course_id}}"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
+							<a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}"><button class="ic-btn">自由做题</button></a>
+							<a href="/courseWare/main/{{$class_id}}/{{$course_id}}"><button class="btn-white">返 回</button></a>
 						</div>
 					</div>
 				</div>
