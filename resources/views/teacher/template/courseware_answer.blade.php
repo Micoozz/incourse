@@ -4,7 +4,7 @@
 	@foreach($data->exercise->options as $option)
 		<li>
 			<span class="f-l">{{$abcList[$loop->index]}}：</span>
-			<p class="f-l option">{{$option[key($option)]}}</p>
+			<p class="f-l option" data-key="{{key($option)}}">{{$option[key($option)]}}</p>
 		</li>
 	@endforeach
 	</ul>
