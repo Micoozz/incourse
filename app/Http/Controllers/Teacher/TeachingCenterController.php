@@ -968,3 +968,4 @@ class TeachingCenterController extends TeacherController
         return parent::UploadFile('test/file/'.$teacher_id.'/',$name);
     }
 }
+    
