@@ -6,25 +6,77 @@
 
 //答题中
     var myChartPie = echarts.init(document.getElementById('mainPie'));
-    var a = 0;
     var sumStudents = parseInt($(".notSubmitted").find("b").text());
     var num = parseInt($("#countDowns b").text());
     var p = $("#showStatistics").parent();
-    $(".ta-c .btnStart").click(function(){
+    var dataJson,dataValue;
+    var json = {};
+    var arrs = [];
+    $(".ta-c #btnStart").click(function(){
         $(this).parents("li").animate({left:'-1000px'},500);
         $(this).parents("li").next().animate({left:0},500);
-        setTimeout(function(){
-            answerIng();
-            var st = setInterval(function(){
-                echartsPie(st,t)
-            },1000);
-            var t = setInterval(function(){
-                countDown(st,t)
-            },1000)
-            $("#terminationTime").on("click",function(){
-                terminationTime(st,t)
-            });
-        },510);
+        $.ajax({
+            url:"http://127.0.0.1:60003/beginanswer/1",
+            type:"GET",
+            success:function(){
+                setTimeout(function(){
+                    var st = setInterval(function(){
+                        $.ajax({
+                            url:'http://127.0.0.1:60003/getanswer',
+                            type:'GET',
+                            success:function(data){
+                                var data = JSON.parse(data);
+                                var nums = 0;
+                                for(var i in data.value){
+                                    var obj = {
+                                        "value":'',
+                                        'id':[],
+                                    }
+                                    nums++;
+                                    if(arrs.length>0){
+                                        for(var j = 0;j< arrs.length;j++){
+                                            var key = arrs[j].value
+                                            if(key == data.value[i]){
+                                                arrs[j].id.push(i)
+                                            }else{
+                                                obj.value = data.value[i];
+                                                obj.id.push(i);
+                                                arrs.push(obj)
+                                            }
+                                        }
+                                    }else{
+                                        obj.value = data.value[i];
+                                        obj.id.push(i);
+                                        arrs.push(obj)
+                                    }
+                                    
+                                }
+                                for(var k = 0;k<arrs.length;k++){
+                                    var options = [];
+                                    var optionJ = {
+                                        "option":arrs[k].value,
+                                        "value":arrs[k].id.length
+                                    }
+                                    options.push(optionJ);
+                                    json.options = options;
+                                }
+                                json.answer = $("#answerInstrument").attr("data-r-answer");
+                                echartsPie(st,t,nums)
+                                answerIng(st,t,nums);
+                            }
+                        })
+                        
+                    },1000);
+                    var t = setInterval(function(){
+                        countDown(st,t)
+                    },1000)
+                    $("#terminationTime").on("click",function(){
+                        terminationTime(st,t)
+                    });
+                },510);
+            }
+        })
+        
     })
     function terminationTime(st,t){
         $("#showStatistics").removeClass("noEnd");
@@ -45,18 +97,14 @@
         num--;
         $("#countDowns b").text(num);
     };
-    function answerIng(){
+    function answerIng(st,t,a){
         $(".isSubmitted b").text(a);
-        $(".notSubmitted b").text(sumStudents);
-        echartsPie();
+        $(".notSubmitted b").text(sumStudents-a);
+        echartsPie(st,t,a);
     }
-    function echartsPie(st,t){
-        if(a>(sumStudents+a)){
-            terminationTime(st,t);
-            return;
-        };
+    function echartsPie(st,t,a){
         $(".isSubmitted b").text(a);
-        $(".notSubmitted b").text(sumStudents);
+        $(".notSubmitted b").text(sumStudents-a);
         var option = {
             series: [{
                 name: '访问来源',
@@ -102,35 +150,12 @@
         };
         // 使用刚指定的配置项和数据显示图表。
         myChartPie.setOption(option);
-        a++;
-        sumStudents--;
     };
 
 //答题后
-    //数据
-    var json = {
-        'options':[
-            {
-                'option':'A',
-                'value':88,
-            },
-            {
-                'option':'B',
-                'value':77,
-            },
-            {
-                'option':'C',
-                'value':66,
-            },
-            {
-                'option':'D',
-                'value':55,
-            }
-        ],
-        'answer':'B'
-    };
     //根据数据提取x轴的数组
-    function json_x(){
+    function json_x(json){
+        console.log(JSON.stringify(json))
         var arr = [];
         for(var i = 0;i<json.options.length;i++){
             arr.push("选项"+json.options[i].option)
