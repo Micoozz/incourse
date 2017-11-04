@@ -94,7 +94,7 @@ class ExerciseBookController extends Controller
             }
             $workInfo = $db->table($user->id)->whereIn('work_id', $work)->get()->pluck(['exe_id']);//查询所有的作业
             $exerciseChapter = Exercises::whereIn('id',$workInfo)->pluck('chapter_id')->unique();//要是有同样的chapter_id 则只显示一个
-            $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id 
+            $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
             $minutia_parentId = array_column($minutiaList, 'parent_id');//所有作业的parent_id
             $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
 
@@ -257,7 +257,6 @@ class ExerciseBookController extends Controller
                     $exercise = Exercises::select('id')->where('chapter_id', $minutia['id'])->get()->pluck('id')->toArray();
                     $data[$key]['minutia'][$k]['count'] = count(array_intersect($exercise,$db->table($user->id)
                     ->select('exe_id')->whereIn('exe_id',$exe_id)->get()->pluck('exe_id')->toArray()));
-
                     $data[$key]['minutia'][$k]['exeCount'] = count(array_intersect($exercise,$db->table($user->id)
                     ->select('exe_id')->whereIn('exe_id',$exe_id)->where('type',3)->get()->pluck('exe_id')->toArray()));
                     $data[$key]['exeCount'] += $data[$key]['minutia'][$k]['exeCount'];
@@ -309,7 +308,7 @@ class ExerciseBookController extends Controller
             if($type_id != 4) {
                 $chapter_id = array_intersect($chapter,$exercisesChapter);
             }else{
-                $chapter_id = array_diff($exercisesChapter,$chapter);
+                $chapter_id = array_diff($chapter,$exercisesChapter);
             }
             $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')->whereIn('chapter_id',$chapter_id)
             ->whereIn('id', $exe_id)->get();
@@ -429,22 +428,52 @@ class ExerciseBookController extends Controller
             }
         }
         if ($type_id != 3) {//查询出随机的1道题的内容//复习、同类型习题、预习
-            $didExercise = $db->table($user->id)->select('exe_id')->get()->pluck('exe_id')->toArray();
-            if (!empty($several)) {
-                $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->get()->pluck('id')->toArray();
-                    $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
-                    ->get()->pluck('chapter_id')->toArray();
-                    if($type_id != 4) {
-                        $chapter_id = array_intersect($chapter,$exercisesChapter);
-                    }else{
-                        $chapter_id = array_diff($chapter,$exercisesChapter);
+                $didExercise = $db->table($user->id)->select('exe_id')->where(['status' => 2])->where('work_id','<>',null)->get()->pluck('exe_id')->toArray();
+                if (!empty($several)) {
+                    if ($type_id == 1) {
+                        $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
+                        ->get()->pluck('chapter_id')->toArray();
+                        $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
+                        ->get()->pluck('id')->toArray();
+                    }elseif ($type_id == 2){
+                        $work = Work::select('id','job_id')->where(['student_id' => $user->id, 'course_id' => $course])
+                        ->orderBy('id','desc')->first()->belongsToJob()->first()->exercise_id;
+                        $didExercise = json_decode($work);
+                        $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
+                        ->get()->pluck('chapter_id')->toArray();
+                        $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
+                        ->get()->pluck('id')->toArray();
+                    }elseif ($type_id == 4) {
+                        
                     }
-                    $chapterExercises = Exercises::where( 'exe_type', 1)->whereIn('chapter_id', $chapter_id)
+                    $chapterExercises = Exercises::where('exe_type', 1)->whereIn('chapter_id', $chapter)
+                        ->whereNotIn('id', $didExercise)->inRandomOrder()->first();                     
+                }else{
+                    $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])
                     ->whereNotIn('id', $didExercise)->inRandomOrder()->first();
+                }
+            /*if (!empty($several)) {
+                if ($type_id == 2) {
+                    $work = Work::select('id','job_id')->where(['student_id' => $user->id, 'course_id' => $course])->orderBy('id','desc')->first()->belongsToJob()->first()->exercise_id;
+                    $didExercise = json_decode($work);
+                    $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
+                        ->get()->pluck('chapter_id')->toArray();
+                }
+                $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
+                ->get()->pluck('chapter_id')->toArray();
+                if($type_id == 2 || $type_id == 1){
+                    $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
+                    ->get()->pluck('id')->toArray();
+                }else{
+                    $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereNotIn('id',$exercisesChapter)
+                    ->get()->pluck('id')->toArray();
+                }
+                $chapterExercises = Exercises::where( 'exe_type', 1)->whereIn('chapter_id', $chapter)
+                ->whereNotIn('id', $didExercise)->inRandomOrder()->first();
             }else{
                 $chapterExercises = Exercises::where(['chapter_id' => $chapter_id,  'exe_type' => 1])
                 ->whereNotIn('id', $didExercise)->inRandomOrder()->first();
-            }
+            }*/
         }else{//查询这个学生的所有的错题
             $errorsExeId = $db->table($user->id)->where(['score' => 0, 'status' => 2])
             ->where('type', '<>', 3)->get()->pluck('exe_id');
@@ -452,8 +481,8 @@ class ExerciseBookController extends Controller
                 $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->get()->pluck('id')->toArray();
                 $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$errorsExeId)
                     ->get()->pluck('chapter_id')->toArray();
-                $chapter_id = array_intersect($chapter,$exercisesChapter);
-                $chapterExercises = Exercises::where('exe_type', 1)->whereIn('chapter_id', $chapter_id)
+                $chapter = array_intersect($chapter,$exercisesChapter);
+                $chapterExercises = Exercises::where('exe_type', 1)->whereIn('chapter_id', $chapter)
                     ->whereIn('id', $errorsExeId)->inRandomOrder()->first();                 
             }else { 
                 $chapterExercises = Exercises::select('id', 'exe_type', 'categroy_id', 'chapter_id')
@@ -487,6 +516,7 @@ class ExerciseBookController extends Controller
     public function addWorkExercise(){
         $user = Auth::user();
         $input = Input::get();
+        ///dd($input);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -510,8 +540,9 @@ class ExerciseBookController extends Controller
             });
         }
         $result = $db->table($user->id)->insert(['type' => NULL, 'exe_id' => $input['exe_id'],
-            'answer' => empty($input['student_answer']) ? json_encode(array('answer' => []), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'] * 100, 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL]);
+            'answer' => empty($input['student_answer']) ? json_encode(array('answer' => []), JSON_UNESCAPED_UNICODE) : json_encode(array('answer' => $input['student_answer']), JSON_UNESCAPED_UNICODE),'second' => $input['second'], 'score' => $input['score'] * 100, 'sort' => isset($input['sort']) ? json_encode($input['sort'], JSON_UNESCAPED_UNICODE) : NULL,'status' => 2]);
     }
+
     //收藏
     public function collect($course = 2) {
         $func = "";
@@ -521,5 +552,42 @@ class ExerciseBookController extends Controller
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         return view('student.exerciseBase.exercise_collect',compact("func", "user", 'courseAll', 'courseFirst'));
+    }
+
+    //显示所有该老师的课件
+    public function index(){
+        $user = Auth::user();
+        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
+        return view('', compact('courseware'));
+    }
+
+    //创建课件
+    public function create(){
+        return view('');
+    }
+
+    //保存课件
+    public function store(){
+        $input = Input::get();
+        $courseware = Courseware::create($input);
+        return Redirect::to('/index');
+    }
+
+    //课件详情
+    public function show($id) {
+        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
+                    ->with(['teacher' => function($query){
+                        return $query->select('id', 'name');
+                    }])->find($id);
+        return view('', compact('courseware'));
+    }
+
+    //课件答题
+    public function coursewareExercise() {
+        $exercise_id = Input::get('exercise_id');
+        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
+            return $query->select('id', 'subject', 'option', 'answer');
+        }])->with('belongsToCategory')->get();
+        return view('', compact('exercises'));
     }
 }
