@@ -37,6 +37,8 @@ class TeachingCenterController extends TeacherController
 
     const ACT_MY_UPLOAD = 'my-upload';
     const ACT_MY_COLLECTION = 'my-conllection';
+    const ACT_ADD_JOB = 'addJob';
+    const ACT_ADD_COURSEWARE = 'addCourseware';
 
     protected $class_id;
     protected $course_id;
@@ -201,7 +203,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
-        if(empty($action)){
+        if(empty($action) || $action == self::ACT_ADD_COURSEWARE || $action == self::ACT_ADD_JOB){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
             if($teacher->id == 1){
