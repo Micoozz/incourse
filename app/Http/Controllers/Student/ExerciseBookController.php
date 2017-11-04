@@ -97,7 +97,6 @@ class ExerciseBookController extends Controller
             $minutiaList = Chapter::where('course_id',$course)->whereIn('id',$exerciseChapter)->get()->toArray();//查询出小节的父id
             $minutia_parentId = array_column($minutiaList, 'parent_id');//所有作业的parent_id
             $chapter = Chapter::where('course_id',$course)->whereIn('id',$minutia_parentId)->get();//查询出大章节信息
-
             foreach ($chapter as $key => $item) {
                 $data[$key]['id'] = $item->id;
                 $data[$key]['title'] = $item->title;
@@ -170,7 +169,7 @@ class ExerciseBookController extends Controller
                     $grade = "九";
                     break;
                 }
-        }
+        }   
         $grade .= $half;
         $jobs = Job::select('id')->where('course_id', $course);
         if (time() > $lastTerm){
@@ -196,11 +195,9 @@ class ExerciseBookController extends Controller
         $chapterAll = Chapter::where(['parent_id' => $grade_id, 'course_id' => $course])->get();//所有大章节的Id
         foreach($chapterAll as $key => $chapter){
             $minutia = Chapter::where('parent_id', $chapter->id);
-
             if (!empty($jobs)) {
                 $minutia = $minutia->whereNotIn('id', $exerciseChapter);
             }
-
             $minutiaAll = $minutia->get()->toArray();
             $data[$key]['id'] = $chapter->id;
             $data[$key]['title'] = $chapter->title;
@@ -218,6 +215,7 @@ class ExerciseBookController extends Controller
                 $data[$key]['exeCount'] +=  $data[$key]['minutia'][$k]['exeCount'];
             }
         }
+       // dd($data);
         return view("student.exerciseBase.review_list",compact('data', 'courseFirst', 'type_id', 'user', 'courseAll', 'func'));
     }
     //先查询所有这位学生的作业错题本
@@ -444,7 +442,10 @@ class ExerciseBookController extends Controller
                         $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereIn('id',$exercisesChapter)
                         ->get()->pluck('id')->toArray();
                     }elseif ($type_id == 4) {
-                        
+                        $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$didExercise)
+                        ->get()->pluck('chapter_id')->toArray();
+                        $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->whereNotIn('id',$exercisesChapter)
+                        ->get()->pluck('id')->toArray();
                     }
                     $chapterExercises = Exercises::where('exe_type', 1)->whereIn('chapter_id', $chapter)
                         ->whereNotIn('id', $didExercise)->inRandomOrder()->first();                     
@@ -552,42 +553,5 @@ class ExerciseBookController extends Controller
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         return view('student.exerciseBase.exercise_collect',compact("func", "user", 'courseAll', 'courseFirst'));
-    }
-
-    //显示所有该老师的课件
-    public function index(){
-        $user = Auth::user();
-        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
-        return view('', compact('courseware'));
-    }
-
-    //创建课件
-    public function create(){
-        return view('');
-    }
-
-    //保存课件
-    public function store(){
-        $input = Input::get();
-        $courseware = Courseware::create($input);
-        return Redirect::to('/index');
-    }
-
-    //课件详情
-    public function show($id) {
-        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
-                    ->with(['teacher' => function($query){
-                        return $query->select('id', 'name');
-                    }])->find($id);
-        return view('', compact('courseware'));
-    }
-
-    //课件答题
-    public function coursewareExercise() {
-        $exercise_id = Input::get('exercise_id');
-        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
-            return $query->select('id', 'subject', 'option', 'answer');
-        }])->with('belongsToCategory')->get();
-        return view('', compact('exercises'));
     }
 }

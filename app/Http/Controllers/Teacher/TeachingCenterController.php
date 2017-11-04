@@ -988,11 +988,11 @@ class TeachingCenterController extends TeacherController
             return $query->select('id', 'subject', 'option', 'answer');
         }])->with('belongsToCategory')->get();
         return view('', compact('exercises'));
-    //user-upload/teacher(student)/$id/images(file)/
-        
+    }
     public function test(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('employee')->user()->id;
         return parent::UploadFile('test/file/'.$teacher_id.'/',$name);
     }
 }
+    
