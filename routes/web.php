@@ -11,7 +11,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/test','Controller@uploadPhoto');
 Route::get('/', 'Controller@index')->name('login');
 Route::post('/getScantronIdList','Teacher\TeachingCenterController@getScantronIdList');
 Route::post('/','LoginController@login');
@@ -46,6 +45,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/resetPassEmployee/{id}','Admin\ArchivesController@resetPassEmployee');
 	});
 	Route::group(['middleware' => 'employee','namespace' => 'Teacher'],function(){
+		Route::post('/test','TeachingCenterController@test');
 		Route::get('/bindClass/{grade_id}','TeachingCenterController@bindClass');
 		Route::get('/teachingCenter/{class_id?}/{course_id?}','TeachingCenterController@teachingCenter');
 		Route::get('/homeworkManage/{class_id?}/{course_id?}','TeachingCenterController@homeworkManage');
@@ -78,6 +78,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/coursewareDetail/{class_id?}/{course_id?}','TeachingCenterController@coursewareDetail');
 		Route::get('/courseWare/answerStart/{class_id?}/{course_id?}','TeachingCenterController@answerStart');
 		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
+<<<<<<< HEAD
 		Route::get('/courseWare/layim/{class_id?}/{course_id?}','TeachingCenterController@layim');
 		//答题器接口
 		Route::get('/courseWare/index','TeachingCenterController@index');
@@ -86,6 +87,11 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/show','TeachingCenterController@show');
 		Route::get('/courseWare/coursewareExercise','TeachingCenterController@coursewareExercise');
 		
+=======
+		Route::get('/courseWare/addRefreshCards/{class_id?}/{course_id?}','TeachingCenterController@addRefreshCards');
+		Route::post('/courseWare/addRefreshCards/bindCardId/{student_id?}/{scantron_id?}','TeachingCenterController@bindCardId');
+		Route::post('/courseWare/createCourseware','TeachingCenterController@createCourseware');
+>>>>>>> c6004e4c3233329cbb24304e0b086ac383078a05
 
 
 

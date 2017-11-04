@@ -69,7 +69,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'/>" +
+                "<input class='addFile' type='file' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank d-n icon_margin_r'>" +
                     "<i class='tool'></i>" +
@@ -101,7 +101,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'>" +
+                "<input class='addFile' type='file' style='display:none'>" +
             "</p>" +
             "<div class='mp3-box'></div>" +
         "</div>" +
@@ -116,7 +116,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input id='image-upload' class='addFile' type='file' accept='image/gif,image/jpeg,image/jpg,image/png,image/svg,image/bmp' style='display:none'/>" +
+                "<input id='image-upload' class='addFile' type='file' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank icon_margin_r'>" +
                     "<i class='tool'></i>" +

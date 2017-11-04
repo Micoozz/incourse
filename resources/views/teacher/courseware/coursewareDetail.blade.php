@@ -53,7 +53,6 @@
 @section('THEANSWER')
 			<!--内容-->
 			<div class="col-xs-12 col-sm-12" id="centery" style="width: 100%;">
-
 				<div class="ic-container">
 					<div>
 						<h5 style="font-weight: bold;">《课件：钢铁是怎样炼成的》</h5>
@@ -99,7 +98,7 @@
 											<span class="ic-blue"><i class="fa fa-eye"></i>查看</span>&nbsp;&nbsp;&nbsp;
 											<span>10.3MB</span>
 										</div>
-									</span>													
+									</span>
 								</div>
 							</div>
 						</div>
@@ -109,7 +108,7 @@
 						<div class="foot-fastener">
 							<a href="/courseWare/answerStart"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
 							<a href="/courseWare/setQuestions"><button class="ic-btn">自由做题</button></a>
-							<a href=""></a><button class="btn-white">返   回</button>
+							<a href="/courseWare/main"><button class="btn-white">返 回</button></a>
 						</div>
 					</div>
 				</div>
