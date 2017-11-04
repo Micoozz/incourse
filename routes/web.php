@@ -78,7 +78,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/coursewareDetail/{class_id?}/{course_id?}','TeachingCenterController@coursewareDetail');
 		Route::get('/courseWare/answerStart/{class_id?}/{course_id?}','TeachingCenterController@answerStart');
 		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
-		Route::get('/courseWare/layim/{class_id?}/{course_id?}','TeachingCenterController@layim');
+		Route::get('/courseWare/addRefreshCards/{class_id?}/{course_id?}','TeachingCenterController@addRefreshCards');
+		Route::post('/courseWare/addRefreshCards/bindCardId/{student_id?}/{scantron_id?}','TeachingCenterController@bindCardId');
 
 
 

@@ -311,6 +311,20 @@ class TeachingCenterController extends TeacherController
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
     }
+    public function addRefreshCards($class_id = 1 ,$course_id = 1){
+        // $teacher = Auth::guard("employee")->user();
+        $students = Student::where('class_id', $class_id)->get();
+        // dd($students);
+        $title = "aaa";
+        $teacher = Auth::guard("employee")->user();
+        $class_course = $this->getClassCourse($teacher->id);
+        return view('teacher.courseware.addRefreshCards',compact("title",'class_course','class_id','course_id', 'students'));
+    }
+    public function bindCardId($student_id, $scantron_id){
+        $student = Student::find($student_id);
+        $student->scantron_id = $scantron_id;
+        $student->save();
+    }
 
 
     public function learningCenterfix($class_id = null,$course_id = null,$mod = 'homework',$func = null,$universal = null){
