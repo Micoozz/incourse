@@ -9,9 +9,11 @@
 <style>
 	.issue {
 		text-align: left;
-		margin-bottom: 150px;
 	}
-
+	.ic-container {
+	    min-height: 600px;
+	    padding: 30px 20px;
+	}
 	.issue>a {
 		display: block;
 		color: #fff!important;
@@ -75,17 +77,18 @@
 		<div class="ic-container">
 			<div class="waitBox">
 				<div class="issue clear">
-					<a href="/courseWare/upLoadCourseware" class="ic-btn" style="float: left;"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;上传课件</a>
+					<a href="/courseWare/upLoadCourseware/{{$class_id}}/{{$course_id}}" class="ic-btn" style="float: left;"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;上传课件</a>
 					<span class="selectCourseware"><input type="text" class="screen_input input_focus"><i class="fa fa-search"></i></span>
 				</div>
-				<div>
+				@if(empty($courseware_list))
+				<div style="margin-top: 150px">
 					<div>
 						<img class="logo" src="/images/LOGO.png" alt="InCourse_logo" />
 					</div>
 					<div>请先上传课件噢～</div>
 				</div>
-				<!--假数据-->
-				<div class="table_ger" style="display: none;">
+				@else
+				<div class="table_ger">
 					<table border="" cellspacing="" cellpadding="">
 						<tr>
 							<th>编号</th>
@@ -93,15 +96,18 @@
 							<th>时间</th>
 							<th>操作</th>
 						</tr>
+						@foreach($courseware_list as $courseware)
 						<tr>
 							<td>1</td>
-							<td>《课件:钢铁是怎样炼成的》</td>
-							<td class="table-red">2016-09-20</td>
-							<td class="ic-blue ic-en"><i class="fa fa-tv"></i> 演示&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o"></i> 编辑</td>
+							<td>{{$courseware->title}}</td>
+							<td class="table-red">{{date('Y-m-d h:i:s',$courseware->create_time)}}</td>
+							<td class="ic-en"><a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}/{{$courseware->id}}" class="ic-blue" title=""><i class="fa fa-tv"></i> 演示</a>&nbsp;&nbsp;&nbsp;<a class="ic-blue" href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}" title=""><i class="fa fa-pencil-square-o"></i> 编辑</a></td>
 						</tr>
+						@endforeach
 					</table>
-					<div>分页</div>
+					<div>{{$courseware_list->links()}}</div>
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>

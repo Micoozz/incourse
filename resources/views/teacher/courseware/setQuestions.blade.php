@@ -105,7 +105,7 @@
 							</div>
 						</div>
 						<div class="ta-c">
-							<a href="/courseWare/answerStartFreedom"><button class="ic-btn">出  题</button></a>
+							<a href="/courseWare/answerStartFreedom/{{$class_id}}/{{$course_id}}"><button class="ic-btn">出  题</button></a>
 						</div>
 					</div>
 				</div>

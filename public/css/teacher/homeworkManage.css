@@ -125,7 +125,7 @@ body .lhgcal {
 }
 
 /*添加习题*/
-.person_hw_box .person-exer-list {
+.person-exer-list {
     position: relative;
     top: 10px;
     clear: both;

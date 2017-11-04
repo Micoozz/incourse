@@ -22,6 +22,7 @@ use App\Models\Student;
 use App\Models\Work;
 use App\Models\Courseware;
 use App\Models\CoursewareTeacherCourseMap;
+use App\Models\Employee;
 
 class TeachingCenterController extends TeacherController
 {
@@ -203,8 +204,12 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
-        if(empty($action) || $action == self::ACT_ADD_COURSEWARE || $action == self::ACT_ADD_JOB){
+        if(empty($action) || $action == self::ACT_ADD_JOB){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+        }elseif($action == self::ACT_ADD_COURSEWARE){
+            $data = Exercises::whereIn('chapter_id',$chapter_list)->where(function($query){
+                $query->where('categroy_id',Exercises::CATE_RADIO)->orWhere('categroy_id',Exercises::CATE_CHOOSE)->orWhere('categroy_id',Exercises::CATE_JUDGE);
+            })->paginate(10);
         }elseif($action == self::ACT_MY_UPLOAD){
             if($teacher->id == 1){
                 $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
@@ -245,85 +250,88 @@ class TeachingCenterController extends TeacherController
         if(empty($course_id)){
             $course_id = $map->course_id;
         }
-        $grade_id = Classes::find(Classes::find($class_id)->parent_id)->id;
-
-        return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id'));
+        $cw_id_list = CoursewareTeacherCourseMap::where(['teacher_id' => $teacher->id,'course_id' => $course_id])->pluck('cw_id');
+        $courseware_list = Courseware::whereIn('id',$cw_id_list)->paginate(10);
+        return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id','courseware_list'));
     }
-    public function upLoadCourseware($class_id = 1 ,$course_id = 1){
+    //上传课件
+    public function upLoadCourseware($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.upLoadCourseware',compact("title",'class_course','class_id','course_id'));
     }
-    public function setQuestions($class_id = 1 ,$course_id = 1){
+    //自由做题 --> 编辑选项
+    public function setQuestions($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id'));
     }
-    public function coursewareDetail($class_id = 1 ,$course_id = 1){
+
+    // 课件详情
+    public function coursewareDetail($class_id ,$course_id,$cw_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id'));
+        $courseware = Courseware::find($cw_id);
+        $auth_id = CoursewareTeacherCourseMap::where(['cw_id' => $courseware->id,'is_auth' => 1])->first()->teacher_id;
+        $courseware->auth_name = Employee::find($auth_id)->name;
+        $courseware->file = json_decode($courseware->file,true);
+        $courseware->exercise_id = json_decode($courseware->exercise_id,true);
+        return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id','courseware'));
     }
-    public function answerStart($class_id = 1 ,$course_id = 1){
+
+    //开始答题 --> 结束答题 (习题库)
+    public function answerStart($class_id ,$course_id,$cw_id,$exercise_id = null){
         $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerStart',compact("title",'class_course','class_id','course_id'));
+        $abcList = range("A","Z");
+        $data = collect();
+        $student_list = Student::where('class_id',$class_id)->get();
+        if(!empty($exercise_id)){
+            $exercise = Exercises::find($exercise_id);
+            $objective = $exercise->hasManyObjective()->first();
+            $exercise->subject = $objective->subject;
+            $exercise->cate_title = Category::find($exercise->categroy_id)->title;
+            $exercise->options = json_decode($objective->option,TRUE);
+            $exercise->answer = json_decode($objective->answer,TRUE)["answer"];
+            $cw_exercise_id_list = json_decode(Courseware::find($cw_id)->exercise_id,true);
+            foreach($cw_exercise_id_list as $item){
+                if(key($item) == $exercise_id){
+                    $next_exercise_id_index = key($cw_exercise_id_list)+1;
+                    $exercise->count_down = $item[key($item)];
+                    break;
+                }
+                next($cw_exercise_id_list);
+            }
+            $data->next_exercise_id = key($cw_exercise_id_list) < count($cw_exercise_id_list)-1 ? key($cw_exercise_id_list[$next_exercise_id_index]) :  null;
+        }else{
+            $input = Input::get();
+            $exercise = collect();
+            $exercise->option = $input['option'];
+            $exercise->count_down = intval($input['count_down']);
+        }
+        $data->student_list = $student_list;
+        $data->exercise = $exercise;
+        return view('teacher.courseware.answerStart',compact("title",'class_id','course_id','data','abcList','cw_id'));
     }
-    public function answerStart_freedom($class_id = 1 ,$course_id = 1){
+    //开始答题 --> 结束答题 (自由)
+    public function answerStart_freedom($class_id ,$course_id){
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.answerStart_freedom',compact("title",'class_course','class_id','course_id'));
     }
-    public function answerIng($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
+    //添加学生cardID
+    public function addRefreshCards($class_id ,$course_id = null){
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerIng_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerIng_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd',compact("title",'class_course','class_id','course_id'));
-    }
-    public function answerEnd_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.answerEnd_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution',compact("title",'class_course','class_id','course_id'));
-    }
-    public function showSolution_freedom($class_id = 1 ,$course_id = 1){
-        $title = "aaa";
-        $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.showSolution_freedom',compact("title",'class_course','class_id','course_id'));
-    }
-    public function addRefreshCards($class_id = 1 ,$course_id = 1){
-        // $teacher = Auth::guard("employee")->user();
         $students = Student::where('class_id', $class_id)->get();
-        // dd($students);
         $title = "aaa";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.addRefreshCards',compact("title",'class_course','class_id','course_id', 'students'));
     }
+    //绑定学生cardID
     public function bindCardId($student_id, $scantron_id){
         $student = Student::find($student_id);
         $student->scantron_id = $scantron_id;
@@ -855,7 +863,7 @@ class TeachingCenterController extends TeacherController
         $map->cw_id = $cw->id;
         $map->teacher_id = $teacher_id;
         $map->course_id = intval($input['course_id']);
-        $map->in_auth = 1;
+        $map->is_auth = 1;
         $map->save();
     }
     /*上传批注*/
@@ -955,42 +963,7 @@ class TeachingCenterController extends TeacherController
             }
         }
     }
-    //显示所有该老师的课件
-    public function index(){
-        $user = Auth::user();
-        $coursewares = Courseware::select('id', 'title', 'create_time')->where('teacher_id', $user->id)->paginate(5);
-        return view('', compact('courseware'));
-    }
-
-    //创建课件
-    public function create(){
-        return view('');
-    }
-
-    //保存课件
-    public function store(){
-        $input = Input::get();
-        $courseware = Courseware::create($input);
-        return Redirect::to('/index');
-    }
-
-    //课件详情
-    public function show($id) {
-        $courseware = Courseware::select('id', 'author_id', 'content', 'create_time', 'exercise_id', 'file')
-                    ->with(['teacher' => function($query){
-                        return $query->select('id', 'name');
-                    }])->find($id);
-        return view('', compact('courseware'));
-    }
-
-    //课件答题
-    public function coursewareExercise() {
-        $exercise_id = Input::get('exercise_id');
-        $exercises = Exercises::whereIn('id',$exercise_id)->with(['hasManyObjective' =>function($query){
-            return $query->select('id', 'subject', 'option', 'answer');
-        }])->with('belongsToCategory')->get();
-        return view('', compact('exercises'));
-    }
+    //user-upload/teacher(student)/$id/images(file)/
     public function test(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('employee')->user()->id;

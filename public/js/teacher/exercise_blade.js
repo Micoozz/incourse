@@ -1,11 +1,20 @@
 var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
 var arrs = [];
 var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-if(sessionStorageData){
-    var exercises = sessionStorageData.exercise;
-    arrs = sessionStorageData.exercise;
-    textEstimate(exercises)
-    sessionS()
+var data = sessionStorageData;
+var operationID = $(".admin-container.exer-room").attr("data-type");
+if(operationID == "addCourseware"){
+    data = eval("("+window.sessionStorage.getItem("course_ware")+")");
+    if(data){
+        sessionS(data)
+    }
+}else{
+    if(sessionStorageData){
+        var exercises = sessionStorageData.exercise;
+        arrs = sessionStorageData.exercise;
+        textEstimate(exercises)
+        sessionS(data)
+    }
 }
 function textEstimate(exercises){
     if(exercises.length<=0){
@@ -69,21 +78,38 @@ $("a.collect").on("click",function(){
 })
 //生成作业
 $("#create-hw").on("click",function(){
-    var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
-    if(sessionStorageData){
-        sessionStorage.removeItem("addJob");
-        window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
-        window.location.href = $(this).attr("data-href");
+    if(operationID == "addCourseware"){
+        window.location.href = '/courseWare/upLoadCourseware/'+class_id+"/"+course_id;
+    }else{
+        var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+        if(sessionStorageData){
+            sessionStorage.removeItem("addJob");
+            window.sessionStorage.setItem("addJob",JSON.stringify(sessionStorageData));
+            window.location.href = '/addHomework-personal/'+class_id+"/"+course_id;
+        }
     }
 })
 
 //选择联动
 $(".exer-in-list").find(".checkbox-add").on("click",function(){
-    checkedFunLinkage(sessionStorageData,this)
+    checkedFunLinkage(data,this)
 })
 
 //点击预览
 $(".preview").on("click",function(){
+    var data = sessionStorageData;
+    if(operationID == "addCourseware"){
+        data = window.sessionStorage.getItem("course_ware");
+        if(data){
+            return;
+        }
+        getLocalData(data)
+    }else{
+        getLocalData(data)
+    }
+})
+
+function getLocalData(data){
     layui.use("layer",function(){
         layer.open({
             type: 1,
@@ -91,13 +117,13 @@ $(".preview").on("click",function(){
             closeBtn: 0,
             shadeClose: false,
             area: ['700px', '730px'],
-            content: htmlModuleAssembly(sessionStorageData),
+            content: htmlModuleAssembly(data),
             scrollbar: false,
             end: function () {}
         });
-        layuiEndFun(sessionStorageData)
+        layuiEndFun(data)
     });
-})
+}
 
 //我的上传 --> 同类型习题
 $(".sameExercise").on("click",function(){
@@ -301,53 +327,81 @@ function viewHtml(data){
 }
 
 //页面数据加载
-function sessionS(){
-    if(exercises.length>0){
-        $.ajax({
-            url:"/getExerciseList",
-            type:"POST",
-            data:{'id_list':sessionStorageData.exercise,'_token':token},
-            success:function(data){
-                var data = JSON.parse(data)
-                for(var i = 0; i < data.length;i++){
-                    var cate_title = data[i].cate_title
+function sessionS(data){
+    if(operationID == "addCourseware"){
+        for(var i = 0; i < data.length;i++){
+            var cate_title = data[i]
+            $(".jobList").each(function(k,d){
+                var id = $(d).find(".exer-in-list").attr("data-id");
+                if(id == cate_title){
+                    var text = $(d).find(".exer-type-list").text();
                     $(".hw-type-list li").each(function(j,num){
-                        if(cate_title == $(num).find(".type").text()){
+                        if(text == $(num).find(".type").text()){
                             $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
                             $(num).css({display:'block'});
                         }
                     })
-
                 }
-            },
-            error:function(){}
-        })
-        $(".exer-in-list.border").each(function(i,list){
-            for(var j=0;j<exercises.length;j++){
-                if(parseInt($(list).attr("data-id")) == exercises[j]){
-                    $(list).find(".checkbox-add").attr("checked",true);
-                }
-            }
-        })
-        $(".AllCheckedJob").text(exercises.length);
+            })
+        }
+        getAjaxData(data)
+    }else{
+        if(data.length>0){
+            $.ajax({
+                url:"/getExerciseList",
+                type:"POST",
+                data:{'id_list':sessionStorageData.exercise,'_token':token},
+                success:function(data){
+                    var data = JSON.parse(data)
+                    for(var i = 0; i < data.length;i++){
+                        var cate_title = data[i].cate_title
+                        $(".hw-type-list li").each(function(j,num){
+                            if(cate_title == $(num).find(".type").text()){
+                                $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
+                                $(num).css({display:'block'});
+                            }
+                        })
+                    }
+                },
+                error:function(){}
+            })
+            getAjaxData(data)
+        }
     }
+}
+function getAjaxData(exercises){
+    $(".exer-in-list.border").each(function(i,list){
+        for(var j=0;j<exercises.length;j++){
+            if(parseInt($(list).attr("data-id")) == exercises[j]){
+                $(list).find(".checkbox-add").attr("checked",true);
+            }
+        }
+    })
+    $(".AllCheckedJob").text(exercises.length);
 }
 
 //选择联动函数
 function checkedFunLinkage(data,that){
-    if(data){
-        if(data.exercise.length>15){
+    var dataJ = [];
+    if(operationID == "addCourseware"){
+        dataJ = data;
+    }else{
+        dataJ = data.exercise;
+    }
+    if(dataJ){
+        if(dataJ.length>15){
             layui.use('layer',function(){
                 layer.msg("最多只能选择15道题",{offset: 't'})
             });
             return;
         }
-        if(data.exercise.length>0){
+        if(dataJ.length>0){
             $("#create-hw").text("添加到作业");
         }else{
             $("#create-hw").text("取消");
         }
     }
+    var arrs = dataJ;
     if($(that).is(":checked")){
         $(".hw-type-list li").each(function(j,num){
             if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
@@ -371,11 +425,17 @@ function checkedFunLinkage(data,that){
             }
         })
     }
-    sessionStorage.removeItem("addJob");
-    sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
-
-    $(".AllCheckedJob").text(exercises?exercises.length:arrs.length);
-    textEstimate(exercises)
+    if(operationID == "addCourseware"){
+        sessionStorage.removeItem("course_ware");
+        sessionStorage.setItem("course_ware",JSON.stringify(arrs));
+        $(".AllCheckedJob").text(arrs.length);
+        textEstimate(arrs)
+    }else{
+        sessionStorage.removeItem("addJob");
+        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
+        $(".AllCheckedJob").text(exercises?exercises.length:arrs.length);
+        textEstimate(exercises)
+    }
 }
 
 //保存数据函数

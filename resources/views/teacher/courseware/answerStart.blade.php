@@ -18,15 +18,15 @@
                     <li data-id="1" class="exer-in-list dan-xuan-only">
                         <div class="clear hw-question">
                             <span class="ic-blue">（2016 华东师大）（
-                                <span class="do-hw-type">单选题</span>
+                                <span class="do-hw-type">{{$data->exercise->cate_title}}</span>
                                 ）</span>
-                            <span>下列各句中，标点符号使用正确的一项是（）</span>
+                            <span>{!!$data->exercise->subject!!}下列各句中，标点符号使用正确的一项是（）</span>
                         </div>
                         @include('teacher.template.courseware_answer')
                     </li>
 				 </ul>
             </div>
-            <div id="answerInstrument">
+            <div id="answerInstrument" data-r-answer="{{json_encode($data->exercise->answer,JSON_UNESCAPED_UNICODE)}}">
                 <ul>
                     <li>
                         <div class="ta-c">
@@ -37,7 +37,7 @@
                         <div class="mains">
                             <div>
                                 <span class="isSubmitted"><b></b>人已提交</span>
-                                <span class="notSubmitted"><b></b>人未提交</span>
+                                <span class="notSubmitted"><b>{{count($data->student_list)}}</b>人未提交</span>
                             </div>
                             <div id="mainPie" style="width: 1000px;height:400px;"></div>
                         </div>
@@ -50,15 +50,15 @@
                         <div id="mainBarBlue" style="width: 1000px;height:400px;"></div>
                         <div class="ta-c">
                             <button class="ic-btn" id="showAnswer">显示答案</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                            <a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}/{{$cw_id}}"><button class="btn-white ">返回课件</button></a>
                         </div>
                     </li>
                     <li>
                         <div id="mainBar" style="width: 1000px;height:400px;"></div>
                         <div class="ta-c">
-                            <a href="/courseWare/main"><button class="ic-btn">关闭答案</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="ic-btn">下一题</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/courseWare/coursewareDetail"><button class="btn-white ">返回课件</button></a>
+                            <a href="/courseWare/main/{{$class_id}}/{{$course_id}}"><button class="ic-btn">关闭答案</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/courseWare/answerStart/{{$class_id}}/{{$course_id}}/{{$cw_id}}/{{$data->next_exercise_id}}"><button class="ic-btn">下一题</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}/{{$cw_id}}"><button class="btn-white ">返回课件</button></a>
                         </div>
                     </li>
                 </ul>
