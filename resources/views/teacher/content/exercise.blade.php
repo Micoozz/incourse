@@ -108,26 +108,28 @@
         <!--添加作业 页面引导-->
 
         <!--已添加的作业-->
-        <div class="hw-list">
-            <p class="title">
-                <span>7月20日作业</span>
-                <span class="fs14 orange exer-num">(<span class="AllCheckedJob">0</span>/15)</span>
-            </p>
-            <ul data-all="" class="hw-type-list">
-                <li style="display:none;"><span class='type'>单选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>多选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>填空题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>判断题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>排序题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>解答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>简答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-                <li style="display:none;"><span class='type'>计算题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
-            </ul>
-            <div class="ta-c">
-                <a id="create-hw" class="ic-btn" data-href="/addHomework-personal/{{$class_id}}/{{$course_id}}">生成作业</a>
-                <span id="preview" class="ic-blue c-d preview">预览</span>
+        @if(empty($action))
+            <div class="hw-list">
+                <p class="title">
+                    <span>7月20日作业</span>
+                    <span class="fs14 orange exer-num">(<span class="AllCheckedJob">0</span>/15)</span>
+                </p>
+                <ul data-all="" class="hw-type-list">
+                    <li style="display:none;"><span class='type'>单选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>多选题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>填空题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>判断题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>排序题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>解答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>简答题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                    <li style="display:none;"><span class='type'>计算题</span><span class='number'>(<code style="color:#168bee;">0</code>)</span></li>
+                </ul>
+                <div class="ta-c">
+                    <a id="create-hw" class="ic-btn" data-href="/addHomework-personal/{{$class_id}}/{{$course_id}}">生成作业</a>
+                    <span id="preview" class="ic-blue c-d preview">预览</span>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 </div>

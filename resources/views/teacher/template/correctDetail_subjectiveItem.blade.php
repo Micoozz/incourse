@@ -4,7 +4,7 @@
 		<span class="exer-type-list">{{$exercise->cate_title}}</span>
 		<span class="f-r">
 			<span>得分：</span>
-		<input class="border score" type="text" placeholder="请输入分数">
+		<input class="border score" type="text" placeholder="该题总分{{$exercise->score}}">
 		</span>
 	</div>
 	<div class="questions">

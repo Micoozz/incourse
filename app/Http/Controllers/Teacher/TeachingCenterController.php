@@ -110,7 +110,8 @@ class TeachingCenterController extends TeacherController
         foreach($job_list as $job){
             $job->sub_count = $job->hasManyWork()->where('status','>=',2)->get()->count();
             $job->count = $job->hasManyWork()->get()->count();
-
+            $avg_score = empty($job->sub_count) ? 0 : $job->hasManyWork()->where('status','>=',2)->sum('score') / $job->sub_count;
+            $job->avg_ratings = round($avg_score / $job->score,4);
         }
         // $job_section_list = Job::where(['teacher_id' => $teacher->id,'job_type' => $type,'class_id' => $class_id])->pluck('chapter_id');
         // $section_id_list = Chapter::whereIn('id',$job_section_list)->pluck('parent_id');
@@ -126,6 +127,8 @@ class TeachingCenterController extends TeacherController
         foreach($work_list as $work){
             $student = Student::find($work->student_id);
             $work->student_name = $student->name;
+            $work->total =$work->belongsToJob()->first()->score;
+            $work->ratings = round($work->score / $work->total,4);
         }
         return view('teacher.content.correct_work',compact("title",'class_course','class_id','course_id','work_list'));
     }
@@ -142,12 +145,13 @@ class TeachingCenterController extends TeacherController
         $exercise_list = Exercises::whereIn('id',$exercise_id_list)->get();
         $baseNum = (int)($work->student_id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
+        $work->title = $work->belongsToJob()->first()->title;
         try{
             $db = DB::connection($db_name);
         }catch(\Exception $e){
             throw $e;
         }
-        $work->title = $work->belongsToJob()->title;
+        $work->title = $work->belongsToJob()->first()->title;
         foreach ($exercise_list as $exercise) {
             $cate_title = Category::find($exercise->categroy_id)->title;
             $exercise->cate_title = $cate_title;
@@ -177,6 +181,7 @@ class TeachingCenterController extends TeacherController
                 array_push($data['done_correct'],$exercise);
             }
         }
+        //dd($exercise_list);
         return view('teacher.content.correctDetail',compact("title",'class_course','class_id','course_id','data','work','abcList','job_id'));
     }
     /*上传习题页面*/
@@ -743,6 +748,10 @@ class TeachingCenterController extends TeacherController
         $input = Input::get();
         $code = 200;
         $user = Auth::guard('employee')->user();
+        $job_score = 0;
+        foreach($input['exercise_id'] as $eid){
+            $job_score += Exercises::find($eid)->score;
+        }
         try{
             $job = new Job;
             $job->teacher_id = $user->id;
@@ -750,7 +759,7 @@ class TeachingCenterController extends TeacherController
             $job->course_id = intval($input['course']);
             $job->title = $input['title'];
             $job->job_type = intval($input['type']);
-            $job->score = 0; //intval($input['score'])*100;
+            $job->score = $job_score;
             $job->content = $input['content'];
             $job->exercise_id = json_encode($input['exercise_id']);
             $job->status = $status;
