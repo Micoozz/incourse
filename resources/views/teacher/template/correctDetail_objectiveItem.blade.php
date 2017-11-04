@@ -107,7 +107,7 @@
 						<div class="f-l subjectiveA">
 							<span class="ic-blue f-l">批注：</span>
 							<span class="answer_module">
-								@foreach($exercise->correct as $postil)
+								@foreach($exercise['correct'] as $postil)
 									<span class="black_answer f-l">{{$loop->index+1}}、{!!$postil!!}</span>
 								@endforeach
 							</span>

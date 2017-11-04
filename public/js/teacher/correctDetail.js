@@ -260,7 +260,7 @@ function upLoadData(){
 			var newCla = "sort"+(i-num+1);
 			$(".upLoadHtmlDataContent").eq(j).find("sup").eq(i-num).text(i-num+1);
 			$(".upLoadHtmlDataContent").eq(j).find(".pitchOn").eq(i-num).removeClass(cla).addClass(newCla);
-			dataArr.push($(".textareaS div").eq(i).html());
+			dataArr.push($(".textareaS div").eq(i).html()?$(".textareaS div").eq(i).html():'');
 		}
 		json.student_answer = $(".upLoadHtmlDataContent").eq(j).html();
 		json.data = dataArr;

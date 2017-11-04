@@ -44,7 +44,7 @@
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
-							<span>分值：</span>
+							<span>总分值：</span>
 							<span>{{$work->score/100}}</span>
 						</li>
 					</ul>
@@ -58,7 +58,7 @@
 						<li>学号：20071027</li>
 						<li>姓名：{{$data['student']->name}}</li>
 						<li class="ta-r">
-							<span>分值：</span>
+							<span>总分值：</span>
 							<span>{{$work->score/100}}</span>
 						</li>
 					</ul>
