@@ -7,7 +7,7 @@
 //答题中
     var myChartPie = echarts.init(document.getElementById('mainPie'));
     var a = 0;
-    var sumStudents = 20;
+    var sumStudents = parseInt($(".notSubmitted").find("b").text());
     var num = parseInt($("#countDowns b").text());
     var p = $("#showStatistics").parent();
     $(".ta-c .btnStart").click(function(){

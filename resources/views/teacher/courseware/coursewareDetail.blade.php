@@ -55,58 +55,41 @@
 			<div class="col-xs-12 col-sm-12" id="centery" style="width: 100%;">
 				<div class="ic-container">
 					<div>
-						<h5 style="font-weight: bold;">《课件：钢铁是怎样炼成的》</h5>
-						<p class="teacher">讲师：xxx &nbsp;&nbsp;&nbsp;2015年02月02日</p>
+						<h5 style="font-weight: bold;">{{$courseware->title}}</h5>
+						<p class="teacher">作者：{{$courseware->auth_name}} &nbsp;&nbsp;&nbsp;{{date('Y年m月d日 h时i分s秒',$courseware->create_time)}}</p>
 						<div class="teacher-content">
 							<h5>教师课件内容：</h5>
-							<div>
-								<p>1．初步学会阅读整本书，课内外结合，读完《钢铁是怎样炼成的》，了解故事情节。 </p>
-								<p>2．通过略读感知全文主要内容，理清情节和人物关系，扼要分析小说的主题。</p> 
-								<p class="ps">3．通过精读评析作品中人物形象的典型意义，对社会和人生有新的领悟。</p>
-
-								<p class="ps">【探究】: 小说中有这样一句话：“钢铁是在烈火和骤冷中炼成的。”意思是坚强的共产主义战士是在同阶级敌人以及各种困难的斗争中起来的。小说的主人公保 尔经历了第一次世界大战、十月革命国内战争和国民经济恢复时期的严峻考验，从一个普通和工人子弟成长为一个坚强的共产主义战士。其中“钢铁”比喻无产阶 级的英雄人物、坚强的共产主义战士，也可泛指平凡而伟大的人物。</p>
-
-								<p class="ps">【探究】: 小说中有这样一句话：“钢铁是在烈火和骤冷中炼成的。”意思是坚强的共产主义战士是在同阶级敌人以及各种困难的斗争中起来的。小说的主人公保 尔经历了第一次世界大战、十月革命国内战争和国民经济恢复时期的严峻考验，从一个普通和工人子弟成长为一个坚强的共产主义战士。其中“钢铁”比喻无产阶 级的英雄人物、坚强的共产主义战士，也可泛指平凡而伟大的人物。</p>
-
-								<p>【思考】： 你知道《钢铁是怎样炼成的》这一题目的含义吗?</p>
-							</div>
+							<div>{!!$courseware->content!!}</div>
 						</div>
 						<div class="accessory">
 							<h5>课件附件：</h5>
 							<div>
-								<div>
-									<span>
-										<img src="/images/Cj_iconfont-jiaoyu.png"/>
-									</span>
-									<span>
-										<p>《课件:钢铁是怎样炼成的》</p>
-										<div>
-											<span class="ic-blue"><i class="fa fa-download"></i>下载</span>&nbsp;&nbsp;&nbsp;
-											<span class="ic-blue"><i class="fa fa-eye"></i>查看</span>&nbsp;&nbsp;&nbsp;
-											<span>10.3MB</span>
-										</div>
-									</span>
-								</div>
-								<div>
-									<span>
-										<img src="/images/Cj_iconfont-jiaoyu.png"/>
-									</span>
-									<span>
-										<p>《课件:钢铁是怎样炼成的》</p>
-										<div>
-											<span class="ic-blue"><i class="fa fa-download"></i>下载</span>&nbsp;&nbsp;&nbsp;
-											<span class="ic-blue"><i class="fa fa-eye"></i>查看</span>&nbsp;&nbsp;&nbsp;
-											<span>10.3MB</span>
-										</div>
-									</span>
-								</div>
+								@if(empty($courseware->file))
+									<div>暂无附件</div>
+								@else
+									@foreach($courseware->file as $file)
+									<div>
+										<span>
+											<img src="/images/Cj_iconfont-jiaoyu.png"/>
+										</span>
+										<span>
+											<p>《课件:钢铁是怎样炼成的》</p>
+											<div>
+												<span class="ic-blue"><i class="fa fa-download"></i>下载</span>&nbsp;&nbsp;&nbsp;
+												<span class="ic-blue"><i class="fa fa-eye"></i>查看</span>&nbsp;&nbsp;&nbsp;
+												<span>10.3MB</span>
+											</div>
+										</span>
+									</div>
+									@endforeach
+								@endif
 							</div>
 						</div>
 						<div>
-							<h5>习题练习:共15小题</h5>
+							<h5>习题练习:共{{count($courseware->exercise_id)}}小题</h5>
 						</div>
 						<div class="foot-fastener">
-							<a href="/courseWare/answerStart/{{$class_id}}/{{$course_id}}"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
+							<a href="/courseWare/answerStart/{{$class_id}}/{{$course_id}}/{{$courseware->id}}/{{key($courseware->exercise_id[0])}}"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
 							<a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}"><button class="ic-btn">自由做题</button></a>
 							<a href="/courseWare/main/{{$class_id}}/{{$course_id}}"><button class="btn-white">返 回</button></a>
 						</div>

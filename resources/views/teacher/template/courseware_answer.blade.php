@@ -1,25 +1,11 @@
 <div>
 	<span class="f-l">选项：</span>
 	<ul class="radio-wrap exer-list-ul dan-xuan-options">
+	@foreach($data->exercise->options as $option)
 		<li>
-			<span class="f-l">A：</span>
-			<p class="f-l option">8只</p>
+			<span class="f-l">{{$abcList[$loop->index]}}：</span>
+			<p class="f-l option">{{$option[key($option)]}}</p>
 		</li>
-		<li>
-
-			<span class="f-l">B：</span>
-			<p class="f-l option">16只</p>
-		</li>
-		<li>
-
-			<span class="f-l">C：</span>
-
-			<p class="f-l option">1只</p>
-		</li>
-		<li>
-
-			<span class="f-l">D：</span>
-			<p class="f-l option">2只</p>
-		</li>
+	@endforeach
 	</ul>
 </div>

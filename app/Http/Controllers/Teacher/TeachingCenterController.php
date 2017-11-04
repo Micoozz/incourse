@@ -22,6 +22,7 @@ use App\Models\Student;
 use App\Models\Work;
 use App\Models\Courseware;
 use App\Models\CoursewareTeacherCourseMap;
+use App\Models\Employee;
 
 class TeachingCenterController extends TeacherController
 {
@@ -274,14 +275,17 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $courseware = Courseware::find($cw_id);
-        $auth_id = ClassTeacherCourseMap::where(['cw_id' => $courseware->id,'is_auth' => 1])->first()->teacher_id;
+        $auth_id = CoursewareTeacherCourseMap::where(['cw_id' => $courseware->id,'is_auth' => 1])->first()->teacher_id;
         $courseware->auth_name = Employee::find($auth_id)->name;
+        $courseware->file = json_decode($courseware->file,true);
+        $courseware->exercise_id = json_decode($courseware->exercise_id,true);
         return view('teacher.courseware.coursewareDetail',compact("title",'class_course','class_id','course_id','courseware'));
     }
 
     //开始答题 --> 结束答题 (习题库)
     public function answerStart($class_id ,$course_id,$cw_id,$exercise_id = null){
         $title = "aaa";
+        $abcList = range("A","Z");
         $data = collect();
         $student_list = Student::where('class_id',$class_id)->get();
         if(!empty($exercise_id)){
@@ -309,8 +313,7 @@ class TeachingCenterController extends TeacherController
         }
         $data->student_list = $student_list;
         $data->exercise = $exercise;
-        dd($data);
-        return view('teacher.courseware.answerStart',compact("title",'class_id','course_id','$data'));
+        return view('teacher.courseware.answerStart',compact("title",'class_id','course_id','data','abcList','cw_id'));
     }
     //开始答题 --> 结束答题 (自由)
     public function answerStart_freedom($class_id ,$course_id){
