@@ -6,80 +6,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="{{ asset('css/exercise.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/student/doHomework.css') }}" />
-<style>
-	.view .result>div:first-child span {
-		cursor: pointer;
-	}
-	
-	.view .result>div:first-child>div>span:nth-of-type(1) {
-		display: inline-block;
-		width: 25px;
-		height: 15px;
-		overflow: hidden;
-	}
-	
-	.view .result>div:first-child div {
-		padding-left: 10px;
-	}
-	
-	.view .result>div:first-child div .ipho {
-		display: block;
-		position: relative;
-		margin-top: 15px;
-		padding-left: 10px;
-		line-height: 26px;
-	}
-	
-	.view .result>div:first-child div .ipho:first-child {
-		margin-top: 0;
-	}
-	
-	.view .result>div:first-child div .ipho input {
-		position: absolute;
-		top: 0;
-		width: 80%;
-		height: 100%;
-	}
-	
-	.view .result>div:first-child>div>span:nth-of-type(1) img {
-		position: relative;
-		top: -29px;
-		left: -15px;
-	}
-	
-	.view .result>div {
-		margin-bottom: 20px;
-		display: flex;
-	}
-	
-	.view .result>div input,
-	.ipho .input {
-		border: 0;
-		width: 90%;
-		outline: none;
-		position: relative;
-		top: 2px;
-	}
-	
-	.view .result>div:last-child span,
-	.ipho {
-		width: 132px;
-		height: 28px;
-		background: #FFFFFF;
-		border: 1px solid #333;
-		border-radius: 4px;
-	}
-	.view .result>div:last-child .blues,.blues{
-		border: 1px solid #168bee;
-		box-shadow: 0 0 3px #168bee;
-	}
-	.borders{
-	    margin: 0 auto;
-	    border-bottom: 1px solid #d9d9d9;
-	    margin-top: 50px;
-	    width: 90%;
-	}
-</style>
 @endsection
 @section('COURSEWARE_CONTENT')
 <div class="row">
@@ -101,7 +27,6 @@
 		@endforeach
 		</tbody>
 	</table>
-	<!-- <label><span>学生：</span><input type="text" name="" id="addStudentId"  placeholder="" value=""></label> -->
 </div>
 
 @endsection
@@ -124,8 +49,8 @@
 			layui.use('layer',function(){
 				layer.open({
 				  type: 1,
-				  skin: 'layui-layer-rim', //加上边框
-				  area: ['420px', '240px'], //宽高
+				  skin: 'layui-layer-rim',
+				  area: ['420px', '240px'],
 				  content: '<p>学生名：对对对</p><p>卡片id<input id="cardId" disabled><button class="btn" id="getCard">任意点击卡片后再点击获取</button></p><button class="btn" id="submitCardId">确认绑定</button>'
 				});
 				$("#getCard").on("click",function(){

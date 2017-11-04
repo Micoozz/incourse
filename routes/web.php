@@ -80,6 +80,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/courseWare/answerStartFreedom/{class_id?}/{course_id?}','TeachingCenterController@answerStart_freedom');
 		Route::get('/courseWare/addRefreshCards/{class_id?}/{course_id?}','TeachingCenterController@addRefreshCards');
 		Route::post('/courseWare/addRefreshCards/bindCardId/{student_id?}/{scantron_id?}','TeachingCenterController@bindCardId');
+		Route::post('/courseWare/createCourseware','TeachingCenterController@createCourseware');
 
 
 
