@@ -150,7 +150,7 @@ $(function(){
             }
         }
         var order = parseInt($(".big-num").text());
-         $(".hw-order span:nth-child("+order+")").addClass("active");
+         $(".hw-order span:nth-child("+order+")").addClasss("active");
         if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
             if(a){
                 $(".hw-order span:nth-child("+order+")").addClass("active");
@@ -247,7 +247,7 @@ $(function(){
     //判断
     $("body").on("click",".exercise-box .pan-duan .uploadExerIcons",function(){getOrderAndBlue(this)});
     //画图
-    $("body").on("change",".exercise-box .addFile",function(){getOrderAndBlue(this)});
+    // $("body").on("change",".exercise-box .addFile",function(){getOrderAndBlue(this)});
     $("body").on("click",".exercise-box .question_hpb>li",function(){getOrderAndBlue(this)});
     //连线题
     $("body").on("mouseup",".exercise-box .sortable>li",function(){getOrderAndBlue(this)});

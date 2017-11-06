@@ -234,11 +234,11 @@ class Controller extends BaseController
             $files['path'] = $path . $name;        //存图片路径
             $files['success'] = true;            //图片上传成功标志
         }
-
         //将图片已json形式返回给js处理页面  ，这里大家可以改成自己的json返回处理代码
-        return json_encode(array(
-            'files' => $files,
-        ));
+        return $files['path'];
+       /* return json_encode(array(
+            'files' => $files['path'],
+        ));*/
     }
     /*********************************分割*************************************************/
     //这里我附上ensure_writable_dir()函数的代码

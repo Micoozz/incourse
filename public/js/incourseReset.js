@@ -113,30 +113,9 @@ $(function() {
 
 /*************通用的"添加附件",在下方显示多张图片**************/
 $(function(){
-	$(".exercise-box").on("change",".addFileCommon",function(){
-		var input = $(this)[0];
-		var files = input.files || [];
-		if(files.length === 0) {
-			return;
-		}
-		if(!input["value"].match(/\.jpg|\.png|\.bmp/i)) {
-			return alert("上传的图片格式不正确，请重新选择");
-		}
-		var file = files[0];
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
-		var _self = this;
-		reader.onload = function(e) {
-			var img = '<div class="p-r f-l one-img">\
-							<img class="img-canBigger" src="' + this.result + '"/>\
-							<i class="common-icon p-a delete d-n"></i>\
-						</div>';
-			$(_self).parents(".addFileBox").children(".imgs").append(img).addClass("border");
-		}
-	});
 
 	/*上传的图片鼠标移上去显示X*/
-	$(".exercise-box").on("mouseover",".imgs .one-img",function(){
+	/*$(".exercise-box").on("mouseover",".imgs .one-img",function(){
 		$(this).children(".delete").removeClass("d-n");
 	});
 	$(".exercise-box").on("mouseleave",".imgs .one-img",function(){
@@ -144,12 +123,12 @@ $(function(){
 	});
 
 	/*点击X删除照片*/
-	$(".exercise-box").on("click",".imgs .delete",function(){
+	/*$(".exercise-box").on("click",".imgs .delete",function(){
 		if($(this).parents(".imgs").children(".one-img").length === 1 ) {
 			$(this).parents(".imgs").removeClass("border");
 		}
 		$(this).parent().remove();
-	})
+	})*/
 })
 
 
@@ -158,6 +137,7 @@ $(function(){
 $(function(){
 	/*添加附件*/
 	$("body").on("change",".ic-editor .addFile",function(){
+		var that = $(this).parents(".tools").next(".editor-content");
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
@@ -167,14 +147,46 @@ $(function(){
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
 		var _self = this;
-		reader.onload = function(e) {
-			var img = '<img class="img-canBigger" src="' + this.result + '"/>';
-			$(_self).parents(".ic-editor").children(".editor-content").append(img);
-			$(_self).val("");
-		}
+		$.ajaxFileUpload({
+            url : '/studentImage',
+            secureuri : false,
+            dataType:'text',
+            fileElementId : 'file',
+            data : {"_token":token},
+            success : function(result) {
+            	var len = that.find(".img-canBigger").length;
+				var img = '<span class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
+				that.append(img);
+				that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
+				$(_self).val("");
+				$(".delThisImg").click(function(){
+					var url = $(this).prev(".img-canBigger").attr("src");
+					var arr = url.split("/");
+					var name = arr[arr.length-1];
+					/*$.ajax({
+						url:''+name,
+						type:"GET",
+						success:function(){
+							layui.use("layer",function(){
+			                    layer.msg("删除成功!",{offset: 't'});
+			                })
+							$(this).parent().remove();
+						},
+						error:function(){
+							layui.use("layer",function(){
+			                    layer.msg("删除失败!",{offset: 't'});
+			                })
+						}
+					})*/
+				})
+            },
+            error : function() {
+                layui.use("layer",function(){
+                    layer.msg("上传出错!",{offset: 't'});
+                })
+            }
+        })
 	});
 	/*下标点*/
 	var dotted = true;

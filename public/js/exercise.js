@@ -69,7 +69,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input class='addFile' type='file' style='display:none'/>" +
+                "<input class='addFile' name='file' type='file' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank d-n icon_margin_r'>" +
                     "<i class='tool'></i>" +
@@ -101,7 +101,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input class='addFile' type='file' style='display:none'>" +
+                "<input class='addFile' name='file' type='file' style='display:none'>" +
             "</p>" +
             "<div class='mp3-box'></div>" +
         "</div>" +
@@ -116,7 +116,7 @@ $(function () {
                     "<i class='tool'></i>" +
                     "<span>添加附件</span>" +
                 "</button>" +
-                "<input id='image-upload' class='addFile' type='file' style='display:none'/>" +
+                "<input id='image-upload' class='addFile' name='file' type='file' style='display:none'/>" +
                 "<b class='vertical-line f-l'></b>" +
                 "<button class='f-l blank icon_margin_r'>" +
                     "<i class='tool'></i>" +
@@ -139,22 +139,7 @@ $(function () {
         "</div>" +
     "</div>";
 
-    $("#image-upload").on("change",function(){
-        // console.log($.ajaxFileUpload())
-        $.ajaxFileUpload({
-            url : '/test',
-            secureuri : false,
-            fileElementId : 'image-upload',
-            dataType : 'json',
-            data : {"_token":token},
-            success : function(data) {
-                console.log(data)
-            },
-            error : function(data, e) {
-                alert('上传出错');
-            }
-        })
-    })
+    
     /****答案****/
     /*答案html框架组件*/
     var tID,tClass,tOptions,tIDOnly;
@@ -629,7 +614,7 @@ $(function () {
         var size = (files[0].size / 1024 / 1024).toFixed(2);
         $(this).parents(".listen").find(".mp3-box").append("<div>" +
                 "<i class='uploadExerIcons p-r'></i>" +
-                "<input class='p-a audio-child' type='file'/>" +
+                "<input class='p-a audio-child' name='file' type='file'/>" +
                 "<span class='gray'>听力  <span class='audio-name'>" + files[0].name + "</span>" + size + "M </span>" +
                 "<button class='f-r ic-blue delete'>删除</button>" +
             "</div>");

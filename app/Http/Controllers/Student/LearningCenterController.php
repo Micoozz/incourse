@@ -816,8 +816,8 @@ class LearningCenterController extends Controller
     	return json_encode(["code" => 200]);
     }
     public function studentImage(){
-        $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
+    	$name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         $teacher_id = Auth::guard('student')->user()->id;
         return parent::UploadFile('user-uplad/student/'.$teacher_id.'/images/',$name);
     }
-	
+}
