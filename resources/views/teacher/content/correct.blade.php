@@ -46,7 +46,7 @@
 				<tbody>
 					<tr>
 						<td>1.洗葡萄</td>
-						<td>小组</td>
+						<td>个人</td>
 						<td>10月1日 17:00</td>
 						<td class="ic-blue">
 							<span><a href="homeWork.html" class="blue"><i class="fa fa-edit"></i>&nbsp;&nbsp;编辑</span>&nbsp;&nbsp;&nbsp;</a>
@@ -55,7 +55,7 @@
 					</tr>
 					<tr>
 						<td>1.洗葡萄</td>
-						<td>小组</td>
+						<td>个人</td>
 						<td>10月1日 17:00</td>
 						<td class="ic-blue">
 							<span class="blue"><a href="homeWork.html" class="blue"><i class="fa fa-edit"></i>&nbsp;&nbsp;编辑</span>&nbsp;&nbsp;&nbsp;</a>
