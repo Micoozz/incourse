@@ -37,7 +37,6 @@ class LoginController extends Controller
 
     public  function login(){
         $input = Input::get();
-        dd($input);
         $code = '201';
         if(empty($input["sign"])){
             $guard = 'web';
