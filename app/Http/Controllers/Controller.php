@@ -267,7 +267,7 @@ class Controller extends BaseController
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         if ($user = Auth::guard('student')->user()) {
             return parent::UploadFile('user-uplad/student/'.$user->id.'/images/',$name);
-        } elseif ($user = Auth::guard('student')->user()) {
+        } elseif ($user = Auth::guard('teacher')->user()) {
            return $this->UploadFile('user-uplad/teacher/'.$user->id.'/images/',$name);
         }
     }
