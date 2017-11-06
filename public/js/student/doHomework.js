@@ -150,7 +150,7 @@ $(function(){
             }
         }
         var order = parseInt($(".big-num").text());
-         $(".hw-order span:nth-child("+order+")").addClasss("active");
+        $(".hw-order span:nth-child("+order+")").addClass("active");
         if($(obj).parents(".exer-list-ul").hasClass("radio-wrap")){
             if(a){
                 $(".hw-order span:nth-child("+order+")").addClass("active");
@@ -205,12 +205,12 @@ $(function(){
            if($(obj).text().match(/[\u4e00-\u9fa5]+/g)) {
                 if($(obj).text().length > 10) {
                     $(obj).text($(obj).text().substring(0, 10));
-                    alert('最多不可超过10个字')
+                    alert('最多不可超过30个字')
                 }
             } else {
                 if($(obj).text().length > 20) {
                     $(obj).text($(obj).text().substring(0, 20));
-                    alert('最多不可超过20个字')
+                    alert('最多不可超过30个字')
                 }
             }
         }

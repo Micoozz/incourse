@@ -138,6 +138,8 @@ $(function(){
 	/*添加附件*/
 	$("body").on("change",".ic-editor .addFile",function(){
 		var that = $(this).parents(".tools").next(".editor-content");
+		var id = $(this).attr("id");
+		console.log($(this).attr("name"))
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
@@ -149,37 +151,51 @@ $(function(){
 		var file = files[0];
 		var _self = this;
 		$.ajaxFileUpload({
-            url : '/studentImage',
+            url : '/uploadImager',
             secureuri : false,
             dataType:'text',
-            fileElementId : 'file',
+            fileElementId : id,
             data : {"_token":token},
             success : function(result) {
-            	var len = that.find(".img-canBigger").length;
-				var img = '<span class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
-				that.append(img);
-				that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
-				$(_self).val("");
-				$(".delThisImg").click(function(){
-					var url = $(this).prev(".img-canBigger").attr("src");
-					var arr = url.split("/");
-					var name = arr[arr.length-1];
-					/*$.ajax({
-						url:''+name,
-						type:"GET",
-						success:function(){
-							layui.use("layer",function(){
-			                    layer.msg("删除成功!",{offset: 't'});
-			                })
-							$(this).parent().remove();
-						},
-						error:function(){
-							layui.use("layer",function(){
-			                    layer.msg("删除失败!",{offset: 't'});
-			                })
-						}
-					})*/
-				})
+            	if(!result){
+            		layui.use("layer",function(){
+	                    layer.msg("已添加该图片!",{offset: 't'});
+	                })
+	                return;
+            	}else{
+            		var len = that.find(".img-canBigger").length;
+					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
+					that.append(img);
+					var w = $('.img-canBigger-p'+len).find("img").width();
+					var h = $('.img-canBigger-p'+len).find("img").height();
+					if(w>=h){
+						$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
+					}else{
+						$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
+					}
+					that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
+					$(_self).val("");
+					$(".delThisImg").click(function(){
+						var t = $(this)
+						var url = $(this).prev(".img-canBigger").attr("src");
+						$.ajax({
+							url:'/delFile',
+							type:"POST",
+							data:{'url':url,"_token":token},
+							success:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除成功!",{offset: 't'});
+				                })
+								t.parent().remove();
+							},
+							error:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除失败!",{offset: 't'});
+				                })
+							}
+						})
+					})
+            	}
             },
             error : function() {
                 layui.use("layer",function(){

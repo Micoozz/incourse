@@ -79,7 +79,7 @@
                     <li>
                         <div id="mainBar" style="width: 1000px;height:400px;"></div>
                         <div class="ta-c">
-                            <button class="ic-btn" id="jumpBack">上一步</button><a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}/{{$cw_id}}" title=""><button class="ic-btn" style="width:auto">编辑下一题</button></a><a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}"><button class="btn-white ">返回课件</button></a>
+                            <button class="ic-btn" id="jumpBack">上一步</button><a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}/{{$cw_id}}" title=""><button class="ic-btn" style="width:85px">编辑下一题</button></a><a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}/{{$cw_id}}"><button class="btn-white ">返回课件</button></a>
                         </div>
                     </li>
                 </ul>

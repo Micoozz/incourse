@@ -110,7 +110,7 @@
 						<tr>
 							<td>{{$loop->index+1}}</td>
 							<td style="width:200px;"><span>{{$courseware->title}}</span></td>
-							<td class="table-red">{{date('Y-m-d h:i:s',$courseware->create_time)}}</td>
+							<td class="">{{date('Y-m-d h:i:s',$courseware->create_time)}}</td>
 							<td class="ic-en"><a href="/courseWare/coursewareDetail/{{$class_id}}/{{$course_id}}/{{$courseware->id}}" class="ic-blue" title=""><i class="fa fa-tv"></i> 演示</a>
 							<!-- &nbsp;&nbsp;&nbsp;<a class="ic-blue" href="/courseWare/upLoadCourseware/{{$class_id}}/{{$course_id}}/edit-courseware" title=""><i class="fa fa-pencil-square-o"></i> 编辑</a></td> -->
 						</tr>

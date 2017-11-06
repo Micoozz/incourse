@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/incourseReset.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/index.css') }}"/>
+    <style type="text/css">
+        .waitBox {
+            text-align: center;
+            padding-top: 70px;
+            font-size: 12px;
+        }
+    </style>
 	<!-- Plugin -->
     @yield('CSS:OPTIONAL')
 </head>

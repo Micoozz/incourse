@@ -76,11 +76,12 @@ class LearningCenterController extends Controller
     //单独查看今天有多少作业
     public function todayWork($func = 'exercise_book', $parameter = null){
     	$user = Auth::user();
-    	$courseAll = Course::all();//这里以后要区分年级的科目
-        $courseFirst = Course::where(['id' => 1])->get()->toArray();
+    	//$courseAll = Course::all();//这里以后要区分年级的科目
+    	$courseAll = Course::whereIn('id',[1,2,5])->get();
+        //$courseFirst = Course::where(['id' => 1])->get()->toArray();
         $date = time();
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
-	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
+	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id','course_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
 	    $count = count($data);
         if ($func == Self::FUNC_STUDENT_NAME){
         	$provinces = Region::where('type', 1)->get();
@@ -117,11 +118,12 @@ class LearningCenterController extends Controller
 			$data['work'] = Work::find($parameter)->belongsToJob()->first(['title', 'deadline', 'exercise_id', 'content']);
 			$data['count'] = count(json_decode($data['work']->exercise_id));
 		}
-		return view('student.todayWork',compact('courseAll', 'courseFirst', 'data','count', 'func', 'parameter', 'user', 'workCount'));
+		return view('student.todayWork',compact('courseAll', 'data','count', 'func', 'parameter', 'user', 'workCount'));
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::user();
-    	$courseAll = Course::all();
+    	/*$courseAll = Course::all();*/
+    	$courseAll = Course::whereIn('id',[1,2,5])->get();
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $data = array();
         $data['status'] = array();
@@ -814,10 +816,5 @@ class LearningCenterController extends Controller
     	$student->class_id = $input['select-class'];
     	$student->save();
     	return json_encode(["code" => 200]);
-    }
-    public function studentImage(){
-    	$name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
-        $teacher_id = Auth::guard('student')->user()->id;
-        return parent::UploadFile('user-uplad/student/'.$teacher_id.'/images/',$name);
     }
 }

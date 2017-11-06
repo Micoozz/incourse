@@ -78,7 +78,7 @@
 										<i class="tool"></i>
 										<span>添加附件</span>
 									</button>
-									<input class="addFile image-upload" name="file" type="file" style="display: none"/>
+									<input class="addFile file" name="file" id="file0" type="file" style="top:50px;display: none;"/>
 									<b class="vertical-line f-l"></b>
 									<button class="f-l blank d-n icon_margin_r">
 										<i class="tool"></i>

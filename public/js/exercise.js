@@ -655,6 +655,8 @@ $(function () {
     //添加题目
 	$("body").on("click",".addExerBtn-box .addExerBtn",function () {
 		$(".exercise-box").append(html);
+        var len = $(".addFile").length;
+        $(".exercise-box").find(".question-box").eq(len-1).find("input[name='file']").attr("id","file"+(len-1));
         $(".addFileTool").click(function(){
             $(this).parent().find(".addFile").click();
         })

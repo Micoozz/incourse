@@ -153,9 +153,10 @@ position: relative;
 	font-size: 14px;
 }
 .foot_left>div:last-child{
-	    margin-top: 44px;
-    width: 252px;
+	margin-top: 40px;
+    width: 350px;
     line-height: 22px;
+    font-size: 12px;
 }
 .foot_right{
 	float: right;
@@ -175,11 +176,11 @@ position: relative;
 }
 .foot{
 	border-bottom:2px solid #ccc;
-	    width: 63%;
+	width: 63%;
     margin: 0 auto;
     position: relative;
-    padding-bottom: 40px;
-        top: 15px;
+    padding-bottom: 30px;
+    top: 15px;
 }
 .foot>div:last-child{
     background: url(../images/cj_icon.png) no-repeat #333 center;
