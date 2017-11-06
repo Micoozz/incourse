@@ -216,6 +216,7 @@ class LearningCenterController extends Controller
 										'exe_id' =>$exe_id,
 									));
 								}else{
+									$sameCorrectScore += $userWork->score;
 									$data['objectiveErrorCount'] = $data['objectiveErrorCount'] + 1; //错误多少道题
 									array_push($data['status'], array(
 										'id' => 5,
