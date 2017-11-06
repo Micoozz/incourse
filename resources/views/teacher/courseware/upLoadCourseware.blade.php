@@ -160,6 +160,16 @@
 	.uploadCourseware .uploadFile .parpers span{
 		text-align: center;
 	}
+	#checkJob_courseware .gray{
+		display: block;
+    	margin-top: -6px;
+	}
+	.tfoot-module .tfootTd{
+		overflow: hidden;
+	}
+	.tfoot-module .tfootTd button:focus{
+		outline: none;
+	}
 </style>
 @endsection
 @section('THEANSWER')
@@ -189,7 +199,7 @@
 								<span class="addFileTool">
 									<i class="fa fa-paperclip"></i>&nbsp;添加附件
 								</span>
-								<input type="file" name="" class="addFile" value="" />
+								<input type="file" name="" class="addFile" value=""  style="display: none;"/>
 								<textarea name="" rows="" id="course_textarea" cols="" placeholder="请输入内容"></textarea>
 							</span>
 						</div>
@@ -216,8 +226,8 @@
 						      		<div>
 						      			<span class="tfootTd"><button type="button" class="btn blue" id="delete-personHw">删除</button></span>
 							      		<span class="tfootTd">
-							      			<button class="btn btn-white" type="button">
-							      				<a href="/exercise/{{$class_id}}/{{$course_id}}/addCourseware" class="addCourseJob"><span class="gray"><i class="fa fa-plus-circle"></i>&nbsp;添加习题</span></a>
+							      			<button class="btn btn-white" type="button" id="checkJob_courseware">
+							      				<span class="gray"><i class="fa fa-plus-circle"></i>&nbsp;添加习题</span>
 							      			</button>
 							      		</span>
 						      		</div>
@@ -248,6 +258,7 @@
 <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 <script src="/js/layui/layui.js" charset="utf-8"></script>
 <script>
+	var class_id = '{{$class_id}}',course_id="{{$course_id}}";
 	$(function() {
 		var ENNum = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 		var course_id = '{{$course_id}}';
@@ -334,114 +345,159 @@
 		}
 		//获取本地数据函数
 		function getLocalData(){
-			var datas = JSON.parse(window.sessionStorage.getItem("course_ware"));
-			var getWork={"id_list":datas,"_token":token}
-		    $.ajax({
-		        url:"/getExerciseList",
-		        data:getWork,
-		        type:"POST",
-		        success:function(data){
-		            data = JSON.parse(data);
-		            $(".work_tbody").html("")
-		            for(var i=0;i<data.length;i++){
-		                $(".work_tbody").append(htmlModule(ENNum,data[i],i));
-		            }
-		            $(".jobNum").text(datas.length+"/15题")
-		            $(".disSelsect").each(function(){
-		                $(this).css({height:($(this).find("ul").height()+10)});
-		            });
-		            $(".tdBtn").click(function(e){
-		                e.stopPropagation();
-		                $(".disSelsect").click(function(){
-		                    return false;
-		                });
-		                $(this).find(".disSelsect").toggleClass("active");
-		                if($(this).find(".disSelsect").hasClass("active")){
-		                    $(this).find(".chapterBox").css({display:"none"});
-		                    $(this).find(".fa.is-spread").removeClass("fa-angle-up").addClass("fa-angle-down");
-		                    $(".subject_box").removeClass("subject_box_active").addClass("subject_box_noActive");
-		                    $(this).find(".chapterBtn").css({width:'70px'},500);
-		                    $(this).find(".chapterIcon").removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
-		                    $(this).find(".disSelsectBox").animate({height:0},500);
-		                }else{
-		                    $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
-		                    $(".subject_box").removeClass("subject_box_noActive").addClass("subject_box_active");
-		                    $(this).find(".disSelsectBox").animate({height:($(this).find("ul").height()+45)},500);
-		                    var that = this;
-		                    setTimeout(function(){
-		                        $(that).find('.chapterBox').css({display:'block'});
-		                    },500)
-		                }
-		            });
-		            $(".chapterBox").on("click",".chapterIcon",function(e){
-		                e.stopPropagation();
-		                if($(this).hasClass("fa-angle-double-right")){
-		                    $(this).parent().animate({width:'370px'},500);
-		                    $(this).removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
-		                }else{
-		                    $(this).parent().animate({width:'70px'},500);
-		                    $(this).removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
-		                }
-		            })
-		            $("#all-checked").click(function(){
-		                if($(this).is(":checked")){
-		                    $(".spread.tdBtn").each(function(j,trList){
-		                        $(trList).find(".checkJob").prop("checked",true);
-		                    })
-		                }else{
-		                    $(".spread.tdBtn").each(function(j,trList){
-		                        $(trList).find(".checkJob").prop("checked",false);
-		                    })
-		                }
-
-		            })
-		            $(".checkJob,.chapterBox").click(function(e){
-		                e.stopPropagation();
-		            	var isNoAllChecked = true;
-		                $(".spread.tdBtn").each(function(i,trList){
-				            if(!$(trList).find(".checkJob").is(":checked")){
-				            	isNoAllChecked = false
+			var datas = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+			if(datas){
+				var dd = datas.course_ware
+				var getWork={"id_list":dd,"_token":token}
+	            $("#course_title").val(datas.title);
+	            $("#course_textarea").val(datas.content);
+	            $("#input_number").val(datas.time);
+	            if(dd.length>0){
+	            	$.ajax({
+				        url:"/getExerciseList",
+				        data:getWork,
+				        type:"POST",
+				        success:function(data){
+				            data = JSON.parse(data);
+				            $(".work_tbody").html("")
+				            for(var i=0;i<data.length;i++){
+				                $(".work_tbody").append(htmlModule(ENNum,data[i],i));
 				            }
-				        })
-				        if(isNoAllChecked){
-				        	$("#all-checked").attr("checked",true);
-				        }else{
-				        	$("#all-checked").attr("checked",false);
+				            $(".jobNum").text(dd.length+"/15题")
+				            $(".disSelsect").each(function(){
+				                $(this).css({height:($(this).find("ul").height()+10)});
+				            });
+				            $(".tdBtn").click(function(e){
+				                e.stopPropagation();
+				                $(".disSelsect").click(function(){
+				                    return false;
+				                });
+				                $(this).find(".disSelsect").toggleClass("active");
+				                if($(this).find(".disSelsect").hasClass("active")){
+				                    $(this).find(".chapterBox").css({display:"none"});
+				                    $(this).find(".fa.is-spread").removeClass("fa-angle-up").addClass("fa-angle-down");
+				                    $(".subject_box").removeClass("subject_box_active").addClass("subject_box_noActive");
+				                    $(this).find(".chapterBtn").css({width:'70px'},500);
+				                    $(this).find(".chapterIcon").removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+				                    $(this).find(".disSelsectBox").animate({height:0},500);
+				                }else{
+				                    $(this).find(".fa.is-spread").removeClass("fa-angle-down").addClass("fa-angle-up");
+				                    $(".subject_box").removeClass("subject_box_noActive").addClass("subject_box_active");
+				                    $(this).find(".disSelsectBox").animate({height:($(this).find("ul").height()+45)},500);
+				                    var that = this;
+				                    setTimeout(function(){
+				                        $(that).find('.chapterBox').css({display:'block'});
+				                    },500)
+				                }
+				            });
+				            $(".chapterBox").on("click",".chapterIcon",function(e){
+				                e.stopPropagation();
+				                if($(this).hasClass("fa-angle-double-right")){
+				                    $(this).parent().animate({width:'370px'},500);
+				                    $(this).removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
+				                }else{
+				                    $(this).parent().animate({width:'70px'},500);
+				                    $(this).removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+				                }
+				            })
+				            $("#all-checked").click(function(){
+				                if($(this).is(":checked")){
+				                    $(".spread.tdBtn").each(function(j,trList){
+				                        $(trList).find(".checkJob").prop("checked",true);
+				                    })
+				                }else{
+				                    $(".spread.tdBtn").each(function(j,trList){
+				                        $(trList).find(".checkJob").prop("checked",false);
+				                    })
+				                }
+
+				            })
+				            $(".checkJob,.chapterBox").click(function(e){
+				                e.stopPropagation();
+				            	var isNoAllChecked = true;
+				                $(".spread.tdBtn").each(function(i,trList){
+						            if(!$(trList).find(".checkJob").is(":checked")){
+						            	isNoAllChecked = false
+						            }
+						        })
+						        if(isNoAllChecked){
+						        	$("#all-checked").attr("checked",true);
+						        }else{
+						        	$("#all-checked").attr("checked",false);
+						        }
+				            })
 				        }
-		            })
-		        }
-		    })
+				    })
+	            }
+			}
 		    var parent_ul = $(".trifle").parent().next(".lists.section-ul");
 		    parent_ul.html("");
 		}
 		//删除习题函数
-		function delJob(sessionStorageData){
-		    var exerciseArr = JSON.parse(window.sessionStorage.getItem("course_ware"));
-		    $(".jobNum").text(exerciseArr.length+"/15题")
-		    //删除习题
-		    $("#delete-personHw").click(function(){
-		        var newArr = exerciseArr;
-		        $(".spread.tdBtn").each(function(i,trList){
-		            if($(trList).find(".checkJob").is(":checked")){
-		                for(var j = 0;j<exerciseArr.length;j++){
-		                    if(exerciseArr[j] == $(trList).attr("data-id")){
-		                        newArr.splice(j,1)
-		                    }
-		                }
-		                $(trList).remove();
-		            }
-		        })
-		        if(newArr == 0){
-		            $("#all-checked").attr("checked",false);
-		        }
-		        sessionStorage.removeItem("course_ware");
-		        sessionStorage.setItem("course_ware",JSON.stringify(newArr))
-		        $(".jobNum").text(newArr.length+"/15题");
-		        getLocalData()
-		    })
+		function delJob(){
+			var d = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+		    if(d){
+		    	var exerciseArr = d.course_ware
+			    //删除习题
+			    $("#delete-personHw").click(function(){
+			        var newArr = exerciseArr;
+			        $(".spread.tdBtn").each(function(i,trList){
+			            if($(trList).find(".checkJob").is(":checked")){
+			                for(var j = 0;j<exerciseArr.length;j++){
+			                    if(exerciseArr[j] == $(trList).attr("data-id")){
+			                        newArr.splice(j,1)
+			                    }
+			                }
+			                $(trList).remove();
+			            }
+			        })
+			        if(newArr == 0){
+			            $("#all-checked").attr("checked",false);
+			        }
+			        var data = {
+			        	"title":$("#course_title").val()?$("#course_title").val():'',
+						"content":$("#course_textarea").val()?$("#course_textarea").val():'',
+						"time":$("#input_number").val()?$("#input_number").val():'',
+						"course_ware":newArr
+			        }
+			        sessionStorage.removeItem("course_ware_data");
+			        sessionStorage.setItem("course_ware_data",JSON.stringify(data))
+			        $(".jobNum").text(data.course_ware.length+"/15题");
+			        getLocalData()
+			    })
+		    }
 		}
 
-
+		$("#checkJob_courseware").click(function(){
+			var datas = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+			var data = {};
+			if(datas){
+				data = {
+					"title":datas.title == ""?$("#course_title").val():(datas.title == $("#course_title").val()?datas.title:$("#course_title").val()),
+					"content":datas.content == ""?$("#course_textarea").val():(datas.content == $("#course_textarea").val()?datas.content:$("#course_textarea").val()),
+					"time":datas.time == ""?$("#input_number").val():(datas.time == $("#input_number").val()?datas.time:$("#input_number").val()),
+					"course_ware":datas.course_ware
+				}
+			}else{
+				data = {
+					"title":$("#course_title").val()?$("#course_title").val():'',
+					"content":$("#course_textarea").val()?$("#course_textarea").val():'',
+					"time":$("#input_number").val()?$("#input_number").val():'',
+					"course_ware":[]
+				}
+			}
+			window.sessionStorage.setItem("course_ware_data",JSON.stringify(data));
+			window.location.href = '/exercise/'+class_id+'/'+course_id+'/addCourseware';
+		})
+	    /*function newSessionStorageData1(data,arr){
+		    var json = {
+		        "title":data?data.title:'',
+		        "content":data?data.deadline:'',
+		        "time":data?data.dateTime:'',
+		        "course_ware":arr
+		    }
+		    return json
+		}*/
 		var parpers = [] //上传文件
 		$('.uploadCourseware .flex input').change(function() {
 			parpers.push($(this).val());
@@ -483,7 +539,8 @@
 	    	var textarea = $("#course_textarea").val();
 	    	var time = $("#input_number").val();
 	    	var isNull = true;
-	    	var datas = JSON.parse(window.sessionStorage.getItem("course_ware"));
+	    	var da = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+	    	var datas = da.course_ware
 	    	if(datas.length>0){
 	    		if(time == ''){
     				layui.use('layer', function(){
@@ -515,7 +572,8 @@
 	                        offset: 't'
 	                    })
 	    			})
-	    			sessionStorage.removeItem("course_ware");
+	    			sessionStorage.removeItem("course_ware_data");
+	    			window.location.href = "/courseWare/main/"+class_id+"/"+course_id;
 	    		}
 	    	})
 	    })
