@@ -119,7 +119,7 @@
 					<div>
 						<p>正确答案是<span class="exactitude bj-green">{{ implode(',',$data['exercises'][0]['answer'][0]['standard']['answer']) }}</span>,你的答案是<span class="{{$data['exercises'][0]['sameScore'] == 0?'red':'bj-green'}}"  exercise-id="{{ $data['exercises'][0]['categroy_id'] }}"><b style="font-weight: normal;">{{ implode(',',$data['exercises'][0]['answer'][0]['user_answer']['answer']) }}</b>
 						</p>
-						{{ dd($data['exercises'][0]['sameScore']) }} {{dd($data['exercises'][0]['score'])}}
+						{{ dump($data['exercises'][0]['sameScore']) }} {{dd($data['exercises'][0]['score'])}}
 						@if($data['exercises'][0]['sameScore'] != $data['exercises'][0]['score']) 回答<span class="red">错误</span> @else 回答<span class="bj-green">正确</span> @endif,作答用时{{ $data['exercises'][0]['second'] }}秒。
 					</div>
 					@elseif($data['exercises'][0]['categroy_id'] == 10 ||$data['exercises'][0]['categroy_id'] == 11)
