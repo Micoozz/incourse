@@ -78,7 +78,6 @@ class LearningCenterController extends Controller
     	$user = Auth::user();
     	//$courseAll = Course::all();//这里以后要区分年级的科目
     	$courseAll = Course::whereIn('id',[1,2,5])->get();
-        //$courseFirst = Course::where(['id' => 1])->get()->toArray();
         $date = time();
         $job_list = array_column(Job::where('deadline', '>', $date)->get(['id'])->toArray(), 'id');
 	    $data = Work::select('id', 'status', 'sub_time', 'start_time', 'job_id','course_id')->where(['student_id' => $user->id])->whereIn('job_id', $job_list)->orderBy('id', 'desc')->paginate(5);//显示所有的做作业
@@ -122,7 +121,6 @@ class LearningCenterController extends Controller
     }
     public function learningCenter($course = 1, $mod = 'homework', $func = 'exercise_book', $parameter = null, $exercise_id = null, $several = 1){
     	$user = Auth::user();
-    	/*$courseAll = Course::all();*/
     	$courseAll = Course::whereIn('id',[1,2,5])->get();
         $courseFirst = Course::where(['id' => $course])->get()->toArray(); 
         $data = array();
@@ -271,6 +269,9 @@ class LearningCenterController extends Controller
 				 			$exeScore += Exercises::where('id', $exe)->first()->score; 
 				 		}
 				 		$accuracy = $grossScore / $exeScore;//总分数率
+				 		$work = Work::find($parameter);
+				 		$work->score = $grossScore;
+				 		$work->save();
 					}
 				}
 		 	}else if ($func == Self::FUNC_ERROR_REPORTS) {
@@ -479,6 +480,7 @@ class LearningCenterController extends Controller
         	$score = 0;
         	$exercise = Exercises::find($answer['id']);
         	if ($exercise->exe_type == Exercises::TYPE_SUBJECTIVE) {
+        		$type = 1
         		$result = $db->table($user->id)->insert(['work_id' => $input['work_id'], 'type' => 1, 'exe_id' => $answer['id'], 
         			'answer' => json_encode(array("answer" => $answer['answer']), JSON_UNESCAPED_UNICODE), 'second' => $answer['last'],
         			'score' => 0, 'status' => 1]);
@@ -532,7 +534,11 @@ class LearningCenterController extends Controller
        	if ($result) {
         	$work = Work::find($work->id);
         	$work->score = $work_score;
-        	$work->status = 2;
+        	if (isset($type)) {
+        		$work->status = 2;
+        	}else{
+        		$work->status = 4;
+        	}
 	        $work->sub_time = time();
 	        $work->save();
         }

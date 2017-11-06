@@ -183,7 +183,7 @@ class Controller extends BaseController
         curl_setopt ( $ch, CURLOPT_POSTFIELDS, $post_data);  //提交数据  
         curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true);  //重定向地址也输出  
         $return = curl_exec ( $ch ); //得到返回值  
-          
+            
         curl_close ( $ch );  //关闭  
           
         return $return;  //输出返回值    
