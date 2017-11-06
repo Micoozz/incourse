@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/incourseReset.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/exercise.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/student/doHomework.css') }}"/>
+    <link href="{{ asset('js/layui/css/layui.css') }}" rel="stylesheet">
     @yield('CSS:OPTIONAL')
     <style>
         .do-homework-wrap .exer-num .time {
@@ -27,19 +28,7 @@
 </head>
 <body>
 <div class="fff-bg do-homework-wrap">
-    @include('teacher.courseware_header')
-    <!--创建班级-->
-
-    <div class="do-hw-wrap clear">
-        @yield('COURSEWARE_CONTENT')
-    </div>
-
-    <div class="big-img-box d-n">
-        <p>
-            <i class="fa fa-times-circle-o f-r p-r"></i>
-        </p>
-        <img src="" alt=""/>
-    </div>
+    @yield('COURSEWARE_CONTENT')
 </div>
 
 
@@ -47,6 +36,7 @@
 <script src="{{ asset('js/jquery-ui-sortable.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/echarts.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('js/layui/layui.js') }}" charset="utf-8"></script>
 <script type="text/javascript">
     var token = "{{csrf_token()}}";
 </script>

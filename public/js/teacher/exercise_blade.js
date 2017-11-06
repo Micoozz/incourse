@@ -401,7 +401,7 @@ function checkedFunLinkage(data,that){
             $("#create-hw").text("取消");
         }
     }
-    var arrs = dataJ;
+    var arrs = dataJ?dataJ:[];
     if($(that).is(":checked")){
         $(".hw-type-list li").each(function(j,num){
             if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){

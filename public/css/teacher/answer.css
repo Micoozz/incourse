@@ -106,3 +106,41 @@
 .exer-num #countDowns{
     display: block;
 }
+.rido{
+    position: absolute;
+    top: 340px;
+    display: none;
+    margin-top: -35px;
+    background: #fff;
+    z-index: 9999;
+    width: 100%;
+}
+.rido>div{
+    display: table;
+    float: right;
+    width: 850px;
+    line-height: 30px;
+    margin-right: 50px;
+}
+.rido>div span{
+    display:table-cell;
+    cursor: pointer;
+    text-align: center;
+}
+.rido>div span i{
+    cursor: pointer;
+    margin-left: -100px;
+}
+.rido .title{
+    display: block;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+}
+#freedomEndBtn{
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 100%;
+}

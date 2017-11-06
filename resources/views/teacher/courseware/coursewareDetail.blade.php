@@ -90,7 +90,7 @@
 						</div>
 						<div class="foot-fastener">
 							<a href="/courseWare/answerStart/{{$class_id}}/{{$course_id}}/{{$courseware->id}}/{{key($courseware->exercise_id[0])}}"><button class="ic-btn" style="margin-left: 0;">开始做题</button></a>
-							<a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}"><button class="ic-btn">自由做题</button></a>
+							<a href="/courseWare/setQuestions/{{$class_id}}/{{$course_id}}/{{$courseware->id}}"><button class="ic-btn">自由做题</button></a>
 							<a href="/courseWare/main/{{$class_id}}/{{$course_id}}"><button class="btn-white">返 回</button></a>
 						</div>
 					</div>

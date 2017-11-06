@@ -40,6 +40,7 @@ class TeachingCenterController extends TeacherController
     const ACT_MY_COLLECTION = 'my-conllection';
     const ACT_ADD_JOB = 'addJob';
     const ACT_ADD_COURSEWARE = 'addCourseware';
+    const ACT_EDIT_COURSEWARE = 'edit-courseware';
 
     protected $class_id;
     protected $course_id;
@@ -50,8 +51,7 @@ class TeachingCenterController extends TeacherController
 
 
 
-    // questions/answer/upLoadCourseware/courseware/accuracy/accuracys/census/censuss/coursewareAnswer/coursewareAnswers/coursewareStatistics/coursewareStatisticss
-   
+
 
     /**
      * 学习中心主体页面
@@ -255,23 +255,27 @@ class TeachingCenterController extends TeacherController
         return view('teacher.courseware.courseware',compact("title",'class_course','class_id','course_id','courseware_list'));
     }
     //上传课件
-    public function upLoadCourseware($class_id ,$course_id){
-        $title = "aaa";
+    public function upLoadCourseware($class_id ,$course_id,$edit = null){
+        $title = "上传课件";
         $teacher = Auth::guard("employee")->user();
-        $class_course = $this->getClassCourse($teacher->id);
+        if(empty($edit)){
+            $class_course = $this->getClassCourse($teacher->id);
+        }else if($edit == self::ACT_EDIT_COURSEWARE){
+            dd(11);
+        }
         return view('teacher.courseware.upLoadCourseware',compact("title",'class_course','class_id','course_id'));
     }
     //自由做题 --> 编辑选项
-    public function setQuestions($class_id ,$course_id){
-        $title = "aaa";
+    public function setQuestions($class_id ,$course_id,$cw_id){
+        $title = "编辑选项";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
-        return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id'));
+        return view('teacher.courseware.setQuestions',compact("title",'class_course','class_id','course_id','cw_id','edit'));
     }
 
     // 课件详情
     public function coursewareDetail($class_id ,$course_id,$cw_id){
-        $title = "aaa";
+        $title = "课件详情";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $courseware = Courseware::find($cw_id);
@@ -284,7 +288,7 @@ class TeachingCenterController extends TeacherController
 
     //开始答题 --> 结束答题 (习题库)
     public function answerStart($class_id ,$course_id,$cw_id,$exercise_id){
-        $title = "aaa";
+        $title = "开始答题";
         $abcList = range("A","Z");
         $data = collect();
         $student_list = Student::where('class_id',$class_id)->get();
@@ -313,22 +317,17 @@ class TeachingCenterController extends TeacherController
     }
     //开始答题 --> 结束答题 (自由)
     public function answerStart_freedom($class_id ,$course_id,$cw_id){
-        $title = "aaa";
+        $title = "开始答题";
         $data = collect();
         $student_list = Student::where('class_id',$class_id)->get();
-        $input = Input::get();
-        $exercise = collect();
-        $exercise->option = $input['option'];
-        $exercise->count_down = intval($input['count_down']);
         $data->student_list = $student_list;
-        $data->exercise = $exercise;
         return view('teacher.courseware.answerStart_freedom',compact("title",'class_id','course_id','data','cw_id'));
     }
     //添加学生cardID
     public function addRefreshCards($class_id ,$course_id = null){
         $teacher = Auth::guard("employee")->user();
         $students = Student::where('class_id', $class_id)->get();
-        $title = "aaa";
+        $title = "添加学生cardID";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         return view('teacher.courseware.addRefreshCards',compact("title",'class_course','class_id','course_id', 'students'));
