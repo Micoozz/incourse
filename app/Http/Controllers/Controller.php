@@ -261,6 +261,18 @@ class Controller extends BaseController
             }
         }
     }
+
+    //添加图片
+    public function uploadImager(){
+        $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
+        if ($user = Auth::guard('student')->user()) {
+            return parent::UploadFile('user-uplad/student/'.$user->id.'/images/',$name);
+        } elseif ($user = Auth::guard('student')->user()) {
+           return $this->UploadFile('user-uplad/teacher/'.$user->id.'/images/',$name);
+        }
+    }
+    
+    //删除图片
     public function delFile($file){
         $result = unlink($file);
         return $result;
