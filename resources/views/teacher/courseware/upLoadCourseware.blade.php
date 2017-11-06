@@ -483,6 +483,7 @@
 	    	var textarea = $("#course_textarea").val();
 	    	var time = $("#input_number").val();
 	    	var isNull = true;
+	    	var datas = JSON.parse(window.sessionStorage.getItem("course_ware"));
 	    	if(datas.length>0){
 	    		if(time == ''){
     				layui.use('layer', function(){
