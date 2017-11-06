@@ -323,7 +323,7 @@ class LearningCenterController extends Controller
                     'answer' => $answers,
                     'score' => $errorReports->score/100,
                     'second' => $workFirst->second,
-                    'sameScore' => $workFirst->score,
+                    'sameScore' => $workFirst->score/100,
                     ));
 		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			$workStatus = Work::find($parameter)->status;
