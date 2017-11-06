@@ -23,6 +23,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/kit/captcha/{tmp}','Admin\ArchivesController@captcha');
 	Route::get('/province/{id}','Admin\ArchivesController@province');
 	Route::post('/email','Controller@emailSend');
+	Route::get('/delFile','Controller@delFile');
 	//云平台暂时使用
 	Route::post('/platformEmail','Controller@platformEmail');
 	Route::get('/auditPwd/{username?}','Controller@auditPwd');
