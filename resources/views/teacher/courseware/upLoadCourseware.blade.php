@@ -14,12 +14,19 @@
 <style>
 	.uploadCourseware {
 		margin-top: 60px;
+		font-size: 12px;
 	}
 	.uploadCourseware .upLoadCourse .label-input {
 		display: block;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
-	.uploadCourseware .course_title,
+	.uploadCourseware #course_title{
+	    padding: 2px 5px;
+	    height: 24px;
+	    line-height: 20px;
+	    border-radius: 2px;
+	    border: 1px solid #d9d9d9;
+	}
 	.uploadCourseware .time {
 		background: #FFFFFF;
 		border: 1px solid #D9D9D9;
@@ -36,6 +43,7 @@
 		border-right: 1px solid #eee;
 		margin: 10px;
 		width: 80px;
+		cursor: pointer;
 	}
 	.uploadCourseware .flex span>textarea {
 		width: 100%;
@@ -50,7 +58,7 @@
 		border: 1px solid #D9D9D9;
 		border-radius: 4px;
 		height: 182px;
-		width: 488px;
+		width: 100%;
 		overflow: hidden;
 		display: block;
 	}
@@ -71,18 +79,18 @@
 		margin-left: -8px;
 		opacity: 0;
 	}
-	.parpers span{
+	.uploadCourseware .parpers span{
 		cursor: pointer;
 	}
-	.person-exer-list{
+	.uploadCourseware .person-exer-list{
 		font-size: 12px!important;
 		border-bottom: 1px solid #d9d9d9;
 		border-radius: 4px;
 	}
-	.time_down{
+	.uploadCourseware .time_down{
 		margin-top: 20px;
 	}
-	.disSelsectBox {
+	.uploadCourseware .disSelsectBox {
 	    width: 540px;
 	    margin-left: -130px;
 	    position: relative;
@@ -91,36 +99,66 @@
 	    margin-right: -100px;
 	    padding-right: 100px;
 	}
-	.disSelsect ul{
+	.uploadCourseware .disSelsect ul{
 		height: auto;
 		overflow: hidden;
 	}
-	.tfoot,.work_tbody{
+	.uploadCourseware .person-exer-list .tfoot-module tr td{
+		padding: 0;
+		border-bottom: 0;
+	}
+	.uploadCourseware .tfoot-module,.work_tbody{
 		border: none;
 	}
-	.tfootTd{
+	.uploadCourseware .tfootTd{
 		display: inline-block;
 	}
-	.tfootTd:nth-child(2){
+	.uploadCourseware .tfootTd:nth-child(2){
 		text-align: center;
 		margin-left: 32.5%;
 	}
-	.tfootTd:nth-child(3){
+	.uploadCourseware .tfootTd:nth-child(3){
 		text-align: right;
 	}
-	.btn:active{
+	.uploadCourseware .btn:active{
 		box-shadow: none;
 	}
-	.tfootTd button{
+	.uploadCourseware .tfootTd button{
 		width: auto;
 	}
-	.tfootTd a{
+	.uploadCourseware .tfootTd a{
 		display: block;
 		height: 16px;
 		line-height: 16px;
 	}
-	.btn:hover{
+	.uploadCourseware .btn:hover{
 		color: #168BEE;
+	}
+	.uploadCourseware .uploadFile span{
+		width: 70px;
+		display: block;
+		float: left;
+	}
+	.uploadCourseware .uploadFile .parpers{
+		width: 490px;
+		float: left;
+	}
+	.uploadCourseware .uploadFile .parpers p{
+		margin-bottom: 0;
+		float: left;
+	}
+	.uploadCourseware .uploadFile .parpers b{
+		float: left;
+		margin-right: 20px;
+		display: inline-block;
+		max-width: 390px;
+		width: auto;
+		white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+	}
+	.uploadCourseware .uploadFile .parpers span{
+		text-align: center;
 	}
 </style>
 @endsection
@@ -140,13 +178,13 @@
 		<div class="ic-container">
 			<div class="uploadCourseware">
 				<form class="upLoadCourse">
-					<label class="label-input">
-						课件名称：<input type="" name="" id="course_title" value=""/>
-					</label>
+					<label class="label-input">课件名称：<input type="" name="" id="course_title" value=""/></label>
 					<label for="" class="flex label-input">
-						<span>课件内容：</span>
 						<div>
-							<div class="parpers"></div>
+							<div class="uploadFile">
+								<span>课件内容：</span>
+								<div class="parpers"></div>
+							</div>
 							<span>
 								<span class="addFileTool">
 									<i class="fa fa-paperclip"></i>&nbsp;添加附件
@@ -172,10 +210,10 @@
 							</tr>
 						</thead>
 						<tbody class="work_tbody"></tbody>
-						<tfoot class="tfoot" width='560px'>
+						<tfoot class="tfoot-module">
 						    <tr>
 						      	<td colSpan='4'>
-						      		<div class="width:560px;">
+						      		<div>
 						      			<span class="tfootTd"><button type="button" class="btn blue" id="delete-personHw">删除</button></span>
 							      		<span class="tfootTd">
 							      			<button class="btn btn-white" type="button">
