@@ -323,7 +323,7 @@ class LearningCenterController extends Controller
                     'answer' => $answers,
                     'score' => $errorReports->score/100,
                     'second' => $workFirst->second,
-                    'sameScore' => $workFirst->score,
+                    'sameScore' => $workFirst->score/100,
                     ));
 		 		}else if($errorReports->exe_type == Exercises::TYPE_SUBJECTIVE){
 		 			$workStatus = Work::find($parameter)->status;
@@ -815,4 +815,9 @@ class LearningCenterController extends Controller
     	$student->save();
     	return json_encode(["code" => 200]);
     }
-}
+    public function studentImage(){
+        $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
+        $teacher_id = Auth::guard('student')->user()->id;
+        return parent::UploadFile('user-uplad/student/'.$teacher_id.'/images/',$name);
+    }
+	
