@@ -261,4 +261,8 @@ class Controller extends BaseController
             }
         }
     }
+    public function delFile($file){
+        $result = unlink($file);
+        return $result;
+    }
 }

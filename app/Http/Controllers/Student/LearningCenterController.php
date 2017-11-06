@@ -820,4 +820,4 @@ class LearningCenterController extends Controller
         $teacher_id = Auth::guard('student')->user()->id;
         return parent::UploadFile('user-uplad/student/'.$teacher_id.'/images/',$name);
     }
-	
+}

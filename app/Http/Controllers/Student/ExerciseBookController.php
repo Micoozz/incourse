@@ -220,6 +220,7 @@ class ExerciseBookController extends Controller
     }
     //先查询所有这位学生的作业错题本
     public function errorsExercise($course, $type_id) {
+        $exe_id = [];
         $func = "";
         $courseAll = Course::all();
         $courseFirst = Course::where(['id' => $course])->get()->toArray();
@@ -269,7 +270,6 @@ class ExerciseBookController extends Controller
     //这个学生某个章节错了多少题
     public function chapterErrorExercise($type_id, $course, $chapter, $several = NULL) {
         $data = [];
-        $exe_id = [];
         $func = "";
         $abcList = range("A","Z");
         $user = Auth::user();
@@ -283,6 +283,7 @@ class ExerciseBookController extends Controller
             return $e;
         }
         if ($type_id == 3) {
+            $exe_id = [];
             $exeInfo = $db->table($user->id)->select('exe_id', 'score')->where('status', 2)->get();//查询所有的错题
             foreach ($exeInfo as $exe) {
                 $exerciseScore = Exercises::find($exe->exe_id)->score;
