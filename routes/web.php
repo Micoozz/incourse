@@ -143,6 +143,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/homeworkScores','LearningCenterController@homeworkScores');
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
+		Route::get('/studentImage','LearningCenterController@studentImage');
 		//习题本
 		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
 		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//提交展示结果
