@@ -237,7 +237,7 @@
                                         <i class="tool"></i>
                                         <span >添加附件</span>
                                     </div>
-                                    <input class="addFile" type="file" style="top:50px;display: none;"/>
+                                    <input class="addFile file" name="file" id="file" type="file" style="top:50px;display: none;"/>
                                 </div>
                                 <div class="editor-content" contenteditable="true"></div>
                             </div>
@@ -296,9 +296,12 @@
         </div>
     </div>
 </div>
+<div id="asdf"></div>
 
 <script src="{{ asset('js/jquery-1.12.4.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/jquery-ui-sortable.min.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+<script src="{{ asset('js/layui/layui.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/incourseReset.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/exercise.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/student/doHomework.js') }}" charset="utf-8"></script>

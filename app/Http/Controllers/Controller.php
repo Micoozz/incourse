@@ -234,11 +234,11 @@ class Controller extends BaseController
             $files['path'] = $path . $name;        //存图片路径
             $files['success'] = true;            //图片上传成功标志
         }
-
         //将图片已json形式返回给js处理页面  ，这里大家可以改成自己的json返回处理代码
-        return json_encode(array(
-            'files' => $files,
-        ));
+        return $files['path'];
+       /* return json_encode(array(
+            'files' => $files['path'],
+        ));*/
     }
     /*********************************分割*************************************************/
     //这里我附上ensure_writable_dir()函数的代码
@@ -261,20 +261,20 @@ class Controller extends BaseController
             }
         }
     }
-
     //添加图片
     public function uploadImager(){
         $name = substr($_FILES['file']['name'],0,strrpos($_FILES['file']['name'],'.'));
         if ($user = Auth::guard('student')->user()) {
-            return parent::UploadFile('user-uplad/student/'.$user->id.'/images/',$name);
-        } elseif ($user = Auth::guard('teacher')->user()) {
-           return $this->UploadFile('user-uplad/teacher/'.$user->id.'/images/',$name);
+            return $this->UploadFile('user-upload/student/'.$user->id.'/images/',$name);
+        } else if ($user = Auth::guard('employee')->user()) {
+            return $this->UploadFile('user-upload/teacher/'.$user->id.'/images/',$name);
         }
     }
-    
     //删除图片
-    public function delFile($file){
-        $result = unlink($file);
-        return $result;
+    public function delFile(){
+        $input = Input::get('url');
+        $url = public_path().$input;
+        $result = unlink($url);
+        return compact('result');
     }
 }

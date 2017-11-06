@@ -1,5 +1,4 @@
  <div class="ic-container">
-    <!--假数据-->
     <table border="" cellspacing="" cellpadding="" class="title">
         <tr>
             <th>作业名称</th>
@@ -11,26 +10,28 @@
         </tr>
        @foreach($data as $work)
          <tr>
-            <td>
-                <span style="position:relative; left:-20px;" >
-                <img
-                @if($work->course_id == 1)
-                    src="{{ asset('images/language.png') }}"
-                @elseif($work->course_id == 2)
-                    src="{{ asset('images/mathematics.png') }}"
-                @elseif($work->course_id == 6)
-                    src="{{ asset('images/science.png') }}"
-                @elseif($work->course_id == 5) 
-                    src="{{ asset('images/english.png') }}"   
-                @endif />
+            <td class="job_today">
+                <span style="position:absolute; left:35px;top:18px;" >
+                    <img
+                    @if($work->course_id == 1)
+                        src="{{ asset('images/language.png') }}"
+                    @elseif($work->course_id == 2)
+                        src="{{ asset('images/mathematics.png') }}"
+                    @elseif($work->course_id == 6)
+                        src="{{ asset('images/science.png') }}"
+                    @elseif($work->course_id == 5) 
+                        src="{{ asset('images/english.png') }}"   
+                    @endif />
                 </span>
                 <img 
-                @if($work->job_type == 1) 
-                    src="{{ asset('images/user.png') }}" 
-                @else 
-                    src="{{ asset('images/users.png') }}" 
-                @endif />&nbsp;&nbsp; 
+                    @if($work->job_type == 1) 
+                        src="{{ asset('images/user.png') }}" 
+                    @else 
+                        src="{{ asset('images/users.png') }}" 
+                    @endif />&nbsp;&nbsp;
+                <span class="job_title_today">
                 {{ $work->title }}
+                </span>
             </td>
             @if(time() > $work->deadline)
                 <td style="color: red">

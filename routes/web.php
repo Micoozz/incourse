@@ -23,8 +23,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 	Route::get('/kit/captcha/{tmp}','Admin\ArchivesController@captcha');
 	Route::get('/province/{id}','Admin\ArchivesController@province');
 	Route::post('/email','Controller@emailSend');
-	Route::get('/delFile/{file}','Controller@delFile');
-	Route::get('/uploadImager','Controller@uploadImager');
+	Route::post('/delFile','Controller@delFile');
+	Route::post('/uploadImager','Controller@uploadImager');
 	//云平台暂时使用
 	Route::post('/platformEmail','Controller@platformEmail');
 	Route::get('/auditPwd/{username?}','Controller@auditPwd');
@@ -145,7 +145,6 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::post('/homeworkScores','LearningCenterController@homeworkScores');
 		Route::post('/todayWork/uptatePwd','LearningCenterController@updatePwd');
 		Route::post('/studentSelectClass','LearningCenterController@studentSelectClass');
-		/*Route::get('/studentImage','LearningCenterController@studentImage');*/
 		//习题本
 		Route::get('/foreExerciseDoWork/{course?}','ExerciseBookController@foreExerciseDoWork');//预习做题页
 		Route::get('/submitResuitForeExercise/{course?}','ExerciseBookController@submitResuit_foreExercise');//提交展示结果

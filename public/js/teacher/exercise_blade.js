@@ -10,9 +10,8 @@ if(operationID == "addCourseware"){
     }
 }else{
     if(sessionStorageData){
-        var exercises = sessionStorageData.exercise;
         arrs = sessionStorageData.exercise;
-        textEstimate(exercises)
+        textEstimate(data)
         sessionS(data)
     }
 }
@@ -92,7 +91,7 @@ $("#create-hw").on("click",function(){
 
 //选择联动
 $(".exer-in-list").find(".checkbox-add").on("click",function(){
-    checkedFunLinkage(data,this)
+    checkedFunLinkage(this)
 })
 
 //点击预览
@@ -327,7 +326,7 @@ function viewHtml(data){
 }
 
 //页面数据加载
-function sessionS(data){
+function sessionS(){
     if(operationID == "addCourseware"){
         for(var i = 0; i < data.length;i++){
             var cate_title = data[i]
@@ -346,11 +345,12 @@ function sessionS(data){
         }
         getAjaxData(data)
     }else{
-        if(data.length>0){
+        if(data.exercise.length>0){
+            var exercise = data.exercise;
             $.ajax({
                 url:"/getExerciseList",
                 type:"POST",
-                data:{'id_list':sessionStorageData.exercise,'_token':token},
+                data:{'id_list':exercise,'_token':token},
                 success:function(data){
                     var data = JSON.parse(data)
                     for(var i = 0; i < data.length;i++){
@@ -365,7 +365,7 @@ function sessionS(data){
                 },
                 error:function(){}
             })
-            getAjaxData(data)
+            getAjaxData(exercise)
         }
     }
 }
@@ -381,12 +381,13 @@ function getAjaxData(exercises){
 }
 
 //选择联动函数
-function checkedFunLinkage(data,that){
-    var dataJ = [];
-    if(operationID == "addCourseware"){
-        dataJ = data;
+function checkedFunLinkage(that){
+    var dataJ = data , arrs;
+    if(operationID != "addCourseware"){
+        var exercise = data.exercise;
+        arrs = exercise;
     }else{
-        dataJ = data.exercise;
+        arrs = dataJ?dataJ:[];
     }
     if(dataJ){
         if(dataJ.length>15){
@@ -401,7 +402,6 @@ function checkedFunLinkage(data,that){
             $("#create-hw").text("取消");
         }
     }
-    var arrs = dataJ?dataJ:[];
     if($(that).is(":checked")){
         $(".hw-type-list li").each(function(j,num){
             if($(that).parents(".exer-in-list").find(".exer-type-list").text() == $(num).find(".type").text()){
@@ -432,9 +432,9 @@ function checkedFunLinkage(data,that){
         textEstimate(arrs)
     }else{
         sessionStorage.removeItem("addJob");
-        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
-        $(".AllCheckedJob").text(exercises?exercises.length:arrs.length);
-        textEstimate(exercises)
+        sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(dataJ,arrs)));
+        $(".AllCheckedJob").text(exercise?exercise.length:arrs.length);
+        textEstimate(exercise)
     }
 }
 

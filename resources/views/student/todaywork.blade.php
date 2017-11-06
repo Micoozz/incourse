@@ -51,6 +51,26 @@
             .atitle>button{
                 margin-left: 45%;
             }
+            .job_today{
+                padding-left: 55px!important;
+                text-align:left!important;
+                width:200px!important;
+                position: relative;
+            }
+            .job_today img{
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                margin-top: -15px;
+            }
+            .job_title_today{
+                max-width: 100px;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 20px;
+            }
         </style>
     <body>
         <!-- 顶部导航 -->
@@ -66,11 +86,11 @@
                     <div class="row question-row">
                         @if($func == 'student-pwd' || $func == 'student-name')
                        <div class="col-xs-12 pupilleft" id="left"></div>
-                        <!--内容--> 
-                            @if($func == 'student-pwd')  
-                                @include('student.content.changePwd')  
-                            @elseif($func == 'student-name')  
-                                @include('student.content.managerName')  
+                        <!--内容-->
+                            @if($func == 'student-pwd')
+                                @include('student.content.changePwd')
+                            @elseif($func == 'student-name')
+                                @include('student.content.managerName')
                             @endif
                         <!--右侧栏-->
                         <div class="col-xs-12 left"></div>
@@ -80,15 +100,14 @@
                                 @include('student.content.toDayWorkList')
                             @elseif($func == "routine_work")
                                 @include('student.content.routineWork')
-                            @elseif($func == 'student-pwd')  
-                                @include('student.content.changePwd')  
-                            @elseif($func == 'student-name')  
-                                @include('student.content.managerName')  
+                            @elseif($func == 'student-pwd')
+                                @include('student.content.changePwd')
+                            @elseif($func == 'student-name')
+                                @include('student.content.managerName')
                            @endif
-                          </div>                           
+                          </div>
                         @endif
                         <!-- 聊天窗口 -->
-                      
                         <div class="chatRoom"></div>
                     </div>
                 </div>

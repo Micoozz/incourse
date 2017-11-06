@@ -78,7 +78,7 @@
 										<i class="tool"></i>
 										<span>添加附件</span>
 									</button>
-									<input class="addFile" id="image-upload" name="file" type="file" style="display: none"/>
+									<input class="addFile file" name="file" id="file0" type="file" style="top:50px;display: none;"/>
 									<b class="vertical-line f-l"></b>
 									<button class="f-l blank d-n icon_margin_r">
 										<i class="tool"></i>
@@ -107,9 +107,7 @@
 						<div class="answer-box f-l">
 							<!--单选题-->
 							<div class="dan-xuan">
-								<div class="dan-xuan-options dan-xuan-only">
-									
-								</div>
+								<div class="dan-xuan-options dan-xuan-only"></div>
 								<span class="addOptionBtn addXzOptionBtn c-d ic-blue">
 									<i class="uploadExerIcons"></i>
 									<span>添加选项</span>
@@ -146,4 +144,25 @@
 @section('JS:OPTIONAL')
 <script src="/js/exercise.js" charset="utf-8"></script>
 <script src="/js/blankClick.js" charset="utf-8"></script>
+<script type="text/javascript">
+/*function upLoadImg(){
+	$(".image-upload").on("change",function(){
+		var that = $(this).parents(".tools").next(".editor-content");
+        $.ajaxFileUpload({
+            url : '/test',
+            secureuri : false,
+            fileElementId : 'image-upload',
+            data : {"_token":token},
+            success : function(result) {
+                that.append("<img src='/"+result+"' alt='' />")
+            },
+            error : function() {
+                layui.use("layer",function(){
+                    layer.msg("上传出错!",{offset: 't'});
+                })
+            }
+        })
+    })
+}*/
+</script>
 @endsection

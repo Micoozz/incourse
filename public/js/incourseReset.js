@@ -113,30 +113,9 @@ $(function() {
 
 /*************通用的"添加附件",在下方显示多张图片**************/
 $(function(){
-	$(".exercise-box").on("change",".addFileCommon",function(){
-		var input = $(this)[0];
-		var files = input.files || [];
-		if(files.length === 0) {
-			return;
-		}
-		if(!input["value"].match(/\.jpg|\.png|\.bmp/i)) {
-			return alert("上传的图片格式不正确，请重新选择");
-		}
-		var file = files[0];
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
-		var _self = this;
-		reader.onload = function(e) {
-			var img = '<div class="p-r f-l one-img">\
-							<img class="img-canBigger" src="' + this.result + '"/>\
-							<i class="common-icon p-a delete d-n"></i>\
-						</div>';
-			$(_self).parents(".addFileBox").children(".imgs").append(img).addClass("border");
-		}
-	});
 
 	/*上传的图片鼠标移上去显示X*/
-	$(".exercise-box").on("mouseover",".imgs .one-img",function(){
+	/*$(".exercise-box").on("mouseover",".imgs .one-img",function(){
 		$(this).children(".delete").removeClass("d-n");
 	});
 	$(".exercise-box").on("mouseleave",".imgs .one-img",function(){
@@ -144,12 +123,12 @@ $(function(){
 	});
 
 	/*点击X删除照片*/
-	$(".exercise-box").on("click",".imgs .delete",function(){
+	/*$(".exercise-box").on("click",".imgs .delete",function(){
 		if($(this).parents(".imgs").children(".one-img").length === 1 ) {
 			$(this).parents(".imgs").removeClass("border");
 		}
 		$(this).parent().remove();
-	})
+	})*/
 })
 
 
@@ -158,6 +137,9 @@ $(function(){
 $(function(){
 	/*添加附件*/
 	$("body").on("change",".ic-editor .addFile",function(){
+		var that = $(this).parents(".tools").next(".editor-content");
+		var id = $(this).attr("id");
+		console.log($(this).attr("name"))
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
@@ -167,14 +149,60 @@ $(function(){
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
 		var _self = this;
-		reader.onload = function(e) {
-			var img = '<img class="img-canBigger" src="' + this.result + '"/>';
-			$(_self).parents(".ic-editor").children(".editor-content").append(img);
-			$(_self).val("");
-		}
+		$.ajaxFileUpload({
+            url : '/uploadImager',
+            secureuri : false,
+            dataType:'text',
+            fileElementId : id,
+            data : {"_token":token},
+            success : function(result) {
+            	if(!result){
+            		layui.use("layer",function(){
+	                    layer.msg("已添加该图片!",{offset: 't'});
+	                })
+	                return;
+            	}else{
+            		var len = that.find(".img-canBigger").length;
+					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
+					that.append(img);
+					var w = $('.img-canBigger-p'+len).find("img").width();
+					var h = $('.img-canBigger-p'+len).find("img").height();
+					if(w>=h){
+						$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
+					}else{
+						$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
+					}
+					that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
+					$(_self).val("");
+					$(".delThisImg").click(function(){
+						var t = $(this)
+						var url = $(this).prev(".img-canBigger").attr("src");
+						$.ajax({
+							url:'/delFile',
+							type:"POST",
+							data:{'url':url,"_token":token},
+							success:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除成功!",{offset: 't'});
+				                })
+								t.parent().remove();
+							},
+							error:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除失败!",{offset: 't'});
+				                })
+							}
+						})
+					})
+            	}
+            },
+            error : function() {
+                layui.use("layer",function(){
+                    layer.msg("上传出错!",{offset: 't'});
+                })
+            }
+        })
 	});
 	/*下标点*/
 	var dotted = true;
