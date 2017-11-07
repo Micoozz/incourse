@@ -393,9 +393,13 @@ function getAjaxData(exercises){
 function checkedFunLinkage(courseData,that){
     var dataJ , arrs,exercise;
     if(operationID != "addCourseware"){
-        dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
-        exercise = dataJ.exercise;
-        arrs = exercise;
+        dataJ = JSON.parse(window.sessionStorage.getItem("addJob"));
+        if(dataJ){
+            exercise = dataJ.exercise;
+            arrs = exercise;
+        }else{
+            arrs = [];
+        }
     }else{
         dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
         exercise = dataJ.exercise;
