@@ -4,8 +4,10 @@ var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","
 var data = sessionStorageData;
 var operationID = $(".admin-container.exer-room").attr("data-type");
 if(operationID == "addCourseware"){
-    data = eval("("+window.sessionStorage.getItem("course_ware")+")");
-    if(data){
+    var courseData = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+    console.log(courseData)
+    data = courseData.course_ware;
+    if(courseData){
         sessionS(data)
     }
 }else{
@@ -91,7 +93,7 @@ $("#create-hw").on("click",function(){
 
 //选择联动
 $(".exer-in-list").find(".checkbox-add").on("click",function(){
-    checkedFunLinkage(this)
+    checkedFunLinkage(courseData,this)
 })
 
 //点击预览
@@ -326,24 +328,28 @@ function viewHtml(data){
 }
 
 //页面数据加载
-function sessionS(){
+function sessionS(data){
     if(operationID == "addCourseware"){
-        for(var i = 0; i < data.length;i++){
-            var cate_title = data[i]
-            $(".jobList").each(function(k,d){
-                var id = $(d).find(".exer-in-list").attr("data-id");
-                if(id == cate_title){
-                    var text = $(d).find(".exer-type-list").text();
-                    $(".hw-type-list li").each(function(j,num){
-                        if(text == $(num).find(".type").text()){
-                            $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
-                            $(num).css({display:'block'});
-                        }
-                    })
-                }
-            })
+        var dt = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        var dataArr = dt.course_ware;
+        if(dataArr.length>0){
+            for(var i = 0; i < dataArr.length;i++){
+                var cate_title = dataArr[i]
+                $(".jobList").each(function(k,d){
+                    var id = $(d).find(".exer-in-list").attr("data-id");
+                    if(id == cate_title){
+                        var text = $(d).find(".exer-type-list").text();
+                        $(".hw-type-list li").each(function(j,num){
+                            if(text == $(num).find(".type").text()){
+                                $(num).find(".number").find("code").text(parseInt($(num).find(".number").find("code").text())+1);
+                                $(num).css({display:'block'});
+                            }
+                        })
+                    }
+                })
+            }
+            getAjaxData(dataArr)
         }
-        getAjaxData(data)
     }else{
         if(data.exercise.length>0){
             var exercise = data.exercise;
@@ -381,7 +387,7 @@ function getAjaxData(exercises){
 }
 
 //选择联动函数
-function checkedFunLinkage(that){
+function checkedFunLinkage(courseData,that){
     var dataJ = data , arrs;
     if(operationID != "addCourseware"){
         var exercise = data.exercise;
@@ -426,8 +432,8 @@ function checkedFunLinkage(that){
         })
     }
     if(operationID == "addCourseware"){
-        sessionStorage.removeItem("course_ware");
-        sessionStorage.setItem("course_ware",JSON.stringify(arrs));
+        sessionStorage.removeItem("course_ware_data");
+        sessionStorage.setItem("course_ware_data",JSON.stringify(newSessionStorageData1(courseData,arrs)));
         $(".AllCheckedJob").text(arrs.length);
         textEstimate(arrs)
     }else{
@@ -449,6 +455,17 @@ function newSessionStorageData(data,arr){
     }
     return json
 }
+
+function newSessionStorageData1(data,arr){
+    var json = {
+        "title":data?data.title:'',
+        "content":data?data.content:'',
+        "time":data?data.time:'',
+        "course_ware":arr
+    }
+    return json
+}
+
 
 //预览 --> 完成函数
 function sortArr (data,arrs){
