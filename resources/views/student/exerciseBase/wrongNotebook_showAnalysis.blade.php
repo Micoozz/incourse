@@ -164,7 +164,7 @@
 					<!--判断题-->
 					正确答案是 <span class="bj-green right_A" data-p-a="{{$analysis['answer'][0]}}">{{$analysis['answer'][0] == 1?'正确':'错误'}}</span>，你的答案是 <span class="student_A {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{$analysis['wrokAnswer'][0] == 1?'正确':'错误'}}</span>。回答 <span class="answerRight {{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'bj-green':'red' }}">{{ in_array($analysis['wrokAnswer'][0],$analysis['answer'])?'正确':'错误' }}</span>，作答用时 <span>{{$data[0]['second']}}</span> 秒。
 				@elseif($analysis['categroy_id'] == 11 || $analysis['categroy_id'] == 10)
-					<!-- 主管题 -->
+					<!-- 主观题 -->
 					你的答案是 <span class="student_A">{!!$data[0]['wrokAnswer'][0]!!}</span>。作答用时 <span>{{$data[0]['second']}}</span> 秒。
 					<p class="subjectiveA">
 						<span class="f-l">批改：</span>
@@ -225,6 +225,12 @@
 			$(".student_A").text(newSA.slice(1,newSA.length))
 			for(var j = 0; j < studentAnswerArr.length;j++){
 				if(answerArr.indexOf(parseInt(studentAnswerArr[j]))<0){
+					isError = true;
+				}
+			}
+		}else if(type == 3){
+			for(var i = 0;i < answerArr.length; i++){
+				if(answerArr[i] != studentAnswerArr[i]){
 					isError = true;
 				}
 			}
