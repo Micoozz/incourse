@@ -537,7 +537,7 @@ class LearningCenterController extends Controller
         	if (isset($type)) {
         		$work->status = 2;
         	}else{
-        		$work->status = 4;
+        		$work->status = 4;	
         	}
 	        $work->sub_time = time();
 	        $work->save();
@@ -545,7 +545,7 @@ class LearningCenterController extends Controller
         return json_encode($code);
     }
     //同类型习题推送
-    public function homotypology($exercises_id, $work_id, $accuracy, $increase){
+    public function homotypology($exercises_id, $work_id, $accuracy, $increase){	
     	$exercise_id =  explode('&', $exercises_id);
     	$course = Work::find($work_id)->course_id;
     	$data = array();
