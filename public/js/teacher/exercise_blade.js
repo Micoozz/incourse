@@ -102,8 +102,9 @@ $(".exer-in-list").find(".checkbox-add").on("click",function(){
 $(".preview").on("click",function(){
     var data = sessionStorageData;
     if(operationID == "addCourseware"){
-        data = window.sessionStorage.getItem("course_ware");
-        if(data){
+        data = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        var coursewareArr = data.course_ware
+        if(!data){
             return;
         }
         getLocalData(data)
@@ -390,12 +391,15 @@ function getAjaxData(exercises){
 
 //选择联动函数
 function checkedFunLinkage(courseData,that){
-    var dataJ = data , arrs;
+    var dataJ , arrs,exercise;
     if(operationID != "addCourseware"){
-        var exercise = data.exercise;
+        dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        exercise = dataJ.exercise;
         arrs = exercise;
     }else{
-        arrs = dataJ?dataJ:[];
+        dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        exercise = dataJ.exercise;
+        arrs = exercise;
     }
     if(dataJ){
         if(dataJ.length>15){
