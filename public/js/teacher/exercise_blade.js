@@ -1,18 +1,20 @@
 var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+var courseData;
 var arrs = [];
 var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var data = sessionStorageData;
 var operationID = $(".admin-container.exer-room").attr("data-type");
 if(operationID == "addCourseware"){
-    var courseData = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+    courseData = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
     console.log(courseData)
     data = courseData.course_ware;
     if(courseData){
         sessionS(data)
     }
 }else{
-    if(sessionStorageData){
-        arrs = sessionStorageData.exercise;
+    courseData = JSON.parse(window.sessionStorage.getItem("addJob"));
+    if(courseData){
+        arrs = courseData.exercise;
         textEstimate(data)
         sessionS(data)
     }
