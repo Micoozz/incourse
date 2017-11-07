@@ -7,7 +7,6 @@ var ENnum = ["A","B","C","D","E","F","G","H"];
 //答题中
 var myChartPie = echarts.init(document.getElementById('mainPie'));
 var sumStudents = parseInt($(".notSubmitted").find("b").text());
-var num = parseInt($("#countDowns b").text());
 var p = $("#showStatistics").parent();
 var dataJson,dataValue;
 var json;
@@ -124,6 +123,7 @@ function terminationTime(st,t){
     clearInterval(t);
 }
 function countDown(st,t){
+    var num = parseInt($("#countDowns b").text());
     if(num<=0){
         num = 0;
         $("#showStatistics").removeClass("noEnd");
