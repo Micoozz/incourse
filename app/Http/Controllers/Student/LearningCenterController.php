@@ -100,7 +100,7 @@ class LearningCenterController extends Controller
 		            $db = DB::connection($db_name);
 		        }catch(\Exception $e){
 		            return $e;
-		        }		
+		        }
 	        	$info_list = $db->table($user->id)->select('score', 'parent_id', 'second')->where('work_id', $work->id)->get();
 		        foreach($info_list as $info){
 		       		if (!empty($info->parent_id)) {
