@@ -1,6 +1,6 @@
 <div>
 	<div class="indexLogo">
-		<img src="{{ asset('images/LOGO.png') }}"/>
+		<img src="{{ asset('images/LOGO (2).png') }}"/>
 		<!-- <img src="{{ asset('images/Hpb_schoolLogo.png') }}" class="schoolLogo"/>
 		<b>湖南工程学院</b> -->
 	</div>
