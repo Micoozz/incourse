@@ -1,5 +1,7 @@
 function toCanvas(id , progressStart ,progressEnd){
     //canvas进度条
+    //
+    //
     var canvas = document.getElementById(id),
     ctx = canvas.getContext("2d"),
     percent = progressEnd?(progressEnd == 0? 0.000001:progressEnd):0.000001,  //最终百分比
