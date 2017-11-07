@@ -21,7 +21,7 @@ class SchoolMiddleware
         }elseif(Auth::guard('employee')->check()){
             return redirect('/teachingCenter');///media
         }elseif(Auth::guard('student')->check()){
-            return redirect('/learningCenter');
+            return redirect('/todayWork');
         }
     }
 }

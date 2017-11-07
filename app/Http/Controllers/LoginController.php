@@ -127,7 +127,7 @@ class LoginController extends Controller
                 if(empty($user->class_id)){
                     return Redirect::to('/selectClass/'.$grade->id);
                 }else{
-                    return Redirect::to('/learningCenter');
+                    return Redirect::to('/todayWork');
                 }
             }
         }

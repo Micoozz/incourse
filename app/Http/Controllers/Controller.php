@@ -28,7 +28,7 @@ class Controller extends BaseController
 
     public function index(){
         if(Auth::guard("student")->user()){
-            return Redirect::to("/learningCenter");
+            return Redirect::to("/todayWork");
         }elseif(Auth::guard("employee")->user()){
             return Redirect::to("/teachingCenter");
         }elseif (Auth::guard("school")->user()) {
