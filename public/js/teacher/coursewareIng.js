@@ -168,7 +168,7 @@ function echartsPie(st,t,a){
                 }
             },
             data: [{
-                    value: sumStudents
+                    value: sumStudents-a
                 },
                 {
                     value: a
