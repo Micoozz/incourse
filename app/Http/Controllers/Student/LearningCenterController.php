@@ -73,7 +73,7 @@ class LearningCenterController extends Controller
             ]]);
         }
     }
-    //单独查看今天有多少作业
+    //单独查看今天有多少作业1
     public function todayWork($func = 'exercise_book', $parameter = null){
     	$user = Auth::user();
     	//$courseAll = Course::all();//这里以后要区分年级的科目
