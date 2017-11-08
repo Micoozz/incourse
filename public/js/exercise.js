@@ -244,6 +244,8 @@ $(function () {
             $(obj).parents(".select-action-box").siblings(".question-box").html(yue_du_Q);
         } else {
             $(obj).parents(".select-action-box").siblings(".question-box").html(common_Q);
+            var len = $(".addFile").length;
+            $(".exercise-box").find(".question-box").eq(len-1).find("input[name='file']").attr("id","file"+(len-1));
             if (text === "填空题" || text === "完形填空") {
                 $(obj).parents(".select-action-box").siblings(".question-box").find(".blank").show();
             }

@@ -713,17 +713,16 @@
 }
 .img-canBigger-p{
 	display: inline-block;
-	width: 120px;
+	width: auto;
 	height:120px;
 	position: relative;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
 }
 .img-canBigger-p img{
-	position: absolute;
-	left: 50%;
+	position: relative;
 	top: 50%;
-	transform:translate(-50%,-50%);
+	transform:translateY(-50%);
 }
 .img-canBigger-p b.delThisImg{
 	position: absolute;
@@ -747,4 +746,7 @@
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
+}
+.questions .img-canBigger-p .delThisImg{
+	display: none;
 }
