@@ -10,7 +10,7 @@
 	<div class="questions">
 		<div class="issue">
 			题目：
-			<span>{{$exercise->subject}}</span>
+			<span>{!!$exercise->subject!!}</span>
 		</div>
 		<div class="result issue">
 			答案：
