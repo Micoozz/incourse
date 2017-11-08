@@ -166,6 +166,7 @@ $(function(){
             		var len = that.find(".img-canBigger").length;
 					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
 					that.append(img);
+					that.focus();
 					var w = $('.img-canBigger-p'+len).find("img").width();
 					var h = $('.img-canBigger-p'+len).find("img").height();
 					if(w>=h){

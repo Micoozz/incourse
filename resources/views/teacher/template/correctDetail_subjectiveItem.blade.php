@@ -19,6 +19,7 @@
 				<b class="implement"><img src="/images/1.jpg" alt=""></b>
 			</span>
 			<span>
+				{{--dump($exercise->student_answer[0])--}}
 				<div class="amend" contenteditable="false">{!!$exercise->student_answer[0]!!}</div>
 			</span>
 		</div>
