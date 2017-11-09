@@ -676,11 +676,9 @@ $(function () {
         if(id != "" && id != "workUpLoad"){
             allExer.exercise[0].exe_id=id;
         }
-        console.log(allExer)
         //判断题目是否漏填
         if(exerIsFill(allExer.exercise)){
             //向后台发送题目
-            return;
             $.ajax({
                 url:"/addExercise",
                 data:allExer,
@@ -827,7 +825,7 @@ function getExercises(obj){
                 return false;
             }
         }
-        if(type != "完形填空"){
+        /*if(type != "完形填空"){
             exer = {
                 "categroy": typeString.indexOf(type) + 1,
                 "subject": "",
@@ -847,7 +845,13 @@ function getExercises(obj){
                     },
                 ]
             };
-        }
+        }*/
+        exer = {
+            "categroy": typeString.indexOf(type) + 1,
+            "subject": "",
+            "option": [],
+            "answer": []
+        };
 
 		arr = []; //单题借用的数组
 		str = ""; //单题借用的保存答案

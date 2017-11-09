@@ -204,6 +204,7 @@ $(function(){
 					}
 					fileImgArr.push(obj);
 					that.append(img);
+        			showImageFunc1()
 					that.focus();
 					var w = $('.img-canBigger-p'+len).find("img").width();
 					var h = $('.img-canBigger-p'+len).find("img").height();
@@ -228,6 +229,30 @@ $(function(){
             }
         })
 	});
+	function showImageFunc1(){
+		$(".img-canBigger-p").click(function(){
+			$(".showImg-fixed").css("display","block");
+			var img = $(this).find("img").attr("src");
+			$(".showImg-fixed img").attr("src",img);
+			$(this).addClass("showImg");
+			var w = $(".showImg-fixed img").width();
+			var h = $(".showImg-fixed img").height();
+			if(w>=h){
+				$(".showImg-fixed img").css({maxWidth:"100%",minWidth:"50%",maxHeight:"auto",minHeight:"auto"});
+			}else{
+				$(".showImg-fixed img").css({maxHeight:"100%",maxWidth:"auto",minWidth:"auto",minHeight:"50%"});
+			}
+		})
+		$(".showImg-fixed").click(function(){
+			// var img = $(this).find("div").find("img").attr("src");
+			// $(".img-canBigger-p.showImg").removeClass("showImg");
+			$(this).css("display","none");
+		})
+		$(".showImg-fixed div").click(function(event){
+			event.stopPropagation();
+		})
+	}
+	showImageFunc1()
 	function delFileImg(url,t){
 		$.ajax({
 			url:'/delFile',
@@ -304,21 +329,19 @@ $(function(){
 			document.execCommand("insertHTML","false",selObj);  //在光标处插入html代码
 			Underline = true;
 		}
-		
 	});
 
-	//编辑器里面的图片点击放大效果
+	/*//编辑器里面的图片点击放大效果
 	$("body").on("click",".img-canBigger",function(){
 		var img = $(this).attr("src");
 		$(".big-img-box").show();
 		$(".big-img-box>img").attr("src",img);
-		alert("111")
 	});
 
 	//关闭大图
 	$("body").on("click",".big-img-box .fa-times-circle-o",function(){
 		$(".big-img-box").hide();
-	});
+	});*/
 });
 
 
