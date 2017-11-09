@@ -36,6 +36,7 @@ class LearningCenterController extends Controller
 	const FUNC_ERROR_REPORTS = 'error_reports';
 	const FUNC_ANSWER_SHEET = 'answer_sheet';
 	const FUNC_WORK_TUTORSHIP = 'work_tutorship';//分数提升
+	const FUNC_WORK_GROUP = 'work_group'; //小组详情
  	private function createBase($baseNum){
         $code = parent::createDatabase($baseNum);
         if($code === 200){
@@ -74,7 +75,7 @@ class LearningCenterController extends Controller
         }
     }
     //单独查看今天有多少作业
-    public function todayWork($func = 'exercise_book', $parameter = null){
+    public function todayWork($func = 'exercise_book', $parameter = null) {
     	$user = Auth::user();
     	//$courseAll = Course::all();//这里以后要区分年级的科目
     	$courseAll = Course::whereIn('id',[1,2,5])->get();
@@ -94,10 +95,10 @@ class LearningCenterController extends Controller
 		        $work->deadline = $job->deadline;
 		        $work->job_type = $job->job_type;
 		        if ($work->status == 2 || $work->status == 3 || $work->status == 4) {
-			    $baseNum = (int)($user->id/1000-0.0001)+1;
+			    $baseNum = (int)($user->id/1000-0.0001)+1;	
 		        $db_name = 'mysql_stu_work_info_'.$baseNum;
 		        try{
-		            $db = DB::connection($db_name);
+		            $db = DB::connection($db_name);		
 		        }catch(\Exception $e){
 		            return $e;
 		        }
@@ -112,9 +113,10 @@ class LearningCenterController extends Controller
 		    		$work->second = $this->changeTimeType($second);
 		        }	
 			}
-
-		}elseif ($func == Self::FUNC_ROUTINE_WORK){
-			$data['work'] = Work::find($parameter)->belongsToJob()->first(['title', 'deadline', 'exercise_id', 'content']);
+		}elseif ($func == Self::FUNC_ROUTINE_WORK) {
+			$data['work'] = Work::find($parameter)->belongsToJob()->first(['title', 'deadline', 'exercise_id', 'content', 'job_type']);
+/*			if ($data['work']->job_type == 2) {
+			}*/
 			$data['count'] = count(json_decode($data['work']->exercise_id));
 		}
 		return view('student.todayWork',compact('courseAll', 'data','count', 'func', 'parameter', 'user', 'workCount'));
@@ -365,12 +367,12 @@ class LearningCenterController extends Controller
 		 		$exeScore = 0;
 		 		$exeSecond = 0;
 		 		$SecondAdding = 0;	
-		 		$sameExercise = $db->table($user->id)->select('score', 'exe_id', 'second')->where('work_id', $parameter)->where('parent_id', '<>', null)->get();//本次的同类型习题
+		 		$sameExercise = $db->table($user->id)->select('score', 'exe_id', 'second')->where('work_id', $parameter)->where('parent_id', '<>', null)->get();
+		 		//本次的同类型习题
 		 		$grossExercise = $db->table($user->id)->select('score')->where('work_id', $parameter)->get();//查询所有的作业以及同类型练习的信息
 		 		$exerciseCount =  $db->table($user->id)->select('exe_id')->where(['work_id' => $parameter])->where('parent_id', null)->get();//算出所有的作业的所有题
 		 		foreach ($exerciseCount as $exe) {//作业的所有的分数
 		 			$exeScore += Exercises::where('id', $exe->exe_id)->first()->score;
-
 		 		}//查询所有的作业以及同类型练习加起来的分数
 		 		foreach($grossExercise as $exercise){
 		 			$grossScore += $exercise->score;
@@ -395,6 +397,8 @@ class LearningCenterController extends Controller
 				}
 				$SecondAdding = $second + $exeSecond;
 				$entire = $this->changeTimeType($SecondAdding);
+		 	}else if ($func == Self::FUNC_WORK_GROUP) {//小组作业详情
+		 		
 		 	}
         }
     	return view('student.learningCenter', compact('courseAll', 'courseFirst', 'data', 'mod', 'func', 'parameter', 'several', 'user', 'abcList', 'tutorship', 'accuracy', 'errorExercise', 'entire', 'exercise_id', 'sameSkip', 'errorScore', 'sameErrorScore','startAccurary'));

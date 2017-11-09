@@ -24,7 +24,7 @@
                     @endif />
                 </span>
                 <img 
-                    @if($work->job_type == 1) 
+                    @if($work->job_type == 1)
                         src="{{ asset('images/user.png') }}" 
                     @else 
                         src="{{ asset('images/users.png') }}" 
@@ -43,7 +43,11 @@
                 {{ date('m月d日 h:i',$work->deadline) }}
                 </td>
             @endif
-            <td>{{ $work->count }}道</td>
+            @if($work->job_type == 1)
+                <td>{{ $work->count }}道</td>
+            @else
+                <td>——</td>          
+            @endif
             <td>
             @if($work->sub_time == 0)
                 未答题
