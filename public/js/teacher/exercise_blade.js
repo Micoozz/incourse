@@ -1,18 +1,20 @@
 var sessionStorageData = eval("("+sessionStorage.getItem("addJob")+")");
+var courseData;
 var arrs = [];
 var num = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var data = sessionStorageData;
 var operationID = $(".admin-container.exer-room").attr("data-type");
 if(operationID == "addCourseware"){
-    var courseData = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+    courseData = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
     console.log(courseData)
     data = courseData.course_ware;
     if(courseData){
         sessionS(data)
     }
 }else{
-    if(sessionStorageData){
-        arrs = sessionStorageData.exercise;
+    courseData = JSON.parse(window.sessionStorage.getItem("addJob"));
+    if(courseData){
+        arrs = courseData.exercise;
         textEstimate(data)
         sessionS(data)
     }
@@ -100,8 +102,9 @@ $(".exer-in-list").find(".checkbox-add").on("click",function(){
 $(".preview").on("click",function(){
     var data = sessionStorageData;
     if(operationID == "addCourseware"){
-        data = window.sessionStorage.getItem("course_ware");
-        if(data){
+        data = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        var coursewareArr = data.course_ware
+        if(!data){
             return;
         }
         getLocalData(data)
@@ -388,12 +391,19 @@ function getAjaxData(exercises){
 
 //选择联动函数
 function checkedFunLinkage(courseData,that){
-    var dataJ = data , arrs;
+    var dataJ , arrs,exercise;
     if(operationID != "addCourseware"){
-        var exercise = data.exercise;
-        arrs = exercise;
+        dataJ = JSON.parse(window.sessionStorage.getItem("addJob"));
+        if(dataJ){
+            exercise = dataJ.exercise;
+            arrs = exercise;
+        }else{
+            arrs = [];
+        }
     }else{
-        arrs = dataJ?dataJ:[];
+        dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
+        exercise = dataJ.exercise;
+        arrs = exercise;
     }
     if(dataJ){
         if(dataJ.length>15){
