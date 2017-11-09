@@ -680,7 +680,6 @@ $(function () {
         //判断题目是否漏填
         if(exerIsFill(allExer.exercise)){
             //向后台发送题目
-            return;
             $.ajax({
                 url:"/addExercise",
                 data:allExer,
