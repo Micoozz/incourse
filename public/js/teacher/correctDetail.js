@@ -83,10 +83,10 @@ $(function() {
 		if(parseInt($('.amend:nth-of-type(' + nums + ')').attr('nums')) > 1) {
 			//判断长度是否等于0
 			var zeo;
-			if($('.sort' + num + '').prevAll().length == 0) {
+			if($('.sort' + num + '').length >= 1) {
 				zeo = 1
 			} else {
-				zeo = $('.sort' + num + '').prevAll().length
+				zeo = $('.sort' + num + '').length-1;
 			}
 			if(num > parseInt($('.sort' + num + '').prev().find('sup').text())) {
 				$('.postil>div:last-child>div>div:nth-of-type(' + nums + ')>div:nth-of-type(' + zeo + ')').after(center)
@@ -105,7 +105,6 @@ $(function() {
             $(this).parent().find(".addFile").click();
         })
 	});
-
 	//删除批语
 	var canvass = true;
 	var arry=[]
@@ -137,20 +136,6 @@ $(function() {
 				$(this).text(i + 1);
 			});
 		}
-	});
-	//老师批语上传的图片
-	$('body').on('change', '.UploadPictures input', function() {
-		var th = $(this).parent().nextAll('.textareaS')
-		console.log(th)
-		input = $(this)[0];
-		if(!input['value'].match(/.jpg|.gif|.png|.bmp/i)) { //判断上传文件格式
-			return alert("上传的图片格式不正确，请重新选择");
-		}
-		var reader = new FileReader();
-		reader.readAsDataURL(this.files[0]);
-		reader.onload = function(e) {
-			th.append('<img src="' + this.result + '" />')
-		};
 	});
 
 	//canvas批改
