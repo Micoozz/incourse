@@ -136,10 +136,43 @@ $(function(){
 /*编辑器*/
 $(function(){
 	/*添加附件*/
-	$("body").on("change",".ic-editor .addFile",function(){
-		var that = $(this).parents(".tools").next(".editor-content");
+	var fileImgArr = [];
+	$("body").on("change",".addFile",function(){
+		var that;
+		var isPostilPage = $(".isPostilPage").attr("data-postil")?$(".isPostilPage").attr("data-postil"):"";
+		if(isPostilPage == '1'){
+			that = $(this).parents(".UploadPictures").next(".textareaS").children("div");
+		}else{
+			that = $(this).parents(".tools").next(".editor-content");
+		}
+		that.on("keyup",function(event){
+			var newFileImageArrs = []
+			if(event.keyCode === 8){
+				if(that.find(".img-canBigger").length>0){
+					for(var i = 0;i < that.find(".img-canBigger").length;i++){
+						var imgNum = that.find(".img-canBigger").eq(i).attr("data-img");
+						if(imgNum){
+							newFileImageArrs.push(imgNum);
+						}
+					}
+					for(var j = 0;j < fileImgArr.length;j++){
+						if(newFileImageArrs.length<=0){
+							delFileImg(fileImgArr[j].url)
+						}
+						if(newFileImageArrs.indexOf(fileImgArr[j].num)<0){
+							delFileImg(url)
+						}
+					}
+				}else{
+					for(var j = 0;j < fileImgArr.length;j++){
+						if(newFileImageArrs.length<=0){
+							delFileImg(fileImgArr[j].url)
+						}
+					}
+				}
+            }
+		})
 		var id = $(this).attr("id");
-		console.log($(this).attr("name"))
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
@@ -164,7 +197,12 @@ $(function(){
 	                return;
             	}else{
             		var len = that.find(".img-canBigger").length;
-					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
+					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '" data-img="img'+len+'"/></span><br>';
+					var obj = {
+						"url":"/"+result,
+						"num":"img"+len
+					}
+					fileImgArr.push(obj);
 					that.append(img);
 					that.focus();
 					var w = $('.img-canBigger-p'+len).find("img").width();
@@ -179,22 +217,7 @@ $(function(){
 					$(".delThisImg").click(function(){
 						var t = $(this)
 						var url = $(this).prev(".img-canBigger").attr("src");
-						$.ajax({
-							url:'/delFile',
-							type:"POST",
-							data:{'url':url,"_token":token},
-							success:function(){
-								layui.use("layer",function(){
-				                    layer.msg("删除成功!",{offset: 't'});
-				                })
-								t.parent().remove();
-							},
-							error:function(){
-								layui.use("layer",function(){
-				                    layer.msg("删除失败!",{offset: 't'});
-				                })
-							}
-						})
+						delFileImg(url,t);
 					})
             	}
             },
@@ -205,6 +228,26 @@ $(function(){
             }
         })
 	});
+	function delFileImg(url,t){
+		$.ajax({
+			url:'/delFile',
+			type:"POST",
+			data:{'url':url,"_token":token},
+			success:function(){
+				layui.use("layer",function(){
+                    layer.msg("删除成功!",{offset: 't'});
+                })
+                if(t){
+					t.parent().remove();
+                }
+			},
+			error:function(){
+				layui.use("layer",function(){
+                    layer.msg("删除失败!",{offset: 't'});
+                })
+			}
+		})
+	}
 	/*下标点*/
 	var dotted = true;
 	$("body").on("click",".ic-editor .dotted",function(){

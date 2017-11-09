@@ -72,10 +72,11 @@ $(function() {
 		$('.amend').each(function(i) {
 			$(this).attr('nums', $(this).find('b').length / 2)
 		});
+		var len = $(".UploadPictures").length;
 		var center = '<div style="color:#333;margin-bottom:20px">\
 						<b>' + num + '：</b>\
 						<div class="UploadPictures">\
-							<button><span class="btnFile addFileTool"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" class="addFile" style="display:none;" /></button>\
+							<button><span class="btnFile addFileTool"><i class="fa fa-chain"></i>&nbsp;添加附件</span><input type="file" class="addFile" id="file'+len+'" style="display:none;" name="file"/></button>\
 							<i class="fa fa-times close remove" num="' + num + '"></i>\
 						</div>\
 						<div class="textareaS"><div contenteditable="true"></div></div></div>'

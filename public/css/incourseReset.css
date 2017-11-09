@@ -714,6 +714,7 @@
 .img-canBigger-p{
 	display: inline-block;
 	width: auto;
+	max-width: 100%;
 	height:120px;
 	position: relative;
 	overflow: hidden;
@@ -722,7 +723,8 @@
 .img-canBigger-p img{
 	position: relative;
 	top: 50%;
-	transform:translateY(-50%);
+	left:50%;
+	transform:translate(-50%,-50%);
 }
 .img-canBigger-p b.delThisImg{
 	position: absolute;
@@ -748,5 +750,8 @@
 	color: #fff;
 }
 .questions .img-canBigger-p .delThisImg{
+	display: none;
+}
+.exer-wrap .img-canBigger-p .delThisImg{
 	display: none;
 }

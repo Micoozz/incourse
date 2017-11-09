@@ -107,7 +107,7 @@
     -ms-appearance: none;
     -o-appearance: none;
 }
-.radio-wrap .radio-ipt {display: inline-block; margin-right:15px;}
+.radio-wrap .radio-ipt {display: inline-block; margin-right:15px;width: 80%;}
 .radio-wrap .radio-ipt span.p-a {
     left: 0;
     top:6px;
@@ -115,7 +115,12 @@
     padding-right: 1px;
 }
 .radio-wrap>i.delete { position: relative; top: 4px; background-position: -101px -82px;}
-.radio-wrap .radio-ipt input {width: 480px; padding-left: 34px;}
+.wan-xing-tk i.delete {
+    position: relative;
+    top: 4px;
+    background-position: -101px -82px;
+}
+.radio-wrap .radio-ipt input {width: 100%; padding-left: 34px;}
 
 
 /*判断题*/
