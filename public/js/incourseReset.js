@@ -245,8 +245,10 @@ $(function(){
 			}else{
 				$(".showImg-fixed img").css({maxHeight:"100%",maxWidth:"auto",minWidth:"auto",minHeight:"50%"});
 			}
+			$("body").css("overflow","hidden")
 			$(".showImg-fixed").click(function(){
 				$(".showImg-fixed").remove();
+				$("body").css("overflow","auto")
 			})
 			$(".showImg-fixed div").click(function(event){
 				event.stopPropagation();
