@@ -448,7 +448,6 @@
 }
 .ic-editor .editor-content {height: 220px; padding:10px; letter-spacing: 0.2em; overflow-y:auto;}
 .ic-editor .editor-content:focus {outline: none;}
-.editor-content .img-canBigger {max-width: 150px; vertical-align:baseline;}
 .tool {
 	display: inline-block;
 	width: 15px;
@@ -715,6 +714,7 @@
 	display: inline-block;
 	width: auto;
 	max-width: 100%;
+	min-width: 100px;
 	height:120px;
 	position: relative;
 	overflow: hidden;
@@ -766,7 +766,6 @@ html,body{
 	top: 0;
 	left: 0;
 	z-index: 9999999;
-	display:none;
 }
 .showImg-fixed div {
 	width: 480px;

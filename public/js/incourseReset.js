@@ -178,11 +178,12 @@ $(function(){
 		if(files.length === 0) {
 			return;
 		}
-		if(!input["value"].match(/\.jpg|\.png|\.bmp/i)) {
+		if(!input["value"].match(/\.jpg|\.png|\.bmp|\.JPEG|\.gif/i)) {
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
 		var _self = this;
+		var w,h;
 		$.ajaxFileUpload({
             url : '/uploadImager',
             secureuri : false,
@@ -190,13 +191,13 @@ $(function(){
             fileElementId : id,
             data : {"_token":token},
             success : function(result) {
+            	var len = that.find(".img-canBigger").length;
             	if(!result){
             		layui.use("layer",function(){
 	                    layer.msg("已添加该图片!",{offset: 't'});
 	                })
 	                return;
             	}else{
-            		var len = that.find(".img-canBigger").length;
 					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '" data-img="img'+len+'"/></span><br>';
 					var obj = {
 						"url":"/"+result,
@@ -204,23 +205,26 @@ $(function(){
 					}
 					fileImgArr.push(obj);
 					that.append(img);
-        			showImageFunc1()
 					that.focus();
-					var w = $('.img-canBigger-p'+len).find("img").width();
-					var h = $('.img-canBigger-p'+len).find("img").height();
-					if(w>=h){
-						$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
-					}else{
-						$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
-					}
+					/**/
 					that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
 					$(_self).val("");
-					$(".delThisImg").click(function(){
+					$(".delThisImg").click(function(event){
+						event.stopPropagation();
 						var t = $(this)
 						var url = $(this).prev(".img-canBigger").attr("src");
 						delFileImg(url,t);
 					})
             	}
+            	w = $('.img-canBigger-p'+len).find("img").width();
+				h = $('.img-canBigger-p'+len).find("img").height();
+				/*if(w>=h){
+					$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
+				}else{
+					$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
+				}*/
+				console.log(w+","+h)
+    			showImageFunc()
             },
             error : function() {
                 layui.use("layer",function(){
@@ -229,11 +233,10 @@ $(function(){
             }
         })
 	});
-	function showImageFunc1(){
+	function showImageFunc(){
 		$(".img-canBigger-p").click(function(){
-			$(".showImg-fixed").css("display","block");
 			var img = $(this).find("img").attr("src");
-			$(".showImg-fixed img").attr("src",img);
+			$("body").append("<div class='showImg-fixed'><div><img src='"+img+"' alt=''></div></div>");
 			$(this).addClass("showImg");
 			var w = $(".showImg-fixed img").width();
 			var h = $(".showImg-fixed img").height();
@@ -242,17 +245,15 @@ $(function(){
 			}else{
 				$(".showImg-fixed img").css({maxHeight:"100%",maxWidth:"auto",minWidth:"auto",minHeight:"50%"});
 			}
-		})
-		$(".showImg-fixed").click(function(){
-			// var img = $(this).find("div").find("img").attr("src");
-			// $(".img-canBigger-p.showImg").removeClass("showImg");
-			$(this).css("display","none");
-		})
-		$(".showImg-fixed div").click(function(event){
-			event.stopPropagation();
+			$(".showImg-fixed").click(function(){
+				$(".showImg-fixed").remove();
+			})
+			$(".showImg-fixed div").click(function(event){
+				event.stopPropagation();
+			})
 		})
 	}
-	showImageFunc1()
+	showImageFunc()
 	function delFileImg(url,t){
 		$.ajax({
 			url:'/delFile',

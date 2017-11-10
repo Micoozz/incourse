@@ -83,7 +83,6 @@
 		</div>
 	</div>
 	<div class="upLoadHtmlData" style="display:none;"></div>
-	<div class="showImg-fixed"><div><img src="" alt=""></div></div>
 </div>
 
 @endsection
