@@ -448,6 +448,7 @@
 }
 .ic-editor .editor-content {height: 220px; padding:10px; letter-spacing: 0.2em; overflow-y:auto;}
 .ic-editor .editor-content:focus {outline: none;}
+.editor-content .img-canBigger {max-width: 150px; vertical-align:baseline;}
 .tool {
 	display: inline-block;
 	width: 15px;
@@ -712,18 +713,16 @@
 }
 .img-canBigger-p{
 	display: inline-block;
-	width: auto;
-	max-width: 100%;
-	min-width: 100px;
+	width: 120px;
 	height:120px;
 	position: relative;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
 }
 .img-canBigger-p img{
-	position: relative;
+	position: absolute;
+	left: 50%;
 	top: 50%;
-	left:50%;
 	transform:translate(-50%,-50%);
 }
 .img-canBigger-p b.delThisImg{
@@ -748,40 +747,4 @@
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
-}
-.questions .img-canBigger-p .delThisImg{
-	display: none;
-}
-.exer-wrap .img-canBigger-p .delThisImg{
-	display: none;
-}
-html,body{
-	height: 100%;
-}
-.showImg-fixed{
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0.5);
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 9999999;
-}
-.showImg-fixed div {
-	width: 480px;
-	height: 480px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -240px -240px;
-	background: #333;
-}
-.showImg-fixed div img{
-	display: block;
-	width: auto;
-	height:auto;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
 }

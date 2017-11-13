@@ -145,5 +145,24 @@
 <script src="/js/exercise.js" charset="utf-8"></script>
 <script src="/js/blankClick.js" charset="utf-8"></script>
 <script type="text/javascript">
+/*function upLoadImg(){
+	$(".image-upload").on("change",function(){
+		var that = $(this).parents(".tools").next(".editor-content");
+        $.ajaxFileUpload({
+            url : '/test',
+            secureuri : false,
+            fileElementId : 'image-upload',
+            data : {"_token":token},
+            success : function(result) {
+                that.append("<img src='/"+result+"' alt='' />")
+            },
+            error : function() {
+                layui.use("layer",function(){
+                    layer.msg("上传出错!",{offset: 't'});
+                })
+            }
+        })
+    })
+}*/
 </script>
 @endsection
