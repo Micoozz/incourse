@@ -30,7 +30,7 @@
 	            <div class="col-md-3 col-xs-12 cent_nav">
 	                <ul class="col-md-12 col-xs-12">
 	                    @foreach($class_course as $item)
-	                    <li><a class={{$class_id == $item['class_id'] && $course_id == $item['course_id'] ? 'box' : 'p-r of-h class-teacher'}} href="{{'/courseWare/'.$item['class_id'].'/'.$item['course_id']}}">{{$item['title']}}</a></li>
+	                    <li><a class={{$class_id == $item['class_id'] && $course_id == $item['course_id'] ? 'box' : 'p-r of-h class-teacher'}} href="{{'/teachingCenter/'.$item['class_id'].'/'.$item['course_id']}}">{{$item['title']}}</a></li>
 	                    @endforeach
 	                </ul>
 	            </div>
