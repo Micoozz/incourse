@@ -31,7 +31,7 @@
                 @if($work->job_type == 1)
                     <td>{{ $work->count }}道</td>
                 @else
-                    <td>——</td>
+                    <td>-</td>
                 @endif
                 <td>
                 @if($work->sub_time == 0)

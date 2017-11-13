@@ -22,6 +22,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Exercise;
+use App\Models\SensitiveWords;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -276,5 +277,12 @@ class Controller extends BaseController
         $url = public_path().$input;
         $result = unlink($url);
         return compact('result');
+    }
+
+    //敏感替换
+    public function sensitive($data){
+        foreach($data as  $sensitive) {
+
+        }
     }
 }
