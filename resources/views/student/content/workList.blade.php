@@ -28,7 +28,11 @@
                     {{ date('m月d日 H:i',$work->deadline) }}
                     </td>
                 @endif
-                <td>{{ $work->count }}道</td>
+                @if($work->job_type == 1)
+                    <td>{{ $work->count }}道</td>
+                @else
+                    <td>-</td>
+                @endif
                 <td>
                 @if($work->sub_time == 0)
                     未答题

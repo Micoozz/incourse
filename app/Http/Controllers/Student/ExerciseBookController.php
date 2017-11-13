@@ -75,9 +75,9 @@ class ExerciseBookController extends Controller
             $jobs = Job::where('course_id', $course)->where('pub_time', '<', $lastTerm)//今年下学期的作业
             ->where('pub_time', '>', strtotime($time.'-'."02-01"))->get()->pluck('id');
         }
+        //dd($jobs);
         if ($type_id == 1) {
-            $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();
-            //查询出这个学生所有的作业work_id;
+            $work = Work::select('id')->where(['student_id' => $user->id])->whereIn('job_id', $jobs)->get();//查询出这个学生所有的作业work_id;
         }else{
             $work = Work::select('id')->where(['student_id' => $user->id])->orderBy('id', 'desc')
             ->whereIn('job_id', $jobs)->first(); //查询出这个学生所有的作业work_id;
@@ -135,7 +135,7 @@ class ExerciseBookController extends Controller
         $half = $semesterTime < $lastTerm ? '年级下' : '年级上';
         $grade = $time - $gradeTitle + 1;
         $grade = $grade * 2 - ($half === '年级上' ? 1 : 2);
-        //1 代表小学 2 代表初中 3 代表大学
+        //1 代表小学 2 代表初中 3 代表
         if ($schoolType == 1) {
             switch ($grade) {
                 case 1:
@@ -169,7 +169,9 @@ class ExerciseBookController extends Controller
                     $grade = "九";
                     break;
                 }
-        }   
+        } elseif ($schoolType == 3) {
+
+        }
         $grade .= $half;
         $jobs = Job::select('id')->where('course_id', $course);
         if (time() > $lastTerm){
@@ -398,7 +400,7 @@ class ExerciseBookController extends Controller
         }
         return view('student.exerciseBase.wrongNotebook_showAnalysis', compact('data', 'abcList', 'user', 'func', 'courseAll', 'courseFirst', 'type_id'));
     }
-
+    //错题做对就不推该题
     public function correctExercise($exe_id){
         $user = Auth::user();
         $baseNum = (int)($user->id/1000-0.0001)+1;
@@ -408,7 +410,7 @@ class ExerciseBookController extends Controller
         }catch(\Exception $e){
             return $e;
         }
-        $exerciseUpdate = $db->table($user->id)->where(['exe_id' => $exe_id, 'score' => 0])->update(['type' => 3]);
+        $exerciseUpdate = $db->table($user->id)->where(['exe_id' => $exe_id, 'score' => 0])->update(['status' => 3]);
     }
     //学生复习，预习，同步练习，错题本做的作业页面 状态码3代表错题本
     public function practice($course, $chapter_id, $type_id, $several = NULL){
@@ -418,10 +420,10 @@ class ExerciseBookController extends Controller
         $courseFirst = Course::where(['id' => $course])->get()->toArray();//查询已经做过的题
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
-        try{
+        try {
             $db = DB::connection($db_name);
-        }catch(\Exception $e){
-            if($type_id == 4){
+        }catch(\Exception $e) {
+            if($type_id == 4) {
                 $this->createBase($baseNum);
                 $db = DB::connection($db_name);
             }
@@ -478,7 +480,7 @@ class ExerciseBookController extends Controller
             }*/
         }else{//查询这个学生的所有的错题
             $errorsExeId = $db->table($user->id)->where(['score' => 0, 'status' => 2])
-            ->where('type', '<>', 3)->get()->pluck('exe_id');
+            /*->where('type', '<>', 3)*/->get()->pluck('exe_id');
             if (!empty($several)) {
                 $chapter = Chapter::select('id')->where('parent_id',$chapter_id)->get()->pluck('id')->toArray();
                 $exercisesChapter = Exercises::select('chapter_id')->whereIn('id',$errorsExeId)
@@ -518,7 +520,6 @@ class ExerciseBookController extends Controller
     public function addWorkExercise(){
         $user = Auth::user();
         $input = Input::get();
-        ///dd($input);
         $baseNum = (int)($user->id/1000-0.0001)+1;
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         try{
@@ -555,4 +556,5 @@ class ExerciseBookController extends Controller
         $db_name = 'mysql_stu_work_info_'.$baseNum;
         return view('student.exerciseBase.exercise_collect',compact("func", "user", 'courseAll', 'courseFirst'));
     }
+
 }
