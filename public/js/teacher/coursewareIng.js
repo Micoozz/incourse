@@ -118,7 +118,7 @@ function terminationTime(st,t){
     $("#showStatistics").removeClass("noEnd");
     p.attr("href",p.attr("d-href"));
     $("#countDowns b").text(0);
-    stopAnswer()
+    stopAnswer();
     clearInterval(st);
     clearInterval(t);
     $.ajax({
@@ -135,6 +135,7 @@ function countDown(st,t){
         p.attr("href",p.attr("d-href"));
         clearInterval(t);
         clearInterval(st);
+        stopAnswer();
         $.ajax({
             url:"http://127.0.0.1:60003/endanswer",
             type:"GET",
