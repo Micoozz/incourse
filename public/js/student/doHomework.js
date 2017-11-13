@@ -252,9 +252,8 @@ $(function(){
     //连线题
     $("body").on("mouseup",".exercise-box .sortable>li",function(){getOrderAndBlue(this)});
     //解答题
-    $("body").on("blur",".exercise-box .editor-content",function(){
-        console.log($(this).html().length)
-        if($(this).html().length === 0){
+    $("body").on("keyup",".exercise-box .editor-content",function(){
+        if($(this).text().length === 0){
             $(this).parents(".f-l.do-hw").find(".ta-c.hw-order.hw-order-index").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active");
             $(".hw-order.ta-c").find("span").eq(parseInt($(".big-num").text())-1).removeClass("active")
             var order = parseInt($(".big-num").text());
@@ -284,7 +283,8 @@ $(function(){
                     trues.push($(this).text())
             }
         });
-        $('.ic-text p:last-child').text('本套练习还有 '+(trues.length)+' 道题未做答')
+        console.log(trues)
+        $('.ic-text p:last-child').text('本套练习还有 '+(trues.length)+' 道题未做答')       
     });
 
 
@@ -368,7 +368,7 @@ $(function(){
                 obj.answer = JSON.parse(sessionStorage.getItem("ic_lianXianTi"+$(item).attr("data-id")));
                 obj.parent_id =  $(item).find(".ic-blue .do-hw-type").attr('parent-id')
             }else if(type === "画图题" || type === "简答题" || type === "解答题" || type === "听力题" || type === "阅读题"){
-                arr.push($(item).find(".editor-content").html())
+                arr.push($(item).find(".editor-content").text())
                 obj.answer = arr;
             }
             total.push(obj);

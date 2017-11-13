@@ -85,7 +85,11 @@
 						<td><span>{{$job->sub_count}}/{{$job->count}}</span></td>
 						<td class="ic-blue">
 							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}">
+							@if($job->status == 4)
+								<span class="correction_pg blue"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+							@else
 								<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+							@endif
 							</a>
 							<!-- <span class="blue"><i class="fa fa-rotate-right "></i>&nbsp;撤回</span> -->
 						</td>
@@ -99,25 +103,49 @@
 				<thead>
 					<tr>
 						<th>作业标题</th>
+						<th>类型</th>
 						<th>截止时间</th>
-						<th>平均得分率</th>
+						<th>状态</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($job_list as $job)
 					<tr>
-						<td><span>小组 {{$job->title}}</span></td>
-						<td>{{ date('Y-m-d H:i',$job->deadline) }}</td>
-						<td>{{$job->avg_ratings*100}}%</td>
+						<td>1.洗葡萄</td>
+						<td>小组</td>
+						<td>10月1日 17:00</td>
+						<td><span class="red">可批改</span></td>
 						<td class="ic-blue">
-							<a href="/correctWork/{{$class_id}}/{{$course_id}}/{{$job->id}}">
-								<span class="correction_pg red"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
-							</a>
 							<span class="red Group"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
 						</td>
 					</tr>
-					@endforeach
+					<tr>
+						<td>1.洗葡萄</td>
+						<td>小组</td>
+						<td>10月1日 17:00</td>
+						<td><span class="red">批改中</span></td>
+						<td class="ic-blue">
+							<span class="red Group"><i class="fa fa-pencil"></i>&nbsp;&nbsp;批改</span>
+						</td>
+					</tr>
+					<tr>
+						<td>1.洗葡萄</td>
+						<td>小组</td>
+						<td>10月1日 17:00</td>
+						<td><span class="gray">未提交</span></td>
+						<td class="ic-blue">
+							<span class="gray"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+						</td>
+					</tr>
+					<tr>
+						<td>1.洗葡萄</td>
+						<td>小组</td>
+						<td>10月1日 17:00</td>
+						<td><span class="gray">已完成</span></td>
+						<td class="ic-blue">
+							<span class="see"><i class="fa fa-eye"></i>&nbsp;&nbsp;查看</span>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 

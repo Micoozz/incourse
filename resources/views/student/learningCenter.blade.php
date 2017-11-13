@@ -188,6 +188,10 @@
 				if(func == 'work_tutorship' || func == 'work_score'){
 					toCanvas('canvas',(parseInt(startAccurary)*100),(accuracy*100));
 				}
+	/*		    $(".go-page").click(function(){
+			        var page = $(".goPage").val() == ''?$(".goPage").parents("ul#pagaSkip").find("li.active").find('span').text():$(".goPage").val();
+			        window.location.href = '/exercise/41/2?page='+page;
+			    })*/
 				//举报
 				$('body').click(function() {
 					$('.report').removeClass('red')
