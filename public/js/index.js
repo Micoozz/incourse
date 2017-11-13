@@ -22,3 +22,29 @@ $(function() {
 		localStorage.pargin = 1
 	}
 });
+$(".go-page").click(function(){
+    goPageFun()
+})
+$(".goPage").focus(function(){
+    document.onkeydown = function(e){
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13) {
+            goPageFun()
+        }
+    }
+})
+function goPageFun(){
+    var liActive = $("ul#pagaSkip").find("li.active").find('span').text();
+    var val = $(".goPage").val()
+    if(val == liActive){
+        return;
+    }
+    var page;
+    if(val == ''){
+    	return;
+    }else{
+    	page = val;
+	    var pathName = window.location.pathname;
+	    window.location.href = pathName + '?page=' + page;
+    }
+}
