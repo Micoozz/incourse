@@ -60,6 +60,7 @@ $(".ta-c #btnStart").click(function(){
     })
 })
 
+
 function stopAnswer(){
     $.ajax({
         url:'http://127.0.0.1:60003/getanswer',
