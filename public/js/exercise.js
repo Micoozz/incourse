@@ -154,13 +154,13 @@ $(function () {
         answerCheckedFun:function(tID,tClass,tOptions,tIDOnly){
             var answer_checked;
             answer_checked= "<div class='" + tID + "'>" +
-                    "<div class='" + tOptions + " " + tIDOnly + "'></div>" +
-                        "<span class='addOptionBtn " + tClass + " c-d ic-blue'>" +
-                            "<i class='uploadExerIcons'></i>" +
-                            "<span>添加选项</span>" +
-                        "</span>" +
-                    "</div>" +
-                "</div>";
+                                "<div class='" + tOptions + " " + tIDOnly + "'></div>" +
+                                "<span class='addOptionBtn " + tClass + " c-d ic-blue'>" +
+                                    "<i class='uploadExerIcons'></i>" +
+                                    "<span>添加选项</span>" +
+                                "</span>" +
+                            "</div>" +
+                        "</div>";
             return answer_checked;
         }
     };
@@ -198,11 +198,12 @@ $(function () {
             Answer += A.answerCheckedFun(tID,tClass,tOptions,"");
         } else if (text === "完形填空") {
             Answer =""
-            /*Answer = answerFun();
+            Answer = A.answerFun();
             Answer += "<div class='wan-xing-tk'>" +
                         "<div class='wan-xing-tk-only' data-num='0'></div>" +
                     "</div>" +
-                "</div>";*/
+                "</div>";
+
         } else if (text === "简答题" || text === "画图题" || text === "解答题" || text === "计算题") {
             Answer =""
             /*Answer = A.answerFun();
@@ -244,6 +245,8 @@ $(function () {
             $(obj).parents(".select-action-box").siblings(".question-box").html(yue_du_Q);
         } else {
             $(obj).parents(".select-action-box").siblings(".question-box").html(common_Q);
+            var len = $(".addFile").length;
+            $(".exercise-box").find(".question-box").eq(len-1).find("input[name='file']").attr("id","file"+(len-1));
             if (text === "填空题" || text === "完形填空") {
                 $(obj).parents(".select-action-box").siblings(".question-box").find(".blank").show();
             }
@@ -389,32 +392,26 @@ $(function () {
 
         //获取题型
         var type = $(this).parents(".question-box").prev(".type").find(".ic-text-exer span").text();
+        var duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
+        var wan_xing_tk_box = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-box")
         if (type === "完形填空") {
-            var wan_xing_tk_dom = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only"),b=["A","B","C","D"];
-            if ((event.keyCode === 8) && (blank_len < Number(wan_xing_tk_dom.attr("data-num")))) {
-                wan_xing_tk_dom.attr("data-num", blank_len);
-                for (var i = 0; i < blank_len; i++) {
-                    html="<div class='wan-xing-tk-option clear'>" +
-                        "<span class='f-l id'>" + (i + 1) + ".</span>" +
-                        "<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only'>";
-                    for(var j=0;j < 4;j++){
-                        html += "<div class='radio-wrap'>" +
-                            "<label class='ic-radio border p-r'>" +
-                            "<i class='ic-blue-bg p-a'></i>" +
-                            "<input type='radio' name='radio" + (i + 1) + "' value='" + b[j] + "'/>" +
-                            "</label>" +
-                            "<div class='radio-ipt p-r'>" +
-                            "<span class='p-a'>" + b[j] + "：</span>" +
-                            "<input class='ic-input' type='text' />" +
-                            "</div>" +
-                            "</div>";
+            if(event.keyCode === 8){
+                if(data_blank_num_arr.length<=0){
+                    duo_kong_dom.html("")
+                }else{
+                    for(var i = 0; i < wan_xing_tk_box.length;i++){
+                        var blankI = wan_xing_tk_box.eq(i);
+                        if(data_blank_num_arr.indexOf(blankI.attr("data_blank_answer_num")) < 0){
+                            blankI.remove();
+                        }
                     }
-                    html += "</div></div>";
+                    for(var j = 0; j<$(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-box").length;j++){
+                        var blankAI = $(this).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-box").eq(j);
+                        blankAI.find("div.answer_num_id").text((j+1)+"、")
+                    }
                 }
-                wan_xing_tk_dom.html(html);
             }
         } else {
-            var duo_kong_dom = $(this).parents(".question-box").next(".answer-wrap").find(".duo-kong");
             if(event.keyCode === 8){
                 if(data_blank_num_arr.length<=0){
                     duo_kong_dom.html("")
@@ -529,22 +526,23 @@ $(function () {
         if (type === "完形填空") {
             //var options = "";
 
+            var duo_kong_dom = $(".question-box").find(".editor-content").find(".blank-item");
             var html_dom,html_dom_arr=["A","B","C","D"];
-            html_dom="<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only'>";
+            html_dom="<div class='f-l wan-xing-tk-box dan-xuan-options dan-xuan-only' data_blank_answer_num='"+initNum+"'><div class='f-l answer_num_id' style='width:5%'>"+initNum+"、</div><div class='f-l' style='width:95%'>";
             for(var i=0;i < 4;i++){
-                html_dom += "<div class='radio-wrap'>" +
+                html_dom += "<div class='radio-wrap f-l' style='width:50%;'>" +
                     "<label class='ic-radio border p-r'>" +
                     "<i class='ic-blue-bg p-a'></i>" +
                     "<input type='radio' name='radio" + initNum + "' value='" + html_dom_arr[i] + "'>" +
                     "</label>" +
                     "<div class='radio-ipt p-r'>" +
-                    "<span class='p-a'>" + b[i] + "：</span>" +
-                    "<input class='ic-input' type='text' />" +
+                    "<span class='p-a'>" + html_dom_arr[i] + "：</span>" +
+                    "<input class='ic-input' type='text'/>" +
                     "</div>" +
                     "</div>";
             }
-            html_dom += "</div>";
-
+            html_dom += "</div>"+
+                    "</div>";
             var wan_xing_tk_dom = $(obj).parents(".question-box").next(".answer-wrap").find(".wan-xing-tk-only");
             wan_xing_tk_dom.append(html_dom);
             wan_xing_tk_dom.attr("data-num", Number(wan_xing_tk_dom.attr("data-num")) + 1);
@@ -678,7 +676,6 @@ $(function () {
         if(id != "" && id != "workUpLoad"){
             allExer.exercise[0].exe_id=id;
         }
-        console.log(allExer)
         //判断题目是否漏填
         if(exerIsFill(allExer.exercise)){
             //向后台发送题目
@@ -828,12 +825,33 @@ function getExercises(obj){
                 return false;
             }
         }
-		exer = {
-			"categroy": typeString.indexOf(type) + 1,
-			"subject": "",
-			"option": [],
-			"answer": []
-		};
+        /*if(type != "完形填空"){
+            exer = {
+                "categroy": typeString.indexOf(type) + 1,
+                "subject": "",
+                "option": [],
+                "answer": []
+            };
+        }else if(type == "完形填空"){
+            exer = {
+                "categroy": typeString.indexOf(type) + 1,
+                "subject": "",
+                "cloze_test":[
+                    {
+                        "categroy": typeString.indexOf(type) + 1,
+                        "subject": "",
+                        "option": [],
+                        "answer": []
+                    },
+                ]
+            };
+        }*/
+        exer = {
+            "categroy": typeString.indexOf(type) + 1,
+            "subject": "",
+            "option": [],
+            "answer": []
+        };
 
 		arr = []; //单题借用的数组
 		str = ""; //单题借用的保存答案
@@ -884,9 +902,9 @@ function getExercises(obj){
 			});
 		}else if(type==="完形填空"){
 			exer.subject = $(item).find(".question-box .editor-content").html();
-			$(item).find(".wan-xing-tk-option").each(function(i,n){
+			$(item).find(".wan-xing-tk-box").each(function(i,n){
 				var child = [];
-				$(n).find(".radio-ipt>input").each(function(j,m){
+				$(n).find(".ic-input").each(function(j,m){
 					child.push($.trim($(m).val()));
 				});
 				exer.option.push(child);
@@ -898,6 +916,7 @@ function getExercises(obj){
 				arr.push(str);
 			});
 			exer.answer = arr;
+            console.log(exer)
 		}else if(type==="画图题" || type==="简答题" || type==="解答题" || type==="计算题"){
 			exer.subject = $.trim($(item).find(".question-box .editor-content").html());
 			exer.answer = $.trim($(item).find(".answer-wrap .editor-content").html());

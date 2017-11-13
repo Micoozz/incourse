@@ -10,7 +10,7 @@
 
 @section('CONTENT')
 @include('teacher.template.title')
-<div>
+<div class="isPostilPage" data-postil="1">
 @include('teacher.template.homework-tag')
 	<div class="school-container admin-container">
 		<!--内容-->

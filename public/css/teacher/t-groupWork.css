@@ -1,0 +1,55 @@
+.waitBoxs .activity input {
+	width: 31%;
+}
+/*小组人数样式*/
+.group-number {
+	width: 100%;
+	border: 1px solid #eee;
+	margin-bottom: 30px;
+}
+.group-number th,
+.group-number td {
+	display: inline-block;
+	width: 15%;
+	text-align: center;
+	padding: 10px;
+}
+.group-number tr>th:last-child,
+.group-number tr>td:last-child {
+	width: 70%;
+	text-align: left;
+}
+.group-number tr {
+	border-top: 1px solid #eee;
+}
+.staff>span {
+	margin-right: 11px;
+}
+.pull-down {
+	position: absolute;
+	right: 6%;
+	margin-top: -26px;
+}
+.waitBoxs .activity input {
+	width: 31%;
+}
+.waitBoxs .Submit-comments>textarea {
+	min-height: 100px;
+	margin-left: 0;
+	width: 89%;
+}
+.waitBoxs .Job-content>div,
+.waitBoxs .Job-content {
+	margin-bottom: 0;
+}
+.Submit-comments>div {
+	display: inline-block;
+	position: relative;
+	top: -85px;
+}
+.waitBoxs .score input {
+	width: 114px;
+}
+.waitBoxs .score>p {
+	margin-top: 10px;
+}

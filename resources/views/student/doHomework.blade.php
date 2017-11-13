@@ -237,7 +237,7 @@
                                         <i class="tool"></i>
                                         <span >添加附件</span>
                                     </div>
-                                    <input class="addFile file" name="file" id="file" type="file" style="top:50px;display: none;"/>
+                                    <input class="addFile file" name="file" id="file{{$loop->index}}" type="file" style="top:50px;display: none;"/>
                                 </div>
                                 <div class="editor-content" contenteditable="true"></div>
                             </div>

@@ -46,12 +46,6 @@ function toCanvas(id , progressStart ,progressEnd){
 
     // 刷新
     function loading() {
-        var num
-        if(progressEnd < 100){
-            num = progressEnd.toFixed(2)
-        }else{
-            num = 100;
-        }
         if (progressEnd >= percent) {
             clearInterval(circleLoading);
             return;
@@ -73,6 +67,13 @@ function toCanvas(id , progressStart ,progressEnd){
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#333';
         ctx.fillText('%', textX1, textY1);
+
+        var num
+        if(progressEnd >= 99.995){
+            num = 100;
+        }else{
+            num = progressEnd.toFixed(2);
+        }
          //数字
         ctx.font ='500 ' + fontSize + 'px PingFangSC-Regular';
         ctx.textAlign = 'center';

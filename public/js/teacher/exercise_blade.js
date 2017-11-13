@@ -402,7 +402,7 @@ function checkedFunLinkage(courseData,that){
         }
     }else{
         dataJ = JSON.parse(window.sessionStorage.getItem("course_ware_data"));
-        exercise = dataJ.exercise;
+        exercise = dataJ.course_ware;
         arrs = exercise;
     }
     if(dataJ){
