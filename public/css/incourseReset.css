@@ -748,3 +748,6 @@
 	line-height: 30px;
 	color: #fff;
 }
+.goPage:focus{
+	outline: none;
+}

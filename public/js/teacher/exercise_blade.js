@@ -353,12 +353,12 @@ function sessionS(data){
             }
             getAjaxData(dataArr)
         }
-    }else{
-        if(data.exercise.length>0){
+    } else {
+        if (data.exercise.length > 0){
             var exercise = data.exercise;
             $.ajax({
-                url:"/getExerciseList",
-                type:"POST",
+                url: "/getExerciseList",
+                type: "POST",
                 data:{'id_list':exercise,'_token':token},
                 success:function(data){
                     var data = JSON.parse(data)
@@ -600,3 +600,17 @@ function showCheckedList(data,that){
         sessionStorage.setItem("addJob",JSON.stringify(newSessionStorageData(data,arrs)));
     })
 }
+
+
+$(".screen_job .areaSelect .exer-li").click(function(){
+    var child_span = $(this).parents(".areaSelect").find(".ic-text-exer").find("span");
+    var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
+    var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelect").find(".lists-exer");
+    child_span.attr("data-u",$(this).attr("data"));
+    parent_ul_all.html("");
+    /*$.get("/getSectionAjax/"+$(this).attr("data"),function(result){
+        $.each(result,function(index,value,array){
+            parent_ul.append("<li class='exer-li' data='"+index+"'>"+value+"</li>");
+        })
+    })*/
+});
