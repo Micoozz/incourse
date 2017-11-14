@@ -23,6 +23,7 @@ use App\Models\Work;
 use App\Models\Courseware;
 use App\Models\CoursewareTeacherCourseMap;
 use App\Models\Employee;
+use App\Models\School;
 
 class TeachingCenterController extends TeacherController
 {
@@ -206,6 +207,10 @@ class TeachingCenterController extends TeacherController
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
         if(empty($action) || $action == self::ACT_ADD_JOB){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+            $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
+            $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
+            $school_lsit = School::whereIn('id',$school_id_lsit)->pluck('title','id');
+            $version_list = Chapter::where('parent_id',0)->pluck('title','id');
         }elseif($action == self::ACT_ADD_COURSEWARE){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->where(function($query){
                 $query->where('categroy_id',Exercises::CATE_RADIO)->orWhere('categroy_id',Exercises::CATE_CHOOSE)->orWhere('categroy_id',Exercises::CATE_JUDGE);
@@ -235,7 +240,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action'));
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_lsit','version_list'));
     }
 
     /*课堂课件页面*/
