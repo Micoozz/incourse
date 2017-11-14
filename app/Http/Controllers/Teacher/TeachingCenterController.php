@@ -928,6 +928,10 @@ class TeachingCenterController extends TeacherController
         })->pluck('title','id');
         return json_encode($data);
     }
+    public function getTeacher($school_id){
+        $teacher_list = Employee::where('school_id',$school_id)->pluck('name','id');
+        return $teacher_list;
+    }
     public function createChapter(){
         $input = Input::get();
         $sel = $input['sel'];

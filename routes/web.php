@@ -71,6 +71,8 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 		Route::get('/getChapter/{course_id}/{id}','TeachingCenterController@getChapter');
 		Route::post('/createChapter','TeachingCenterController@createChapter');
 
+		Route::get('/getTeacher/{school_id}','TeachingCenterController@getTeacher');
+
 
 
 		
