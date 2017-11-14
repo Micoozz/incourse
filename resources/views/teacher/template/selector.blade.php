@@ -9,8 +9,10 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="11" class="exer-li">北京市</li>
-                    <li data="12" class="exer-li">天津市</li>
+                <li data="" class="exer-li">所有教材</li>
+                @foreach($version_list as $id => $title)
+                    <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                @endforeach
                 </ul>
             </div>
             @endif
@@ -20,8 +22,6 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="1" class="exer-li">单选题</li>
-                    <li data="2" class="exer-li">多选题</li>
                 </ul>
             </div>
             <div class="areaSelect">
@@ -30,8 +30,6 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="1" class="exer-li">单选题</li>
-                    <li data="2" class="exer-li">多选题</li>
                 </ul>
             </div>
             <div class="areaSelect">
@@ -40,15 +38,13 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="1" class="exer-li">单选题</li>
-                    <li data="2" class="exer-li">多选题</li>
                 </ul>
             </div>
         </div>
     </label>
     @if($action != "my-upload")
     <label class="d-b clear">
-        <span class="f-l label_span">地区：</span>
+        <span class="f-l label_span">作者：</span>
         <div class="f-l">
             <div class="areaSelect">
                 <p class="ic-text-exer">
@@ -56,8 +52,10 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="1" class="exer-li">单选题</li>
-                    <li data="2" class="exer-li">多选题</li>
+                    <li data="" class="exer-li">全部学校</li>
+                    @foreach($school_list as $id => $title)
+                        <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                    @endforeach
                 </ul>
             </div>
             @if($action != "my-conllection")
@@ -67,8 +65,6 @@
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                    <li data="1" class="exer-li">单选题</li>
-                    <li data="2" class="exer-li">多选题</li>
                 </ul>
             </div>
             @endif

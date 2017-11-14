@@ -209,7 +209,7 @@ class TeachingCenterController extends TeacherController
             $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
             $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
-            $school_lsit = School::whereIn('id',$school_id_lsit)->pluck('title','id');
+            $school_list = School::whereIn('id',$school_id_list)->pluck('title','id');
             $version_list = Chapter::where('parent_id',0)->pluck('title','id');
         }elseif($action == self::ACT_ADD_COURSEWARE){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->where(function($query){
@@ -240,7 +240,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_lsit','version_list'));
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_list','version_list'));
     }
 
     /*课堂课件页面*/
