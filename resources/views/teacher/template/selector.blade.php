@@ -5,7 +5,7 @@
             @if(empty($action))
             <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
-                    <span>所有教材</span>
+                    <span class="version" data="">所有教材</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -18,7 +18,7 @@
             @endif
             <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
-                    <span>第一章</span>
+                    <span class="chapter" data="">第一章</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -26,7 +26,7 @@
             </div>
             <div class="areaSelect areaSelectSupport areaSelect-no">
                 <p class="ic-text-exer">
-                    <span>第一小节</span>
+                    <span class="section" data="">第一小节</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -34,7 +34,7 @@
             </div>
             <div class="areaSelect areaSelect-no">
                 <p class="ic-text-exer">
-                    <span>单选题</span>
+                    <span class="question-type" data="">单选题</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -51,7 +51,7 @@
         <div class="f-l">
             <div class="areaSelect">
                 <p class="ic-text-exer">
-                    <span>全部学校</span>
+                    <span class="school" data="">全部学校</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -62,9 +62,9 @@
                 </ul>
             </div>
             @if($action != "my-conllection")
-            <div class="areaSelect">
+            <div class="areaSelect areaSelect-no">
                 <p class="ic-text-exer">
-                    <span>全部老师</span>
+                    <span class="teacher" data="">全部老师</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
@@ -74,12 +74,12 @@
         </div>
     </label>
     @endif
-    <label class="d-b clear" for="">
+    <!-- <label class="d-b clear" for="">
         <span class="f-l label_span">关键字：</span>
         <div class="f-l">
-            <input class="screen_input input_focus" type="text" name="key_words" placeholder="请填写关键词">
+            <input class="screen_input input_focus keywords" type="text" name="key_words" placeholder="请填写关键词">
         </div>
-    </label>
+    </label> -->
     <span  class="f-r btn_span">
         <button class="btn_seek btn_select">查找</button>
         <button class="btn_empty btn_select" type="submit" id="btn-empty-select">清空</button>

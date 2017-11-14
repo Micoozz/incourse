@@ -606,23 +606,33 @@ function showCheckedList(data,that){
 function areaSelectList(input){
     var data_list = input +" .areaSelect .exer-li"
     $(data_list).click(function(){
-        if($(this).parents(".areaSelect").hasClass("areaSelect-no")){
-            return;
-        }
         var areaSelect_id = "";
+        var url = "";
         var child_span = $(this).parents(".areaSelect").find(".ic-text-exer").find("span");
         var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
         var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelectSupport").find(".lists-exer");
-        child_span.attr("data-u",$(this).attr("data"));
+        child_span.attr("data",$(this).attr("data"));
+        if($(this).parents(".areaSelect").hasClass("areaSelect-no")){
+            return;
+        }
         areaSelect_id = $(this).attr("data")
         parent_ul_all.html("");
-        $.get("/getChapter/"+course_id+"/"+areaSelect_id,function(result){
-            var result = JSON.parse(result);
+        if(input == ".condition_input"){
+            url = "/getChapter/"+course_id+"/"+areaSelect_id;
+        }else if(input == ".writer_input"){
+            url = "/getTeacher/"+areaSelect_id;
+        }
+        $.get(url,function(result){
+            if(input == ".condition_input"){
+                var result = JSON.parse(result);
+            }
             $.each(result,function(index,value,array){
                 parent_ul.append("<li class='exer-li areaSelect-list' data='"+index+"'>"+value+"</li>");
             })
             if(input == ".condition_input"){
                 areaSelectList(".condition_input")
+            }else if(input == ".writer_input"){
+                areaSelectList(".writer_input")
             }
         })
     });
@@ -630,3 +640,115 @@ function areaSelectList(input){
 }
 areaSelectList(".condition_input")
 areaSelectList(".writer_input")
+
+//获取本地的下拉筛选数据
+$(function(){
+    var Url = window.location.search,oldData;
+    if(!Url){
+        window.sessionStorage.removeItem("filtrate_work");
+        oldData = "";
+    }else{
+        oldData = JSON.parse(window.sessionStorage.getItem("filtrate_work"))?JSON.parse(window.sessionStorage.getItem("filtrate_work")):"";
+    }
+    if(oldData != ""){
+        for(var i = 0; i < oldData.chapterList.length; i++){
+            var chapterListI = oldData.chapterList[i];
+            $(".chapter").parents(".areaSelect").find(".lists-exer").append(
+                '<li class="exer-li areaSelect-list" data="'+chapterListI.id+'">'+chapterListI.value+'</li>'
+                )
+            if(chapterListI.id == oldData.chapterD){
+                $(".chapter").text(chapterListI.value).attr("data",oldData.chapterD);
+            }
+        }
+        for(var j = 0; j < oldData.sectionList.length; j++){
+            var sectionListI = oldData.sectionList[j];
+            $(".section").parents(".areaSelect").find(".lists-exer").append(
+                '<li class="exer-li areaSelect-list" data="'+sectionListI.id+'">'+sectionListI.value+'</li>'
+                )
+            if(sectionListI.id == oldData.sectionD){
+                $(".section").text(sectionListI.value).attr("data",oldData.sectionD);
+            }
+        }
+        for(var k = 0; k < oldData.teacherList.length; k++){
+            var teacherListI = oldData.teacherList[k];
+            $(".teacher").parents(".areaSelect").find(".lists-exer").append(
+                '<li class="exer-li areaSelect-list" data="'+teacherListI.id+'">'+teacherListI.value+'</li>'
+                )
+            if(teacherListI.id == oldData.teacherD){
+                $(".teacher").text(teacherListI.value).attr("data",oldData.teacherD);
+            }
+        }
+
+
+        for(var l =0; l < $(".version").parents(".areaSelect").find(".exer-li").length;l++){
+            var that = $(".version").parents(".areaSelect").find(".exer-li").eq(l);
+            if(oldData.versionData == parseInt(that.attr("data"))){
+                $(".version").text(that.text()).attr("data",that.attr("data"));
+            }
+        }
+        for(var m =0; m < $(".question-type").parents(".areaSelect").find(".exer-li").length;m++){
+            var that = $(".question-type").parents(".areaSelect").find(".exer-li").eq(m);
+            if(oldData.typeData == that.attr("data")){
+                $(".question-type").text(that.text()).attr("data",that.attr("data"));
+            }
+        }
+        for(var n =0; n < $(".school").parents(".areaSelect").find(".exer-li").length;n++){
+            var that = $(".school").parents(".areaSelect").find(".exer-li").eq(n);
+            if(oldData.schoolData == that.attr("data")){
+                $(".school").text(that.text()).attr("data",that.attr("data"));
+            }
+        }
+        // $(".keywords").val(oldData.keywordsData)
+    }
+})
+
+$(".btn_seek").click(function(){
+    //获取上传的数据
+    var data = {
+        "version":$(".version").attr("data")?$(".version").attr("data"):"",
+        "chapter":$(".chapter").attr("data")?$(".chapter").attr("data"):"",
+        "section":$(".section").attr("data")?$(".section").attr("data"):"",
+        "type":$(".question-type").attr("data")?$(".question-type").attr("data"):"",
+        "school":$(".school").attr("data")?$(".school").attr("data"):"",
+        "teacher":$(".teacher").attr("data")?$(".teacher").attr("data"):"",
+        // "keywords":$(".keywords").val()?$(".keyword").val():"",
+        "_token":token
+    }
+    //保存到缓存
+    var versionData = $(".version").attr("data");
+    var typeData = $(".question-type").attr("data");
+    var schoolData = $(".school").attr("data");
+    var chapterD = $(".chapter").attr("data");
+    var sectionD = $(".section").attr("data");
+    var teacherD = $(".teacher").attr("data");
+    // var keywordsData = $(".keywords").val();
+    var chapterList = [] ,sectionList = [] , teacherList = [];
+    $(".chapter").parents(".areaSelect").find(".exer-li").each(function(i,item){
+        chapterList.push({'id': $(item).attr("data"), 'value': $(item).text()});
+    })
+    $(".section").parents(".areaSelect").find(".exer-li").each(function(i,item){
+        sectionList.push({'id': $(item).attr("data"), 'value': $(item).text()});
+    })
+    $(".teacher").parents(".areaSelect").find(".exer-li").each(function(i,item){
+        teacherList.push({'id': $(item).attr("data"), 'value': $(item).text()});
+    })
+    var jsonData = {
+        "versionData" : versionData,
+        "chapterList" : chapterList,
+        "sectionList" : sectionList,
+        "typeData" : typeData,
+        "schoolData" : schoolData,
+        "teacherList" : teacherList,
+        // "keywordsData" : keywordsData,
+        "chapterD" : chapterD,
+        "sectionD" : sectionD,
+        "teacherD" : teacherD
+    }
+    window.sessionStorage.setItem("filtrate_work",JSON.stringify(jsonData));
+    /*$.ajax({
+        url:"",
+        type:"POST",
+        data:data,
+        success:function(){}
+    })*/
+})

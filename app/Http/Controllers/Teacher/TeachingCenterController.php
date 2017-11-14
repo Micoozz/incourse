@@ -200,7 +200,9 @@ class TeachingCenterController extends TeacherController
         return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
     }
     /*习题库页面*/
-    public function exercise($class_id,$course_id,$action = null){
+    public function exercise(Request $request, $class_id,$course_id,$action = null){
+        $query = $request->only(['version', 'unit']);
+        // $builder = Exercises::where($query);
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
@@ -241,7 +243,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_list','version_list','categroy_list'));
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_list','version_list','categroy_list', 'query'));
     }
 
     /*课堂课件页面*/

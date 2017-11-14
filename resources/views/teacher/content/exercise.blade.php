@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        {{$data->links()}}
+        {{$data->appends($query)->links()}}
         @endif
         <!--添加作业 页面引导-->
 
