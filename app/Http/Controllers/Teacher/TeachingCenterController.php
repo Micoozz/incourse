@@ -204,6 +204,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+        $parameter = [];
         if(empty($action) || $action == self::ACT_ADD_JOB || $action == self::ACT_SEARCH){
             if($action != self::ACT_SEARCH){
                 $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
@@ -216,6 +217,10 @@ class TeachingCenterController extends TeacherController
                 $auth_id = $request->auth;
                 $auth_type = $request->type;
                 $categroy_id = $request->categroy_id;
+                $parameter['chapter'] = $chapter_id;
+                $parameter['auth'] = $auth_id;
+                $parameter['type'] = $auth_type;
+                $parameter['categroy_id'] = $categroy_id;
                 $data = Exercises::where(function($query) use ($search_chapter_list,$auth_id,$auth_type,$categroy_id){
                     if(!empty($search_chapter_list)){
                         $query->whereIn('chapter_id',$search_chapter_list);
@@ -262,7 +267,7 @@ class TeachingCenterController extends TeacherController
 //              
 //          }
         }
-        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_list','version_list','categroy_list'));
+        return view('teacher.content.exercise',compact("title",'class_course','class_id','course_id','data','action','school_list','version_list','categroy_list','parameter'));
     }
 
     /*课堂课件页面*/
