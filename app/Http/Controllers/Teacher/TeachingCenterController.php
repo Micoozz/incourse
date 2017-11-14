@@ -42,15 +42,14 @@ class TeachingCenterController extends TeacherController
     const ACT_ADD_JOB = 'addJob';
     const ACT_ADD_COURSEWARE = 'addCourseware';
     const ACT_EDIT_COURSEWARE = 'edit-courseware';
+    const ACT_SEARCH = 'search';
 
     protected $class_id;
-    protected $course_id;
+    private $course_id;
 
-    public function __construct(){
+    public function __construct(Request $request){
         
     }
-
-
 
 
 
@@ -200,13 +199,35 @@ class TeachingCenterController extends TeacherController
         return view('teacher.content.uploadExercise',compact("title",'class_course','class_id','course_id','unit_list','categroy_list','exe_id'));
     }
     /*习题库页面*/
-    public function exercise($class_id,$course_id,$action = null){
+    public function exercise(Request $request,$class_id,$course_id,$action = null){
         $title = "习题库";
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
-        if(empty($action) || $action == self::ACT_ADD_JOB){
-            $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+        if(empty($action) || $action == self::ACT_ADD_JOB || $action == self::ACT_SEARCH){
+            if($action != self::ACT_SEARCH){
+                $data = Exercises::whereIn('chapter_id',$chapter_list)->paginate(10);
+            }else{
+                $chapter_id = $request->chapter;
+                $search_chapter_list = [$chapter_id];
+                while(!Chapter::whereIn('parent_id',$search_chapter_list)->pluck('id')->isEmpty()){
+                    $search_chapter_list = Chapter::whereIn('parent_id',$search_chapter_list)->pluck('id');
+                }
+                $auth_id = $request->auth;
+                $auth_type = $request->type;
+                $categroy_id = $request->categroy_id;
+                $data = Exercises::where(function($query) use ($search_chapter_list,$auth_id,$auth_type,$categroy_id){
+                    if(!empty($search_chapter_list)){
+                        $query->whereIn('chapter_id',$search_chapter_list);
+                    }
+                    if(!empty($auth_id)){
+                        $query->where($auth_type,$auth_id);
+                    }
+                    if(!empty($categroy_id)){
+                        $query->where('categroy_id',$categroy_id);
+                    }
+                })->paginate(10);
+            }
             $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
             $school_list = School::whereIn('id',$school_id_list)->pluck('title','id');
