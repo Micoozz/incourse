@@ -602,17 +602,31 @@ function showCheckedList(data,that){
 }
 
 
-$(".screen_job .areaSelect .exer-li").click(function(){
-    var areaSelect_id = "";
-    var child_span = $(this).parents(".areaSelect").find(".ic-text-exer").find("span");
-    var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
-    var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelect").find(".lists-exer");
-    child_span.attr("data-u",$(this).attr("data"));
-    areaSelect_id = $(this).attr("data")
-    parent_ul_all.html("");
-    $.get("/getSectionAjax/"+areaSelect_id,function(result){
-        $.each(result,function(index,value,array){
-            parent_ul.append("<li class='exer-li' data='"+index+"'>"+value+"</li>");
+
+function areaSelectList(input){
+    var data_list = input +" .areaSelect .exer-li"
+    $(data_list).click(function(){
+        if($(this).parents(".areaSelect").hasClass("areaSelect-no")){
+            return;
+        }
+        var areaSelect_id = "";
+        var child_span = $(this).parents(".areaSelect").find(".ic-text-exer").find("span");
+        var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
+        var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelectSupport").find(".lists-exer");
+        child_span.attr("data-u",$(this).attr("data"));
+        areaSelect_id = $(this).attr("data")
+        parent_ul_all.html("");
+        $.get("/getChapter/"+course_id+"/"+areaSelect_id,function(result){
+            var result = JSON.parse(result);
+            $.each(result,function(index,value,array){
+                parent_ul.append("<li class='exer-li areaSelect-list' data='"+index+"'>"+value+"</li>");
+            })
+            if(input == ".condition_input"){
+                areaSelectList(".condition_input")
+            }
         })
-    })
-});
+    });
+    $(".writer_input .areaSelect .exer-li")
+}
+areaSelectList(".condition_input")
+areaSelectList(".writer_input")

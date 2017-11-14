@@ -1,22 +1,22 @@
 <div class="screen_job border clear">
-    <label class="d-b clear" style="padding-left: 70px;">
+    <label class="d-b clear condition_input" style="padding-left: 70px;">
         <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
         <div class="f-l">
             @if(empty($action))
-            <div class="areaSelect">
+            <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
                     <span>所有教材</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                <li data="" class="exer-li">所有教材</li>
+                <li data="" class="exer-li areaSelect-list">所有教材</li>
                 @foreach($version_list as $id => $title)
-                    <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                    <li data="{{ $id }}" class="exer-li areaSelect-list">{{ $title }}</li>
                 @endforeach
                 </ul>
             </div>
             @endif
-            <div class="areaSelect">
+            <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
                     <span>第一章</span>
                     <i class="fa fa-angle-down"></i>
@@ -24,7 +24,7 @@
                 <ul class="lists-exer" style="display: none;">
                 </ul>
             </div>
-            <div class="areaSelect">
+            <div class="areaSelect areaSelectSupport areaSelect-no">
                 <p class="ic-text-exer">
                     <span>第一小节</span>
                     <i class="fa fa-angle-down"></i>
@@ -32,18 +32,21 @@
                 <ul class="lists-exer" style="display: none;">
                 </ul>
             </div>
-            <div class="areaSelect">
+            <div class="areaSelect areaSelect-no">
                 <p class="ic-text-exer">
                     <span>单选题</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
+                    @foreach($categroy_list as $id => $title)
+                        <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                    @endforeach
                 </ul>
             </div>
         </div>
     </label>
     @if($action != "my-upload")
-    <label class="d-b clear">
+    <label class="d-b clear writer_input">
         <span class="f-l label_span">作者：</span>
         <div class="f-l">
             <div class="areaSelect">
