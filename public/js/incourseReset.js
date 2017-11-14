@@ -136,54 +136,20 @@ $(function(){
 /*编辑器*/
 $(function(){
 	/*添加附件*/
-	var fileImgArr = [];
-	$("body").on("change",".addFile",function(){
-		var that;
-		var isPostilPage = $(".isPostilPage").attr("data-postil")?$(".isPostilPage").attr("data-postil"):"";
-		if(isPostilPage == '1'){
-			that = $(this).parents(".UploadPictures").next(".textareaS").children("div");
-		}else{
-			that = $(this).parents(".tools").next(".editor-content");
-		}
-		that.on("keyup",function(event){
-			var newFileImageArrs = []
-			if(event.keyCode === 8){
-				if(that.find(".img-canBigger").length>0){
-					for(var i = 0;i < that.find(".img-canBigger").length;i++){
-						var imgNum = that.find(".img-canBigger").eq(i).attr("data-img");
-						if(imgNum){
-							newFileImageArrs.push(imgNum);
-						}
-					}
-					for(var j = 0;j < fileImgArr.length;j++){
-						if(newFileImageArrs.length<=0){
-							delFileImg(fileImgArr[j].url)
-						}
-						if(newFileImageArrs.indexOf(fileImgArr[j].num)<0){
-							delFileImg(url)
-						}
-					}
-				}else{
-					for(var j = 0;j < fileImgArr.length;j++){
-						if(newFileImageArrs.length<=0){
-							delFileImg(fileImgArr[j].url)
-						}
-					}
-				}
-            }
-		})
+	$("body").on("change",".ic-editor .addFile",function(){
+		var that = $(this).parents(".tools").next(".editor-content");
 		var id = $(this).attr("id");
+		console.log($(this).attr("name"))
 		var input = $(this)[0];
 		var files = input.files || [];
 		if(files.length === 0) {
 			return;
 		}
-		if(!input["value"].match(/\.jpg|\.png|\.bmp|\.JPEG|\.gif/i)) {
+		if(!input["value"].match(/\.jpg|\.png|\.bmp/i)) {
 			return alert("上传的图片格式不正确，请重新选择");
 		}
 		var file = files[0];
 		var _self = this;
-		var w,h;
 		$.ajaxFileUpload({
             url : '/uploadImager',
             secureuri : false,
@@ -191,40 +157,45 @@ $(function(){
             fileElementId : id,
             data : {"_token":token},
             success : function(result) {
-            	var len = that.find(".img-canBigger").length;
             	if(!result){
             		layui.use("layer",function(){
 	                    layer.msg("已添加该图片!",{offset: 't'});
 	                })
 	                return;
             	}else{
-					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '" data-img="img'+len+'"/></span><br>';
-					var obj = {
-						"url":"/"+result,
-						"num":"img"+len
-					}
-					fileImgArr.push(obj);
+            		var len = that.find(".img-canBigger").length;
+					var img = '<span contenteditable="false" class="img-canBigger-p img-canBigger-p'+len+'"><img class="img-canBigger" src="/' + result + '"/></span>';
 					that.append(img);
-					that.focus();
-					/**/
+					var w = $('.img-canBigger-p'+len).find("img").width();
+					var h = $('.img-canBigger-p'+len).find("img").height();
+					if(w>=h){
+						$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
+					}else{
+						$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
+					}
 					that.find(".img-canBigger-p"+len).append("<b class='delThisImg'><i class='fa fa-trash-o'></i></b>")
 					$(_self).val("");
-					$(".delThisImg").click(function(event){
-						event.stopPropagation();
+					$(".delThisImg").click(function(){
 						var t = $(this)
 						var url = $(this).prev(".img-canBigger").attr("src");
-						delFileImg(url,t);
+						$.ajax({
+							url:'/delFile',
+							type:"POST",
+							data:{'url':url,"_token":token},
+							success:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除成功!",{offset: 't'});
+				                })
+								t.parent().remove();
+							},
+							error:function(){
+								layui.use("layer",function(){
+				                    layer.msg("删除失败!",{offset: 't'});
+				                })
+							}
+						})
 					})
             	}
-            	w = $('.img-canBigger-p'+len).find("img").width();
-				h = $('.img-canBigger-p'+len).find("img").height();
-				/*if(w>=h){
-					$('.img-canBigger-p'+len).find("img").width($('.img-canBigger-p'+len).width());
-				}else{
-					$('.img-canBigger-p'+len).find("img").height($('.img-canBigger-p'+len).height());
-				}*/
-				console.log(w+","+h)
-    			showImageFunc()
             },
             error : function() {
                 layui.use("layer",function(){
@@ -233,49 +204,6 @@ $(function(){
             }
         })
 	});
-	function showImageFunc(){
-		$(".img-canBigger-p").click(function(){
-			var img = $(this).find("img").attr("src");
-			$("body").append("<div class='showImg-fixed'><div><img src='"+img+"' alt=''></div></div>");
-			$(this).addClass("showImg");
-			var w = $(".showImg-fixed img").width();
-			var h = $(".showImg-fixed img").height();
-			if(w>=h){
-				$(".showImg-fixed img").css({maxWidth:"100%",minWidth:"50%",maxHeight:"auto",minHeight:"auto"});
-			}else{
-				$(".showImg-fixed img").css({maxHeight:"100%",maxWidth:"auto",minWidth:"auto",minHeight:"50%"});
-			}
-			$("body").css("overflow","hidden")
-			$(".showImg-fixed").click(function(){
-				$(".showImg-fixed").remove();
-				$("body").css("overflow","auto")
-			})
-			$(".showImg-fixed div").click(function(event){
-				event.stopPropagation();
-			})
-		})
-	}
-	showImageFunc()
-	function delFileImg(url,t){
-		$.ajax({
-			url:'/delFile',
-			type:"POST",
-			data:{'url':url,"_token":token},
-			success:function(){
-				layui.use("layer",function(){
-                    layer.msg("删除成功!",{offset: 't'});
-                })
-                if(t){
-					t.parent().remove();
-                }
-			},
-			error:function(){
-				layui.use("layer",function(){
-                    layer.msg("删除失败!",{offset: 't'});
-                })
-			}
-		})
-	}
 	/*下标点*/
 	var dotted = true;
 	$("body").on("click",".ic-editor .dotted",function(){
@@ -332,19 +260,21 @@ $(function(){
 			document.execCommand("insertHTML","false",selObj);  //在光标处插入html代码
 			Underline = true;
 		}
+		
 	});
 
-	/*//编辑器里面的图片点击放大效果
+	//编辑器里面的图片点击放大效果
 	$("body").on("click",".img-canBigger",function(){
 		var img = $(this).attr("src");
 		$(".big-img-box").show();
 		$(".big-img-box>img").attr("src",img);
+		alert("111")
 	});
 
 	//关闭大图
 	$("body").on("click",".big-img-box .fa-times-circle-o",function(){
 		$(".big-img-box").hide();
-	});*/
+	});
 });
 
 

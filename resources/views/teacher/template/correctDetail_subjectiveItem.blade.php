@@ -10,7 +10,7 @@
 	<div class="questions">
 		<div class="issue">
 			题目：
-			<span>{!!$exercise->subject!!}</span>
+			<span>{{$exercise->subject}}</span>
 		</div>
 		<div class="result issue">
 			答案：
@@ -19,7 +19,6 @@
 				<b class="implement"><img src="/images/1.jpg" alt=""></b>
 			</span>
 			<span>
-				{{--dump($exercise->student_answer[0])--}}
 				<div class="amend" contenteditable="false">{!!$exercise->student_answer[0]!!}</div>
 			</span>
 		</div>
