@@ -615,7 +615,12 @@ function areaSelectList(input){
         var url = "";
         var child_span = $(this).parents(".areaSelect").find(".ic-text-exer").find("span");
         var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
-        var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelectSupport").find(".lists-exer");
+        var parent_ul_all
+        if(input == ".condition_input"){
+            parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelectSupport").find(".lists-exer");
+        }else{
+            parent_ul_all = parent_ul
+        }
         child_span.attr("data",$(this).attr("data"));
         areaSelect_id = $(this).attr("data");
         if(input == ".condition_input"){
@@ -635,16 +640,16 @@ function areaSelectList(input){
                 objJsonData.type = "teacher_id";
             }
         }
+        parent_ul_all.html("");
         if($(this).parents(".areaSelect").hasClass("areaSelect-no")){
             return;
         }
-        parent_ul_all.html("");
         $.get(url,function(result){
             if(input == ".condition_input"){
                 var result = JSON.parse(result);
             }
             $.each(result,function(index,value,array){
-                parent_ul.append("<li class='exer-li areaSelect-list' data='"+index+"'>"+value+"</li>");
+                parent_ul_all.append("<li class='exer-li areaSelect-list' data='"+index+"'>"+value+"</li>");
             })
             if(input == ".condition_input"){
                 areaSelectList(".condition_input");
@@ -653,10 +658,7 @@ function areaSelectList(input){
             }
         })
     });
-    $(".writer_input .areaSelect .exer-li")
 }
-areaSelectList(".condition_input")
-areaSelectList(".writer_input")
 
 //获取本地的下拉筛选数据
 $(function(){
@@ -716,6 +718,12 @@ $(function(){
             }
         }
         // $(".keywords").val(oldData.keywordsData)
+        areaSelectList(".condition_input");
+        areaSelectList(".writer_input");
+        objJsonData.chapter = oldData.sectionD == ""?(oldData.chapterD == ""?(oldData.versionData == ""?"":oldData.versionData):oldData.chapterD):oldData.sectionD;
+        objJsonData.auth = oldData.teacherD == ""?(oldData.schoolData == ""?"":oldData.schoolData):oldData.teacherD;
+        objJsonData.type = oldData.teacherD == ""?(oldData.schoolData == ""?"":"school_id"):"teacher_id";
+        objJsonData.categroy_id = oldData.typeData == ""?"":oldData.typeData;
     }
 })
 

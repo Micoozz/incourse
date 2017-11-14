@@ -231,8 +231,7 @@ class TeachingCenterController extends TeacherController
                     if(!empty($categroy_id)){
                         $query->where('categroy_id',$categroy_id);
                     }
-                })->toSql();
-                dd($data);
+                })->paginate(10);
             }
             $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
