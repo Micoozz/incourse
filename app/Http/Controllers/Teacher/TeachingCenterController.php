@@ -221,8 +221,8 @@ class TeachingCenterController extends TeacherController
                 $parameter['auth'] = $auth_id;
                 $parameter['type'] = $auth_type;
                 $parameter['categroy_id'] = $categroy_id;
-                $data = Exercises::where(function($query) use ($search_chapter_list,$auth_id,$auth_type,$categroy_id){
-                    if(!empty($search_chapter_list)){
+                $data = Exercises::where(function($query) use ($search_chapter_list,$auth_id,$auth_type,$categroy_id,$chapter_id){
+                    if(!empty($chapter_id)){
                         $query->whereIn('chapter_id',$search_chapter_list);
                     }
                     if(!empty($auth_id)){
@@ -231,7 +231,8 @@ class TeachingCenterController extends TeacherController
                     if(!empty($categroy_id)){
                         $query->where('categroy_id',$categroy_id);
                     }
-                })->paginate(10);
+                })->toSql();
+                dd($data);
             }
             $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
