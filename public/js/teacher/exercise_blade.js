@@ -602,7 +602,12 @@ function showCheckedList(data,that){
 }
 
 
-
+var objJsonData = {
+    'chapter':'',
+    "auth":'',
+    'type':'',
+    'categroy_id':''
+}
 function areaSelectList(input){
     var data_list = input +" .areaSelect .exer-li"
     $(data_list).click(function(){
@@ -612,16 +617,28 @@ function areaSelectList(input){
         var parent_ul = $(this).parents(".areaSelect").next(".areaSelect").find(".lists-exer");
         var parent_ul_all = $(this).parents(".areaSelect").nextAll(".areaSelectSupport").find(".lists-exer");
         child_span.attr("data",$(this).attr("data"));
+        areaSelect_id = $(this).attr("data");
+        if(input == ".condition_input"){
+            url = "/getChapter/"+course_id+"/"+areaSelect_id;
+            if($(this).parents(".areaSelect").find(".ic-text-exer").find("span").hasClass("question-type")){
+                objJsonData.categroy_id = $(this).attr("data");
+            }else{
+                objJsonData.chapter = $(this).attr("data");
+            }
+        }else if(input == ".writer_input"){
+            url = "/getTeacher/"+areaSelect_id;
+            if($(this).parents(".areaSelect").find(".ic-text-exer").find("span").hasClass("school")){
+                objJsonData.auth = $(this).attr("data");
+                objJsonData.type = "school_id";
+            }else{
+                objJsonData.auth = $(this).attr("data");
+                objJsonData.type = "teacher_id";
+            }
+        }
         if($(this).parents(".areaSelect").hasClass("areaSelect-no")){
             return;
         }
-        areaSelect_id = $(this).attr("data")
         parent_ul_all.html("");
-        if(input == ".condition_input"){
-            url = "/getChapter/"+course_id+"/"+areaSelect_id;
-        }else if(input == ".writer_input"){
-            url = "/getTeacher/"+areaSelect_id;
-        }
         $.get(url,function(result){
             if(input == ".condition_input"){
                 var result = JSON.parse(result);
@@ -630,7 +647,7 @@ function areaSelectList(input){
                 parent_ul.append("<li class='exer-li areaSelect-list' data='"+index+"'>"+value+"</li>");
             })
             if(input == ".condition_input"){
-                areaSelectList(".condition_input")
+                areaSelectList(".condition_input");
             }else if(input == ".writer_input"){
                 areaSelectList(".writer_input")
             }
@@ -712,7 +729,6 @@ $(".btn_seek").click(function(){
         "school":$(".school").attr("data")?$(".school").attr("data"):"",
         "teacher":$(".teacher").attr("data")?$(".teacher").attr("data"):"",
         // "keywords":$(".keywords").val()?$(".keyword").val():"",
-        "_token":token
     }
     //保存到缓存
     var versionData = $(".version").attr("data");
@@ -745,10 +761,6 @@ $(".btn_seek").click(function(){
         "teacherD" : teacherD
     }
     window.sessionStorage.setItem("filtrate_work",JSON.stringify(jsonData));
-    /*$.ajax({
-        url:"",
-        type:"POST",
-        data:data,
-        success:function(){}
-    })*/
+    console.log(objJsonData);
+    window.location.href = "/exercise/"+class_id+"/"+course_id+"/search?chapter="+objJsonData.chapter+"&auth="+objJsonData.auth+"&type="+objJsonData.type+"&categroy_id="+objJsonData.categroy_id;
 })

@@ -2,7 +2,7 @@
     <label class="d-b clear condition_input" style="padding-left: 70px;">
         <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
         <div class="f-l">
-            @if(empty($action))
+            @if($action != "my-upload")
             <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
                     <span class="version" data="">所有教材</span>
