@@ -953,7 +953,7 @@ class TeachingCenterController extends TeacherController
         // })->orWhere(function ($query) use ($course_id,$id) {
         //     $query->where(['course_id' => 0,'parent_id' => $id]);
         // })->pluck('title','id');
-        $data = Chapter::where(['parent_id' => 1118,'course_id' => $course_id])->orWhere(['parent_id' => 1119,'course_id' => $course_id])->pluck('title','id');
+        $data = Chapter::where(['parent_id' => $id,'course_id' => $course_id,'id' => 1118])->orWhere(['parent_id' => $id,'course_id' => $course_id,'id' => 1119])->pluck('title','id');
         return json_encode($data);
     }
     public function getTeacher($school_id){
