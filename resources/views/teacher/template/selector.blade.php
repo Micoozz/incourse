@@ -1,111 +1,87 @@
-<div class="screen_job border">
-    <form action="" class="clear">
-        @if($action != "my-upload")
-        <label class="d-b clear">
-            <span class="f-l label_span">地区：</span>
-            <div class="f-l">
-
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>全国</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="11">北京市</li>
-                        <li data="12">天津市</li>
-                    </ul>
-                </div>
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>全省</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>全部学校</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
-                @if($action != "my-conllection")
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>全部老师</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
-                @endif
+<div class="screen_job border clear">
+    <label class="d-b clear condition_input" style="padding-left: 70px;">
+        <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
+        <div class="f-l">
+            @if($action != "my-upload")
+            <div class="areaSelect areaSelectSupport">
+                <p class="ic-text-exer">
+                    <span class="version" data="">所有教材</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                <li data="" class="exer-li areaSelect-list">所有教材</li>
+                @foreach($version_list as $id => $title)
+                    <li data="{{ $id }}" class="exer-li areaSelect-list">{{ $title }}</li>
+                @endforeach
+                </ul>
             </div>
-        </label>
-        @endif
-        <label class="d-b clear" style="padding-left: 70px;">
-            <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
-            <div class="f-l">
-                @if(empty($action))
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>所有教材</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="11">北京市</li>
-                        <li data="12">天津市</li>
-                    </ul>
-                </div>
-                @endif
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>第一章</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>第一小节</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
-                <div class="areaSelect">
-                    <p class="ic-text-exer">
-                        <span>单选题</span>
-                        <i class="fa fa-angle-down"></i>
-                    </p>
-                    <ul class="lists-exer" style="display: none;">
-                        <li data="1" class="exer-li">单选题</li>
-                        <li data="2" class="exer-li">多选题</li>
-                    </ul>
-                </div>
+            @endif
+            <div class="areaSelect areaSelectSupport">
+                <p class="ic-text-exer">
+                    <span class="chapter" data="">第一章</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                </ul>
             </div>
-        </label>
-        <label class="d-b clear" for="">
-            <span class="f-l label_span">关键字：</span>
-            <div class="f-l">
-                <input class="screen_input input_focus" type="text" name="key_words" placeholder="请填写关键词">
+            <div class="areaSelect areaSelectSupport areaSelect-no">
+                <p class="ic-text-exer">
+                    <span class="section" data="">第一小节</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                </ul>
             </div>
-        </label>
-        <span  class="f-r btn_span">
-            <button class="btn_seek btn_select">查找</button>
-            <button class="btn_empty btn_select">清空</button>
-        </span>
-    </form>
+            <div class="areaSelect areaSelect-no">
+                <p class="ic-text-exer">
+                    <span class="question-type" data="">单选题</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                    @foreach($categroy_list as $id => $title)
+                        <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </label>
+    @if($action != "my-upload")
+    <label class="d-b clear writer_input">
+        <span class="f-l label_span">作者：</span>
+        <div class="f-l">
+            <div class="areaSelect">
+                <p class="ic-text-exer">
+                    <span class="school" data="">全部学校</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                    <li data="" class="exer-li">全部学校</li>
+                    @foreach($school_list as $id => $title)
+                        <li data="{{ $id }}" class="exer-li">{{ $title }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @if($action != "my-conllection")
+            <div class="areaSelect areaSelect-no">
+                <p class="ic-text-exer">
+                    <span class="teacher" data="">全部老师</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                </ul>
+            </div>
+            @endif
+        </div>
+    </label>
+    @endif
+    <!-- <label class="d-b clear" for="">
+        <span class="f-l label_span">关键字：</span>
+        <div class="f-l">
+            <input class="screen_input input_focus keywords" type="text" name="key_words" placeholder="请填写关键词">
+        </div>
+    </label> -->
+    <span  class="f-r btn_span">
+        <button class="btn_seek btn_select">查找</button>
+        <button class="btn_empty btn_select" type="submit" id="btn-empty-select">清空</button>
+    </span>
 </div>

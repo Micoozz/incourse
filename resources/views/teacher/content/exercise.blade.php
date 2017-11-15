@@ -21,14 +21,14 @@
             <span>上传习题</span>
         </a>
         <div class="f-r">
-            <span class="isMark exerciseBbase {{empty($action) || $action == 'addCourseware' ? "active" : ""}}" style="border-radius: 5px 0 0 5px;">
+            <span class="isMark exerciseBbase {{empty($action) || $action == 'addCourseware' || $action == 'search' ? "active" : ""}}" style="border-radius: 5px 0 0 5px;">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}">习题库</a>
             </span>
-            <span class="ls_hr {{$action == 'my-conllection' ? "" : "active"}}"></span>
+            <span class="ls_hr {{ $action == 'my-conllection' ? "" : "active"}}"></span>
             <span class="isMark doMark {{$action == 'my-upload' ? "active" : ""}}">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-upload">我上传的</a>
             </span>
-            <span class="ls_hr {{empty($action) || $action == 'addCourseware' ? "" : "active"}}"></span>
+            <span class="ls_hr {{empty($action) || $action == 'addCourseware' || $action == 'search' ? "" : "active"}}"></span>
             <span class="isMark notMark {{$action == 'my-conllection' ? "active" : ""}}" style="border-radius: 0 5px 5px 0;">
                 <a href="/exercise/{{$class_id}}/{{$course_id}}/my-conllection">我收藏的</a>
             </span>
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        {{$data->links()}}
+        {{$data->appends($parameter)->links()}}
         @endif
         <!--添加作业 页面引导-->
 
