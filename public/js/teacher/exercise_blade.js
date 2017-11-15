@@ -724,6 +724,9 @@ $(function(){
         objJsonData.auth = oldData.teacherD == ""?(oldData.schoolData == ""?"":oldData.schoolData):oldData.teacherD;
         objJsonData.type = oldData.teacherD == ""?(oldData.schoolData == ""?"":"school_id"):"teacher_id";
         objJsonData.categroy_id = oldData.typeData == ""?"":oldData.typeData;
+    }else{
+        areaSelectList(".condition_input");
+        areaSelectList(".writer_input");
     }
 })
 

@@ -526,6 +526,13 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.screen_job .ic-text-exer span{
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
 .screen_job .lists-exer {
     display: none;
     position: absolute;
