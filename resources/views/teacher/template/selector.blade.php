@@ -1,15 +1,34 @@
 <div class="screen_job border clear">
     <label class="d-b clear condition_input" style="padding-left: 70px;">
+        <span class="f-l label_span" style="margin-left: -70px;">教材：</span>
+        <div class="f-l">
+           
+            <div class="areaSelect areaSelectSupport">
+                <p class="ic-text-exer">
+                    <span class="version">所有教材</span>
+                    <i class="fa fa-angle-down"></i>
+                </p>
+                <ul class="lists-exer" style="display: none;">
+                <li data="" class="">所有教材</li>
+               
+                    <li data="111" class="">{{$course_id == 5 ? 'PEP' : '人教版'}}</li>
+              
+                </ul>
+            </div>
+          
+        </div>
+    </label>
+    <label class="d-b clear condition_input" style="padding-left: 70px;">
         <span class="f-l label_span" style="margin-left: -70px;">条件：</span>
         <div class="f-l">
             @if($action != "my-upload")
             <div class="areaSelect areaSelectSupport">
                 <p class="ic-text-exer">
-                    <span class="version" data="">所有教材</span>
+                    <span class="version" data="">所有年级</span>
                     <i class="fa fa-angle-down"></i>
                 </p>
                 <ul class="lists-exer" style="display: none;">
-                <li data="" class="exer-li areaSelect-list">所有教材</li>
+                <li data="" class="exer-li areaSelect-list">所有年级</li>
                 @foreach($version_list as $id => $title)
                     <li data="{{ $id }}" class="exer-li areaSelect-list">{{ $title }}</li>
                 @endforeach
