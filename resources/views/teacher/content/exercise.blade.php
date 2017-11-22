@@ -30,7 +30,7 @@
             </span>
             <span class="ls_hr {{empty($action) || $action == 'addCourseware' || $action == 'search' ? "" : "active"}}"></span>
             <span class="isMark notMark {{$action == 'my-conllection' ? "active" : ""}}" style="border-radius: 0 5px 5px 0;">
-                <a href="/exercise/{{$class_id}}/{{$course_id}}/my-conllection">我收藏的</a>
+                <a href="#">我收藏的</a>
             </span>
         </div>
     </div>

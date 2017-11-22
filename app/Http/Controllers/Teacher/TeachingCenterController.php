@@ -204,6 +204,7 @@ class TeachingCenterController extends TeacherController
         $teacher = Auth::guard("employee")->user();
         $class_course = $this->getClassCourse($teacher->id);
         $chapter_list = Chapter::where('course_id',$course_id)->pluck("id");
+        $categroy_list = parent::getCategory($course_id);
         $parameter = [];
         if(empty($action) || $action == self::ACT_ADD_JOB || $action == self::ACT_SEARCH){
             if($action != self::ACT_SEARCH){
@@ -235,8 +236,9 @@ class TeachingCenterController extends TeacherController
             }
             $teacher_id_list = Exercises::whereIn('chapter_id',$chapter_list)->pluck('teacher_id');
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
-            $school_list = School::whereIn('id',$school_id_list)->pluck('title','id');
-            $version_list = Chapter::where('parent_id',0)->pluck('title','id');
+            $school_type = School::find($teacher->school_id)->type;
+            $school_list = School::where('type',$school_type)->pluck('title','id');
+            $version_list = Chapter::where('parent_id',1)->pluck('title','id');
             $categroy_list = parent::getCategory($course_id);
         }elseif($action == self::ACT_ADD_COURSEWARE){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->where(function($query){
@@ -952,6 +954,7 @@ class TeachingCenterController extends TeacherController
         })->orWhere(function ($query) use ($course_id,$id) {
             $query->where(['course_id' => 0,'parent_id' => $id]);
         })->pluck('title','id');
+        // $data = Chapter::where(['parent_id' => $id,'course_id' => $course_id,'id' => 1118])->orWhere(['parent_id' => $id,'course_id' => $course_id,'id' => 1119])->pluck('title','id');
         return json_encode($data);
     }
     public function getTeacher($school_id){
