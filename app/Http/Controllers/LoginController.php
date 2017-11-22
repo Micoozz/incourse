@@ -123,7 +123,6 @@ class LoginController extends Controller
                 }
                 $user->last_time = $time;
                 $user->save();
-                
                 Auth::guard("student")->login($user);
                 if(empty($user->class_id)){
                     return Redirect::to('/selectClass/'.$grade->id);
