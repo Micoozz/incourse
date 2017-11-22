@@ -76,6 +76,7 @@ Route::group(['middleware' => "auth:school,employee,student"],function(){
 
 
 		
+		
 		Route::get('/courseWare/main/{class_id?}/{course_id?}','TeachingCenterController@courseWare');
 		Route::get('/courseWare/upLoadCourseware/{class_id?}/{course_id?}/{edit?}','TeachingCenterController@upLoadCourseware');
 		Route::get('/courseWare/setQuestions/{class_id?}/{course_id?}/{cw_id}','TeachingCenterController@setQuestions');
