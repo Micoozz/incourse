@@ -83,7 +83,7 @@ class LoginController extends Controller
             //     $class->title = $class_title[1];
             //     $class->pf_class_id = $user_info->classId;
             //     $class->save();
-            // }
+            // } 
             if($user_info->userType == 1){
                 $user = Employee::where("pf_teacher_id",$user_info->userID)->first();
                 if(empty($user)){
