@@ -238,7 +238,7 @@ class TeachingCenterController extends TeacherController
             $school_id_list = Employee::whereIn('id',$teacher_id_list)->pluck('school_id');
             $school_type = School::find($teacher->school_id)->type;
             $school_list = School::where('type',$school_type)->pluck('title','id');
-            $version_list = Chapter::where('parent_id',0)->pluck('title','id');
+            $version_list = Chapter::where('parent_id',1)->pluck('title','id');
             $categroy_list = parent::getCategory($course_id);
         }elseif($action == self::ACT_ADD_COURSEWARE){
             $data = Exercises::whereIn('chapter_id',$chapter_list)->where(function($query){
